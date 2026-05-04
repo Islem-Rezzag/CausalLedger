@@ -15,9 +15,26 @@ Active docs define current project direction, workflow, milestone sequence, safe
 7. `docs/status/CURRENT_STATE.md`
 8. Active plan in `plans/active/`, if one exists
 
+## Core project docs
+
+- `docs/INDEX.md`
+- `docs/PROJECT_BRIEF.md`
+- `docs/PRODUCT_VISION.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DOMAIN_MODEL.md`
+- `docs/RELIABILITY.md`
+- `docs/THREAT_MODEL.md`
+- `docs/TOKEN_COST_STRATEGY.md`
+- `docs/milestones/SUBMILESTONE_REGISTRY.md`
+
+## Current active plan
+
+- `plans/active/CLP-0001-m00-repo-operating-system.md`
+
 ## Conflict rule
 
 - Active docs win for project direction.
+- `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed submilestone registry.
 - Current code wins for implemented behavior.
 - The active plan decides how to close gaps.
 

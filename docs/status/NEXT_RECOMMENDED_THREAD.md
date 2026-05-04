@@ -1,5 +1,5 @@
 # Next Recommended Thread
 
-Thread name: `M00 Planning - Repo Operating System`
+Thread name: `M00.01 QA - Roadmap and Submilestone Registry`
 
-Goal: create the first active CausalLedger Plan for M00 only, without starting implementation until the user explicitly approves the plan.
+Goal: review the M00.01 control-plane docs, registry, roadmap, validation updates, and status handoff. Confirm that no product implementation started and decide whether M00.02 Active docs and repo guidance is safe to begin.

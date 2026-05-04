@@ -2,7 +2,7 @@
 
 ## Current phase
 
-Control-plane bootstrap.
+Control-plane bootstrap. M00 Repo operating system is in progress.
 
 ## What exists
 
@@ -14,6 +14,10 @@ Control-plane bootstrap.
 - Local CausalLedger skill files.
 - Control-plane validation script and test.
 - Placeholder directories and short README files.
+- Canonical M00-M21 submilestone registry.
+- Detailed M00-M21 milestone docs.
+- Top-level project docs for brief, vision, architecture, domain placeholder, reliability, threat model, token cost strategy, and docs index.
+- First active M00 plan.
 
 ## What does not exist
 
@@ -28,7 +32,11 @@ Control-plane bootstrap.
 
 ## Active plan
 
-None yet.
+`plans/active/CLP-0001-m00-repo-operating-system.md`
+
+## Current submilestone
+
+M00.01 Roadmap and submilestone registry is complete.
 
 ## Product code status
 
@@ -36,11 +44,11 @@ No product code exists yet.
 
 ## Next action
 
-Create the first active plan for M00 only.
+Run an M00.01 QA thread, then proceed to M00.02 Active docs and repo guidance only if QA accepts the slice.
 
 ## Implementation warning
 
-Do not start M00 until the user explicitly asks.
+Do not start product implementation. Continue M00 only through the active plan.
 
 ## Validation limitations
 
@@ -48,3 +56,10 @@ Do not start M00 until the user explicitly asks.
 - Equivalent underlying checks were run directly with Python:
   - `python scripts/validate-control-plane.py`
   - `python -m pytest tests/test_control_plane_bootstrap.py`
+- `rg` failed to launch in this Windows shell with access denied during exploratory checks; PowerShell listing/search was used instead.
+
+## Latest validation
+
+- 2026-05-04: `python scripts/validate-control-plane.py` passed.
+- 2026-05-04: `python -m pytest tests/test_control_plane_bootstrap.py` passed with 7 tests.
+- 2026-05-04: `make bootstrap-check` was not run because `make` is unavailable.
