@@ -1,5 +1,15 @@
 # Weekly Log
 
+## 2026-05-05
+
+- Completed M00.01 QA review.
+- Verified roadmap, submilestone registry, milestone docs, active plan, project docs, status docs, and forbidden-scope boundaries.
+- Confirmed product implementation has not started.
+- Ran `python scripts/validate-control-plane.py` successfully.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 7 tests.
+- Confirmed `make bootstrap-check` is unavailable in the current Windows shell.
+- Recommended next thread: `M00.02 Builder - Active Docs and Repo Guidance`.
+
 ## 2026-05-04
 
 - Created initial control-plane bootstrap documentation and validation scaffolding.

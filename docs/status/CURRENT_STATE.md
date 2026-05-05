@@ -36,7 +36,7 @@ Control-plane bootstrap. M00 Repo operating system is in progress.
 
 ## Current submilestone
 
-M00.01 Roadmap and submilestone registry is complete.
+M00.01 Roadmap and submilestone registry is complete and passed QA on 2026-05-05.
 
 ## Product code status
 
@@ -44,7 +44,7 @@ No product code exists yet.
 
 ## Next action
 
-Run an M00.01 QA thread, then proceed to M00.02 Active docs and repo guidance only if QA accepts the slice.
+Proceed to M00.02 Active docs and repo guidance in a new builder thread. Do not start M00.02 without that thread's explicit scope.
 
 ## Implementation warning
 
@@ -63,3 +63,7 @@ Do not start product implementation. Continue M00 only through the active plan.
 - 2026-05-04: `python scripts/validate-control-plane.py` passed.
 - 2026-05-04: `python -m pytest tests/test_control_plane_bootstrap.py` passed with 7 tests.
 - 2026-05-04: `make bootstrap-check` was not run because `make` is unavailable.
+- 2026-05-05: M00.01 QA review passed.
+- 2026-05-05: `python scripts/validate-control-plane.py` passed.
+- 2026-05-05: `python -m pytest tests/test_control_plane_bootstrap.py` passed with 7 tests.
+- 2026-05-05: `make bootstrap-check` was not run because `make` is unavailable.

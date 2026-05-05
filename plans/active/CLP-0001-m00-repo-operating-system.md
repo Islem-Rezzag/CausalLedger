@@ -17,6 +17,8 @@ Current submilestone status: M00.01 Roadmap and submilestone registry is complet
 - [x] 2026-05-04: Add missing top-level project docs.
 - [x] 2026-05-04: Update validation and tests for the new required docs.
 - [x] 2026-05-04: Run validation and record results.
+- [x] 2026-05-05: Completed M00.01 QA review; roadmap, registry, milestone docs, project docs, status docs, and forbidden-scope checks passed.
+- [x] 2026-05-05: Re-ran required validation for QA.
 
 ## Surprises & Discoveries
 
@@ -25,6 +27,7 @@ Current submilestone status: M00.01 Roadmap and submilestone registry is complet
 - No product code exists, which matches the requested control-plane-only scope.
 - `make bootstrap-check` was previously recorded as unavailable in the Windows shell.
 - `rg` failed to launch in this Windows shell with access denied, so PowerShell listing/search was used for file checks.
+- M00.01 QA found no defects requiring product or control-plane fixes beyond recording QA status.
 
 ## Decision Log
 
@@ -33,6 +36,7 @@ Current submilestone status: M00.01 Roadmap and submilestone registry is complet
 - 2026-05-04: Mark only M00.01 as active during this slice; do not create active plans for M01-M21.
 - 2026-05-04: Control-plane validation is sufficient because no product functionality is being implemented.
 - 2026-05-04: Mark M00.01 complete because required Python control-plane validation and bootstrap pytest passed.
+- 2026-05-05: M00.01 QA passed; M00 remains in progress and the next safe builder slice is M00.02.
 
 ## Context and Orientation
 
@@ -153,11 +157,14 @@ Validation results:
 - `python scripts/validate-control-plane.py` passed on 2026-05-04.
 - `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-04 with 7 tests.
 - `make bootstrap-check` was not run because `make` is unavailable in the current Windows shell.
+- `python scripts/validate-control-plane.py` passed on 2026-05-05 during QA.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-05 with 7 tests during QA.
+- `make bootstrap-check` was not run on 2026-05-05 because `make` is unavailable in the current Windows shell.
 
 Remaining risks:
 
 - M00 is not complete; only M00.01 is complete.
 - `docs/DOMAIN_MODEL.md` is intentionally a placeholder for M01.
-- A QA thread should review the M00.01 documentation and validation changes before proceeding.
+- M00.02 has not started and requires its own builder thread.
 
-Next recommended thread: `M00.01 QA - Roadmap and Submilestone Registry`.
+Next recommended thread: `M00.02 Builder - Active Docs and Repo Guidance`.
