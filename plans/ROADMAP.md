@@ -1,28 +1,38 @@
 # CausalLedger Roadmap
 
-All milestones are not started. Submilestone counts are placeholders until each milestone plan is created.
+Current milestone marker: M00 Repo operating system.
+Current submilestone status: M00.01 Roadmap and submilestone registry is complete. M00 remains in progress.
+
+This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 
 | Milestone | Goal | Focus | Exit criteria | Submilestone count | Status |
 | --- | --- | --- | --- | --- | --- |
-| M00 Repo operating system | Establish durable repo control plane | Docs, workflow, planning, validation | Codex can continue from repo state without chat memory | TBD | Not started |
-| M01 Domain model and scope freeze | Freeze domain language and boundaries | Concepts, non-goals, glossary | Domain model and scope are approved | TBD | Not started |
-| M02 Monorepo and local development | Create runnable local development foundation | Tooling, packages, CI shape | Local checks run consistently | TBD | Not started |
-| M03 Canonical MoneyEvent engine | Define canonical event representation | Event schemas and normalization | MoneyEvent behavior is specified and validated | TBD | Not started |
-| M04 Double-entry ledger core | Implement deterministic ledger primitives | Transactions, entries, balances | Ledger checks pass deterministic tests | TBD | Not started |
-| M05 Provider and bank simulator | Build controlled synthetic sources | Providers, banks, webhooks, failures | Scenarios can generate source evidence | TBD | Not started |
-| M06 Invariant engine | Implement financial invariant checks | Deterministic correctness rules | Invariants detect defined breaks | TBD | Not started |
-| M07 Incident engine | Create incident lifecycle | Severity, evidence, ownership | Incidents are created from failed checks | TBD | Not started |
-| M08 Causal graph | Model causal money movement relationships | Graph entities and traversal | Events and evidence are traceable | TBD | Not started |
-| M09 Replay engine and digital twin | Reconstruct incident state reproducibly | Replay sessions and state snapshots | Incidents can be replayed deterministically | TBD | Not started |
-| M10 Agent tool contracts | Define safe agent interfaces | Read-only tools and contracts | Agents are constrained by tool boundaries | TBD | Not started |
-| M11 Agentic investigator v1 | Add investigation workflows | Triage, hypotheses, memos | Agents can investigate without mutation | TBD | Not started |
-| M12 Repair planner v1 | Draft repair proposals safely | Plans, checks, approvals | Repairs are proposals only | TBD | Not started |
-| M13 Human review workbench | Support approval workflow | Review UX and audit decisions | Humans can approve or reject proposals | TBD | Not started |
-| M14 MoneyFlowBench v1 | Create benchmark suite | Scenarios, scoring, evidence | Benchmarks measure investigation quality | TBD | Not started |
-| M15 UI command center | Build operational UI | Incident command surface | Users can inspect incidents and evidence | TBD | Not started |
-| M16 Sandbox and external connectors | Add safe integrations | Connectors and sandbox isolation | External data can be ingested safely | TBD | Not started |
-| M17 Observability, costs, and model routing | Track runtime behavior and spend | Tracing, metrics, routing | Operations are measurable and bounded | TBD | Not started |
-| M18 Security hardening | Strengthen trust boundaries | Auth, secrets, permissions | Security review passes | TBD | Not started |
-| M19 Production polish | Prepare stable release | Reliability, docs, packaging | Release candidate is ready | TBD | Not started |
-| M20 Public launch | Publish open project | Docs, examples, public messaging | Public launch checklist complete | TBD | Not started |
-| M21 Company version | Define commercial-grade shape | Enterprise controls and roadmap | Company-version scope is clear | TBD | Not started |
+| M00 Repo operating system | Establish the durable repository operating system for CausalLedger. | Control-plane docs, workflow, planning, validation | Codex can continue from repo state without chat memory | 8 | In progress |
+| M01 Domain model and scope freeze | Freeze CausalLedger domain language, scope, and non-goals. | Concepts, non-goals, glossary | Domain model and scope are approved | 13 | Not started |
+| M02 Monorepo and local development | Create the runnable local development foundation. | Tooling, packages, CI shape | Local checks run consistently | 20 | Not started |
+| M03 Canonical MoneyEvent engine | Define and implement the canonical event representation. | Event schemas and normalization | MoneyEvent behavior is specified and validated | 19 | Not started |
+| M04 Double-entry ledger core | Implement deterministic double-entry ledger primitives. | Transactions, entries, balances | Ledger checks pass deterministic tests | 18 | Not started |
+| M05 Provider and bank simulator | Build controlled synthetic providers and bank sources. | Providers, banks, webhooks, failures | Scenarios can generate source evidence | 19 | Not started |
+| M06 Invariant engine | Implement deterministic financial invariant checks. | Deterministic correctness rules | Invariants detect defined breaks | 18 | Not started |
+| M07 Incident engine | Create the incident lifecycle from deterministic failures. | Severity, evidence, ownership | Incidents are created from failed checks | 16 | Not started |
+| M08 Causal graph | Model causal money-movement relationships. | Graph entities and traversal | Events and evidence are traceable | 18 | Not started |
+| M09 Replay engine and digital twin | Reconstruct incident state reproducibly. | Replay sessions and state snapshots | Incidents can be replayed deterministically | 17 | Not started |
+| M10 Agent tool contracts | Define safe agent interfaces and deny mutation tools. | Read-only tools and contracts | Agents are constrained by tool boundaries | 15 | Not started |
+| M11 Agentic investigator v1 | Add investigation workflows that remain advisory. | Triage, hypotheses, memos | Agents can investigate without mutation | 15 | Not started |
+| M12 Repair planner v1 | Draft repair proposals safely without approval or application. | Plans, checks, approvals | Repairs are proposals only | 17 | Not started |
+| M13 Human review workbench | Support human approval workflow for repair proposals. | Review UX and audit decisions | Humans can approve or reject proposals | 12 | Not started |
+| M14 MoneyFlowBench v1 | Create the benchmark suite for agentic financial operations. | Scenarios, scoring, evidence | Benchmarks measure investigation quality | 24 | Not started |
+| M15 UI command center | Build the operational incident command surface. | Incident command surface | Users can inspect incidents and evidence | 15 | Not started |
+| M16 Sandbox and external connectors | Add safe sandbox integrations and importers. | Connectors and sandbox isolation | External data can be ingested safely | 14 | Not started |
+| M17 Observability, costs, and model routing | Track runtime behavior, latency, and model spend. | Tracing, metrics, routing | Operations are measurable and bounded | 18 | Not started |
+| M18 Security hardening | Strengthen trust boundaries and destructive-action protections. | Auth, secrets, permissions | Security review passes | 16 | Not started |
+| M19 Production polish | Prepare a stable release candidate. | Reliability, docs, packaging | Release candidate is ready | 17 | Not started |
+| M20 Public launch | Publish the open project and launch materials. | Docs, examples, public messaging | Public launch checklist complete | 16 | Not started |
+| M21 Company version | Define the commercial-grade version of CausalLedger. | Enterprise controls and roadmap | Company-version scope is clear | 15 | Not started |
+
+## Roadmap guardrails
+
+- M00 is the only active milestone in this plan.
+- M01-M21 must not receive active plans until instructed by a future thread.
+- Product implementation must not start during M00.01.
+- `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed registry.
