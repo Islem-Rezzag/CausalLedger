@@ -8,14 +8,17 @@
 4. LLM agents cannot delete evidence.
 5. LLM agents cannot post ledger entries.
 6. LLM agents cannot modify raw events.
-7. Financial truth comes from raw evidence, canonical events, deterministic invariants, replay, evidence bundles, and human approval.
-8. Every meaningful slice must update the active plan and status files.
-9. Every meaningful slice must include validation.
-10. Do not claim unfinished capabilities as implemented.
+7. LLM agents cannot override deterministic invariants.
+8. Financial truth comes from raw evidence, canonical events, deterministic invariants, replay, evidence bundles, and human approval.
+9. Every meaningful slice must update the active plan and status files.
+10. Every meaningful slice must include validation.
+11. Do not claim unfinished capabilities as implemented.
 
 ## CausalLedger safety boundary
 
-Agents may inspect, summarize, explain, and propose. They must never become the source of financial truth or perform money-moving actions. Any behavior that changes money state, ledger state, raw evidence, external communications, or repair approval requires deterministic controls and human approval.
+Agents may inspect, summarize, explain, and propose. They must never become the source of financial truth or perform money-moving actions. Any behavior that changes money state, ledger state, raw evidence, external communications, deterministic invariant results, or repair approval requires deterministic controls and human approval.
+
+Deterministic financial truth sources are raw evidence, canonical events, deterministic invariants, replay outputs, evidence bundles, and explicit human approval. LLM output can explain or propose but cannot establish financial truth.
 
 ## Module boundaries
 
@@ -37,6 +40,7 @@ Agents may inspect, summarize, explain, and propose. They must never become the 
 - Status docs and active plan are updated.
 - Validation is run and results are recorded.
 - Safety boundaries are preserved.
+- Required builder or QA thread status is recorded.
 - Handoff packet states what changed, what did not change, and what remains.
 
 ## Default implementation preferences
@@ -55,7 +59,25 @@ Agents may inspect, summarize, explain, and propose. They must never become the 
 - `python scripts/validate-control-plane.py`
 - `python -m pytest tests/test_control_plane_bootstrap.py`
 
+## Branch guard
+
+Every builder and QA prompt must require these commands before any file edit:
+
+- `git branch --show-current`
+- `git status --short`
+- `git remote -v`
+
+If the current branch is not the expected submilestone branch, stop immediately. If the working tree is dirty before the slice starts, report dirty files and stop unless those files are explicitly part of the same requested submilestone.
+
 ## Skills list
+
+Use CausalLedger skills when the slice touches their boundary. At minimum, milestone and submilestone work should use:
+
+- `causalledger-plan-orchestrator`
+- `validation-ladder-composer`
+- `handoff-auditor`
+
+Available local CausalLedger skills:
 
 - `causalledger-plan-orchestrator`
 - `modular-architecture-guard`
@@ -74,14 +96,16 @@ Agents may inspect, summarize, explain, and propose. They must never become the 
 ## Files to read before large changes
 
 1. `docs/ACTIVE_DOCS.md`
-2. `START_HERE.md`
-3. `README.md`
+2. `README.md`
+3. `START_HERE.md`
 4. `AGENTS.md`
 5. `PLANS.md`
 6. `WORKFLOW.md`
-7. `plans/ROADMAP.md`
-8. `docs/status/CURRENT_STATE.md`
-9. Active plan in `plans/active/`, if present
+7. `docs/INDEX.md`
+8. `plans/ROADMAP.md`
+9. `docs/status/CURRENT_STATE.md`
+10. `docs/status/NEXT_RECOMMENDED_THREAD.md`
+11. Active plan in `plans/active/`, if present
 
 ## Forbidden shortcuts
 
@@ -92,6 +116,7 @@ Agents may inspect, summarize, explain, and propose. They must never become the 
 - Do not conflate proposal generation with repair approval.
 - Do not mark milestones complete without closeout.
 - Do not claim placeholder directories contain working features.
+- Do not start the next submilestone before QA PASS and PR merge for the current submilestone.
 
 ## Progress reporting rules
 

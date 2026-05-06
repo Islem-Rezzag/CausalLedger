@@ -44,7 +44,17 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 
 ## Documentation map
 
+- `START_HERE.md` - required first read, active-plan detection, branch recovery, and handoff rules.
+- `AGENTS.md` - agent safety boundary, skill usage, branch guard, and definition of done.
+- `PLANS.md` - CausalLedger Plan requirements, builder and QA rules, and closeout rules.
+- `WORKFLOW.md` - branch, PR, QA, validation, shell, and handoff workflow.
+- `docs/ACTIVE_DOCS.md` - active docs boundary, canonical files, conflict rules, and update rules.
 - `docs/INDEX.md` - documentation entry point.
+- `plans/ROADMAP.md` - milestone sequence, counts, statuses, and exit criteria.
+- `docs/status/CURRENT_STATE.md` - current phase, active plan, product code status, and validation status.
+- `docs/status/NEXT_RECOMMENDED_THREAD.md` - exact next recommended thread.
+- `docs/milestones/SUBMILESTONE_REGISTRY.md` - canonical M00-M21 submilestone registry.
+- `plans/active/CLP-0001-m00-repo-operating-system.md` - active M00 plan.
 - `docs/PROJECT_BRIEF.md` - project brief and boundaries.
 - `docs/PRODUCT_VISION.md` - wedge, value proposition, demo narrative, open-source moat, and MoneyFlowBench role.
 - `docs/ARCHITECTURE.md` - planned architecture and safety boundaries.
@@ -52,8 +62,6 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `docs/RELIABILITY.md` - deterministic-first reliability expectations.
 - `docs/THREAT_MODEL.md` - initial threat model.
 - `docs/TOKEN_COST_STRATEGY.md` - future model-cost strategy.
-- `docs/milestones/SUBMILESTONE_REGISTRY.md` - canonical M00-M21 submilestone registry.
-- `plans/ROADMAP.md` - milestone sequence, counts, statuses, and exit criteria.
 
 ## Repo map
 
@@ -70,7 +78,7 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 
 ## How to work with Codex
 
-Start with `START_HERE.md`. Codex should read active docs in the required order, continue an existing active plan if one exists, and create a plan before coding if no active plan exists. Every meaningful slice must update the active plan, status files, validation evidence, and handoff packet.
+Start with `START_HERE.md`. Codex should read active docs in the required order, continue an existing active plan if one exists, and create a plan before coding if no active plan exists. Every builder and QA thread must run the branch guard before edits, stay on the same submilestone branch and PR, update the active plan and status files, run validation, and produce a handoff packet. Do not start the next submilestone until QA has passed and the PR has merged.
 
 ## Milestone overview
 

@@ -38,6 +38,8 @@ hooks:
 
 Use a file-first workflow. Treat docs, plans, validation evidence, and handoff packets as the durable project state.
 
+Use one branch per submilestone. Builder and QA threads for that submilestone must use the same branch and the same PR.
+
 ## Sandbox assumptions
 
 Default future work assumes workspace-write sandboxing and restricted network unless explicitly changed by the active environment.
@@ -57,6 +59,34 @@ Agents may investigate, summarize, and propose. Agents may not own financial tru
 ## Thread policy
 
 Use one planning thread per milestone, one builder thread per submilestone, one QA thread per submilestone, and one closeout thread per milestone.
+
+Every builder and QA prompt must include the branch guard:
+
+- `git branch --show-current`
+- `git status --short`
+- `git remote -v`
+
+If the branch is wrong or the worktree is unexpectedly dirty, stop before editing and report the blocker. Open a draft PR before QA when possible. QA runs in a separate thread on the same branch. Merge only after QA records PASS.
+
+## Validation commands
+
+Control-plane slices must run:
+
+- `python scripts/validate-control-plane.py`
+- `python -m pytest tests/test_control_plane_bootstrap.py`
+- `git diff --check`
+
+Run `make bootstrap-check` when `make` is available. On Windows, `make` may be unavailable; direct Python validation commands are acceptable and the limitation must be recorded.
+
+## Status and handoff
+
+Every meaningful slice must update the active plan, `docs/status/CURRENT_STATE.md`, `docs/status/WEEKLY_LOG.md`, `docs/status/NEXT_RECOMMENDED_THREAD.md`, and any relevant risk or tech-debt notes.
+
+Handoff packets must include changed files, files intentionally not touched, validation commands, validation results, risks or limitations, completion status, product implementation status, and exact next recommended thread.
+
+## Local shell guidance
+
+Git Bash is preferred for Git workflow where available. PowerShell is acceptable for local reads, validation, and simple Git commands. Keep line endings consistent and use `git diff --check` before handoff.
 
 ## Evidence policy
 

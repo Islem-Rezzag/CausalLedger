@@ -1,7 +1,7 @@
 # CausalLedger Roadmap
 
 Current milestone marker: M00 Repo operating system.
-Current submilestone status: M00.01 Roadmap and submilestone registry is complete. M00 remains in progress.
+Current submilestone status: M00.02 Active docs and repo guidance is complete and passed QA. M00 remains in progress.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 
@@ -34,5 +34,5 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 
 - M00 is the only active milestone in this plan.
 - M01-M21 must not receive active plans until instructed by a future thread.
-- Product implementation must not start during M00.01.
+- Product implementation must not start during M00 unless explicitly scoped by the active plan. The current active plan scopes control-plane work only.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed registry.

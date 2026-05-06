@@ -2,20 +2,25 @@
 
 ## Active docs boundary
 
-Active docs define current project direction, workflow, milestone sequence, safety boundary, and implementation expectations. Reference docs can inform work but cannot override active docs.
+Active docs define current project direction, workflow, milestone sequence, safety boundary, active execution state, and implementation expectations. CausalLedger is file-first: durable project state lives in repository docs, plans, validation evidence, and handoff packets. Reference docs can inform work but cannot override active docs.
 
 ## Read order
 
 1. `docs/ACTIVE_DOCS.md`
 2. `README.md`
-3. `AGENTS.md`
-4. `PLANS.md`
-5. `WORKFLOW.md`
-6. `plans/ROADMAP.md`
-7. `docs/status/CURRENT_STATE.md`
-8. Active plan in `plans/active/`, if one exists
+3. `START_HERE.md`
+4. `AGENTS.md`
+5. `PLANS.md`
+6. `WORKFLOW.md`
+7. `docs/INDEX.md`
+8. `plans/ROADMAP.md`
+9. `docs/status/CURRENT_STATE.md`
+10. `docs/status/NEXT_RECOMMENDED_THREAD.md`
+11. Active plan in `plans/active/`, if one exists
 
-## Core project docs
+## Canonical files
+
+Project direction:
 
 - `docs/INDEX.md`
 - `docs/PROJECT_BRIEF.md`
@@ -25,23 +30,70 @@ Active docs define current project direction, workflow, milestone sequence, safe
 - `docs/RELIABILITY.md`
 - `docs/THREAT_MODEL.md`
 - `docs/TOKEN_COST_STRATEGY.md`
-- `docs/milestones/SUBMILESTONE_REGISTRY.md`
 
-## Current active plan
+Roadmap and submilestones:
+
+- `docs/milestones/SUBMILESTONE_REGISTRY.md`
+- `docs/milestones/M00.md` through `docs/milestones/M21.md`
+- `plans/ROADMAP.md`
+
+Current status:
+
+- `docs/status/CURRENT_STATE.md`
+- `docs/status/WEEKLY_LOG.md`
+- `docs/status/NEXT_RECOMMENDED_THREAD.md`
+- `docs/status/TECH_DEBT.md`
+- `docs/status/RISK_REGISTER.md`
+- `docs/status/OPEN_QUESTIONS.md`
+
+Active execution:
 
 - `plans/active/CLP-0001-m00-repo-operating-system.md`
 
+Plan state:
+
+- Active plans live in `plans/active/`.
+- Completed plans move to `plans/completed/`.
+- Archived or stale plans move to `plans/archived/`.
+
+## Core workflow rules
+
+One submilestone uses:
+
+- one branch
+- one PR
+- one builder thread
+- one QA thread
+
+QA must record PASS before merge. The PR must merge before the next submilestone starts.
+
+Every builder and QA thread must run the branch guard before editing:
+
+- `git branch --show-current`
+- `git status --short`
+- `git remote -v`
+
+If the current branch does not match the expected submilestone branch, stop without editing. If the worktree is unexpectedly dirty, report the dirty files and stop unless those files are explicitly part of the requested submilestone.
+
 ## Conflict rule
 
-- Active docs win for project direction.
+- Active docs define intended direction.
+- Current code defines implemented behavior.
+- The active plan decides how to close gaps between intended direction and implemented behavior.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed submilestone registry.
-- Current code wins for implemented behavior.
-- The active plan decides how to close gaps.
 
 ## Update rule
 
-If direction, workflow, milestone sequence, safety boundary, or implementation behavior changes, update the active docs in the same slice.
+Every meaningful slice must update the active plan and relevant status docs in the same slice. If direction, workflow, milestone sequence, safety boundary, or implementation behavior changes, update the active docs in the same slice.
+
+Update `README.md` when entry-point claims, repo map, safety summary, or major links change.
+
+Update `docs/INDEX.md` when documentation structure, canonical links, or read order changes.
+
+Update `docs/status/CURRENT_STATE.md` whenever current phase, active submilestone, active plan, product code status, next action, or latest validation changes.
+
+Update `docs/milestones/SUBMILESTONE_REGISTRY.md` whenever any submilestone status, branch, PR, active plan, or completion note changes.
 
 ## Archive rule
 
-Stale docs must be moved to archived locations or clearly marked reference-only.
+Stale docs must be moved to archived locations or clearly marked reference-only. If a stale doc cannot be updated in the current slice, record the limitation in status docs or tech debt and do not let it override active docs.
