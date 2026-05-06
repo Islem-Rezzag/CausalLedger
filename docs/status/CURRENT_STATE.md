@@ -2,7 +2,7 @@
 
 ## Current phase
 
-Control-plane bootstrap. M00 Repo operating system is in progress.
+Control-plane bootstrap. M00 Repo operating system is in progress. Current submilestone is M00.03 Planning and Tracking System.
 
 ## What exists
 
@@ -18,6 +18,7 @@ Control-plane bootstrap. M00 Repo operating system is in progress.
 - Detailed M00-M21 milestone docs.
 - Top-level project docs for brief, vision, architecture, domain placeholder, reliability, threat model, token cost strategy, and docs index.
 - First active M00 plan.
+- Planning and tracking operations guide for submilestone lifecycle state.
 
 ## What does not exist
 
@@ -36,7 +37,9 @@ Control-plane bootstrap. M00 Repo operating system is in progress.
 
 ## Current submilestone
 
-M00.02 Active docs and repo guidance is complete and passed QA on 2026-05-06. M00.01 Roadmap and submilestone registry is complete and passed QA on 2026-05-05.
+M00.03 Planning and Tracking System builder work is complete and awaiting QA on branch `m00-03-planning-and-tracking-system`.
+
+M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 builder validation passed on 2026-05-06. M00.03 is not fully complete until QA records PASS and the PR is merged.
 
 ## Product code status
 
@@ -44,7 +47,7 @@ No product code exists yet.
 
 ## Next action
 
-Merge the M00.02 PR after review. After the M00.02 PR is merged, run `M00.03 Builder - Planning and Tracking System`. Do not start M00.03 before the PR merge.
+Run `M00.03 QA - Planning and Tracking System` on the same branch. Do not start M00.04 before M00.03 QA PASS and PR merge.
 
 ## Implementation warning
 
@@ -77,3 +80,9 @@ Do not start product implementation. Continue M00 only through the active plan.
 - 2026-05-06: `python -m pytest tests/test_control_plane_bootstrap.py` passed with 7 tests.
 - 2026-05-06: `git diff --check` passed.
 - 2026-05-06: `make bootstrap-check` was not run because `make` is unavailable.
+- 2026-05-06: M00.03 builder started on branch `m00-03-planning-and-tracking-system`.
+- 2026-05-06: M00.03 builder validation passed.
+- 2026-05-06: `python scripts/validate-control-plane.py` passed.
+- 2026-05-06: `python -m pytest tests/test_control_plane_bootstrap.py` passed with 8 tests.
+- 2026-05-06: `git diff --check` passed.
+- 2026-05-06: `make bootstrap-check` was not run because `make` is unavailable in the current Windows shell.

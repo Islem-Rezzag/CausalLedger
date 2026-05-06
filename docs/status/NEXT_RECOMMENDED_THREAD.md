@@ -1,7 +1,7 @@
 # Next Recommended Thread
 
-Thread name: `M00.03 Builder - Planning and Tracking System`
+Thread name: `M00.03 QA - Planning and Tracking System`
 
-Precondition: start only after the M00.02 PR is merged.
+Precondition: start only after M00.03 builder validation passes and the builder handoff is recorded.
 
-Goal: continue M00 with planning and tracking system work only. Do not start product implementation, MoneyEvent logic, ledger logic, invariants, incidents, graph, replay, agent runtime, repair planning, UI, external connectors, or M01 work.
+Goal: QA the M00.03 planning and tracking system work on the same branch and PR. Do not start M00.04 until M00.03 QA records PASS and the PR is merged. Do not start product implementation, MoneyEvent logic, ledger logic, invariants, incidents, graph, replay, agent runtime, repair planning, UI, external connectors, or M01 work.
