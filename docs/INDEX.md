@@ -12,12 +12,28 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 1. `docs/ACTIVE_DOCS.md`
 2. `README.md`
-3. `AGENTS.md`
-4. `PLANS.md`
-5. `WORKFLOW.md`
-6. `plans/ROADMAP.md`
-7. `docs/status/CURRENT_STATE.md`
-8. Active plan in `plans/active/`, if one exists
+3. `START_HERE.md`
+4. `AGENTS.md`
+5. `PLANS.md`
+6. `WORKFLOW.md`
+7. `docs/INDEX.md`
+8. `plans/ROADMAP.md`
+9. `docs/status/CURRENT_STATE.md`
+10. `docs/status/NEXT_RECOMMENDED_THREAD.md`
+11. Active plan in `plans/active/`, if one exists
+
+## Active execution links
+
+- `START_HERE.md` - required first read, active-plan detection, wrong-branch recovery, and handoff rules.
+- `AGENTS.md` - non-negotiable safety rules, module boundaries, skills, branch guard, and done definition.
+- `PLANS.md` - plan locations, required sections, builder rules, QA rules, closeout, and truthfulness rules.
+- `WORKFLOW.md` - submilestone branch, PR, QA, validation, local-shell, status, and handoff workflow.
+- `docs/ACTIVE_DOCS.md` - canonical active docs boundary, conflict rules, stale-doc handling, and update rules.
+- `plans/ROADMAP.md` - canonical milestone sequence, counts, statuses, and exit criteria.
+- `docs/status/CURRENT_STATE.md` - current phase, active plan, product code status, and validation status.
+- `docs/status/NEXT_RECOMMENDED_THREAD.md` - exact next recommended thread.
+- `docs/milestones/SUBMILESTONE_REGISTRY.md` - canonical M00-M21 submilestone registry.
+- `plans/active/CLP-0001-m00-repo-operating-system.md` - active M00 execution plan.
 
 ## Core project docs
 
@@ -40,3 +56,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/status/WEEKLY_LOG.md` - chronological progress log.
 - `docs/status/NEXT_RECOMMENDED_THREAD.md` - exact next thread recommendation.
 - `docs/status/TECH_DEBT.md` - placeholders, shortcuts, and deferred cleanup.
+
+## Current implementation status
+
+The repository is still in control-plane bootstrap. It contains docs, plans, prompt templates, skills, placeholder directories, and control-plane validation only. It does not contain product functionality.

@@ -2,6 +2,16 @@
 
 ## 2026-05-05
 
+- Started M00.02 Active docs and repo guidance builder thread on branch `m00-02-active-docs-and-repo-guidance`.
+- Confirmed branch guard passed and the worktree was clean before edits.
+- Confirmed M00.01 is complete and passed QA, M00.02 was not started before this builder thread, M00 remains in progress, M01-M21 are not started, no product code exists, and the active plan is `plans/active/CLP-0001-m00-repo-operating-system.md`.
+- Completed M00.02 Active docs and repo guidance as a control-plane-only docs slice.
+- Tightened active docs, repo guidance, branch guard, builder/QA, PR merge, validation, stale-doc, and handoff instructions.
+- Ran `python scripts/validate-control-plane.py` successfully.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 7 tests.
+- Ran `git diff --check` successfully.
+- Confirmed `make bootstrap-check` is unavailable in the current Windows shell.
+- Recommended next thread: `M00.02 QA - Active Docs and Repo Guidance`.
 - Completed M00.01 QA review.
 - Verified roadmap, submilestone registry, milestone docs, active plan, project docs, status docs, and forbidden-scope boundaries.
 - Confirmed product implementation has not started.
