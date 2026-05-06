@@ -7,7 +7,7 @@ Status values: Not started, In progress, Completed, Blocked.
 | ID | Name | Milestone | Status | Active Plan | Branch | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | M00.01 | Roadmap and submilestone registry | M00 Repo operating system | Completed | plans/active/CLP-0001-m00-repo-operating-system.md | m00-01-roadmap-submilestone-registry |  | Completed after control-plane validation and bootstrap pytest passed on 2026-05-04. |
-| M00.02 | Active docs and repo guidance | M00 Repo operating system | Completed | plans/active/CLP-0001-m00-repo-operating-system.md | m00-02-active-docs-and-repo-guidance |  | Completed after control-plane validation, bootstrap pytest, and diff whitespace checks passed on 2026-05-05. Awaiting QA on same branch and PR. |
+| M00.02 | Active docs and repo guidance | M00 Repo operating system | Completed | plans/active/CLP-0001-m00-repo-operating-system.md | m00-02-active-docs-and-repo-guidance |  | QA PASS on 2026-05-06 after scoped branch guard guidance fix, control-plane validation, bootstrap pytest, and diff whitespace checks passed. |
 | M00.03 | Planning and tracking system | M00 Repo operating system | Not started |  |  |  |  |
 | M00.04 | Builder and QA prompt protocol | M00 Repo operating system | Not started |  |  |  |  |
 | M00.05 | Validation and handoff workflow | M00 Repo operating system | Not started |  |  |  |  |

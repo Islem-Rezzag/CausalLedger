@@ -1,5 +1,17 @@
 # Weekly Log
 
+## 2026-05-06
+
+- Completed M00.02 Active docs and repo guidance QA review on branch `m00-02-active-docs-and-repo-guidance`.
+- Found and fixed one scoped control-plane defect: `PLANS.md` or `docs/ACTIVE_DOCS.md` needed to state that branch mismatch means stop without editing.
+- Confirmed active docs, branch guard guidance, safety boundaries, planning rules, status tracking, forbidden-scope boundaries, and product-not-started claims.
+- Ran `python scripts/validate-control-plane.py` successfully.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 7 tests.
+- Ran `git diff --check` successfully.
+- Confirmed `make bootstrap-check` is unavailable in the current Windows shell.
+- Recorded M00.02 QA PASS. M00 remains in progress, M00.03 is not started, and M01-M21 remain not started.
+- Recommended next thread: `M00.03 Builder - Planning and Tracking System` after the M00.02 PR is merged.
+
 ## 2026-05-05
 
 - Started M00.02 Active docs and repo guidance builder thread on branch `m00-02-active-docs-and-repo-guidance`.

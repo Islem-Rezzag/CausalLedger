@@ -1,7 +1,7 @@
 # CausalLedger Roadmap
 
 Current milestone marker: M00 Repo operating system.
-Current submilestone status: M00.02 Active docs and repo guidance is complete. M00 remains in progress.
+Current submilestone status: M00.02 Active docs and repo guidance is complete and passed QA. M00 remains in progress.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 

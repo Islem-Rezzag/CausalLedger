@@ -2,7 +2,7 @@
 
 ## Active docs boundary
 
-Active docs define current project direction, workflow, milestone sequence, safety boundary, active execution state, and implementation expectations. Reference docs can inform work but cannot override active docs.
+Active docs define current project direction, workflow, milestone sequence, safety boundary, active execution state, and implementation expectations. CausalLedger is file-first: durable project state lives in repository docs, plans, validation evidence, and handoff packets. Reference docs can inform work but cannot override active docs.
 
 ## Read order
 
@@ -49,6 +49,31 @@ Current status:
 Active execution:
 
 - `plans/active/CLP-0001-m00-repo-operating-system.md`
+
+Plan state:
+
+- Active plans live in `plans/active/`.
+- Completed plans move to `plans/completed/`.
+- Archived or stale plans move to `plans/archived/`.
+
+## Core workflow rules
+
+One submilestone uses:
+
+- one branch
+- one PR
+- one builder thread
+- one QA thread
+
+QA must record PASS before merge. The PR must merge before the next submilestone starts.
+
+Every builder and QA thread must run the branch guard before editing:
+
+- `git branch --show-current`
+- `git status --short`
+- `git remote -v`
+
+If the current branch does not match the expected submilestone branch, stop without editing. If the worktree is unexpectedly dirty, report the dirty files and stop unless those files are explicitly part of the requested submilestone.
 
 ## Conflict rule
 

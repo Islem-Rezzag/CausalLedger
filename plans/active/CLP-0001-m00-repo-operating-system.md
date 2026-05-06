@@ -4,7 +4,7 @@
 
 Establish the file-first operating system for CausalLedger milestone work. This plan covers M00 only and keeps the repository usable by future Codex threads without relying on chat memory.
 
-Current submilestone status: M00.02 Active docs and repo guidance is complete and awaiting QA. M00 remains in progress.
+Current submilestone status: M00.02 Active docs and repo guidance has passed QA. M00 remains in progress.
 
 ## Progress
 
@@ -24,6 +24,9 @@ Current submilestone status: M00.02 Active docs and repo guidance is complete an
 - [x] 2026-05-05: Tightened active docs and repo guidance.
 - [x] 2026-05-05: Ran M00.02 validation and recorded results.
 - [x] 2026-05-05: Completed M00.02 handoff to QA.
+- [x] 2026-05-06: Completed M00.02 QA review on branch `m00-02-active-docs-and-repo-guidance`.
+- [x] 2026-05-06: Fixed scoped branch guard guidance defect in `docs/ACTIVE_DOCS.md` and `PLANS.md`.
+- [x] 2026-05-06: Re-ran required M00.02 QA validation and recorded PASS.
 
 ## Surprises & Discoveries
 
@@ -34,6 +37,7 @@ Current submilestone status: M00.02 Active docs and repo guidance is complete an
 - `rg` failed to launch in this Windows shell with access denied, so PowerShell listing/search was used for file checks.
 - M00.01 QA found no defects requiring product or control-plane fixes beyond recording QA status.
 - M00.02 found that active docs already stated the broad safety boundary but needed stricter branch guard, same-branch QA, PR merge, active-doc conflict, and handoff wording.
+- M00.02 QA found one scoped control-plane defect: `PLANS.md` or `docs/ACTIVE_DOCS.md` needed to state that branch mismatch means stop without editing.
 
 ## Decision Log
 
@@ -45,6 +49,7 @@ Current submilestone status: M00.02 Active docs and repo guidance is complete an
 - 2026-05-05: M00.01 QA passed; M00 remains in progress and the next safe builder slice is M00.02.
 - 2026-05-05: M00.02 remains control-plane only; no product implementation is in scope.
 - 2026-05-05: Mark M00.02 complete because required control-plane validation, bootstrap pytest, and `git diff --check` passed. Do not start M00.03 until M00.02 QA PASS and PR merge.
+- 2026-05-06: M00.02 QA passed after a scoped branch guard documentation fix and re-validation. Do not start M00.03 until the M00.02 PR is merged.
 
 ## Context and Orientation
 
@@ -162,11 +167,15 @@ Validation results:
 - `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-05 for M00.02 builder validation with 7 tests.
 - `git diff --check` passed on 2026-05-05 for M00.02 builder validation.
 - `make bootstrap-check` was not run on 2026-05-05 for M00.02 because `make` is unavailable in the current Windows shell.
+- `python scripts/validate-control-plane.py` passed on 2026-05-06 for M00.02 QA.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-06 for M00.02 QA with 7 tests.
+- `git diff --check` passed on 2026-05-06 for M00.02 QA.
+- `make bootstrap-check` was not run on 2026-05-06 for M00.02 QA because `make` is unavailable in the current Windows shell.
 
 Remaining risks:
 
 - M00 is not complete; M00.01 and M00.02 are complete.
-- M00.02 still needs separate QA on the same branch and PR before M00.03 can start.
+- M00.02 has passed separate QA on the same branch. The PR still needs to be merged before M00.03 can start.
 - `docs/DOMAIN_MODEL.md` is intentionally a placeholder for M01.
 
-Next recommended thread: `M00.02 QA - Active Docs and Repo Guidance`.
+Next recommended thread: `M00.03 Builder - Planning and Tracking System` after the M00.02 PR is merged.

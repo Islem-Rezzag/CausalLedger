@@ -36,7 +36,7 @@ Control-plane bootstrap. M00 Repo operating system is in progress.
 
 ## Current submilestone
 
-M00.02 Active docs and repo guidance is complete and awaiting QA. M00.01 Roadmap and submilestone registry is complete and passed QA on 2026-05-05.
+M00.02 Active docs and repo guidance is complete and passed QA on 2026-05-06. M00.01 Roadmap and submilestone registry is complete and passed QA on 2026-05-05.
 
 ## Product code status
 
@@ -44,7 +44,7 @@ No product code exists yet.
 
 ## Next action
 
-Run `M00.02 QA - Active Docs and Repo Guidance` on the same branch and PR. Do not start M00.03 until QA records PASS and the PR is merged.
+Merge the M00.02 PR after review. After the M00.02 PR is merged, run `M00.03 Builder - Planning and Tracking System`. Do not start M00.03 before the PR merge.
 
 ## Implementation warning
 
@@ -72,3 +72,8 @@ Do not start product implementation. Continue M00 only through the active plan.
 - 2026-05-05: `python -m pytest tests/test_control_plane_bootstrap.py` passed with 7 tests.
 - 2026-05-05: `git diff --check` passed.
 - 2026-05-05: `make bootstrap-check` was not run because `make` is unavailable.
+- 2026-05-06: M00.02 QA review passed after a scoped branch guard guidance fix.
+- 2026-05-06: `python scripts/validate-control-plane.py` passed.
+- 2026-05-06: `python -m pytest tests/test_control_plane_bootstrap.py` passed with 7 tests.
+- 2026-05-06: `git diff --check` passed.
+- 2026-05-06: `make bootstrap-check` was not run because `make` is unavailable.

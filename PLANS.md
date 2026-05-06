@@ -4,6 +4,8 @@
 
 A CausalLedger Plan is required before any complex change, milestone work, product implementation, architecture change, workflow change, or safety-boundary change. If no active plan exists, create one before coding.
 
+Plans are part of the file-first workflow. Durable execution state lives in repo files, not prior chat memory.
+
 No active plans should exist for future milestones unless that milestone has been explicitly started by the user.
 
 ## Naming convention
@@ -48,6 +50,8 @@ Builder threads must:
 - use the same branch and PR that QA will inspect;
 - update the active plan at every meaningful stopping point;
 - avoid product implementation unless explicitly scoped.
+
+If the branch guard reports a branch mismatch, stop without editing and report the current branch, expected branch, and safest human recovery step. If the worktree is unexpectedly dirty, report the dirty files and stop unless those files are explicitly part of the requested submilestone.
 
 ## QA rules
 
