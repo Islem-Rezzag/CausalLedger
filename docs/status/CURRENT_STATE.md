@@ -37,9 +37,9 @@ Control-plane bootstrap. M00 Repo operating system is in progress. Current submi
 
 ## Current submilestone
 
-M00.03 Planning and Tracking System builder work is complete and awaiting QA on branch `m00-03-planning-and-tracking-system`.
+M00.03 Planning and Tracking System QA has passed and is awaiting PR merge on branch `m00-03-planning-and-tracking-system`.
 
-M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 builder validation passed on 2026-05-06. M00.03 is not fully complete until QA records PASS and the PR is merged.
+M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 QA validation passed on 2026-05-06 after a scoped post-merge finalization guidance fix. M00.03 is not fully complete until the PR is merged.
 
 ## Product code status
 
@@ -47,7 +47,7 @@ No product code exists yet.
 
 ## Next action
 
-Run `M00.03 QA - Planning and Tracking System` on the same branch. Do not start M00.04 before M00.03 QA PASS and PR merge.
+Merge the M00.03 PR. Do not start M00.04 before the M00.03 PR is merged and post-merge finalization records M00.03 as `Completed and merged`.
 
 ## Implementation warning
 
@@ -86,3 +86,9 @@ Do not start product implementation. Continue M00 only through the active plan.
 - 2026-05-06: `python -m pytest tests/test_control_plane_bootstrap.py` passed with 8 tests.
 - 2026-05-06: `git diff --check` passed.
 - 2026-05-06: `make bootstrap-check` was not run because `make` is unavailable in the current Windows shell.
+- 2026-05-06: M00.03 QA review passed after a scoped post-merge finalization guidance fix.
+- 2026-05-06: `python scripts/validate-control-plane.py` passed.
+- 2026-05-06: `python -m pytest tests/test_control_plane_bootstrap.py` passed with 8 tests.
+- 2026-05-06: `git diff --check` passed with a CRLF normalization warning for `docs/milestones/SUBMILESTONE_REGISTRY.md`.
+- 2026-05-06: `make bootstrap-check` was not run because `make` is unavailable in the current Windows shell.
+- 2026-05-06: M00.03 remains incomplete until PR merge.

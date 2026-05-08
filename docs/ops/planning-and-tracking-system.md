@@ -122,6 +122,10 @@ After the submilestone PR merges into `main`:
 
 Only after this step may the next submilestone start.
 
+Default operational model: the first step of the next submilestone builder thread finalizes the previous submilestone as `Completed and merged` before starting new work. That thread must begin from updated `main`, confirm that the previous PR is merged, run the branch guard for the new submilestone branch, and update the previous registry row, milestone doc, roadmap, current state, weekly log, and next-thread state before making any non-finalization edits. If the previous PR is not merged, stop and instruct the user to merge it first.
+
+A dedicated post-merge finalization thread or branch is also allowed when a human explicitly asks for one. It must perform only the finalization updates listed above and must not start the next submilestone.
+
 ## Blocked slices
 
 When a slice is blocked:

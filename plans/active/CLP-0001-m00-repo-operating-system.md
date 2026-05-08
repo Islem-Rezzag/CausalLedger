@@ -4,7 +4,7 @@
 
 Establish the file-first operating system for CausalLedger milestone work. This plan covers M00 only and keeps the repository usable by future Codex threads without relying on chat memory.
 
-Current submilestone status: M00.03 Planning and Tracking System builder work is complete and awaiting QA. M00.01 and M00.02 are completed and merged. M00 remains in progress.
+Current submilestone status: M00.03 Planning and Tracking System QA has passed and is awaiting PR merge. M00.01 and M00.02 are completed and merged. M00 remains in progress.
 
 ## Progress
 
@@ -35,6 +35,10 @@ Current submilestone status: M00.03 Planning and Tracking System builder work is
 - [x] 2026-05-06: Expanded the submilestone registry with branch, PR, validation, update, and notes tracking columns.
 - [x] 2026-05-06: Ran M00.03 builder validation and recorded results.
 - [x] 2026-05-06: Handed off M00.03 to QA without marking it fully complete.
+- [x] 2026-05-06: Started M00.03 QA on branch `m00-03-planning-and-tracking-system`; branch guard passed before QA edits, `git status --short` was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- [x] 2026-05-06: Fixed one scoped M00.03 control-plane defect by defining the post-merge finalization operating model.
+- [x] 2026-05-06: Ran M00.03 QA validation and recorded results.
+- [x] 2026-05-06: Recorded M00.03 QA PASS and left M00.03 awaiting PR merge.
 
 ## Surprises & Discoveries
 
@@ -48,6 +52,7 @@ Current submilestone status: M00.03 Planning and Tracking System builder work is
 - M00.02 QA found one scoped control-plane defect: `PLANS.md` or `docs/ACTIVE_DOCS.md` needed to state that branch mismatch means stop without editing.
 - M00.03 found the registry had all 360 submilestones but used coarse statuses and lacked durable `Last Validation` and `Last Updated` tracking.
 - M00.03 found status docs still reflected the pre-M00.03 handoff state after M00.02 merge and needed synchronization.
+- M00.03 QA found that post-merge tracking updates were required but the operational model was ambiguous; the default is now that the next submilestone builder finalizes the previous merged PR before starting new work, with an optional dedicated finalization thread if explicitly requested.
 - `make bootstrap-check` remains unavailable in the current Windows shell; underlying Python validation and pytest checks were run directly.
 
 ## Decision Log
@@ -63,6 +68,7 @@ Current submilestone status: M00.03 Planning and Tracking System builder work is
 - 2026-05-06: M00.02 QA passed after a scoped branch guard documentation fix and re-validation. Do not start M00.03 until the M00.02 PR is merged.
 - 2026-05-06: Treat `Completed and merged` as the only fully complete submilestone status in canonical tracking.
 - 2026-05-06: M00.03 builder completion can move the registry to `Builder complete, awaiting QA`, but not to `Completed and merged`.
+- 2026-05-06: M00.03 QA PASS can move the registry to `QA passed, awaiting merge`; post-merge finalization must move it to `Completed and merged` only after merge is confirmed.
 
 ## Context and Orientation
 
@@ -140,7 +146,7 @@ Acceptance:
 - M00.03 tracking is updated without marking the submilestone fully complete.
 - `docs/ops/planning-and-tracking-system.md` exists and defines canonical status states.
 - Registry supports branch, PR, validation, update, and notes tracking.
-- M00.03 is `Builder complete, awaiting QA` only after builder validation passed.
+- M00.03 is `QA passed, awaiting merge` only after QA validation passed.
 - No product code is implemented.
 - Control-plane validation passes or limitations are recorded.
 - Status docs and handoff packet are updated.
@@ -199,6 +205,10 @@ Validation results:
 - `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-06 for M00.03 builder validation with 8 tests.
 - `git diff --check` passed on 2026-05-06 for M00.03 builder validation.
 - `make bootstrap-check` was not run on 2026-05-06 for M00.03 builder validation because `make` is unavailable in the current Windows shell.
+- `python scripts/validate-control-plane.py` passed on 2026-05-06 for M00.03 QA validation.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-06 for M00.03 QA validation with 8 tests.
+- `git diff --check` passed on 2026-05-06 for M00.03 QA validation with a CRLF normalization warning for `docs/milestones/SUBMILESTONE_REGISTRY.md`.
+- `make bootstrap-check` was not run on 2026-05-06 for M00.03 QA because `make` is unavailable in the current Windows shell.
 
 M00.03 builder outcome:
 
@@ -211,10 +221,19 @@ M00.03 builder outcome:
 - Updated roadmap, M00 milestone, active docs, status docs, plan lifecycle docs, validation script, and bootstrap tests for the new tracking document.
 - Did not implement product functionality.
 
+M00.03 QA outcome:
+
+- Verified `docs/ops/planning-and-tracking-system.md` exists and covers purpose, canonical tracking files, statuses, builder, QA, merge, blocked, failed-QA, follow-up, synchronization, and chat-memory avoidance guidance.
+- Verified the registry contains 360 rows and 360 unique submilestone IDs with required tracking columns.
+- Verified M00.01 and M00.02 are `Completed and merged`, M00.03 is not marked `Completed and merged`, and M00.04 through M21.15 remain `Not started`.
+- Fixed ambiguous post-merge finalization guidance by defining the default next-builder finalization model and optional dedicated finalization thread.
+- Recorded M00.03 QA PASS while leaving final completion blocked on PR merge.
+- Did not implement product functionality.
+
 Remaining risks:
 
 - M00 is not complete; M00.01 and M00.02 are completed and merged.
 - M00.03 is not fully complete until QA PASS and PR merge.
 - `docs/DOMAIN_MODEL.md` is intentionally a placeholder for M01.
 
-Next recommended thread after builder validation: `M00.03 QA - Planning and Tracking System`.
+Next recommended action after QA validation: merge the M00.03 PR. After merge, run `M00.04 Builder - Builder and QA Prompt Protocol`; its first step must finalize M00.03 as `Completed and merged` before M00.04 work starts.
