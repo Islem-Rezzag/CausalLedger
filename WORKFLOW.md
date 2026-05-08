@@ -42,6 +42,8 @@ Use one branch per submilestone. Builder and QA threads for that submilestone mu
 
 Use `docs/ops/planning-and-tracking-system.md` for canonical submilestone statuses and required tracking updates before builder, after builder, after QA, after PR merge, and when blocked.
 
+Use `docs/ops/builder-qa-prompt-protocol.md` and the prompt templates in `prompts/` for reusable builder prompts, QA prompts, and handoff packets.
+
 ## Sandbox assumptions
 
 Default future work assumes workspace-write sandboxing and restricted network unless explicitly changed by the active environment.

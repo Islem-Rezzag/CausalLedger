@@ -1,17 +1,23 @@
 # Handoff Packet Template
 
-## What changed
+## Files created
 
-## What did not change
+## Files changed
+
+## Files intentionally not touched
 
 ## Commands run
 
 ## Validation result
 
-## Risks and limitations
+## Current submilestone status
 
-## Product implementation status
+## Whether product implementation started
 
-## Safe to proceed
+## Remaining issues
 
 ## Exact next recommended Codex thread
+
+## Whether safe to commit
+
+## Whether safe to merge if QA

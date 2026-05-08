@@ -22,6 +22,7 @@ REQUIRED_FILES = [
     "docs/THREAT_MODEL.md",
     "docs/TOKEN_COST_STRATEGY.md",
     "docs/ops/planning-and-tracking-system.md",
+    "docs/ops/builder-qa-prompt-protocol.md",
     "docs/status/CURRENT_STATE.md",
     "docs/status/WEEKLY_LOG.md",
     "docs/status/RISK_REGISTER.md",

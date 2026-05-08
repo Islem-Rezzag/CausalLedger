@@ -1,11 +1,11 @@
 # Next Recommended Thread
 
-Thread name: `Merge M00.03 PR`
+Thread name: `Merge M00.04 PR - Builder and QA Prompt Protocol`
 
-Precondition: start only after M00.03 QA PASS is recorded on branch `m00-03-planning-and-tracking-system`.
+Precondition: M00.04 QA has recorded PASS on `m00-04-builder-and-qa-prompt-protocol`, required validation passed, and the PR is ready to merge.
 
-Goal: merge the M00.03 PR into `main`. Do not start M00.04 until the PR is merged and post-merge finalization records M00.03 as `Completed and merged`.
+Goal: merge the M00.04 PR, then finalize M00.04 as `Completed and merged` in tracking before any M00.05 builder work starts.
 
-Next thread after merge: `M00.04 Builder - Builder and QA Prompt Protocol`.
+Next thread after merge finalization: `M00.05 Builder - Validation and Handoff Workflow`.
 
-The M00.04 builder thread must first finalize M00.03 as `Completed and merged` from updated `main` before starting M00.04 work. Do not start product implementation, MoneyEvent logic, ledger logic, invariants, incidents, graph, replay, agent runtime, repair planning, UI, external connectors, or M01 work.
+Do not start product implementation, MoneyEvent logic, ledger logic, invariants, incidents, graph, replay, agent runtime, repair planning, UI, external connectors, M00.05, or M01 work.

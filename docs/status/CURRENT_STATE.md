@@ -2,7 +2,7 @@
 
 ## Current phase
 
-Control-plane bootstrap. M00 Repo operating system is in progress. Current submilestone is M00.03 Planning and Tracking System.
+Control-plane bootstrap. M00 Repo operating system is in progress. Current submilestone is M00.04 Builder and QA Prompt Protocol.
 
 ## What exists
 
@@ -19,6 +19,8 @@ Control-plane bootstrap. M00 Repo operating system is in progress. Current submi
 - Top-level project docs for brief, vision, architecture, domain placeholder, reliability, threat model, token cost strategy, and docs index.
 - First active M00 plan.
 - Planning and tracking operations guide for submilestone lifecycle state.
+- Builder and QA prompt protocol operations guide.
+- Reusable builder, QA, and handoff packet prompt templates.
 
 ## What does not exist
 
@@ -37,9 +39,9 @@ Control-plane bootstrap. M00 Repo operating system is in progress. Current submi
 
 ## Current submilestone
 
-M00.03 Planning and Tracking System QA has passed and is awaiting PR merge on branch `m00-03-planning-and-tracking-system`.
+M00.04 Builder and QA Prompt Protocol has passed QA and is awaiting PR merge on branch `m00-04-builder-and-qa-prompt-protocol`.
 
-M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 QA validation passed on 2026-05-06 after a scoped post-merge finalization guidance fix. M00.03 is not fully complete until the PR is merged.
+M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 Planning and Tracking System is completed and merged at commit `f289d5e`.
 
 ## Product code status
 
@@ -47,7 +49,7 @@ No product code exists yet.
 
 ## Next action
 
-Merge the M00.03 PR. Do not start M00.04 before the M00.03 PR is merged and post-merge finalization records M00.03 as `Completed and merged`.
+Merge the M00.04 PR, then finalize M00.04 as `Completed and merged` before M00.05 starts. Do not mark M00.04 completed until the PR merges and tracking is finalized.
 
 ## Implementation warning
 
@@ -91,4 +93,12 @@ Do not start product implementation. Continue M00 only through the active plan.
 - 2026-05-06: `python -m pytest tests/test_control_plane_bootstrap.py` passed with 8 tests.
 - 2026-05-06: `git diff --check` passed with a CRLF normalization warning for `docs/milestones/SUBMILESTONE_REGISTRY.md`.
 - 2026-05-06: `make bootstrap-check` was not run because `make` is unavailable in the current Windows shell.
-- 2026-05-06: M00.03 remains incomplete until PR merge.
+- 2026-05-06: M00.03 remained incomplete at that time until PR merge.
+- 2026-05-08: M00.03 finalized as `Completed and merged` after merge into `main` at commit `f289d5e`.
+- 2026-05-08: M00.04 builder started on branch `m00-04-builder-and-qa-prompt-protocol`; branch guard passed and the worktree was clean before edits.
+- 2026-05-08: M00.04 builder validation passed: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 9 tests, and `git diff --check`.
+- 2026-05-08: `make bootstrap-check` was not run because `make` is unavailable in the current Windows shell.
+- 2026-05-08: M00.04 QA started on branch `m00-04-builder-and-qa-prompt-protocol`; branch guard passed, the worktree was clean before QA edits, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- 2026-05-08: M00.04 QA validation passed: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 9 tests, and `git diff --check`.
+- 2026-05-08: M00.04 QA PASS recorded; M00.04 is safe to merge but remains incomplete until PR merge and tracking finalization.
+- 2026-05-08: `make bootstrap-check` was not run during M00.04 QA because `make` is unavailable in the current Windows shell.

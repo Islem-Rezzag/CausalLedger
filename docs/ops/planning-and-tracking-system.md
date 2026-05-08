@@ -6,6 +6,12 @@ The planning and tracking system keeps CausalLedger submilestones durable in rep
 
 This document is control-plane guidance only. It does not define product behavior, financial truth, ledger mutation, repair approval, event mutation, UI behavior, or connector behavior.
 
+Use `docs/ops/builder-qa-prompt-protocol.md` for the reusable builder prompt, QA prompt, same-branch same-PR rule, validation sections, forbidden-scope sections, and handoff packet requirements. The canonical templates are:
+
+- `prompts/template_builder_submilestone.md`
+- `prompts/template_qa_submilestone.md`
+- `prompts/template_handoff_packet.md`
+
 ## Canonical tracking files
 
 These files carry canonical planning and tracking state:
@@ -91,6 +97,8 @@ When builder work is done:
 
 Builder completion does not mean the submilestone is fully complete. The PR still needs QA PASS and merge.
 
+A builder handoff does not replace QA. It is an input to the separate QA thread, not evidence that the submilestone passed review.
+
 ## After QA finishes
 
 QA must run in a separate thread on the same branch and PR. QA must inspect relevant files, run validation, record defects, and decide PASS or FAIL.
@@ -101,6 +109,8 @@ If QA passes:
 - Update the active plan with QA commands, results, defects found, fixes if any, and PASS.
 - Update milestone, roadmap, current state, weekly log, and next recommended thread to say the PR must merge before the next submilestone starts.
 - Do not mark the submilestone `Completed and merged` until merge is confirmed.
+
+QA PASS does not equal `Completed and merged`. It means the PR can proceed to merge if the QA handoff says it is safe to merge.
 
 If QA fails:
 
@@ -121,6 +131,8 @@ After the submilestone PR merges into `main`:
 - Update `docs/status/NEXT_RECOMMENDED_THREAD.md` to the next safe builder thread, unless milestone closeout is required.
 
 Only after this step may the next submilestone start.
+
+`Completed and merged` happens only after PR merge and tracking finalization. Merge alone is not enough if the registry, active plan, milestone doc, roadmap, current state, weekly log, and next-thread docs still point at an older state.
 
 Default operational model: the first step of the next submilestone builder thread finalizes the previous submilestone as `Completed and merged` before starting new work. That thread must begin from updated `main`, confirm that the previous PR is merged, run the branch guard for the new submilestone branch, and update the previous registry row, milestone doc, roadmap, current state, weekly log, and next-thread state before making any non-finalization edits. If the previous PR is not merged, stop and instruct the user to merge it first.
 
