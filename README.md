@@ -49,6 +49,7 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `PLANS.md` - CausalLedger Plan requirements, builder and QA rules, and closeout rules.
 - `WORKFLOW.md` - branch, PR, QA, validation, shell, and handoff workflow.
 - `docs/ACTIVE_DOCS.md` - active docs boundary, canonical files, conflict rules, and update rules.
+- `docs/ops/planning-and-tracking-system.md` - canonical submilestone status lifecycle and tracking operations.
 - `docs/INDEX.md` - documentation entry point.
 - `plans/ROADMAP.md` - milestone sequence, counts, statuses, and exit criteria.
 - `docs/status/CURRENT_STATE.md` - current phase, active plan, product code status, and validation status.

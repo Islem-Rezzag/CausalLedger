@@ -8,6 +8,8 @@ Plans are part of the file-first workflow. Durable execution state lives in repo
 
 No active plans should exist for future milestones unless that milestone has been explicitly started by the user.
 
+Submilestone tracking lifecycle, canonical status states, registry fields, builder updates, QA updates, PR merge updates, blocked slices, failed QA, and follow-up fixes are defined in `docs/ops/planning-and-tracking-system.md`.
+
 ## Naming convention
 
 Use `CLP-0001-short-name.md`. Increment the number monotonically and keep the short name action-oriented.
@@ -17,6 +19,8 @@ Use `CLP-0001-short-name.md`. Increment the number monotonically and keep the sh
 - Active plans live in `plans/active/`.
 - Completed plans move to `plans/completed/`.
 - Archived or stale plans move to `plans/archived/`.
+
+Progress is recorded in the active plan during the slice. Submilestone status is recorded in `docs/milestones/SUBMILESTONE_REGISTRY.md`, reflected in the relevant milestone doc, and summarized in `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md`.
 
 ## Required sections for every plan
 
@@ -59,6 +63,10 @@ QA must inspect the target submilestone, run validation, record defects, and pro
 
 QA threads must use the same branch and PR as the builder thread. Every submilestone requires one builder thread and one separate QA thread. The next submilestone must not start until QA records PASS and the PR is merged.
 
+QA PASS moves a submilestone to `QA passed, awaiting merge`; it does not make the submilestone fully complete. Only PR merge into `main` moves a submilestone to `Completed and merged`.
+
+If QA fails, keep the same branch and PR, record the defects in the active plan and status docs, set the registry to the appropriate blocked or builder state, and point `docs/status/NEXT_RECOMMENDED_THREAD.md` to the fix or QA retry thread.
+
 ## Milestone closeout rules
 
 Closeout must summarize completed submilestones, validation evidence, changed docs, changed code, remaining gaps, risks, and readiness for the next milestone.
@@ -67,4 +75,4 @@ Do not move an active plan to `plans/completed/` until milestone closeout is com
 
 ## Plan truthfulness rules
 
-Plans must describe only implemented or explicitly planned work. Do not mark a submilestone complete until required validation has passed or the active plan records an explicit accepted limitation. Do not claim placeholder directories, future modules, or roadmap items as working features.
+Plans must describe only implemented or explicitly planned work. Do not mark a submilestone fully complete until required validation has passed, QA has recorded PASS, and the PR has merged. Do not claim placeholder directories, future modules, or roadmap items as working features.

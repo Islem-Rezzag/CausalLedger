@@ -40,6 +40,8 @@ Use a file-first workflow. Treat docs, plans, validation evidence, and handoff p
 
 Use one branch per submilestone. Builder and QA threads for that submilestone must use the same branch and the same PR.
 
+Use `docs/ops/planning-and-tracking-system.md` for canonical submilestone statuses and required tracking updates before builder, after builder, after QA, after PR merge, and when blocked.
+
 ## Sandbox assumptions
 
 Default future work assumes workspace-write sandboxing and restricted network unless explicitly changed by the active environment.

@@ -36,6 +36,7 @@ Roadmap and submilestones:
 - `docs/milestones/SUBMILESTONE_REGISTRY.md`
 - `docs/milestones/M00.md` through `docs/milestones/M21.md`
 - `plans/ROADMAP.md`
+- `docs/ops/planning-and-tracking-system.md`
 
 Current status:
 
@@ -93,6 +94,8 @@ Update `docs/INDEX.md` when documentation structure, canonical links, or read or
 Update `docs/status/CURRENT_STATE.md` whenever current phase, active submilestone, active plan, product code status, next action, or latest validation changes.
 
 Update `docs/milestones/SUBMILESTONE_REGISTRY.md` whenever any submilestone status, branch, PR, active plan, or completion note changes.
+
+Use `docs/ops/planning-and-tracking-system.md` for canonical submilestone status states, builder updates, QA updates, PR merge updates, blocked slices, failed QA, follow-up fixes, and synchronization rules.
 
 ## Archive rule
 

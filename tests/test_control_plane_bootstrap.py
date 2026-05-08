@@ -28,6 +28,7 @@ def test_required_project_docs_exist():
         "docs/RELIABILITY.md",
         "docs/THREAT_MODEL.md",
         "docs/TOKEN_COST_STRATEGY.md",
+        "docs/ops/planning-and-tracking-system.md",
         "docs/milestones/SUBMILESTONE_REGISTRY.md",
         "plans/active/CLP-0001-m00-repo-operating-system.md",
     ]:
@@ -126,6 +127,10 @@ def test_submilestone_registry_contains_all_expected_rows():
         ROOT / "docs" / "milestones" / "SUBMILESTONE_REGISTRY.md"
     ).read_text(encoding="utf-8")
 
+    assert (
+        "| ID | Name | Milestone | Status | Active Plan | Branch | PR | Last Validation | Last Updated | Notes |"
+        in registry
+    )
     assert "| M00.01 | Roadmap and submilestone registry |" in registry
     assert "| M21.15 | QA company version |" in registry
 
@@ -135,6 +140,28 @@ def test_submilestone_registry_contains_all_expected_rows():
         if line.startswith("| M") and not line.startswith("| Milestone")
     ]
     assert len(rows) == 360
+
+
+def test_planning_tracking_status_states_are_documented():
+    tracking_doc = (ROOT / "docs" / "ops" / "planning-and-tracking-system.md").read_text(
+        encoding="utf-8"
+    )
+    registry = (
+        ROOT / "docs" / "milestones" / "SUBMILESTONE_REGISTRY.md"
+    ).read_text(encoding="utf-8")
+
+    for status in [
+        "Not started",
+        "Builder in progress",
+        "Builder complete, awaiting QA",
+        "QA in progress",
+        "QA passed, awaiting merge",
+        "Completed and merged",
+        "Blocked",
+        "Deferred",
+    ]:
+        assert status in tracking_doc
+        assert status in registry
 
 
 def test_skill_files_exist():

@@ -21,6 +21,7 @@ REQUIRED_FILES = [
     "docs/RELIABILITY.md",
     "docs/THREAT_MODEL.md",
     "docs/TOKEN_COST_STRATEGY.md",
+    "docs/ops/planning-and-tracking-system.md",
     "docs/status/CURRENT_STATE.md",
     "docs/status/WEEKLY_LOG.md",
     "docs/status/RISK_REGISTER.md",
