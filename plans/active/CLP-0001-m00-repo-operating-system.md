@@ -4,7 +4,7 @@
 
 Establish the file-first operating system for CausalLedger milestone work. This plan covers M00 only and keeps the repository usable by future Codex threads without relying on chat memory.
 
-Current submilestone status: M00.04 Builder and QA Prompt Protocol builder is complete and awaiting QA. M00.01, M00.02, and M00.03 are completed and merged. M00 remains in progress.
+Current submilestone status: M00.04 Builder and QA Prompt Protocol has passed QA and is awaiting PR merge. M00.01, M00.02, and M00.03 are completed and merged. M00 remains in progress.
 
 ## Progress
 
@@ -48,6 +48,10 @@ Current submilestone status: M00.04 Builder and QA Prompt Protocol builder is co
 - [x] 2026-05-08: Updated entry docs, tracking docs, validation script, and bootstrap tests for the prompt protocol.
 - [x] 2026-05-08: Ran M00.04 builder validation and recorded results.
 - [x] 2026-05-08: Handed off M00.04 to QA without marking it QA passed or completed.
+- [x] 2026-05-08: Started M00.04 QA on branch `m00-04-builder-and-qa-prompt-protocol`; branch guard passed, `git status --short` was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- [x] 2026-05-08: Verified the builder and QA prompt protocol, prompt templates, tracking integration, active docs integration, validation coverage, and forbidden-scope boundary.
+- [x] 2026-05-08: Ran M00.04 QA validation and recorded PASS.
+- [x] 2026-05-08: Marked M00.04 as `QA passed, awaiting merge` without marking it `Completed and merged`.
 
 ## Surprises & Discoveries
 
@@ -65,6 +69,7 @@ Current submilestone status: M00.04 Builder and QA Prompt Protocol builder is co
 - M00.04 starts from `main` at commit `f289d5e`, which contains the merged M00.03 planning and tracking lifecycle.
 - M00.04 found the prompt templates existed but were too thin to enforce branch guard, same-branch QA, validation, forbidden scope, tracking updates, and complete handoff fields.
 - `make bootstrap-check` remains unavailable in the current Windows shell; underlying Python validation and pytest checks were run directly.
+- M00.04 QA found no blocking defects. `rg` remains unavailable with `Access is denied`, so PowerShell `Select-String` was used for QA text searches.
 
 ## Decision Log
 
@@ -83,6 +88,7 @@ Current submilestone status: M00.04 Builder and QA Prompt Protocol builder is co
 - 2026-05-08: M00.03 is `Completed and merged` because commit `f289d5e` is present on `main` and `origin/main`.
 - 2026-05-08: M00.04 remains control-plane only; its output is reusable prompt protocol documentation and templates, not product functionality.
 - 2026-05-08: Builder handoff does not replace QA, QA PASS does not equal completion, and `Completed and merged` remains tied to PR merge plus tracking finalization.
+- 2026-05-08: M00.04 QA PASS moves the submilestone to `QA passed, awaiting merge`; it is safe to merge but not fully complete until the PR merges and tracking is finalized.
 
 ## Context and Orientation
 
@@ -165,7 +171,7 @@ Acceptance:
 - Active documentation files are internally consistent.
 - Entry points agree on active plan, branch guard, builder/QA, QA PASS, PR merge, validation, and handoff workflow.
 - M00.03 is finalized as `Completed and merged`.
-- M00.04 tracking is updated without marking the submilestone QA passed or fully complete.
+- Builder tracking did not mark M00.04 QA passed or fully complete before QA; QA tracking records `QA passed, awaiting merge` without marking it fully complete.
 - `docs/ops/builder-qa-prompt-protocol.md` exists and defines reusable builder and QA prompt protocol.
 - Builder and QA templates include branch guard, working tree cleanliness, forbidden scope, validation, status transition, and handoff requirements.
 - Handoff packet template includes created files, changed files, intentionally untouched files, commands, validation result, status, product implementation status, remaining issues, next thread, safe-to-commit, and safe-to-merge fields.
@@ -240,6 +246,10 @@ Validation results:
 - `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-08 for M00.04 builder validation with 9 tests.
 - `git diff --check` passed on 2026-05-08 for M00.04 builder validation.
 - `make bootstrap-check` was not run on 2026-05-08 because `make` is unavailable in the current Windows shell.
+- `python scripts/validate-control-plane.py` passed on 2026-05-08 for M00.04 QA validation.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-08 for M00.04 QA validation with 9 tests.
+- `git diff --check` passed on 2026-05-08 for M00.04 QA validation.
+- `make bootstrap-check` was not run on 2026-05-08 for M00.04 QA because `make` is unavailable in the current Windows shell.
 
 M00.03 builder outcome:
 
@@ -273,10 +283,19 @@ M00.04 builder outcome:
 - Kept M00.05 through M21.15 as `Not started`.
 - Did not implement product functionality.
 
+M00.04 QA outcome:
+
+- Verified `docs/ops/builder-qa-prompt-protocol.md` exists and covers builder and QA prompt purpose, two-thread submilestone model, builder responsibilities, QA responsibilities, branch guard, same-branch same-PR rule, prompt authoring, required prompt sections, validation sections, forbidden-scope sections, handoff fields, QA fixes, failed QA, no-change QA pass, product-code milestone guidance, and chat-memory avoidance.
+- Verified `prompts/template_builder_submilestone.md`, `prompts/template_qa_submilestone.md`, and `prompts/template_handoff_packet.md` include the required fields and guardrails.
+- Verified planning and tracking guidance, active docs, status docs, roadmap, milestone docs, validation script, and bootstrap tests are integrated with the protocol.
+- Verified M00.03 is `Completed and merged`, M00.04 is not `Completed and merged`, M00.05 through M21.15 remain `Not started`, M00 remains in progress, and M01 through M21 remain `Not started`.
+- Verified no product functionality, MoneyEvent logic, ledger logic, invariants, incident logic, causal graph logic, replay logic, agent runtime, repair planning logic, UI features, external connectors, or M00.05/M01 work started.
+- Recorded M00.04 QA PASS and left final completion blocked on PR merge.
+
 Remaining risks:
 
 - M00 is not complete; M00.01, M00.02, and M00.03 are completed and merged.
-- M00.04 is not fully complete until QA PASS and PR merge.
+- M00.04 is not fully complete until PR merge and post-merge tracking finalization.
 - `docs/DOMAIN_MODEL.md` is intentionally a placeholder for M01.
 
-Next recommended action after builder validation: run `M00.04 QA - Builder and QA Prompt Protocol` on branch `m00-04-builder-and-qa-prompt-protocol`.
+Next recommended action after QA PASS: merge the M00.04 PR, then finalize M00.04 as `Completed and merged` before M00.05 starts.

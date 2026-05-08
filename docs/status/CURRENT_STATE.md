@@ -39,7 +39,7 @@ Control-plane bootstrap. M00 Repo operating system is in progress. Current submi
 
 ## Current submilestone
 
-M00.04 Builder and QA Prompt Protocol builder is complete and awaiting QA on branch `m00-04-builder-and-qa-prompt-protocol`.
+M00.04 Builder and QA Prompt Protocol has passed QA and is awaiting PR merge on branch `m00-04-builder-and-qa-prompt-protocol`.
 
 M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 Planning and Tracking System is completed and merged at commit `f289d5e`.
 
@@ -49,7 +49,7 @@ No product code exists yet.
 
 ## Next action
 
-Run `M00.04 QA - Builder and QA Prompt Protocol` on the same branch and PR. Do not mark M00.04 completed until QA passes, the PR merges, and tracking is finalized.
+Merge the M00.04 PR, then finalize M00.04 as `Completed and merged` before M00.05 starts. Do not mark M00.04 completed until the PR merges and tracking is finalized.
 
 ## Implementation warning
 
@@ -98,3 +98,7 @@ Do not start product implementation. Continue M00 only through the active plan.
 - 2026-05-08: M00.04 builder started on branch `m00-04-builder-and-qa-prompt-protocol`; branch guard passed and the worktree was clean before edits.
 - 2026-05-08: M00.04 builder validation passed: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 9 tests, and `git diff --check`.
 - 2026-05-08: `make bootstrap-check` was not run because `make` is unavailable in the current Windows shell.
+- 2026-05-08: M00.04 QA started on branch `m00-04-builder-and-qa-prompt-protocol`; branch guard passed, the worktree was clean before QA edits, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- 2026-05-08: M00.04 QA validation passed: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 9 tests, and `git diff --check`.
+- 2026-05-08: M00.04 QA PASS recorded; M00.04 is safe to merge but remains incomplete until PR merge and tracking finalization.
+- 2026-05-08: `make bootstrap-check` was not run during M00.04 QA because `make` is unavailable in the current Windows shell.
