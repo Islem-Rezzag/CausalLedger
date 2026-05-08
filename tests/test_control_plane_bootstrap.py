@@ -29,6 +29,7 @@ def test_required_project_docs_exist():
         "docs/THREAT_MODEL.md",
         "docs/TOKEN_COST_STRATEGY.md",
         "docs/ops/planning-and-tracking-system.md",
+        "docs/ops/builder-qa-prompt-protocol.md",
         "docs/milestones/SUBMILESTONE_REGISTRY.md",
         "plans/active/CLP-0001-m00-repo-operating-system.md",
     ]:
@@ -162,6 +163,84 @@ def test_planning_tracking_status_states_are_documented():
     ]:
         assert status in tracking_doc
         assert status in registry
+
+
+def test_builder_qa_prompt_protocol_and_templates_are_complete():
+    protocol = (ROOT / "docs" / "ops" / "builder-qa-prompt-protocol.md").read_text(
+        encoding="utf-8"
+    )
+    builder = (ROOT / "prompts" / "template_builder_submilestone.md").read_text(
+        encoding="utf-8"
+    )
+    qa = (ROOT / "prompts" / "template_qa_submilestone.md").read_text(
+        encoding="utf-8"
+    )
+    handoff = (ROOT / "prompts" / "template_handoff_packet.md").read_text(
+        encoding="utf-8"
+    )
+
+    for phrase in [
+        "Why every submilestone gets two Codex threads",
+        "Same-branch, same-PR rule",
+        "Builder thread responsibilities",
+        "QA thread responsibilities",
+        "Branch guard rules",
+        "Handling QA fixes",
+        "Handling failed QA",
+        "Handling no-change QA pass",
+        "Handling product-code milestones later",
+        "Avoiding chat-memory dependency",
+    ]:
+        assert phrase in protocol
+
+    for text in [protocol, builder, qa]:
+        for command in [
+            "git branch --show-current",
+            "git status --short",
+            "git remote -v",
+        ]:
+            assert command in text
+
+    for phrase in [
+        "Thread name",
+        "Target submilestone",
+        "Working tree cleanliness",
+        "Forbidden scope",
+        "Tracking update requirements",
+        "Validation commands",
+        "Acceptance criteria",
+        "Handoff packet format",
+    ]:
+        assert phrase in builder
+
+    for phrase in [
+        "Thread name",
+        "Audited submilestone",
+        "Strict reviewer role",
+        "No-scope-widening rule",
+        "Files to inspect",
+        "Forbidden changes check",
+        "Status transition rules",
+        "PASS or FAIL output",
+        "Safe-to-merge statement",
+        "Next recommended thread",
+    ]:
+        assert phrase in qa
+
+    for phrase in [
+        "Files created",
+        "Files changed",
+        "Files intentionally not touched",
+        "Commands run",
+        "Validation result",
+        "Current submilestone status",
+        "Whether product implementation started",
+        "Remaining issues",
+        "Exact next recommended Codex thread",
+        "Whether safe to commit",
+        "Whether safe to merge if QA",
+    ]:
+        assert phrase in handoff
 
 
 def test_skill_files_exist():

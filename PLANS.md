@@ -10,6 +10,8 @@ No active plans should exist for future milestones unless that milestone has bee
 
 Submilestone tracking lifecycle, canonical status states, registry fields, builder updates, QA updates, PR merge updates, blocked slices, failed QA, and follow-up fixes are defined in `docs/ops/planning-and-tracking-system.md`.
 
+Reusable builder and QA prompt structure is defined in `docs/ops/builder-qa-prompt-protocol.md` and the templates `prompts/template_builder_submilestone.md`, `prompts/template_qa_submilestone.md`, and `prompts/template_handoff_packet.md`.
+
 ## Naming convention
 
 Use `CLP-0001-short-name.md`. Increment the number monotonically and keep the short name action-oriented.

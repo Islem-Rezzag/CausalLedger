@@ -1,5 +1,20 @@
 # Weekly Log
 
+## 2026-05-08
+
+- Finalized M00.03 Planning and Tracking System as `Completed and merged` after merge into `main` at commit `f289d5e`.
+- Started M00.04 Builder and QA Prompt Protocol builder thread on branch `m00-04-builder-and-qa-prompt-protocol`.
+- Confirmed branch guard passed before edits: branch matched, `git status --short` was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- Confirmed M00.01, M00.02, and M00.03 are completed and merged, M00 remains in progress, M01-M21 are not started, no product code exists, and the active plan is `plans/active/CLP-0001-m00-repo-operating-system.md`.
+- Created `docs/ops/builder-qa-prompt-protocol.md` and expanded builder, QA, and handoff packet templates.
+- Updated active docs, workflow docs, planning docs, milestone tracking, and validation coverage for the prompt protocol.
+- Ran `python scripts/validate-control-plane.py` successfully.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 9 tests.
+- Ran `git diff --check` successfully.
+- Confirmed `make bootstrap-check` is unavailable in the current Windows shell.
+- Marked M00.04 as `Builder complete, awaiting QA`; M00.05 and M01 remain not started.
+- Recommended next thread: `M00.04 QA - Builder and QA Prompt Protocol`.
+
 ## 2026-05-06
 
 - Completed M00.03 Planning and Tracking System QA review on branch `m00-03-planning-and-tracking-system`.

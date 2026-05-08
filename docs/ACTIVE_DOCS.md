@@ -37,6 +37,13 @@ Roadmap and submilestones:
 - `docs/milestones/M00.md` through `docs/milestones/M21.md`
 - `plans/ROADMAP.md`
 - `docs/ops/planning-and-tracking-system.md`
+- `docs/ops/builder-qa-prompt-protocol.md`
+
+Prompt protocol:
+
+- `prompts/template_builder_submilestone.md`
+- `prompts/template_qa_submilestone.md`
+- `prompts/template_handoff_packet.md`
 
 Current status:
 
@@ -96,6 +103,8 @@ Update `docs/status/CURRENT_STATE.md` whenever current phase, active submileston
 Update `docs/milestones/SUBMILESTONE_REGISTRY.md` whenever any submilestone status, branch, PR, active plan, or completion note changes.
 
 Use `docs/ops/planning-and-tracking-system.md` for canonical submilestone status states, builder updates, QA updates, PR merge updates, blocked slices, failed QA, follow-up fixes, and synchronization rules.
+
+Use `docs/ops/builder-qa-prompt-protocol.md` and the prompt templates in `prompts/` for reusable builder prompts, QA prompts, validation sections, forbidden-scope sections, same-branch same-PR rules, and handoff packet fields.
 
 ## Archive rule
 

@@ -2,7 +2,7 @@
 
 | Capability | Status | Notes |
 | --- | --- | --- |
-| Repo operating system | In progress | Control-plane files only; M00.03 planning and tracking QA passed and is awaiting PR merge |
+| Repo operating system | In progress | Control-plane files only; M00.04 builder prompt protocol work is awaiting QA |
 | MoneyEvent engine | Not started | No product logic |
 | Ledger core | Not started | No product logic |
 | Invariant engine | Not started | No product logic |

@@ -47,6 +47,8 @@ If Codex is on the wrong branch, stop before editing. Report the current branch,
 
 Each submilestone uses the same branch and the same PR for its builder thread and QA thread. Open a draft PR before QA when possible. Merge only after QA records PASS.
 
+Use `docs/ops/builder-qa-prompt-protocol.md`, `prompts/template_builder_submilestone.md`, `prompts/template_qa_submilestone.md`, and `prompts/template_handoff_packet.md` when preparing future builder, QA, and handoff prompts.
+
 ## Review ritual after each slice
 
 After every meaningful slice, update the active plan, `docs/status/CURRENT_STATE.md`, `docs/status/WEEKLY_LOG.md`, `docs/status/NEXT_RECOMMENDED_THREAD.md`, and any relevant risk or tech-debt notes. Run validation and produce a handoff packet.

@@ -30,11 +30,15 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `WORKFLOW.md` - submilestone branch, PR, QA, validation, local-shell, status, and handoff workflow.
 - `docs/ACTIVE_DOCS.md` - canonical active docs boundary, conflict rules, stale-doc handling, and update rules.
 - `docs/ops/planning-and-tracking-system.md` - canonical submilestone status lifecycle and tracking operations.
+- `docs/ops/builder-qa-prompt-protocol.md` - reusable builder and QA prompt protocol.
 - `plans/ROADMAP.md` - canonical milestone sequence, counts, statuses, and exit criteria.
 - `docs/status/CURRENT_STATE.md` - current phase, active plan, product code status, and validation status.
 - `docs/status/NEXT_RECOMMENDED_THREAD.md` - exact next recommended thread.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` - canonical M00-M21 submilestone registry.
 - `plans/active/CLP-0001-m00-repo-operating-system.md` - active M00 execution plan.
+- `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
+- `prompts/template_qa_submilestone.md` - reusable QA thread prompt template.
+- `prompts/template_handoff_packet.md` - reusable handoff packet template.
 
 ## Core project docs
 
