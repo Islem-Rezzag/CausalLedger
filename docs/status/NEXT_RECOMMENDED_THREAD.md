@@ -1,11 +1,11 @@
 # Next Recommended Thread
 
-Thread name: `Merge M00.04 PR - Builder and QA Prompt Protocol`
+Thread name: `Merge M00.05 PR - Validation and Handoff Workflow`
 
-Precondition: M00.04 QA has recorded PASS on `m00-04-builder-and-qa-prompt-protocol`, required validation passed, and the PR is ready to merge.
+Precondition: M00.05 QA passed on `m00-05-validation-and-handoff-workflow`, required QA validation passed, forbidden-scope checks passed, and tracking is updated to `QA passed, awaiting merge`.
 
-Goal: merge the M00.04 PR, then finalize M00.04 as `Completed and merged` in tracking before any M00.05 builder work starts.
+Goal: Merge the M00.05 PR, then finalize M00.05 as `Completed and merged` in tracking before any M00.06 work starts.
 
-Next thread after merge finalization: `M00.05 Builder - Validation and Handoff Workflow`.
+Next thread after merge and tracking finalization: `M00.06 Builder - GitHub PR and Issue Workflow`.
 
-Do not start product implementation, MoneyEvent logic, ledger logic, invariants, incidents, graph, replay, agent runtime, repair planning, UI, external connectors, M00.05, or M01 work.
+Do not start product implementation, MoneyEvent logic, ledger logic, invariants, incidents, graph, replay, agent runtime, repair planning, UI, external connectors, M00.06, or M01 work.

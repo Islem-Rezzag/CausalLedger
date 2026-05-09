@@ -30,6 +30,7 @@ def test_required_project_docs_exist():
         "docs/TOKEN_COST_STRATEGY.md",
         "docs/ops/planning-and-tracking-system.md",
         "docs/ops/builder-qa-prompt-protocol.md",
+        "docs/ops/validation-and-handoff-workflow.md",
         "docs/milestones/SUBMILESTONE_REGISTRY.md",
         "plans/active/CLP-0001-m00-repo-operating-system.md",
     ]:
@@ -241,6 +242,58 @@ def test_builder_qa_prompt_protocol_and_templates_are_complete():
         "Whether safe to merge if QA",
     ]:
         assert phrase in handoff
+
+
+def test_validation_and_handoff_workflow_is_complete():
+    workflow = (
+        ROOT / "docs" / "ops" / "validation-and-handoff-workflow.md"
+    ).read_text(encoding="utf-8")
+    builder = (ROOT / "prompts" / "template_builder_submilestone.md").read_text(
+        encoding="utf-8"
+    )
+    qa = (ROOT / "prompts" / "template_qa_submilestone.md").read_text(
+        encoding="utf-8"
+    )
+    handoff = (
+        ROOT / "prompts" / "template_handoff_packet.md"
+    ).read_text(encoding="utf-8")
+
+    for phrase in [
+        "Level 0: Branch and worktree guard",
+        "Level 1: File and scope inspection",
+        "Level 2: Control-plane validation",
+        "Level 3: Unit or bootstrap tests",
+        "Level 4: Diff and whitespace checks",
+        "Level 5: Product tests, when product code exists",
+        "Level 6: Scenario/eval tests, when benchmark code exists",
+        "Level 7: Security and forbidden-scope checks",
+        "Level 8: Human PR review and merge readiness",
+        "Control-plane-only ladder",
+        "Docs-only ladder",
+        "Prompt and template ladder",
+        "Future product-code ladder",
+        "Future eval and benchmark ladder",
+        "Future security-sensitive ladder",
+        "Unavailable commands",
+        "Validation failures",
+        "Recording skipped validation",
+        "Safe to merge means, for QA only",
+        "Handoff packet requirements",
+    ]:
+        assert phrase in workflow
+
+    for text in [builder, qa, handoff]:
+        for phrase in [
+            "Submilestone ID and name",
+            "Branch",
+            "Active plan",
+            "Command results",
+            "Validation skipped and why",
+            "Warnings",
+            "Whether safe to push",
+            "Whether safe to open PR",
+        ]:
+            assert phrase in text
 
 
 def test_skill_files_exist():

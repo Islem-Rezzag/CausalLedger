@@ -1,5 +1,17 @@
 # Weekly Log
 
+## 2026-05-09
+
+- Completed M00.05 Validation and Handoff Workflow QA review on branch `m00-05-validation-and-handoff-workflow`.
+- Verified the validation workflow guide, handoff packet template, builder and QA template integration, builder/QA protocol integration, skill alignment, active-doc references, validation coverage, tracking state, and forbidden-scope boundaries.
+- Found no blocking defects and made only QA status-transition updates.
+- Ran `python scripts/validate-control-plane.py` successfully.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 10 tests.
+- Ran `git diff --check` successfully.
+- Confirmed `make bootstrap-check` is unavailable in the current Windows shell.
+- Recorded M00.05 QA PASS. M00.05 is safe to merge but remains incomplete until PR merge and tracking finalization.
+- Recommended next thread: `Merge M00.05 PR - Validation and Handoff Workflow`.
+
 ## 2026-05-08
 
 - Finalized M00.03 Planning and Tracking System as `Completed and merged` after merge into `main` at commit `f289d5e`.
@@ -23,6 +35,17 @@
 - Confirmed `make bootstrap-check` is unavailable in the current Windows shell.
 - Recorded M00.04 QA PASS. M00.04 is safe to merge but remains incomplete until PR merge and tracking finalization.
 - Recommended next thread: `Merge M00.04 PR - Builder and QA Prompt Protocol`.
+- Finalized M00.04 Builder and QA Prompt Protocol as `Completed and merged` after merge into `main` at commit `e686c77`.
+- Started M00.05 Validation and Handoff Workflow builder thread on branch `m00-05-validation-and-handoff-workflow`.
+- Confirmed branch guard passed before M00.05 edits: branch matched, `git status --short` was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- Created `docs/ops/validation-and-handoff-workflow.md` with validation ladders, command handling, failure handling, skipped-validation records, readiness criteria, QA handoff rules, and M00 evidence guidance.
+- Updated builder, QA, and handoff packet templates, prompt protocol guidance, planning guidance, skills, entry docs, and validation coverage for the new workflow.
+- Ran `python scripts/validate-control-plane.py` successfully.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 10 tests.
+- Ran `git diff --check` successfully.
+- Confirmed `make bootstrap-check` is unavailable in the current Windows shell.
+- Marked M00.05 as `Builder complete, awaiting QA`; M00.06 and M01 remain not started.
+- Recommended next thread: `M00.05 QA - Validation and Handoff Workflow`.
 
 ## 2026-05-06
 

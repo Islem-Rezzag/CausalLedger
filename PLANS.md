@@ -12,6 +12,8 @@ Submilestone tracking lifecycle, canonical status states, registry fields, build
 
 Reusable builder and QA prompt structure is defined in `docs/ops/builder-qa-prompt-protocol.md` and the templates `prompts/template_builder_submilestone.md`, `prompts/template_qa_submilestone.md`, and `prompts/template_handoff_packet.md`.
 
+Validation ladders, command expectations, failure handling, skipped-validation records, readiness criteria, and handoff packet requirements are defined in `docs/ops/validation-and-handoff-workflow.md`.
+
 ## Naming convention
 
 Use `CLP-0001-short-name.md`. Increment the number monotonically and keep the short name action-oriented.

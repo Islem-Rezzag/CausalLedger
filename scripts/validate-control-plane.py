@@ -23,6 +23,7 @@ REQUIRED_FILES = [
     "docs/TOKEN_COST_STRATEGY.md",
     "docs/ops/planning-and-tracking-system.md",
     "docs/ops/builder-qa-prompt-protocol.md",
+    "docs/ops/validation-and-handoff-workflow.md",
     "docs/status/CURRENT_STATE.md",
     "docs/status/WEEKLY_LOG.md",
     "docs/status/RISK_REGISTER.md",
@@ -146,6 +147,32 @@ SKILLS = [
     "handoff-auditor",
 ]
 
+REQUIRED_TEXT = {
+    "docs/ops/validation-and-handoff-workflow.md": [
+        "Level 0: Branch and worktree guard",
+        "Level 1: File and scope inspection",
+        "Level 2: Control-plane validation",
+        "Level 3: Unit or bootstrap tests",
+        "Level 4: Diff and whitespace checks",
+        "Level 5: Product tests, when product code exists",
+        "Level 6: Scenario/eval tests, when benchmark code exists",
+        "Level 7: Security and forbidden-scope checks",
+        "Level 8: Human PR review and merge readiness",
+        "Validation skipped and why",
+        "Safe to merge means, for QA only",
+    ],
+    "prompts/template_handoff_packet.md": [
+        "## Submilestone ID and name",
+        "## Branch",
+        "## Active plan",
+        "## Command results",
+        "## Validation skipped and why",
+        "## Warnings",
+        "## Whether safe to push",
+        "## Whether safe to open PR",
+    ],
+}
+
 
 def missing_paths(paths, kind):
     missing = []
@@ -155,6 +182,16 @@ def missing_paths(paths, kind):
             missing.append(rel)
         if kind == "dir" and not path.is_dir():
             missing.append(rel)
+    return missing
+
+
+def missing_required_text():
+    missing = []
+    for rel, phrases in REQUIRED_TEXT.items():
+        text = (ROOT / rel).read_text(encoding="utf-8")
+        for phrase in phrases:
+            if phrase not in text:
+                missing.append((rel, phrase))
     return missing
 
 
@@ -169,8 +206,9 @@ def main():
     )
     missing_files = missing_paths(required_files, "file")
     missing_dirs = missing_paths(REQUIRED_DIRS, "dir")
+    missing_text = missing_required_text()
 
-    if missing_files or missing_dirs:
+    if missing_files or missing_dirs or missing_text:
         print("Control-plane validation failed.")
         if missing_files:
             print("Missing files:")
@@ -180,6 +218,10 @@ def main():
             print("Missing directories:")
             for rel in missing_dirs:
                 print(f"  - {rel}")
+        if missing_text:
+            print("Missing required text:")
+            for rel, phrase in missing_text:
+                print(f"  - {rel}: {phrase}")
         raise SystemExit(1)
 
     print("Control-plane validation passed.")
