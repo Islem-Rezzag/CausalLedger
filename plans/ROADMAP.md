@@ -1,7 +1,7 @@
 # CausalLedger Roadmap
 
 Current milestone marker: M00 Repo operating system.
-Current submilestone status: M00.05 Validation and Handoff Workflow is builder complete and awaiting QA. M00.01, M00.02, M00.03, and M00.04 are completed and merged. M00 remains in progress.
+Current submilestone status: M00.05 Validation and Handoff Workflow has QA passed and is awaiting PR merge. M00.01, M00.02, M00.03, and M00.04 are completed and merged. M00 remains in progress.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 
@@ -35,7 +35,7 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 - M00 is the only active milestone in this plan.
 - Current M00 submilestone: M00.05 Validation and Handoff Workflow.
 - M00.01, M00.02, M00.03, and M00.04 are completed and merged.
-- M00.05 is builder complete and awaiting QA; it must not be marked QA passed or completed until QA and merge occur.
+- M00.05 has QA passed and is awaiting PR merge; it must not be marked completed until merge and post-merge tracking finalization occur.
 - M01-M21 must not receive active plans until instructed by a future thread.
 - Product implementation must not start during M00 unless explicitly scoped by the active plan. The current active plan scopes control-plane work only.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed registry.

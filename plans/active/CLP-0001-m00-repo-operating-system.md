@@ -4,7 +4,7 @@
 
 Establish the file-first operating system for CausalLedger milestone work. This plan covers M00 only and keeps the repository usable by future Codex threads without relying on chat memory.
 
-Current submilestone status: M00.05 Validation and Handoff Workflow is builder complete and awaiting QA. M00.01, M00.02, M00.03, and M00.04 are completed and merged. M00 remains in progress.
+Current submilestone status: M00.05 Validation and Handoff Workflow has QA passed and is awaiting PR merge. M00.01, M00.02, M00.03, and M00.04 are completed and merged. M00 remains in progress.
 
 ## Progress
 
@@ -61,6 +61,10 @@ Current submilestone status: M00.05 Validation and Handoff Workflow is builder c
 - [x] 2026-05-08: Updated prompt protocol, planning guidance, validation-ladder skill, handoff-auditor skill, entry docs, validation script, and bootstrap tests for the validation and handoff workflow.
 - [x] 2026-05-08: Ran M00.05 builder validation and recorded results.
 - [x] 2026-05-08: Handed off M00.05 to QA without marking it QA passed or completed.
+- [x] 2026-05-09: Started M00.05 QA on branch `m00-05-validation-and-handoff-workflow`; branch guard passed, `git status --short` was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- [x] 2026-05-09: Verified M00.05 validation workflow, handoff expectations, prompt integration, skill integration, active-doc integration, validation coverage, tracking, and forbidden-scope boundaries.
+- [x] 2026-05-09: Ran M00.05 QA validation and recorded PASS.
+- [x] 2026-05-09: Marked M00.05 as `QA passed, awaiting merge` without marking it `Completed and merged`.
 
 ## Surprises & Discoveries
 
@@ -81,6 +85,7 @@ Current submilestone status: M00.05 Validation and Handoff Workflow is builder c
 - M00.04 QA found no blocking defects. `rg` remains unavailable with `Access is denied`, so PowerShell `Select-String` was used for QA text searches.
 - M00.05 starts from `main` at commit `e686c77`, which contains the merged M00.04 builder and QA prompt protocol.
 - M00.05 found the handoff template and protocol needed explicit fields for skipped validation, warnings, safe-to-push, safe-to-open-PR, and QA-only safe-to-merge readiness.
+- M00.05 QA found no blocking defects. `make bootstrap-check` remains unavailable in the current Windows shell, so the required direct Python validation, pytest, and diff checks were run.
 
 ## Decision Log
 
@@ -103,6 +108,7 @@ Current submilestone status: M00.05 Validation and Handoff Workflow is builder c
 - 2026-05-08: M00.04 is `Completed and merged` because commit `e686c77` is present on `main` and `origin/main`.
 - 2026-05-08: M00.05 remains control-plane only; its output is validation and handoff workflow documentation, template alignment, skill guidance, and validation coverage.
 - 2026-05-08: M00.05 builder completion can move the registry to `Builder complete, awaiting QA`, but not to QA passed or `Completed and merged`.
+- 2026-05-09: M00.05 QA PASS moves the submilestone to `QA passed, awaiting merge`; it is safe to merge but not fully complete until the PR merges and tracking is finalized.
 
 ## Context and Orientation
 
@@ -275,6 +281,10 @@ Validation results:
 - `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-08 for M00.05 builder validation with 10 tests.
 - `git diff --check` passed on 2026-05-08 for M00.05 builder validation.
 - `make bootstrap-check` was not run on 2026-05-08 for M00.05 builder validation because `make` is unavailable in the current Windows shell.
+- `python scripts/validate-control-plane.py` passed on 2026-05-09 for M00.05 QA validation.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-09 for M00.05 QA validation with 10 tests.
+- `git diff --check` passed on 2026-05-09 for M00.05 QA validation.
+- `make bootstrap-check` was not run on 2026-05-09 for M00.05 QA because `make` is unavailable in the current Windows shell.
 
 M00.03 builder outcome:
 
@@ -329,10 +339,19 @@ M00.05 builder outcome:
 - Kept M00.06 through M21.15 as `Not started`.
 - Did not implement product functionality.
 
+M00.05 QA outcome:
+
+- Verified `docs/ops/validation-and-handoff-workflow.md` exists and covers purpose, validation ladder levels 0 through 8, required and optional commands, unavailable-command handling, validation failures, warnings, skipped validation, readiness criteria, QA handoff status updates, and M00 evidence preservation.
+- Verified the handoff packet template includes required fields for submilestone identity, branch, active plan, created and changed files, untouched files, commands, command results, validation result, skipped validation, warnings, status, product implementation status, remaining issues, safe-to-commit, safe-to-push, safe-to-open-PR, QA safe-to-merge, and exact next thread.
+- Verified builder and QA templates, builder/QA protocol, planning guidance, active docs, status docs, roadmap, milestone docs, validation script, and bootstrap tests are integrated with the workflow.
+- Verified M00.04 is `Completed and merged`, M00.05 is not `Completed and merged`, M00.06 through M21.15 remain `Not started`, M00 remains in progress, and M01 through M21 remain `Not started`.
+- Verified no product functionality, MoneyEvent logic, ledger logic, invariants, incident logic, causal graph logic, replay logic, agent runtime, repair planning logic, UI features, external connectors, or M00.06/M01 work started.
+- Recorded M00.05 QA PASS and left final completion blocked on PR merge.
+
 Remaining risks:
 
 - M00 is not complete; M00.01, M00.02, M00.03, and M00.04 are completed and merged.
-- M00.05 is not QA passed or fully complete until QA, PR merge, and post-merge tracking finalization.
+- M00.05 is not fully complete until PR merge and post-merge tracking finalization.
 - `docs/DOMAIN_MODEL.md` is intentionally a placeholder for M01.
 
-Next recommended action after builder completion: `M00.05 QA - Validation and Handoff Workflow`.
+Next recommended action after QA PASS: `Merge M00.05 PR - Validation and Handoff Workflow`.
