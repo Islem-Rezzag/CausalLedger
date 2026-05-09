@@ -44,6 +44,8 @@ Use `docs/ops/planning-and-tracking-system.md` for canonical submilestone status
 
 Use `docs/ops/builder-qa-prompt-protocol.md` and the prompt templates in `prompts/` for reusable builder prompts, QA prompts, and handoff packets.
 
+Use `docs/ops/validation-and-handoff-workflow.md` for validation ladder levels, unavailable-command handling, validation failures, skipped checks, readiness criteria, and handoff packet requirements.
+
 ## Sandbox assumptions
 
 Default future work assumes workspace-write sandboxing and restricted network unless explicitly changed by the active environment.
@@ -54,7 +56,7 @@ Financial mutation, repair application, evidence deletion, external release, led
 
 ## Validation policy
 
-Every meaningful slice needs validation scaled to risk. Control-plane changes use control-plane validation only. Product behavior must later add deterministic tests before claims are made.
+Every meaningful slice needs validation scaled to risk. Control-plane changes use control-plane validation only. Product behavior must later add deterministic tests before claims are made. Validation ladder levels and readiness criteria are defined in `docs/ops/validation-and-handoff-workflow.md`.
 
 ## Safety policies
 
@@ -86,7 +88,7 @@ Run `make bootstrap-check` when `make` is available. On Windows, `make` may be u
 
 Every meaningful slice must update the active plan, `docs/status/CURRENT_STATE.md`, `docs/status/WEEKLY_LOG.md`, `docs/status/NEXT_RECOMMENDED_THREAD.md`, and any relevant risk or tech-debt notes.
 
-Handoff packets must include changed files, files intentionally not touched, validation commands, validation results, risks or limitations, completion status, product implementation status, and exact next recommended thread.
+Handoff packets must include submilestone ID and name, branch, active plan, changed files, files intentionally not touched, validation commands, command results, skipped validation, warnings, readiness statements, completion status, product implementation status, and exact next recommended thread.
 
 ## Local shell guidance
 

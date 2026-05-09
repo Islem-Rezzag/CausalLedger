@@ -1,5 +1,11 @@
 # Handoff Packet Template
 
+## Submilestone ID and name
+
+## Branch
+
+## Active plan
+
 ## Files created
 
 ## Files changed
@@ -8,7 +14,13 @@
 
 ## Commands run
 
+## Command results
+
 ## Validation result
+
+## Validation skipped and why
+
+## Warnings
 
 ## Current submilestone status
 
@@ -16,8 +28,12 @@
 
 ## Remaining issues
 
-## Exact next recommended Codex thread
-
 ## Whether safe to commit
 
+## Whether safe to push
+
+## Whether safe to open PR
+
 ## Whether safe to merge if QA
+
+## Exact next recommended Codex thread

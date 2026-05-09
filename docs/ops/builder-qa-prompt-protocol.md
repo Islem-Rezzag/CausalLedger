@@ -4,6 +4,8 @@
 
 This protocol defines the reusable prompt shape for every CausalLedger submilestone builder thread and QA thread. It keeps future work file-first, branch-safe, validation-backed, and scoped to one submilestone at a time.
 
+Use `docs/ops/validation-and-handoff-workflow.md` for the canonical validation ladder, unavailable-command handling, failure handling, handoff packet requirements, and safe-to-commit, safe-to-push, safe-to-open-PR, and safe-to-merge criteria.
+
 This document is control-plane guidance only. It does not define product behavior, financial truth, ledger mutation, repair approval, raw event mutation, UI behavior, connector behavior, or any other runtime capability.
 
 ## Why every submilestone gets two Codex threads
@@ -39,7 +41,7 @@ A builder thread must:
 - run required validation;
 - record validation results and limitations;
 - set the target submilestone to `Builder complete, awaiting QA` only after validation passes or an accepted limitation is recorded;
-- produce a handoff packet for the QA thread.
+- produce a handoff packet for the QA thread that includes validation results, skipped validation, warnings, readiness statements, and the exact next recommended thread.
 
 ## QA thread responsibilities
 
@@ -51,10 +53,11 @@ A QA thread must:
 - act as a strict reviewer for the audited submilestone only;
 - inspect the files changed by the builder;
 - verify forbidden scope was not touched;
-- run required validation;
+- verify the builder validation record and run required validation directly;
 - fix only scoped defects when the prompt authorizes QA fixes;
+- re-run validation after any QA fix;
 - record PASS or FAIL;
-- state whether the PR is safe to merge;
+- state whether the PR is safe to merge based on validation, forbidden-scope checks, tracking, and scoped defect handling;
 - update tracking according to the result;
 - produce a QA handoff packet.
 
@@ -89,6 +92,7 @@ A builder prompt must be specific enough that Codex can execute the submilestone
 - explicit forbidden scope;
 - tracking files to update;
 - validation commands;
+- validation ladder levels that apply;
 - acceptance criteria;
 - handoff packet requirements.
 
@@ -108,6 +112,7 @@ A QA prompt must be strict and audit-oriented. Include:
 - files to inspect;
 - forbidden changes check;
 - validation commands;
+- validation ladder levels that apply;
 - status transition rules;
 - PASS or FAIL output requirements;
 - safe-to-merge statement;
@@ -137,7 +142,7 @@ Builder and QA prompts must include these sections, adjusted for the thread role
 
 ## Required validation sections
 
-Every prompt must name exact validation commands. Control-plane M00 slices use:
+Every prompt must name exact validation commands and applicable ladder levels from `docs/ops/validation-and-handoff-workflow.md`. Control-plane M00 slices use:
 
 ```powershell
 python scripts/validate-control-plane.py
@@ -148,6 +153,8 @@ git diff --check
 Run `make bootstrap-check` when `make` is available. If it is unavailable, record the limitation and the direct checks run instead.
 
 Future product-code milestones must add deterministic tests that match the product behavior under change. Product behavior cannot be claimed from docs-only validation.
+
+Do not claim validation passed without naming partial validation, skipped validation, unavailable commands, warnings, and accepted limitations.
 
 ## Required forbidden-scope sections
 
@@ -173,17 +180,25 @@ For later product-code milestones, the prompt must list adjacent packages or beh
 
 Every builder and QA handoff packet must include:
 
+- submilestone ID and name;
+- branch;
+- active plan;
 - files created;
 - files changed;
 - files intentionally not touched;
 - commands run;
-- validation result;
+- command results;
+- validation skipped and why;
+- warnings;
 - current submilestone status;
 - whether product implementation started;
 - remaining issues;
-- exact next recommended thread;
 - whether safe to commit;
-- whether safe to merge if QA.
+- whether safe to push;
+- whether safe to open PR;
+- whether safe to merge if QA;
+- exact next recommended thread;
+- PASS or FAIL for QA handoffs.
 
 The handoff must be durable enough for the next Codex thread to continue from repo files without chat memory.
 
@@ -218,7 +233,7 @@ When QA finds no required fixes:
 - record the files inspected and validation commands run;
 - update the registry to `QA passed, awaiting merge`;
 - update the active plan, milestone doc, roadmap if needed, current state, weekly log, and next recommended thread;
-- state that the PR is safe to merge;
+- state that the PR is safe to merge only after validation and forbidden-scope checks pass or accepted limitations are recorded;
 - do not mark `Completed and merged` until the PR has actually merged into `main`.
 
 ## Handling product-code milestones later

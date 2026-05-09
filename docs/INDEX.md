@@ -31,6 +31,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/ACTIVE_DOCS.md` - canonical active docs boundary, conflict rules, stale-doc handling, and update rules.
 - `docs/ops/planning-and-tracking-system.md` - canonical submilestone status lifecycle and tracking operations.
 - `docs/ops/builder-qa-prompt-protocol.md` - reusable builder and QA prompt protocol.
+- `docs/ops/validation-and-handoff-workflow.md` - validation ladder, unavailable-command handling, readiness criteria, and handoff packet rules.
 - `plans/ROADMAP.md` - canonical milestone sequence, counts, statuses, and exit criteria.
 - `docs/status/CURRENT_STATE.md` - current phase, active plan, product code status, and validation status.
 - `docs/status/NEXT_RECOMMENDED_THREAD.md` - exact next recommended thread.

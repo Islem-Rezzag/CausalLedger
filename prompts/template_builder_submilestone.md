@@ -57,7 +57,7 @@ Confirm from repo files:
 
 ## Scope
 
-Implement only the target submilestone. Use `docs/ops/builder-qa-prompt-protocol.md` and `docs/ops/planning-and-tracking-system.md` for required thread and tracking rules.
+Implement only the target submilestone. Use `docs/ops/builder-qa-prompt-protocol.md`, `docs/ops/planning-and-tracking-system.md`, and `docs/ops/validation-and-handoff-workflow.md` for required thread, tracking, validation, and handoff rules.
 
 ## Forbidden scope
 
@@ -105,7 +105,7 @@ Set the target submilestone to `Builder in progress` while working. Set it to `B
 
 ## Validation commands
 
-Run the commands required by the submilestone. For M00 control-plane slices:
+Run the commands and ladder levels required by the submilestone. For M00 control-plane slices, apply Level 0, Level 1, Level 2, Level 3, Level 4, Level 7, and builder handoff preparation for Level 8:
 
 ```powershell
 python scripts/validate-control-plane.py
@@ -114,6 +114,8 @@ git diff --check
 ```
 
 Run `make bootstrap-check` if `make` is available. If unavailable, record the limitation.
+
+Record command results, validation skipped and why, warnings, and whether only partial validation ran. Do not claim product validation passed from control-plane checks.
 
 ## Acceptance criteria
 
@@ -130,14 +132,21 @@ Run `make bootstrap-check` if `make` is available. If unavailable, record the li
 
 Produce a handoff packet with:
 
-1. Files created.
-2. Files changed.
-3. Files intentionally not touched.
-4. Commands run.
-5. Validation result.
-6. Current submilestone status.
-7. Whether product implementation started.
-8. Remaining issues.
-9. Exact next recommended thread.
-10. Whether safe to commit.
-11. Whether safe to merge if QA.
+1. Submilestone ID and name.
+2. Branch.
+3. Active plan.
+4. Files created.
+5. Files changed.
+6. Files intentionally not touched.
+7. Commands run.
+8. Command results.
+9. Validation skipped and why.
+10. Warnings.
+11. Current submilestone status.
+12. Whether product implementation started.
+13. Remaining issues.
+14. Whether safe to commit.
+15. Whether safe to push.
+16. Whether safe to open PR.
+17. Whether safe to merge if QA.
+18. Exact next recommended thread.

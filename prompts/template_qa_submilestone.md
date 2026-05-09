@@ -30,7 +30,7 @@ If the working tree is not clean before starting, report the dirty files and sto
 
 ## Strict reviewer role
 
-Act as a strict reviewer for the audited submilestone only. Verify scope, files, tracking, validation, and handoff. Do not rely on builder chat memory.
+Act as a strict reviewer for the audited submilestone only. Verify scope, files, tracking, validation, and handoff. Do not rely on builder chat memory. Use `docs/ops/validation-and-handoff-workflow.md` for the validation ladder, failure handling, skipped-validation recording, and safe-to-merge criteria.
 
 ## Same-branch, same-PR rule
 
@@ -57,7 +57,7 @@ Verify the builder did not implement or claim forbidden scope. For M00 control-p
 
 ## Validation commands
 
-Run the commands required by the submilestone. For M00 control-plane slices:
+Verify the builder validation record, then run the commands and ladder levels required by the submilestone. For M00 control-plane slices, apply Level 0, Level 1, Level 2, Level 3, Level 4, Level 7, and Level 8:
 
 ```powershell
 python scripts/validate-control-plane.py
@@ -66,6 +66,8 @@ git diff --check
 ```
 
 Run `make bootstrap-check` if `make` is available. If unavailable, record the limitation.
+
+If QA applies any scoped fix, rerun required validation after the fix. Record command results, validation skipped and why, warnings, and whether only partial validation ran.
 
 ## Status transition rules
 
@@ -85,7 +87,30 @@ Include defects found, fixes applied, commands run, validation results, and rema
 
 ## Safe-to-merge statement
 
-State whether the PR is safe to merge. QA PASS may say the PR is safe to merge, but it does not equal `Completed and merged`.
+State whether the PR is safe to merge. QA PASS may say the PR is safe to merge only when validation, tracking, forbidden-scope checks, and any scoped QA fixes pass or accepted limitations are recorded. QA PASS does not equal `Completed and merged`.
+
+## QA handoff packet format
+
+Produce a QA handoff packet with:
+
+1. Submilestone ID and name.
+2. Branch.
+3. Active plan.
+4. Files created by QA.
+5. Files changed by QA.
+6. Files intentionally not touched.
+7. Commands run.
+8. Command results.
+9. Validation skipped and why.
+10. Warnings.
+11. Current tracking status.
+12. Whether product implementation started.
+13. Remaining issues.
+14. Whether safe to commit.
+15. Whether safe to push.
+16. Whether safe to open PR.
+17. Whether safe to merge.
+18. Exact next recommended thread.
 
 ## Next recommended thread
 

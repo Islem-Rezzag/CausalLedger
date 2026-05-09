@@ -38,6 +38,7 @@ Roadmap and submilestones:
 - `plans/ROADMAP.md`
 - `docs/ops/planning-and-tracking-system.md`
 - `docs/ops/builder-qa-prompt-protocol.md`
+- `docs/ops/validation-and-handoff-workflow.md`
 
 Prompt protocol:
 
@@ -105,6 +106,8 @@ Update `docs/milestones/SUBMILESTONE_REGISTRY.md` whenever any submilestone stat
 Use `docs/ops/planning-and-tracking-system.md` for canonical submilestone status states, builder updates, QA updates, PR merge updates, blocked slices, failed QA, follow-up fixes, and synchronization rules.
 
 Use `docs/ops/builder-qa-prompt-protocol.md` and the prompt templates in `prompts/` for reusable builder prompts, QA prompts, validation sections, forbidden-scope sections, same-branch same-PR rules, and handoff packet fields.
+
+Use `docs/ops/validation-and-handoff-workflow.md` for validation ladder levels, required and optional commands, unavailable-command handling, validation failure handling, skipped-validation records, readiness criteria, and handoff packet expectations.
 
 ## Archive rule
 

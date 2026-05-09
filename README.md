@@ -51,6 +51,7 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `docs/ACTIVE_DOCS.md` - active docs boundary, canonical files, conflict rules, and update rules.
 - `docs/ops/planning-and-tracking-system.md` - canonical submilestone status lifecycle and tracking operations.
 - `docs/ops/builder-qa-prompt-protocol.md` - reusable builder and QA prompt protocol.
+- `docs/ops/validation-and-handoff-workflow.md` - validation ladder, failure handling, readiness criteria, and handoff packet rules.
 - `docs/INDEX.md` - documentation entry point.
 - `plans/ROADMAP.md` - milestone sequence, counts, statuses, and exit criteria.
 - `docs/status/CURRENT_STATE.md` - current phase, active plan, product code status, and validation status.

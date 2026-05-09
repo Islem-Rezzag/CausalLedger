@@ -4,7 +4,7 @@
 
 Establish the file-first operating system for CausalLedger milestone work. This plan covers M00 only and keeps the repository usable by future Codex threads without relying on chat memory.
 
-Current submilestone status: M00.04 Builder and QA Prompt Protocol has passed QA and is awaiting PR merge. M00.01, M00.02, and M00.03 are completed and merged. M00 remains in progress.
+Current submilestone status: M00.05 Validation and Handoff Workflow is builder complete and awaiting QA. M00.01, M00.02, M00.03, and M00.04 are completed and merged. M00 remains in progress.
 
 ## Progress
 
@@ -52,6 +52,15 @@ Current submilestone status: M00.04 Builder and QA Prompt Protocol has passed QA
 - [x] 2026-05-08: Verified the builder and QA prompt protocol, prompt templates, tracking integration, active docs integration, validation coverage, and forbidden-scope boundary.
 - [x] 2026-05-08: Ran M00.04 QA validation and recorded PASS.
 - [x] 2026-05-08: Marked M00.04 as `QA passed, awaiting merge` without marking it `Completed and merged`.
+- [x] 2026-05-08: Finalized M00.04 as `Completed and merged` after merge into `main` at commit `e686c77`.
+- [x] 2026-05-08: Started M00.05 builder thread on branch `m00-05-validation-and-handoff-workflow`.
+- [x] 2026-05-08: Ran branch guard before edits: branch matched `m00-05-validation-and-handoff-workflow`, `git status --short` was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- [x] 2026-05-08: Confirmed M00.01, M00.02, M00.03, and M00.04 are completed and merged, M00.05 had not started before this builder, M00 remains in progress, M01-M21 are not started, no product code exists, and this file is the active plan.
+- [x] 2026-05-08: Created `docs/ops/validation-and-handoff-workflow.md`.
+- [x] 2026-05-08: Updated builder, QA, and handoff templates for validation results, skipped validation, warnings, and readiness statements.
+- [x] 2026-05-08: Updated prompt protocol, planning guidance, validation-ladder skill, handoff-auditor skill, entry docs, validation script, and bootstrap tests for the validation and handoff workflow.
+- [x] 2026-05-08: Ran M00.05 builder validation and recorded results.
+- [x] 2026-05-08: Handed off M00.05 to QA without marking it QA passed or completed.
 
 ## Surprises & Discoveries
 
@@ -70,6 +79,8 @@ Current submilestone status: M00.04 Builder and QA Prompt Protocol has passed QA
 - M00.04 found the prompt templates existed but were too thin to enforce branch guard, same-branch QA, validation, forbidden scope, tracking updates, and complete handoff fields.
 - `make bootstrap-check` remains unavailable in the current Windows shell; underlying Python validation and pytest checks were run directly.
 - M00.04 QA found no blocking defects. `rg` remains unavailable with `Access is denied`, so PowerShell `Select-String` was used for QA text searches.
+- M00.05 starts from `main` at commit `e686c77`, which contains the merged M00.04 builder and QA prompt protocol.
+- M00.05 found the handoff template and protocol needed explicit fields for skipped validation, warnings, safe-to-push, safe-to-open-PR, and QA-only safe-to-merge readiness.
 
 ## Decision Log
 
@@ -89,6 +100,9 @@ Current submilestone status: M00.04 Builder and QA Prompt Protocol has passed QA
 - 2026-05-08: M00.04 remains control-plane only; its output is reusable prompt protocol documentation and templates, not product functionality.
 - 2026-05-08: Builder handoff does not replace QA, QA PASS does not equal completion, and `Completed and merged` remains tied to PR merge plus tracking finalization.
 - 2026-05-08: M00.04 QA PASS moves the submilestone to `QA passed, awaiting merge`; it is safe to merge but not fully complete until the PR merges and tracking is finalized.
+- 2026-05-08: M00.04 is `Completed and merged` because commit `e686c77` is present on `main` and `origin/main`.
+- 2026-05-08: M00.05 remains control-plane only; its output is validation and handoff workflow documentation, template alignment, skill guidance, and validation coverage.
+- 2026-05-08: M00.05 builder completion can move the registry to `Builder complete, awaiting QA`, but not to QA passed or `Completed and merged`.
 
 ## Context and Orientation
 
@@ -98,17 +112,17 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Scope
 
-In scope for M00.04:
+In scope for M00.05:
 
-- Finalizing M00.03 as `Completed and merged` before M00.04 work.
-- Creating `docs/ops/builder-qa-prompt-protocol.md`.
-- Expanding `prompts/template_builder_submilestone.md`.
-- Expanding `prompts/template_qa_submilestone.md`.
-- Expanding `prompts/template_handoff_packet.md`.
-- Updating `docs/ops/planning-and-tracking-system.md` to reference the prompt protocol and clarify builder handoff, QA PASS, PR merge, and next-builder finalization.
+- Finalizing M00.04 as `Completed and merged` before M00.05 work.
+- Creating `docs/ops/validation-and-handoff-workflow.md`.
+- Defining validation ladder levels for control-plane-only, docs-only, prompt/template, future product-code, future eval/benchmark, and future security-sensitive slices.
+- Updating builder, QA, and handoff packet prompt expectations for validation results, skipped validation, warnings, and readiness statements.
+- Updating `docs/ops/builder-qa-prompt-protocol.md` and `docs/ops/planning-and-tracking-system.md` to reference the validation and handoff workflow.
+- Updating validation-ladder and handoff skills to align with the new workflow.
 - Adding concise references from active entry docs and docs index.
-- Updating M00 tracking files for M00.04.
-- Updating validation only for control-plane docs and prompt templates.
+- Updating M00 tracking files for M00.05.
+- Updating validation only for control-plane docs, prompt templates, and skills.
 - Status and handoff updates.
 
 Out of scope:
@@ -122,20 +136,23 @@ Out of scope:
 
 1. Confirm required branch guard and clean starting state.
 2. Read required active docs and confirm current state.
-3. Finalize M00.03 as `Completed and merged`.
-4. Create the builder and QA prompt protocol guide.
-5. Expand builder, QA, and handoff templates.
-6. Update active M00 plan, milestone docs, registry, roadmap, and status docs for M00.04.
-7. Confirm validation coverage for the new protocol and templates and update validation if necessary.
+3. Finalize M00.04 as `Completed and merged`.
+4. Create the validation and handoff workflow guide.
+5. Align builder, QA, and handoff templates with complete validation and handoff expectations.
+6. Update active M00 plan, milestone docs, registry, roadmap, and status docs for M00.05.
+7. Confirm validation coverage for the new workflow and templates and update validation if necessary.
 8. Run validation and record results.
 
 ## Concrete Steps
 
-- Create `docs/ops/builder-qa-prompt-protocol.md`.
+- Create `docs/ops/validation-and-handoff-workflow.md`.
+- Update `docs/ops/builder-qa-prompt-protocol.md`.
 - Update `docs/ops/planning-and-tracking-system.md`.
 - Update `prompts/template_builder_submilestone.md`.
 - Update `prompts/template_qa_submilestone.md`.
 - Update `prompts/template_handoff_packet.md`.
+- Update `.agents/skills/validation-ladder-composer/SKILL.md`.
+- Update `.agents/skills/handoff-auditor/SKILL.md`.
 - Update `docs/milestones/SUBMILESTONE_REGISTRY.md`.
 - Update `plans/active/CLP-0001-m00-repo-operating-system.md`.
 - Update `docs/milestones/M00.md`.
@@ -170,11 +187,12 @@ Acceptance:
 
 - Active documentation files are internally consistent.
 - Entry points agree on active plan, branch guard, builder/QA, QA PASS, PR merge, validation, and handoff workflow.
-- M00.03 is finalized as `Completed and merged`.
-- Builder tracking did not mark M00.04 QA passed or fully complete before QA; QA tracking records `QA passed, awaiting merge` without marking it fully complete.
-- `docs/ops/builder-qa-prompt-protocol.md` exists and defines reusable builder and QA prompt protocol.
-- Builder and QA templates include branch guard, working tree cleanliness, forbidden scope, validation, status transition, and handoff requirements.
-- Handoff packet template includes created files, changed files, intentionally untouched files, commands, validation result, status, product implementation status, remaining issues, next thread, safe-to-commit, and safe-to-merge fields.
+- M00.04 is finalized as `Completed and merged`.
+- Builder tracking does not mark M00.05 QA passed or fully complete.
+- `docs/ops/validation-and-handoff-workflow.md` exists and defines explicit validation ladder levels.
+- Control-plane-only, docs-only, prompt/template, future product-code, future eval/benchmark, and future security-sensitive validation are distinguished.
+- Builder and QA templates include branch guard, working tree cleanliness, forbidden scope, validation ladder, validation results, skipped validation, warnings, status transition, and handoff requirements.
+- Handoff packet template includes submilestone ID and name, branch, active plan, created files, changed files, intentionally untouched files, commands, command results, skipped validation, warnings, status, product implementation status, remaining issues, next thread, safe-to-commit, safe-to-push, safe-to-open-PR, and QA safe-to-merge fields.
 - Registry supports branch, PR, validation, update, and notes tracking.
 - No product code is implemented.
 - Control-plane validation passes or limitations are recorded.
@@ -182,7 +200,7 @@ Acceptance:
 
 ## Idempotence and Recovery
 
-This slice is documentation-first and should be safe to rerun by replacing deterministic control-plane sections with the same protocol and tracking content. If validation fails, keep M00.04 in `Builder in progress` or mark it `Blocked`, record the failure in status docs, and recommend a follow-up thread to fix the control-plane gap.
+This slice is documentation-first and should be safe to rerun by replacing deterministic control-plane sections with the same workflow and tracking content. If validation fails, keep M00.05 in `Builder in progress` or mark it `Blocked`, record the failure in status docs, and recommend a follow-up thread to fix the control-plane gap.
 
 No raw evidence, money state, ledger state, repair approval, or external system is touched.
 
@@ -192,9 +210,12 @@ Primary artifacts:
 
 - `docs/ops/planning-and-tracking-system.md`
 - `docs/ops/builder-qa-prompt-protocol.md`
+- `docs/ops/validation-and-handoff-workflow.md`
 - `prompts/template_builder_submilestone.md`
 - `prompts/template_qa_submilestone.md`
 - `prompts/template_handoff_packet.md`
+- `.agents/skills/validation-ladder-composer/SKILL.md`
+- `.agents/skills/handoff-auditor/SKILL.md`
 - `docs/milestones/SUBMILESTONE_REGISTRY.md`
 - `docs/milestones/M00.md`
 - `plans/ROADMAP.md`
@@ -250,6 +271,10 @@ Validation results:
 - `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-08 for M00.04 QA validation with 9 tests.
 - `git diff --check` passed on 2026-05-08 for M00.04 QA validation.
 - `make bootstrap-check` was not run on 2026-05-08 for M00.04 QA because `make` is unavailable in the current Windows shell.
+- `python scripts/validate-control-plane.py` passed on 2026-05-08 for M00.05 builder validation.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-08 for M00.05 builder validation with 10 tests.
+- `git diff --check` passed on 2026-05-08 for M00.05 builder validation.
+- `make bootstrap-check` was not run on 2026-05-08 for M00.05 builder validation because `make` is unavailable in the current Windows shell.
 
 M00.03 builder outcome:
 
@@ -292,10 +317,22 @@ M00.04 QA outcome:
 - Verified no product functionality, MoneyEvent logic, ledger logic, invariants, incident logic, causal graph logic, replay logic, agent runtime, repair planning logic, UI features, external connectors, or M00.05/M01 work started.
 - Recorded M00.04 QA PASS and left final completion blocked on PR merge.
 
+M00.05 builder outcome:
+
+- Finalized M00.04 as `Completed and merged` after confirming commit `e686c77` is present on `main` and `origin/main`.
+- Created the validation and handoff workflow operations guide.
+- Defined validation ladder levels 0 through 8 and distinguished control-plane-only, docs-only, prompt/template, future product-code, future eval/benchmark, and future security-sensitive validation.
+- Documented required commands, optional commands, unavailable-command handling, validation failure handling, warnings, skipped validation, readiness criteria, QA handoff status updates, and M00 evidence preservation.
+- Updated builder, QA, and handoff packet templates with submilestone ID and name, branch, active plan, command results, skipped validation, warnings, safe-to-commit, safe-to-push, safe-to-open-PR, and QA safe-to-merge fields.
+- Updated builder/QA protocol, planning guidance, active docs, workflow docs, README, docs index, ops README, validation-ladder skill, handoff-auditor skill, validation script, and bootstrap tests for the new workflow.
+- Marked M00.05 as `Builder complete, awaiting QA` only after validation passed.
+- Kept M00.06 through M21.15 as `Not started`.
+- Did not implement product functionality.
+
 Remaining risks:
 
-- M00 is not complete; M00.01, M00.02, and M00.03 are completed and merged.
-- M00.04 is not fully complete until PR merge and post-merge tracking finalization.
+- M00 is not complete; M00.01, M00.02, M00.03, and M00.04 are completed and merged.
+- M00.05 is not QA passed or fully complete until QA, PR merge, and post-merge tracking finalization.
 - `docs/DOMAIN_MODEL.md` is intentionally a placeholder for M01.
 
-Next recommended action after QA PASS: merge the M00.04 PR, then finalize M00.04 as `Completed and merged` before M00.05 starts.
+Next recommended action after builder completion: `M00.05 QA - Validation and Handoff Workflow`.

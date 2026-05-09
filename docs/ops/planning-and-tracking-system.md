@@ -6,7 +6,11 @@ The planning and tracking system keeps CausalLedger submilestones durable in rep
 
 This document is control-plane guidance only. It does not define product behavior, financial truth, ledger mutation, repair approval, event mutation, UI behavior, or connector behavior.
 
-Use `docs/ops/builder-qa-prompt-protocol.md` for the reusable builder prompt, QA prompt, same-branch same-PR rule, validation sections, forbidden-scope sections, and handoff packet requirements. The canonical templates are:
+Use `docs/ops/builder-qa-prompt-protocol.md` for the reusable builder prompt, QA prompt, same-branch same-PR rule, validation sections, forbidden-scope sections, and handoff packet requirements.
+
+Use `docs/ops/validation-and-handoff-workflow.md` for validation ladder levels, required and optional commands, unavailable-command handling, validation failure handling, skipped-validation records, safe-to-commit, safe-to-push, safe-to-open-PR, safe-to-merge, and handoff packet expectations.
+
+The canonical templates are:
 
 - `prompts/template_builder_submilestone.md`
 - `prompts/template_qa_submilestone.md`
