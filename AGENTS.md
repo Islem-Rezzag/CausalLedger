@@ -43,7 +43,7 @@ Deterministic financial truth sources are raw evidence, canonical events, determ
 - Required builder or QA thread status is recorded.
 - Handoff packet states what changed, what did not change, and what remains.
 
-Use `docs/ops/builder-qa-prompt-protocol.md` and the prompt templates in `prompts/` for reusable builder, QA, and handoff packet structure.
+Use `docs/ops/builder-qa-prompt-protocol.md`, `docs/ops/github-pr-and-issue-workflow.md`, and the prompt templates in `prompts/` for reusable builder, QA, PR, and handoff packet structure.
 
 ## Default implementation preferences
 

@@ -10,11 +10,15 @@ Use `docs/ops/builder-qa-prompt-protocol.md` for the reusable builder prompt, QA
 
 Use `docs/ops/validation-and-handoff-workflow.md` for validation ladder levels, required and optional commands, unavailable-command handling, validation failure handling, skipped-validation records, safe-to-commit, safe-to-push, safe-to-open-PR, safe-to-merge, and handoff packet expectations.
 
+Use `docs/ops/github-pr-and-issue-workflow.md` for PR naming, PR body expectations, issue template usage, draft PR guidance, same-branch same-PR discipline, failed QA, QA fixes, merge conflicts, branch deletion, missing GitHub CLI handling, branch protection references, and merge-readiness discipline.
+
 The canonical templates are:
 
 - `prompts/template_builder_submilestone.md`
 - `prompts/template_qa_submilestone.md`
 - `prompts/template_handoff_packet.md`
+- `.github/PULL_REQUEST_TEMPLATE.md`
+- `.github/ISSUE_TEMPLATE/`
 
 ## Canonical tracking files
 
@@ -93,6 +97,7 @@ When builder work is done:
 
 - Run required builder validation for the slice.
 - Update the active plan with work performed, decisions, discoveries, commands, results, and limitations.
+- Open or update the submilestone PR using `.github/PULL_REQUEST_TEMPLATE.md` when a remote review container is available.
 - Update `docs/status/CURRENT_STATE.md` with current submilestone status, product code status, latest validation, and next action.
 - Update `docs/status/NEXT_RECOMMENDED_THREAD.md` to the same-submilestone QA thread.
 - Update `docs/status/WEEKLY_LOG.md` with a concise dated entry.
@@ -111,6 +116,7 @@ If QA passes:
 
 - Set the registry row to `QA passed, awaiting merge`.
 - Update the active plan with QA commands, results, defects found, fixes if any, and PASS.
+- Update the PR body with QA status, validation results, skipped validation, warnings, and safe-to-merge statement.
 - Update milestone, roadmap, current state, weekly log, and next recommended thread to say the PR must merge before the next submilestone starts.
 - Do not mark the submilestone `Completed and merged` until merge is confirmed.
 

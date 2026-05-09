@@ -32,6 +32,9 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/ops/planning-and-tracking-system.md` - canonical submilestone status lifecycle and tracking operations.
 - `docs/ops/builder-qa-prompt-protocol.md` - reusable builder and QA prompt protocol.
 - `docs/ops/validation-and-handoff-workflow.md` - validation ladder, unavailable-command handling, readiness criteria, and handoff packet rules.
+- `docs/ops/github-pr-and-issue-workflow.md` - PR, issue, same-branch QA, failed-QA, and merge-readiness workflow.
+- `docs/ops/github-labels-and-milestones.md` - suggested GitHub labels and milestones.
+- `docs/ops/branch-protection.md` - recommended branch protection settings for `main`.
 - `plans/ROADMAP.md` - canonical milestone sequence, counts, statuses, and exit criteria.
 - `docs/status/CURRENT_STATE.md` - current phase, active plan, product code status, and validation status.
 - `docs/status/NEXT_RECOMMENDED_THREAD.md` - exact next recommended thread.
@@ -40,6 +43,8 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
 - `prompts/template_qa_submilestone.md` - reusable QA thread prompt template.
 - `prompts/template_handoff_packet.md` - reusable handoff packet template.
+- `.github/PULL_REQUEST_TEMPLATE.md` - submilestone PR body checklist.
+- `.github/ISSUE_TEMPLATE/` - issue templates for submilestones, QA, blockers, research, and bugs.
 
 ## Core project docs
 

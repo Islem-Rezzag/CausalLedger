@@ -4,7 +4,7 @@
 
 Establish the file-first operating system for CausalLedger milestone work. This plan covers M00 only and keeps the repository usable by future Codex threads without relying on chat memory.
 
-Current submilestone status: M00.05 Validation and Handoff Workflow has QA passed and is awaiting PR merge. M00.01, M00.02, M00.03, and M00.04 are completed and merged. M00 remains in progress.
+Current submilestone status: M00.06 GitHub PR and Issue Workflow builder is complete and awaiting QA. M00.01 through M00.05 are completed and merged. M00 remains in progress.
 
 ## Progress
 
@@ -65,6 +65,14 @@ Current submilestone status: M00.05 Validation and Handoff Workflow has QA passe
 - [x] 2026-05-09: Verified M00.05 validation workflow, handoff expectations, prompt integration, skill integration, active-doc integration, validation coverage, tracking, and forbidden-scope boundaries.
 - [x] 2026-05-09: Ran M00.05 QA validation and recorded PASS.
 - [x] 2026-05-09: Marked M00.05 as `QA passed, awaiting merge` without marking it `Completed and merged`.
+- [x] 2026-05-09: Finalized M00.05 as `Completed and merged` after merge into `main` at commit `b82e5d1`.
+- [x] 2026-05-09: Started M00.06 builder thread on branch `m00-06-github-pr-and-issue-workflow`.
+- [x] 2026-05-09: Ran branch guard before edits: branch matched `m00-06-github-pr-and-issue-workflow`, `git status --short` was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- [x] 2026-05-09: Confirmed M00.01 through M00.05 are completed and merged, M00.06 had not started before this builder, M00 remains in progress, M01-M21 are not started, no product code exists, and this file is the active plan.
+- [x] 2026-05-09: Created GitHub PR workflow guidance, labels and milestones guidance, branch protection guidance, PR template, and issue templates.
+- [x] 2026-05-09: Updated active docs, workflow docs, prompt templates, milestone tracking, status docs, validation script, and bootstrap tests for the GitHub workflow artifacts.
+- [x] 2026-05-09: Ran M00.06 builder validation and recorded results.
+- [x] 2026-05-09: Handed off M00.06 to QA without marking it QA passed or completed.
 
 ## Surprises & Discoveries
 
@@ -86,6 +94,7 @@ Current submilestone status: M00.05 Validation and Handoff Workflow has QA passe
 - M00.05 starts from `main` at commit `e686c77`, which contains the merged M00.04 builder and QA prompt protocol.
 - M00.05 found the handoff template and protocol needed explicit fields for skipped validation, warnings, safe-to-push, safe-to-open-PR, and QA-only safe-to-merge readiness.
 - M00.05 QA found no blocking defects. `make bootstrap-check` remains unavailable in the current Windows shell, so the required direct Python validation, pytest, and diff checks were run.
+- M00.06 starts from `main` at commit `b82e5d1`, which contains the merged M00.05 validation and handoff workflow.
 
 ## Decision Log
 
@@ -109,6 +118,8 @@ Current submilestone status: M00.05 Validation and Handoff Workflow has QA passe
 - 2026-05-08: M00.05 remains control-plane only; its output is validation and handoff workflow documentation, template alignment, skill guidance, and validation coverage.
 - 2026-05-08: M00.05 builder completion can move the registry to `Builder complete, awaiting QA`, but not to QA passed or `Completed and merged`.
 - 2026-05-09: M00.05 QA PASS moves the submilestone to `QA passed, awaiting merge`; it is safe to merge but not fully complete until the PR merges and tracking is finalized.
+- 2026-05-09: M00.05 is `Completed and merged` because commit `b82e5d1` is present on `main` and `origin/main`.
+- 2026-05-09: M00.06 remains control-plane only; its output is GitHub PR, issue, label, milestone, branch protection, and merge-readiness workflow documentation and templates.
 
 ## Context and Orientation
 
@@ -118,17 +129,15 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Scope
 
-In scope for M00.05:
+In scope for M00.06:
 
-- Finalizing M00.04 as `Completed and merged` before M00.05 work.
-- Creating `docs/ops/validation-and-handoff-workflow.md`.
-- Defining validation ladder levels for control-plane-only, docs-only, prompt/template, future product-code, future eval/benchmark, and future security-sensitive slices.
-- Updating builder, QA, and handoff packet prompt expectations for validation results, skipped validation, warnings, and readiness statements.
-- Updating `docs/ops/builder-qa-prompt-protocol.md` and `docs/ops/planning-and-tracking-system.md` to reference the validation and handoff workflow.
-- Updating validation-ladder and handoff skills to align with the new workflow.
-- Adding concise references from active entry docs and docs index.
-- Updating M00 tracking files for M00.05.
-- Updating validation only for control-plane docs, prompt templates, and skills.
+- Finalizing M00.05 as `Completed and merged` before M00.06 work.
+- Creating `docs/ops/github-pr-and-issue-workflow.md`.
+- Creating `.github/PULL_REQUEST_TEMPLATE.md`.
+- Creating GitHub issue templates in `.github/ISSUE_TEMPLATE/`.
+- Creating `docs/ops/github-labels-and-milestones.md`.
+- Creating `docs/ops/branch-protection.md`.
+- Updating active docs, workflow docs, prompt templates, milestone tracking, status docs, validation script, and bootstrap tests for GitHub workflow control-plane artifacts.
 - Status and handoff updates.
 
 Out of scope:
@@ -142,23 +151,25 @@ Out of scope:
 
 1. Confirm required branch guard and clean starting state.
 2. Read required active docs and confirm current state.
-3. Finalize M00.04 as `Completed and merged`.
-4. Create the validation and handoff workflow guide.
-5. Align builder, QA, and handoff templates with complete validation and handoff expectations.
-6. Update active M00 plan, milestone docs, registry, roadmap, and status docs for M00.05.
-7. Confirm validation coverage for the new workflow and templates and update validation if necessary.
+3. Finalize M00.05 as `Completed and merged`.
+4. Create the GitHub PR and issue workflow guide.
+5. Create PR and issue templates plus label, milestone, and branch protection guidance.
+6. Align active docs, workflow docs, prompt templates, tracking files, and status docs for M00.06.
+7. Confirm validation coverage for the new GitHub workflow artifacts and update validation if necessary.
 8. Run validation and record results.
 
 ## Concrete Steps
 
-- Create `docs/ops/validation-and-handoff-workflow.md`.
+- Create `docs/ops/github-pr-and-issue-workflow.md`.
+- Create `docs/ops/github-labels-and-milestones.md`.
+- Create `docs/ops/branch-protection.md`.
+- Create `.github/PULL_REQUEST_TEMPLATE.md`.
+- Create `.github/ISSUE_TEMPLATE/` templates.
 - Update `docs/ops/builder-qa-prompt-protocol.md`.
 - Update `docs/ops/planning-and-tracking-system.md`.
 - Update `prompts/template_builder_submilestone.md`.
 - Update `prompts/template_qa_submilestone.md`.
 - Update `prompts/template_handoff_packet.md`.
-- Update `.agents/skills/validation-ladder-composer/SKILL.md`.
-- Update `.agents/skills/handoff-auditor/SKILL.md`.
 - Update `docs/milestones/SUBMILESTONE_REGISTRY.md`.
 - Update `plans/active/CLP-0001-m00-repo-operating-system.md`.
 - Update `docs/milestones/M00.md`.
@@ -192,21 +203,22 @@ Optional validation:
 Acceptance:
 
 - Active documentation files are internally consistent.
-- Entry points agree on active plan, branch guard, builder/QA, QA PASS, PR merge, validation, and handoff workflow.
-- M00.04 is finalized as `Completed and merged`.
-- Builder tracking does not mark M00.05 QA passed or fully complete.
-- `docs/ops/validation-and-handoff-workflow.md` exists and defines explicit validation ladder levels.
-- Control-plane-only, docs-only, prompt/template, future product-code, future eval/benchmark, and future security-sensitive validation are distinguished.
-- Builder and QA templates include branch guard, working tree cleanliness, forbidden scope, validation ladder, validation results, skipped validation, warnings, status transition, and handoff requirements.
-- Handoff packet template includes submilestone ID and name, branch, active plan, created files, changed files, intentionally untouched files, commands, command results, skipped validation, warnings, status, product implementation status, remaining issues, next thread, safe-to-commit, safe-to-push, safe-to-open-PR, and QA safe-to-merge fields.
-- Registry supports branch, PR, validation, update, and notes tracking.
+- Entry points agree on active plan, branch guard, builder/QA, PR merge, validation, GitHub workflow, and handoff workflow.
+- M00.05 is finalized as `Completed and merged`.
+- Builder tracking does not mark M00.06 QA passed or fully complete.
+- `docs/ops/github-pr-and-issue-workflow.md` exists and defines PR, issue, same-branch QA, failed-QA, QA-fix, merge-conflict, branch-deletion, missing-GitHub-CLI, and merge-readiness workflow.
+- `.github/PULL_REQUEST_TEMPLATE.md` exists and includes submilestone, branch, active plan, scope, changed files, product implementation status, validation, QA, forbidden-scope, handoff, and safe-to-merge sections.
+- `.github/ISSUE_TEMPLATE/` includes useful templates for submilestone tasks, QA review, blocked slices, research spikes, bugs, and issue config.
+- `docs/ops/github-labels-and-milestones.md` and `docs/ops/branch-protection.md` exist and state manual GitHub setup expectations.
+- Builder and QA templates mention PR expectations only where useful.
+- Validation covers the new GitHub workflow docs and templates.
 - No product code is implemented.
 - Control-plane validation passes or limitations are recorded.
 - Status docs and handoff packet are updated.
 
 ## Idempotence and Recovery
 
-This slice is documentation-first and should be safe to rerun by replacing deterministic control-plane sections with the same workflow and tracking content. If validation fails, keep M00.05 in `Builder in progress` or mark it `Blocked`, record the failure in status docs, and recommend a follow-up thread to fix the control-plane gap.
+This slice is documentation-first and should be safe to rerun by replacing deterministic control-plane sections with the same workflow and tracking content. If validation fails, keep M00.06 in `Builder in progress` or mark it `Blocked`, record the failure in status docs, and recommend a follow-up thread to fix the control-plane gap.
 
 No raw evidence, money state, ledger state, repair approval, or external system is touched.
 
@@ -217,15 +229,19 @@ Primary artifacts:
 - `docs/ops/planning-and-tracking-system.md`
 - `docs/ops/builder-qa-prompt-protocol.md`
 - `docs/ops/validation-and-handoff-workflow.md`
+- `docs/ops/github-pr-and-issue-workflow.md`
+- `docs/ops/github-labels-and-milestones.md`
+- `docs/ops/branch-protection.md`
 - `prompts/template_builder_submilestone.md`
 - `prompts/template_qa_submilestone.md`
 - `prompts/template_handoff_packet.md`
-- `.agents/skills/validation-ladder-composer/SKILL.md`
-- `.agents/skills/handoff-auditor/SKILL.md`
+- `.github/PULL_REQUEST_TEMPLATE.md`
+- `.github/ISSUE_TEMPLATE/`
 - `docs/milestones/SUBMILESTONE_REGISTRY.md`
 - `docs/milestones/M00.md`
 - `plans/ROADMAP.md`
-- Updated validation script and tests if needed
+- `scripts/validate-control-plane.py`
+- `tests/test_control_plane_bootstrap.py`
 - Status handoff docs
 
 ## Interfaces and Dependencies
@@ -285,6 +301,10 @@ Validation results:
 - `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-09 for M00.05 QA validation with 10 tests.
 - `git diff --check` passed on 2026-05-09 for M00.05 QA validation.
 - `make bootstrap-check` was not run on 2026-05-09 for M00.05 QA because `make` is unavailable in the current Windows shell.
+- `python scripts/validate-control-plane.py` passed on 2026-05-09 for M00.06 builder validation.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-09 for M00.06 builder validation with 12 tests.
+- `git diff --check` passed on 2026-05-09 for M00.06 builder validation.
+- `make bootstrap-check` was not run on 2026-05-09 for M00.06 builder validation because `make` is unavailable in the current Windows shell.
 
 M00.03 builder outcome:
 
@@ -348,10 +368,21 @@ M00.05 QA outcome:
 - Verified no product functionality, MoneyEvent logic, ledger logic, invariants, incident logic, causal graph logic, replay logic, agent runtime, repair planning logic, UI features, external connectors, or M00.06/M01 work started.
 - Recorded M00.05 QA PASS and left final completion blocked on PR merge.
 
+M00.06 builder outcome:
+
+- Finalized M00.05 as `Completed and merged` after confirming commit `b82e5d1` is present on `main` and `origin/main`.
+- Created the GitHub PR and issue workflow operations guide.
+- Created the submilestone PR template and GitHub issue templates for submilestone tasks, QA reviews, blocked slices, research spikes, bugs, and issue config.
+- Created GitHub labels and milestones guidance and branch protection guidance.
+- Updated entry docs, active docs, workflow docs, planning guidance, builder/QA protocol, validation workflow, prompt templates, milestone tracking, status docs, validation script, and bootstrap tests for the GitHub workflow.
+- Marked M00.06 as `Builder complete, awaiting QA` only after validation passed.
+- Kept M00.07 through M21.15 as `Not started`.
+- Did not implement product functionality.
+
 Remaining risks:
 
-- M00 is not complete; M00.01, M00.02, M00.03, and M00.04 are completed and merged.
-- M00.05 is not fully complete until PR merge and post-merge tracking finalization.
+- M00 is not complete; M00.01 through M00.05 are completed and merged.
+- M00.06 is not fully complete until QA PASS, PR merge, and post-merge tracking finalization.
 - `docs/DOMAIN_MODEL.md` is intentionally a placeholder for M01.
 
-Next recommended action after QA PASS: `Merge M00.05 PR - Validation and Handoff Workflow`.
+Next recommended action: `M00.06 QA - GitHub PR and Issue Workflow`.

@@ -6,6 +6,8 @@ This protocol defines the reusable prompt shape for every CausalLedger submilest
 
 Use `docs/ops/validation-and-handoff-workflow.md` for the canonical validation ladder, unavailable-command handling, failure handling, handoff packet requirements, and safe-to-commit, safe-to-push, safe-to-open-PR, and safe-to-merge criteria.
 
+Use `docs/ops/github-pr-and-issue-workflow.md` for PR naming, PR body expectations, issue template usage, draft PR guidance, same-branch same-PR discipline, failed QA, QA fixes, merge conflicts, branch deletion, missing GitHub CLI handling, branch protection references, and merge readiness.
+
 This document is control-plane guidance only. It does not define product behavior, financial truth, ledger mutation, repair approval, raw event mutation, UI behavior, connector behavior, or any other runtime capability.
 
 ## Why every submilestone gets two Codex threads
@@ -40,6 +42,7 @@ A builder thread must:
 - update the active plan and status docs;
 - run required validation;
 - record validation results and limitations;
+- open or update the submilestone PR body when a PR is available;
 - set the target submilestone to `Builder complete, awaiting QA` only after validation passes or an accepted limitation is recorded;
 - produce a handoff packet for the QA thread that includes validation results, skipped validation, warnings, readiness statements, and the exact next recommended thread.
 
@@ -106,6 +109,7 @@ A QA prompt must be strict and audit-oriented. Include:
 - audited submilestone ID and title;
 - expected branch name;
 - same-branch, same-PR reminder;
+- PR link or PR body expectation;
 - branch guard and worktree cleanliness rule;
 - strict reviewer role;
 - no-scope-widening rule;
@@ -128,6 +132,7 @@ Builder and QA prompts must include these sections, adjusted for the thread role
 - `Target submilestone` or `Audited submilestone`
 - `Expected branch`
 - `Branch guard`
+- `PR expectations`
 - `Working tree cleanliness`
 - `Read first`
 - `Current state to confirm`

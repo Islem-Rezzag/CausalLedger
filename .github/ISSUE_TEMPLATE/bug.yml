@@ -1,0 +1,35 @@
+name: Bug
+description: Report observed behavior that differs from expected behavior.
+title: "[Bug] Short description"
+body:
+  - type: textarea
+    id: observed_behavior
+    attributes:
+      label: Observed behavior
+      description: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected behavior
+      description: What should have happened?
+    validations:
+      required: true
+  - type: textarea
+    id: affected_files
+    attributes:
+      label: Affected files
+      description: List known files, docs, packages, or tests affected.
+  - type: textarea
+    id: validation_output
+    attributes:
+      label: Validation output
+      description: Paste or summarize command output, failures, warnings, or skipped checks.
+  - type: textarea
+    id: reproduction_steps
+    attributes:
+      label: Reproduction steps
+      description: Provide concise steps to reproduce.
+    validations:
+      required: true
