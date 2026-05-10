@@ -2,7 +2,7 @@
 
 | Capability | Status | Notes |
 | --- | --- | --- |
-| Repo operating system | In progress | Control-plane files only; M00.06 GitHub PR and issue workflow builder is complete and awaiting QA |
+| Repo operating system | In progress | Control-plane files only; M00.06 GitHub PR and issue workflow QA passed and is awaiting merge |
 | MoneyEvent engine | Not started | No product logic |
 | Ledger core | Not started | No product logic |
 | Invariant engine | Not started | No product logic |

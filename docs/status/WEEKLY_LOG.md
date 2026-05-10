@@ -14,6 +14,15 @@
 - Confirmed `make bootstrap-check` is unavailable in the current Windows shell.
 - Marked M00.06 as `Builder complete, awaiting QA`; M00.07 and M01 remain not started.
 - Recommended next thread: `M00.06 QA - GitHub PR and Issue Workflow`.
+- Completed M00.06 GitHub PR and Issue Workflow QA review on branch `m00-06-github-pr-and-issue-workflow`.
+- Verified GitHub workflow docs, PR template, issue templates, label/milestone guidance, branch protection guidance, prompt/template integration, validation coverage, tracking state, and forbidden-scope boundaries.
+- Fixed concise M00.06 control-plane reference gaps in `WORKFLOW.md` and `prompts/template_milestone_closeout.md`.
+- Ran `python scripts/validate-control-plane.py` successfully.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 12 tests.
+- Ran `git diff --check` successfully.
+- Confirmed `make bootstrap-check` is unavailable in the current Windows shell.
+- Recorded M00.06 QA PASS. M00.06 is safe to merge but remains incomplete until PR merge and tracking finalization.
+- Recommended next thread: `Merge M00.06 PR - GitHub PR and Issue Workflow`.
 - Completed M00.05 Validation and Handoff Workflow QA review on branch `m00-05-validation-and-handoff-workflow`.
 - Verified the validation workflow guide, handoff packet template, builder and QA template integration, builder/QA protocol integration, skill alignment, active-doc references, validation coverage, tracking state, and forbidden-scope boundaries.
 - Found no blocking defects and made only QA status-transition updates.

@@ -46,7 +46,7 @@ Use `docs/ops/builder-qa-prompt-protocol.md` and the prompt templates in `prompt
 
 Use `docs/ops/validation-and-handoff-workflow.md` for validation ladder levels, unavailable-command handling, validation failures, skipped checks, readiness criteria, and handoff packet requirements.
 
-Use `docs/ops/github-pr-and-issue-workflow.md` for PR naming, issue usage, draft PR guidance, same-branch same-PR discipline, QA fixes, failed QA, merge conflicts, branch deletion, missing GitHub CLI handling, and merge readiness. Use `.github/PULL_REQUEST_TEMPLATE.md` and `.github/ISSUE_TEMPLATE/` for GitHub review containers.
+Use `docs/ops/github-pr-and-issue-workflow.md` for PR naming, issue usage, draft PR guidance, same-branch same-PR discipline, QA fixes, failed QA, merge conflicts, branch deletion, missing GitHub CLI handling, and merge readiness. Use `docs/ops/github-labels-and-milestones.md` and `docs/ops/branch-protection.md` for manual GitHub organization and `main` protection guidance. Use `.github/PULL_REQUEST_TEMPLATE.md` and `.github/ISSUE_TEMPLATE/` for GitHub review containers.
 
 ## Sandbox assumptions
 
