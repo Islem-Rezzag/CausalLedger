@@ -27,11 +27,12 @@ The canonical templates are:
 These files carry canonical planning and tracking state:
 
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` records every submilestone, status, active plan, branch, PR, latest validation, update date, and notes.
-- `plans/active/CLP-0001-m00-repo-operating-system.md` is the active M00 execution plan.
+- `plans/completed/CLP-0001-m00-repo-operating-system.md` is the completed M00 execution plan.
 - `plans/ROADMAP.md` records milestone-level status, current submilestone, and product-scope guardrails.
 - `docs/milestones/M00.md` through `docs/milestones/M21.md` record milestone-specific submilestone status.
 - `docs/status/CURRENT_STATE.md` records current phase, active plan, product code status, latest validation, and next action.
 - `docs/status/NEXT_RECOMMENDED_THREAD.md` records the exact next thread name and preconditions.
+- `docs/status/M00_CLOSEOUT.md` records the M00 milestone closeout packet.
 - `docs/status/WEEKLY_LOG.md` records chronological progress and validation summaries.
 - `docs/status/TECH_DEBT.md`, `docs/status/RISK_REGISTER.md`, and `docs/status/OPEN_QUESTIONS.md` record durable limitations, risks, and unresolved decisions when they are discovered.
 - `docs/status/CAPABILITY_MATRIX.md` records capability status and must not imply product functionality exists before implementation.

@@ -1,5 +1,21 @@
 # Weekly Log
 
+## 2026-05-11
+
+- Finalized M00.08 Repo Operating System QA and Freeze as `Completed and merged` after PR #8 merged into `main` at commit `db312d16f3059a2714f929c4bcb831d4a6a5a173`.
+- Ran the M00 closeout audit on branch `m00-closeout-repo-operating-system`.
+- Verified M00.01 through M00.08 are `Completed and merged` in the registry, M00 milestone doc, roadmap, freeze readiness report, and M00 plan.
+- Created `docs/status/M00_CLOSEOUT.md`.
+- Verified no product functionality exists: product directories contain placeholder README files only, `.github/workflows/` does not exist, no API or database implementation exists, no MoneyEvent, ledger, invariant, incident, graph, replay, agent runtime, repair planner, UI, connector, or real secret work exists.
+- Moved the completed M00 plan from `plans/active/CLP-0001-m00-repo-operating-system.md` to `plans/completed/CLP-0001-m00-repo-operating-system.md`.
+- Confirmed no M01 active plan exists and M01-M21 remain `Not started`.
+- Updated validation coverage so M00 closeout requires the completed M00 plan, `docs/status/M00_CLOSEOUT.md`, no M01 active plan, coherent completed M00 tracking, and product-not-started claims.
+- Ran `python scripts/validate-control-plane.py` successfully.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 15 tests.
+- Ran `git diff --check` successfully.
+- Confirmed `make bootstrap-check` is unavailable in the current Windows shell.
+- Recommended next thread after this closeout PR merges: `M01 Planning - Domain Model and Scope Freeze`.
+
 ## 2026-05-10
 
 - Completed M00.08 Repo Operating System QA and Freeze QA review on branch `m00-08-repo-operating-system-qa-and-freeze`.

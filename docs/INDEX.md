@@ -41,8 +41,9 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/status/CURRENT_STATE.md` - current phase, active plan, product code status, and validation status.
 - `docs/status/NEXT_RECOMMENDED_THREAD.md` - exact next recommended thread.
 - `docs/status/M00_FREEZE_READINESS.md` - M00 freeze readiness report.
+- `docs/status/M00_CLOSEOUT.md` - M00 closeout packet.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` - canonical M00-M21 submilestone registry.
-- `plans/active/CLP-0001-m00-repo-operating-system.md` - active M00 execution plan.
+- `plans/completed/CLP-0001-m00-repo-operating-system.md` - completed M00 execution plan.
 - `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
 - `prompts/template_qa_submilestone.md` - reusable QA thread prompt template.
 - `prompts/template_handoff_packet.md` - reusable handoff packet template.
@@ -73,7 +74,8 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/status/NEXT_RECOMMENDED_THREAD.md` - exact next thread recommendation.
 - `docs/status/TECH_DEBT.md` - placeholders, shortcuts, and deferred cleanup.
 - `docs/status/M00_FREEZE_READINESS.md` - M00 freeze readiness, limitations, remaining steps, and next threads.
+- `docs/status/M00_CLOSEOUT.md` - M00 closeout packet, validation summary, plan movement, and M01 readiness.
 
 ## Current implementation status
 
-The repository is still in control-plane bootstrap. It contains docs, plans, prompt templates, skills, placeholder directories, and control-plane validation only. It does not contain product functionality.
+The repository has completed the M00 control-plane closeout in this branch. It contains docs, plans, prompt templates, skills, placeholder directories, GitHub templates, and control-plane validation only. It does not contain product functionality.

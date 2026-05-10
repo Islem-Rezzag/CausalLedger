@@ -2,7 +2,7 @@
 
 ## Current phase
 
-Control-plane bootstrap. M00 Repo operating system is in progress. Current submilestone is M00.08 Repo Operating System QA and Freeze, QA passed and awaiting merge.
+Control-plane bootstrap closeout. M00 Repo operating system is completed on branch `m00-closeout-repo-operating-system`; after this closeout PR merges, the repo is ready for a human-created M01 planning branch/thread. M01 is not started.
 
 ## What exists
 
@@ -17,7 +17,7 @@ Control-plane bootstrap. M00 Repo operating system is in progress. Current submi
 - Canonical M00-M21 submilestone registry.
 - Detailed M00-M21 milestone docs.
 - Top-level project docs for brief, vision, architecture, domain placeholder, reliability, threat model, token cost strategy, and docs index.
-- First active M00 plan.
+- Completed M00 plan at `plans/completed/CLP-0001-m00-repo-operating-system.md`.
 - Planning and tracking operations guide for submilestone lifecycle state.
 - Builder and QA prompt protocol operations guide.
 - Validation and handoff workflow operations guide.
@@ -26,6 +26,7 @@ Control-plane bootstrap. M00 Repo operating system is in progress. Current submi
 - Branch protection guidance.
 - Milestone closeout workflow operations guide.
 - M00 repo operating system freeze guide and readiness report.
+- M00 closeout packet.
 - Reusable builder, QA, and handoff packet prompt templates.
 - GitHub PR and issue templates.
 
@@ -43,28 +44,32 @@ Control-plane bootstrap. M00 Repo operating system is in progress. Current submi
 - UI features.
 - External connectors.
 - Scenario benchmark implementation.
+- API implementation.
+- Database implementation.
+- GitHub Actions or CI workflows.
+- Real secrets.
 
 ## Active plan
 
-`plans/active/CLP-0001-m00-repo-operating-system.md`
+No active milestone plan exists after M00 closeout. The completed M00 plan moved to `plans/completed/CLP-0001-m00-repo-operating-system.md`.
 
 ## Current submilestone
 
-M00.08 Repo Operating System QA and Freeze QA passed on branch `m00-08-repo-operating-system-qa-and-freeze` and is awaiting merge.
+None. M00.01 through M00.08 are completed and merged.
 
-M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 Planning and Tracking System is completed and merged at commit `f289d5e`. M00.04 Builder and QA Prompt Protocol is completed and merged at commit `e686c77`. M00.05 Validation and Handoff Workflow is completed and merged at commit `b82e5d1`. M00.06 GitHub PR and Issue Workflow is completed and merged at commit `a0fdf6bc422f573235d48ee8cde93fd92d25e617`. M00.07 Milestone Closeout Workflow is completed and merged at commit `ae19cd0e4b34ad8c16c3d4f8ee1adbe08e7575f6`.
+M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 Planning and Tracking System is completed and merged at commit `f289d5e`. M00.04 Builder and QA Prompt Protocol is completed and merged at commit `e686c77`. M00.05 Validation and Handoff Workflow is completed and merged at commit `b82e5d1`. M00.06 GitHub PR and Issue Workflow is completed and merged at commit `a0fdf6bc422f573235d48ee8cde93fd92d25e617`. M00.07 Milestone Closeout Workflow is completed and merged at commit `ae19cd0e4b34ad8c16c3d4f8ee1adbe08e7575f6`. M00.08 Repo Operating System QA and Freeze is completed and merged at commit `db312d16f3059a2714f929c4bcb831d4a6a5a173`.
 
 ## Product code status
 
-No product code exists yet.
+No product code exists yet. Product directories contain placeholder README files only, and `.github/workflows/` does not exist.
 
 ## Next action
 
-Run `Merge M00.08 PR - Repo Operating System QA and Freeze`. A human operator must merge the PR; Codex must not merge it. Do not mark M00.08 completed until PR merge and post-merge finalization occur. Do not start M01 or create an M01 active plan.
+After this M00 closeout PR merges, run `M01 Planning - Domain Model and Scope Freeze` on a human-created M01 planning branch/thread. Do not start M01 or create an M01 active plan before the closeout PR merges.
 
 ## Implementation warning
 
-Do not start product implementation. Continue M00 only through the active plan.
+Do not start product implementation. M01 planning is the next recommended thread only after this closeout PR merges; it must not create product behavior unless a future active plan explicitly scopes and validates it.
 
 ## Validation limitations
 
@@ -151,3 +156,8 @@ Do not start product implementation. Continue M00 only through the active plan.
 - 2026-05-10: `git diff --check` passed for M00.08 QA.
 - 2026-05-10: `make bootstrap-check` was not run for M00.08 QA because `make` is unavailable in the current Windows shell.
 - 2026-05-10: M00.08 marked `QA passed, awaiting merge`; M00 remains in progress, and M01-M21 remain not started.
+- 2026-05-11: Finalized M00.08 as `Completed and merged` after PR #8 merged into `main` at commit `db312d16f3059a2714f929c4bcb831d4a6a5a173`.
+- 2026-05-11: M00 closeout validation passed: `python scripts/validate-control-plane.py`.
+- 2026-05-11: M00 closeout validation passed: `python -m pytest tests/test_control_plane_bootstrap.py` with 15 tests.
+- 2026-05-11: M00 closeout validation passed: `git diff --check`.
+- 2026-05-11: `make bootstrap-check` was not run for M00 closeout because `make` is unavailable in the current Windows shell.

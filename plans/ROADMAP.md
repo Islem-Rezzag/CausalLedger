@@ -1,13 +1,13 @@
 # CausalLedger Roadmap
 
-Current milestone marker: M00 Repo operating system.
-Current submilestone status: M00.08 Repo Operating System QA and Freeze QA passed, awaiting merge. M00.01 through M00.07 are completed and merged. M00 remains in progress.
+Current milestone marker: M00 Repo operating system completed.
+Current submilestone status: M00.01 through M00.08 are completed and merged. M00 closeout passed on branch `m00-closeout-repo-operating-system`. M01 is not started.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 
 | Milestone | Goal | Focus | Exit criteria | Submilestone count | Status |
 | --- | --- | --- | --- | --- | --- |
-| M00 Repo operating system | Establish the durable repository operating system for CausalLedger. | Control-plane docs, workflow, planning, validation | Codex can continue from repo state without chat memory | 8 | In progress |
+| M00 Repo operating system | Establish the durable repository operating system for CausalLedger. | Control-plane docs, workflow, planning, validation | Codex can continue from repo state without chat memory | 8 | Completed |
 | M01 Domain model and scope freeze | Freeze CausalLedger domain language, scope, and non-goals. | Concepts, non-goals, glossary | Domain model and scope are approved | 13 | Not started |
 | M02 Monorepo and local development | Create the runnable local development foundation. | Tooling, packages, CI shape | Local checks run consistently | 20 | Not started |
 | M03 Canonical MoneyEvent engine | Define and implement the canonical event representation. | Event schemas and normalization | MoneyEvent behavior is specified and validated | 19 | Not started |
@@ -32,10 +32,11 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 
 ## Roadmap guardrails
 
-- M00 is the only active milestone in this plan.
-- Current M00 submilestone: M00.08 Repo Operating System QA and Freeze.
-- M00.01 through M00.07 are completed and merged.
-- M00.08 QA passed and is awaiting merge; it must not be marked completed until PR merge and post-merge finalization occur.
-- M01-M21 must not receive active plans until instructed by a future thread.
-- Product implementation must not start during M00 unless explicitly scoped by the active plan. The current active plan scopes control-plane work only.
+- M00 is completed as a control-plane milestone.
+- M00.01 through M00.08 are completed and merged.
+- The completed M00 plan lives at `plans/completed/CLP-0001-m00-repo-operating-system.md`.
+- M01-M21 remain `Not started`.
+- No M01 active plan exists yet.
+- Product implementation has not started.
+- M01 planning may start only after the M00 closeout PR merges and a human creates the M01 planning branch/thread.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed registry.

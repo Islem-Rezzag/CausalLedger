@@ -37,8 +37,9 @@ def test_required_project_docs_exist():
         "docs/ops/milestone-closeout-workflow.md",
         "docs/ops/repo-operating-system-freeze.md",
         "docs/status/M00_FREEZE_READINESS.md",
+        "docs/status/M00_CLOSEOUT.md",
         "docs/milestones/SUBMILESTONE_REGISTRY.md",
-        "plans/active/CLP-0001-m00-repo-operating-system.md",
+        "plans/completed/CLP-0001-m00-repo-operating-system.md",
     ]:
         assert (ROOT / rel).is_file(), rel
 
@@ -569,6 +570,64 @@ def test_repo_operating_system_freeze_artifacts_are_complete():
         "Exact next recommended thread after M00.08 QA and merge",
     ]:
         assert phrase in readiness
+
+
+def test_m00_closeout_state_is_coherent():
+    registry = (
+        ROOT / "docs" / "milestones" / "SUBMILESTONE_REGISTRY.md"
+    ).read_text(encoding="utf-8")
+    roadmap = (ROOT / "plans" / "ROADMAP.md").read_text(encoding="utf-8")
+    closeout = (ROOT / "docs" / "status" / "M00_CLOSEOUT.md").read_text(
+        encoding="utf-8"
+    )
+    current_state = (ROOT / "docs" / "status" / "CURRENT_STATE.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert not (ROOT / "plans" / "active" / "CLP-0001-m00-repo-operating-system.md").exists()
+    assert (
+        ROOT / "plans" / "completed" / "CLP-0001-m00-repo-operating-system.md"
+    ).is_file()
+    assert not list((ROOT / "plans" / "active").glob("*m01*.md"))
+
+    for index in range(1, 9):
+        submilestone = f"M00.{index:02}"
+        row = next(
+            line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")
+        )
+        assert "Completed and merged" in row
+
+    assert "| M00 Repo operating system |" in roadmap
+    assert "| 8 | Completed |" in roadmap
+    assert "| M01 Domain model and scope freeze |" in roadmap
+    assert "| 13 | Not started |" in roadmap
+
+    for phrase in [
+        "M00 is a control-plane milestone",
+        "No product functionality was implemented",
+        "No M01 active plan exists",
+        "M01 Planning - Domain Model and Scope Freeze",
+    ]:
+        assert phrase in closeout
+
+    for phrase in [
+        "No active milestone plan exists",
+        "Product directories contain placeholder README files only",
+        "M00.01 through M00.08 are completed and merged",
+    ]:
+        assert phrase in current_state
+
+    assert not (ROOT / ".github" / "workflows").exists()
+
+    for rel in ["apps", "packages", "scenarios", "data", "infra"]:
+        for path in (ROOT / rel).rglob("*"):
+            if path.is_file():
+                assert path.name == "README.md", path
+
+    env_example = (ROOT / ".env.example").read_text(encoding="utf-8")
+    for line in env_example.splitlines():
+        if "=" in line:
+            assert not line.split("=", 1)[1].strip()
 
 
 def test_skill_files_exist():

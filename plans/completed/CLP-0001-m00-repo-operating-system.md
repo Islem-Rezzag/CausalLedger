@@ -4,7 +4,7 @@
 
 Establish the file-first operating system for CausalLedger milestone work. This plan covers M00 only and keeps the repository usable by future Codex threads without relying on chat memory.
 
-Current submilestone status: M00.08 Repo Operating System QA and Freeze QA passed, awaiting merge. M00.01 through M00.07 are completed and merged. M00 remains in progress.
+Current milestone status: M00 Repo Operating System is completed in this closeout branch. M00.01 through M00.08 are completed and merged. M01 is not started.
 
 ## Progress
 
@@ -102,6 +102,11 @@ Current submilestone status: M00.08 Repo Operating System QA and Freeze QA passe
 - [x] 2026-05-10: Started M00.08 QA on branch `m00-08-repo-operating-system-qa-and-freeze`; branch guard passed, `git status --short` was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
 - [x] 2026-05-10: Verified M00.08 freeze artifacts, active docs, operations docs, prompt templates, tracking files, GitHub templates, skills, validation coverage, forbidden-scope boundary, and no-M01 boundary.
 - [x] 2026-05-10: Fixed one scoped readiness-report next-step defect and recorded M00.08 QA PASS.
+- [x] 2026-05-11: Finalized M00.08 as `Completed and merged` after confirming PR #8 merged into `main` at commit `db312d16f3059a2714f929c4bcb831d4a6a5a173`.
+- [x] 2026-05-11: Ran M00 closeout audit for completed submilestones, merge references, no-product state, no-M01 state, control-plane artifacts, risks, tech debt, open questions, and next milestone readiness.
+- [x] 2026-05-11: Created `docs/status/M00_CLOSEOUT.md`.
+- [x] 2026-05-11: Confirmed M00 closeout criteria passed and approved moving this plan to `plans/completed/CLP-0001-m00-repo-operating-system.md`.
+- [x] 2026-05-11: Updated validation coverage for completed M00 plan state, M00 closeout packet, no M01 active plan, completed M00 status coherence, and no product implementation claims.
 
 ## Surprises & Discoveries
 
@@ -129,6 +134,7 @@ Current submilestone status: M00.08 Repo Operating System QA and Freeze QA passe
 - M00.07 found that the milestone closeout prompt and plan template were too thin to enforce PR merge verification, validation evidence checks, plan movement criteria, deferrals, follow-up work, and next milestone readiness.
 - M00.08 starts from `main` at commit `ae19cd0e4b34ad8c16c3d4f8ee1adbe08e7575f6`, which contains the merged M00.07 milestone closeout workflow.
 - M00.08 found only targeted control-plane consistency gaps: M00 freeze artifacts were missing, active docs needed explicit commit/push/human-merge alignment, milestone closeout prompt needed a branch guard, GitHub issue template placeholders could be more reusable, and older GitHub ops docs had stale M00.06 slice wording.
+- M00 closeout found that PR #8 is merged into `main` at commit `db312d16f3059a2714f929c4bcb831d4a6a5a173`, product directories remain placeholder-only, `.github/workflows/` does not exist, and no M01 active plan exists.
 
 ## Decision Log
 
@@ -162,6 +168,9 @@ Current submilestone status: M00.08 Repo Operating System QA and Freeze QA passe
 - 2026-05-10: M00.08 remains control-plane only; its output is repo operating system freeze guidance, freeze readiness reporting, consistency audit updates, and validation coverage.
 - 2026-05-10: M00.08 builder completion can move the registry to `Builder complete, awaiting QA`, but not to QA passed or `Completed and merged`.
 - 2026-05-10: M00.08 QA PASS moves the submilestone to `QA passed, awaiting merge`; it is safe to merge but not fully complete until the PR merges and tracking is finalized.
+- 2026-05-11: M00.08 is `Completed and merged` because PR #8 merged into `main` at commit `db312d16f3059a2714f929c4bcb831d4a6a5a173`.
+- 2026-05-11: M00 closeout criteria passed, so this plan can move from `plans/active/` to `plans/completed/`.
+- 2026-05-11: M01 may start only after this M00 closeout PR merges and a human creates the M01 planning branch/thread.
 
 ## Context and Orientation
 
@@ -171,7 +180,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Scope
 
-In scope for M00.08:
+In scope for M00.08 and M00 closeout:
 
 - Finalizing M00.07 as `Completed and merged` before M00.08 work.
 - Creating `docs/ops/repo-operating-system-freeze.md`.
@@ -181,6 +190,11 @@ In scope for M00.08:
 - Updating milestone tracking, roadmap, active plan, status docs, and capability matrix for M00.08.
 - Updating control-plane validation script and bootstrap tests for the new freeze guide and readiness report.
 - Status and handoff updates.
+- Finalizing M00.08 as `Completed and merged` after PR #8 merge.
+- Creating `docs/status/M00_CLOSEOUT.md`.
+- Auditing all M00 submilestones and M00 closeout criteria.
+- Moving this plan to `plans/completed/CLP-0001-m00-repo-operating-system.md` after closeout criteria pass.
+- Preparing the repo for M01 planning without starting M01.
 
 Out of scope:
 
@@ -188,7 +202,6 @@ Out of scope:
 - MoneyEvent, ledger, invariant, incident, graph, replay, repair, agent runtime, UI, or connector logic.
 - Active plans for M01-M21.
 - Marking M00.08 QA passed or completed during the builder thread.
-- Closing M00 or moving this active plan to `plans/completed/`.
 - Starting M01 or creating an M01 active plan.
 - Repair approval or any money-state mutation.
 
@@ -203,6 +216,11 @@ Out of scope:
 7. Apply targeted control-plane consistency fixes.
 8. Confirm validation coverage for the freeze artifacts and update validation if necessary.
 9. Run validation and record results.
+10. Finalize M00.08 as `Completed and merged` after PR #8 merge.
+11. Create the M00 closeout packet.
+12. Verify no product implementation, no GitHub Actions, no real secrets, and no M01 active plan.
+13. Move the completed M00 plan to `plans/completed/` only if closeout criteria pass.
+14. Update validation for the completed M00 plan state and run closeout validation.
 
 ## Concrete Steps
 
@@ -228,6 +246,9 @@ Out of scope:
 - Update `docs/status/TECH_DEBT.md` only if this slice introduces placeholders or shortcuts.
 - Update `scripts/validate-control-plane.py` for freeze guide and readiness report checks.
 - Update `tests/test_control_plane_bootstrap.py` for freeze guide and readiness report checks.
+- Create `docs/status/M00_CLOSEOUT.md`.
+- Move this plan to `plans/completed/CLP-0001-m00-repo-operating-system.md` after closeout criteria pass.
+- Update validation script and bootstrap tests for M00 closeout state.
 
 ## Validation and Acceptance
 
@@ -253,6 +274,11 @@ Acceptance:
 - No product code is implemented.
 - Control-plane validation passes or limitations are recorded.
 - Status docs and handoff packet are updated.
+- M00.08 is finalized as `Completed and merged`.
+- `docs/status/M00_CLOSEOUT.md` exists.
+- M00.01 through M00.08 are `Completed and merged`.
+- This plan is safe to move to `plans/completed/`.
+- No M01 active plan exists and M01 is not started.
 
 ## Idempotence and Recovery
 
@@ -273,6 +299,7 @@ Primary artifacts:
 - `docs/ops/milestone-closeout-workflow.md`
 - `docs/ops/repo-operating-system-freeze.md`
 - `docs/status/M00_FREEZE_READINESS.md`
+- `docs/status/M00_CLOSEOUT.md`
 - `prompts/template_builder_submilestone.md`
 - `prompts/template_qa_submilestone.md`
 - `prompts/template_handoff_packet.md`
@@ -368,6 +395,10 @@ Validation results:
 - `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-10 for M00.08 QA validation with 14 tests.
 - `git diff --check` passed on 2026-05-10 for M00.08 QA validation.
 - `make bootstrap-check` was not run on 2026-05-10 for M00.08 QA because `make` is unavailable in the current Windows shell.
+- `python scripts/validate-control-plane.py` passed on 2026-05-11 for M00 closeout validation.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-11 for M00 closeout validation with 15 tests.
+- `git diff --check` passed on 2026-05-11 for M00 closeout validation.
+- `make bootstrap-check` was not run on 2026-05-11 for M00 closeout because `make` is unavailable in the current Windows shell.
 
 M00.03 builder outcome:
 
@@ -494,10 +525,19 @@ M00.08 QA outcome:
 - Verified no product functionality, MoneyEvent logic, ledger logic, invariants, incident logic, causal graph logic, replay logic, agent runtime, repair planning logic, UI features, external connectors, GitHub Actions, CI workflows, M01 active plan, or M01 work started.
 - Recorded M00.08 QA PASS and left final completion blocked on PR merge and post-merge tracking finalization.
 
+M00 closeout outcome:
+
+- Finalized M00.08 as `Completed and merged` after confirming PR #8 merged into `main` at commit `db312d16f3059a2714f929c4bcb831d4a6a5a173`.
+- Verified M00.01 through M00.08 are `Completed and merged`.
+- Created `docs/status/M00_CLOSEOUT.md`.
+- Verified product directories contain only placeholder README files, `.github/workflows/` does not exist, `.env.example` contains empty placeholders only, and no product functionality exists.
+- Verified no MoneyEvent, ledger, invariant, incident, graph, replay, agent runtime, repair planner, UI, connector, API, database, GitHub Actions, CI workflow, or real secret work exists.
+- Verified no M01 active plan exists and M01 through M21 remain `Not started`.
+- Moved this completed M00 plan to `plans/completed/CLP-0001-m00-repo-operating-system.md`.
+
 Remaining risks:
 
-- M00 is not complete; M00.01 through M00.07 are completed and merged, and M00.08 is QA passed awaiting merge.
-- M00.08 is not fully complete until PR merge and post-merge tracking finalization.
+- M01 planning must not start until this M00 closeout PR merges and a human creates the M01 planning branch/thread.
 - `docs/DOMAIN_MODEL.md` is intentionally a placeholder for M01.
 
-Next recommended action: `Merge M00.08 PR - Repo Operating System QA and Freeze`.
+Next recommended action after this closeout PR merges: `M01 Planning - Domain Model and Scope Freeze`.
