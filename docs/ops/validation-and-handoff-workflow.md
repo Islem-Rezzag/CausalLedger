@@ -141,6 +141,8 @@ If a command such as `make` is unavailable, do not install dependencies silently
 
 For M00, unavailable `make bootstrap-check` is acceptable when the direct Python validation and pytest commands pass.
 
+Milestone closeout validation uses the same ladder scaled to the closeout scope. For M00 closeout, run the control-plane commands, verify milestone status synchronization, and record skipped optional checks in the milestone closeout packet.
+
 ## Validation failures
 
 If required validation fails:

@@ -24,6 +24,14 @@
 
 ## Warnings
 
+## Risks
+
+## Tech debt
+
+## Open questions
+
+## Deferred work
+
 ## Current submilestone status
 
 ## Whether product implementation started
@@ -37,5 +45,9 @@
 ## Whether safe to open PR
 
 ## Whether safe to merge if QA
+
+## Whether active plan can move to completed if milestone closeout
+
+## Whether safe to start next milestone if milestone closeout
 
 ## Exact next recommended Codex thread

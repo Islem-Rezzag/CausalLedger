@@ -1,11 +1,11 @@
 # Next Recommended Thread
 
-Thread name: `Merge M00.06 PR - GitHub PR and Issue Workflow`
+Thread name: `M00.07 QA - Milestone Closeout Workflow`
 
-Precondition: M00.06 QA passed on `m00-06-github-pr-and-issue-workflow`, required QA validation passed, forbidden-scope checks passed, and tracking is updated to `QA passed, awaiting merge`.
+Precondition: M00.07 builder work is complete on `m00-07-milestone-closeout-workflow`, required builder validation passed, `make bootstrap-check` is recorded as unavailable, forbidden-scope checks found no product implementation, and tracking is updated to `Builder complete, awaiting QA`.
 
-Goal: Merge the M00.06 GitHub PR and Issue Workflow PR, then finalize post-merge tracking as `Completed and merged` only after merge is confirmed on `main`.
+Goal: Run the M00.07 QA review on the same branch and PR, inspect the milestone closeout workflow docs and templates, verify tracking/status synchronization, run validation, and record PASS or FAIL.
 
-Next thread after merge finalization: `M00.07 Builder - Milestone Closeout Workflow`.
+Next thread after QA PASS: merge the M00.07 PR and finalize post-merge tracking only after merge is confirmed.
 
-Do not start product implementation, MoneyEvent logic, ledger logic, invariants, incidents, graph, replay, agent runtime, repair planning, UI, external connectors, M00.07, or M01 work.
+Do not start product implementation, MoneyEvent logic, ledger logic, invariants, incidents, graph, replay, agent runtime, repair planning, UI, external connectors, M00.08, or M01 work.

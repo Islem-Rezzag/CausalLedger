@@ -1,5 +1,20 @@
 # Weekly Log
 
+## 2026-05-10
+
+- Finalized M00.06 GitHub PR and Issue Workflow as `Completed and merged` after merge into `main` at commit `a0fdf6bc422f573235d48ee8cde93fd92d25e617`.
+- Started M00.07 Milestone Closeout Workflow builder thread on branch `m00-07-milestone-closeout-workflow`.
+- Confirmed branch guard passed before M00.07 edits: branch matched, `git status --short` was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- Confirmed M00.01 through M00.06 are completed and merged, M00.07 had not started before this builder, M00 remains in progress, M00.08 and M01-M21 are not started, no product code exists, and the active plan is `plans/active/CLP-0001-m00-repo-operating-system.md`.
+- Created `docs/ops/milestone-closeout-workflow.md` and updated milestone closeout templates, handoff fields, workflow references, validation script, and bootstrap tests for milestone closeout control-plane coverage.
+- Ran `python scripts/validate-control-plane.py` successfully.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 13 tests.
+- Ran `git diff --check` successfully.
+- Confirmed `make bootstrap-check` is unavailable in the current Windows shell.
+- Confirmed product implementation has not started; `apps/` and `packages/` contain placeholder README files only.
+- Marked M00.07 as `Builder complete, awaiting QA`; M00.08 and M01 remain not started.
+- Recommended next thread: `M00.07 QA - Milestone Closeout Workflow`.
+
 ## 2026-05-09
 
 - Finalized M00.05 Validation and Handoff Workflow as `Completed and merged` after merge into `main` at commit `b82e5d1`.

@@ -131,6 +131,8 @@ Check:
 - validation has run or the PR is intentionally draft while validation is still pending;
 - the PR body names the active plan, changed files, validation state, and next action.
 
+Codex may run validation, stage, commit, and push scoped changes only when the prompt explicitly authorizes those Git actions. Codex must not merge PRs into `main`.
+
 ## Before Running QA
 
 Check:
@@ -162,6 +164,8 @@ Do not merge without QA PASS.
 Prefer squash merge for submilestone PRs so `main` has one clear commit per submilestone. The squash commit subject should include the submilestone ID or title.
 
 After merge, the next tracking update must record the merge reference in the registry, milestone doc, roadmap/current state where relevant, weekly log, and active plan.
+
+If the merged PR completes the final required submilestone in a milestone, use `docs/ops/milestone-closeout-workflow.md` before moving the active plan to `plans/completed/` or starting the next milestone.
 
 ## Branch Deletion After Merge
 
