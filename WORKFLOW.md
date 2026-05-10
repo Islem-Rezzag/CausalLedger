@@ -50,6 +50,8 @@ Use `docs/ops/github-pr-and-issue-workflow.md` for PR naming, issue usage, draft
 
 Use `docs/ops/milestone-closeout-workflow.md`, `prompts/template_milestone_closeout.md`, and `plans/templates/milestone-closeout-template.md` for milestone closeout packets, active-plan movement, deferrals, and next milestone readiness.
 
+Use `docs/ops/repo-operating-system-freeze.md` and `docs/status/M00_FREEZE_READINESS.md` for M00 freeze readiness checks and preparation for milestone closeout.
+
 ## Sandbox assumptions
 
 Default future work assumes workspace-write sandboxing and restricted network unless explicitly changed by the active environment.
@@ -79,6 +81,8 @@ Every builder and QA prompt must include the branch guard:
 - `git remote -v`
 
 If the branch is wrong or the worktree is unexpectedly dirty, stop before editing and report the blocker. Open or update a draft PR before QA when possible. QA runs in a separate thread on the same branch and PR. Merge only after QA records PASS.
+
+Codex may stage, commit, and push scoped changes only when explicitly authorized. Codex must not merge PRs into `main`; humans merge PRs after QA PASS and merge readiness checks.
 
 ## Validation commands
 

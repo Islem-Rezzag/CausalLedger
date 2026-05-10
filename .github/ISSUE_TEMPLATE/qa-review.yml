@@ -6,7 +6,7 @@ body:
     id: audited_submilestone
     attributes:
       label: Audited submilestone
-      placeholder: "M00.06 GitHub PR and Issue Workflow"
+      placeholder: "MXX.YY Submilestone Title"
     validations:
       required: true
   - type: input
@@ -20,14 +20,14 @@ body:
     id: branch
     attributes:
       label: Branch
-      placeholder: "m00-06-github-pr-and-issue-workflow"
+      placeholder: "mxx-yy-submilestone-title"
     validations:
       required: true
   - type: input
     id: qa_thread
     attributes:
       label: QA thread name
-      placeholder: "M00.06 QA - GitHub PR and Issue Workflow"
+      placeholder: "MXX.YY QA - Submilestone Title"
   - type: textarea
     id: files_inspected
     attributes:

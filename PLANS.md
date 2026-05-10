@@ -18,6 +18,8 @@ GitHub PR and issue workflow, PR body expectations, issue template usage, labels
 
 Milestone closeout preconditions, packets, deferrals, plan movement, and next milestone readiness are defined in `docs/ops/milestone-closeout-workflow.md`, `prompts/template_milestone_closeout.md`, and `plans/templates/milestone-closeout-template.md`.
 
+M00 repo operating system freeze checks and closeout preparation are defined in `docs/ops/repo-operating-system-freeze.md` and `docs/status/M00_FREEZE_READINESS.md`.
+
 ## Naming convention
 
 Use `CLP-0001-short-name.md`. Increment the number monotonically and keep the short name action-oriented.
@@ -64,6 +66,8 @@ Builder threads must:
 - avoid product implementation unless explicitly scoped.
 
 If the branch guard reports a branch mismatch, stop without editing and report the current branch, expected branch, and safest human recovery step. If the worktree is unexpectedly dirty, report the dirty files and stop unless those files are explicitly part of the requested submilestone.
+
+Codex may stage, commit, and push scoped changes only when explicitly authorized. Codex must not merge PRs into `main`; humans merge PRs after QA PASS and merge readiness checks.
 
 ## QA rules
 

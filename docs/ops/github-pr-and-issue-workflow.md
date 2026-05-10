@@ -242,7 +242,7 @@ If conflict resolution would alter unrelated product behavior, raw evidence, led
 
 Recommended branch protection for `main` is documented in `docs/ops/branch-protection.md`. For now, this project is solo, so GitHub reviewer approvals may remain off, but QA thread discipline still applies.
 
-When GitHub Actions or required checks are added later, branch protection can require those status checks before merge. This M00.06 slice does not add GitHub Actions or CI workflows.
+When GitHub Actions or required checks are added later, branch protection can require those status checks before merge. This workflow does not add GitHub Actions or CI workflows.
 
 ## Missing GitHub CLI
 

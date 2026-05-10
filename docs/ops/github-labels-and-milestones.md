@@ -4,7 +4,7 @@
 
 GitHub labels and milestones help sort PRs and issues without replacing the repo's canonical tracking files. The registry, active plan, status docs, validation results, and handoff packets remain the durable source of project state.
 
-This document is guidance only. Labels and milestones may require manual creation in the GitHub UI unless automation is added in a later authorized slice. This slice does not add GitHub Actions, label automation, or CI workflows.
+This document is guidance only. Labels and milestones may require manual creation in the GitHub UI unless automation is added in a later authorized slice. This guidance does not add GitHub Actions, label automation, or CI workflows.
 
 ## Suggested Labels
 

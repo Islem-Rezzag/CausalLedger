@@ -36,9 +36,11 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/ops/github-labels-and-milestones.md` - suggested GitHub labels and milestones.
 - `docs/ops/branch-protection.md` - recommended branch protection settings for `main`.
 - `docs/ops/milestone-closeout-workflow.md` - milestone closeout preconditions, packet, plan movement, deferrals, and next milestone readiness.
+- `docs/ops/repo-operating-system-freeze.md` - M00 freeze readiness and control-plane coherence checks.
 - `plans/ROADMAP.md` - canonical milestone sequence, counts, statuses, and exit criteria.
 - `docs/status/CURRENT_STATE.md` - current phase, active plan, product code status, and validation status.
 - `docs/status/NEXT_RECOMMENDED_THREAD.md` - exact next recommended thread.
+- `docs/status/M00_FREEZE_READINESS.md` - M00 freeze readiness report.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` - canonical M00-M21 submilestone registry.
 - `plans/active/CLP-0001-m00-repo-operating-system.md` - active M00 execution plan.
 - `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
@@ -70,6 +72,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/status/WEEKLY_LOG.md` - chronological progress log.
 - `docs/status/NEXT_RECOMMENDED_THREAD.md` - exact next thread recommendation.
 - `docs/status/TECH_DEBT.md` - placeholders, shortcuts, and deferred cleanup.
+- `docs/status/M00_FREEZE_READINESS.md` - M00 freeze readiness, limitations, remaining steps, and next threads.
 
 ## Current implementation status
 
