@@ -2,7 +2,7 @@
 
 ## Current phase
 
-Control-plane bootstrap. M00 Repo operating system is in progress. Current submilestone is M00.08 Repo Operating System QA and Freeze, builder complete and awaiting QA.
+Control-plane bootstrap. M00 Repo operating system is in progress. Current submilestone is M00.08 Repo Operating System QA and Freeze, QA passed and awaiting merge.
 
 ## What exists
 
@@ -50,7 +50,7 @@ Control-plane bootstrap. M00 Repo operating system is in progress. Current submi
 
 ## Current submilestone
 
-M00.08 Repo Operating System QA and Freeze builder is complete and awaiting QA on branch `m00-08-repo-operating-system-qa-and-freeze`.
+M00.08 Repo Operating System QA and Freeze QA passed on branch `m00-08-repo-operating-system-qa-and-freeze` and is awaiting merge.
 
 M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 Planning and Tracking System is completed and merged at commit `f289d5e`. M00.04 Builder and QA Prompt Protocol is completed and merged at commit `e686c77`. M00.05 Validation and Handoff Workflow is completed and merged at commit `b82e5d1`. M00.06 GitHub PR and Issue Workflow is completed and merged at commit `a0fdf6bc422f573235d48ee8cde93fd92d25e617`. M00.07 Milestone Closeout Workflow is completed and merged at commit `ae19cd0e4b34ad8c16c3d4f8ee1adbe08e7575f6`.
 
@@ -60,7 +60,7 @@ No product code exists yet.
 
 ## Next action
 
-Run `M00.08 QA - Repo Operating System QA and Freeze` on the same branch and PR. Do not mark M00.08 completed until QA PASS, PR merge, and post-merge finalization occur. Do not start M01 or create an M01 active plan.
+Run `Merge M00.08 PR - Repo Operating System QA and Freeze`. A human operator must merge the PR; Codex must not merge it. Do not mark M00.08 completed until PR merge and post-merge finalization occur. Do not start M01 or create an M01 active plan.
 
 ## Implementation warning
 
@@ -72,7 +72,7 @@ Do not start product implementation. Continue M00 only through the active plan.
 - Equivalent underlying checks were run directly with Python:
   - `python scripts/validate-control-plane.py`
   - `python -m pytest tests/test_control_plane_bootstrap.py`
-- `rg` failed to launch in this Windows shell with access denied during exploratory checks; PowerShell listing/search was used instead.
+- Earlier M00 exploratory checks recorded `rg` access denied; M00.08 QA used `rg` successfully.
 
 ## Latest validation
 
@@ -145,3 +145,9 @@ Do not start product implementation. Continue M00 only through the active plan.
 - 2026-05-10: M00.08 builder validation passed: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 14 tests, and `git diff --check`.
 - 2026-05-10: `make bootstrap-check` was not run for M00.08 builder validation because `make` is unavailable in the current Windows shell.
 - 2026-05-10: M00.08 marked `Builder complete, awaiting QA`; M00 remains in progress, and M01-M21 remain not started.
+- 2026-05-10: M00.08 QA review passed after a scoped freeze readiness next-step fix.
+- 2026-05-10: `python scripts/validate-control-plane.py` passed for M00.08 QA.
+- 2026-05-10: `python -m pytest tests/test_control_plane_bootstrap.py` passed for M00.08 QA with 14 tests.
+- 2026-05-10: `git diff --check` passed for M00.08 QA.
+- 2026-05-10: `make bootstrap-check` was not run for M00.08 QA because `make` is unavailable in the current Windows shell.
+- 2026-05-10: M00.08 marked `QA passed, awaiting merge`; M00 remains in progress, and M01-M21 remain not started.

@@ -4,7 +4,7 @@
 
 Establish the file-first operating system for CausalLedger milestone work. This plan covers M00 only and keeps the repository usable by future Codex threads without relying on chat memory.
 
-Current submilestone status: M00.08 Repo Operating System QA and Freeze builder complete, awaiting QA. M00.01 through M00.07 are completed and merged. M00 remains in progress.
+Current submilestone status: M00.08 Repo Operating System QA and Freeze QA passed, awaiting merge. M00.01 through M00.07 are completed and merged. M00 remains in progress.
 
 ## Progress
 
@@ -99,6 +99,9 @@ Current submilestone status: M00.08 Repo Operating System QA and Freeze builder 
 - [x] 2026-05-10: Completed targeted consistency updates for active docs, operations docs, prompt templates, GitHub templates, tracking files, status files, validation script, and bootstrap tests.
 - [x] 2026-05-10: Ran M00.08 builder validation and recorded results.
 - [x] 2026-05-10: Marked M00.08 as `Builder complete, awaiting QA` without marking it QA passed, completed, or merged.
+- [x] 2026-05-10: Started M00.08 QA on branch `m00-08-repo-operating-system-qa-and-freeze`; branch guard passed, `git status --short` was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- [x] 2026-05-10: Verified M00.08 freeze artifacts, active docs, operations docs, prompt templates, tracking files, GitHub templates, skills, validation coverage, forbidden-scope boundary, and no-M01 boundary.
+- [x] 2026-05-10: Fixed one scoped readiness-report next-step defect and recorded M00.08 QA PASS.
 
 ## Surprises & Discoveries
 
@@ -158,6 +161,7 @@ Current submilestone status: M00.08 Repo Operating System QA and Freeze builder 
 - 2026-05-10: M00.07 is `Completed and merged` because commit `ae19cd0e4b34ad8c16c3d4f8ee1adbe08e7575f6` is present on `main` and `origin/main`.
 - 2026-05-10: M00.08 remains control-plane only; its output is repo operating system freeze guidance, freeze readiness reporting, consistency audit updates, and validation coverage.
 - 2026-05-10: M00.08 builder completion can move the registry to `Builder complete, awaiting QA`, but not to QA passed or `Completed and merged`.
+- 2026-05-10: M00.08 QA PASS moves the submilestone to `QA passed, awaiting merge`; it is safe to merge but not fully complete until the PR merges and tracking is finalized.
 
 ## Context and Orientation
 
@@ -360,6 +364,10 @@ Validation results:
 - `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-10 for M00.08 builder validation with 14 tests.
 - `git diff --check` passed on 2026-05-10 for M00.08 builder validation.
 - `make bootstrap-check` was not run on 2026-05-10 for M00.08 builder validation because `make` is unavailable in the current Windows shell.
+- `python scripts/validate-control-plane.py` passed on 2026-05-10 for M00.08 QA validation.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-10 for M00.08 QA validation with 14 tests.
+- `git diff --check` passed on 2026-05-10 for M00.08 QA validation.
+- `make bootstrap-check` was not run on 2026-05-10 for M00.08 QA because `make` is unavailable in the current Windows shell.
 
 M00.03 builder outcome:
 
@@ -477,10 +485,19 @@ M00.08 builder outcome:
 - Kept M00 in progress, kept the active M00 plan in `plans/active/`, kept M01-M21 `Not started`, and did not create an M01 active plan.
 - Did not implement product functionality.
 
+M00.08 QA outcome:
+
+- Verified `docs/ops/repo-operating-system-freeze.md` covers M00 freeze purpose, readiness, pre-close requirements, pre-M01 false conditions, coherence checks, validation coverage, no-product/no-M01 verification, and closeout preparation.
+- Verified `docs/status/M00_FREEZE_READINESS.md` records M00 purpose, completed M00.01-M00.07 submilestones, M00.08 status, control-plane artifacts, validation evidence, known limitations, make unavailability, no-product/no-M01 status, readiness checklist, remaining closeout steps, and next threads.
+- Fixed one scoped M00.08 control-plane defect by updating the readiness report to remove already-completed builder work from remaining closeout steps and name `Merge M00.08 PR - Repo Operating System QA and Freeze` after QA PASS.
+- Verified active docs, operations docs, prompt templates, GitHub templates, local skills, tracking files, validation script, and bootstrap tests remain control-plane-only and consistent.
+- Verified no product functionality, MoneyEvent logic, ledger logic, invariants, incident logic, causal graph logic, replay logic, agent runtime, repair planning logic, UI features, external connectors, GitHub Actions, CI workflows, M01 active plan, or M01 work started.
+- Recorded M00.08 QA PASS and left final completion blocked on PR merge and post-merge tracking finalization.
+
 Remaining risks:
 
-- M00 is not complete; M00.01 through M00.07 are completed and merged, and M00.08 is builder complete awaiting QA.
-- M00.08 is not fully complete until QA PASS, PR merge, and post-merge tracking finalization.
+- M00 is not complete; M00.01 through M00.07 are completed and merged, and M00.08 is QA passed awaiting merge.
+- M00.08 is not fully complete until PR merge and post-merge tracking finalization.
 - `docs/DOMAIN_MODEL.md` is intentionally a placeholder for M01.
 
-Next recommended action: `M00.08 QA - Repo Operating System QA and Freeze`.
+Next recommended action: `Merge M00.08 PR - Repo Operating System QA and Freeze`.

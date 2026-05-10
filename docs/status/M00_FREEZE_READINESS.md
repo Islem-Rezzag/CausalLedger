@@ -18,9 +18,9 @@ M00 Repo Operating System establishes the durable control plane for CausalLedger
 
 ## M00.08 current status
 
-M00.08 Repo Operating System QA and Freeze is `Builder complete, awaiting QA` on branch `m00-08-repo-operating-system-qa-and-freeze`.
+M00.08 Repo Operating System QA and Freeze is `QA passed, awaiting merge` on branch `m00-08-repo-operating-system-qa-and-freeze`.
 
-The builder did not mark M00.08 QA passed, mark M00.08 completed and merged, close M00, move the active M00 plan to `plans/completed/`, start M01, or create an M01 active plan.
+QA did not mark M00.08 completed and merged, close M00, move the active M00 plan to `plans/completed/`, start M01, or create an M01 active plan.
 
 ## Control-plane artifacts created
 
@@ -57,6 +57,13 @@ M00.08 builder validation passed on 2026-05-10:
 - `git diff --check` passed.
 - `make bootstrap-check` was not run because `make` is unavailable in the current Windows shell.
 
+M00.08 QA validation passed on 2026-05-10:
+
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 14 tests.
+- `git diff --check` passed.
+- `make bootstrap-check` was not run because `make` is unavailable in the current Windows shell.
+
 ## Known limitations
 
 - `make bootstrap-check` has been unavailable in the current Windows shell during prior M00 slices.
@@ -86,7 +93,7 @@ M01 through M21 remain `Not started`.
 - [x] M01 through M21 remain `Not started`.
 - [x] Product implementation has not started.
 - [x] M00.08 builder validation passes.
-- [ ] M00.08 QA PASS is recorded.
+- [x] M00.08 QA PASS is recorded.
 - [ ] M00.08 PR merges.
 - [ ] M00.08 post-merge tracking is finalized.
 - [ ] M00 closeout thread passes.
@@ -94,17 +101,19 @@ M01 through M21 remain `Not started`.
 
 ## Remaining steps before M00 can fully close
 
-1. Complete M00.08 builder work and validation.
-2. Run M00.08 QA on the same branch and PR.
-3. Merge the M00.08 PR only after QA PASS.
-4. Finalize M00.08 as `Completed and merged` with the merge reference.
-5. Run `M00 Closeout - Repo Operating System`.
-6. Move the active M00 plan to `plans/completed/` only if closeout says it can move.
-7. Recommend the first M01 planning thread only after M00 closeout passes.
+1. Merge the M00.08 PR only after QA PASS.
+2. Finalize M00.08 as `Completed and merged` with the merge reference.
+3. Run `M00 Closeout - Repo Operating System`.
+4. Move the active M00 plan to `plans/completed/` only if closeout says it can move.
+5. Recommend the first M01 planning thread only after M00 closeout passes.
 
 ## Exact next recommended thread after M00.08 builder
 
 `M00.08 QA - Repo Operating System QA and Freeze`
+
+## Exact next recommended thread after M00.08 QA PASS
+
+`Merge M00.08 PR - Repo Operating System QA and Freeze`
 
 ## Exact next recommended thread after M00.08 QA and merge
 
