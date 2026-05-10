@@ -45,7 +45,7 @@ Control-plane bootstrap. M00 Repo operating system is in progress. Current submi
 
 ## Current submilestone
 
-M00.07 Milestone Closeout Workflow builder work is complete and awaiting QA on branch `m00-07-milestone-closeout-workflow`.
+M00.07 Milestone Closeout Workflow QA passed and is awaiting PR merge on branch `m00-07-milestone-closeout-workflow`.
 
 M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 Planning and Tracking System is completed and merged at commit `f289d5e`. M00.04 Builder and QA Prompt Protocol is completed and merged at commit `e686c77`. M00.05 Validation and Handoff Workflow is completed and merged at commit `b82e5d1`. M00.06 GitHub PR and Issue Workflow is completed and merged at commit `a0fdf6bc422f573235d48ee8cde93fd92d25e617`.
 
@@ -55,7 +55,7 @@ No product code exists yet.
 
 ## Next action
 
-Run `M00.07 QA - Milestone Closeout Workflow`. Do not mark M00.07 completed until QA PASS, PR merge, and post-merge tracking finalization occur.
+Run `Merge M00.07 PR - Milestone Closeout Workflow`. Do not mark M00.07 completed until PR merge and post-merge tracking finalization occur. Do not start M00.08 before M00.07 is finalized after merge.
 
 ## Implementation warning
 
@@ -128,4 +128,9 @@ Do not start product implementation. Continue M00 only through the active plan.
 - 2026-05-10: M00.07 builder started on branch `m00-07-milestone-closeout-workflow`; branch guard passed and the worktree was clean before edits.
 - 2026-05-10: M00.07 builder validation passed: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 13 tests, and `git diff --check`.
 - 2026-05-10: `make bootstrap-check` was not run for M00.07 builder validation because `make` is unavailable in the current Windows shell.
+- 2026-05-10: M00.07 QA started on branch `m00-07-milestone-closeout-workflow`; branch guard passed, the worktree was clean before QA edits, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- 2026-05-10: M00.07 QA verified milestone closeout workflow coverage, closeout prompt and plan templates, handoff packet milestone fields, related workflow references, tracking state, validation coverage, and forbidden-scope boundaries.
+- 2026-05-10: M00.07 QA validation passed: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 13 tests, and `git diff --check`.
+- 2026-05-10: `make bootstrap-check` was not run for M00.07 QA because `make` is unavailable in the current Windows shell.
+- 2026-05-10: M00.07 QA PASS recorded; M00.07 is safe to merge but remains incomplete until PR merge and tracking finalization.
 - 2026-05-10: Product implementation remains not started; `apps/` and `packages/` contain placeholder README files only.
