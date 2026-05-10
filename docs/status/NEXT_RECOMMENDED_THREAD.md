@@ -1,11 +1,11 @@
 # Next Recommended Thread
 
-Thread name: `Merge M00.07 PR - Milestone Closeout Workflow`
+Thread name: `Merge M00.08 PR - Repo Operating System QA and Freeze`
 
-Precondition: M00.07 QA passed on `m00-07-milestone-closeout-workflow`, required QA validation passed, `make bootstrap-check` is recorded as unavailable, forbidden-scope checks found no product implementation, and tracking is updated to `QA passed, awaiting merge`.
+Precondition: M00.08 QA passed on branch `m00-08-repo-operating-system-qa-and-freeze`, required builder and QA validation passed, `make bootstrap-check` is recorded as unavailable, forbidden-scope checks found no product implementation, M00 remains in progress, and the active plan remains `plans/active/CLP-0001-m00-repo-operating-system.md`.
 
-Goal: Merge the M00.07 PR only after confirming normal PR readiness, then finalize post-merge tracking to `Completed and merged` with the merge reference in the registry, M00 milestone doc, roadmap, active plan, current state, weekly log, and next-thread docs.
+Goal: Merge the M00.08 PR after QA PASS, then finalize M00.08 tracking as `Completed and merged` with the merge reference. A human operator must merge the PR; Codex must not merge PRs into `main`.
 
-Next thread after M00.07 merge finalization: `M00.08 Builder - Repo Operating System QA and Freeze`.
+Next thread after M00.08 PR merge and post-merge tracking finalization: `M00 Closeout - Repo Operating System`.
 
-Do not start product implementation, MoneyEvent logic, ledger logic, invariants, incidents, graph, replay, agent runtime, repair planning, UI, external connectors, M00.08, or M01 work before M00.07 is merged and post-merge tracking is finalized.
+Do not start product implementation, MoneyEvent logic, ledger logic, invariants, incidents, graph, replay, agent runtime, repair planning, UI, external connectors, milestone closeout, or M01 work during M00.08 merge finalization. Do not mark M00.08 `Completed and merged` until PR merge and post-merge tracking finalization occur.

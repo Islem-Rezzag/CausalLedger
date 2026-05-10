@@ -12,6 +12,18 @@
 
 Read active docs, the active milestone plan, the milestone doc, `docs/milestones/SUBMILESTONE_REGISTRY.md`, `docs/ops/milestone-closeout-workflow.md`, `docs/ops/validation-and-handoff-workflow.md`, and `docs/ops/github-pr-and-issue-workflow.md`.
 
+## Branch guard
+
+Before editing any file, run:
+
+```powershell
+git branch --show-current
+git status --short
+git remote -v
+```
+
+If the branch is not the expected closeout branch, stop immediately and do not edit files.
+
 ## Scope
 
 Close out the target milestone only. Do not start the next milestone, create product functionality, or move an active plan to completed unless the closeout criteria in `docs/ops/milestone-closeout-workflow.md` are satisfied.

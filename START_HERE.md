@@ -38,6 +38,8 @@ Every builder and QA thread must start with a branch guard:
 
 If Codex is on the wrong branch, stop before editing. Report the current branch, expected branch, dirty files if any, and the safest recovery command for a human to run, such as `git switch <expected-branch>`. Do not create commits, move branches, or rewrite work to recover automatically unless the user explicitly asks.
 
+Codex may stage, commit, or push scoped changes only when explicitly authorized. Codex must not merge PRs; humans merge after QA PASS and normal merge readiness checks.
+
 ## Recommended thread model
 
 - one planning thread per milestone

@@ -6,14 +6,14 @@ body:
     id: blocked_submilestone
     attributes:
       label: Blocked submilestone
-      placeholder: "M00.06 GitHub PR and Issue Workflow"
+      placeholder: "MXX.YY Submilestone Title"
     validations:
       required: true
   - type: input
     id: branch
     attributes:
       label: Branch
-      placeholder: "m00-06-github-pr-and-issue-workflow"
+      placeholder: "mxx-yy-submilestone-title"
   - type: textarea
     id: blocker
     attributes:

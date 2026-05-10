@@ -4,7 +4,7 @@
 
 Branch protection reduces accidental merges, force pushes, deleted history, unresolved review conversations, and unreviewed changes on `main`. It supports the CausalLedger builder/QA discipline without replacing repo tracking, QA handoffs, or human judgment.
 
-This document is guidance only. Configure branch protection in the GitHub UI unless a later authorized slice adds automation. This M00.06 slice does not add GitHub Actions or CI workflows.
+This document is guidance only. Configure branch protection in the GitHub UI unless a later authorized slice adds automation. This guidance does not add GitHub Actions or CI workflows.
 
 ## Recommended `main` Settings
 
@@ -38,7 +38,7 @@ If GitHub cannot enforce review approvals, enforce the rule through the PR body,
 
 ## Status Checks
 
-Do not require status checks until the checks exist. M00.06 does not add GitHub Actions or CI.
+Do not require status checks until the checks exist. This guidance does not add GitHub Actions or CI.
 
 After GitHub Actions exist, recommended required checks should match the validation ladder for the slice, such as control-plane validation, tests, linting, or product-specific checks. A green status check is not enough if QA has not recorded PASS.
 

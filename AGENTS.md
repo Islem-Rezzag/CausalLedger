@@ -71,6 +71,8 @@ Every builder and QA prompt must require these commands before any file edit:
 
 If the current branch is not the expected submilestone branch, stop immediately. If the working tree is dirty before the slice starts, report dirty files and stop unless those files are explicitly part of the same requested submilestone.
 
+Codex may stage, commit, and push scoped changes only when explicitly authorized. Codex must not merge PRs into `main`; human operators merge after QA PASS and merge readiness checks.
+
 ## Skills list
 
 Use CausalLedger skills when the slice touches their boundary. At minimum, milestone and submilestone work should use:

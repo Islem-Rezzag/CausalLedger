@@ -2,7 +2,7 @@
 
 ## Current phase
 
-Control-plane bootstrap. M00 Repo operating system is in progress. Current submilestone is M00.07 Milestone Closeout Workflow.
+Control-plane bootstrap. M00 Repo operating system is in progress. Current submilestone is M00.08 Repo Operating System QA and Freeze, QA passed and awaiting merge.
 
 ## What exists
 
@@ -25,6 +25,7 @@ Control-plane bootstrap. M00 Repo operating system is in progress. Current submi
 - GitHub labels and milestones guidance.
 - Branch protection guidance.
 - Milestone closeout workflow operations guide.
+- M00 repo operating system freeze guide and readiness report.
 - Reusable builder, QA, and handoff packet prompt templates.
 - GitHub PR and issue templates.
 
@@ -34,7 +35,11 @@ Control-plane bootstrap. M00 Repo operating system is in progress. Current submi
 - MoneyEvent logic.
 - Ledger logic.
 - Invariant engine.
+- Incident engine.
+- Causal graph.
+- Replay engine.
 - Agent runtime.
+- Repair planning.
 - UI features.
 - External connectors.
 - Scenario benchmark implementation.
@@ -45,9 +50,9 @@ Control-plane bootstrap. M00 Repo operating system is in progress. Current submi
 
 ## Current submilestone
 
-M00.07 Milestone Closeout Workflow QA passed and is awaiting PR merge on branch `m00-07-milestone-closeout-workflow`.
+M00.08 Repo Operating System QA and Freeze QA passed on branch `m00-08-repo-operating-system-qa-and-freeze` and is awaiting merge.
 
-M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 Planning and Tracking System is completed and merged at commit `f289d5e`. M00.04 Builder and QA Prompt Protocol is completed and merged at commit `e686c77`. M00.05 Validation and Handoff Workflow is completed and merged at commit `b82e5d1`. M00.06 GitHub PR and Issue Workflow is completed and merged at commit `a0fdf6bc422f573235d48ee8cde93fd92d25e617`.
+M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 Planning and Tracking System is completed and merged at commit `f289d5e`. M00.04 Builder and QA Prompt Protocol is completed and merged at commit `e686c77`. M00.05 Validation and Handoff Workflow is completed and merged at commit `b82e5d1`. M00.06 GitHub PR and Issue Workflow is completed and merged at commit `a0fdf6bc422f573235d48ee8cde93fd92d25e617`. M00.07 Milestone Closeout Workflow is completed and merged at commit `ae19cd0e4b34ad8c16c3d4f8ee1adbe08e7575f6`.
 
 ## Product code status
 
@@ -55,7 +60,7 @@ No product code exists yet.
 
 ## Next action
 
-Run `Merge M00.07 PR - Milestone Closeout Workflow`. Do not mark M00.07 completed until PR merge and post-merge tracking finalization occur. Do not start M00.08 before M00.07 is finalized after merge.
+Run `Merge M00.08 PR - Repo Operating System QA and Freeze`. A human operator must merge the PR; Codex must not merge it. Do not mark M00.08 completed until PR merge and post-merge finalization occur. Do not start M01 or create an M01 active plan.
 
 ## Implementation warning
 
@@ -67,7 +72,7 @@ Do not start product implementation. Continue M00 only through the active plan.
 - Equivalent underlying checks were run directly with Python:
   - `python scripts/validate-control-plane.py`
   - `python -m pytest tests/test_control_plane_bootstrap.py`
-- `rg` failed to launch in this Windows shell with access denied during exploratory checks; PowerShell listing/search was used instead.
+- Earlier M00 exploratory checks recorded `rg` access denied; M00.08 QA used `rg` successfully.
 
 ## Latest validation
 
@@ -134,3 +139,15 @@ Do not start product implementation. Continue M00 only through the active plan.
 - 2026-05-10: `make bootstrap-check` was not run for M00.07 QA because `make` is unavailable in the current Windows shell.
 - 2026-05-10: M00.07 QA PASS recorded; M00.07 is safe to merge but remains incomplete until PR merge and tracking finalization.
 - 2026-05-10: Product implementation remains not started; `apps/` and `packages/` contain placeholder README files only.
+- 2026-05-10: M00.07 finalized as `Completed and merged` after merge into `main` at commit `ae19cd0e4b34ad8c16c3d4f8ee1adbe08e7575f6`.
+- 2026-05-10: M00.08 builder started on branch `m00-08-repo-operating-system-qa-and-freeze`; branch guard passed and the worktree was clean before edits.
+- 2026-05-10: M00.08 builder created the repo operating system freeze guide and M00 freeze readiness report, completed targeted control-plane consistency updates, and updated validation coverage.
+- 2026-05-10: M00.08 builder validation passed: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 14 tests, and `git diff --check`.
+- 2026-05-10: `make bootstrap-check` was not run for M00.08 builder validation because `make` is unavailable in the current Windows shell.
+- 2026-05-10: M00.08 marked `Builder complete, awaiting QA`; M00 remains in progress, and M01-M21 remain not started.
+- 2026-05-10: M00.08 QA review passed after a scoped freeze readiness next-step fix.
+- 2026-05-10: `python scripts/validate-control-plane.py` passed for M00.08 QA.
+- 2026-05-10: `python -m pytest tests/test_control_plane_bootstrap.py` passed for M00.08 QA with 14 tests.
+- 2026-05-10: `git diff --check` passed for M00.08 QA.
+- 2026-05-10: `make bootstrap-check` was not run for M00.08 QA because `make` is unavailable in the current Windows shell.
+- 2026-05-10: M00.08 marked `QA passed, awaiting merge`; M00 remains in progress, and M01-M21 remain not started.

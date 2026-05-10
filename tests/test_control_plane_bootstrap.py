@@ -35,6 +35,8 @@ def test_required_project_docs_exist():
         "docs/ops/github-labels-and-milestones.md",
         "docs/ops/branch-protection.md",
         "docs/ops/milestone-closeout-workflow.md",
+        "docs/ops/repo-operating-system-freeze.md",
+        "docs/status/M00_FREEZE_READINESS.md",
         "docs/milestones/SUBMILESTONE_REGISTRY.md",
         "plans/active/CLP-0001-m00-repo-operating-system.md",
     ]:
@@ -508,12 +510,65 @@ def test_milestone_closeout_workflow_and_templates_are_complete():
         ]:
             assert phrase in text
 
+    for command in [
+        "git branch --show-current",
+        "git status --short",
+        "git remote -v",
+    ]:
+        assert command in prompt
+
     for phrase in [
         "Deferred work",
         "Whether active plan can move to completed if milestone closeout",
         "Whether safe to start next milestone if milestone closeout",
     ]:
         assert phrase in handoff
+
+
+def test_repo_operating_system_freeze_artifacts_are_complete():
+    freeze = (
+        ROOT / "docs" / "ops" / "repo-operating-system-freeze.md"
+    ).read_text(encoding="utf-8")
+    readiness = (
+        ROOT / "docs" / "status" / "M00_FREEZE_READINESS.md"
+    ).read_text(encoding="utf-8")
+
+    for phrase in [
+        "Purpose",
+        "What ready means",
+        "Before M00 can close",
+        "What must remain false before M01 starts",
+        "Verify active docs",
+        "Verify roadmap and registry",
+        "Verify status files",
+        "Verify prompt templates",
+        "Verify skills",
+        "Verify GitHub templates",
+        "Verify validation coverage",
+        "Verify no product code has started",
+        "Verify M01 has not started",
+        "What M01 may do after M00 closeout",
+        "What M01 may not do without its own active plan",
+        "Prepare for M00 closeout",
+    ]:
+        assert phrase in freeze
+
+    for phrase in [
+        "M00 purpose",
+        "Completed submilestones",
+        "M00.08 current status",
+        "Control-plane artifacts created",
+        "Validation evidence summary",
+        "Known limitations",
+        "Make unavailable note",
+        "No product implementation status",
+        "No M01 active plan status",
+        "Readiness checklist",
+        "Remaining steps before M00 can fully close",
+        "Exact next recommended thread after M00.08 builder",
+        "Exact next recommended thread after M00.08 QA and merge",
+    ]:
+        assert phrase in readiness
 
 
 def test_skill_files_exist():

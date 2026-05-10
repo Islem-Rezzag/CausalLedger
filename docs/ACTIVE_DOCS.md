@@ -43,6 +43,7 @@ Roadmap and submilestones:
 - `docs/ops/github-labels-and-milestones.md`
 - `docs/ops/branch-protection.md`
 - `docs/ops/milestone-closeout-workflow.md`
+- `docs/ops/repo-operating-system-freeze.md`
 
 Prompt protocol:
 
@@ -62,6 +63,7 @@ Current status:
 - `docs/status/TECH_DEBT.md`
 - `docs/status/RISK_REGISTER.md`
 - `docs/status/OPEN_QUESTIONS.md`
+- `docs/status/M00_FREEZE_READINESS.md`
 
 Active execution:
 
@@ -83,6 +85,8 @@ One submilestone uses:
 - one QA thread
 
 QA must record PASS before merge. The PR must merge before the next submilestone starts.
+
+Codex may stage, commit, and push scoped changes only when explicitly authorized by the prompt or human operator. Codex must not merge PRs into `main`; humans merge PRs after QA PASS and normal merge readiness checks.
 
 Every builder and QA thread must run the branch guard before editing:
 
@@ -120,6 +124,8 @@ Use `docs/ops/validation-and-handoff-workflow.md` for validation ladder levels, 
 Use `docs/ops/github-pr-and-issue-workflow.md`, `docs/ops/github-labels-and-milestones.md`, `docs/ops/branch-protection.md`, `.github/PULL_REQUEST_TEMPLATE.md`, and `.github/ISSUE_TEMPLATE/` for remote PR review containers, issue structure, labels guidance, branch protection guidance, and merge-readiness discipline.
 
 Use `docs/ops/milestone-closeout-workflow.md`, `prompts/template_milestone_closeout.md`, and `plans/templates/milestone-closeout-template.md` for milestone closeout preconditions, packets, plan movement, deferrals, follow-up work, and next milestone readiness.
+
+Use `docs/ops/repo-operating-system-freeze.md` and `docs/status/M00_FREEZE_READINESS.md` for M00 freeze readiness checks, control-plane coherence checks, no-product/no-M01 verification, and preparation for the M00 closeout thread.
 
 ## Archive rule
 

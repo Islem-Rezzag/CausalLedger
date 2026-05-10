@@ -56,12 +56,14 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `docs/ops/github-labels-and-milestones.md` - suggested GitHub labels and milestones.
 - `docs/ops/branch-protection.md` - recommended `main` branch protection settings.
 - `docs/ops/milestone-closeout-workflow.md` - milestone closeout preconditions, packet, plan movement, and next milestone readiness workflow.
+- `docs/ops/repo-operating-system-freeze.md` - M00 freeze readiness and control-plane coherence checks.
 - `.github/PULL_REQUEST_TEMPLATE.md` - PR body checklist for submilestones.
 - `.github/ISSUE_TEMPLATE/` - GitHub issue templates for submilestones, QA, blockers, research, and bugs.
 - `docs/INDEX.md` - documentation entry point.
 - `plans/ROADMAP.md` - milestone sequence, counts, statuses, and exit criteria.
 - `docs/status/CURRENT_STATE.md` - current phase, active plan, product code status, and validation status.
 - `docs/status/NEXT_RECOMMENDED_THREAD.md` - exact next recommended thread.
+- `docs/status/M00_FREEZE_READINESS.md` - M00 freeze readiness report.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` - canonical M00-M21 submilestone registry.
 - `plans/active/CLP-0001-m00-repo-operating-system.md` - active M00 plan.
 - `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
@@ -93,7 +95,7 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 
 ## How to work with Codex
 
-Start with `START_HERE.md`. Codex should read active docs in the required order, continue an existing active plan if one exists, and create a plan before coding if no active plan exists. Every builder and QA thread must run the branch guard before edits, stay on the same submilestone branch and PR, update the active plan and status files, run validation, use the GitHub PR workflow when opening or reviewing a PR, and produce a handoff packet. Do not start the next submilestone until QA has passed and the PR has merged.
+Start with `START_HERE.md`. Codex should read active docs in the required order, continue an existing active plan if one exists, and create a plan before coding if no active plan exists. Every builder and QA thread must run the branch guard before edits, stay on the same submilestone branch and PR, update the active plan and status files, run validation, use the GitHub PR workflow when opening or reviewing a PR, and produce a handoff packet. Codex may stage, commit, and push only when explicitly authorized, and must not merge PRs. Humans merge PRs after QA PASS and merge readiness checks. Do not start the next submilestone until QA has passed and the PR has merged.
 
 ## Milestone overview
 
