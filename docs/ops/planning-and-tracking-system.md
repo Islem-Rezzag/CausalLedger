@@ -12,6 +12,8 @@ Use `docs/ops/validation-and-handoff-workflow.md` for validation ladder levels, 
 
 Use `docs/ops/github-pr-and-issue-workflow.md` for PR naming, PR body expectations, issue template usage, draft PR guidance, same-branch same-PR discipline, failed QA, QA fixes, merge conflicts, branch deletion, missing GitHub CLI handling, branch protection references, and merge-readiness discipline.
 
+Use `docs/ops/milestone-closeout-workflow.md` for milestone-level closeout, active-plan movement, deferred submilestones, follow-up work, and next milestone readiness after the final submilestone in a milestone is completed.
+
 The canonical templates are:
 
 - `prompts/template_builder_submilestone.md`
@@ -147,6 +149,8 @@ Only after this step may the next submilestone start.
 Default operational model: the first step of the next submilestone builder thread finalizes the previous submilestone as `Completed and merged` before starting new work. That thread must begin from updated `main`, confirm that the previous PR is merged, run the branch guard for the new submilestone branch, and update the previous registry row, milestone doc, roadmap, current state, weekly log, and next-thread state before making any non-finalization edits. If the previous PR is not merged, stop and instruct the user to merge it first.
 
 A dedicated post-merge finalization thread or branch is also allowed when a human explicitly asks for one. It must perform only the finalization updates listed above and must not start the next submilestone.
+
+When the merged submilestone is the final required submilestone in a milestone, run `docs/ops/milestone-closeout-workflow.md` before moving the active plan to `plans/completed/` or starting the next milestone. Submilestone closeout finalizes one row; milestone closeout audits the whole milestone.
 
 ## Blocked slices
 

@@ -16,6 +16,8 @@ Validation ladders, command expectations, failure handling, skipped-validation r
 
 GitHub PR and issue workflow, PR body expectations, issue template usage, labels guidance, branch protection guidance, and merge-readiness discipline are defined in `docs/ops/github-pr-and-issue-workflow.md`, `docs/ops/github-labels-and-milestones.md`, `docs/ops/branch-protection.md`, `.github/PULL_REQUEST_TEMPLATE.md`, and `.github/ISSUE_TEMPLATE/`.
 
+Milestone closeout preconditions, packets, deferrals, plan movement, and next milestone readiness are defined in `docs/ops/milestone-closeout-workflow.md`, `prompts/template_milestone_closeout.md`, and `plans/templates/milestone-closeout-template.md`.
+
 ## Naming convention
 
 Use `CLP-0001-short-name.md`. Increment the number monotonically and keep the short name action-oriented.
@@ -77,7 +79,9 @@ If QA fails, keep the same branch and PR, record the defects in the active plan 
 
 Closeout must summarize completed submilestones, validation evidence, changed docs, changed code, remaining gaps, risks, and readiness for the next milestone.
 
-Do not move an active plan to `plans/completed/` until milestone closeout is complete.
+Use `docs/ops/milestone-closeout-workflow.md` to distinguish submilestone closeout from milestone closeout, verify merged PRs and status synchronization, handle deferred submilestones, and decide whether the next milestone is safe to start.
+
+Do not move an active plan to `plans/completed/` until milestone closeout is complete and the closeout packet says the plan can move.
 
 ## Plan truthfulness rules
 

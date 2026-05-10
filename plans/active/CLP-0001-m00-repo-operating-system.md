@@ -4,7 +4,7 @@
 
 Establish the file-first operating system for CausalLedger milestone work. This plan covers M00 only and keeps the repository usable by future Codex threads without relying on chat memory.
 
-Current submilestone status: M00.06 GitHub PR and Issue Workflow has QA passed and is awaiting merge. M00.01 through M00.05 are completed and merged. M00 remains in progress.
+Current submilestone status: M00.07 Milestone Closeout Workflow QA passed and is awaiting merge. M00.01 through M00.06 are completed and merged. M00 remains in progress.
 
 ## Progress
 
@@ -78,6 +78,19 @@ Current submilestone status: M00.06 GitHub PR and Issue Workflow has QA passed a
 - [x] 2026-05-09: Fixed concise M00.06 control-plane reference gaps in `WORKFLOW.md` and `prompts/template_milestone_closeout.md`.
 - [x] 2026-05-09: Ran M00.06 QA validation and recorded PASS.
 - [x] 2026-05-09: Marked M00.06 as `QA passed, awaiting merge` without marking it `Completed and merged`.
+- [x] 2026-05-10: Finalized M00.06 as `Completed and merged` after merge into `main` at commit `a0fdf6bc422f573235d48ee8cde93fd92d25e617`.
+- [x] 2026-05-10: Started M00.07 builder thread on branch `m00-07-milestone-closeout-workflow`.
+- [x] 2026-05-10: Ran branch guard before edits: branch matched `m00-07-milestone-closeout-workflow`, `git status --short` was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- [x] 2026-05-10: Confirmed M00.01 through M00.06 are completed and merged, M00.07 had not started before this builder, M00 remains in progress, M00.08 and M01-M21 are not started, no product code exists, and this file is the active plan.
+- [x] 2026-05-10: Created `docs/ops/milestone-closeout-workflow.md`.
+- [x] 2026-05-10: Updated milestone closeout prompt and plan templates, handoff packet fields, workflow references, validation script, and bootstrap tests for milestone closeout control-plane coverage.
+- [x] 2026-05-10: Ran M00.07 builder validation and recorded results.
+- [x] 2026-05-10: Confirmed product implementation has not started; `apps/` and `packages/` contain placeholder README files only.
+- [x] 2026-05-10: Handed off M00.07 to QA without marking it QA passed or completed.
+- [x] 2026-05-10: Started M00.07 QA on branch `m00-07-milestone-closeout-workflow`; branch guard passed, `git status --short` was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- [x] 2026-05-10: Verified M00.07 milestone closeout workflow, templates, tracking, validation coverage, and forbidden-scope boundaries.
+- [x] 2026-05-10: Ran M00.07 QA validation and recorded PASS.
+- [x] 2026-05-10: Marked M00.07 as `QA passed, awaiting merge` without marking it `Completed and merged`.
 
 ## Surprises & Discoveries
 
@@ -101,6 +114,8 @@ Current submilestone status: M00.06 GitHub PR and Issue Workflow has QA passed a
 - M00.05 QA found no blocking defects. `make bootstrap-check` remains unavailable in the current Windows shell, so the required direct Python validation, pytest, and diff checks were run.
 - M00.06 starts from `main` at commit `b82e5d1`, which contains the merged M00.05 validation and handoff workflow.
 - M00.06 QA found two minor control-plane reference gaps: `WORKFLOW.md` needed direct pointers to label/milestone and branch protection guidance, and the milestone closeout prompt needed a concise pointer to GitHub PR post-merge expectations.
+- M00.07 starts from `main` at commit `a0fdf6bc422f573235d48ee8cde93fd92d25e617`, which contains the merged M00.06 GitHub PR and issue workflow.
+- M00.07 found that the milestone closeout prompt and plan template were too thin to enforce PR merge verification, validation evidence checks, plan movement criteria, deferrals, follow-up work, and next milestone readiness.
 
 ## Decision Log
 
@@ -127,6 +142,9 @@ Current submilestone status: M00.06 GitHub PR and Issue Workflow has QA passed a
 - 2026-05-09: M00.05 is `Completed and merged` because commit `b82e5d1` is present on `main` and `origin/main`.
 - 2026-05-09: M00.06 remains control-plane only; its output is GitHub PR, issue, label, milestone, branch protection, and merge-readiness workflow documentation and templates.
 - 2026-05-09: M00.06 QA PASS moves the submilestone to `QA passed, awaiting merge`; it is safe to merge but not fully complete until the PR merges and tracking is finalized.
+- 2026-05-10: M00.06 is `Completed and merged` because commit `a0fdf6bc422f573235d48ee8cde93fd92d25e617` is present on `main` and `origin/main`.
+- 2026-05-10: M00.07 remains control-plane only; its output is milestone closeout workflow documentation, template alignment, reference updates, and validation coverage.
+- 2026-05-10: M00.07 QA PASS moves the submilestone to `QA passed, awaiting merge`; it is safe to merge but not fully complete until the PR merges and tracking is finalized.
 
 ## Context and Orientation
 
@@ -136,15 +154,15 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Scope
 
-In scope for M00.06:
+In scope for M00.07:
 
-- Finalizing M00.05 as `Completed and merged` before M00.06 work.
-- Creating `docs/ops/github-pr-and-issue-workflow.md`.
-- Creating `.github/PULL_REQUEST_TEMPLATE.md`.
-- Creating GitHub issue templates in `.github/ISSUE_TEMPLATE/`.
-- Creating `docs/ops/github-labels-and-milestones.md`.
-- Creating `docs/ops/branch-protection.md`.
-- Updating active docs, workflow docs, prompt templates, milestone tracking, status docs, validation script, and bootstrap tests for GitHub workflow control-plane artifacts.
+- Finalizing M00.06 as `Completed and merged` before M00.07 work.
+- Creating `docs/ops/milestone-closeout-workflow.md`.
+- Updating `prompts/template_milestone_closeout.md` and `plans/templates/milestone-closeout-template.md`.
+- Updating `prompts/template_handoff_packet.md` with milestone closeout fields.
+- Adding concise references from active docs, workflow docs, and entry docs to the milestone closeout workflow.
+- Updating milestone tracking, roadmap, active plan, and status docs for M00.07.
+- Updating control-plane validation script and bootstrap tests for the new workflow and templates.
 - Status and handoff updates.
 
 Out of scope:
@@ -152,30 +170,27 @@ Out of scope:
 - Product implementation.
 - MoneyEvent, ledger, invariant, incident, graph, replay, repair, agent runtime, UI, or connector logic.
 - Active plans for M01-M21.
+- Starting M00.08.
 - Repair approval or any money-state mutation.
 
 ## Plan of Work
 
 1. Confirm required branch guard and clean starting state.
 2. Read required active docs and confirm current state.
-3. Finalize M00.05 as `Completed and merged`.
-4. Create the GitHub PR and issue workflow guide.
-5. Create PR and issue templates plus label, milestone, and branch protection guidance.
-6. Align active docs, workflow docs, prompt templates, tracking files, and status docs for M00.06.
-7. Confirm validation coverage for the new GitHub workflow artifacts and update validation if necessary.
+3. Finalize M00.06 as `Completed and merged`.
+4. Create the milestone closeout workflow guide.
+5. Update milestone closeout prompt and plan templates.
+6. Align active docs, workflow docs, prompt templates, tracking files, and status docs for M00.07.
+7. Confirm validation coverage for the new milestone closeout artifacts and update validation if necessary.
 8. Run validation and record results.
 
 ## Concrete Steps
 
-- Create `docs/ops/github-pr-and-issue-workflow.md`.
-- Create `docs/ops/github-labels-and-milestones.md`.
-- Create `docs/ops/branch-protection.md`.
-- Create `.github/PULL_REQUEST_TEMPLATE.md`.
-- Create `.github/ISSUE_TEMPLATE/` templates.
+- Create `docs/ops/milestone-closeout-workflow.md`.
+- Update `prompts/template_milestone_closeout.md`.
+- Update `plans/templates/milestone-closeout-template.md`.
 - Update `docs/ops/builder-qa-prompt-protocol.md`.
 - Update `docs/ops/planning-and-tracking-system.md`.
-- Update `prompts/template_builder_submilestone.md`.
-- Update `prompts/template_qa_submilestone.md`.
 - Update `prompts/template_handoff_packet.md`.
 - Update `docs/milestones/SUBMILESTONE_REGISTRY.md`.
 - Update `plans/active/CLP-0001-m00-repo-operating-system.md`.
@@ -192,8 +207,8 @@ Out of scope:
 - Update `README.md`.
 - Update `docs/INDEX.md`.
 - Update `docs/status/TECH_DEBT.md` only if this slice introduces placeholders or shortcuts.
-- Update `scripts/validate-control-plane.py` only if required active guidance docs are not already checked.
-- Update `tests/test_control_plane_bootstrap.py` only if validation coverage needs test support.
+- Update `scripts/validate-control-plane.py` for milestone closeout workflow and template checks.
+- Update `tests/test_control_plane_bootstrap.py` for milestone closeout workflow and template checks.
 
 ## Validation and Acceptance
 
@@ -210,22 +225,19 @@ Optional validation:
 Acceptance:
 
 - Active documentation files are internally consistent.
-- Entry points agree on active plan, branch guard, builder/QA, PR merge, validation, GitHub workflow, and handoff workflow.
-- M00.05 is finalized as `Completed and merged`.
-- Builder tracking does not mark M00.06 QA passed or fully complete.
-- `docs/ops/github-pr-and-issue-workflow.md` exists and defines PR, issue, same-branch QA, failed-QA, QA-fix, merge-conflict, branch-deletion, missing-GitHub-CLI, and merge-readiness workflow.
-- `.github/PULL_REQUEST_TEMPLATE.md` exists and includes submilestone, branch, active plan, scope, changed files, product implementation status, validation, QA, forbidden-scope, handoff, and safe-to-merge sections.
-- `.github/ISSUE_TEMPLATE/` includes useful templates for submilestone tasks, QA review, blocked slices, research spikes, bugs, and issue config.
-- `docs/ops/github-labels-and-milestones.md` and `docs/ops/branch-protection.md` exist and state manual GitHub setup expectations.
-- Builder and QA templates mention PR expectations only where useful.
-- Validation covers the new GitHub workflow docs and templates.
+- Entry points agree on active plan, branch guard, builder/QA, PR merge, validation, GitHub workflow, handoff workflow, and milestone closeout workflow.
+- M00.06 is finalized as `Completed and merged`.
+- Builder tracking does not mark M00.07 QA passed or fully complete.
+- `docs/ops/milestone-closeout-workflow.md` exists and defines milestone closeout preconditions, submilestone versus milestone closeout, merged PR verification, branch cleanup checks, validation evidence checks, status synchronization, plan movement, stale artifact handling, deferrals, and follow-up work.
+- `prompts/template_milestone_closeout.md` and `plans/templates/milestone-closeout-template.md` include milestone ID and name, completed submilestones, merged PRs, validation summary, changed docs, changed code, skipped validation, warnings, risks, tech debt, open questions, deferred work, next milestone readiness, active-plan movement, and safe-to-start-next-milestone fields.
+- Validation covers the new milestone closeout workflow docs and templates.
 - No product code is implemented.
 - Control-plane validation passes or limitations are recorded.
 - Status docs and handoff packet are updated.
 
 ## Idempotence and Recovery
 
-This slice is documentation-first and should be safe to rerun by replacing deterministic control-plane sections with the same workflow and tracking content. If validation fails, keep M00.06 in `Builder in progress` or mark it `Blocked`, record the failure in status docs, and recommend a follow-up thread to fix the control-plane gap.
+This slice is documentation-first and should be safe to rerun by replacing deterministic control-plane sections with the same workflow and tracking content. If validation fails, keep M00.07 in `Builder in progress` or mark it `Blocked`, record the failure in status docs, and recommend a follow-up thread to fix the control-plane gap.
 
 No raw evidence, money state, ledger state, repair approval, or external system is touched.
 
@@ -239,9 +251,12 @@ Primary artifacts:
 - `docs/ops/github-pr-and-issue-workflow.md`
 - `docs/ops/github-labels-and-milestones.md`
 - `docs/ops/branch-protection.md`
+- `docs/ops/milestone-closeout-workflow.md`
 - `prompts/template_builder_submilestone.md`
 - `prompts/template_qa_submilestone.md`
 - `prompts/template_handoff_packet.md`
+- `prompts/template_milestone_closeout.md`
+- `plans/templates/milestone-closeout-template.md`
 - `.github/PULL_REQUEST_TEMPLATE.md`
 - `.github/ISSUE_TEMPLATE/`
 - `docs/milestones/SUBMILESTONE_REGISTRY.md`
@@ -316,6 +331,14 @@ Validation results:
 - `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-09 for M00.06 QA validation with 12 tests.
 - `git diff --check` passed on 2026-05-09 for M00.06 QA validation.
 - `make bootstrap-check` was not run on 2026-05-09 for M00.06 QA because `make` is unavailable in the current Windows shell.
+- `python scripts/validate-control-plane.py` passed on 2026-05-10 for M00.07 builder validation.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-10 for M00.07 builder validation with 13 tests.
+- `git diff --check` passed on 2026-05-10 for M00.07 builder validation.
+- `make bootstrap-check` was not run on 2026-05-10 for M00.07 builder validation because `make` is unavailable in the current Windows shell.
+- `python scripts/validate-control-plane.py` passed on 2026-05-10 for M00.07 QA validation.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed on 2026-05-10 for M00.07 QA validation with 13 tests.
+- `git diff --check` passed on 2026-05-10 for M00.07 QA validation.
+- `make bootstrap-check` was not run on 2026-05-10 for M00.07 QA because `make` is unavailable in the current Windows shell.
 
 M00.03 builder outcome:
 
@@ -399,10 +422,30 @@ M00.06 QA outcome:
 - Verified no product functionality, MoneyEvent logic, ledger logic, invariants, incident logic, causal graph logic, replay logic, agent runtime, repair planning logic, UI features, external connectors, GitHub Actions, CI workflows, or M00.07/M01 work started.
 - Recorded M00.06 QA PASS and left final completion blocked on PR merge.
 
+M00.07 builder outcome:
+
+- Finalized M00.06 as `Completed and merged` after confirming commit `a0fdf6bc422f573235d48ee8cde93fd92d25e617` is present on `main` and `origin/main`.
+- Created the milestone closeout workflow operations guide.
+- Expanded the milestone closeout prompt and plan templates.
+- Updated the handoff packet template with milestone closeout fields.
+- Updated entry docs, active docs, workflow docs, planning guidance, builder/QA protocol, validation workflow, GitHub workflow, milestone tracking, status docs, validation script, and bootstrap tests for milestone closeout.
+- Marked M00.07 as `Builder complete, awaiting QA` only after validation passed.
+- Kept M00.08 through M21.15 as `Not started`.
+- Did not implement product functionality.
+
+M00.07 QA outcome:
+
+- Verified `docs/ops/milestone-closeout-workflow.md` exists and covers purpose, required timing, submilestone versus milestone closeout, preconditions, submilestone completion, PR merge checks, open branch checks, validation evidence, active plan outcomes, synchronized status docs, risk/tech debt/open question updates, unsupported product-claim checks, next milestone readiness, plan movement, stale artifact archival, closeout packets, blocked closeout, deferrals, and follow-up work.
+- Verified `prompts/template_milestone_closeout.md`, `plans/templates/milestone-closeout-template.md`, and `prompts/template_handoff_packet.md` include required milestone closeout fields.
+- Verified related workflow docs and entry docs reference milestone closeout without excessive duplication.
+- Verified M00.06 is `Completed and merged`, M00.07 is not `Completed and merged`, M00.08 through M21.15 remain `Not started`, M00 remains in progress, and M01 through M21 remain `Not started`.
+- Verified no product functionality, MoneyEvent logic, ledger logic, invariants, incident logic, causal graph logic, replay logic, agent runtime, repair planning logic, UI features, external connectors, GitHub Actions, CI workflows, M00.08 work, or M01 work started.
+- Recorded M00.07 QA PASS and left final completion blocked on PR merge.
+
 Remaining risks:
 
-- M00 is not complete; M00.01 through M00.05 are completed and merged.
-- M00.06 is not fully complete until PR merge and post-merge tracking finalization.
+- M00 is not complete; M00.01 through M00.06 are completed and merged.
+- M00.07 is not fully complete until PR merge and post-merge tracking finalization.
 - `docs/DOMAIN_MODEL.md` is intentionally a placeholder for M01.
 
-Next recommended action: `Merge M00.06 PR - GitHub PR and Issue Workflow`.
+Next recommended action: `Merge M00.07 PR - Milestone Closeout Workflow`.

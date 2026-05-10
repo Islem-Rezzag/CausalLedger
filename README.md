@@ -55,6 +55,7 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `docs/ops/github-pr-and-issue-workflow.md` - PR, issue, same-branch QA, and merge-readiness workflow.
 - `docs/ops/github-labels-and-milestones.md` - suggested GitHub labels and milestones.
 - `docs/ops/branch-protection.md` - recommended `main` branch protection settings.
+- `docs/ops/milestone-closeout-workflow.md` - milestone closeout preconditions, packet, plan movement, and next milestone readiness workflow.
 - `.github/PULL_REQUEST_TEMPLATE.md` - PR body checklist for submilestones.
 - `.github/ISSUE_TEMPLATE/` - GitHub issue templates for submilestones, QA, blockers, research, and bugs.
 - `docs/INDEX.md` - documentation entry point.
@@ -66,6 +67,8 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
 - `prompts/template_qa_submilestone.md` - reusable QA thread prompt template.
 - `prompts/template_handoff_packet.md` - reusable handoff packet template.
+- `prompts/template_milestone_closeout.md` - reusable milestone closeout prompt template.
+- `plans/templates/milestone-closeout-template.md` - reusable milestone closeout packet template.
 - `docs/PROJECT_BRIEF.md` - project brief and boundaries.
 - `docs/PRODUCT_VISION.md` - wedge, value proposition, demo narrative, open-source moat, and MoneyFlowBench role.
 - `docs/ARCHITECTURE.md` - planned architecture and safety boundaries.

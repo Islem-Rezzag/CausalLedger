@@ -48,6 +48,8 @@ Use `docs/ops/validation-and-handoff-workflow.md` for validation ladder levels, 
 
 Use `docs/ops/github-pr-and-issue-workflow.md` for PR naming, issue usage, draft PR guidance, same-branch same-PR discipline, QA fixes, failed QA, merge conflicts, branch deletion, missing GitHub CLI handling, and merge readiness. Use `docs/ops/github-labels-and-milestones.md` and `docs/ops/branch-protection.md` for manual GitHub organization and `main` protection guidance. Use `.github/PULL_REQUEST_TEMPLATE.md` and `.github/ISSUE_TEMPLATE/` for GitHub review containers.
 
+Use `docs/ops/milestone-closeout-workflow.md`, `prompts/template_milestone_closeout.md`, and `plans/templates/milestone-closeout-template.md` for milestone closeout packets, active-plan movement, deferrals, and next milestone readiness.
+
 ## Sandbox assumptions
 
 Default future work assumes workspace-write sandboxing and restricted network unless explicitly changed by the active environment.
@@ -67,6 +69,8 @@ Agents may investigate, summarize, and propose. Agents may not own financial tru
 ## Thread policy
 
 Use one planning thread per milestone, one builder thread per submilestone, one QA thread per submilestone, and one closeout thread per milestone.
+
+Milestone closeout threads must verify all required submilestones are completed and merged or explicitly deferred before recommending the next milestone.
 
 Every builder and QA prompt must include the branch guard:
 

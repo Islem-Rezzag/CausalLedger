@@ -42,12 +42,15 @@ Roadmap and submilestones:
 - `docs/ops/github-pr-and-issue-workflow.md`
 - `docs/ops/github-labels-and-milestones.md`
 - `docs/ops/branch-protection.md`
+- `docs/ops/milestone-closeout-workflow.md`
 
 Prompt protocol:
 
 - `prompts/template_builder_submilestone.md`
 - `prompts/template_qa_submilestone.md`
 - `prompts/template_handoff_packet.md`
+- `prompts/template_milestone_closeout.md`
+- `plans/templates/milestone-closeout-template.md`
 - `.github/PULL_REQUEST_TEMPLATE.md`
 - `.github/ISSUE_TEMPLATE/`
 
@@ -115,6 +118,8 @@ Use `docs/ops/builder-qa-prompt-protocol.md` and the prompt templates in `prompt
 Use `docs/ops/validation-and-handoff-workflow.md` for validation ladder levels, required and optional commands, unavailable-command handling, validation failure handling, skipped-validation records, readiness criteria, and handoff packet expectations.
 
 Use `docs/ops/github-pr-and-issue-workflow.md`, `docs/ops/github-labels-and-milestones.md`, `docs/ops/branch-protection.md`, `.github/PULL_REQUEST_TEMPLATE.md`, and `.github/ISSUE_TEMPLATE/` for remote PR review containers, issue structure, labels guidance, branch protection guidance, and merge-readiness discipline.
+
+Use `docs/ops/milestone-closeout-workflow.md`, `prompts/template_milestone_closeout.md`, and `plans/templates/milestone-closeout-template.md` for milestone closeout preconditions, packets, plan movement, deferrals, follow-up work, and next milestone readiness.
 
 ## Archive rule
 

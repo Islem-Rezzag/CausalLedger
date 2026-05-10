@@ -1,7 +1,7 @@
 # CausalLedger Roadmap
 
 Current milestone marker: M00 Repo operating system.
-Current submilestone status: M00.06 GitHub PR and Issue Workflow has QA passed and is awaiting merge. M00.01 through M00.05 are completed and merged. M00 remains in progress.
+Current submilestone status: M00.07 Milestone Closeout Workflow QA passed and is awaiting merge. M00.01 through M00.06 are completed and merged. M00 remains in progress.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 
@@ -33,9 +33,9 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 ## Roadmap guardrails
 
 - M00 is the only active milestone in this plan.
-- Current M00 submilestone: M00.06 GitHub PR and Issue Workflow.
-- M00.01 through M00.05 are completed and merged.
-- M00.06 QA PASS is recorded; it must not be marked completed until PR merge and post-merge tracking finalization occur.
+- Current M00 submilestone: M00.07 Milestone Closeout Workflow.
+- M00.01 through M00.06 are completed and merged.
+- M00.07 QA passed and is awaiting merge; it must not be marked completed until PR merge and post-merge tracking finalization occur.
 - M01-M21 must not receive active plans until instructed by a future thread.
 - Product implementation must not start during M00 unless explicitly scoped by the active plan. The current active plan scopes control-plane work only.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed registry.

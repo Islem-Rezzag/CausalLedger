@@ -8,6 +8,8 @@ Use `docs/ops/validation-and-handoff-workflow.md` for the canonical validation l
 
 Use `docs/ops/github-pr-and-issue-workflow.md` for PR naming, PR body expectations, issue template usage, draft PR guidance, same-branch same-PR discipline, failed QA, QA fixes, merge conflicts, branch deletion, missing GitHub CLI handling, branch protection references, and merge readiness.
 
+Use `docs/ops/milestone-closeout-workflow.md` and `prompts/template_milestone_closeout.md` for milestone closeout prompts. Builder and QA prompts close submilestones; milestone closeout prompts audit the whole milestone.
+
 This document is control-plane guidance only. It does not define product behavior, financial truth, ledger mutation, repair approval, raw event mutation, UI behavior, connector behavior, or any other runtime capability.
 
 ## Why every submilestone gets two Codex threads

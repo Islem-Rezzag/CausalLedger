@@ -34,6 +34,7 @@ def test_required_project_docs_exist():
         "docs/ops/github-pr-and-issue-workflow.md",
         "docs/ops/github-labels-and-milestones.md",
         "docs/ops/branch-protection.md",
+        "docs/ops/milestone-closeout-workflow.md",
         "docs/milestones/SUBMILESTONE_REGISTRY.md",
         "plans/active/CLP-0001-m00-repo-operating-system.md",
     ]:
@@ -450,6 +451,69 @@ def test_github_issue_templates_exist_and_capture_required_fields():
         text = path.read_text(encoding="utf-8")
         for phrase in phrases:
             assert phrase in text
+
+
+def test_milestone_closeout_workflow_and_templates_are_complete():
+    workflow = (
+        ROOT / "docs" / "ops" / "milestone-closeout-workflow.md"
+    ).read_text(encoding="utf-8")
+    prompt = (ROOT / "prompts" / "template_milestone_closeout.md").read_text(
+        encoding="utf-8"
+    )
+    template = (
+        ROOT / "plans" / "templates" / "milestone-closeout-template.md"
+    ).read_text(encoding="utf-8")
+    handoff = (ROOT / "prompts" / "template_handoff_packet.md").read_text(
+        encoding="utf-8"
+    )
+
+    for phrase in [
+        "Milestone closeout preconditions",
+        "Submilestone closeout vs milestone closeout",
+        "Verify all submilestones are complete",
+        "Verify all PRs are merged",
+        "Verify no branches are left open unintentionally",
+        "Verify validation evidence exists",
+        "Verify active plan outcomes are complete",
+        "Verify status docs are synchronized",
+        "Verify risk, tech debt, and open questions are updated",
+        "Verify no product claims were made incorrectly",
+        "Prepare next milestone readiness",
+        "Move active plans to completed",
+        "Archive stale plans or stale docs",
+        "Milestone closeout packet",
+        "Milestones that cannot be closed",
+        "Deferred submilestones",
+        "Follow-up work",
+    ]:
+        assert phrase in workflow
+
+    for text in [prompt, template]:
+        for phrase in [
+            "Milestone ID and name",
+            "Completed submilestones",
+            "Merged PRs",
+            "Validation summary",
+            "Changed docs",
+            "Changed code",
+            "Skipped validation and why",
+            "Warnings",
+            "Risks",
+            "Tech debt",
+            "Open questions",
+            "Deferred work",
+            "Next milestone readiness",
+            "Whether active plan can move to completed",
+            "Whether safe to start next milestone",
+        ]:
+            assert phrase in text
+
+    for phrase in [
+        "Deferred work",
+        "Whether active plan can move to completed if milestone closeout",
+        "Whether safe to start next milestone if milestone closeout",
+    ]:
+        assert phrase in handoff
 
 
 def test_skill_files_exist():
