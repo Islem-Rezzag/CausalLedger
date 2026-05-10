@@ -39,12 +39,17 @@ Roadmap and submilestones:
 - `docs/ops/planning-and-tracking-system.md`
 - `docs/ops/builder-qa-prompt-protocol.md`
 - `docs/ops/validation-and-handoff-workflow.md`
+- `docs/ops/github-pr-and-issue-workflow.md`
+- `docs/ops/github-labels-and-milestones.md`
+- `docs/ops/branch-protection.md`
 
 Prompt protocol:
 
 - `prompts/template_builder_submilestone.md`
 - `prompts/template_qa_submilestone.md`
 - `prompts/template_handoff_packet.md`
+- `.github/PULL_REQUEST_TEMPLATE.md`
+- `.github/ISSUE_TEMPLATE/`
 
 Current status:
 
@@ -108,6 +113,8 @@ Use `docs/ops/planning-and-tracking-system.md` for canonical submilestone status
 Use `docs/ops/builder-qa-prompt-protocol.md` and the prompt templates in `prompts/` for reusable builder prompts, QA prompts, validation sections, forbidden-scope sections, same-branch same-PR rules, and handoff packet fields.
 
 Use `docs/ops/validation-and-handoff-workflow.md` for validation ladder levels, required and optional commands, unavailable-command handling, validation failure handling, skipped-validation records, readiness criteria, and handoff packet expectations.
+
+Use `docs/ops/github-pr-and-issue-workflow.md`, `docs/ops/github-labels-and-milestones.md`, `docs/ops/branch-protection.md`, `.github/PULL_REQUEST_TEMPLATE.md`, and `.github/ISSUE_TEMPLATE/` for remote PR review containers, issue structure, labels guidance, branch protection guidance, and merge-readiness discipline.
 
 ## Archive rule
 

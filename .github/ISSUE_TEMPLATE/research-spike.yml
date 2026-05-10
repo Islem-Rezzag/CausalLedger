@@ -1,0 +1,39 @@
+name: Research Spike
+description: Bound research work without implementation.
+title: "[Research] Question or topic"
+body:
+  - type: textarea
+    id: research_question
+    attributes:
+      label: Research question
+      description: State the exact question to answer.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: Define what the research may inspect.
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources to inspect
+      description: List repo files, docs, issues, PRs, or external sources if allowed.
+    validations:
+      required: true
+  - type: textarea
+    id: expected_output
+    attributes:
+      label: Expected output
+      description: Describe the memo, decision, or recommendation expected.
+    validations:
+      required: true
+  - type: textarea
+    id: not_to_implement
+    attributes:
+      label: Not-to-implement boundaries
+      description: List product, workflow, or safety boundaries that must not be changed during research.
+    validations:
+      required: true

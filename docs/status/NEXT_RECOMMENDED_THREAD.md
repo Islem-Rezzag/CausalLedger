@@ -1,11 +1,11 @@
 # Next Recommended Thread
 
-Thread name: `Merge M00.05 PR - Validation and Handoff Workflow`
+Thread name: `Merge M00.06 PR - GitHub PR and Issue Workflow`
 
-Precondition: M00.05 QA passed on `m00-05-validation-and-handoff-workflow`, required QA validation passed, forbidden-scope checks passed, and tracking is updated to `QA passed, awaiting merge`.
+Precondition: M00.06 QA passed on `m00-06-github-pr-and-issue-workflow`, required QA validation passed, forbidden-scope checks passed, and tracking is updated to `QA passed, awaiting merge`.
 
-Goal: Merge the M00.05 PR, then finalize M00.05 as `Completed and merged` in tracking before any M00.06 work starts.
+Goal: Merge the M00.06 GitHub PR and Issue Workflow PR, then finalize post-merge tracking as `Completed and merged` only after merge is confirmed on `main`.
 
-Next thread after merge and tracking finalization: `M00.06 Builder - GitHub PR and Issue Workflow`.
+Next thread after merge finalization: `M00.07 Builder - Milestone Closeout Workflow`.
 
-Do not start product implementation, MoneyEvent logic, ledger logic, invariants, incidents, graph, replay, agent runtime, repair planning, UI, external connectors, M00.06, or M01 work.
+Do not start product implementation, MoneyEvent logic, ledger logic, invariants, incidents, graph, replay, agent runtime, repair planning, UI, external connectors, M00.07, or M01 work.

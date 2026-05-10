@@ -1,0 +1,37 @@
+name: Blocked Slice
+description: Record a blocker that prevents safe progress.
+title: "[Blocked] MXX.YY Submilestone title"
+body:
+  - type: input
+    id: blocked_submilestone
+    attributes:
+      label: Blocked submilestone
+      placeholder: "M00.06 GitHub PR and Issue Workflow"
+    validations:
+      required: true
+  - type: input
+    id: branch
+    attributes:
+      label: Branch
+      placeholder: "m00-06-github-pr-and-issue-workflow"
+  - type: textarea
+    id: blocker
+    attributes:
+      label: Blocker
+      description: Explain what prevents safe progress.
+    validations:
+      required: true
+  - type: textarea
+    id: attempted_validation
+    attributes:
+      label: Attempted validation
+      description: List commands run, failures, warnings, or skipped checks.
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_unblock
+    attributes:
+      label: Proposed unblock path
+      description: Name the safest next action or thread.
+    validations:
+      required: true

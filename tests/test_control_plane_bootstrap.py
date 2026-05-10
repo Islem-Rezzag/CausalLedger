@@ -31,6 +31,9 @@ def test_required_project_docs_exist():
         "docs/ops/planning-and-tracking-system.md",
         "docs/ops/builder-qa-prompt-protocol.md",
         "docs/ops/validation-and-handoff-workflow.md",
+        "docs/ops/github-pr-and-issue-workflow.md",
+        "docs/ops/github-labels-and-milestones.md",
+        "docs/ops/branch-protection.md",
         "docs/milestones/SUBMILESTONE_REGISTRY.md",
         "plans/active/CLP-0001-m00-repo-operating-system.md",
     ]:
@@ -46,6 +49,8 @@ def test_required_control_plane_directories_exist():
         "docs/decisions",
         "docs/ops",
         "docs/references",
+        ".github",
+        ".github/ISSUE_TEMPLATE",
         "plans/active",
         "plans/completed",
         "plans/archived",
@@ -286,6 +291,7 @@ def test_validation_and_handoff_workflow_is_complete():
         for phrase in [
             "Submilestone ID and name",
             "Branch",
+            "PR",
             "Active plan",
             "Command results",
             "Validation skipped and why",
@@ -293,6 +299,156 @@ def test_validation_and_handoff_workflow_is_complete():
             "Whether safe to push",
             "Whether safe to open PR",
         ]:
+            assert phrase in text
+
+
+def test_github_pr_and_issue_workflow_artifacts_are_complete():
+    workflow = (
+        ROOT / "docs" / "ops" / "github-pr-and-issue-workflow.md"
+    ).read_text(encoding="utf-8")
+    labels = (
+        ROOT / "docs" / "ops" / "github-labels-and-milestones.md"
+    ).read_text(encoding="utf-8")
+    branch_protection = (
+        ROOT / "docs" / "ops" / "branch-protection.md"
+    ).read_text(encoding="utf-8")
+    pr_template = (ROOT / ".github" / "PULL_REQUEST_TEMPLATE.md").read_text(
+        encoding="utf-8"
+    )
+
+    for phrase in [
+        "Branch Naming Convention",
+        "PR Naming Convention",
+        "PR Body Expectations",
+        "Issue Template Usage",
+        "one branch",
+        "one PR",
+        "one builder thread",
+        "one QA thread",
+        "same branch and PR",
+        "Draft PR Versus Normal PR",
+        "Before Opening A PR",
+        "Before Running QA",
+        "Before Merging",
+        "Squash Merge Guidance",
+        "Branch Deletion After Merge",
+        "Local Main Update After Merge",
+        "Remote Branch Deletion Handling",
+        "Failed QA",
+        "QA Fixes",
+        "Merge Conflicts",
+        "Missing GitHub CLI",
+        "Do not merge without QA PASS",
+        "Avoiding Early Next-Submilestone Start",
+        "Auditability And Interview-Grade Traceability",
+    ]:
+        assert phrase in workflow
+
+    for phrase in [
+        "type:builder",
+        "type:qa",
+        "type:docs",
+        "type:control-plane",
+        "scope:no-product-code",
+        "risk:financial-correctness",
+        "risk:agent-boundary",
+        "M00 Repo operating system",
+        "M21 Company version",
+        "manual creation in the GitHub UI",
+    ]:
+        assert phrase in labels
+
+    for phrase in [
+        "require a pull request before merging",
+        "require conversation resolution before merging",
+        "disallow force pushes",
+        "disallow deletion",
+        "GitHub reviewer approvals may remain off",
+        "QA thread discipline still applies",
+    ]:
+        assert phrase in branch_protection
+
+    for phrase in [
+        "# Submilestone",
+        "# Branch",
+        "# Active Plan",
+        "# Scope",
+        "# Files Changed",
+        "# Product Implementation Status",
+        "# Validation Commands Run",
+        "# Validation Results",
+        "# Skipped Validation And Why",
+        "# QA Status",
+        "# Forbidden-Scope Checklist",
+        "# Handoff Packet Link Or Summary",
+        "# Safe-To-Merge Checklist",
+        "No product code unless explicitly scoped.",
+        "Branch guard used.",
+        "Active plan updated.",
+        "Registry updated.",
+        "Current state updated.",
+        "Weekly log updated.",
+        "Validation run.",
+        "QA run on same branch.",
+        "Safe to merge only after QA PASS.",
+    ]:
+        assert phrase in pr_template
+
+
+def test_github_issue_templates_exist_and_capture_required_fields():
+    templates = {
+        "submilestone-task.yml": [
+            "Milestone",
+            "Submilestone ID",
+            "Target branch",
+            "Active plan",
+            "Builder thread name",
+            "Scope",
+            "Acceptance criteria",
+            "Validation commands",
+        ],
+        "qa-review.yml": [
+            "Audited submilestone",
+            "PR link",
+            "Branch",
+            "QA thread name",
+            "Files inspected",
+            "Validation commands",
+            "Defects found",
+            "PASS or FAIL",
+        ],
+        "blocked-slice.yml": [
+            "Blocked submilestone",
+            "Branch",
+            "Blocker",
+            "Attempted validation",
+            "Proposed unblock path",
+        ],
+        "research-spike.yml": [
+            "Research question",
+            "Scope",
+            "Sources to inspect",
+            "Expected output",
+            "Not-to-implement boundaries",
+        ],
+        "bug.yml": [
+            "Observed behavior",
+            "Expected behavior",
+            "Affected files",
+            "Validation output",
+            "Reproduction steps",
+        ],
+        "config.yml": [
+            "blank_issues_enabled: false",
+            "Start with active docs",
+        ],
+    }
+
+    for filename, phrases in templates.items():
+        path = ROOT / ".github" / "ISSUE_TEMPLATE" / filename
+        assert path.is_file(), filename
+        text = path.read_text(encoding="utf-8")
+        for phrase in phrases:
             assert phrase in text
 
 

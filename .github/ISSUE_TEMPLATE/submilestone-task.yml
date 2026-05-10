@@ -1,0 +1,62 @@
+name: Submilestone Task
+description: Track a planned CausalLedger submilestone when an issue is useful.
+title: "[MXX.YY] Submilestone title"
+body:
+  - type: input
+    id: milestone
+    attributes:
+      label: Milestone
+      placeholder: "M00 Repo operating system"
+    validations:
+      required: true
+  - type: input
+    id: submilestone_id
+    attributes:
+      label: Submilestone ID
+      placeholder: "M00.06"
+    validations:
+      required: true
+  - type: input
+    id: target_branch
+    attributes:
+      label: Target branch
+      placeholder: "m00-06-github-pr-and-issue-workflow"
+    validations:
+      required: true
+  - type: input
+    id: active_plan
+    attributes:
+      label: Active plan
+      placeholder: "plans/active/CLP-0001-m00-repo-operating-system.md"
+    validations:
+      required: true
+  - type: input
+    id: builder_thread
+    attributes:
+      label: Builder thread name
+      placeholder: "M00.06 Builder - GitHub PR and Issue Workflow"
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: Describe only the work intended for this submilestone.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance criteria
+      description: List the concrete conditions for builder completion.
+    validations:
+      required: true
+  - type: textarea
+    id: validation_commands
+    attributes:
+      label: Validation commands
+      description: List required validation commands and any optional checks.
+      placeholder: |
+        python scripts/validate-control-plane.py
+        python -m pytest tests/test_control_plane_bootstrap.py
+        git diff --check
+    validations:
+      required: true

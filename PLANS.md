@@ -14,6 +14,8 @@ Reusable builder and QA prompt structure is defined in `docs/ops/builder-qa-prom
 
 Validation ladders, command expectations, failure handling, skipped-validation records, readiness criteria, and handoff packet requirements are defined in `docs/ops/validation-and-handoff-workflow.md`.
 
+GitHub PR and issue workflow, PR body expectations, issue template usage, labels guidance, branch protection guidance, and merge-readiness discipline are defined in `docs/ops/github-pr-and-issue-workflow.md`, `docs/ops/github-labels-and-milestones.md`, `docs/ops/branch-protection.md`, `.github/PULL_REQUEST_TEMPLATE.md`, and `.github/ISSUE_TEMPLATE/`.
+
 ## Naming convention
 
 Use `CLP-0001-short-name.md`. Increment the number monotonically and keep the short name action-oriented.

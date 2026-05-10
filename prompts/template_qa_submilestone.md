@@ -9,6 +9,7 @@
 - ID: `<MXX.YY>`
 - Title: `<Submilestone title>`
 - Expected branch: `<submilestone-branch>`
+- PR: `<PR link>`
 - Active plan: `<plans/active/CLP-....md>`
 - Builder handoff to audit: `<handoff summary or file reference>`
 
@@ -30,7 +31,7 @@ If the working tree is not clean before starting, report the dirty files and sto
 
 ## Strict reviewer role
 
-Act as a strict reviewer for the audited submilestone only. Verify scope, files, tracking, validation, and handoff. Do not rely on builder chat memory. Use `docs/ops/validation-and-handoff-workflow.md` for the validation ladder, failure handling, skipped-validation recording, and safe-to-merge criteria.
+Act as a strict reviewer for the audited submilestone only. Verify scope, files, tracking, validation, PR body, and handoff. Do not rely on builder chat memory. Use `docs/ops/validation-and-handoff-workflow.md` for the validation ladder, failure handling, skipped-validation recording, and safe-to-merge criteria. Use `docs/ops/github-pr-and-issue-workflow.md` for same-branch PR discipline, QA fixes, failed QA, and merge readiness.
 
 ## Same-branch, same-PR rule
 
@@ -44,6 +45,7 @@ Do not widen scope. Fix only defects inside `<MXX.YY>` if the QA prompt authoriz
 
 - `<file created or changed by builder>`
 - `<file created or changed by builder>`
+- PR body using `.github/PULL_REQUEST_TEMPLATE.md`
 - `docs/milestones/SUBMILESTONE_REGISTRY.md`
 - relevant milestone doc in `docs/milestones/`
 - active plan
@@ -87,7 +89,9 @@ Include defects found, fixes applied, commands run, validation results, and rema
 
 ## Safe-to-merge statement
 
-State whether the PR is safe to merge. QA PASS may say the PR is safe to merge only when validation, tracking, forbidden-scope checks, and any scoped QA fixes pass or accepted limitations are recorded. QA PASS does not equal `Completed and merged`.
+State whether the PR is safe to merge. QA PASS may say the PR is safe to merge only when validation, tracking, forbidden-scope checks, PR body, and any scoped QA fixes pass or accepted limitations are recorded. QA PASS does not equal `Completed and merged`.
+
+Update the PR body with QA status and merge-readiness summary when the QA prompt authorizes PR edits.
 
 ## QA handoff packet format
 

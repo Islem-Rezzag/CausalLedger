@@ -46,6 +46,8 @@ Use `docs/ops/builder-qa-prompt-protocol.md` and the prompt templates in `prompt
 
 Use `docs/ops/validation-and-handoff-workflow.md` for validation ladder levels, unavailable-command handling, validation failures, skipped checks, readiness criteria, and handoff packet requirements.
 
+Use `docs/ops/github-pr-and-issue-workflow.md` for PR naming, issue usage, draft PR guidance, same-branch same-PR discipline, QA fixes, failed QA, merge conflicts, branch deletion, missing GitHub CLI handling, and merge readiness. Use `docs/ops/github-labels-and-milestones.md` and `docs/ops/branch-protection.md` for manual GitHub organization and `main` protection guidance. Use `.github/PULL_REQUEST_TEMPLATE.md` and `.github/ISSUE_TEMPLATE/` for GitHub review containers.
+
 ## Sandbox assumptions
 
 Default future work assumes workspace-write sandboxing and restricted network unless explicitly changed by the active environment.
@@ -72,7 +74,7 @@ Every builder and QA prompt must include the branch guard:
 - `git status --short`
 - `git remote -v`
 
-If the branch is wrong or the worktree is unexpectedly dirty, stop before editing and report the blocker. Open a draft PR before QA when possible. QA runs in a separate thread on the same branch. Merge only after QA records PASS.
+If the branch is wrong or the worktree is unexpectedly dirty, stop before editing and report the blocker. Open or update a draft PR before QA when possible. QA runs in a separate thread on the same branch and PR. Merge only after QA records PASS.
 
 ## Validation commands
 

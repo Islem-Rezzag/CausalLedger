@@ -2,7 +2,7 @@
 
 ## Current phase
 
-Control-plane bootstrap. M00 Repo operating system is in progress. Current submilestone is M00.05 Validation and Handoff Workflow.
+Control-plane bootstrap. M00 Repo operating system is in progress. Current submilestone is M00.06 GitHub PR and Issue Workflow.
 
 ## What exists
 
@@ -21,7 +21,11 @@ Control-plane bootstrap. M00 Repo operating system is in progress. Current submi
 - Planning and tracking operations guide for submilestone lifecycle state.
 - Builder and QA prompt protocol operations guide.
 - Validation and handoff workflow operations guide.
+- GitHub PR and issue workflow operations guide.
+- GitHub labels and milestones guidance.
+- Branch protection guidance.
 - Reusable builder, QA, and handoff packet prompt templates.
+- GitHub PR and issue templates.
 
 ## What does not exist
 
@@ -40,9 +44,9 @@ Control-plane bootstrap. M00 Repo operating system is in progress. Current submi
 
 ## Current submilestone
 
-M00.05 Validation and Handoff Workflow has QA passed and is awaiting PR merge on branch `m00-05-validation-and-handoff-workflow`.
+M00.06 GitHub PR and Issue Workflow QA passed and is awaiting PR merge on branch `m00-06-github-pr-and-issue-workflow`.
 
-M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 Planning and Tracking System is completed and merged at commit `f289d5e`. M00.04 Builder and QA Prompt Protocol is completed and merged at commit `e686c77`.
+M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 Planning and Tracking System is completed and merged at commit `f289d5e`. M00.04 Builder and QA Prompt Protocol is completed and merged at commit `e686c77`. M00.05 Validation and Handoff Workflow is completed and merged at commit `b82e5d1`.
 
 ## Product code status
 
@@ -50,7 +54,7 @@ No product code exists yet.
 
 ## Next action
 
-Merge the M00.05 PR, then finalize M00.05 as `Completed and merged` before M00.06 starts. Do not mark M00.05 completed until the PR merges and tracking is finalized.
+Run `Merge M00.06 PR - GitHub PR and Issue Workflow`. Do not mark M00.06 completed until PR merge and post-merge tracking finalization occur.
 
 ## Implementation warning
 
@@ -111,3 +115,11 @@ Do not start product implementation. Continue M00 only through the active plan.
 - 2026-05-09: M00.05 QA validation passed: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 10 tests, and `git diff --check`.
 - 2026-05-09: `make bootstrap-check` was not run for M00.05 QA because `make` is unavailable in the current Windows shell.
 - 2026-05-09: M00.05 QA PASS recorded; M00.05 is safe to merge but remains incomplete until PR merge and tracking finalization.
+- 2026-05-09: M00.05 finalized as `Completed and merged` after merge into `main` at commit `b82e5d1`.
+- 2026-05-09: M00.06 builder started on branch `m00-06-github-pr-and-issue-workflow`; branch guard passed and the worktree was clean before edits.
+- 2026-05-09: M00.06 builder validation passed: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 12 tests, and `git diff --check`.
+- 2026-05-09: `make bootstrap-check` was not run for M00.06 builder validation because `make` is unavailable in the current Windows shell.
+- 2026-05-09: M00.06 QA started on branch `m00-06-github-pr-and-issue-workflow`; branch guard passed, the worktree was clean before QA edits, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- 2026-05-09: M00.06 QA fixed concise control-plane reference gaps in `WORKFLOW.md` and `prompts/template_milestone_closeout.md`, then updated tracking to `QA passed, awaiting merge`.
+- 2026-05-09: M00.06 QA validation passed: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 12 tests, and `git diff --check`.
+- 2026-05-09: `make bootstrap-check` was not run for M00.06 QA because `make` is unavailable in the current Windows shell.

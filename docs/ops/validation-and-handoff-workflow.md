@@ -208,7 +208,7 @@ Safe to open PR means:
 - builder work is complete;
 - validation results and skipped validation are recorded;
 - the submilestone is marked `Builder complete, awaiting QA`;
-- the PR title/body or handoff points QA to files changed, validation, risks, and next steps.
+- the PR title/body follows `.github/PULL_REQUEST_TEMPLATE.md` and points QA to files changed, validation, risks, and next steps.
 
 Safe to merge means, for QA only:
 
@@ -216,7 +216,7 @@ Safe to merge means, for QA only:
 - QA ran required validation or recorded accepted limitations;
 - any QA fixes were scoped and revalidated;
 - the submilestone is marked `QA passed, awaiting merge`;
-- the QA handoff explicitly says the PR is safe to merge.
+- the QA handoff and PR body explicitly say the PR is safe to merge.
 
 Only post-merge tracking finalization may mark a submilestone `Completed and merged`.
 

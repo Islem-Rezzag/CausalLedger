@@ -9,6 +9,7 @@
 - ID: `<MXX.YY>`
 - Title: `<Submilestone title>`
 - Expected branch: `<submilestone-branch>`
+- PR: `<draft PR link if already opened, or "open/update before QA when available">`
 - Active plan: `<plans/active/CLP-....md>`
 - Scope type: `<control-plane only | product-code milestone>`
 
@@ -57,7 +58,11 @@ Confirm from repo files:
 
 ## Scope
 
-Implement only the target submilestone. Use `docs/ops/builder-qa-prompt-protocol.md`, `docs/ops/planning-and-tracking-system.md`, and `docs/ops/validation-and-handoff-workflow.md` for required thread, tracking, validation, and handoff rules.
+Implement only the target submilestone. Use `docs/ops/builder-qa-prompt-protocol.md`, `docs/ops/planning-and-tracking-system.md`, `docs/ops/validation-and-handoff-workflow.md`, and `docs/ops/github-pr-and-issue-workflow.md` for required thread, tracking, validation, PR, and handoff rules.
+
+## PR expectations
+
+Use `.github/PULL_REQUEST_TEMPLATE.md` when opening or updating the submilestone PR. A draft PR is acceptable before QA; do not imply the PR is safe to merge until QA records PASS.
 
 ## Forbidden scope
 
@@ -100,6 +105,7 @@ Update durable tracking in the same slice:
 - `docs/status/RISK_REGISTER.md` only if a durable risk is discovered
 - `docs/status/OPEN_QUESTIONS.md` only if unresolved questions are discovered
 - `docs/status/CAPABILITY_MATRIX.md` only if capability status needs clarification
+- PR body, if a PR exists or is opened during the slice
 
 Set the target submilestone to `Builder in progress` while working. Set it to `Builder complete, awaiting QA` only after validation passes or an accepted limitation is recorded.
 
@@ -126,6 +132,7 @@ Record command results, validation skipped and why, warnings, and whether only p
 - Product implementation status is truthful.
 - Validation passes or accepted limitations are recorded.
 - Target submilestone is not marked QA passed or completed by the builder.
+- PR body is ready for same-branch QA when a PR exists or is opened.
 - Handoff packet is complete.
 
 ## Handoff packet format

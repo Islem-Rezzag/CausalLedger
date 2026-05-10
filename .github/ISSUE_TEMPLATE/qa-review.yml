@@ -1,0 +1,60 @@
+name: QA Review
+description: Record QA review scope, validation, and PASS or FAIL.
+title: "[QA] MXX.YY Submilestone title"
+body:
+  - type: input
+    id: audited_submilestone
+    attributes:
+      label: Audited submilestone
+      placeholder: "M00.06 GitHub PR and Issue Workflow"
+    validations:
+      required: true
+  - type: input
+    id: pr_link
+    attributes:
+      label: PR link
+      placeholder: "https://github.com/owner/repo/pull/123"
+    validations:
+      required: true
+  - type: input
+    id: branch
+    attributes:
+      label: Branch
+      placeholder: "m00-06-github-pr-and-issue-workflow"
+    validations:
+      required: true
+  - type: input
+    id: qa_thread
+    attributes:
+      label: QA thread name
+      placeholder: "M00.06 QA - GitHub PR and Issue Workflow"
+  - type: textarea
+    id: files_inspected
+    attributes:
+      label: Files inspected
+      description: List files inspected during QA.
+    validations:
+      required: true
+  - type: textarea
+    id: validation_commands
+    attributes:
+      label: Validation commands
+      description: List commands QA ran and the result.
+    validations:
+      required: true
+  - type: textarea
+    id: defects_found
+    attributes:
+      label: Defects found
+      description: Record defects, fixes applied, or "None".
+    validations:
+      required: true
+  - type: dropdown
+    id: result
+    attributes:
+      label: PASS or FAIL
+      options:
+        - PASS
+        - FAIL
+    validations:
+      required: true
