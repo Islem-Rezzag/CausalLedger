@@ -1,14 +1,14 @@
 # CausalLedger Roadmap
 
-Current milestone marker: M01 Domain model and scope freeze planning in progress; planning QA passed and the PR is awaiting human merge.
-Current submilestone status: M00.01 through M00.08 are completed and merged. M00 is tagged as `v0.1.0` for the repo operating system foundation. M01 planning is active on branch `m01-planning-domain-model-and-scope-freeze`; M01.01 through M01.13 are not started.
+Current milestone marker: M01 Domain model and scope freeze is active. M01 planning is complete and merged at git commit `2cfd75a`.
+Current submilestone status: M00.01 through M00.08 are completed and merged. M00 is tagged as `v0.1.0` for the repo operating system foundation. M01.01 Define payment lifecycle is `Builder complete, awaiting QA` on branch `m01-01-define-payment-lifecycle`; M01.02 through M01.13 are not started.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 
 | Milestone | Goal | Focus | Exit criteria | Submilestone count | Status |
 | --- | --- | --- | --- | --- | --- |
 | M00 Repo operating system | Establish the durable repository operating system for CausalLedger. | Control-plane docs, workflow, planning, validation | Codex can continue from repo state without chat memory | 8 | Completed |
-| M01 Domain model and scope freeze | Freeze CausalLedger domain language, scope, and non-goals. | Concepts, non-goals, glossary | Domain model and scope are approved | 13 | Planning in progress |
+| M01 Domain model and scope freeze | Freeze CausalLedger domain language, scope, and non-goals. | Concepts, non-goals, glossary | Domain model and scope are approved | 13 | Active |
 | M02 Monorepo and local development | Create the runnable local development foundation. | Tooling, packages, CI shape | Local checks run consistently | 20 | Not started |
 | M03 Canonical MoneyEvent engine | Define and implement the canonical event representation. | Event schemas and normalization | MoneyEvent behavior is specified and validated | 19 | Not started |
 | M04 Double-entry ledger core | Implement deterministic double-entry ledger primitives. | Transactions, entries, balances | Ledger checks pass deterministic tests | 18 | Not started |
@@ -37,7 +37,8 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 - `v0.1.0` is the M00 repo operating system foundation release, not a product release.
 - The completed M00 plan lives at `plans/completed/CLP-0001-m00-repo-operating-system.md`.
 - The active M01 plan lives at `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`.
-- M01 is planning in progress; M01.01 through M01.13 remain `Not started`.
+- M01 planning is complete and merged at git commit `2cfd75a`.
+- M01 is active; M01.01 is `Builder complete, awaiting QA`, and M01.02 through M01.13 remain `Not started`.
 - M02-M21 remain `Not started`.
 - Product implementation has not started.
 - The first M01 implementation submilestone after planning is `M01.01 Define payment lifecycle`.

@@ -2,7 +2,9 @@
 
 ## Status
 
-Placeholder for M01 Domain model and scope freeze. This file intentionally does not define the full domain model yet.
+M01 domain index. This file tracks which domain areas are defined and which remain intentionally undefined until their scoped M01 submilestones.
+
+The domain model is not complete. M01.01 defines payment lifecycle vocabulary only; remaining M01 domain areas are not yet defined.
 
 ## Product thesis
 
@@ -12,9 +14,18 @@ CausalLedger is not a payment processor, not a ledger replacement, not a generic
 
 The LLM never owns financial truth. LLM agents may investigate, summarize, and propose. LLM agents may not mutate money, approve repairs, delete evidence, post ledger entries, modify raw events, or override deterministic invariants.
 
-## Domain areas to define in M01
+## Defined in M01
 
-- Payment lifecycle.
+| Domain area | Status | Source |
+| --- | --- | --- |
+| Payment lifecycle | Defined in M01.01 | [docs/domain/payment-lifecycle.md](domain/payment-lifecycle.md) |
+
+## Domain documentation boundary
+
+Domain documents define vocabulary, scope, and boundaries. They do not implement runtime behavior, schemas, APIs, databases, ledger logic, invariants, incident logic, causal graph traversal, replay, agent runtime, repair application, UI, connectors, GitHub Actions, or CI workflows.
+
+## Remaining M01 domain areas not yet defined
+
 - Ledger vocabulary.
 - Settlement vocabulary.
 - Reconciliation vocabulary.

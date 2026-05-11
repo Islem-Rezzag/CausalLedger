@@ -27,6 +27,8 @@ Project direction:
 - `docs/PRODUCT_VISION.md`
 - `docs/ARCHITECTURE.md`
 - `docs/DOMAIN_MODEL.md`
+- `docs/domain/README.md`
+- `docs/domain/payment-lifecycle.md`
 - `docs/RELIABILITY.md`
 - `docs/THREAT_MODEL.md`
 - `docs/TOKEN_COST_STRATEGY.md`

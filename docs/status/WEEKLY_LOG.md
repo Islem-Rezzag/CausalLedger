@@ -2,6 +2,15 @@
 
 ## 2026-05-11
 
+- Finalized M01 planning merge tracking before starting M01.01; git shows commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`) as the available planning merge reference.
+- Started M01.01 Define Payment Lifecycle builder on branch `m01-01-define-payment-lifecycle`; branch guard passed, the starting worktree was clean, `v0.1.0` exists, and M01.01 is domain documentation only.
+- Marked M01 as active and M01.01 as `Builder in progress`; M01.02 through M01.13 and M02 through M21 remain `Not started`.
+- Created `docs/domain/README.md` and `docs/domain/payment-lifecycle.md`, updated the M01 domain index and lightweight spec dependency notes, and marked M01.01 `Builder complete, awaiting QA`.
+- Fixed one scoped validation wording issue after the first M01.01 control-plane validation run: restored the required M00.01-through-M00.08 summary phrase in `docs/status/CURRENT_STATE.md`.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.01 builder after the scoped wording fix.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 18 tests for M01.01 builder.
+- Ran `git diff --check` successfully for M01.01 builder.
+- Confirmed `make bootstrap-check` is unavailable in the current Windows shell for M01.01 builder.
 - Completed M01 Planning QA - Domain Model and Scope Freeze on branch `m01-planning-domain-model-and-scope-freeze`; branch guard passed and the starting worktree was clean.
 - Fixed scoped M01 planning defects: `START_HERE.md` and `WORKFLOW.md` now include required concise references, the active M01 plan lists M01.01 through M01.13 by name, and `docs/PROJECT_BRIEF.md` no longer describes the current status as pre-M01 control-plane bootstrap.
 - Updated control-plane validation coverage so entry-doc references and the active M01 submilestone list are checked.
