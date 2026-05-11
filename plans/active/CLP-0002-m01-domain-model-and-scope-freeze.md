@@ -25,13 +25,19 @@ The first M01 implementation submilestone after this planning thread is `M01.01 
 - [x] Updated control-plane validation and bootstrap tests for the active M01 plan and versioning docs.
 - [x] Run required validation commands.
 - [x] Record final validation results and handoff.
+- [x] 2026-05-11: M01 planning QA branch guard passed on `m01-planning-domain-model-and-scope-freeze`; starting worktree was clean.
+- [x] 2026-05-11: QA found and fixed scoped planning defects: missing required concise references in `START_HERE.md` and `WORKFLOW.md`, incomplete exact M01.01-M01.13 submilestone enumeration in this active plan, and stale project brief current-status wording.
+- [x] 2026-05-11: QA updated control-plane validation coverage so the missing entry-doc references and exact M01 submilestone list are checked.
+- [x] 2026-05-11: QA verified M00 is completed, `v0.1.0` exists, M01 planning is active, M01.01 through M01.13 remain `Not started`, M02 through M21 remain `Not started`, and product implementation has not started.
+- [x] 2026-05-11: QA validation passed after scoped fixes.
 
 ## Surprises & Discoveries
 
 - `v0.1.0` already exists and should remain the M00 repo operating system foundation release.
 - `plans/active/` contained only its README placeholder before this plan was created.
-- The only future-launch versioning conflict found was M20.12 using `Add v0.1.0 release`; that wording now needs to refer to the public product release instead.
+- The only future-launch versioning conflict found was M20.12 using `Add v0.1.0 release`; that wording now refers to the public product release instead.
 - Product and future infrastructure directories still contain placeholder README files only.
+- M01 planning QA found entry-doc reference coverage gaps that the builder validation did not catch; validation coverage now checks those references and the full active-plan submilestone list.
 
 ## Decision Log
 
@@ -39,6 +45,7 @@ The first M01 implementation submilestone after this planning thread is `M01.01 
 - 2026-05-11: Mark M01 as `Planning in progress` at the milestone level while keeping M01.01 through M01.13 `Not started`.
 - 2026-05-11: Use `Prepare v1.0.0 public release` as the consistent M20.12 wording.
 - 2026-05-11: Keep M01 planning scoped to docs, specifications, tracking, and validation; no product runtime artifacts are allowed.
+- 2026-05-11: QA fixes remain scoped to M01 planning documentation, status clarity, and control-plane validation coverage; no M01.01 or product implementation work is started.
 
 ## Context and Orientation
 
@@ -47,6 +54,22 @@ M00 Repo Operating System is complete. M00.01 through M00.08 are `Completed and 
 M01 is the next milestone. It exists to settle payment, ledger, settlement, reconciliation, incident, repair, evidence, review-state, and out-of-scope language before future implementation milestones create product behavior.
 
 Current source directories under `apps/`, `packages/`, `scenarios/`, `data/`, and `infra/` are placeholders only. Their README files do not implement product behavior.
+
+M01 submilestones remain planned scope only and are not started:
+
+- `M01.01 Define payment lifecycle`
+- `M01.02 Define ledger vocabulary`
+- `M01.03 Define settlement vocabulary`
+- `M01.04 Define reconciliation vocabulary`
+- `M01.05 Define incident vocabulary`
+- `M01.06 Define safe and unsafe repairs`
+- `M01.07 Define evidence receipt model`
+- `M01.08 Define human review states`
+- `M01.09 Define out-of-scope domains`
+- `M01.10 Write DOMAIN_MODEL.md`
+- `M01.11 Write RELIABILITY.md`
+- `M01.12 Write THREAT_MODEL.md`
+- `M01.13 QA domain consistency`
 
 ## Scope
 
@@ -165,6 +188,12 @@ Notes:
   - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 16 tests.
   - `git diff --check` passed.
   - `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell.
+- 2026-05-11 QA validation results after scoped fixes:
+  - QA scope audit passed.
+  - `python scripts/validate-control-plane.py` passed.
+  - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 17 tests.
+  - `git diff --check` passed.
+  - `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell.
 
 ## Interfaces and Dependencies
 
@@ -180,9 +209,10 @@ No product runtime interface is introduced by this planning slice.
 
 ## Outcomes & Retrospective
 
-Outcome to record after validation:
+Outcome after QA validation:
 
 - M01 planning is active.
+- M01 planning QA passed after scoped control-plane fixes.
 - M01 implementation submilestones remain not started.
 - Versioning is documented without overclaiming product readiness.
 - Product implementation remains not started.

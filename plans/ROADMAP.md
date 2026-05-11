@@ -1,6 +1,6 @@
 # CausalLedger Roadmap
 
-Current milestone marker: M01 Domain model and scope freeze planning in progress.
+Current milestone marker: M01 Domain model and scope freeze planning in progress; planning QA passed and the PR is awaiting human merge.
 Current submilestone status: M00.01 through M00.08 are completed and merged. M00 is tagged as `v0.1.0` for the repo operating system foundation. M01 planning is active on branch `m01-planning-domain-model-and-scope-freeze`; M01.01 through M01.13 are not started.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.

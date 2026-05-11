@@ -2,6 +2,8 @@
 
 This repository has completed the M00 control-plane bootstrap and tagged it as `v0.1.0`. M01 planning is active in `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`. Do not begin product implementation from this file, and do not start M01.01 unless the M01 planning PR has merged and the next thread is explicitly started.
 
+Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
+
 ## First-run instructions for Codex
 
 Read the active docs before making any changes. Treat this repository as file-first: project memory lives in the repo, not in prior chat context.

@@ -54,6 +54,8 @@ Use `docs/ops/repo-operating-system-freeze.md` and `docs/status/M00_FREEZE_READI
 
 Use `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md` for release versioning, release-scope, and overclaim-prevention guidance.
 
+Current active milestone planning plan: `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`.
+
 ## Sandbox assumptions
 
 Default future work assumes workspace-write sandboxing and restricted network unless explicitly changed by the active environment.

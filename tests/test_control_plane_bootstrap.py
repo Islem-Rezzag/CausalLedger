@@ -187,6 +187,53 @@ def test_versioning_and_release_docs_are_coherent():
     ]:
         assert phrase in changelog
 
+    for rel in [
+        "README.md",
+        "docs/INDEX.md",
+        "docs/ACTIVE_DOCS.md",
+        "START_HERE.md",
+        "PLANS.md",
+        "WORKFLOW.md",
+    ]:
+        text = (ROOT / rel).read_text(encoding="utf-8")
+        for reference in [
+            "docs/VERSIONING.md",
+            "docs/releases/RELEASE_LADDER.md",
+            "docs/releases/V1_SCOPE.md",
+            "CHANGELOG.md",
+            "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        ]:
+            assert reference in text, f"{rel} missing {reference}"
+
+
+def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
+    plan = (
+        ROOT / "plans" / "active" / "CLP-0002-m01-domain-model-and-scope-freeze.md"
+    ).read_text(encoding="utf-8")
+
+    for phrase in [
+        "M01 freezes CausalLedger domain language, boundaries, and non-goals",
+        "not a product runtime implementation milestone",
+        "M01 may update docs, specifications, milestone tracking, and status files",
+        "M01 must not implement APIs, databases, ledger logic, MoneyEvent runtime code, invariants, agent runtime, repair planner, UI, external connectors, GitHub Actions, CI workflows, or product behavior",
+        "LLM agents may investigate, summarize, and propose, but they do not mutate money, approve repairs, delete evidence, post ledger entries, modify raw events, or override deterministic invariants",
+        "M01.01 Define payment lifecycle",
+        "M01.02 Define ledger vocabulary",
+        "M01.03 Define settlement vocabulary",
+        "M01.04 Define reconciliation vocabulary",
+        "M01.05 Define incident vocabulary",
+        "M01.06 Define safe and unsafe repairs",
+        "M01.07 Define evidence receipt model",
+        "M01.08 Define human review states",
+        "M01.09 Define out-of-scope domains",
+        "M01.10 Write DOMAIN_MODEL.md",
+        "M01.11 Write RELIABILITY.md",
+        "M01.12 Write THREAT_MODEL.md",
+        "M01.13 QA domain consistency",
+        "The first M01 implementation submilestone after this planning thread is `M01.01 Define payment lifecycle`",
+    ]:
+        assert phrase in plan
+
 
 def test_submilestone_registry_contains_all_expected_rows():
     registry = (

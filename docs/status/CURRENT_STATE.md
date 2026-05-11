@@ -2,7 +2,7 @@
 
 ## Current phase
 
-M01 planning is in progress on branch `m01-planning-domain-model-and-scope-freeze`. M00 Repo operating system is completed and tagged as `v0.1.0`. Product implementation has not started, and M01 implementation submilestones are not started.
+M01 planning is in progress on branch `m01-planning-domain-model-and-scope-freeze`. M01 planning QA passed after scoped control-plane fixes, and the planning PR is awaiting human merge. M00 Repo operating system is completed and tagged as `v0.1.0`. Product implementation has not started, and M01 implementation submilestones are not started.
 
 ## What exists
 
@@ -70,7 +70,7 @@ No product code exists yet. Product directories contain placeholder README files
 
 ## Next action
 
-Complete the M01 planning thread, validate the control-plane updates, and open or merge the planning PR according to the normal GitHub workflow. After this planning PR merges, the exact next recommended thread is `M01.01 Builder - Define Payment Lifecycle`.
+Merge the M01 planning PR according to the normal GitHub workflow. After this planning PR merges, the exact next recommended thread is `M01.01 Builder - Define Payment Lifecycle`.
 
 ## Implementation warning
 
@@ -86,6 +86,12 @@ Do not start product implementation. This planning thread may update docs, specs
 
 ## Latest validation
 
+- 2026-05-11: M01 planning QA passed after scoped control-plane fixes.
+- 2026-05-11: QA scope audit passed.
+- 2026-05-11: `python scripts/validate-control-plane.py` passed.
+- 2026-05-11: `python -m pytest tests/test_control_plane_bootstrap.py` passed with 17 tests.
+- 2026-05-11: `git diff --check` passed.
+- 2026-05-11: `make bootstrap-check` was not run because `make` is unavailable in the current Windows shell.
 - 2026-05-11: M01 planning validation passed.
 - 2026-05-11: `python scripts/validate-control-plane.py` passed.
 - 2026-05-11: `python -m pytest tests/test_control_plane_bootstrap.py` passed with 16 tests.
