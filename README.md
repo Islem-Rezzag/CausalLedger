@@ -12,7 +12,9 @@ CausalLedger helps fintech teams prove, replay, and safely repair money-movement
 
 ## Current status
 
-CausalLedger has completed the M00 repo operating system closeout in this branch. This repository currently contains architecture, planning, prompt, skill, milestone, status, GitHub template, and validation scaffolding only. No product functionality, MoneyEvent logic, ledger logic, invariants, incident engine, causal graph, replay engine, agent runtime, repair planning, UI, APIs, databases, GitHub Actions, CI workflows, secrets, or external connectors exist yet.
+CausalLedger has completed M00 Repo Operating System and tagged it as `v0.1.0`. M01 planning is in progress on branch `m01-planning-domain-model-and-scope-freeze` with active plan `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`.
+
+This repository currently contains architecture, planning, prompt, skill, milestone, status, GitHub template, versioning, and validation scaffolding only. No product functionality, MoneyEvent logic, ledger logic, invariants, incident engine, causal graph, replay engine, agent runtime, repair planning, UI, APIs, databases, GitHub Actions, CI workflows, secrets, or external connectors exist yet.
 
 ## What CausalLedger is
 
@@ -57,6 +59,10 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `docs/ops/branch-protection.md` - recommended `main` branch protection settings.
 - `docs/ops/milestone-closeout-workflow.md` - milestone closeout preconditions, packet, plan movement, and next milestone readiness workflow.
 - `docs/ops/repo-operating-system-freeze.md` - M00 freeze readiness and control-plane coherence checks.
+- `docs/VERSIONING.md` - semantic versioning strategy, release tag rules, and overclaim prevention.
+- `docs/releases/RELEASE_LADDER.md` - planned version ladder from `v0.1.0` through company-grade releases.
+- `docs/releases/V1_SCOPE.md` - practical `v1.0.0` scope target.
+- `CHANGELOG.md` - release history and unreleased changes.
 - `.github/PULL_REQUEST_TEMPLATE.md` - PR body checklist for submilestones.
 - `.github/ISSUE_TEMPLATE/` - GitHub issue templates for submilestones, QA, blockers, research, and bugs.
 - `docs/INDEX.md` - documentation entry point.
@@ -67,6 +73,7 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `docs/status/M00_CLOSEOUT.md` - M00 closeout packet.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` - canonical M00-M21 submilestone registry.
 - `plans/completed/CLP-0001-m00-repo-operating-system.md` - completed M00 plan.
+- `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md` - active M01 planning plan.
 - `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
 - `prompts/template_qa_submilestone.md` - reusable QA thread prompt template.
 - `prompts/template_handoff_packet.md` - reusable handoff packet template.

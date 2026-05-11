@@ -1,6 +1,8 @@
 # Start Here
 
-This repository is currently a control-plane bootstrap for CausalLedger. Do not begin product implementation from this file, and do not start the next submilestone unless the previous submilestone has QA PASS and its PR is merged.
+This repository has completed the M00 control-plane bootstrap and tagged it as `v0.1.0`. M01 planning is active in `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`. Do not begin product implementation from this file, and do not start M01.01 unless the M01 planning PR has merged and the next thread is explicitly started.
+
+Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 
 ## First-run instructions for Codex
 
@@ -65,8 +67,8 @@ The handoff packet must include files created, files changed, files intentionall
 - Do not implement invariants.
 - Do not implement the agent runtime.
 - Do not implement UI features.
-- Do not start M00 or any milestone until the user explicitly asks.
-- Do not implement product behavior during M00 unless the active plan explicitly scopes it, and M00 currently scopes control-plane work only.
+- Do not start M01.01, M02, or later milestone work from the M01 planning thread.
+- Do not implement product behavior during M01 planning.
 
 ## Correct first success
 

@@ -38,4 +38,4 @@ Traditional reconciliation focuses on matching records and explaining difference
 
 ## Current status
 
-CausalLedger is in control-plane bootstrap. The repository contains planning, safety, milestone, prompt, skill, and validation scaffolding only. Product implementation has not started.
+CausalLedger has completed M00 Repo Operating System and tagged it as `v0.1.0`. M01 planning is in progress on branch `m01-planning-domain-model-and-scope-freeze`. The repository contains planning, safety, milestone, prompt, skill, versioning, and validation scaffolding only. Product implementation has not started.

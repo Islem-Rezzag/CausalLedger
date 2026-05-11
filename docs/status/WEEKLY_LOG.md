@@ -2,6 +2,27 @@
 
 ## 2026-05-11
 
+- Completed M01 Planning QA - Domain Model and Scope Freeze on branch `m01-planning-domain-model-and-scope-freeze`; branch guard passed and the starting worktree was clean.
+- Fixed scoped M01 planning defects: `START_HERE.md` and `WORKFLOW.md` now include required concise references, the active M01 plan lists M01.01 through M01.13 by name, and `docs/PROJECT_BRIEF.md` no longer describes the current status as pre-M01 control-plane bootstrap.
+- Updated control-plane validation coverage so entry-doc references and the active M01 submilestone list are checked.
+- Verified M00 is completed, `v0.1.0` exists, M01 planning is active, M01.01 through M01.13 remain `Not started`, M02 through M21 remain `Not started`, and product implementation has not started.
+- Ran the M01 planning QA scope audit successfully.
+- Ran `python scripts/validate-control-plane.py` successfully for M01 planning QA.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 17 tests for M01 planning QA.
+- Ran `git diff --check` successfully for M01 planning QA.
+- Confirmed `make bootstrap-check` is unavailable in the current Windows shell.
+- M01 planning QA PASS recorded; this PR is safe to merge after normal human review. Do not start M01.01 until the planning PR merges.
+- Started M01 Planning - Domain Model and Scope Freeze on branch `m01-planning-domain-model-and-scope-freeze`; branch guard passed and the starting worktree was clean.
+- Confirmed `v0.1.0` exists as the M00 repo operating system foundation tag.
+- Created `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md` for M01 planning only.
+- Added professional versioning docs and `CHANGELOG.md` while keeping `v0.1.0` scoped to the M00 repo operating system foundation.
+- Updated current-state, roadmap, milestone, capability, active-doc, and index tracking so M01 is planning in progress, M01.01 through M01.13 remain `Not started`, M02-M21 remain `Not started`, and product implementation remains not started.
+- Corrected M20.12 wording to `Prepare v1.0.0 public release`.
+- Set the next recommended thread after this planning PR merges to `M01.01 Builder - Define Payment Lifecycle`.
+- Ran `python scripts/validate-control-plane.py` successfully for M01 planning.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 16 tests.
+- Ran `git diff --check` successfully.
+- Confirmed `make bootstrap-check` is unavailable in the current Windows shell.
 - Finalized M00.08 Repo Operating System QA and Freeze as `Completed and merged` after PR #8 merged into `main` at commit `db312d16f3059a2714f929c4bcb831d4a6a5a173`.
 - Ran the M00 closeout audit on branch `m00-closeout-repo-operating-system`.
 - Verified M00.01 through M00.08 are `Completed and merged` in the registry, M00 milestone doc, roadmap, freeze readiness report, and M00 plan.

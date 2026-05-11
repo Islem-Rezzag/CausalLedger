@@ -37,6 +37,10 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/ops/branch-protection.md` - recommended branch protection settings for `main`.
 - `docs/ops/milestone-closeout-workflow.md` - milestone closeout preconditions, packet, plan movement, deferrals, and next milestone readiness.
 - `docs/ops/repo-operating-system-freeze.md` - M00 freeze readiness and control-plane coherence checks.
+- `docs/VERSIONING.md` - semantic versioning strategy, release tag rules, and overclaim prevention.
+- `docs/releases/RELEASE_LADDER.md` - planned version ladder from `v0.1.0` through company-grade releases.
+- `docs/releases/V1_SCOPE.md` - practical `v1.0.0` scope target.
+- `CHANGELOG.md` - release history and unreleased changes.
 - `plans/ROADMAP.md` - canonical milestone sequence, counts, statuses, and exit criteria.
 - `docs/status/CURRENT_STATE.md` - current phase, active plan, product code status, and validation status.
 - `docs/status/NEXT_RECOMMENDED_THREAD.md` - exact next recommended thread.
@@ -44,6 +48,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/status/M00_CLOSEOUT.md` - M00 closeout packet.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` - canonical M00-M21 submilestone registry.
 - `plans/completed/CLP-0001-m00-repo-operating-system.md` - completed M00 execution plan.
+- `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md` - active M01 planning plan.
 - `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
 - `prompts/template_qa_submilestone.md` - reusable QA thread prompt template.
 - `prompts/template_handoff_packet.md` - reusable handoff packet template.
@@ -61,6 +66,9 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/RELIABILITY.md` - deterministic-first reliability expectations.
 - `docs/THREAT_MODEL.md` - initial threat categories and unsafe action boundaries.
 - `docs/TOKEN_COST_STRATEGY.md` - cost and model-use strategy for future agentic work.
+- `docs/VERSIONING.md` - versioning policy and release tag discipline.
+- `docs/releases/RELEASE_LADDER.md` - planned release progression.
+- `docs/releases/V1_SCOPE.md` - minimum and stretch scope for `v1.0.0`.
 
 ## Milestone docs
 
@@ -78,4 +86,4 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-The repository has completed the M00 control-plane closeout in this branch. It contains docs, plans, prompt templates, skills, placeholder directories, GitHub templates, and control-plane validation only. It does not contain product functionality.
+The repository has completed M00 and tagged the repo operating system foundation as `v0.1.0`. M01 planning is in progress. The repo contains docs, plans, prompt templates, skills, placeholder directories, GitHub templates, versioning docs, and control-plane validation only. It does not contain product functionality.
