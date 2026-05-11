@@ -222,6 +222,7 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "LLM agents may investigate, summarize, and propose, but they do not mutate money, approve repairs, delete evidence, post ledger entries, modify raw events, or override deterministic invariants",
         "M01 planning is complete and merged at git commit `2cfd75a`",
         "M01.01 Define payment lifecycle is the current domain-documentation submilestone",
+        "post-merge QA recovery",
         "M01.01 Define payment lifecycle",
         "M01.02 Define ledger vocabulary",
         "M01.03 Define settlement vocabulary",
@@ -811,7 +812,10 @@ def test_m00_closeout_state_is_coherent():
     assert "Prepare v1.0.0 public release" in registry
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.01 |"))
-    assert "Builder complete, awaiting QA" in row
+    assert "Completed and merged" in row
+    assert "post-merge QA recovery" in row
+    assert "m01-01-qa-recovery-define-payment-lifecycle" in row
+    assert "1175789" in row
 
     for index in range(2, 14):
         submilestone = f"M01.{index:02}"
@@ -840,7 +844,7 @@ def test_m00_closeout_state_is_coherent():
         "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "Product directories contain placeholder README files only",
         "M00.01 through M00.08 are completed and merged",
-        "M01.01 Define payment lifecycle is `Builder complete, awaiting QA`",
+        "M01.01 Define payment lifecycle is `Completed and merged` after post-merge QA recovery",
         "M01.02 through M01.13 remain `Not started`",
     ]:
         assert phrase in current_state
