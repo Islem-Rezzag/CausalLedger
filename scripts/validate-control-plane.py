@@ -343,6 +343,7 @@ REQUIRED_TEXT = {
         "M01 must not implement APIs, databases, ledger logic, MoneyEvent runtime code, invariants, agent runtime, repair planner, UI, external connectors, GitHub Actions, CI workflows, or product behavior",
         "M01 planning is complete and merged at git commit `2cfd75a`",
         "M01.01 Define payment lifecycle is the current domain-documentation submilestone",
+        "post-merge QA recovery",
         "M01.01 Define payment lifecycle",
         "M01.02 Define ledger vocabulary",
         "M01.03 Define settlement vocabulary",
@@ -535,8 +536,14 @@ def closeout_state_errors():
         (line for line in registry.splitlines() if line.startswith("| M01.01 |")),
         "",
     )
-    if "Builder complete, awaiting QA" not in row:
-        errors.append("M01.01 is not Builder complete, awaiting QA")
+    for phrase in [
+        "Completed and merged",
+        "post-merge QA recovery",
+        "m01-01-qa-recovery-define-payment-lifecycle",
+        "1175789",
+    ]:
+        if phrase not in row:
+            errors.append(f"M01.01 registry row missing QA recovery marker: {phrase}")
 
     for index in range(2, 14):
         submilestone = f"M01.{index:02}"
@@ -639,8 +646,12 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "M01.01 QA - Define Payment Lifecycle" not in next_thread:
-        errors.append("Next recommended thread is not M01.01 QA - Define Payment Lifecycle")
+    if "Merge M01.01 QA Recovery PR - Define Payment Lifecycle" not in next_thread:
+        errors.append(
+            "Next recommended thread is not Merge M01.01 QA Recovery PR - Define Payment Lifecycle"
+        )
+    if "Do not start M01.02 until the QA recovery PR has merged" not in next_thread:
+        errors.append("Next recommended thread does not block M01.02 until QA recovery merge")
 
     domain_doc = ROOT / "docs/domain/payment-lifecycle.md"
     domain_index = ROOT / "docs/DOMAIN_MODEL.md"

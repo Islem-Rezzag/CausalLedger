@@ -10,7 +10,7 @@ The safety boundary is non-negotiable: LLM agents may investigate, summarize, an
 
 The first M01 implementation submilestone after this planning thread is `M01.01 Define payment lifecycle`.
 
-Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, and M01.01 Define payment lifecycle is the current domain-documentation submilestone on branch `m01-01-define-payment-lifecycle`.
+Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, and M01.01 Define payment lifecycle is the current domain-documentation submilestone under post-merge QA recovery on branch `m01-01-qa-recovery-define-payment-lifecycle`.
 
 ## Progress
 
@@ -40,6 +40,11 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - [x] 2026-05-11: First M01.01 control-plane validation run failed because `docs/status/CURRENT_STATE.md` lacked the exact M00.01-through-M00.08 summary phrase required by validation; fixed the scoped tracking wording and reran successfully.
 - [x] 2026-05-11: M01.01 validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 18 tests, and `git diff --check`.
 - [x] 2026-05-11: `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
+- [x] 2026-05-11: Started M01.01 post-merge QA recovery on branch `m01-01-qa-recovery-define-payment-lifecycle` after builder PR #11 was squash-merged before the required QA thread; branch guard passed, starting worktree was clean, and latest commit was `1175789`.
+- [x] 2026-05-11: Audited merged M01.01 docs, tracking, validation coverage, and forbidden-scope boundaries; found no payment-lifecycle content defects and no product implementation.
+- [x] 2026-05-11: Recorded the M01.01 protocol deviation and post-merge QA recovery in tracking/status files.
+- [x] 2026-05-11: M01.01 post-merge QA recovery validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 18 tests, and `git diff --check`.
+- [x] 2026-05-11: `make bootstrap-check` was skipped for M01.01 post-merge QA recovery because `make` is unavailable in the current Windows shell.
 
 ## Surprises & Discoveries
 
@@ -48,6 +53,7 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - The only future-launch versioning conflict found was M20.12 using `Add v0.1.0 release`; that wording now refers to the public product release instead.
 - Product and future infrastructure directories still contain placeholder README files only.
 - M01 planning QA found entry-doc reference coverage gaps that the builder validation did not catch; validation coverage now checks those references and the full active-plan submilestone list.
+- M01.01 builder PR #11 was accidentally squash-merged before the required QA thread; this plan now records the post-merge QA recovery path before M01.02.
 
 ## Decision Log
 
@@ -56,6 +62,7 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - 2026-05-11: Use `Prepare v1.0.0 public release` as the consistent M20.12 wording.
 - 2026-05-11: Keep M01 planning scoped to docs, specifications, tracking, and validation; no product runtime artifacts are allowed.
 - 2026-05-11: QA fixes remain scoped to M01 planning documentation, status clarity, and control-plane validation coverage; no M01.01 or product implementation work is started.
+- 2026-05-11: Because M01.01 was merged before QA, record M01.01 as `Completed and merged` only with explicit post-merge QA recovery notes, and do not start M01.02 until the QA recovery PR merges.
 
 ## Context and Orientation
 
@@ -67,7 +74,7 @@ Current source directories under `apps/`, `packages/`, `scenarios/`, `data/`, an
 
 Current M01 submilestone state:
 
-- `M01.01 Define payment lifecycle` - Builder complete, awaiting QA.
+- `M01.01 Define payment lifecycle` - Completed and merged after post-merge QA recovery.
 - `M01.02 Define ledger vocabulary`
 - `M01.03 Define settlement vocabulary`
 - `M01.04 Define reconciliation vocabulary`
@@ -105,6 +112,14 @@ Current M01.01 builder scope:
 - Add concise links to the new domain docs from entry docs.
 - Add lightweight domain-dependency notes to related spec placeholders.
 - Update M01.01 tracking and validation coverage.
+- Keep M01.02 through M01.13 `Not started`.
+- Keep M02 through M21 `Not started`.
+
+Current M01.01 QA recovery scope:
+
+- Audit the already-merged M01.01 builder work from commit `1175789`.
+- Fix only scoped M01.01 documentation, tracking, or validation defects if found.
+- Record the post-merge QA recovery clearly in the active plan, milestone docs, registry, status files, and validation coverage.
 - Keep M01.02 through M01.13 `Not started`.
 - Keep M02 through M21 `Not started`.
 
@@ -156,6 +171,15 @@ Current M01.01 builder work:
 7. Add documentation-only validation checks.
 8. Run validation and record results before marking M01.01 `Builder complete, awaiting QA`.
 
+Current M01.01 QA recovery work:
+
+1. Confirm the recovery branch guard and clean starting worktree.
+2. Audit the merged M01.01 payment lifecycle domain docs and related tracking.
+3. Verify no product implementation or future submilestone scope was started.
+4. Record the accidental pre-QA merge and post-merge QA recovery.
+5. Update control-plane validation checks from the stale pre-QA state to the recovery state.
+6. Run validation and record results before the recovery PR is opened or merged.
+
 ## Concrete Steps
 
 - Confirm branch guard and starting cleanliness.
@@ -192,12 +216,14 @@ Acceptance criteria:
 - M20.12 no longer says `Add v0.1.0 release`.
 - Current-state closeout wording no longer treats the M00 closeout PR as pending.
 - M01 is planning in progress where appropriate.
-- M01.01 through M01.13 remain `Not started`.
+- During the planning slice, M01.01 through M01.13 remained `Not started`.
+- After post-merge QA recovery, M01.01 is `Completed and merged` with the protocol deviation recorded in notes.
+- M01.02 through M01.13 remain `Not started`.
 - M02 through M21 remain `Not started`.
 - Product implementation has not started.
 - No forbidden runtime artifacts are added.
 - Validation passes or limitations are recorded.
-- Next recommended thread after this planning PR merge is `M01.01 Builder - Define Payment Lifecycle`.
+- Next recommended thread after this QA recovery is `Merge M01.01 QA Recovery PR - Define Payment Lifecycle`.
 
 ## Idempotence and Recovery
 
@@ -238,6 +264,12 @@ Notes:
   - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 18 tests.
   - `git diff --check` passed.
   - `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell.
+- 2026-05-11 M01.01 post-merge QA recovery validation results:
+  - Merged builder work at commit `1175789` was audited.
+  - `python scripts/validate-control-plane.py` passed.
+  - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 18 tests.
+  - `git diff --check` passed.
+  - `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell.
 
 ## Interfaces and Dependencies
 
@@ -265,6 +297,8 @@ Outcome after M01 planning QA validation:
 
 Current M01.01 builder outcome:
 
-- M01.01 builder work is complete and awaiting QA as domain documentation only.
+- M01.01 builder work was squash-merged before the required QA thread.
+- M01.01 post-merge QA recovery passed as domain documentation only.
+- M01.01 is recorded as `Completed and merged` after post-merge QA recovery.
 - Product implementation remains not started.
 - M01.02 through M01.13 remain not started.

@@ -88,4 +88,4 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-The repository has completed M00 and tagged the repo operating system foundation as `v0.1.0`. M01 planning is complete and merged, M01 is active, and M01.01 Define Payment Lifecycle is `Builder complete, awaiting QA` as a domain-documentation-only submilestone. The repo contains docs, plans, prompt templates, skills, placeholder directories, GitHub templates, versioning docs, and control-plane validation only. It does not contain product functionality.
+The repository has completed M00 and tagged the repo operating system foundation as `v0.1.0`. M01 planning is complete and merged, M01 is active, and M01.01 Define Payment Lifecycle is recorded as `Completed and merged` after post-merge QA recovery. The repo contains docs, plans, prompt templates, skills, placeholder directories, GitHub templates, versioning docs, domain vocabulary, and control-plane validation only. It does not contain product functionality.
