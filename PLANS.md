@@ -20,6 +20,8 @@ Milestone closeout preconditions, packets, deferrals, plan movement, and next mi
 
 M00 repo operating system freeze checks and closeout preparation are defined in `docs/ops/repo-operating-system-freeze.md` and `docs/status/M00_FREEZE_READINESS.md`.
 
+Versioning and release-scope documentation is defined in `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
+
 ## Naming convention
 
 Use `CLP-0001-short-name.md`. Increment the number monotonically and keep the short name action-oriented.
@@ -29,6 +31,8 @@ Use `CLP-0001-short-name.md`. Increment the number monotonically and keep the sh
 - Active plans live in `plans/active/`.
 - Completed plans move to `plans/completed/`.
 - Archived or stale plans move to `plans/archived/`.
+
+Current active milestone planning plan: `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
 Progress is recorded in the active plan during the slice. Submilestone status is recorded in `docs/milestones/SUBMILESTONE_REGISTRY.md`, reflected in the relevant milestone doc, and summarized in `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md`.
 

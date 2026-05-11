@@ -30,6 +30,10 @@ Project direction:
 - `docs/RELIABILITY.md`
 - `docs/THREAT_MODEL.md`
 - `docs/TOKEN_COST_STRATEGY.md`
+- `docs/VERSIONING.md`
+- `docs/releases/RELEASE_LADDER.md`
+- `docs/releases/V1_SCOPE.md`
+- `CHANGELOG.md`
 
 Roadmap and submilestones:
 
@@ -72,7 +76,7 @@ Completed execution:
 
 Active execution:
 
-- No active milestone plan exists after M00 closeout.
+- `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`
 
 Plan state:
 

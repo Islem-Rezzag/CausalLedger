@@ -75,7 +75,7 @@ M00 closeout validation is recorded in `docs/status/M00_CLOSEOUT.md`.
 
 ## Make unavailable note
 
-If `make` remains unavailable during M00 closeout validation, record that limitation and run the underlying Python validation and pytest commands directly. Do not treat unavailable `make` as product failure because product implementation has not started.
+If `make` remains unavailable during later control-plane validation, record that limitation and run the underlying Python validation and pytest commands directly. Do not treat unavailable `make` as product failure because product implementation has not started.
 
 ## No product implementation status
 
@@ -83,17 +83,19 @@ No product functionality exists. MoneyEvent logic, ledger logic, invariants, inc
 
 ## No M01 active plan status
 
-No M01 active plan exists. No active milestone plan exists after the completed M00 plan moved to `plans/completed/CLP-0001-m00-repo-operating-system.md`.
+At M00 closeout, no M01 active plan existed. The completed M00 plan moved to `plans/completed/CLP-0001-m00-repo-operating-system.md`.
 
-M01 through M21 remain `Not started`.
+On 2026-05-11, M01 planning began on branch `m01-planning-domain-model-and-scope-freeze`, creating `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`. M01.01 through M01.13 remain `Not started`, and M02 through M21 remain `Not started`.
 
 ## Readiness checklist
 
 - [x] M00.01 through M00.08 are completed and merged.
 - [x] M00 closeout thread passed.
 - [x] Active M00 plan moved to `plans/completed/CLP-0001-m00-repo-operating-system.md`.
-- [x] No M01 active plan exists.
-- [x] M01 through M21 remain `Not started`.
+- [x] No M01 active plan existed at M00 closeout.
+- [x] M01 planning now has an active plan.
+- [x] M01.01 through M01.13 remain `Not started`.
+- [x] M02 through M21 remain `Not started`.
 - [x] Product implementation has not started.
 - [x] M00.08 builder validation passed.
 - [x] M00.08 QA PASS was recorded before merge.
@@ -103,7 +105,7 @@ M01 through M21 remain `Not started`.
 
 ## Remaining steps before M00 can fully close
 
-M00 closeout criteria passed in this branch. The remaining project-management step is for a human to merge the M00 closeout PR; only after that merge may the M01 planning branch/thread begin.
+M00 is fully closed and tagged as `v0.1.0`. The M01 planning branch/thread is now active; product implementation has not started.
 
 ## Exact next recommended thread after M00.08 builder
 

@@ -346,7 +346,7 @@ Status values: Not started, Builder in progress, Builder complete, awaiting QA, 
 | M20.09 | Add "why the LLM cannot mutate money" section | M20 Public launch | Not started |  |  |  |  |  |  |
 | M20.10 | Add contribution guide | M20 Public launch | Not started |  |  |  |  |  |  |
 | M20.11 | Add changelog | M20 Public launch | Not started |  |  |  |  |  |  |
-| M20.12 | Add v0.1.0 release | M20 Public launch | Not started |  |  |  |  |  |  |
+| M20.12 | Prepare v1.0.0 public release | M20 Public launch | Not started |  |  |  |  |  |  |
 | M20.13 | Add blog post draft | M20 Public launch | Not started |  |  |  |  |  |  |
 | M20.14 | Add interview demo script | M20 Public launch | Not started |  |  |  |  |  |  |
 | M20.15 | Add recruiter-facing summary | M20 Public launch | Not started |  |  |  |  |  |  |

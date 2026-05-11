@@ -14,6 +14,7 @@ def test_required_root_files_exist():
         "Makefile",
         ".env.example",
         ".gitignore",
+        "CHANGELOG.md",
     ]:
         assert (ROOT / rel).is_file(), rel
 
@@ -28,6 +29,9 @@ def test_required_project_docs_exist():
         "docs/RELIABILITY.md",
         "docs/THREAT_MODEL.md",
         "docs/TOKEN_COST_STRATEGY.md",
+        "docs/VERSIONING.md",
+        "docs/releases/RELEASE_LADDER.md",
+        "docs/releases/V1_SCOPE.md",
         "docs/ops/planning-and-tracking-system.md",
         "docs/ops/builder-qa-prompt-protocol.md",
         "docs/ops/validation-and-handoff-workflow.md",
@@ -39,6 +43,7 @@ def test_required_project_docs_exist():
         "docs/status/M00_FREEZE_READINESS.md",
         "docs/status/M00_CLOSEOUT.md",
         "docs/milestones/SUBMILESTONE_REGISTRY.md",
+        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "plans/completed/CLP-0001-m00-repo-operating-system.md",
     ]:
         assert (ROOT / rel).is_file(), rel
@@ -53,6 +58,7 @@ def test_required_control_plane_directories_exist():
         "docs/decisions",
         "docs/ops",
         "docs/references",
+        "docs/releases",
         ".github",
         ".github/ISSUE_TEMPLATE",
         "plans/active",
@@ -131,6 +137,55 @@ def test_roadmap_has_real_submilestone_counts():
         assert f"| {count} |" in next(
             line for line in roadmap.splitlines() if line.startswith(f"| {milestone} ")
         )
+
+
+def test_versioning_and_release_docs_are_coherent():
+    versioning = (ROOT / "docs" / "VERSIONING.md").read_text(encoding="utf-8")
+    release_ladder = (
+        ROOT / "docs" / "releases" / "RELEASE_LADDER.md"
+    ).read_text(encoding="utf-8")
+    v1_scope = (ROOT / "docs" / "releases" / "V1_SCOPE.md").read_text(
+        encoding="utf-8"
+    )
+    changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+
+    for phrase in [
+        "semantic versioning",
+        "`v0.1.0` is the M00 Repo Operating System foundation release",
+        "`v0.1.0` is not a product release",
+        "`v1.0.0` is the first serious public product release",
+        "Do not claim product readiness from placeholder files, specs, plans, or control-plane validation",
+    ]:
+        assert phrase in versioning
+
+    for phrase in [
+        "v0.1.0: M00 Repo Operating System Foundation",
+        "v0.2.0: M01-M02 Domain And Local Development Foundation",
+        "v0.3.0: M03-M06 Financial Truth Core",
+        "v0.4.0: M07-M09 Incident Digital Twin Core",
+        "v0.5.0: M10-M13 Safe Agentic Layer",
+        "v0.6.0: M14-M15 Benchmark And Demo",
+        "v1.0.0: First Serious Public Product Release",
+        "v1.1.0+: Connectors, Observability, Security, And Polish",
+        "v2.0.0: Company-Grade / Enterprise Version",
+    ]:
+        assert phrase in release_ladder
+
+    for phrase in [
+        "M01-M15 complete",
+        "Minimum M17 cost and latency tracking for agent runs",
+        "Minimum M18 proof that the LLM cannot mutate money",
+        "Minimum M20 public README, demo script, architecture diagram, benchmark table, and launch-quality docs",
+        "`v1.0.0` must not require all M16-M21 work to be complete",
+    ]:
+        assert phrase in v1_scope
+
+    for phrase in [
+        "## Unreleased",
+        "## v0.1.0 - Repo Operating System Foundation",
+        "No product functionality is implemented in `v0.1.0`",
+    ]:
+        assert phrase in changelog
 
 
 def test_submilestone_registry_contains_all_expected_rows():
@@ -588,7 +643,12 @@ def test_m00_closeout_state_is_coherent():
     assert (
         ROOT / "plans" / "completed" / "CLP-0001-m00-repo-operating-system.md"
     ).is_file()
-    assert not list((ROOT / "plans" / "active").glob("*m01*.md"))
+    active_m01_plan = ROOT / "plans" / "active" / "CLP-0002-m01-domain-model-and-scope-freeze.md"
+    assert active_m01_plan.is_file()
+    assert [
+        path.name
+        for path in (ROOT / "plans" / "active").glob("CLP-*.md")
+    ] == [active_m01_plan.name]
 
     for index in range(1, 9):
         submilestone = f"M00.{index:02}"
@@ -600,7 +660,24 @@ def test_m00_closeout_state_is_coherent():
     assert "| M00 Repo operating system |" in roadmap
     assert "| 8 | Completed |" in roadmap
     assert "| M01 Domain model and scope freeze |" in roadmap
-    assert "| 13 | Not started |" in roadmap
+    assert "| 13 | Planning in progress |" in roadmap
+    assert "Add v0.1.0 release" not in registry
+    assert "Prepare v1.0.0 public release" in registry
+
+    for index in range(1, 14):
+        submilestone = f"M01.{index:02}"
+        row = next(
+            line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")
+        )
+        assert "Not started" in row
+
+    for milestone in range(2, 22):
+        for row in [
+            line
+            for line in registry.splitlines()
+            if line.startswith(f"| M{milestone:02}.")
+        ]:
+            assert "Not started" in row
 
     for phrase in [
         "M00 is a control-plane milestone",
@@ -611,9 +688,10 @@ def test_m00_closeout_state_is_coherent():
         assert phrase in closeout
 
     for phrase in [
-        "No active milestone plan exists",
+        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "Product directories contain placeholder README files only",
         "M00.01 through M00.08 are completed and merged",
+        "M01.01 through M01.13 are `Not started`",
     ]:
         assert phrase in current_state
 

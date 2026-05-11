@@ -12,6 +12,7 @@ REQUIRED_FILES = [
     "Makefile",
     ".env.example",
     ".gitignore",
+    "CHANGELOG.md",
     "docs/INDEX.md",
     "docs/ACTIVE_DOCS.md",
     "docs/PROJECT_BRIEF.md",
@@ -21,6 +22,9 @@ REQUIRED_FILES = [
     "docs/RELIABILITY.md",
     "docs/THREAT_MODEL.md",
     "docs/TOKEN_COST_STRATEGY.md",
+    "docs/VERSIONING.md",
+    "docs/releases/RELEASE_LADDER.md",
+    "docs/releases/V1_SCOPE.md",
     "docs/ops/planning-and-tracking-system.md",
     "docs/ops/builder-qa-prompt-protocol.md",
     "docs/ops/validation-and-handoff-workflow.md",
@@ -40,6 +44,7 @@ REQUIRED_FILES = [
     "docs/status/M00_CLOSEOUT.md",
     "docs/milestones/SUBMILESTONE_REGISTRY.md",
     "plans/ROADMAP.md",
+    "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
     "plans/completed/CLP-0001-m00-repo-operating-system.md",
     "plans/templates/execplan-template.md",
     "plans/templates/qa-plan-template.md",
@@ -82,6 +87,7 @@ REQUIRED_DIRS = [
     "docs/decisions",
     "docs/ops",
     "docs/references",
+    "docs/releases",
     "plans/active",
     "plans/completed",
     "plans/archived",
@@ -298,6 +304,45 @@ REQUIRED_TEXT = {
         "No product functionality was implemented",
         "No M01 active plan exists",
     ],
+    "docs/VERSIONING.md": [
+        "semantic versioning",
+        "`v0.1.0` is the M00 Repo Operating System foundation release",
+        "`v0.1.0` is not a product release",
+        "Only a human operator or a Codex thread explicitly authorized by a human may create and push release tags",
+        "`v1.0.0` is the first serious public product release",
+        "Do not claim product readiness from placeholder files, specs, plans, or control-plane validation",
+    ],
+    "docs/releases/RELEASE_LADDER.md": [
+        "v0.1.0: M00 Repo Operating System Foundation",
+        "v0.2.0: M01-M02 Domain And Local Development Foundation",
+        "v0.3.0: M03-M06 Financial Truth Core",
+        "v0.4.0: M07-M09 Incident Digital Twin Core",
+        "v0.5.0: M10-M13 Safe Agentic Layer",
+        "v0.6.0: M14-M15 Benchmark And Demo",
+        "v1.0.0: First Serious Public Product Release",
+        "v1.1.0+: Connectors, Observability, Security, And Polish",
+        "v2.0.0: Company-Grade / Enterprise Version",
+    ],
+    "docs/releases/V1_SCOPE.md": [
+        "M01-M15 complete",
+        "Minimum M17 cost and latency tracking for agent runs",
+        "Minimum M18 proof that the LLM cannot mutate money",
+        "Minimum M20 public README, demo script, architecture diagram, benchmark table, and launch-quality docs",
+        "`v1.0.0` must not require all M16-M21 work to be complete",
+    ],
+    "CHANGELOG.md": [
+        "## Unreleased",
+        "## v0.1.0 - Repo Operating System Foundation",
+        "No product functionality is implemented in `v0.1.0`",
+    ],
+    "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md": [
+        "M01 freezes CausalLedger domain language, boundaries, and non-goals",
+        "M01 must not implement APIs, databases, ledger logic, MoneyEvent runtime code, invariants, agent runtime, repair planner, UI, external connectors, GitHub Actions, CI workflows, or product behavior",
+        "M01.01 Define payment lifecycle",
+        "M01.01 through M01.13 remain `Not started`",
+        "M02 through M21 remain `Not started`",
+        "Next recommended thread after this planning PR merge is `M01.01 Builder - Define Payment Lifecycle`",
+    ],
     "docs/ops/github-pr-and-issue-workflow.md": [
         "one branch",
         "one PR",
@@ -369,15 +414,26 @@ def closeout_state_errors():
     active_m00_plan = ROOT / "plans/active/CLP-0001-m00-repo-operating-system.md"
     completed_m00_plan = ROOT / "plans/completed/CLP-0001-m00-repo-operating-system.md"
     active_plan_dir = ROOT / "plans/active"
+    active_m01_plan = ROOT / "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md"
 
     if active_m00_plan.exists():
         errors.append("M00 plan still exists in plans/active after closeout")
     if not completed_m00_plan.is_file():
         errors.append("Completed M00 plan is missing from plans/completed")
 
-    active_m01_plans = list(active_plan_dir.glob("*m01*.md"))
-    if active_m01_plans:
-        errors.append("M01 active plan exists before M01 planning starts")
+    if not active_m01_plan.is_file():
+        errors.append("Active M01 planning plan is missing from plans/active")
+
+    unexpected_active_plans = [
+        path.relative_to(ROOT).as_posix()
+        for path in active_plan_dir.glob("CLP-*.md")
+        if path != active_m01_plan
+    ]
+    if unexpected_active_plans:
+        errors.append(
+            "Unexpected active milestone plans exist: "
+            + ", ".join(unexpected_active_plans)
+        )
 
     registry = (ROOT / "docs/milestones/SUBMILESTONE_REGISTRY.md").read_text(
         encoding="utf-8"
@@ -389,6 +445,21 @@ def closeout_state_errors():
         )
         if "Completed and merged" not in row:
             errors.append(f"{submilestone} is not Completed and merged")
+
+    for index in range(1, 14):
+        submilestone = f"M01.{index:02}"
+        row = next(
+            (line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")),
+            "",
+        )
+        if "Not started" not in row:
+            errors.append(f"{submilestone} is not Not started during M01 planning")
+
+    for milestone in range(2, 22):
+        prefix = f"| M{milestone:02}."
+        for row in [line for line in registry.splitlines() if line.startswith(prefix)]:
+            if "Not started" not in row:
+                errors.append(f"{row.split('|')[1].strip()} is not Not started")
 
     m00_docs = [
         "docs/milestones/M00.md",
@@ -405,8 +476,13 @@ def closeout_state_errors():
     roadmap = (ROOT / "plans/ROADMAP.md").read_text(encoding="utf-8")
     if "| M00 Repo operating system |" not in roadmap or "| 8 | Completed |" not in roadmap:
         errors.append("Roadmap does not mark M00 completed")
-    if "| M01 Domain model and scope freeze |" not in roadmap or "| 13 | Not started |" not in roadmap:
-        errors.append("Roadmap does not keep M01 not started")
+    if (
+        "| M01 Domain model and scope freeze |" not in roadmap
+        or "| 13 | Planning in progress |" not in roadmap
+    ):
+        errors.append("Roadmap does not mark M01 planning in progress")
+    if "Add v0.1.0 release" in registry or "Add v0.1.0 release" in roadmap:
+        errors.append("Future public-launch wording still reuses v0.1.0")
 
     closeout = (ROOT / "docs/status/M00_CLOSEOUT.md").read_text(encoding="utf-8")
     for forbidden_claim in [
@@ -453,6 +529,26 @@ def closeout_state_errors():
     ]
     if populated_env_values:
         errors.append(".env.example contains populated values before secrets handling exists")
+
+    current_state = (ROOT / "docs/status/CURRENT_STATE.md").read_text(encoding="utf-8")
+    next_thread = (ROOT / "docs/status/NEXT_RECOMMENDED_THREAD.md").read_text(
+        encoding="utf-8"
+    )
+    no_product_texts = [
+        ("docs/status/CURRENT_STATE.md", current_state),
+        ("docs/status/NEXT_RECOMMENDED_THREAD.md", next_thread),
+        ("README.md", (ROOT / "README.md").read_text(encoding="utf-8")),
+        ("CHANGELOG.md", (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")),
+    ]
+    for rel, text in no_product_texts:
+        if (
+            "Product implementation has not started" not in text
+            and "No product functionality" not in text
+        ):
+            errors.append(f"{rel} does not clearly state product implementation is absent")
+
+    if "M01.01 Builder - Define Payment Lifecycle" not in next_thread:
+        errors.append("Next recommended thread is not M01.01 Builder - Define Payment Lifecycle")
 
     return errors
 

@@ -2,7 +2,7 @@
 
 ## Current phase
 
-Control-plane bootstrap closeout. M00 Repo operating system is completed on branch `m00-closeout-repo-operating-system`; after this closeout PR merges, the repo is ready for a human-created M01 planning branch/thread. M01 is not started.
+M01 planning is in progress on branch `m01-planning-domain-model-and-scope-freeze`. M00 Repo operating system is completed and tagged as `v0.1.0`. Product implementation has not started, and M01 implementation submilestones are not started.
 
 ## What exists
 
@@ -29,6 +29,9 @@ Control-plane bootstrap closeout. M00 Repo operating system is completed on bran
 - M00 closeout packet.
 - Reusable builder, QA, and handoff packet prompt templates.
 - GitHub PR and issue templates.
+- Active M01 plan at `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`.
+- Versioning docs at `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, and `docs/releases/V1_SCOPE.md`.
+- `CHANGELOG.md`.
 
 ## What does not exist
 
@@ -51,11 +54,13 @@ Control-plane bootstrap closeout. M00 Repo operating system is completed on bran
 
 ## Active plan
 
-No active milestone plan exists after M00 closeout. The completed M00 plan moved to `plans/completed/CLP-0001-m00-repo-operating-system.md`.
+The active milestone planning plan is `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`.
+
+The completed M00 plan remains at `plans/completed/CLP-0001-m00-repo-operating-system.md`.
 
 ## Current submilestone
 
-None. M00.01 through M00.08 are completed and merged.
+None. This is a milestone planning thread. M00.01 through M00.08 are completed and merged. M01.01 through M01.13 are `Not started`.
 
 M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 Planning and Tracking System is completed and merged at commit `f289d5e`. M00.04 Builder and QA Prompt Protocol is completed and merged at commit `e686c77`. M00.05 Validation and Handoff Workflow is completed and merged at commit `b82e5d1`. M00.06 GitHub PR and Issue Workflow is completed and merged at commit `a0fdf6bc422f573235d48ee8cde93fd92d25e617`. M00.07 Milestone Closeout Workflow is completed and merged at commit `ae19cd0e4b34ad8c16c3d4f8ee1adbe08e7575f6`. M00.08 Repo Operating System QA and Freeze is completed and merged at commit `db312d16f3059a2714f929c4bcb831d4a6a5a173`.
 
@@ -65,11 +70,11 @@ No product code exists yet. Product directories contain placeholder README files
 
 ## Next action
 
-After this M00 closeout PR merges, run `M01 Planning - Domain Model and Scope Freeze` on a human-created M01 planning branch/thread. Do not start M01 or create an M01 active plan before the closeout PR merges.
+Complete the M01 planning thread, validate the control-plane updates, and open or merge the planning PR according to the normal GitHub workflow. After this planning PR merges, the exact next recommended thread is `M01.01 Builder - Define Payment Lifecycle`.
 
 ## Implementation warning
 
-Do not start product implementation. M01 planning is the next recommended thread only after this closeout PR merges; it must not create product behavior unless a future active plan explicitly scopes and validates it.
+Do not start product implementation. This planning thread may update docs, specs, tracking, versioning, and validation only. It must not create product behavior, MoneyEvent runtime code, ledger logic, invariants, incident logic, graph logic, replay logic, agent runtime, repair planning logic, UI, APIs, databases, external connectors, GitHub Actions, or CI workflows.
 
 ## Validation limitations
 
@@ -81,6 +86,11 @@ Do not start product implementation. M01 planning is the next recommended thread
 
 ## Latest validation
 
+- 2026-05-11: M01 planning validation passed.
+- 2026-05-11: `python scripts/validate-control-plane.py` passed.
+- 2026-05-11: `python -m pytest tests/test_control_plane_bootstrap.py` passed with 16 tests.
+- 2026-05-11: `git diff --check` passed.
+- 2026-05-11: `make bootstrap-check` was not run because `make` is unavailable in the current Windows shell.
 - 2026-05-04: `python scripts/validate-control-plane.py` passed.
 - 2026-05-04: `python -m pytest tests/test_control_plane_bootstrap.py` passed with 7 tests.
 - 2026-05-04: `make bootstrap-check` was not run because `make` is unavailable.
