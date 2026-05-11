@@ -12,7 +12,7 @@ CausalLedger helps fintech teams prove, replay, and safely repair money-movement
 
 ## Current status
 
-CausalLedger is in control-plane bootstrap. This repository currently contains architecture, planning, prompt, skill, milestone, and validation scaffolding only. No product functionality, MoneyEvent logic, ledger logic, invariants, incident engine, causal graph, replay engine, agent runtime, repair planning, UI, or external connectors exist yet.
+CausalLedger has completed the M00 repo operating system closeout in this branch. This repository currently contains architecture, planning, prompt, skill, milestone, status, GitHub template, and validation scaffolding only. No product functionality, MoneyEvent logic, ledger logic, invariants, incident engine, causal graph, replay engine, agent runtime, repair planning, UI, APIs, databases, GitHub Actions, CI workflows, secrets, or external connectors exist yet.
 
 ## What CausalLedger is
 
@@ -64,8 +64,9 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `docs/status/CURRENT_STATE.md` - current phase, active plan, product code status, and validation status.
 - `docs/status/NEXT_RECOMMENDED_THREAD.md` - exact next recommended thread.
 - `docs/status/M00_FREEZE_READINESS.md` - M00 freeze readiness report.
+- `docs/status/M00_CLOSEOUT.md` - M00 closeout packet.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` - canonical M00-M21 submilestone registry.
-- `plans/active/CLP-0001-m00-repo-operating-system.md` - active M00 plan.
+- `plans/completed/CLP-0001-m00-repo-operating-system.md` - completed M00 plan.
 - `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
 - `prompts/template_qa_submilestone.md` - reusable QA thread prompt template.
 - `prompts/template_handoff_packet.md` - reusable handoff packet template.

@@ -64,10 +64,15 @@ Current status:
 - `docs/status/RISK_REGISTER.md`
 - `docs/status/OPEN_QUESTIONS.md`
 - `docs/status/M00_FREEZE_READINESS.md`
+- `docs/status/M00_CLOSEOUT.md`
+
+Completed execution:
+
+- `plans/completed/CLP-0001-m00-repo-operating-system.md`
 
 Active execution:
 
-- `plans/active/CLP-0001-m00-repo-operating-system.md`
+- No active milestone plan exists after M00 closeout.
 
 Plan state:
 
@@ -111,7 +116,7 @@ Update `README.md` when entry-point claims, repo map, safety summary, or major l
 
 Update `docs/INDEX.md` when documentation structure, canonical links, or read order changes.
 
-Update `docs/status/CURRENT_STATE.md` whenever current phase, active submilestone, active plan, product code status, next action, or latest validation changes.
+Update `docs/status/CURRENT_STATE.md` whenever current phase, active submilestone, active plan or completed plan, product code status, next action, or latest validation changes.
 
 Update `docs/milestones/SUBMILESTONE_REGISTRY.md` whenever any submilestone status, branch, PR, active plan, or completion note changes.
 
@@ -123,7 +128,7 @@ Use `docs/ops/validation-and-handoff-workflow.md` for validation ladder levels, 
 
 Use `docs/ops/github-pr-and-issue-workflow.md`, `docs/ops/github-labels-and-milestones.md`, `docs/ops/branch-protection.md`, `.github/PULL_REQUEST_TEMPLATE.md`, and `.github/ISSUE_TEMPLATE/` for remote PR review containers, issue structure, labels guidance, branch protection guidance, and merge-readiness discipline.
 
-Use `docs/ops/milestone-closeout-workflow.md`, `prompts/template_milestone_closeout.md`, and `plans/templates/milestone-closeout-template.md` for milestone closeout preconditions, packets, plan movement, deferrals, follow-up work, and next milestone readiness.
+Use `docs/ops/milestone-closeout-workflow.md`, `prompts/template_milestone_closeout.md`, `plans/templates/milestone-closeout-template.md`, and `docs/status/M00_CLOSEOUT.md` for milestone closeout preconditions, packets, plan movement, deferrals, follow-up work, and next milestone readiness.
 
 Use `docs/ops/repo-operating-system-freeze.md` and `docs/status/M00_FREEZE_READINESS.md` for M00 freeze readiness checks, control-plane coherence checks, no-product/no-M01 verification, and preparation for the M00 closeout thread.
 

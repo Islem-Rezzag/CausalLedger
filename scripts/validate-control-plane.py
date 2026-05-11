@@ -37,9 +37,10 @@ REQUIRED_FILES = [
     "docs/status/CAPABILITY_MATRIX.md",
     "docs/status/NEXT_RECOMMENDED_THREAD.md",
     "docs/status/M00_FREEZE_READINESS.md",
+    "docs/status/M00_CLOSEOUT.md",
     "docs/milestones/SUBMILESTONE_REGISTRY.md",
     "plans/ROADMAP.md",
-    "plans/active/CLP-0001-m00-repo-operating-system.md",
+    "plans/completed/CLP-0001-m00-repo-operating-system.md",
     "plans/templates/execplan-template.md",
     "plans/templates/qa-plan-template.md",
     "plans/templates/milestone-closeout-template.md",
@@ -275,6 +276,28 @@ REQUIRED_TEXT = {
         "Exact next recommended thread after M00.08 builder",
         "Exact next recommended thread after M00.08 QA and merge",
     ],
+    "docs/status/M00_CLOSEOUT.md": [
+        "Milestone ID and name",
+        "Completed submilestones",
+        "Deferred submilestones",
+        "Merged PRs",
+        "Validation summary",
+        "Changed docs",
+        "Changed code",
+        "Skipped validation and why",
+        "Warnings",
+        "Risks",
+        "Tech debt",
+        "Open questions",
+        "Deferred work",
+        "Follow-up work",
+        "Next milestone readiness",
+        "Whether active plan can move to completed",
+        "Whether safe to start next milestone",
+        "Exact next recommended thread",
+        "No product functionality was implemented",
+        "No M01 active plan exists",
+    ],
     "docs/ops/github-pr-and-issue-workflow.md": [
         "one branch",
         "one PR",
@@ -341,6 +364,99 @@ def missing_required_text():
     return missing
 
 
+def closeout_state_errors():
+    errors = []
+    active_m00_plan = ROOT / "plans/active/CLP-0001-m00-repo-operating-system.md"
+    completed_m00_plan = ROOT / "plans/completed/CLP-0001-m00-repo-operating-system.md"
+    active_plan_dir = ROOT / "plans/active"
+
+    if active_m00_plan.exists():
+        errors.append("M00 plan still exists in plans/active after closeout")
+    if not completed_m00_plan.is_file():
+        errors.append("Completed M00 plan is missing from plans/completed")
+
+    active_m01_plans = list(active_plan_dir.glob("*m01*.md"))
+    if active_m01_plans:
+        errors.append("M01 active plan exists before M01 planning starts")
+
+    registry = (ROOT / "docs/milestones/SUBMILESTONE_REGISTRY.md").read_text(
+        encoding="utf-8"
+    )
+    for submilestone in [f"M00.{index:02}" for index in range(1, 9)]:
+        row = next(
+            (line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")),
+            "",
+        )
+        if "Completed and merged" not in row:
+            errors.append(f"{submilestone} is not Completed and merged")
+
+    m00_docs = [
+        "docs/milestones/M00.md",
+        "plans/ROADMAP.md",
+        "docs/status/CURRENT_STATE.md",
+        "docs/status/M00_CLOSEOUT.md",
+        "docs/status/M00_FREEZE_READINESS.md",
+    ]
+    for rel in m00_docs:
+        text = (ROOT / rel).read_text(encoding="utf-8")
+        if "M00.01 through M00.08" not in text:
+            errors.append(f"{rel} does not summarize all M00 submilestones")
+
+    roadmap = (ROOT / "plans/ROADMAP.md").read_text(encoding="utf-8")
+    if "| M00 Repo operating system |" not in roadmap or "| 8 | Completed |" not in roadmap:
+        errors.append("Roadmap does not mark M00 completed")
+    if "| M01 Domain model and scope freeze |" not in roadmap or "| 13 | Not started |" not in roadmap:
+        errors.append("Roadmap does not keep M01 not started")
+
+    closeout = (ROOT / "docs/status/M00_CLOSEOUT.md").read_text(encoding="utf-8")
+    for forbidden_claim in [
+        "MoneyEvent",
+        "ledger",
+        "invariant",
+        "incident",
+        "graph",
+        "replay",
+        "agent runtime",
+        "repair planner",
+        "UI",
+        "connector",
+        "API",
+        "database",
+        "GitHub Actions",
+        "CI workflow",
+        "real secret",
+    ]:
+        if forbidden_claim not in closeout:
+            errors.append(f"M00 closeout does not record no {forbidden_claim} work")
+
+    workflows_dir = ROOT / ".github/workflows"
+    if workflows_dir.exists():
+        errors.append(".github/workflows exists before CI is authorized")
+
+    placeholder_roots = ["apps", "packages", "scenarios", "data", "infra"]
+    unexpected_product_files = []
+    for rel in placeholder_roots:
+        for path in (ROOT / rel).rglob("*"):
+            if path.is_file() and path.name != "README.md":
+                unexpected_product_files.append(path.relative_to(ROOT).as_posix())
+    if unexpected_product_files:
+        errors.append(
+            "Future product directories contain non-placeholder files: "
+            + ", ".join(unexpected_product_files)
+        )
+
+    env_example = (ROOT / ".env.example").read_text(encoding="utf-8")
+    populated_env_values = [
+        line
+        for line in env_example.splitlines()
+        if "=" in line and line.split("=", 1)[1].strip()
+    ]
+    if populated_env_values:
+        errors.append(".env.example contains populated values before secrets handling exists")
+
+    return errors
+
+
 def main():
     required_files = (
         REQUIRED_FILES
@@ -353,8 +469,9 @@ def main():
     missing_files = missing_paths(required_files, "file")
     missing_dirs = missing_paths(REQUIRED_DIRS, "dir")
     missing_text = missing_required_text()
+    closeout_errors = closeout_state_errors()
 
-    if missing_files or missing_dirs or missing_text:
+    if missing_files or missing_dirs or missing_text or closeout_errors:
         print("Control-plane validation failed.")
         if missing_files:
             print("Missing files:")
@@ -368,6 +485,10 @@ def main():
             print("Missing required text:")
             for rel, phrase in missing_text:
                 print(f"  - {rel}: {phrase}")
+        if closeout_errors:
+            print("Closeout state errors:")
+            for error in closeout_errors:
+                print(f"  - {error}")
         raise SystemExit(1)
 
     print("Control-plane validation passed.")

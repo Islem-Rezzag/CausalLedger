@@ -2,7 +2,7 @@
 
 | Capability | Status | Notes |
 | --- | --- | --- |
-| Repo operating system | In progress | Control-plane files only; M00.08 Repo Operating System QA and Freeze QA passed, awaiting merge |
+| Repo operating system | Completed | Control-plane files only; M00.01 through M00.08 are completed and merged, and M00 closeout passed |
 | MoneyEvent engine | Not started | No product logic |
 | Ledger core | Not started | No product logic |
 | Invariant engine | Not started | No product logic |
