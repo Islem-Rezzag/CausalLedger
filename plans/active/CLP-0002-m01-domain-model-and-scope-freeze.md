@@ -10,6 +10,8 @@ The safety boundary is non-negotiable: LLM agents may investigate, summarize, an
 
 The first M01 implementation submilestone after this planning thread is `M01.01 Define payment lifecycle`.
 
+Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, and M01.01 Define payment lifecycle is the current domain-documentation submilestone on branch `m01-01-define-payment-lifecycle`.
+
 ## Progress
 
 - [x] Branch guard passed on `m01-planning-domain-model-and-scope-freeze`.
@@ -30,6 +32,14 @@ The first M01 implementation submilestone after this planning thread is `M01.01 
 - [x] 2026-05-11: QA updated control-plane validation coverage so the missing entry-doc references and exact M01 submilestone list are checked.
 - [x] 2026-05-11: QA verified M00 is completed, `v0.1.0` exists, M01 planning is active, M01.01 through M01.13 remain `Not started`, M02 through M21 remain `Not started`, and product implementation has not started.
 - [x] 2026-05-11: QA validation passed after scoped fixes.
+- [x] 2026-05-11: Finalized M01 planning merge tracking from git commit `2cfd75a` before starting M01.01 work.
+- [x] 2026-05-11: Started M01.01 builder on branch `m01-01-define-payment-lifecycle`; branch guard passed, the starting worktree was clean, and M01.01 was marked `Builder in progress`.
+- [x] 2026-05-11: Created `docs/domain/README.md` and `docs/domain/payment-lifecycle.md` as documentation-only M01.01 domain artifacts.
+- [x] 2026-05-11: Updated `docs/DOMAIN_MODEL.md` into an M01 domain index and added lightweight domain-dependency notes to related spec placeholders.
+- [x] 2026-05-11: Updated M01.01 tracking to `Builder complete, awaiting QA`.
+- [x] 2026-05-11: First M01.01 control-plane validation run failed because `docs/status/CURRENT_STATE.md` lacked the exact M00.01-through-M00.08 summary phrase required by validation; fixed the scoped tracking wording and reran successfully.
+- [x] 2026-05-11: M01.01 validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 18 tests, and `git diff --check`.
+- [x] 2026-05-11: `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
 
 ## Surprises & Discoveries
 
@@ -55,9 +65,9 @@ M01 is the next milestone. It exists to settle payment, ledger, settlement, reco
 
 Current source directories under `apps/`, `packages/`, `scenarios/`, `data/`, and `infra/` are placeholders only. Their README files do not implement product behavior.
 
-M01 submilestones remain planned scope only and are not started:
+Current M01 submilestone state:
 
-- `M01.01 Define payment lifecycle`
+- `M01.01 Define payment lifecycle` - Builder complete, awaiting QA.
 - `M01.02 Define ledger vocabulary`
 - `M01.03 Define settlement vocabulary`
 - `M01.04 Define reconciliation vocabulary`
@@ -71,19 +81,32 @@ M01 submilestones remain planned scope only and are not started:
 - `M01.12 Write THREAT_MODEL.md`
 - `M01.13 QA domain consistency`
 
+M01.02 through M01.13 remain planned scope only and are not started.
+
 ## Scope
 
-In scope:
+Original M01 planning scope completed before M01.01:
 
 - Create `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`.
-- Update current-state tracking to show M01 planning is active.
-- Keep M01.01 through M01.13 `Not started`.
+- Update current-state tracking to show M01 planning was active during the planning slice.
+- Keep M01.01 through M01.13 `Not started` during the planning slice.
 - Keep M02 through M21 `Not started`.
 - Add versioning and release-scope documentation.
 - Add `CHANGELOG.md`.
 - Correct M20.12 release wording so it no longer conflicts with the existing `v0.1.0` foundation tag.
 - Update validation so the new control-plane artifacts are required.
 - Run control-plane validation, bootstrap tests, diff whitespace checks, and `make bootstrap-check` when available.
+
+Current M01.01 builder scope:
+
+- Create `docs/domain/README.md`.
+- Create `docs/domain/payment-lifecycle.md`.
+- Update `docs/DOMAIN_MODEL.md` into an M01 domain index.
+- Add concise links to the new domain docs from entry docs.
+- Add lightweight domain-dependency notes to related spec placeholders.
+- Update M01.01 tracking and validation coverage.
+- Keep M01.02 through M01.13 `Not started`.
+- Keep M02 through M21 `Not started`.
 
 Out of scope:
 
@@ -101,11 +124,14 @@ Out of scope:
 - GitHub Actions or CI workflows.
 - Database schemas.
 - API routes.
-- M01.01 implementation.
+- M01.01 product implementation or runtime behavior.
+- M01.02 implementation.
 - M02 implementation.
 - M02-M21 scope changes beyond the explicit M20.12 versioning wording correction.
 
 ## Plan of Work
+
+Original M01 planning work completed:
 
 1. Create the active M01 plan from the exec plan template and make it self-contained.
 2. Add versioning docs:
@@ -118,6 +144,17 @@ Out of scope:
 5. Correct M20.12 wording in `docs/milestones/M20.md` and `docs/milestones/SUBMILESTONE_REGISTRY.md`.
 6. Update control-plane validation and bootstrap tests to require the new M01 planning and versioning artifacts.
 7. Run validation and record results.
+
+Current M01.01 builder work:
+
+1. Finalize M01 planning merge tracking from git history.
+2. Mark M01.01 as `Builder in progress`.
+3. Define payment lifecycle vocabulary in `docs/domain/payment-lifecycle.md`.
+4. Link the payment lifecycle doc from `docs/DOMAIN_MODEL.md`, `docs/INDEX.md`, and `README.md`.
+5. Add lightweight domain-dependency notes to related spec placeholders.
+6. Update M01.01 tracking files.
+7. Add documentation-only validation checks.
+8. Run validation and record results before marking M01.01 `Builder complete, awaiting QA`.
 
 ## Concrete Steps
 
@@ -194,6 +231,13 @@ Notes:
   - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 17 tests.
   - `git diff --check` passed.
   - `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell.
+- 2026-05-11 M01.01 builder validation results:
+  - First `python scripts/validate-control-plane.py` run failed because `docs/status/CURRENT_STATE.md` lacked the exact M00.01-through-M00.08 summary phrase required by validation.
+  - Scoped wording fix applied to `docs/status/CURRENT_STATE.md`.
+  - `python scripts/validate-control-plane.py` passed after the fix.
+  - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 18 tests.
+  - `git diff --check` passed.
+  - `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell.
 
 ## Interfaces and Dependencies
 
@@ -205,16 +249,22 @@ M01 planning depends on:
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` for submilestone state.
 - `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md` for current operational direction.
 
-No product runtime interface is introduced by this planning slice.
+No product runtime interface is introduced by this M01 planning and M01.01 documentation work.
 
 ## Outcomes & Retrospective
 
-Outcome after QA validation:
+Outcome after M01 planning QA validation:
 
-- M01 planning is active.
+- M01 planning was active during the planning slice and is now complete and merged.
 - M01 planning QA passed after scoped control-plane fixes.
-- M01 implementation submilestones remain not started.
+- M01 implementation submilestones remained not started during the planning slice.
 - Versioning is documented without overclaiming product readiness.
 - Product implementation remains not started.
 - Required direct validation passed; `make bootstrap-check` was unavailable.
 - The next safe thread is `M01.01 Builder - Define Payment Lifecycle` after this planning PR merges.
+
+Current M01.01 builder outcome:
+
+- M01.01 builder work is complete and awaiting QA as domain documentation only.
+- Product implementation remains not started.
+- M01.02 through M01.13 remain not started.

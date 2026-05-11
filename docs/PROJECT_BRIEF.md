@@ -38,4 +38,4 @@ Traditional reconciliation focuses on matching records and explaining difference
 
 ## Current status
 
-CausalLedger has completed M00 Repo Operating System and tagged it as `v0.1.0`. M01 planning is in progress on branch `m01-planning-domain-model-and-scope-freeze`. The repository contains planning, safety, milestone, prompt, skill, versioning, and validation scaffolding only. Product implementation has not started.
+CausalLedger has completed M00 Repo Operating System and tagged it as `v0.1.0`. M01 planning is complete and merged, M01 is active, and M01.01 Define Payment Lifecycle is `Builder complete, awaiting QA` as a domain-documentation-only submilestone. The repository contains planning, safety, milestone, prompt, skill, versioning, domain vocabulary, and validation scaffolding only. Product implementation has not started.

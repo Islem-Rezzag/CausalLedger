@@ -26,6 +26,8 @@ def test_required_project_docs_exist():
         "docs/PRODUCT_VISION.md",
         "docs/ARCHITECTURE.md",
         "docs/DOMAIN_MODEL.md",
+        "docs/domain/README.md",
+        "docs/domain/payment-lifecycle.md",
         "docs/RELIABILITY.md",
         "docs/THREAT_MODEL.md",
         "docs/TOKEN_COST_STRATEGY.md",
@@ -59,6 +61,7 @@ def test_required_control_plane_directories_exist():
         "docs/ops",
         "docs/references",
         "docs/releases",
+        "docs/domain",
         ".github",
         ".github/ISSUE_TEMPLATE",
         "plans/active",
@@ -217,6 +220,8 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01 may update docs, specifications, milestone tracking, and status files",
         "M01 must not implement APIs, databases, ledger logic, MoneyEvent runtime code, invariants, agent runtime, repair planner, UI, external connectors, GitHub Actions, CI workflows, or product behavior",
         "LLM agents may investigate, summarize, and propose, but they do not mutate money, approve repairs, delete evidence, post ledger entries, modify raw events, or override deterministic invariants",
+        "M01 planning is complete and merged at git commit `2cfd75a`",
+        "M01.01 Define payment lifecycle is the current domain-documentation submilestone",
         "M01.01 Define payment lifecycle",
         "M01.02 Define ledger vocabulary",
         "M01.03 Define settlement vocabulary",
@@ -230,9 +235,103 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "The first M01 implementation submilestone after this planning thread is `M01.01 Define payment lifecycle`",
+        "M01.02 through M01.13 remain planned scope only and are not started",
+        "docs/domain/payment-lifecycle.md",
     ]:
         assert phrase in plan
+
+
+def test_m01_payment_lifecycle_domain_docs_are_documentation_only():
+    domain_readme = (ROOT / "docs" / "domain" / "README.md").read_text(
+        encoding="utf-8"
+    )
+    payment_lifecycle = (
+        ROOT / "docs" / "domain" / "payment-lifecycle.md"
+    ).read_text(encoding="utf-8")
+    domain_model = (ROOT / "docs" / "DOMAIN_MODEL.md").read_text(encoding="utf-8")
+
+    for phrase in [
+        "domain vocabulary",
+        "do not implement runtime behavior",
+        "Payment lifecycle",
+    ]:
+        assert phrase in domain_readme
+
+    for phrase in [
+        "No runtime implementation is defined or claimed",
+        "## Purpose",
+        "## Lifecycle scope",
+        "## What this document defines",
+        "## What this document does not define",
+        "## Lifecycle actors",
+        "## Lifecycle objects",
+        "## Lifecycle phases",
+        "## Normal payment path",
+        "## Failure and exception paths",
+        "## Terminal states",
+        "## Non-terminal states",
+        "## Provider event perspective",
+        "## Internal ledger perspective",
+        "## Settlement perspective",
+        "## Reconciliation perspective",
+        "## Lifecycle evidence examples",
+        "## Lifecycle uncertainty examples",
+        "## Questions CausalLedger asks about payment lifecycle",
+        "## Lifecycle failure patterns",
+        "## Boundaries for future M03 MoneyEvent schema",
+        "## Boundaries for future M06 invariants",
+        "## Boundaries for future M07 incidents",
+        "## Boundaries for future M08 causal graph",
+        "## Boundaries for future M09 replay",
+        "payment_requested",
+        "payment_authorized",
+        "authorization_failed",
+        "authorization_expired",
+        "payment_captured",
+        "capture_failed",
+        "payment_voided_or_cancelled",
+        "refund_requested",
+        "refund_processing",
+        "refund_completed",
+        "refund_failed",
+        "dispute_opened",
+        "dispute_resolved",
+        "chargeback_created",
+        "chargeback_reversed",
+        "provider_payout_created",
+        "provider_payout_paid",
+        "provider_payout_failed",
+        "bank_posted",
+        "lifecycle_reconciled",
+        "lifecycle_unresolved",
+        "payment_requested -> payment_authorized -> payment_captured -> provider_payout_created -> provider_payout_paid -> bank_posted -> lifecycle_reconciled",
+        "These are lifecycle vocabulary terms only, not implemented invariants",
+    ]:
+        assert phrase in payment_lifecycle
+
+    for forbidden_claim in [
+        "implements MoneyEvent",
+        "implements ledger",
+        "implements invariants",
+        "runtime implementation is complete",
+        "schema is defined",
+    ]:
+        assert forbidden_claim not in payment_lifecycle
+
+    for phrase in [
+        "M01 domain index",
+        "docs/domain/payment-lifecycle.md",
+        "The domain model is not complete",
+        "Ledger vocabulary",
+        "Settlement vocabulary",
+        "Reconciliation vocabulary",
+        "Incident vocabulary",
+        "Safe and unsafe repairs",
+        "Evidence receipt model",
+        "Human review states",
+        "Out-of-scope domains",
+    ]:
+        assert phrase in domain_model
 
 
 def test_submilestone_registry_contains_all_expected_rows():
@@ -707,11 +806,14 @@ def test_m00_closeout_state_is_coherent():
     assert "| M00 Repo operating system |" in roadmap
     assert "| 8 | Completed |" in roadmap
     assert "| M01 Domain model and scope freeze |" in roadmap
-    assert "| 13 | Planning in progress |" in roadmap
+    assert "| 13 | Active |" in roadmap
     assert "Add v0.1.0 release" not in registry
     assert "Prepare v1.0.0 public release" in registry
 
-    for index in range(1, 14):
+    row = next(line for line in registry.splitlines() if line.startswith("| M01.01 |"))
+    assert "Builder complete, awaiting QA" in row
+
+    for index in range(2, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")
@@ -738,7 +840,8 @@ def test_m00_closeout_state_is_coherent():
         "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "Product directories contain placeholder README files only",
         "M00.01 through M00.08 are completed and merged",
-        "M01.01 through M01.13 are `Not started`",
+        "M01.01 Define payment lifecycle is `Builder complete, awaiting QA`",
+        "M01.02 through M01.13 remain `Not started`",
     ]:
         assert phrase in current_state
 

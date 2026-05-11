@@ -62,7 +62,9 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/PROJECT_BRIEF.md` - concise project brief, users, boundaries, and current status.
 - `docs/PRODUCT_VISION.md` - wedge, value proposition, demo narrative, open-source moat, and MoneyFlowBench positioning.
 - `docs/ARCHITECTURE.md` - planned architecture and safety boundaries without implementation claims.
-- `docs/DOMAIN_MODEL.md` - M01 placeholder for future domain definitions.
+- `docs/DOMAIN_MODEL.md` - M01 domain index.
+- `docs/domain/README.md` - domain vocabulary directory boundary.
+- `docs/domain/payment-lifecycle.md` - M01.01 payment lifecycle vocabulary and boundaries.
 - `docs/RELIABILITY.md` - deterministic-first reliability expectations.
 - `docs/THREAT_MODEL.md` - initial threat categories and unsafe action boundaries.
 - `docs/TOKEN_COST_STRATEGY.md` - cost and model-use strategy for future agentic work.
@@ -86,4 +88,4 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-The repository has completed M00 and tagged the repo operating system foundation as `v0.1.0`. M01 planning is in progress. The repo contains docs, plans, prompt templates, skills, placeholder directories, GitHub templates, versioning docs, and control-plane validation only. It does not contain product functionality.
+The repository has completed M00 and tagged the repo operating system foundation as `v0.1.0`. M01 planning is complete and merged, M01 is active, and M01.01 Define Payment Lifecycle is `Builder complete, awaiting QA` as a domain-documentation-only submilestone. The repo contains docs, plans, prompt templates, skills, placeholder directories, GitHub templates, versioning docs, and control-plane validation only. It does not contain product functionality.

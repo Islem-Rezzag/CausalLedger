@@ -19,6 +19,8 @@ REQUIRED_FILES = [
     "docs/PRODUCT_VISION.md",
     "docs/ARCHITECTURE.md",
     "docs/DOMAIN_MODEL.md",
+    "docs/domain/README.md",
+    "docs/domain/payment-lifecycle.md",
     "docs/RELIABILITY.md",
     "docs/THREAT_MODEL.md",
     "docs/TOKEN_COST_STRATEGY.md",
@@ -88,6 +90,7 @@ REQUIRED_DIRS = [
     "docs/ops",
     "docs/references",
     "docs/releases",
+    "docs/domain",
     "plans/active",
     "plans/completed",
     "plans/archived",
@@ -338,6 +341,8 @@ REQUIRED_TEXT = {
     "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md": [
         "M01 freezes CausalLedger domain language, boundaries, and non-goals",
         "M01 must not implement APIs, databases, ledger logic, MoneyEvent runtime code, invariants, agent runtime, repair planner, UI, external connectors, GitHub Actions, CI workflows, or product behavior",
+        "M01 planning is complete and merged at git commit `2cfd75a`",
+        "M01.01 Define payment lifecycle is the current domain-documentation submilestone",
         "M01.01 Define payment lifecycle",
         "M01.02 Define ledger vocabulary",
         "M01.03 Define settlement vocabulary",
@@ -351,9 +356,63 @@ REQUIRED_TEXT = {
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "M01.01 through M01.13 remain `Not started`",
+        "M01.02 through M01.13 remain planned scope only and are not started",
         "M02 through M21 remain `Not started`",
-        "Next recommended thread after this planning PR merge is `M01.01 Builder - Define Payment Lifecycle`",
+        "docs/domain/payment-lifecycle.md",
+    ],
+    "docs/domain/README.md": [
+        "domain vocabulary",
+        "not implement runtime behavior",
+        "Payment lifecycle",
+    ],
+    "docs/domain/payment-lifecycle.md": [
+        "No runtime implementation is defined or claimed",
+        "## Purpose",
+        "## Lifecycle scope",
+        "## What this document defines",
+        "## What this document does not define",
+        "## Lifecycle actors",
+        "## Lifecycle objects",
+        "## Lifecycle phases",
+        "## Normal payment path",
+        "## Failure and exception paths",
+        "## Terminal states",
+        "## Non-terminal states",
+        "## Provider event perspective",
+        "## Internal ledger perspective",
+        "## Settlement perspective",
+        "## Reconciliation perspective",
+        "## Lifecycle evidence examples",
+        "## Lifecycle uncertainty examples",
+        "## Questions CausalLedger asks about payment lifecycle",
+        "## Lifecycle failure patterns",
+        "## Boundaries for future M03 MoneyEvent schema",
+        "## Boundaries for future M06 invariants",
+        "## Boundaries for future M07 incidents",
+        "## Boundaries for future M08 causal graph",
+        "## Boundaries for future M09 replay",
+        "payment_requested",
+        "payment_authorized",
+        "authorization_failed",
+        "payment_captured",
+        "provider_payout_created",
+        "bank_posted",
+        "lifecycle_reconciled",
+        "These are lifecycle vocabulary terms only, not implemented invariants",
+    ],
+    "docs/DOMAIN_MODEL.md": [
+        "M01 domain index",
+        "Payment lifecycle",
+        "docs/domain/payment-lifecycle.md",
+        "The domain model is not complete",
+        "Ledger vocabulary",
+        "Settlement vocabulary",
+        "Reconciliation vocabulary",
+        "Incident vocabulary",
+        "Safe and unsafe repairs",
+        "Evidence receipt model",
+        "Human review states",
+        "Out-of-scope domains",
     ],
     "docs/ops/github-pr-and-issue-workflow.md": [
         "one branch",
@@ -472,7 +531,14 @@ def closeout_state_errors():
         if "Completed and merged" not in row:
             errors.append(f"{submilestone} is not Completed and merged")
 
-    for index in range(1, 14):
+    row = next(
+        (line for line in registry.splitlines() if line.startswith("| M01.01 |")),
+        "",
+    )
+    if "Builder complete, awaiting QA" not in row:
+        errors.append("M01.01 is not Builder complete, awaiting QA")
+
+    for index in range(2, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             (line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")),
@@ -504,9 +570,9 @@ def closeout_state_errors():
         errors.append("Roadmap does not mark M00 completed")
     if (
         "| M01 Domain model and scope freeze |" not in roadmap
-        or "| 13 | Planning in progress |" not in roadmap
+        or "| 13 | Active |" not in roadmap
     ):
-        errors.append("Roadmap does not mark M01 planning in progress")
+        errors.append("Roadmap does not mark M01 active")
     if "Add v0.1.0 release" in registry or "Add v0.1.0 release" in roadmap:
         errors.append("Future public-launch wording still reuses v0.1.0")
 
@@ -573,8 +639,29 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "M01.01 Builder - Define Payment Lifecycle" not in next_thread:
-        errors.append("Next recommended thread is not M01.01 Builder - Define Payment Lifecycle")
+    if "M01.01 QA - Define Payment Lifecycle" not in next_thread:
+        errors.append("Next recommended thread is not M01.01 QA - Define Payment Lifecycle")
+
+    domain_doc = ROOT / "docs/domain/payment-lifecycle.md"
+    domain_index = ROOT / "docs/DOMAIN_MODEL.md"
+    if not domain_doc.is_file():
+        errors.append("M01.01 payment lifecycle doc is missing")
+    if domain_doc.is_file():
+        text = domain_doc.read_text(encoding="utf-8")
+        forbidden_claims = [
+            "implements MoneyEvent",
+            "implements ledger",
+            "implements invariants",
+            "runtime implementation is complete",
+            "schema is defined",
+        ]
+        for claim in forbidden_claims:
+            if claim in text:
+                errors.append(f"Payment lifecycle doc makes forbidden runtime claim: {claim}")
+    if domain_index.is_file():
+        text = domain_index.read_text(encoding="utf-8")
+        if "docs/domain/payment-lifecycle.md" not in text:
+            errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/payment-lifecycle.md")
 
     return errors
 

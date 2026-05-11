@@ -1,6 +1,6 @@
 # Start Here
 
-This repository has completed the M00 control-plane bootstrap and tagged it as `v0.1.0`. M01 planning is active in `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`. Do not begin product implementation from this file, and do not start M01.01 unless the M01 planning PR has merged and the next thread is explicitly started.
+This repository has completed the M00 control-plane bootstrap and tagged it as `v0.1.0`. M01 planning is complete and merged, M01 is active in `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, and M01.01 Define Payment Lifecycle is `Builder complete, awaiting QA`. Do not begin product implementation from this file, and do not start M01.02 unless M01.01 has QA PASS and its PR has merged.
 
 Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 
@@ -67,8 +67,8 @@ The handoff packet must include files created, files changed, files intentionall
 - Do not implement invariants.
 - Do not implement the agent runtime.
 - Do not implement UI features.
-- Do not start M01.01, M02, or later milestone work from the M01 planning thread.
-- Do not implement product behavior during M01 planning.
+- Do not start M01.02, M02, or later milestone work from the M01.01 builder thread.
+- Do not implement product behavior during M01.01.
 
 ## Correct first success
 

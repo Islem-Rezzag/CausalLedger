@@ -12,7 +12,7 @@ CausalLedger helps fintech teams prove, replay, and safely repair money-movement
 
 ## Current status
 
-CausalLedger has completed M00 Repo Operating System and tagged it as `v0.1.0`. M01 planning is in progress on branch `m01-planning-domain-model-and-scope-freeze` with active plan `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`.
+CausalLedger has completed M00 Repo Operating System and tagged it as `v0.1.0`. M01 planning is complete and merged, the active M01 plan is `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, and M01.01 Define Payment Lifecycle is `Builder complete, awaiting QA` as a domain-documentation-only submilestone.
 
 This repository currently contains architecture, planning, prompt, skill, milestone, status, GitHub template, versioning, and validation scaffolding only. No product functionality, MoneyEvent logic, ledger logic, invariants, incident engine, causal graph, replay engine, agent runtime, repair planning, UI, APIs, databases, GitHub Actions, CI workflows, secrets, or external connectors exist yet.
 
@@ -59,6 +59,8 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `docs/ops/branch-protection.md` - recommended `main` branch protection settings.
 - `docs/ops/milestone-closeout-workflow.md` - milestone closeout preconditions, packet, plan movement, and next milestone readiness workflow.
 - `docs/ops/repo-operating-system-freeze.md` - M00 freeze readiness and control-plane coherence checks.
+- `docs/domain/README.md` - M01 domain vocabulary directory boundary.
+- `docs/domain/payment-lifecycle.md` - M01.01 payment lifecycle vocabulary and boundaries.
 - `docs/VERSIONING.md` - semantic versioning strategy, release tag rules, and overclaim prevention.
 - `docs/releases/RELEASE_LADDER.md` - planned version ladder from `v0.1.0` through company-grade releases.
 - `docs/releases/V1_SCOPE.md` - practical `v1.0.0` scope target.
@@ -82,14 +84,14 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `docs/PROJECT_BRIEF.md` - project brief and boundaries.
 - `docs/PRODUCT_VISION.md` - wedge, value proposition, demo narrative, open-source moat, and MoneyFlowBench role.
 - `docs/ARCHITECTURE.md` - planned architecture and safety boundaries.
-- `docs/DOMAIN_MODEL.md` - M01 placeholder for domain definitions.
+- `docs/DOMAIN_MODEL.md` - M01 domain index.
 - `docs/RELIABILITY.md` - deterministic-first reliability expectations.
 - `docs/THREAT_MODEL.md` - initial threat model.
 - `docs/TOKEN_COST_STRATEGY.md` - future model-cost strategy.
 
 ## Repo map
 
-- `docs/`: active docs, milestone docs, specs, evals, decisions, ops notes, and references.
+- `docs/`: active docs, domain vocabulary, milestone docs, specs, evals, decisions, ops notes, and references.
 - `plans/`: active, completed, archived, and template CausalLedger Plans.
 - `prompts/`: reusable Codex thread prompt templates.
 - `.agents/`: local CausalLedger skills and Codex control-plane guidance.
