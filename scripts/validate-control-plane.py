@@ -21,6 +21,7 @@ REQUIRED_FILES = [
     "docs/DOMAIN_MODEL.md",
     "docs/domain/README.md",
     "docs/domain/payment-lifecycle.md",
+    "docs/domain/ledger-vocabulary.md",
     "docs/RELIABILITY.md",
     "docs/THREAT_MODEL.md",
     "docs/TOKEN_COST_STRATEGY.md",
@@ -342,7 +343,7 @@ REQUIRED_TEXT = {
         "M01 freezes CausalLedger domain language, boundaries, and non-goals",
         "M01 must not implement APIs, databases, ledger logic, MoneyEvent runtime code, invariants, agent runtime, repair planner, UI, external connectors, GitHub Actions, CI workflows, or product behavior",
         "M01 planning is complete and merged at git commit `2cfd75a`",
-        "M01.01 Define payment lifecycle is the current domain-documentation submilestone",
+        "M01.02 Define ledger vocabulary is the current domain-documentation submilestone",
         "post-merge QA recovery",
         "M01.01 Define payment lifecycle",
         "M01.02 Define ledger vocabulary",
@@ -357,14 +358,16 @@ REQUIRED_TEXT = {
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "M01.02 through M01.13 remain planned scope only and are not started",
+        "M01.03 through M01.13 remain planned scope only and are not started",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
+        "docs/domain/ledger-vocabulary.md",
     ],
     "docs/domain/README.md": [
         "domain vocabulary",
         "not implement runtime behavior",
         "Payment lifecycle",
+        "Ledger vocabulary",
     ],
     "docs/domain/payment-lifecycle.md": [
         "No runtime implementation is defined or claimed",
@@ -401,10 +404,63 @@ REQUIRED_TEXT = {
         "lifecycle_reconciled",
         "These are lifecycle vocabulary terms only, not implemented invariants",
     ],
+    "docs/domain/ledger-vocabulary.md": [
+        "No runtime implementation is defined or claimed",
+        "## Purpose",
+        "## Ledger scope",
+        "## What this document defines",
+        "## What this document does not define",
+        "## Relationship to payment lifecycle vocabulary",
+        "## Relationship to future MoneyEvent schema",
+        "## Relationship to future double-entry ledger core",
+        "## Relationship to future invariant engine",
+        "## Relationship to future incident engine",
+        "## Relationship to future causal graph",
+        "## Relationship to future replay engine",
+        "## Relationship to future repair planner",
+        "## Core ledger concepts",
+        "## Account categories",
+        "## Double-entry vocabulary",
+        "## Ledger state vocabulary",
+        "## Ledger evidence examples",
+        "## Questions CausalLedger asks about ledger records",
+        "## Ledger failure patterns",
+        "## Boundaries with future M01 areas",
+        "ledger",
+        "account",
+        "ledger transaction",
+        "ledger entry",
+        "debit",
+        "credit",
+        "journal entry",
+        "posting",
+        "pending posting",
+        "posted transaction",
+        "reversal",
+        "adjustment",
+        "balance snapshot",
+        "minor units",
+        "idempotency key",
+        "immutable ledger record",
+        "source reference",
+        "evidence reference",
+        "transaction reference",
+        "reconciliation reference",
+        "cash account",
+        "bank account",
+        "provider clearing account",
+        "customer liability account",
+        "merchant payable account",
+        "suspense account",
+        "total debits equal total credits",
+        "CausalLedger will not let the LLM decide whether a ledger transaction balances",
+        "These are vocabulary terms only, not implemented invariants",
+    ],
     "docs/DOMAIN_MODEL.md": [
         "M01 domain index",
         "Payment lifecycle",
         "docs/domain/payment-lifecycle.md",
+        "docs/domain/ledger-vocabulary.md",
         "The domain model is not complete",
         "Ledger vocabulary",
         "Settlement vocabulary",
@@ -545,14 +601,26 @@ def closeout_state_errors():
         if phrase not in row:
             errors.append(f"M01.01 registry row missing QA recovery marker: {phrase}")
 
-    for index in range(2, 14):
+    row = next(
+        (line for line in registry.splitlines() if line.startswith("| M01.02 |")),
+        "",
+    )
+    for phrase in [
+        "QA passed, awaiting merge",
+        "m01-02-define-ledger-vocabulary",
+        "test: QA M01.02 ledger vocabulary",
+    ]:
+        if phrase not in row:
+            errors.append(f"M01.02 registry row missing QA marker: {phrase}")
+
+    for index in range(3, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             (line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")),
             "",
         )
         if "Not started" not in row:
-            errors.append(f"{submilestone} is not Not started during M01 planning")
+            errors.append(f"{submilestone} is not Not started during M01.02 QA")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -646,17 +714,20 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "Merge M01.01 QA Recovery PR - Define Payment Lifecycle" not in next_thread:
+    if "Merge M01.02 PR - Define Ledger Vocabulary" not in next_thread:
         errors.append(
-            "Next recommended thread is not Merge M01.01 QA Recovery PR - Define Payment Lifecycle"
+            "Next recommended thread is not Merge M01.02 PR - Define Ledger Vocabulary"
         )
-    if "Do not start M01.02 until the QA recovery PR has merged" not in next_thread:
-        errors.append("Next recommended thread does not block M01.02 until QA recovery merge")
+    if "Do not start M01.03" not in next_thread:
+        errors.append("Next recommended thread does not block M01.03 until M01.02 merge")
 
     domain_doc = ROOT / "docs/domain/payment-lifecycle.md"
+    ledger_doc = ROOT / "docs/domain/ledger-vocabulary.md"
     domain_index = ROOT / "docs/DOMAIN_MODEL.md"
     if not domain_doc.is_file():
         errors.append("M01.01 payment lifecycle doc is missing")
+    if not ledger_doc.is_file():
+        errors.append("M01.02 ledger vocabulary doc is missing")
     if domain_doc.is_file():
         text = domain_doc.read_text(encoding="utf-8")
         forbidden_claims = [
@@ -669,10 +740,30 @@ def closeout_state_errors():
         for claim in forbidden_claims:
             if claim in text:
                 errors.append(f"Payment lifecycle doc makes forbidden runtime claim: {claim}")
+    if ledger_doc.is_file():
+        text = ledger_doc.read_text(encoding="utf-8")
+        forbidden_claims = [
+            "implements MoneyEvent",
+            "implements ledger",
+            "implements invariants",
+            "runtime implementation is complete",
+            "schema is defined",
+        ]
+        for claim in forbidden_claims:
+            if claim in text:
+                errors.append(f"Ledger vocabulary doc makes forbidden runtime claim: {claim}")
     if domain_index.is_file():
         text = domain_index.read_text(encoding="utf-8")
         if "docs/domain/payment-lifecycle.md" not in text:
             errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/payment-lifecycle.md")
+        if "docs/domain/ledger-vocabulary.md" not in text:
+            errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/ledger-vocabulary.md")
+
+    domain_readme = ROOT / "docs/domain/README.md"
+    if domain_readme.is_file():
+        text = domain_readme.read_text(encoding="utf-8")
+        if "docs/domain/ledger-vocabulary.md" not in text and "ledger-vocabulary.md" not in text:
+            errors.append("docs/domain/README.md does not reference docs/domain/ledger-vocabulary.md")
 
     return errors
 

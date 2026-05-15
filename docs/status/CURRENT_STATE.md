@@ -2,9 +2,9 @@
 
 ## Current phase
 
-M00 Repo operating system is completed and tagged as `v0.1.0`. M01 planning is complete and merged into the current branch history at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, the active M01 plan is `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, and M01.01 Define payment lifecycle is the latest completed submilestone.
+M00 Repo operating system is completed and tagged as `v0.1.0`. M01 planning is complete and merged into the current branch history at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, the active M01 plan is `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, and M01.02 Define ledger vocabulary is the current submilestone with QA passed, awaiting merge.
 
-M01.01 is domain documentation only and is recorded as `Completed and merged` after post-merge QA recovery on branch `m01-01-qa-recovery-define-payment-lifecycle`. The builder PR #11 was squash-merged before required QA at commit `1175789`; this recovery branch records QA PASS and must merge before M01.02 starts. Product implementation has not started.
+M01.01 Define payment lifecycle is domain documentation only and is recorded as `Completed and merged` after post-merge QA recovery. The builder PR #11 was squash-merged before required QA at commit `1175789`, and the protocol deviation was recovered through the M01.01 QA recovery PR merged at commit `6480c1d` (`test: QA recovery M01.01 payment lifecycle (#12)`). Product implementation has not started.
 
 ## What exists
 
@@ -33,6 +33,7 @@ M01.01 is domain documentation only and is recorded as `Completed and merged` af
 - GitHub PR and issue templates.
 - Active M01 plan at `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 - Versioning docs at `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, and `docs/releases/V1_SCOPE.md`.
+- Domain vocabulary docs at `docs/domain/payment-lifecycle.md` and `docs/domain/ledger-vocabulary.md`.
 - `CHANGELOG.md`.
 
 ## What does not exist
@@ -62,7 +63,7 @@ The completed M00 plan remains at `plans/completed/CLP-0001-m00-repo-operating-s
 
 ## Current submilestone
 
-M01.01 Define payment lifecycle is `Completed and merged` after post-merge QA recovery. M00.01 through M00.08 are completed and merged. Before this builder began, M01.01 through M01.13 were `Not started`. M01.02 through M01.13 remain `Not started`, and M02 through M21 remain `Not started`.
+M01.01 Define payment lifecycle is `Completed and merged` after post-merge QA recovery. M01.02 Define ledger vocabulary is `QA passed, awaiting merge` on branch `m01-02-define-ledger-vocabulary`. M00.01 through M00.08 are completed and merged. M01.03 through M01.13 remain `Not started`, and M02 through M21 remain `Not started`.
 
 M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 Planning and Tracking System is completed and merged at commit `f289d5e`. M00.04 Builder and QA Prompt Protocol is completed and merged at commit `e686c77`. M00.05 Validation and Handoff Workflow is completed and merged at commit `b82e5d1`. M00.06 GitHub PR and Issue Workflow is completed and merged at commit `a0fdf6bc422f573235d48ee8cde93fd92d25e617`. M00.07 Milestone Closeout Workflow is completed and merged at commit `ae19cd0e4b34ad8c16c3d4f8ee1adbe08e7575f6`. M00.08 Repo Operating System QA and Freeze is completed and merged at commit `db312d16f3059a2714f929c4bcb831d4a6a5a173`.
 
@@ -72,17 +73,19 @@ No product code exists yet. Product directories contain placeholder README files
 
 ## Next action
 
-Merge the M01.01 QA recovery PR before any M01.02 work starts. The exact next recommended thread is `Merge M01.01 QA Recovery PR - Define Payment Lifecycle`.
+Merge the M01.02 PR after human review confirms the QA PASS and normal merge readiness. The exact next recommended thread is `Merge M01.02 PR - Define Ledger Vocabulary`.
 
 ## Implementation warning
 
-Do not start product implementation. M01.01 may update domain docs, lightweight spec references, tracking, and validation only. It must not create product behavior, MoneyEvent runtime code, ledger logic, invariants, incident logic, graph logic, replay logic, agent runtime, repair planning logic, UI, APIs, databases, external connectors, GitHub Actions, or CI workflows.
+Do not start product implementation. M01.02 may update domain docs, lightweight spec references, tracking, and validation only. It must not create product behavior, MoneyEvent runtime code, ledger runtime logic, invariants, incident logic, graph logic, replay logic, agent runtime, repair planning logic, UI, APIs, databases, external connectors, GitHub Actions, or CI workflows.
 
 ## Validation limitations
 
 - `make bootstrap-check` could not be run on 2026-05-04 because `make` is not available in the current Windows shell.
 - `make bootstrap-check` could not be run for M01.01 builder validation on 2026-05-11 because `make` is not available in the current Windows shell.
 - `make bootstrap-check` could not be run for M01.01 post-merge QA recovery on 2026-05-11 because `make` is not available in the current Windows shell.
+- `make bootstrap-check` could not be run for M01.02 builder validation on 2026-05-15 because `make` is not available in the current Windows shell.
+- `make bootstrap-check` could not be run for M01.02 QA validation on 2026-05-15 because `make` is not available in the current Windows shell.
 - Equivalent underlying checks were run directly with Python:
   - `python scripts/validate-control-plane.py`
   - `python -m pytest tests/test_control_plane_bootstrap.py`
@@ -90,6 +93,17 @@ Do not start product implementation. M01.01 may update domain docs, lightweight 
 
 ## Latest validation
 
+- 2026-05-15: M01.02 QA passed after reviewing ledger vocabulary content, tracking, validation coverage, and forbidden-scope boundaries.
+- 2026-05-15: `python scripts/validate-control-plane.py` passed for M01.02 QA.
+- 2026-05-15: `python -m pytest tests/test_control_plane_bootstrap.py` passed with 19 tests for M01.02 QA.
+- 2026-05-15: `git diff --check` passed for M01.02 QA.
+- 2026-05-15: `make bootstrap-check` was not run for M01.02 QA because `make` is unavailable in the current Windows shell.
+- 2026-05-15: M01.02 builder validation passed after one scoped documentation wording fix.
+- 2026-05-15: Initial M01.02 `python scripts/validate-control-plane.py` run failed because `docs/domain/ledger-vocabulary.md` defined some terms only in title-cased table cells while validation expected lower-case phrases; a scoped vocabulary-list sentence was added and validation was rerun successfully.
+- 2026-05-15: `python scripts/validate-control-plane.py` passed for M01.02 builder.
+- 2026-05-15: `python -m pytest tests/test_control_plane_bootstrap.py` passed with 19 tests for M01.02 builder.
+- 2026-05-15: `git diff --check` passed for M01.02 builder.
+- 2026-05-15: `make bootstrap-check` was not run for M01.02 builder because `make` is unavailable in the current Windows shell.
 - 2026-05-11: M01.01 post-merge QA recovery passed after auditing the merged builder work at commit `1175789` (`docs: define M01.01 payment lifecycle (#11)`).
 - 2026-05-11: M01.01 QA recovery found no payment-lifecycle content defects and made only scoped tracking/status/control-plane validation updates.
 - 2026-05-11: `python scripts/validate-control-plane.py` passed for M01.01 QA recovery.

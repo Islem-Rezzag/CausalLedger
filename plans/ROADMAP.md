@@ -1,7 +1,7 @@
 # CausalLedger Roadmap
 
 Current milestone marker: M01 Domain model and scope freeze is active. M01 planning is complete and merged at git commit `2cfd75a`.
-Current submilestone status: M00.01 through M00.08 are completed and merged. M00 is tagged as `v0.1.0` for the repo operating system foundation. M01.01 Define payment lifecycle is recorded as `Completed and merged` after post-merge QA recovery on branch `m01-01-qa-recovery-define-payment-lifecycle`; M01.02 through M01.13 are not started.
+Current submilestone status: M00.01 through M00.08 are completed and merged. M00 is tagged as `v0.1.0` for the repo operating system foundation. M01.01 Define payment lifecycle is recorded as `Completed and merged` after post-merge QA recovery, and M01.02 Define ledger vocabulary is `QA passed, awaiting merge`; M01.03 through M01.13 are not started.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 
@@ -38,7 +38,7 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 - The completed M00 plan lives at `plans/completed/CLP-0001-m00-repo-operating-system.md`.
 - The active M01 plan lives at `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 - M01 planning is complete and merged at git commit `2cfd75a`.
-- M01 is active; M01.01 is `Completed and merged` after post-merge QA recovery, and M01.02 through M01.13 remain `Not started`.
+- M01 is active; M01.01 is `Completed and merged` after post-merge QA recovery, M01.02 is `QA passed, awaiting merge`, and M01.03 through M01.13 remain `Not started`.
 - M02-M21 remain `Not started`.
 - Product implementation has not started.
 - The first M01 implementation submilestone after planning is `M01.01 Define payment lifecycle`.

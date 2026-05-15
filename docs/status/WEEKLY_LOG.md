@@ -1,5 +1,26 @@
 # Weekly Log
 
+## 2026-05-15
+
+- Finalized M01.01 as completed and merged after post-merge QA recovery before starting M01.02; latest git history shows commit `6480c1d` (`test: QA recovery M01.01 payment lifecycle (#12)`).
+- Started M01.02 Define Ledger Vocabulary builder on branch `m01-02-define-ledger-vocabulary`; branch guard passed, the starting worktree was clean, and M01.02 is domain documentation only.
+- Created `docs/domain/ledger-vocabulary.md`, updated the M01 domain index and domain README, added concise entry-doc links, and added lightweight ledger vocabulary dependency notes to related spec placeholders.
+- Updated control-plane validation and bootstrap tests so the ledger vocabulary doc, domain links, key sections, and no-runtime-implementation boundary are checked.
+- Initial M01.02 `python scripts/validate-control-plane.py` run failed because validation expected lower-case vocabulary phrases that appeared only in title-cased table cells; added scoped lower-case vocabulary-list sentences and reran successfully.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.02 builder.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 19 tests for M01.02 builder.
+- Ran `git diff --check` successfully for M01.02 builder.
+- Confirmed `make bootstrap-check` is unavailable in the current Windows shell for M01.02 builder.
+- Marked M01.02 `Builder complete, awaiting QA`; M01.03 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- Completed M01.02 Define Ledger Vocabulary QA on branch `m01-02-define-ledger-vocabulary`; branch guard passed, the starting worktree was clean, and the review stayed documentation-only.
+- Verified ledger vocabulary content, domain links, lightweight spec dependency notes, tracking/status files, validation coverage, and forbidden-scope boundaries; found no content defect and no product implementation.
+- Marked M01.02 `QA passed, awaiting merge`; M01.03 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.02 QA.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 19 tests for M01.02 QA.
+- Ran `git diff --check` successfully for M01.02 QA.
+- Confirmed `make bootstrap-check` is unavailable in the current Windows shell for M01.02 QA.
+- Recommended next thread: `Merge M01.02 PR - Define Ledger Vocabulary`.
+
 ## 2026-05-11
 
 - Started M01.01 post-merge QA recovery on branch `m01-01-qa-recovery-define-payment-lifecycle` after builder PR #11 was accidentally squash-merged before the required QA thread; branch guard passed, the starting worktree was clean, and latest commit was `1175789` (`docs: define M01.01 payment lifecycle (#11)`).
