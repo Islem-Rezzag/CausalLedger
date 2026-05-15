@@ -12,7 +12,14 @@
 - Ran `git diff --check` successfully for M01.02 builder.
 - Confirmed `make bootstrap-check` is unavailable in the current Windows shell for M01.02 builder.
 - Marked M01.02 `Builder complete, awaiting QA`; M01.03 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
-- Recommended next thread: `M01.02 QA - Define Ledger Vocabulary`.
+- Completed M01.02 Define Ledger Vocabulary QA on branch `m01-02-define-ledger-vocabulary`; branch guard passed, the starting worktree was clean, and the review stayed documentation-only.
+- Verified ledger vocabulary content, domain links, lightweight spec dependency notes, tracking/status files, validation coverage, and forbidden-scope boundaries; found no content defect and no product implementation.
+- Marked M01.02 `QA passed, awaiting merge`; M01.03 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.02 QA.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 19 tests for M01.02 QA.
+- Ran `git diff --check` successfully for M01.02 QA.
+- Confirmed `make bootstrap-check` is unavailable in the current Windows shell for M01.02 QA.
+- Recommended next thread: `Merge M01.02 PR - Define Ledger Vocabulary`.
 
 ## 2026-05-11
 

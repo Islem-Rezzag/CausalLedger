@@ -1,6 +1,6 @@
 # Start Here
 
-This repository has completed the M00 control-plane bootstrap and tagged it as `v0.1.0`. M01 planning is complete and merged, M01 is active in `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, M01.01 Define Payment Lifecycle is recorded as `Completed and merged` after post-merge QA recovery, and M01.02 Define Ledger Vocabulary is `Builder complete, awaiting QA`. Do not begin product implementation from this file.
+This repository has completed the M00 control-plane bootstrap and tagged it as `v0.1.0`. M01 planning is complete and merged, M01 is active in `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, M01.01 Define Payment Lifecycle is recorded as `Completed and merged` after post-merge QA recovery, and M01.02 Define Ledger Vocabulary is `QA passed, awaiting merge`. Do not begin product implementation from this file.
 
 Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 

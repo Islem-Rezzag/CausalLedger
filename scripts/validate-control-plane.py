@@ -606,12 +606,12 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "Builder complete, awaiting QA",
+        "QA passed, awaiting merge",
         "m01-02-define-ledger-vocabulary",
-        "docs: define M01.02 ledger vocabulary",
+        "test: QA M01.02 ledger vocabulary",
     ]:
         if phrase not in row:
-            errors.append(f"M01.02 registry row missing builder marker: {phrase}")
+            errors.append(f"M01.02 registry row missing QA marker: {phrase}")
 
     for index in range(3, 14):
         submilestone = f"M01.{index:02}"
@@ -620,7 +620,7 @@ def closeout_state_errors():
             "",
         )
         if "Not started" not in row:
-            errors.append(f"{submilestone} is not Not started during M01.02 builder")
+            errors.append(f"{submilestone} is not Not started during M01.02 QA")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -714,12 +714,12 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "M01.02 QA - Define Ledger Vocabulary" not in next_thread:
+    if "Merge M01.02 PR - Define Ledger Vocabulary" not in next_thread:
         errors.append(
-            "Next recommended thread is not M01.02 QA - Define Ledger Vocabulary"
+            "Next recommended thread is not Merge M01.02 PR - Define Ledger Vocabulary"
         )
     if "Do not start M01.03" not in next_thread:
-        errors.append("Next recommended thread does not block M01.03 until M01.02 QA and merge")
+        errors.append("Next recommended thread does not block M01.03 until M01.02 merge")
 
     domain_doc = ROOT / "docs/domain/payment-lifecycle.md"
     ledger_doc = ROOT / "docs/domain/ledger-vocabulary.md"

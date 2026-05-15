@@ -924,9 +924,9 @@ def test_m00_closeout_state_is_coherent():
     assert "1175789" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.02 |"))
-    assert "Builder complete, awaiting QA" in row
+    assert "QA passed, awaiting merge" in row
     assert "m01-02-define-ledger-vocabulary" in row
-    assert "docs: define M01.02 ledger vocabulary" in row
+    assert "test: QA M01.02 ledger vocabulary" in row
 
     for index in range(3, 14):
         submilestone = f"M01.{index:02}"
@@ -956,7 +956,7 @@ def test_m00_closeout_state_is_coherent():
         "Product directories contain placeholder README files only",
         "M00.01 through M00.08 are completed and merged",
         "M01.01 Define payment lifecycle is `Completed and merged` after post-merge QA recovery",
-        "M01.02 Define ledger vocabulary is `Builder complete, awaiting QA`",
+        "M01.02 Define ledger vocabulary is `QA passed, awaiting merge`",
         "M01.03 through M01.13 remain `Not started`",
     ]:
         assert phrase in current_state
