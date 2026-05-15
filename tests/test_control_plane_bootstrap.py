@@ -28,6 +28,7 @@ def test_required_project_docs_exist():
         "docs/DOMAIN_MODEL.md",
         "docs/domain/README.md",
         "docs/domain/payment-lifecycle.md",
+        "docs/domain/ledger-vocabulary.md",
         "docs/RELIABILITY.md",
         "docs/THREAT_MODEL.md",
         "docs/TOKEN_COST_STRATEGY.md",
@@ -221,7 +222,7 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01 must not implement APIs, databases, ledger logic, MoneyEvent runtime code, invariants, agent runtime, repair planner, UI, external connectors, GitHub Actions, CI workflows, or product behavior",
         "LLM agents may investigate, summarize, and propose, but they do not mutate money, approve repairs, delete evidence, post ledger entries, modify raw events, or override deterministic invariants",
         "M01 planning is complete and merged at git commit `2cfd75a`",
-        "M01.01 Define payment lifecycle is the current domain-documentation submilestone",
+        "M01.02 Define ledger vocabulary is the current domain-documentation submilestone",
         "post-merge QA recovery",
         "M01.01 Define payment lifecycle",
         "M01.02 Define ledger vocabulary",
@@ -236,8 +237,9 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "M01.02 through M01.13 remain planned scope only and are not started",
+        "M01.03 through M01.13 remain planned scope only and are not started",
         "docs/domain/payment-lifecycle.md",
+        "docs/domain/ledger-vocabulary.md",
     ]:
         assert phrase in plan
 
@@ -255,6 +257,7 @@ def test_m01_payment_lifecycle_domain_docs_are_documentation_only():
         "domain vocabulary",
         "do not implement runtime behavior",
         "Payment lifecycle",
+        "Ledger vocabulary",
     ]:
         assert phrase in domain_readme
 
@@ -322,6 +325,7 @@ def test_m01_payment_lifecycle_domain_docs_are_documentation_only():
     for phrase in [
         "M01 domain index",
         "docs/domain/payment-lifecycle.md",
+        "docs/domain/ledger-vocabulary.md",
         "The domain model is not complete",
         "Ledger vocabulary",
         "Settlement vocabulary",
@@ -333,6 +337,108 @@ def test_m01_payment_lifecycle_domain_docs_are_documentation_only():
         "Out-of-scope domains",
     ]:
         assert phrase in domain_model
+
+
+def test_m01_ledger_vocabulary_domain_doc_is_documentation_only():
+    ledger_vocabulary = (
+        ROOT / "docs" / "domain" / "ledger-vocabulary.md"
+    ).read_text(encoding="utf-8")
+    domain_readme = (ROOT / "docs" / "domain" / "README.md").read_text(
+        encoding="utf-8"
+    )
+    domain_model = (ROOT / "docs" / "DOMAIN_MODEL.md").read_text(encoding="utf-8")
+
+    for phrase in [
+        "No runtime implementation is defined or claimed",
+        "## Purpose",
+        "## Ledger scope",
+        "## What this document defines",
+        "## What this document does not define",
+        "## Relationship to payment lifecycle vocabulary",
+        "## Relationship to future MoneyEvent schema",
+        "## Relationship to future double-entry ledger core",
+        "## Relationship to future invariant engine",
+        "## Relationship to future incident engine",
+        "## Relationship to future causal graph",
+        "## Relationship to future replay engine",
+        "## Relationship to future repair planner",
+        "## Core ledger concepts",
+        "## Account categories",
+        "## Double-entry vocabulary",
+        "## Ledger state vocabulary",
+        "## Ledger evidence examples",
+        "## Questions CausalLedger asks about ledger records",
+        "## Ledger failure patterns",
+        "## Boundaries with future M01 areas",
+        "ledger transaction",
+        "ledger entry",
+        "debit",
+        "credit",
+        "journal entry",
+        "pending posting",
+        "posted transaction",
+        "reversal",
+        "adjustment",
+        "balance snapshot",
+        "opening balance",
+        "closing balance",
+        "minor units",
+        "idempotency key",
+        "immutable ledger record",
+        "source reference",
+        "evidence reference",
+        "transaction reference",
+        "reconciliation reference",
+        "cash account",
+        "bank account",
+        "provider clearing account",
+        "customer liability account",
+        "merchant payable account",
+        "revenue account",
+        "fee expense account",
+        "suspense account",
+        "total debits equal total credits",
+        "CausalLedger will not let the LLM decide whether a ledger transaction balances",
+        "Ledger records should not be deleted",
+        "`pending`",
+        "`posted`",
+        "`reversed`",
+        "`adjusted`",
+        "`voided`",
+        "`rejected`",
+        "`disputed`",
+        "`unresolved`",
+        "Provider payment captured",
+        "Does the ledger transaction balance?",
+        "Unbalanced transaction",
+        "Duplicate posting",
+        "Missing posting",
+        "Unsupported posting",
+        "Orphan reversal",
+        "Adjustment without evidence",
+        "Currency mismatch",
+        "Ledger lifecycle divergence",
+        "These are vocabulary terms only, not implemented invariants",
+        "Settlement vocabulary belongs to M01.03",
+        "Reconciliation vocabulary belongs to M01.04",
+        "Incident vocabulary belongs to M01.05",
+        "Safe and unsafe repair vocabulary belongs to M01.06",
+        "Evidence receipt model belongs to M01.07",
+        "Human review states belong to M01.08",
+    ]:
+        assert phrase in ledger_vocabulary
+
+    for forbidden_claim in [
+        "implements MoneyEvent",
+        "implements ledger",
+        "implements invariants",
+        "runtime implementation is complete",
+        "schema is defined",
+    ]:
+        assert forbidden_claim not in ledger_vocabulary
+
+    assert "ledger-vocabulary.md" in domain_readme
+    assert "docs/domain/ledger-vocabulary.md" in domain_model
 
 
 def test_submilestone_registry_contains_all_expected_rows():
@@ -817,7 +923,12 @@ def test_m00_closeout_state_is_coherent():
     assert "m01-01-qa-recovery-define-payment-lifecycle" in row
     assert "1175789" in row
 
-    for index in range(2, 14):
+    row = next(line for line in registry.splitlines() if line.startswith("| M01.02 |"))
+    assert "Builder complete, awaiting QA" in row
+    assert "m01-02-define-ledger-vocabulary" in row
+    assert "docs: define M01.02 ledger vocabulary" in row
+
+    for index in range(3, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")
@@ -845,7 +956,8 @@ def test_m00_closeout_state_is_coherent():
         "Product directories contain placeholder README files only",
         "M00.01 through M00.08 are completed and merged",
         "M01.01 Define payment lifecycle is `Completed and merged` after post-merge QA recovery",
-        "M01.02 through M01.13 remain `Not started`",
+        "M01.02 Define ledger vocabulary is `Builder complete, awaiting QA`",
+        "M01.03 through M01.13 remain `Not started`",
     ]:
         assert phrase in current_state
 

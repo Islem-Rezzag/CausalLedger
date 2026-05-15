@@ -12,7 +12,7 @@ CausalLedger helps fintech teams prove, replay, and safely repair money-movement
 
 ## Current status
 
-CausalLedger has completed M00 Repo Operating System and tagged it as `v0.1.0`. M01 planning is complete and merged, the active M01 plan is `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, and M01.01 Define Payment Lifecycle is recorded as `Completed and merged` after post-merge QA recovery. The M01.01 builder PR was squash-merged before the required QA thread; the QA recovery PR must merge before M01.02 starts.
+CausalLedger has completed M00 Repo Operating System and tagged it as `v0.1.0`. M01 planning is complete and merged, the active M01 plan is `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, M01.01 Define Payment Lifecycle is recorded as `Completed and merged` after post-merge QA recovery, and M01.02 Define Ledger Vocabulary is `Builder complete, awaiting QA`.
 
 This repository currently contains architecture, planning, prompt, skill, milestone, status, GitHub template, versioning, and validation scaffolding only. No product functionality, MoneyEvent logic, ledger logic, invariants, incident engine, causal graph, replay engine, agent runtime, repair planning, UI, APIs, databases, GitHub Actions, CI workflows, secrets, or external connectors exist yet.
 
@@ -61,6 +61,7 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `docs/ops/repo-operating-system-freeze.md` - M00 freeze readiness and control-plane coherence checks.
 - `docs/domain/README.md` - M01 domain vocabulary directory boundary.
 - `docs/domain/payment-lifecycle.md` - M01.01 payment lifecycle vocabulary and boundaries.
+- `docs/domain/ledger-vocabulary.md` - M01.02 ledger vocabulary and boundaries.
 - `docs/VERSIONING.md` - semantic versioning strategy, release tag rules, and overclaim prevention.
 - `docs/releases/RELEASE_LADDER.md` - planned version ladder from `v0.1.0` through company-grade releases.
 - `docs/releases/V1_SCOPE.md` - practical `v1.0.0` scope target.

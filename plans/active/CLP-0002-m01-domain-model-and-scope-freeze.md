@@ -10,7 +10,7 @@ The safety boundary is non-negotiable: LLM agents may investigate, summarize, an
 
 The first M01 implementation submilestone after this planning thread is `M01.01 Define payment lifecycle`.
 
-Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, and M01.01 Define payment lifecycle is the current domain-documentation submilestone under post-merge QA recovery on branch `m01-01-qa-recovery-define-payment-lifecycle`.
+Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, and M01.02 Define ledger vocabulary is the current domain-documentation submilestone awaiting QA on branch `m01-02-define-ledger-vocabulary`.
 
 ## Progress
 
@@ -45,6 +45,12 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - [x] 2026-05-11: Recorded the M01.01 protocol deviation and post-merge QA recovery in tracking/status files.
 - [x] 2026-05-11: M01.01 post-merge QA recovery validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 18 tests, and `git diff --check`.
 - [x] 2026-05-11: `make bootstrap-check` was skipped for M01.01 post-merge QA recovery because `make` is unavailable in the current Windows shell.
+- [x] 2026-05-15: Finalized M01.01 as completed and merged after post-merge QA recovery before starting M01.02; latest git history shows commit `6480c1d` (`test: QA recovery M01.01 payment lifecycle (#12)`).
+- [x] 2026-05-15: Started M01.02 builder on branch `m01-02-define-ledger-vocabulary`; branch guard passed, the starting worktree was clean, and M01.02 was marked `Builder in progress`.
+- [x] 2026-05-15: Created `docs/domain/ledger-vocabulary.md` as documentation-only M01.02 domain vocabulary.
+- [x] 2026-05-15: Updated the M01 domain index, domain README, README, docs index, and lightweight spec dependency notes to reference ledger vocabulary without defining runtime schemas or behavior.
+- [x] 2026-05-15: Updated control-plane validation and bootstrap tests for ledger vocabulary documentation coverage.
+- [x] 2026-05-15: Updated M01.02 tracking to `Builder complete, awaiting QA`.
 
 ## Surprises & Discoveries
 
@@ -53,7 +59,8 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - The only future-launch versioning conflict found was M20.12 using `Add v0.1.0 release`; that wording now refers to the public product release instead.
 - Product and future infrastructure directories still contain placeholder README files only.
 - M01 planning QA found entry-doc reference coverage gaps that the builder validation did not catch; validation coverage now checks those references and the full active-plan submilestone list.
-- M01.01 builder PR #11 was accidentally squash-merged before the required QA thread; this plan now records the post-merge QA recovery path before M01.02.
+- M01.01 builder PR #11 was accidentally squash-merged before the required QA thread; this plan records that the post-merge QA recovery path was completed before M01.02 began.
+- M01.02 needs ledger vocabulary terms that are precise enough for future ledger, invariant, incident, graph, replay, and repair work while remaining documentation-only.
 
 ## Decision Log
 
@@ -63,6 +70,8 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - 2026-05-11: Keep M01 planning scoped to docs, specifications, tracking, and validation; no product runtime artifacts are allowed.
 - 2026-05-11: QA fixes remain scoped to M01 planning documentation, status clarity, and control-plane validation coverage; no M01.01 or product implementation work is started.
 - 2026-05-11: Because M01.01 was merged before QA, record M01.01 as `Completed and merged` only with explicit post-merge QA recovery notes, and do not start M01.02 until the QA recovery PR merges.
+- 2026-05-15: M01.01 QA recovery is merged; M01.02 may proceed as documentation-only ledger vocabulary work.
+- 2026-05-15: Keep ledger balance, posting, reversal, and adjustment rules deterministic future work; M01.02 defines vocabulary only and does not authorize agents to post ledger entries.
 
 ## Context and Orientation
 
@@ -75,7 +84,7 @@ Current source directories under `apps/`, `packages/`, `scenarios/`, `data/`, an
 Current M01 submilestone state:
 
 - `M01.01 Define payment lifecycle` - Completed and merged after post-merge QA recovery.
-- `M01.02 Define ledger vocabulary`
+- `M01.02 Define ledger vocabulary` - Builder complete, awaiting QA.
 - `M01.03 Define settlement vocabulary`
 - `M01.04 Define reconciliation vocabulary`
 - `M01.05 Define incident vocabulary`
@@ -88,7 +97,7 @@ Current M01 submilestone state:
 - `M01.12 Write THREAT_MODEL.md`
 - `M01.13 QA domain consistency`
 
-M01.02 through M01.13 remain planned scope only and are not started.
+M01.03 through M01.13 remain planned scope only and are not started.
 
 ## Scope
 
@@ -123,6 +132,17 @@ Current M01.01 QA recovery scope:
 - Keep M01.02 through M01.13 `Not started`.
 - Keep M02 through M21 `Not started`.
 
+Current M01.02 builder scope:
+
+- Finalize M01.01 recovery state as completed and merged before M01.02 work.
+- Create `docs/domain/ledger-vocabulary.md`.
+- Define ledger vocabulary, account categories, double-entry language, ledger states, evidence examples, correctness questions, and failure-pattern vocabulary.
+- Link the ledger vocabulary doc from `docs/DOMAIN_MODEL.md`, `docs/domain/README.md`, `docs/INDEX.md`, and `README.md`.
+- Add lightweight domain-dependency notes to related spec placeholders.
+- Update M01.02 tracking and validation coverage.
+- Keep M01.03 through M01.13 `Not started`.
+- Keep M02 through M21 `Not started`.
+
 Out of scope:
 
 - Product functionality.
@@ -140,7 +160,8 @@ Out of scope:
 - Database schemas.
 - API routes.
 - M01.01 product implementation or runtime behavior.
-- M01.02 implementation.
+- M01.02 product implementation or runtime behavior.
+- M01.03 implementation.
 - M02 implementation.
 - M02-M21 scope changes beyond the explicit M20.12 versioning wording correction.
 
@@ -180,6 +201,17 @@ Current M01.01 QA recovery work:
 5. Update control-plane validation checks from the stale pre-QA state to the recovery state.
 6. Run validation and record results before the recovery PR is opened or merged.
 
+Current M01.02 builder work:
+
+1. Finalize M01.01 recovery merge tracking from git history.
+2. Mark M01.02 as `Builder in progress`.
+3. Define ledger vocabulary in `docs/domain/ledger-vocabulary.md`.
+4. Link the ledger vocabulary doc from domain and entry docs.
+5. Add lightweight domain-dependency notes to related spec placeholders.
+6. Update M01.02 tracking files.
+7. Add documentation-only validation checks.
+8. Run validation and record results before marking M01.02 `Builder complete, awaiting QA`.
+
 ## Concrete Steps
 
 - Confirm branch guard and starting cleanliness.
@@ -218,12 +250,13 @@ Acceptance criteria:
 - M01 is planning in progress where appropriate.
 - During the planning slice, M01.01 through M01.13 remained `Not started`.
 - After post-merge QA recovery, M01.01 is `Completed and merged` with the protocol deviation recorded in notes.
-- M01.02 through M01.13 remain `Not started`.
+- M01.02 is `Builder complete, awaiting QA`.
+- M01.03 through M01.13 remain `Not started`.
 - M02 through M21 remain `Not started`.
 - Product implementation has not started.
 - No forbidden runtime artifacts are added.
 - Validation passes or limitations are recorded.
-- Next recommended thread after this QA recovery is `Merge M01.01 QA Recovery PR - Define Payment Lifecycle`.
+- Next recommended thread after this builder is `M01.02 QA - Define Ledger Vocabulary`.
 
 ## Idempotence and Recovery
 
@@ -270,6 +303,13 @@ Notes:
   - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 18 tests.
   - `git diff --check` passed.
   - `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell.
+- 2026-05-15 M01.02 builder validation results:
+  - Initial `python scripts/validate-control-plane.py` failed because the ledger vocabulary doc defined some terms only in title-cased table cells while validation expected lower-case phrases.
+  - Added scoped lower-case vocabulary-list sentences to `docs/domain/ledger-vocabulary.md`.
+  - `python scripts/validate-control-plane.py` passed.
+  - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 19 tests.
+  - `git diff --check` passed.
+  - `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell.
 
 ## Interfaces and Dependencies
 
@@ -281,7 +321,7 @@ M01 planning depends on:
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` for submilestone state.
 - `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md` for current operational direction.
 
-No product runtime interface is introduced by this M01 planning and M01.01 documentation work.
+No product runtime interface is introduced by this M01 planning, M01.01 documentation work, or M01.02 documentation work.
 
 ## Outcomes & Retrospective
 
@@ -301,4 +341,5 @@ Current M01.01 builder outcome:
 - M01.01 post-merge QA recovery passed as domain documentation only.
 - M01.01 is recorded as `Completed and merged` after post-merge QA recovery.
 - Product implementation remains not started.
-- M01.02 through M01.13 remain not started.
+- M01.02 builder work is documentation-only and awaiting QA.
+- M01.03 through M01.13 remain not started.
