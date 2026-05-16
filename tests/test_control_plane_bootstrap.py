@@ -31,12 +31,16 @@ def test_required_project_docs_exist():
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
         "docs/domain/reconciliation-vocabulary.md",
+        "docs/domain/incident-vocabulary.md",
+        "docs/domain/incident-vocabulary.md",
         "docs/RELIABILITY.md",
         "docs/THREAT_MODEL.md",
         "docs/TOKEN_COST_STRATEGY.md",
         "docs/VERSIONING.md",
         "docs/releases/RELEASE_LADDER.md",
         "docs/releases/V1_SCOPE.md",
+        "docs/evals/ABLATION_STRATEGY.md",
+        "docs/evals/ABLATION_MATRIX.md",
         "docs/ops/planning-and-tracking-system.md",
         "docs/ops/builder-qa-prompt-protocol.md",
         "docs/ops/validation-and-handoff-workflow.md",
@@ -182,6 +186,7 @@ def test_versioning_and_release_docs_are_coherent():
         "Minimum M17 cost and latency tracking for agent runs",
         "Minimum M18 proof that the LLM cannot mutate money",
         "Minimum M20 public README, demo script, architecture diagram, benchmark table, and launch-quality docs",
+        "At least one public ablation table",
         "`v1.0.0` must not require all M16-M21 work to be complete",
     ]:
         assert phrase in v1_scope
@@ -224,7 +229,7 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01 must not implement APIs, databases, ledger logic, MoneyEvent runtime code, invariants, agent runtime, repair planner, UI, external connectors, GitHub Actions, CI workflows, or product behavior",
         "LLM agents may investigate, summarize, and propose, but they do not mutate money, approve repairs, delete evidence, post ledger entries, modify raw events, or override deterministic invariants",
         "M01 planning is complete and merged at git commit `2cfd75a`",
-        "M01.04 Define reconciliation vocabulary is the current domain-documentation QA-passed slice",
+        "M01.05 Define incident vocabulary is the current builder-complete slice awaiting QA",
         "post-merge QA recovery",
         "M01.01 Define payment lifecycle",
         "M01.02 Define ledger vocabulary",
@@ -239,11 +244,12 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "M01.05 through M01.13 remain planned scope only and are not started",
+        "M01.06 through M01.13 remain planned scope only and are not started",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
         "docs/domain/reconciliation-vocabulary.md",
+        "docs/domain/incident-vocabulary.md",
     ]:
         assert phrase in plan
 
@@ -723,6 +729,275 @@ def test_m01_reconciliation_vocabulary_domain_doc_is_documentation_only():
 
     assert "reconciliation-vocabulary.md" in domain_readme
     assert "docs/domain/reconciliation-vocabulary.md" in domain_model
+
+
+def test_m01_incident_vocabulary_domain_doc_is_documentation_only():
+    incident_vocabulary = (
+        ROOT / "docs" / "domain" / "incident-vocabulary.md"
+    ).read_text(encoding="utf-8")
+    domain_readme = (ROOT / "docs" / "domain" / "README.md").read_text(
+        encoding="utf-8"
+    )
+    domain_model = (ROOT / "docs" / "DOMAIN_MODEL.md").read_text(encoding="utf-8")
+
+    for phrase in [
+        "## Purpose",
+        "## Incident scope",
+        "## What this document defines",
+        "## What this document does not define",
+        "## Relationship to payment lifecycle vocabulary",
+        "## Relationship to ledger vocabulary",
+        "## Relationship to settlement vocabulary",
+        "## Relationship to reconciliation vocabulary",
+        "## Relationship to future invariant engine",
+        "## Relationship to future incident engine",
+        "## Relationship to future causal graph",
+        "## Relationship to future replay engine",
+        "## Relationship to future agentic investigation",
+        "## Relationship to future repair planner",
+        "## Relationship to future MoneyFlowBench scenarios",
+        "## Core incident concepts",
+        "## Incident actors and consumers",
+        "## Incident statuses",
+        "## Incident severity vocabulary",
+        "## Incident type vocabulary",
+        "## Incident paths",
+        "## Incident evidence examples",
+        "## Questions CausalLedger asks about incidents",
+        "## Incident failure patterns",
+        "## Boundaries with other M01 areas",
+        "## Non-implementation statement",
+        "failed invariant",
+        "weak signal",
+        "affected amount",
+        "affected currency",
+        "affected customer",
+        "affected merchant or seller",
+        "affected account",
+        "affected payment",
+        "affected payout",
+        "affected refund",
+        "affected chargeback",
+        "value at risk",
+        "blast radius",
+        "evidence bundle",
+        "suspected root cause",
+        "confirmed root cause",
+        "confidence",
+        "first divergence point",
+        "duplicate incident",
+        "incident deduplication",
+        "incident correlation",
+        "read-only assistant only",
+        "cannot decide financial truth",
+        "`incident_detected`",
+        "`triage_pending`",
+        "`investigating`",
+        "`evidence_requested`",
+        "`evidence_complete`",
+        "`root_cause_hypothesized`",
+        "`root_cause_confirmed`",
+        "`repair_candidate_identified`",
+        "`awaiting_human_review`",
+        "`resolution_in_progress`",
+        "`resolved`",
+        "`closed`",
+        "`reopened`",
+        "`false_positive`",
+        "`duplicate_incident`",
+        "`deferred`",
+        "`informational`",
+        "`low`",
+        "`medium`",
+        "`high`",
+        "`critical`",
+        "affected customer count",
+        "financial loss risk",
+        "customer harm risk",
+        "operational urgency",
+        "regulatory or audit relevance",
+        "`payment_lifecycle_incident`",
+        "`ledger_correctness_incident`",
+        "`settlement_incident`",
+        "`reconciliation_incident`",
+        "`payout_incident`",
+        "`refund_incident`",
+        "`chargeback_incident`",
+        "`bank_posting_incident`",
+        "`duplicate_event_incident`",
+        "`missing_event_incident`",
+        "`delayed_event_incident`",
+        "`provider_state_disagreement`",
+        "`ledger_lifecycle_divergence`",
+        "`settlement_ledger_divergence`",
+        "`reconciliation_exception_incident`",
+        "`evidence_contradiction_incident`",
+        "`unresolved_money_movement_incident`",
+        "signal -> failed invariant or unresolved evidence -> `incident_detected` -> `triage_pending`",
+        "`triage_pending` -> `investigating` -> `evidence_requested` or `evidence_complete` -> `root_cause_hypothesized`",
+        "`root_cause_hypothesized` -> evidence review -> `root_cause_confirmed`",
+        "`root_cause_confirmed` -> `repair_candidate_identified` -> `awaiting_human_review`",
+        "`awaiting_human_review` -> `resolution_in_progress` -> `resolved` -> `closed`",
+        "`incident_detected` -> `investigating` -> `false_positive` -> `closed`",
+        "`incident_detected` -> `duplicate_incident` -> linked to parent incident",
+        "`closed` -> new evidence or failed replay -> `reopened`",
+        "Provider event",
+        "Payment lifecycle event",
+        "Ledger transaction",
+        "Settlement row",
+        "Provider payout",
+        "Bank statement line",
+        "Webhook delivery log",
+        "Raw payload hash",
+        "Agent memo, as non-authoritative explanation only",
+        "What signal created the incident?",
+        "Which invariant or evidence conflict supports the incident?",
+        "What is the first known divergence point?",
+        "Is human review required before any repair is considered?",
+        "Incident without evidence",
+        "Unsupported root-cause claim",
+        "Missing first divergence point",
+        "Incident closed without resolution evidence",
+        "Agent memo without evidence IDs",
+        "Repair proposed before root cause is supported",
+        "Payment lifecycle vocabulary belongs to M01.01",
+        "Ledger vocabulary belongs to M01.02",
+        "Settlement vocabulary belongs to M01.03",
+        "Reconciliation vocabulary belongs to M01.04",
+        "Safe and unsafe repair vocabulary belongs to M01.06",
+        "Evidence receipt model belongs to M01.07",
+        "Human review states belong to M01.08",
+    ]:
+        assert phrase in incident_vocabulary
+
+    for forbidden_claim in [
+        "implements MoneyEvent",
+        "implements ledger",
+        "implements invariants",
+        "runtime implementation is complete",
+        "schema is defined",
+    ]:
+        assert forbidden_claim not in incident_vocabulary
+
+    assert "incident-vocabulary.md" in domain_readme
+    assert "docs/domain/incident-vocabulary.md" in domain_model
+
+
+def test_ablation_planning_docs_are_offline_benchmark_only():
+    strategy = (ROOT / "docs" / "evals" / "ABLATION_STRATEGY.md").read_text(
+        encoding="utf-8"
+    )
+    matrix = (ROOT / "docs" / "evals" / "ABLATION_MATRIX.md").read_text(
+        encoding="utf-8"
+    )
+    moneyflowbench = (
+        ROOT / "docs" / "evals" / "MONEYFLOWBENCH_SPEC.md"
+    ).read_text(encoding="utf-8")
+    scoring = (ROOT / "docs" / "evals" / "SCORING_RUBRIC.md").read_text(
+        encoding="utf-8"
+    )
+    repair = (ROOT / "docs" / "evals" / "REPAIR_SAFETY_TESTS.md").read_text(
+        encoding="utf-8"
+    )
+    hallucination = (
+        ROOT / "docs" / "evals" / "HALLUCINATION_TESTS.md"
+    ).read_text(encoding="utf-8")
+    cost = (ROOT / "docs" / "evals" / "COST_BENCHMARKS.md").read_text(
+        encoding="utf-8"
+    )
+    m14 = (ROOT / "docs" / "milestones" / "M14.md").read_text(encoding="utf-8")
+    registry = (
+        ROOT / "docs" / "milestones" / "SUBMILESTONE_REGISTRY.md"
+    ).read_text(encoding="utf-8")
+
+    for phrase in [
+        "What an ablation is",
+        "Ablations may disable safety components only inside offline benchmark scenarios. Production runtime must keep safety boundaries enforced.",
+        "offline benchmark experiments, not production toggles",
+        "Unsafe ablations must never be enabled in production",
+        "MoneyFlowBench",
+        "deterministic-first design",
+        "agent safety",
+        "cost and latency",
+        "repair safety",
+        "security testing",
+        "does not implement ablation runners",
+    ]:
+        assert phrase in strategy
+
+    for phrase in [
+        "Deterministic-first ablations",
+        "Agentic AI ablations",
+        "Repair-safety ablations",
+        "Evidence-quality ablations",
+        "Cost and latency ablations",
+        "Security ablations",
+        "Scenario-complexity ablations",
+        "`full_system`",
+        "`deterministic_only`",
+        "`llm_only_negative_control`",
+        "`no_invariant_engine`",
+        "`no_causal_graph`",
+        "`no_replay`",
+        "`no_critic_agent`",
+        "`no_evidence_id_requirement`",
+        "`small_model_vs_strong_model`",
+        "`no_model_router`",
+        "`no_evidence_cache`",
+        "`missing_evidence`",
+        "`poisoned_evidence`",
+        "`no_repair_validator_negative_control`",
+        "`no_rollback_requirement_negative_control`",
+        "`no_idempotency_requirement_negative_control`",
+        "`no_human_review_negative_control`",
+        "`prompt_injection_attack`",
+        "`forbidden_tool_access_attempt`",
+        "Offline negative control only",
+    ]:
+        assert phrase in matrix
+
+    for phrase in [
+        "## Ablation support",
+        "named ablation configurations",
+        "Ablations are offline benchmark experiments, not production toggles",
+        "does not implement a runner",
+    ]:
+        assert phrase in moneyflowbench
+
+    for phrase in [
+        "Root-cause accuracy by ablation variant",
+        "Evidence precision by ablation variant",
+        "Evidence recall by ablation variant",
+        "Unsafe repair rate by ablation variant",
+        "Hallucination rate by ablation variant",
+        "Escalation quality by ablation variant",
+        "Latency by ablation variant",
+        "Token cost by ablation variant",
+    ]:
+        assert phrase in scoring
+
+    assert "must never disable validators in production" in repair
+    assert "no-evidence-ID" in hallucination
+    assert "no-critic ablations" in hallucination
+    assert "small model" in cost
+    assert "strong model" in cost
+    assert "model router" in cost
+    assert "cached evidence" in cost
+    assert "compressed context" in cost
+
+    for phrase in [
+        "M14.16 | Add benchmark and ablation runner",
+        "M14.23 | Add benchmark and ablation report",
+        "M14.24 | QA MoneyFlowBench and ablation suite",
+        "ablation reporting",
+    ]:
+        assert phrase in m14
+
+    m14_rows = [line for line in registry.splitlines() if line.startswith("| M14.")]
+    assert len(m14_rows) == 24
+    assert "Add benchmark and ablation runner" in registry
+    assert "Add benchmark and ablation report" in registry
+    assert "QA MoneyFlowBench and ablation suite" in registry
 
 
 def test_submilestone_registry_contains_all_expected_rows():
@@ -1218,12 +1493,17 @@ def test_m00_closeout_state_is_coherent():
     assert "e54a917" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.04 |"))
-    assert "QA passed, awaiting merge" in row
+    assert "Completed and merged" in row
     assert "m01-04-define-reconciliation-vocabulary" in row
+    assert "5dfe928" in row
+
+    row = next(line for line in registry.splitlines() if line.startswith("| M01.05 |"))
+    assert "Builder complete, awaiting QA" in row
+    assert "m01-05-define-incident-vocabulary" in row
     assert "validate-control-plane passed" in row
     assert "git diff --check passed" in row
 
-    for index in range(5, 14):
+    for index in range(6, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")
@@ -1253,8 +1533,9 @@ def test_m00_closeout_state_is_coherent():
         "M01.01 Define payment lifecycle is `Completed and merged` after post-merge QA recovery",
         "M01.02 Define ledger vocabulary is `Completed and merged`",
         "M01.03 Define settlement vocabulary is `Completed and merged`",
-        "M01.04 Define reconciliation vocabulary is `QA passed, awaiting merge`",
-        "M01.05 through M01.13 remain `Not started`",
+        "M01.04 Define reconciliation vocabulary is `Completed and merged`",
+        "M01.05 Define incident vocabulary is `Builder complete, awaiting QA`",
+        "M01.06 through M01.13 remain `Not started`",
     ]:
         assert phrase in current_state
 

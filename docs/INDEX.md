@@ -68,12 +68,15 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/domain/ledger-vocabulary.md` - M01.02 ledger vocabulary and boundaries.
 - `docs/domain/settlement-vocabulary.md` - M01.03 settlement vocabulary and boundaries.
 - `docs/domain/reconciliation-vocabulary.md` - M01.04 reconciliation vocabulary and boundaries.
+- `docs/domain/incident-vocabulary.md` - M01.05 incident vocabulary and boundaries.
 - `docs/RELIABILITY.md` - deterministic-first reliability expectations.
 - `docs/THREAT_MODEL.md` - initial threat categories and unsafe action boundaries.
 - `docs/TOKEN_COST_STRATEGY.md` - cost and model-use strategy for future agentic work.
 - `docs/VERSIONING.md` - versioning policy and release tag discipline.
 - `docs/releases/RELEASE_LADDER.md` - planned release progression.
 - `docs/releases/V1_SCOPE.md` - minimum and stretch scope for `v1.0.0`.
+- `docs/evals/ABLATION_STRATEGY.md` - future offline benchmark ablation strategy.
+- `docs/evals/ABLATION_MATRIX.md` - planned ablation groups and negative controls.
 
 ## Milestone docs
 
@@ -91,4 +94,4 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-The repository has completed M00 and tagged the repo operating system foundation as `v0.1.0`. M01 planning is complete and merged, M01 is active, M01.01 Define Payment Lifecycle is recorded as `Completed and merged` after post-merge QA recovery, M01.02 Define Ledger Vocabulary is `Completed and merged`, M01.03 Define Settlement Vocabulary is `Completed and merged` at git commit `e54a917`, and M01.04 Define Reconciliation Vocabulary is `QA passed, awaiting merge`. The repo contains docs, plans, prompt templates, skills, placeholder directories, GitHub templates, versioning docs, domain vocabulary, and control-plane validation only. It does not contain product functionality.
+The repository has completed M00 and tagged the repo operating system foundation as `v0.1.0`. M01 planning is complete and merged, M01 is active, M01.01 Define Payment Lifecycle is recorded as `Completed and merged` after post-merge QA recovery, M01.02 Define Ledger Vocabulary is `Completed and merged`, M01.03 Define Settlement Vocabulary is `Completed and merged` at git commit `e54a917`, M01.04 Define Reconciliation Vocabulary is `Completed and merged` at git commit `5dfe928`, and M01.05 Define Incident Vocabulary is `Builder complete, awaiting QA`. The repo contains docs, plans, prompt templates, skills, placeholder directories, GitHub templates, versioning docs, domain vocabulary, ablation planning docs, and control-plane validation only. It does not contain product functionality.

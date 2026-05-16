@@ -10,7 +10,7 @@ The safety boundary is non-negotiable: LLM agents may investigate, summarize, an
 
 The first M01 implementation submilestone after this planning thread is `M01.01 Define payment lifecycle`.
 
-Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), and M01.04 Define reconciliation vocabulary is the current domain-documentation QA-passed slice on branch `m01-04-define-reconciliation-vocabulary`.
+Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is completed and merged at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), and M01.05 Define incident vocabulary is the current builder-complete slice awaiting QA on branch `m01-05-define-incident-vocabulary`.
 
 ## Progress
 
@@ -78,6 +78,15 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - [x] 2026-05-16: `make bootstrap-check` could not run for M01.04 QA because `make` is unavailable in the current Windows shell.
 - [x] 2026-05-16: Updated M01.04 tracking to `QA passed, awaiting merge` while leaving M01.05 through M01.13 and M02 through M21 `Not started`.
 - [x] 2026-05-16: Set the next recommended thread to `Merge M01.04 PR - Define Reconciliation Vocabulary`.
+- [x] 2026-05-16: Finalized M01.04 as completed and merged before starting M01.05; latest git history shows commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`).
+- [x] 2026-05-16: Started M01.05 builder on branch `m01-05-define-incident-vocabulary`; branch guard passed, the starting worktree was clean, and M01.05 was marked `Builder in progress`.
+- [x] 2026-05-16: Created `docs/domain/incident-vocabulary.md` as documentation-only M01.05 domain vocabulary.
+- [x] 2026-05-16: Created `docs/evals/ABLATION_STRATEGY.md` and `docs/evals/ABLATION_MATRIX.md` as documentation-only offline benchmark planning artifacts.
+- [x] 2026-05-16: Updated MoneyFlowBench evaluation placeholders, M14 wording, concise future milestone notes for M11, M12, M17, M18, and M20, V1 scope, domain links, entry docs, lightweight spec dependency notes, and control-plane validation coverage.
+- [x] 2026-05-16: Initial M01.05 `python scripts/validate-control-plane.py` run failed because two incident severity dimensions appeared only with initial capitals while validation expected lower-case phrases; lower-cased the scoped bullets and reran successfully.
+- [x] 2026-05-16: M01.05 validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 23 tests, and `git diff --check`.
+- [x] 2026-05-16: `make bootstrap-check` could not run for M01.05 builder because `make` is unavailable in the current Windows shell.
+- [x] 2026-05-16: Updated M01.05 tracking to `Builder complete, awaiting QA` while leaving M01.06 through M01.13 and M02 through M21 `Not started`.
 
 ## Surprises & Discoveries
 
@@ -90,6 +99,7 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - M01.02 needed ledger vocabulary terms that are precise enough for future ledger, invariant, incident, graph, replay, and repair work while remaining documentation-only.
 - M01.03 needs settlement vocabulary precise enough for future MoneyEvent, provider and bank simulator, invariant, incident, graph, replay, and connector work while remaining documentation-only.
 - M01.04 needs reconciliation vocabulary precise enough for future provider and bank simulator, invariant, incident, causal graph, replay, repair planner, and MoneyFlowBench work while remaining documentation-only.
+- M01.05 needs incident vocabulary precise enough for future invariants, incident engine, causal graph, replay, agentic investigation, repair planner, and MoneyFlowBench work while remaining documentation-only.
 
 ## Decision Log
 
@@ -106,6 +116,8 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - 2026-05-16: M01.03 QA passed as documentation-only settlement vocabulary work; the submilestone is safe for PR merge but must not be marked `Completed and merged` until merge is confirmed.
 - 2026-05-16: M01.03 is merged at commit `e54a917`; M01.04 may proceed as documentation-only reconciliation vocabulary work.
 - 2026-05-16: Keep reconciliation matching, tolerance evaluation, exception handling, invariant evaluation, incident creation, replay, repair planning, connectors, and ledger mutation deterministic future work; M01.04 defines vocabulary only and does not authorize agents to mutate money, post ledger entries, or resolve exceptions as financial truth.
+- 2026-05-16: M01.04 is merged at commit `5dfe928`; M01.05 may proceed as documentation-only incident vocabulary work plus scoped ablation roadmap/evaluation planning.
+- 2026-05-16: Ablation planning belongs to offline benchmark strategy and future roadmap notes only in this slice; dangerous ablations may be described as offline negative controls, not production toggles.
 
 ## Context and Orientation
 
@@ -120,8 +132,8 @@ Current M01 submilestone state:
 - `M01.01 Define payment lifecycle` - Completed and merged after post-merge QA recovery.
 - `M01.02 Define ledger vocabulary` - Completed and merged.
 - `M01.03 Define settlement vocabulary` - Completed and merged.
-- `M01.04 Define reconciliation vocabulary` - QA passed, awaiting merge.
-- `M01.05 Define incident vocabulary`
+- `M01.04 Define reconciliation vocabulary` - Completed and merged.
+- `M01.05 Define incident vocabulary` - Builder complete, awaiting QA.
 - `M01.06 Define safe and unsafe repairs`
 - `M01.07 Define evidence receipt model`
 - `M01.08 Define human review states`
@@ -131,7 +143,7 @@ Current M01 submilestone state:
 - `M01.12 Write THREAT_MODEL.md`
 - `M01.13 QA domain consistency`
 
-M01.05 through M01.13 remain planned scope only and are not started.
+M01.06 through M01.13 remain planned scope only and are not started.
 
 ## Scope
 
@@ -196,7 +208,7 @@ Completed M01.03 builder scope:
 - Keep M01.04 through M01.13 `Not started`.
 - Keep M02 through M21 `Not started`.
 
-Current M01.04 builder scope:
+Completed M01.04 builder scope:
 
 - Finalize M01.03 as completed and merged before M01.04 work.
 - Create `docs/domain/reconciliation-vocabulary.md`.
@@ -205,6 +217,19 @@ Current M01.04 builder scope:
 - Add lightweight domain-dependency notes to related spec placeholders.
 - Update M01.04 tracking and validation coverage.
 - Keep M01.05 through M01.13 `Not started`.
+- Keep M02 through M21 `Not started`.
+
+Completed M01.05 builder scope:
+
+- Finalize M01.04 as completed and merged before M01.05 work.
+- Create `docs/domain/incident-vocabulary.md`.
+- Define incident terms, actors, statuses, severity, types, paths, evidence examples, correctness questions, failure-pattern vocabulary, and boundaries.
+- Add ablation strategy planning in `docs/evals/ABLATION_STRATEGY.md` and `docs/evals/ABLATION_MATRIX.md`.
+- Add concise ablation support notes to MoneyFlowBench evaluation docs and future milestone docs without marking future milestones started.
+- Link the incident vocabulary doc from `docs/DOMAIN_MODEL.md`, `docs/domain/README.md`, `docs/INDEX.md`, and `README.md`.
+- Add lightweight domain-dependency notes to related spec placeholders.
+- Update M01.05 tracking and validation coverage.
+- Keep M01.06 through M01.13 `Not started`.
 - Keep M02 through M21 `Not started`.
 
 Out of scope:
@@ -227,9 +252,10 @@ Out of scope:
 - M01.02 product implementation or runtime behavior.
 - M01.03 product implementation or runtime behavior.
 - M01.04 product implementation or runtime behavior.
-- M01.05 implementation.
+- M01.05 product implementation or runtime behavior.
+- M01.06 implementation.
 - M02 implementation.
-- M02-M21 scope changes beyond the explicit M20.12 versioning wording correction.
+- M02-M21 started-status changes beyond explicit future-planning wording for ablation support in M11, M12, M14, M17, M18, and M20.
 
 ## Plan of Work
 
@@ -289,7 +315,7 @@ Completed M01.03 builder work:
 7. Add documentation-only validation checks.
 8. Run validation and record results before marking M01.03 `Builder complete, awaiting QA`.
 
-Current M01.04 builder work:
+Completed M01.04 builder work:
 
 1. Finalize M01.03 merge tracking from git history.
 2. Mark M01.04 as `Builder in progress`.
@@ -299,6 +325,18 @@ Current M01.04 builder work:
 6. Update M01.04 tracking files.
 7. Add documentation-only validation checks.
 8. Run validation and record results before marking M01.04 `Builder complete, awaiting QA`.
+
+Completed M01.05 builder work:
+
+1. Finalize M01.04 merge tracking from git history.
+2. Mark M01.05 as `Builder in progress`.
+3. Define incident vocabulary in `docs/domain/incident-vocabulary.md`.
+4. Add ablation strategy and ablation matrix planning docs.
+5. Link incident and ablation planning docs from domain and entry docs.
+6. Add lightweight domain-dependency notes to related spec placeholders.
+7. Update M01.05 tracking files.
+8. Add documentation-only validation checks.
+9. Run validation and record results before marking M01.05 `Builder complete, awaiting QA`.
 
 ## Concrete Steps
 
@@ -340,13 +378,14 @@ Acceptance criteria:
 - After post-merge QA recovery, M01.01 is `Completed and merged` with the protocol deviation recorded in notes.
 - M01.02 is `Completed and merged`.
 - M01.03 is `Completed and merged` at git commit `e54a917`.
-- M01.04 is `QA passed, awaiting merge` after QA validation passed; it must not be marked `Completed and merged` until PR merge confirmation.
-- M01.05 through M01.13 remain `Not started`.
+- M01.04 is `Completed and merged` at git commit `5dfe928`.
+- M01.05 is `Builder complete, awaiting QA`.
+- M01.06 through M01.13 remain `Not started`.
 - M02 through M21 remain `Not started`.
 - Product implementation has not started.
 - No forbidden runtime artifacts are added.
 - Validation passes or limitations are recorded.
-- Next recommended thread after M01.04 QA validation is `Merge M01.04 PR - Define Reconciliation Vocabulary`.
+- Next recommended thread after M01.05 builder validation is `M01.05 QA - Define Incident Vocabulary`.
 
 ## Idempotence and Recovery
 
@@ -430,6 +469,14 @@ Notes:
   - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 21 tests.
   - `git diff --check` passed.
   - `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell.
+- 2026-05-16 M01.05 builder validation results:
+  - Incident vocabulary documentation, ablation planning, tracking, validation coverage, and forbidden-scope review passed.
+  - Initial `python scripts/validate-control-plane.py` failed because the incident vocabulary doc used initial-capital severity dimension bullets while validation expected lower-case phrases.
+  - Lower-cased the scoped incident severity dimension bullets and reran validation successfully.
+  - `python scripts/validate-control-plane.py` passed.
+  - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 23 tests.
+  - `git diff --check` passed.
+  - `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell.
 
 ## Interfaces and Dependencies
 
@@ -441,7 +488,7 @@ M01 planning depends on:
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` for submilestone state.
 - `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md` for current operational direction.
 
-No product runtime interface is introduced by this M01 planning, M01.01 documentation work, M01.02 documentation work, M01.03 documentation work, or M01.04 documentation work.
+No product runtime interface is introduced by this M01 planning, M01.01 documentation work, M01.02 documentation work, M01.03 documentation work, M01.04 documentation work, or M01.05 documentation and evaluation-planning work.
 
 ## Outcomes & Retrospective
 
@@ -463,5 +510,6 @@ Current M01.01 builder outcome:
 - Product implementation remains not started.
 - M01.02 QA passed as documentation-only work and is completed and merged.
 - M01.03 is completed and merged as settlement vocabulary documentation only.
-- M01.04 is QA passed, awaiting merge as reconciliation vocabulary documentation only.
-- M01.05 through M01.13 remain not started.
+- M01.04 is completed and merged as reconciliation vocabulary documentation only.
+- M01.05 is builder complete, awaiting QA as incident vocabulary and ablation planning documentation only.
+- M01.06 through M01.13 remain not started.

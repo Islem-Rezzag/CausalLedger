@@ -2,6 +2,19 @@
 
 ## 2026-05-16
 
+- Finalized M01.04 Define Reconciliation Vocabulary as `Completed and merged` before starting M01.05; latest git history shows commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`).
+- Started M01.05 Define Incident Vocabulary builder on branch `m01-05-define-incident-vocabulary`; branch guard passed, the starting worktree was clean, latest commit was `5dfe928`, and `v0.1.0` exists.
+- Marked M01.05 `Builder in progress`; M01.06 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- Created `docs/domain/incident-vocabulary.md`, `docs/evals/ABLATION_STRATEGY.md`, and `docs/evals/ABLATION_MATRIX.md` as documentation-only artifacts.
+- Updated MoneyFlowBench evaluation placeholders, M14 wording, lightweight future milestone notes for M11, M12, M17, M18, and M20, V1 scope, entry docs, domain links, spec dependency notes, tracking, and validation coverage.
+- Initial M01.05 `python scripts/validate-control-plane.py` run failed because two incident severity dimensions appeared only with initial capitals while validation expected lower-case phrases; lower-cased the scoped bullets and reran successfully.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.05 builder.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 23 tests for M01.05 builder.
+- Ran `git diff --check` successfully for M01.05 builder.
+- Confirmed `make` is unavailable in the current Windows shell with `Get-Command make -ErrorAction SilentlyContinue`.
+- `make bootstrap-check` could not run for M01.05 builder because `make` is unavailable in the current Windows shell.
+- Marked M01.05 `Builder complete, awaiting QA`; M01.06 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- Recommended next thread: `M01.05 QA - Define Incident Vocabulary`.
 - Reviewed M01.04 Define Reconciliation Vocabulary as QA on branch `m01-04-define-reconciliation-vocabulary`; branch guard passed and the starting worktree was clean.
 - Verified `docs/domain/reconciliation-vocabulary.md`, domain links, lightweight spec dependency notes, tracking, validation coverage, and forbidden-scope boundaries.
 - Ran `python scripts/validate-control-plane.py` successfully for M01.04 QA.
