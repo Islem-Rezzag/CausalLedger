@@ -2,6 +2,16 @@
 
 ## 2026-05-16
 
+- Started M01.05 post-merge QA recovery on branch `m01-05-qa-recovery-incident-vocabulary-ablation-strategy` after builder PR #16 was accidentally squash-merged before the required QA thread; branch guard passed, the starting worktree was clean, latest commit was `5c3943b`, and `v0.1.0` exists.
+- Audited `docs/domain/incident-vocabulary.md`, ablation planning docs, MoneyFlowBench/eval notes, future milestone ablation notes, tracking/status files, validation coverage, and forbidden-scope boundaries.
+- Found no product implementation, runtime logic, ablation runner, benchmark code, runtime toggles, connectors, CI workflows, or future milestone start.
+- Applied scoped M01.05 QA recovery clarifications to incident vocabulary boundary wording, tracking/status files, and validation expectations.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.05 QA recovery.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 23 tests for M01.05 QA recovery.
+- Ran `git diff --check` successfully for M01.05 QA recovery.
+- `make bootstrap-check` could not run for M01.05 QA recovery because `make` is unavailable in the current Windows shell.
+- Marked M01.05 `QA recovery passed, awaiting recovery PR merge`; M01.06 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- Recommended next thread: `Merge M01.05 QA Recovery PR - Incident Vocabulary and Ablation Strategy`.
 - Finalized M01.04 Define Reconciliation Vocabulary as `Completed and merged` before starting M01.05; latest git history shows commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`).
 - Started M01.05 Define Incident Vocabulary builder on branch `m01-05-define-incident-vocabulary`; branch guard passed, the starting worktree was clean, latest commit was `5dfe928`, and `v0.1.0` exists.
 - Marked M01.05 `Builder in progress`; M01.06 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
