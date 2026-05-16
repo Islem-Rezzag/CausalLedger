@@ -4,7 +4,7 @@
 
 M01 domain index. This file tracks which domain areas are defined and which remain intentionally undefined until their scoped M01 submilestones.
 
-The domain model is not complete. Payment lifecycle vocabulary is defined in M01.01, ledger vocabulary is defined in M01.02, and remaining M01 domain areas are not yet defined.
+The domain model is not complete. Payment lifecycle vocabulary is defined in M01.01, ledger vocabulary is defined in M01.02, settlement vocabulary is defined in M01.03, and remaining M01 domain areas are not yet defined.
 
 ## Product thesis
 
@@ -20,6 +20,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 | --- | --- | --- |
 | Payment lifecycle | Defined in M01.01 | [docs/domain/payment-lifecycle.md](domain/payment-lifecycle.md) |
 | Ledger vocabulary | Defined in M01.02 | [docs/domain/ledger-vocabulary.md](domain/ledger-vocabulary.md) |
+| Settlement vocabulary | Defined in M01.03 | [docs/domain/settlement-vocabulary.md](domain/settlement-vocabulary.md) |
 
 ## Domain documentation boundary
 
@@ -27,7 +28,6 @@ Domain documents define vocabulary, scope, and boundaries. They do not implement
 
 ## Remaining M01 domain areas not yet defined
 
-- Settlement vocabulary.
 - Reconciliation vocabulary.
 - Incident vocabulary.
 - Safe and unsafe repairs.

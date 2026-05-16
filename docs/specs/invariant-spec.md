@@ -4,4 +4,4 @@ Placeholder for deterministic invariant definitions. No invariant engine is impl
 
 ## Domain dependency
 
-Future invariant work may use the M01.01 payment lifecycle questions and failure-pattern vocabulary in `docs/domain/payment-lifecycle.md` and the M01.02 ledger correctness questions and failure-pattern vocabulary in `docs/domain/ledger-vocabulary.md`. This note is a dependency pointer only; it does not define invariant logic.
+Future invariant work may use the M01.01 payment lifecycle questions and failure-pattern vocabulary in `docs/domain/payment-lifecycle.md`, the M01.02 ledger correctness questions and failure-pattern vocabulary in `docs/domain/ledger-vocabulary.md`, and settlement correctness questions and failure-pattern vocabulary in `docs/domain/settlement-vocabulary.md`. This note is a dependency pointer only; it does not define invariant logic.

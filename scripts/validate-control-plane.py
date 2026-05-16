@@ -22,6 +22,7 @@ REQUIRED_FILES = [
     "docs/domain/README.md",
     "docs/domain/payment-lifecycle.md",
     "docs/domain/ledger-vocabulary.md",
+    "docs/domain/settlement-vocabulary.md",
     "docs/RELIABILITY.md",
     "docs/THREAT_MODEL.md",
     "docs/TOKEN_COST_STRATEGY.md",
@@ -343,7 +344,7 @@ REQUIRED_TEXT = {
         "M01 freezes CausalLedger domain language, boundaries, and non-goals",
         "M01 must not implement APIs, databases, ledger logic, MoneyEvent runtime code, invariants, agent runtime, repair planner, UI, external connectors, GitHub Actions, CI workflows, or product behavior",
         "M01 planning is complete and merged at git commit `2cfd75a`",
-        "M01.02 Define ledger vocabulary is the current domain-documentation submilestone",
+        "M01.03 Define settlement vocabulary is the current domain-documentation submilestone",
         "post-merge QA recovery",
         "M01.01 Define payment lifecycle",
         "M01.02 Define ledger vocabulary",
@@ -358,16 +359,18 @@ REQUIRED_TEXT = {
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "M01.03 through M01.13 remain planned scope only and are not started",
+        "M01.04 through M01.13 remain planned scope only and are not started",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
+        "docs/domain/settlement-vocabulary.md",
     ],
     "docs/domain/README.md": [
         "domain vocabulary",
         "not implement runtime behavior",
         "Payment lifecycle",
         "Ledger vocabulary",
+        "Settlement vocabulary",
     ],
     "docs/domain/payment-lifecycle.md": [
         "No runtime implementation is defined or claimed",
@@ -456,11 +459,108 @@ REQUIRED_TEXT = {
         "CausalLedger will not let the LLM decide whether a ledger transaction balances",
         "These are vocabulary terms only, not implemented invariants",
     ],
+    "docs/domain/settlement-vocabulary.md": [
+        "No runtime implementation is defined or claimed",
+        "## Purpose",
+        "## Settlement scope",
+        "## What this document defines",
+        "## What this document does not define",
+        "## Relationship to payment lifecycle vocabulary",
+        "## Relationship to ledger vocabulary",
+        "## Relationship to future MoneyEvent schema",
+        "## Relationship to future provider and bank simulator",
+        "## Relationship to future invariant engine",
+        "## Relationship to future incident engine",
+        "## Relationship to future causal graph",
+        "## Relationship to future replay engine",
+        "## Relationship to future connector work",
+        "## Core settlement concepts",
+        "## Settlement actors and systems",
+        "## Settlement statuses",
+        "## Settlement paths",
+        "## Settlement evidence examples",
+        "## Questions CausalLedger asks about settlement",
+        "## Settlement failure patterns",
+        "## Boundaries with other M01 areas",
+        "settlement",
+        "clearing",
+        "payout",
+        "provider payout",
+        "settlement batch",
+        "settlement report",
+        "settlement file",
+        "settlement row",
+        "settlement period",
+        "settlement window",
+        "settlement cut-off time",
+        "settlement date",
+        "value date",
+        "payout date",
+        "bank posting date",
+        "gross settlement amount",
+        "net settlement amount",
+        "fee deduction",
+        "rolling reserve",
+        "reserve release",
+        "chargeback deduction",
+        "refund deduction",
+        "payout reference",
+        "settlement reference",
+        "bank statement reference",
+        "provider balance",
+        "pending balance",
+        "available balance",
+        "settlement currency",
+        "payout currency",
+        "FX settlement",
+        "settlement status",
+        "Payment provider or PSP",
+        "Acquiring bank",
+        "Finance operations user",
+        "`settlement_pending`",
+        "`settlement_batched`",
+        "`settlement_file_received`",
+        "`settlement_report_received`",
+        "`payout_created`",
+        "`payout_in_transit`",
+        "`payout_paid`",
+        "`payout_failed`",
+        "`payout_reversed`",
+        "`settlement_adjusted`",
+        "`reserve_held`",
+        "`reserve_released`",
+        "`bank_posted`",
+        "`settlement_reconciled`",
+        "`settlement_unresolved`",
+        "Captured payments -> settlement batch -> payout created -> payout paid -> bank posted -> settlement reconciled",
+        "Provider payout object",
+        "Did captured payments appear in a settlement batch?",
+        "Did provider payout totals match expected gross minus fees, refunds, chargebacks, and reserves?",
+        "Missing settlement row",
+        "Duplicate settlement row",
+        "Missing payout",
+        "Failed payout",
+        "Payout amount mismatch",
+        "Payout currency mismatch",
+        "Bank posting missing",
+        "Fee not explained",
+        "Reserve held without release reference",
+        "Settlement ledger divergence",
+        "These failure patterns are vocabulary only",
+        "Payment lifecycle vocabulary belongs to M01.01",
+        "Ledger vocabulary belongs to M01.02",
+        "Reconciliation vocabulary belongs to M01.04",
+        "Incident vocabulary belongs to M01.05",
+        "Safe and unsafe repair vocabulary belongs to M01.06",
+        "Evidence receipt model belongs to M01.07",
+        "Human review states belong to M01.08",
+    ],
     "docs/DOMAIN_MODEL.md": [
         "M01 domain index",
         "Payment lifecycle",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
+        "docs/domain/settlement-vocabulary.md",
         "The domain model is not complete",
         "Ledger vocabulary",
         "Settlement vocabulary",
@@ -606,21 +706,35 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "QA passed, awaiting merge",
+        "Completed and merged",
         "m01-02-define-ledger-vocabulary",
-        "test: QA M01.02 ledger vocabulary",
+        "fd1e259",
     ]:
         if phrase not in row:
-            errors.append(f"M01.02 registry row missing QA marker: {phrase}")
+            errors.append(f"M01.02 registry row missing merge marker: {phrase}")
 
-    for index in range(3, 14):
+    row = next(
+        (line for line in registry.splitlines() if line.startswith("| M01.03 |")),
+        "",
+    )
+    for phrase in [
+        "QA passed, awaiting merge",
+        "m01-03-define-settlement-vocabulary",
+        "validate-control-plane passed",
+        "pytest",
+        "git diff --check passed",
+    ]:
+        if phrase not in row:
+            errors.append(f"M01.03 registry row missing QA marker: {phrase}")
+
+    for index in range(4, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             (line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")),
             "",
         )
         if "Not started" not in row:
-            errors.append(f"{submilestone} is not Not started during M01.02 QA")
+            errors.append(f"{submilestone} is not Not started during M01.03 QA")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -714,20 +828,23 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "Merge M01.02 PR - Define Ledger Vocabulary" not in next_thread:
+    if "Merge M01.03 PR - Define Settlement Vocabulary" not in next_thread:
         errors.append(
-            "Next recommended thread is not Merge M01.02 PR - Define Ledger Vocabulary"
+            "Next recommended thread is not Merge M01.03 PR - Define Settlement Vocabulary"
         )
-    if "Do not start M01.03" not in next_thread:
-        errors.append("Next recommended thread does not block M01.03 until M01.02 merge")
+    if "Do not start M01.04" not in next_thread:
+        errors.append("Next recommended thread does not block M01.04 until M01.03 QA and merge")
 
     domain_doc = ROOT / "docs/domain/payment-lifecycle.md"
     ledger_doc = ROOT / "docs/domain/ledger-vocabulary.md"
+    settlement_doc = ROOT / "docs/domain/settlement-vocabulary.md"
     domain_index = ROOT / "docs/DOMAIN_MODEL.md"
     if not domain_doc.is_file():
         errors.append("M01.01 payment lifecycle doc is missing")
     if not ledger_doc.is_file():
         errors.append("M01.02 ledger vocabulary doc is missing")
+    if not settlement_doc.is_file():
+        errors.append("M01.03 settlement vocabulary doc is missing")
     if domain_doc.is_file():
         text = domain_doc.read_text(encoding="utf-8")
         forbidden_claims = [
@@ -752,18 +869,34 @@ def closeout_state_errors():
         for claim in forbidden_claims:
             if claim in text:
                 errors.append(f"Ledger vocabulary doc makes forbidden runtime claim: {claim}")
+    if settlement_doc.is_file():
+        text = settlement_doc.read_text(encoding="utf-8")
+        forbidden_claims = [
+            "implements MoneyEvent",
+            "implements ledger",
+            "implements invariants",
+            "runtime implementation is complete",
+            "schema is defined",
+        ]
+        for claim in forbidden_claims:
+            if claim in text:
+                errors.append(f"Settlement vocabulary doc makes forbidden runtime claim: {claim}")
     if domain_index.is_file():
         text = domain_index.read_text(encoding="utf-8")
         if "docs/domain/payment-lifecycle.md" not in text:
             errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/payment-lifecycle.md")
         if "docs/domain/ledger-vocabulary.md" not in text:
             errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/ledger-vocabulary.md")
+        if "docs/domain/settlement-vocabulary.md" not in text:
+            errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/settlement-vocabulary.md")
 
     domain_readme = ROOT / "docs/domain/README.md"
     if domain_readme.is_file():
         text = domain_readme.read_text(encoding="utf-8")
         if "docs/domain/ledger-vocabulary.md" not in text and "ledger-vocabulary.md" not in text:
             errors.append("docs/domain/README.md does not reference docs/domain/ledger-vocabulary.md")
+        if "docs/domain/settlement-vocabulary.md" not in text and "settlement-vocabulary.md" not in text:
+            errors.append("docs/domain/README.md does not reference docs/domain/settlement-vocabulary.md")
 
     return errors
 
