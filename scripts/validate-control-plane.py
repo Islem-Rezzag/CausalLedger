@@ -23,6 +23,7 @@ REQUIRED_FILES = [
     "docs/domain/payment-lifecycle.md",
     "docs/domain/ledger-vocabulary.md",
     "docs/domain/settlement-vocabulary.md",
+    "docs/domain/reconciliation-vocabulary.md",
     "docs/RELIABILITY.md",
     "docs/THREAT_MODEL.md",
     "docs/TOKEN_COST_STRATEGY.md",
@@ -344,7 +345,7 @@ REQUIRED_TEXT = {
         "M01 freezes CausalLedger domain language, boundaries, and non-goals",
         "M01 must not implement APIs, databases, ledger logic, MoneyEvent runtime code, invariants, agent runtime, repair planner, UI, external connectors, GitHub Actions, CI workflows, or product behavior",
         "M01 planning is complete and merged at git commit `2cfd75a`",
-        "M01.03 Define settlement vocabulary is the current domain-documentation submilestone",
+        "M01.04 Define reconciliation vocabulary is the current domain-documentation QA-passed slice",
         "post-merge QA recovery",
         "M01.01 Define payment lifecycle",
         "M01.02 Define ledger vocabulary",
@@ -359,11 +360,12 @@ REQUIRED_TEXT = {
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "M01.04 through M01.13 remain planned scope only and are not started",
+        "M01.05 through M01.13 remain planned scope only and are not started",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
+        "docs/domain/reconciliation-vocabulary.md",
     ],
     "docs/domain/README.md": [
         "domain vocabulary",
@@ -371,6 +373,7 @@ REQUIRED_TEXT = {
         "Payment lifecycle",
         "Ledger vocabulary",
         "Settlement vocabulary",
+        "Reconciliation vocabulary",
     ],
     "docs/domain/payment-lifecycle.md": [
         "No runtime implementation is defined or claimed",
@@ -555,12 +558,152 @@ REQUIRED_TEXT = {
         "Evidence receipt model belongs to M01.07",
         "Human review states belong to M01.08",
     ],
+    "docs/domain/reconciliation-vocabulary.md": [
+        "No runtime implementation is defined or claimed",
+        "## Purpose",
+        "## Reconciliation scope",
+        "## What this document defines",
+        "## What this document does not define",
+        "## Relationship to payment lifecycle vocabulary",
+        "## Relationship to ledger vocabulary",
+        "## Relationship to settlement vocabulary",
+        "## Relationship to future MoneyEvent schema",
+        "## Relationship to future provider and bank simulator",
+        "## Relationship to future invariant engine",
+        "## Relationship to future incident engine",
+        "## Relationship to future causal graph",
+        "## Relationship to future replay engine",
+        "## Relationship to future repair planner",
+        "## Relationship to future MoneyFlowBench scenarios",
+        "## Core reconciliation concepts",
+        "## Reconciliation sources and targets",
+        "## Reconciliation statuses",
+        "## Reconciliation paths",
+        "## Reconciliation evidence examples",
+        "## Questions CausalLedger asks about reconciliation",
+        "## Reconciliation failure patterns",
+        "## Boundaries with other M01 areas",
+        "reconciliation",
+        "reconciliation run",
+        "reconciliation period",
+        "reconciliation window",
+        "source record",
+        "target record",
+        "internal record",
+        "external record",
+        "expected record",
+        "observed record",
+        "matching",
+        "match candidate",
+        "confirmed match",
+        "unmatched record",
+        "partial match",
+        "one-to-one match",
+        "one-to-many match",
+        "many-to-one match",
+        "many-to-many match",
+        "matching key",
+        "reference key",
+        "amount match",
+        "currency match",
+        "date match",
+        "tolerance",
+        "variance",
+        "break",
+        "exception",
+        "aged exception",
+        "unresolved exception",
+        "resolved exception",
+        "false positive",
+        "false negative",
+        "suspense",
+        "write-off",
+        "manual adjustment",
+        "reconciliation status",
+        "Payment provider events",
+        "Provider settlement reports",
+        "Provider payout reports",
+        "Bank statement lines",
+        "Internal payment records",
+        "Internal ledger records",
+        "Support or operations notes, as evidence context only",
+        "provider data to internal payment state",
+        "provider settlement rows to ledger postings",
+        "provider payout totals to bank statement lines",
+        "`reconciliation_not_started`",
+        "`reconciliation_in_progress`",
+        "`matched`",
+        "`partially_matched`",
+        "`unmatched_internal`",
+        "`unmatched_external`",
+        "`amount_mismatch`",
+        "`currency_mismatch`",
+        "`timing_mismatch`",
+        "`reference_mismatch`",
+        "`duplicate_match`",
+        "`ambiguous_match`",
+        "`exception_open`",
+        "`exception_in_review`",
+        "`exception_resolved`",
+        "`reconciliation_complete`",
+        "`reconciliation_unresolved`",
+        "Expected internal record -> observed external record -> confirmed match -> `reconciliation_complete`",
+        "Expected internal amount -> observed external amount differs -> variance -> `exception_open`",
+        "Expected payout -> no bank line yet -> `timing_mismatch` -> later `bank_posted` -> `matched`",
+        "External provider or bank record appears with no internal record -> `unmatched_external` -> `exception_open`",
+        "Internal payment, ledger, or payout expectation exists with no provider or bank record -> `unmatched_internal` -> `exception_open`",
+        "Batch total matches but individual rows require breakdown -> `partially_matched` -> `exception_in_review`",
+        "One external record maps to multiple internal records unexpectedly -> `duplicate_match` -> `exception_open`",
+        "Multiple possible records have similar references or amounts -> `ambiguous_match` -> `exception_in_review`",
+        "`exception_open` -> evidence attached -> explanation accepted -> `exception_resolved`",
+        "Provider payment event",
+        "Provider settlement row",
+        "Provider payout object",
+        "Bank statement line",
+        "Ledger transaction",
+        "Ledger entry",
+        "Evidence bundle reference",
+        "Replay result reference",
+        "Did every expected internal record find a corresponding external record?",
+        "Did every external record map to a known internal record?",
+        "Is a difference explained by fees, refunds, chargebacks, reserves, FX, timing, or adjustments?",
+        "Unmatched internal record",
+        "Unmatched external record",
+        "Amount mismatch",
+        "Currency mismatch",
+        "Timing mismatch",
+        "Reference mismatch",
+        "Duplicate match",
+        "Ambiguous match",
+        "False match",
+        "Missing bank line",
+        "Missing settlement row",
+        "Missing ledger posting",
+        "Unexplained fee variance",
+        "Unexplained refund variance",
+        "Unexplained chargeback variance",
+        "Reserve mismatch",
+        "FX variance",
+        "Aged exception",
+        "Unresolved exception",
+        "Reconciliation ledger divergence",
+        "Reconciliation settlement divergence",
+        "These failure patterns are vocabulary only",
+        "Payment lifecycle vocabulary belongs to M01.01",
+        "Ledger vocabulary belongs to M01.02",
+        "Settlement vocabulary belongs to M01.03",
+        "Incident vocabulary belongs to M01.05",
+        "Safe and unsafe repair vocabulary belongs to M01.06",
+        "Evidence receipt model belongs to M01.07",
+        "Human review states belong to M01.08",
+    ],
     "docs/DOMAIN_MODEL.md": [
         "M01 domain index",
         "Payment lifecycle",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
+        "docs/domain/reconciliation-vocabulary.md",
         "The domain model is not complete",
         "Ledger vocabulary",
         "Settlement vocabulary",
@@ -718,23 +861,35 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "QA passed, awaiting merge",
+        "Completed and merged",
         "m01-03-define-settlement-vocabulary",
+        "e54a917",
+    ]:
+        if phrase not in row:
+            errors.append(f"M01.03 registry row missing merge marker: {phrase}")
+
+    row = next(
+        (line for line in registry.splitlines() if line.startswith("| M01.04 |")),
+        "",
+    )
+    for phrase in [
+        "QA passed, awaiting merge",
+        "m01-04-define-reconciliation-vocabulary",
         "validate-control-plane passed",
         "pytest",
         "git diff --check passed",
     ]:
         if phrase not in row:
-            errors.append(f"M01.03 registry row missing QA marker: {phrase}")
+            errors.append(f"M01.04 registry row missing QA marker: {phrase}")
 
-    for index in range(4, 14):
+    for index in range(5, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             (line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")),
             "",
         )
         if "Not started" not in row:
-            errors.append(f"{submilestone} is not Not started during M01.03 QA")
+            errors.append(f"{submilestone} is not Not started during M01.04 QA")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -828,16 +983,17 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "Merge M01.03 PR - Define Settlement Vocabulary" not in next_thread:
+    if "Merge M01.04 PR - Define Reconciliation Vocabulary" not in next_thread:
         errors.append(
-            "Next recommended thread is not Merge M01.03 PR - Define Settlement Vocabulary"
+            "Next recommended thread is not Merge M01.04 PR - Define Reconciliation Vocabulary"
         )
-    if "Do not start M01.04" not in next_thread:
-        errors.append("Next recommended thread does not block M01.04 until M01.03 QA and merge")
+    if "Do not start M01.05" not in next_thread:
+        errors.append("Next recommended thread does not block M01.05 until M01.04 merge")
 
     domain_doc = ROOT / "docs/domain/payment-lifecycle.md"
     ledger_doc = ROOT / "docs/domain/ledger-vocabulary.md"
     settlement_doc = ROOT / "docs/domain/settlement-vocabulary.md"
+    reconciliation_doc = ROOT / "docs/domain/reconciliation-vocabulary.md"
     domain_index = ROOT / "docs/DOMAIN_MODEL.md"
     if not domain_doc.is_file():
         errors.append("M01.01 payment lifecycle doc is missing")
@@ -845,6 +1001,8 @@ def closeout_state_errors():
         errors.append("M01.02 ledger vocabulary doc is missing")
     if not settlement_doc.is_file():
         errors.append("M01.03 settlement vocabulary doc is missing")
+    if not reconciliation_doc.is_file():
+        errors.append("M01.04 reconciliation vocabulary doc is missing")
     if domain_doc.is_file():
         text = domain_doc.read_text(encoding="utf-8")
         forbidden_claims = [
@@ -881,6 +1039,18 @@ def closeout_state_errors():
         for claim in forbidden_claims:
             if claim in text:
                 errors.append(f"Settlement vocabulary doc makes forbidden runtime claim: {claim}")
+    if reconciliation_doc.is_file():
+        text = reconciliation_doc.read_text(encoding="utf-8")
+        forbidden_claims = [
+            "implements MoneyEvent",
+            "implements ledger",
+            "implements invariants",
+            "runtime implementation is complete",
+            "schema is defined",
+        ]
+        for claim in forbidden_claims:
+            if claim in text:
+                errors.append(f"Reconciliation vocabulary doc makes forbidden runtime claim: {claim}")
     if domain_index.is_file():
         text = domain_index.read_text(encoding="utf-8")
         if "docs/domain/payment-lifecycle.md" not in text:
@@ -889,6 +1059,8 @@ def closeout_state_errors():
             errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/ledger-vocabulary.md")
         if "docs/domain/settlement-vocabulary.md" not in text:
             errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/settlement-vocabulary.md")
+        if "docs/domain/reconciliation-vocabulary.md" not in text:
+            errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/reconciliation-vocabulary.md")
 
     domain_readme = ROOT / "docs/domain/README.md"
     if domain_readme.is_file():
@@ -897,6 +1069,8 @@ def closeout_state_errors():
             errors.append("docs/domain/README.md does not reference docs/domain/ledger-vocabulary.md")
         if "docs/domain/settlement-vocabulary.md" not in text and "settlement-vocabulary.md" not in text:
             errors.append("docs/domain/README.md does not reference docs/domain/settlement-vocabulary.md")
+        if "docs/domain/reconciliation-vocabulary.md" not in text and "reconciliation-vocabulary.md" not in text:
+            errors.append("docs/domain/README.md does not reference docs/domain/reconciliation-vocabulary.md")
 
     return errors
 

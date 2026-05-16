@@ -10,7 +10,7 @@ The safety boundary is non-negotiable: LLM agents may investigate, summarize, an
 
 The first M01 implementation submilestone after this planning thread is `M01.01 Define payment lifecycle`.
 
-Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), and M01.03 Define settlement vocabulary is the current domain-documentation submilestone with QA passed, awaiting merge on branch `m01-03-define-settlement-vocabulary`.
+Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), and M01.04 Define reconciliation vocabulary is the current domain-documentation QA-passed slice on branch `m01-04-define-reconciliation-vocabulary`.
 
 ## Progress
 
@@ -65,6 +65,19 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - [x] 2026-05-16: Completed M01.03 QA review on branch `m01-03-define-settlement-vocabulary`; branch guard passed, starting worktree was clean, latest commit was `08ebdb5`, and `v0.1.0` exists.
 - [x] 2026-05-16: QA verified settlement vocabulary content, domain links, lightweight spec dependency notes, tracking/status files, validation coverage, and forbidden-scope boundaries with no product implementation.
 - [x] 2026-05-16: Updated M01.03 tracking to `QA passed, awaiting merge` while leaving M01.04 through M01.13 and M02 through M21 `Not started`.
+- [x] 2026-05-16: Finalized M01.03 as completed and merged before starting M01.04; local `main` and `origin/main` point to commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`).
+- [x] 2026-05-16: Started M01.04 builder on branch `m01-04-define-reconciliation-vocabulary`; branch guard passed, the starting worktree was clean, and M01.04 was marked `Builder in progress`.
+- [x] 2026-05-16: Created `docs/domain/reconciliation-vocabulary.md` as documentation-only M01.04 domain vocabulary.
+- [x] 2026-05-16: Updated the M01 domain index, domain README, active docs, README, docs index, and lightweight spec dependency notes to reference reconciliation vocabulary without defining runtime schemas or behavior.
+- [x] 2026-05-16: Updated control-plane validation and bootstrap tests for reconciliation vocabulary documentation coverage.
+- [x] 2026-05-16: M01.04 validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 21 tests, and `git diff --check`.
+- [x] 2026-05-16: `make bootstrap-check` could not run for M01.04 builder because `make` is unavailable in the current Windows shell.
+- [x] 2026-05-16: Updated M01.04 tracking to `Builder complete, awaiting QA` while leaving M01.05 through M01.13 and M02 through M21 `Not started`.
+- [x] 2026-05-16: QA reviewed M01.04 reconciliation vocabulary, domain links, lightweight spec dependency notes, tracking, validation coverage, and forbidden-scope boundaries.
+- [x] 2026-05-16: M01.04 QA validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 21 tests, and `git diff --check`.
+- [x] 2026-05-16: `make bootstrap-check` could not run for M01.04 QA because `make` is unavailable in the current Windows shell.
+- [x] 2026-05-16: Updated M01.04 tracking to `QA passed, awaiting merge` while leaving M01.05 through M01.13 and M02 through M21 `Not started`.
+- [x] 2026-05-16: Set the next recommended thread to `Merge M01.04 PR - Define Reconciliation Vocabulary`.
 
 ## Surprises & Discoveries
 
@@ -76,6 +89,7 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - M01.01 builder PR #11 was accidentally squash-merged before the required QA thread; this plan records that the post-merge QA recovery path was completed before M01.02 began.
 - M01.02 needed ledger vocabulary terms that are precise enough for future ledger, invariant, incident, graph, replay, and repair work while remaining documentation-only.
 - M01.03 needs settlement vocabulary precise enough for future MoneyEvent, provider and bank simulator, invariant, incident, graph, replay, and connector work while remaining documentation-only.
+- M01.04 needs reconciliation vocabulary precise enough for future provider and bank simulator, invariant, incident, causal graph, replay, repair planner, and MoneyFlowBench work while remaining documentation-only.
 
 ## Decision Log
 
@@ -90,6 +104,8 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - 2026-05-15: M01.02 is merged at commit `fd1e259`; M01.03 may proceed as documentation-only settlement vocabulary work.
 - 2026-05-15: Keep settlement matching, reconciliation, invariant evaluation, incident creation, replay, connector ingestion, and repair behavior deterministic future work; M01.03 defines vocabulary only and does not authorize agents to mutate money or ledger state.
 - 2026-05-16: M01.03 QA passed as documentation-only settlement vocabulary work; the submilestone is safe for PR merge but must not be marked `Completed and merged` until merge is confirmed.
+- 2026-05-16: M01.03 is merged at commit `e54a917`; M01.04 may proceed as documentation-only reconciliation vocabulary work.
+- 2026-05-16: Keep reconciliation matching, tolerance evaluation, exception handling, invariant evaluation, incident creation, replay, repair planning, connectors, and ledger mutation deterministic future work; M01.04 defines vocabulary only and does not authorize agents to mutate money, post ledger entries, or resolve exceptions as financial truth.
 
 ## Context and Orientation
 
@@ -103,8 +119,8 @@ Current M01 submilestone state:
 
 - `M01.01 Define payment lifecycle` - Completed and merged after post-merge QA recovery.
 - `M01.02 Define ledger vocabulary` - Completed and merged.
-- `M01.03 Define settlement vocabulary` - QA passed, awaiting merge.
-- `M01.04 Define reconciliation vocabulary`
+- `M01.03 Define settlement vocabulary` - Completed and merged.
+- `M01.04 Define reconciliation vocabulary` - QA passed, awaiting merge.
 - `M01.05 Define incident vocabulary`
 - `M01.06 Define safe and unsafe repairs`
 - `M01.07 Define evidence receipt model`
@@ -115,7 +131,7 @@ Current M01 submilestone state:
 - `M01.12 Write THREAT_MODEL.md`
 - `M01.13 QA domain consistency`
 
-M01.04 through M01.13 remain planned scope only and are not started.
+M01.05 through M01.13 remain planned scope only and are not started.
 
 ## Scope
 
@@ -169,7 +185,7 @@ Completed M01.02 QA scope:
 - Keep M01.03 through M01.13 `Not started`.
 - Keep M02 through M21 `Not started`.
 
-Current M01.03 builder scope:
+Completed M01.03 builder scope:
 
 - Finalize M01.02 as completed and merged before M01.03 work.
 - Create `docs/domain/settlement-vocabulary.md`.
@@ -178,6 +194,17 @@ Current M01.03 builder scope:
 - Add lightweight domain-dependency notes to related spec placeholders.
 - Update M01.03 tracking and validation coverage.
 - Keep M01.04 through M01.13 `Not started`.
+- Keep M02 through M21 `Not started`.
+
+Current M01.04 builder scope:
+
+- Finalize M01.03 as completed and merged before M01.04 work.
+- Create `docs/domain/reconciliation-vocabulary.md`.
+- Define reconciliation terms, sources and targets, statuses, paths, evidence examples, correctness questions, and failure-pattern vocabulary.
+- Link the reconciliation vocabulary doc from `docs/DOMAIN_MODEL.md`, `docs/domain/README.md`, `docs/INDEX.md`, and `README.md`.
+- Add lightweight domain-dependency notes to related spec placeholders.
+- Update M01.04 tracking and validation coverage.
+- Keep M01.05 through M01.13 `Not started`.
 - Keep M02 through M21 `Not started`.
 
 Out of scope:
@@ -199,7 +226,8 @@ Out of scope:
 - M01.01 product implementation or runtime behavior.
 - M01.02 product implementation or runtime behavior.
 - M01.03 product implementation or runtime behavior.
-- M01.04 implementation.
+- M01.04 product implementation or runtime behavior.
+- M01.05 implementation.
 - M02 implementation.
 - M02-M21 scope changes beyond the explicit M20.12 versioning wording correction.
 
@@ -250,7 +278,7 @@ Completed M01.02 builder work:
 7. Add documentation-only validation checks.
 8. Run validation and record results before marking M01.02 `Builder complete, awaiting QA`.
 
-Current M01.03 builder work:
+Completed M01.03 builder work:
 
 1. Finalize M01.02 merge tracking from git history.
 2. Mark M01.03 as `Builder in progress`.
@@ -260,6 +288,17 @@ Current M01.03 builder work:
 6. Update M01.03 tracking files.
 7. Add documentation-only validation checks.
 8. Run validation and record results before marking M01.03 `Builder complete, awaiting QA`.
+
+Current M01.04 builder work:
+
+1. Finalize M01.03 merge tracking from git history.
+2. Mark M01.04 as `Builder in progress`.
+3. Define reconciliation vocabulary in `docs/domain/reconciliation-vocabulary.md`.
+4. Link the reconciliation vocabulary doc from domain and entry docs.
+5. Add lightweight domain-dependency notes to related spec placeholders.
+6. Update M01.04 tracking files.
+7. Add documentation-only validation checks.
+8. Run validation and record results before marking M01.04 `Builder complete, awaiting QA`.
 
 ## Concrete Steps
 
@@ -300,13 +339,14 @@ Acceptance criteria:
 - During the planning slice, M01.01 through M01.13 remained `Not started`.
 - After post-merge QA recovery, M01.01 is `Completed and merged` with the protocol deviation recorded in notes.
 - M01.02 is `Completed and merged`.
-- M01.03 is `QA passed, awaiting merge` after QA validation passes.
-- M01.04 through M01.13 remain `Not started`.
+- M01.03 is `Completed and merged` at git commit `e54a917`.
+- M01.04 is `QA passed, awaiting merge` after QA validation passed; it must not be marked `Completed and merged` until PR merge confirmation.
+- M01.05 through M01.13 remain `Not started`.
 - M02 through M21 remain `Not started`.
 - Product implementation has not started.
 - No forbidden runtime artifacts are added.
 - Validation passes or limitations are recorded.
-- Next recommended thread after M01.03 QA validation is `Merge M01.03 PR - Define Settlement Vocabulary`.
+- Next recommended thread after M01.04 QA validation is `Merge M01.04 PR - Define Reconciliation Vocabulary`.
 
 ## Idempotence and Recovery
 
@@ -378,6 +418,18 @@ Notes:
   - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 20 tests.
   - `git diff --check` passed.
   - `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell.
+- 2026-05-16 M01.04 builder validation results:
+  - Reconciliation vocabulary documentation and forbidden-scope review passed.
+  - `python scripts/validate-control-plane.py` passed.
+  - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 21 tests.
+  - `git diff --check` passed.
+  - `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell.
+- 2026-05-16 M01.04 QA validation results:
+  - QA content, tracking, validation coverage, and forbidden-scope review passed.
+  - `python scripts/validate-control-plane.py` passed.
+  - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 21 tests.
+  - `git diff --check` passed.
+  - `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell.
 
 ## Interfaces and Dependencies
 
@@ -389,7 +441,7 @@ M01 planning depends on:
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` for submilestone state.
 - `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md` for current operational direction.
 
-No product runtime interface is introduced by this M01 planning, M01.01 documentation work, M01.02 documentation work, or M01.03 documentation work.
+No product runtime interface is introduced by this M01 planning, M01.01 documentation work, M01.02 documentation work, M01.03 documentation work, or M01.04 documentation work.
 
 ## Outcomes & Retrospective
 
@@ -410,5 +462,6 @@ Current M01.01 builder outcome:
 - M01.01 is recorded as `Completed and merged` after post-merge QA recovery.
 - Product implementation remains not started.
 - M01.02 QA passed as documentation-only work and is completed and merged.
-- M01.03 QA passed as settlement vocabulary documentation only and is awaiting merge.
-- M01.04 through M01.13 remain not started.
+- M01.03 is completed and merged as settlement vocabulary documentation only.
+- M01.04 is QA passed, awaiting merge as reconciliation vocabulary documentation only.
+- M01.05 through M01.13 remain not started.

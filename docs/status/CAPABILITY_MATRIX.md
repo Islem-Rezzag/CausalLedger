@@ -3,7 +3,7 @@
 | Capability | Status | Notes |
 | --- | --- | --- |
 | Repo operating system | Completed | Control-plane files only; M00.01 through M00.08 are completed and merged, M00 closeout passed, and `v0.1.0` tags the foundation |
-| Domain model and scope freeze | Active | M01 planning is complete and merged; active M01 plan exists; M01.01 is Completed and merged after post-merge QA recovery; M01.02 is Completed and merged; M01.03 is QA passed, awaiting merge; M01.04 through M01.13 are not started |
+| Domain model and scope freeze | Active | M01 planning is complete and merged; active M01 plan exists; M01.01 is Completed and merged after post-merge QA recovery; M01.02 is Completed and merged; M01.03 is Completed and merged at git commit `e54a917`; M01.04 is QA passed, awaiting merge; M01.05 through M01.13 are not started |
 | MoneyEvent engine | Not started | No product logic |
 | Ledger core | Not started | No product logic |
 | Invariant engine | Not started | No product logic |
