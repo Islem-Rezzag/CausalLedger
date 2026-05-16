@@ -224,7 +224,7 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01 must not implement APIs, databases, ledger logic, MoneyEvent runtime code, invariants, agent runtime, repair planner, UI, external connectors, GitHub Actions, CI workflows, or product behavior",
         "LLM agents may investigate, summarize, and propose, but they do not mutate money, approve repairs, delete evidence, post ledger entries, modify raw events, or override deterministic invariants",
         "M01 planning is complete and merged at git commit `2cfd75a`",
-        "M01.04 Define reconciliation vocabulary is the current domain-documentation builder slice",
+        "M01.04 Define reconciliation vocabulary is the current domain-documentation QA-passed slice",
         "post-merge QA recovery",
         "M01.01 Define payment lifecycle",
         "M01.02 Define ledger vocabulary",
@@ -1218,7 +1218,7 @@ def test_m00_closeout_state_is_coherent():
     assert "e54a917" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.04 |"))
-    assert "Builder complete, awaiting QA" in row
+    assert "QA passed, awaiting merge" in row
     assert "m01-04-define-reconciliation-vocabulary" in row
     assert "validate-control-plane passed" in row
     assert "git diff --check passed" in row
@@ -1253,7 +1253,7 @@ def test_m00_closeout_state_is_coherent():
         "M01.01 Define payment lifecycle is `Completed and merged` after post-merge QA recovery",
         "M01.02 Define ledger vocabulary is `Completed and merged`",
         "M01.03 Define settlement vocabulary is `Completed and merged`",
-        "M01.04 Define reconciliation vocabulary is `Builder complete, awaiting QA`",
+        "M01.04 Define reconciliation vocabulary is `QA passed, awaiting merge`",
         "M01.05 through M01.13 remain `Not started`",
     ]:
         assert phrase in current_state

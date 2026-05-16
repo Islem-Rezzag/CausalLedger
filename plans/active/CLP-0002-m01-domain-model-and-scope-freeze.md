@@ -10,7 +10,7 @@ The safety boundary is non-negotiable: LLM agents may investigate, summarize, an
 
 The first M01 implementation submilestone after this planning thread is `M01.01 Define payment lifecycle`.
 
-Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), and M01.04 Define reconciliation vocabulary is the current domain-documentation builder slice on branch `m01-04-define-reconciliation-vocabulary`.
+Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), and M01.04 Define reconciliation vocabulary is the current domain-documentation QA-passed slice on branch `m01-04-define-reconciliation-vocabulary`.
 
 ## Progress
 
@@ -73,6 +73,11 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - [x] 2026-05-16: M01.04 validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 21 tests, and `git diff --check`.
 - [x] 2026-05-16: `make bootstrap-check` could not run for M01.04 builder because `make` is unavailable in the current Windows shell.
 - [x] 2026-05-16: Updated M01.04 tracking to `Builder complete, awaiting QA` while leaving M01.05 through M01.13 and M02 through M21 `Not started`.
+- [x] 2026-05-16: QA reviewed M01.04 reconciliation vocabulary, domain links, lightweight spec dependency notes, tracking, validation coverage, and forbidden-scope boundaries.
+- [x] 2026-05-16: M01.04 QA validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 21 tests, and `git diff --check`.
+- [x] 2026-05-16: `make bootstrap-check` could not run for M01.04 QA because `make` is unavailable in the current Windows shell.
+- [x] 2026-05-16: Updated M01.04 tracking to `QA passed, awaiting merge` while leaving M01.05 through M01.13 and M02 through M21 `Not started`.
+- [x] 2026-05-16: Set the next recommended thread to `Merge M01.04 PR - Define Reconciliation Vocabulary`.
 
 ## Surprises & Discoveries
 
@@ -115,7 +120,7 @@ Current M01 submilestone state:
 - `M01.01 Define payment lifecycle` - Completed and merged after post-merge QA recovery.
 - `M01.02 Define ledger vocabulary` - Completed and merged.
 - `M01.03 Define settlement vocabulary` - Completed and merged.
-- `M01.04 Define reconciliation vocabulary` - Builder complete, awaiting QA.
+- `M01.04 Define reconciliation vocabulary` - QA passed, awaiting merge.
 - `M01.05 Define incident vocabulary`
 - `M01.06 Define safe and unsafe repairs`
 - `M01.07 Define evidence receipt model`
@@ -335,13 +340,13 @@ Acceptance criteria:
 - After post-merge QA recovery, M01.01 is `Completed and merged` with the protocol deviation recorded in notes.
 - M01.02 is `Completed and merged`.
 - M01.03 is `Completed and merged` at git commit `e54a917`.
-- M01.04 is `Builder complete, awaiting QA` after builder validation passed.
+- M01.04 is `QA passed, awaiting merge` after QA validation passed; it must not be marked `Completed and merged` until PR merge confirmation.
 - M01.05 through M01.13 remain `Not started`.
 - M02 through M21 remain `Not started`.
 - Product implementation has not started.
 - No forbidden runtime artifacts are added.
 - Validation passes or limitations are recorded.
-- Next recommended thread after M01.04 builder validation is `M01.04 QA - Define Reconciliation Vocabulary`.
+- Next recommended thread after M01.04 QA validation is `Merge M01.04 PR - Define Reconciliation Vocabulary`.
 
 ## Idempotence and Recovery
 
@@ -419,6 +424,12 @@ Notes:
   - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 21 tests.
   - `git diff --check` passed.
   - `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell.
+- 2026-05-16 M01.04 QA validation results:
+  - QA content, tracking, validation coverage, and forbidden-scope review passed.
+  - `python scripts/validate-control-plane.py` passed.
+  - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 21 tests.
+  - `git diff --check` passed.
+  - `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell.
 
 ## Interfaces and Dependencies
 
@@ -452,5 +463,5 @@ Current M01.01 builder outcome:
 - Product implementation remains not started.
 - M01.02 QA passed as documentation-only work and is completed and merged.
 - M01.03 is completed and merged as settlement vocabulary documentation only.
-- M01.04 is builder complete, awaiting QA as reconciliation vocabulary documentation only.
+- M01.04 is QA passed, awaiting merge as reconciliation vocabulary documentation only.
 - M01.05 through M01.13 remain not started.

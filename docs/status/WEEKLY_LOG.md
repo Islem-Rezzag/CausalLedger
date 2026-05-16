@@ -2,6 +2,14 @@
 
 ## 2026-05-16
 
+- Reviewed M01.04 Define Reconciliation Vocabulary as QA on branch `m01-04-define-reconciliation-vocabulary`; branch guard passed and the starting worktree was clean.
+- Verified `docs/domain/reconciliation-vocabulary.md`, domain links, lightweight spec dependency notes, tracking, validation coverage, and forbidden-scope boundaries.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.04 QA.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 21 tests for M01.04 QA.
+- Ran `git diff --check` successfully for M01.04 QA.
+- `make bootstrap-check` could not run for M01.04 QA because `make` is unavailable in the current Windows shell.
+- Marked M01.04 `QA passed, awaiting merge`; M01.05 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- Recommended next thread: `Merge M01.04 PR - Define Reconciliation Vocabulary`.
 - Finalized M01.03 Define Settlement Vocabulary as `Completed and merged` before starting M01.04; local `main` and `origin/main` point to git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`).
 - Started M01.04 Define Reconciliation Vocabulary builder on branch `m01-04-define-reconciliation-vocabulary`; branch guard passed, the starting worktree was clean, latest commit was `e54a917`, and `v0.1.0` exists.
 - Marked M01.04 `Builder in progress`; M01.05 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.

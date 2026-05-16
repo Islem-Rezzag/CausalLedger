@@ -345,7 +345,7 @@ REQUIRED_TEXT = {
         "M01 freezes CausalLedger domain language, boundaries, and non-goals",
         "M01 must not implement APIs, databases, ledger logic, MoneyEvent runtime code, invariants, agent runtime, repair planner, UI, external connectors, GitHub Actions, CI workflows, or product behavior",
         "M01 planning is complete and merged at git commit `2cfd75a`",
-        "M01.04 Define reconciliation vocabulary is the current domain-documentation builder slice",
+        "M01.04 Define reconciliation vocabulary is the current domain-documentation QA-passed slice",
         "post-merge QA recovery",
         "M01.01 Define payment lifecycle",
         "M01.02 Define ledger vocabulary",
@@ -873,14 +873,14 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "Builder complete, awaiting QA",
+        "QA passed, awaiting merge",
         "m01-04-define-reconciliation-vocabulary",
         "validate-control-plane passed",
         "pytest",
         "git diff --check passed",
     ]:
         if phrase not in row:
-            errors.append(f"M01.04 registry row missing builder marker: {phrase}")
+            errors.append(f"M01.04 registry row missing QA marker: {phrase}")
 
     for index in range(5, 14):
         submilestone = f"M01.{index:02}"
@@ -889,7 +889,7 @@ def closeout_state_errors():
             "",
         )
         if "Not started" not in row:
-            errors.append(f"{submilestone} is not Not started during M01.04 builder")
+            errors.append(f"{submilestone} is not Not started during M01.04 QA")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -983,12 +983,12 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "M01.04 QA - Define Reconciliation Vocabulary" not in next_thread:
+    if "Merge M01.04 PR - Define Reconciliation Vocabulary" not in next_thread:
         errors.append(
-            "Next recommended thread is not M01.04 QA - Define Reconciliation Vocabulary"
+            "Next recommended thread is not Merge M01.04 PR - Define Reconciliation Vocabulary"
         )
     if "Do not start M01.05" not in next_thread:
-        errors.append("Next recommended thread does not block M01.05 until M01.04 QA and merge")
+        errors.append("Next recommended thread does not block M01.05 until M01.04 merge")
 
     domain_doc = ROOT / "docs/domain/payment-lifecycle.md"
     ledger_doc = ROOT / "docs/domain/ledger-vocabulary.md"
