@@ -31,6 +31,7 @@ Project direction:
 - `docs/domain/payment-lifecycle.md`
 - `docs/domain/ledger-vocabulary.md`
 - `docs/domain/settlement-vocabulary.md`
+- `docs/domain/reconciliation-vocabulary.md`
 - `docs/RELIABILITY.md`
 - `docs/THREAT_MODEL.md`
 - `docs/TOKEN_COST_STRATEGY.md`

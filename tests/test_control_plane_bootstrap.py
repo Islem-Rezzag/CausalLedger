@@ -30,6 +30,7 @@ def test_required_project_docs_exist():
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
+        "docs/domain/reconciliation-vocabulary.md",
         "docs/RELIABILITY.md",
         "docs/THREAT_MODEL.md",
         "docs/TOKEN_COST_STRATEGY.md",
@@ -223,7 +224,7 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01 must not implement APIs, databases, ledger logic, MoneyEvent runtime code, invariants, agent runtime, repair planner, UI, external connectors, GitHub Actions, CI workflows, or product behavior",
         "LLM agents may investigate, summarize, and propose, but they do not mutate money, approve repairs, delete evidence, post ledger entries, modify raw events, or override deterministic invariants",
         "M01 planning is complete and merged at git commit `2cfd75a`",
-        "M01.03 Define settlement vocabulary is the current domain-documentation submilestone",
+        "M01.04 Define reconciliation vocabulary is the current domain-documentation builder slice",
         "post-merge QA recovery",
         "M01.01 Define payment lifecycle",
         "M01.02 Define ledger vocabulary",
@@ -238,10 +239,11 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "M01.04 through M01.13 remain planned scope only and are not started",
+        "M01.05 through M01.13 remain planned scope only and are not started",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
+        "docs/domain/reconciliation-vocabulary.md",
     ]:
         assert phrase in plan
 
@@ -329,6 +331,7 @@ def test_m01_payment_lifecycle_domain_docs_are_documentation_only():
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
+        "docs/domain/reconciliation-vocabulary.md",
         "The domain model is not complete",
         "Ledger vocabulary",
         "Settlement vocabulary",
@@ -561,6 +564,165 @@ def test_m01_settlement_vocabulary_domain_doc_is_documentation_only():
 
     assert "settlement-vocabulary.md" in domain_readme
     assert "docs/domain/settlement-vocabulary.md" in domain_model
+
+
+def test_m01_reconciliation_vocabulary_domain_doc_is_documentation_only():
+    reconciliation_vocabulary = (
+        ROOT / "docs" / "domain" / "reconciliation-vocabulary.md"
+    ).read_text(encoding="utf-8")
+    domain_readme = (ROOT / "docs" / "domain" / "README.md").read_text(
+        encoding="utf-8"
+    )
+    domain_model = (ROOT / "docs" / "DOMAIN_MODEL.md").read_text(encoding="utf-8")
+
+    for phrase in [
+        "No runtime implementation is defined or claimed",
+        "## Purpose",
+        "## Reconciliation scope",
+        "## What this document defines",
+        "## What this document does not define",
+        "## Relationship to payment lifecycle vocabulary",
+        "## Relationship to ledger vocabulary",
+        "## Relationship to settlement vocabulary",
+        "## Relationship to future MoneyEvent schema",
+        "## Relationship to future provider and bank simulator",
+        "## Relationship to future invariant engine",
+        "## Relationship to future incident engine",
+        "## Relationship to future causal graph",
+        "## Relationship to future replay engine",
+        "## Relationship to future repair planner",
+        "## Relationship to future MoneyFlowBench scenarios",
+        "## Core reconciliation concepts",
+        "## Reconciliation sources and targets",
+        "## Reconciliation statuses",
+        "## Reconciliation paths",
+        "## Reconciliation evidence examples",
+        "## Questions CausalLedger asks about reconciliation",
+        "## Reconciliation failure patterns",
+        "## Boundaries with other M01 areas",
+        "reconciliation run",
+        "reconciliation period",
+        "reconciliation window",
+        "source record",
+        "target record",
+        "internal record",
+        "external record",
+        "expected record",
+        "observed record",
+        "match candidate",
+        "confirmed match",
+        "unmatched record",
+        "partial match",
+        "one-to-one match",
+        "one-to-many match",
+        "many-to-one match",
+        "many-to-many match",
+        "matching key",
+        "reference key",
+        "amount match",
+        "currency match",
+        "date match",
+        "tolerance",
+        "variance",
+        "aged exception",
+        "unresolved exception",
+        "resolved exception",
+        "false positive",
+        "false negative",
+        "suspense",
+        "write-off",
+        "manual adjustment",
+        "reconciliation status",
+        "Payment provider events",
+        "Provider settlement reports",
+        "Provider payout reports",
+        "Bank statement lines",
+        "Internal payment records",
+        "Internal ledger records",
+        "Support or operations notes, as evidence context only",
+        "provider data to internal payment state",
+        "provider settlement rows to ledger postings",
+        "provider payout totals to bank statement lines",
+        "`reconciliation_not_started`",
+        "`reconciliation_in_progress`",
+        "`matched`",
+        "`partially_matched`",
+        "`unmatched_internal`",
+        "`unmatched_external`",
+        "`amount_mismatch`",
+        "`currency_mismatch`",
+        "`timing_mismatch`",
+        "`reference_mismatch`",
+        "`duplicate_match`",
+        "`ambiguous_match`",
+        "`exception_open`",
+        "`exception_in_review`",
+        "`exception_resolved`",
+        "`reconciliation_complete`",
+        "`reconciliation_unresolved`",
+        "Expected internal record -> observed external record -> confirmed match -> `reconciliation_complete`",
+        "Expected internal amount -> observed external amount differs -> variance -> `exception_open`",
+        "Expected payout -> no bank line yet -> `timing_mismatch` -> later `bank_posted` -> `matched`",
+        "External provider or bank record appears with no internal record -> `unmatched_external` -> `exception_open`",
+        "Internal payment, ledger, or payout expectation exists with no provider or bank record -> `unmatched_internal` -> `exception_open`",
+        "Batch total matches but individual rows require breakdown -> `partially_matched` -> `exception_in_review`",
+        "One external record maps to multiple internal records unexpectedly -> `duplicate_match` -> `exception_open`",
+        "Multiple possible records have similar references or amounts -> `ambiguous_match` -> `exception_in_review`",
+        "`exception_open` -> evidence attached -> explanation accepted -> `exception_resolved`",
+        "Provider payment event",
+        "Provider settlement row",
+        "Provider payout object",
+        "Bank statement line",
+        "Ledger transaction",
+        "Ledger entry",
+        "Evidence bundle reference",
+        "Replay result reference",
+        "Did every expected internal record find a corresponding external record?",
+        "Did every external record map to a known internal record?",
+        "Is a difference explained by fees, refunds, chargebacks, reserves, FX, timing, or adjustments?",
+        "Unmatched internal record",
+        "Unmatched external record",
+        "Amount mismatch",
+        "Currency mismatch",
+        "Timing mismatch",
+        "Reference mismatch",
+        "Duplicate match",
+        "Ambiguous match",
+        "False match",
+        "Missing bank line",
+        "Missing settlement row",
+        "Missing ledger posting",
+        "Unexplained fee variance",
+        "Unexplained refund variance",
+        "Unexplained chargeback variance",
+        "Reserve mismatch",
+        "FX variance",
+        "Aged exception",
+        "Unresolved exception",
+        "Reconciliation ledger divergence",
+        "Reconciliation settlement divergence",
+        "These failure patterns are vocabulary only",
+        "Payment lifecycle vocabulary belongs to M01.01",
+        "Ledger vocabulary belongs to M01.02",
+        "Settlement vocabulary belongs to M01.03",
+        "Incident vocabulary belongs to M01.05",
+        "Safe and unsafe repair vocabulary belongs to M01.06",
+        "Evidence receipt model belongs to M01.07",
+        "Human review states belong to M01.08",
+    ]:
+        assert phrase in reconciliation_vocabulary
+
+    for forbidden_claim in [
+        "implements MoneyEvent",
+        "implements ledger",
+        "implements invariants",
+        "runtime implementation is complete",
+        "schema is defined",
+    ]:
+        assert forbidden_claim not in reconciliation_vocabulary
+
+    assert "reconciliation-vocabulary.md" in domain_readme
+    assert "docs/domain/reconciliation-vocabulary.md" in domain_model
 
 
 def test_submilestone_registry_contains_all_expected_rows():
@@ -1051,12 +1213,17 @@ def test_m00_closeout_state_is_coherent():
     assert "fd1e259" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.03 |"))
-    assert "QA passed, awaiting merge" in row
+    assert "Completed and merged" in row
     assert "m01-03-define-settlement-vocabulary" in row
+    assert "e54a917" in row
+
+    row = next(line for line in registry.splitlines() if line.startswith("| M01.04 |"))
+    assert "Builder complete, awaiting QA" in row
+    assert "m01-04-define-reconciliation-vocabulary" in row
     assert "validate-control-plane passed" in row
     assert "git diff --check passed" in row
 
-    for index in range(4, 14):
+    for index in range(5, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")
@@ -1085,8 +1252,9 @@ def test_m00_closeout_state_is_coherent():
         "M00.01 through M00.08 are completed and merged",
         "M01.01 Define payment lifecycle is `Completed and merged` after post-merge QA recovery",
         "M01.02 Define ledger vocabulary is `Completed and merged`",
-        "M01.03 Define settlement vocabulary is `QA passed, awaiting merge`",
-        "M01.04 through M01.13 remain `Not started`",
+        "M01.03 Define settlement vocabulary is `Completed and merged`",
+        "M01.04 Define reconciliation vocabulary is `Builder complete, awaiting QA`",
+        "M01.05 through M01.13 remain `Not started`",
     ]:
         assert phrase in current_state
 

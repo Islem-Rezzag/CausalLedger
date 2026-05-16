@@ -11,3 +11,4 @@ Current domain documents:
 - [Payment lifecycle](payment-lifecycle.md) - M01.01 payment lifecycle vocabulary and boundaries.
 - [Ledger vocabulary](ledger-vocabulary.md) - M01.02 ledger vocabulary, double-entry language, account categories, and boundaries.
 - [Settlement vocabulary](settlement-vocabulary.md) - M01.03 settlement vocabulary, statuses, paths, evidence examples, and boundaries.
+- [Reconciliation vocabulary](reconciliation-vocabulary.md) - M01.04 reconciliation vocabulary, sources, targets, statuses, paths, evidence examples, and boundaries.
