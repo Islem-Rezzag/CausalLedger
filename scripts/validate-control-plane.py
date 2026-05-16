@@ -718,14 +718,14 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "Builder complete, awaiting QA",
+        "QA passed, awaiting merge",
         "m01-03-define-settlement-vocabulary",
         "validate-control-plane passed",
         "pytest",
         "git diff --check passed",
     ]:
         if phrase not in row:
-            errors.append(f"M01.03 registry row missing builder marker: {phrase}")
+            errors.append(f"M01.03 registry row missing QA marker: {phrase}")
 
     for index in range(4, 14):
         submilestone = f"M01.{index:02}"
@@ -734,7 +734,7 @@ def closeout_state_errors():
             "",
         )
         if "Not started" not in row:
-            errors.append(f"{submilestone} is not Not started during M01.03 builder")
+            errors.append(f"{submilestone} is not Not started during M01.03 QA")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -828,9 +828,9 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "M01.03 QA - Define Settlement Vocabulary" not in next_thread:
+    if "Merge M01.03 PR - Define Settlement Vocabulary" not in next_thread:
         errors.append(
-            "Next recommended thread is not M01.03 QA - Define Settlement Vocabulary"
+            "Next recommended thread is not Merge M01.03 PR - Define Settlement Vocabulary"
         )
     if "Do not start M01.04" not in next_thread:
         errors.append("Next recommended thread does not block M01.04 until M01.03 QA and merge")

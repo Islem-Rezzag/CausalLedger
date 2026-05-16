@@ -1051,7 +1051,7 @@ def test_m00_closeout_state_is_coherent():
     assert "fd1e259" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.03 |"))
-    assert "Builder complete, awaiting QA" in row
+    assert "QA passed, awaiting merge" in row
     assert "m01-03-define-settlement-vocabulary" in row
     assert "validate-control-plane passed" in row
     assert "git diff --check passed" in row
@@ -1085,7 +1085,7 @@ def test_m00_closeout_state_is_coherent():
         "M00.01 through M00.08 are completed and merged",
         "M01.01 Define payment lifecycle is `Completed and merged` after post-merge QA recovery",
         "M01.02 Define ledger vocabulary is `Completed and merged`",
-        "M01.03 Define settlement vocabulary is `Builder complete, awaiting QA`",
+        "M01.03 Define settlement vocabulary is `QA passed, awaiting merge`",
         "M01.04 through M01.13 remain `Not started`",
     ]:
         assert phrase in current_state

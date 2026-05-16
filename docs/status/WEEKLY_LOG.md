@@ -1,5 +1,16 @@
 # Weekly Log
 
+## 2026-05-16
+
+- Completed M01.03 Define Settlement Vocabulary QA on branch `m01-03-define-settlement-vocabulary`; branch guard passed, the starting worktree was clean, latest commit was `08ebdb5`, and `v0.1.0` exists.
+- Verified settlement vocabulary content, domain links, lightweight spec dependency notes, tracking/status files, validation coverage, and forbidden-scope boundaries; found no content defect and no product implementation.
+- Marked M01.03 `QA passed, awaiting merge`; M01.04 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.03 QA.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 20 tests for M01.03 QA.
+- Ran `git diff --check` successfully for M01.03 QA.
+- Confirmed `make bootstrap-check` is unavailable in the current Windows shell for M01.03 QA.
+- Recommended next thread: `Merge M01.03 PR - Define Settlement Vocabulary`.
+
 ## 2026-05-15
 
 - Finalized M01.02 Define Ledger Vocabulary as `Completed and merged` before starting M01.03; latest git history shows commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`).
