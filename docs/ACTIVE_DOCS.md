@@ -32,9 +32,12 @@ Project direction:
 - `docs/domain/ledger-vocabulary.md`
 - `docs/domain/settlement-vocabulary.md`
 - `docs/domain/reconciliation-vocabulary.md`
+- `docs/domain/incident-vocabulary.md`
 - `docs/RELIABILITY.md`
 - `docs/THREAT_MODEL.md`
 - `docs/TOKEN_COST_STRATEGY.md`
+- `docs/evals/ABLATION_STRATEGY.md`
+- `docs/evals/ABLATION_MATRIX.md`
 - `docs/VERSIONING.md`
 - `docs/releases/RELEASE_LADDER.md`
 - `docs/releases/V1_SCOPE.md`

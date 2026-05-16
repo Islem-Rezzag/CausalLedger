@@ -17,8 +17,8 @@ Status values: Not started, Builder in progress, Builder complete, awaiting QA, 
 | M01.01 | Define payment lifecycle | M01 Domain model and scope freeze | Completed and merged | plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md | m01-01-qa-recovery-define-payment-lifecycle | #11; QA recovery #12 merged | 2026-05-11: post-merge QA recovery passed; validate-control-plane passed; pytest 18 passed; git diff --check passed; make unavailable | 2026-05-15 | Builder PR #11 was squash-merged before required QA at commit 1175789; the protocol deviation was recovered by QA recovery PR #12 merged at commit 6480c1d before M01.02 began. |
 | M01.02 | Define ledger vocabulary | M01 Domain model and scope freeze | Completed and merged | plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md | m01-02-define-ledger-vocabulary | #13 merged | 2026-05-15: QA validation passed before merge; validate-control-plane passed; pytest 19 passed; git diff --check passed; make unavailable; merged at commit fd1e259 | 2026-05-15 | Domain documentation only; product implementation has not started. |
 | M01.03 | Define settlement vocabulary | M01 Domain model and scope freeze | Completed and merged | plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md | m01-03-define-settlement-vocabulary | #14 merged | 2026-05-16: QA validation passed before merge; validate-control-plane passed; pytest 20 passed; git diff --check passed; make unavailable; merged at commit e54a917 | 2026-05-16 | Domain documentation only; no settlement runtime, reconciliation logic, schemas, invariants, incidents, graph, replay, connectors, or product behavior. |
-| M01.04 | Define reconciliation vocabulary | M01 Domain model and scope freeze | QA passed, awaiting merge | plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md | m01-04-define-reconciliation-vocabulary | Pending | 2026-05-16: QA validation passed; validate-control-plane passed; pytest 21 passed; git diff --check passed; make unavailable | 2026-05-16 | Domain documentation only; no reconciliation runtime, schemas, invariants, incidents, graph, replay, repair planning, connectors, or product behavior; safe to merge after human review; not completed until PR merge is confirmed. |
-| M01.05 | Define incident vocabulary | M01 Domain model and scope freeze | Not started |  |  |  |  |  |  |
+| M01.04 | Define reconciliation vocabulary | M01 Domain model and scope freeze | Completed and merged | plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md | m01-04-define-reconciliation-vocabulary | #15 | 2026-05-16: QA validation passed; validate-control-plane passed; pytest 21 passed; git diff --check passed; make unavailable | 2026-05-16 | Domain documentation only; merged at commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`) before M01.05 builder work began. |
+| M01.05 | Define incident vocabulary | M01 Domain model and scope freeze | Builder complete, awaiting QA | plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md | m01-05-define-incident-vocabulary | Pending | 2026-05-16: Builder validation passed; validate-control-plane passed; pytest 23 passed; git diff --check passed; make unavailable | 2026-05-16 | Domain vocabulary documentation plus explicitly scoped ablation roadmap/evaluation planning only; no product implementation or runtime behavior; awaiting QA. |
 | M01.06 | Define safe and unsafe repairs | M01 Domain model and scope freeze | Not started |  |  |  |  |  |  |
 | M01.07 | Define evidence receipt model | M01 Domain model and scope freeze | Not started |  |  |  |  |  |  |
 | M01.08 | Define human review states | M01 Domain model and scope freeze | Not started |  |  |  |  |  |  |
@@ -246,15 +246,15 @@ Status values: Not started, Builder in progress, Builder complete, awaiting QA, 
 | M14.13 | Add delayed provider event scenario | M14 MoneyFlowBench v1 | Not started |  |  |  |  |  |  |
 | M14.14 | Add poisoned evidence scenario | M14 MoneyFlowBench v1 | Not started |  |  |  |  |  |  |
 | M14.15 | Add unsafe repair attempt scenario | M14 MoneyFlowBench v1 | Not started |  |  |  |  |  |  |
-| M14.16 | Add benchmark runner | M14 MoneyFlowBench v1 | Not started |  |  |  |  |  |  |
+| M14.16 | Add benchmark and ablation runner | M14 MoneyFlowBench v1 | Not started |  |  |  |  |  |  |
 | M14.17 | Add root-cause scoring | M14 MoneyFlowBench v1 | Not started |  |  |  |  |  |  |
 | M14.18 | Add evidence precision scoring | M14 MoneyFlowBench v1 | Not started |  |  |  |  |  |  |
 | M14.19 | Add repair safety scoring | M14 MoneyFlowBench v1 | Not started |  |  |  |  |  |  |
 | M14.20 | Add hallucination scoring | M14 MoneyFlowBench v1 | Not started |  |  |  |  |  |  |
 | M14.21 | Add token-cost scoring | M14 MoneyFlowBench v1 | Not started |  |  |  |  |  |  |
 | M14.22 | Add latency scoring | M14 MoneyFlowBench v1 | Not started |  |  |  |  |  |  |
-| M14.23 | Add benchmark report | M14 MoneyFlowBench v1 | Not started |  |  |  |  |  |  |
-| M14.24 | QA MoneyFlowBench | M14 MoneyFlowBench v1 | Not started |  |  |  |  |  |  |
+| M14.23 | Add benchmark and ablation report | M14 MoneyFlowBench v1 | Not started |  |  |  |  |  |  |
+| M14.24 | QA MoneyFlowBench and ablation suite | M14 MoneyFlowBench v1 | Not started |  |  |  |  |  |  |
 | M15.01 | Create web app shell | M15 UI command center | Not started |  |  |  |  |  |  |
 | M15.02 | Build incident command center | M15 UI command center | Not started |  |  |  |  |  |  |
 | M15.03 | Build incident detail page | M15 UI command center | Not started |  |  |  |  |  |  |

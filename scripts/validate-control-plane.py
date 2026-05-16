@@ -24,6 +24,7 @@ REQUIRED_FILES = [
     "docs/domain/ledger-vocabulary.md",
     "docs/domain/settlement-vocabulary.md",
     "docs/domain/reconciliation-vocabulary.md",
+    "docs/domain/incident-vocabulary.md",
     "docs/RELIABILITY.md",
     "docs/THREAT_MODEL.md",
     "docs/TOKEN_COST_STRATEGY.md",
@@ -145,6 +146,8 @@ SPEC_FILES = [
 
 EVAL_FILES = [
     "docs/evals/MONEYFLOWBENCH_SPEC.md",
+    "docs/evals/ABLATION_STRATEGY.md",
+    "docs/evals/ABLATION_MATRIX.md",
     "docs/evals/SCENARIO_FORMAT.md",
     "docs/evals/SCORING_RUBRIC.md",
     "docs/evals/REPAIR_SAFETY_TESTS.md",
@@ -334,6 +337,7 @@ REQUIRED_TEXT = {
         "Minimum M17 cost and latency tracking for agent runs",
         "Minimum M18 proof that the LLM cannot mutate money",
         "Minimum M20 public README, demo script, architecture diagram, benchmark table, and launch-quality docs",
+        "At least one public ablation table",
         "`v1.0.0` must not require all M16-M21 work to be complete",
     ],
     "CHANGELOG.md": [
@@ -345,7 +349,7 @@ REQUIRED_TEXT = {
         "M01 freezes CausalLedger domain language, boundaries, and non-goals",
         "M01 must not implement APIs, databases, ledger logic, MoneyEvent runtime code, invariants, agent runtime, repair planner, UI, external connectors, GitHub Actions, CI workflows, or product behavior",
         "M01 planning is complete and merged at git commit `2cfd75a`",
-        "M01.04 Define reconciliation vocabulary is the current domain-documentation QA-passed slice",
+        "M01.05 Define incident vocabulary is the current builder-complete slice awaiting QA",
         "post-merge QA recovery",
         "M01.01 Define payment lifecycle",
         "M01.02 Define ledger vocabulary",
@@ -360,12 +364,13 @@ REQUIRED_TEXT = {
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "M01.05 through M01.13 remain planned scope only and are not started",
+        "M01.06 through M01.13 remain planned scope only and are not started",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
         "docs/domain/reconciliation-vocabulary.md",
+        "docs/domain/incident-vocabulary.md",
     ],
     "docs/domain/README.md": [
         "domain vocabulary",
@@ -374,6 +379,7 @@ REQUIRED_TEXT = {
         "Ledger vocabulary",
         "Settlement vocabulary",
         "Reconciliation vocabulary",
+        "Incident vocabulary",
     ],
     "docs/domain/payment-lifecycle.md": [
         "No runtime implementation is defined or claimed",
@@ -697,6 +703,138 @@ REQUIRED_TEXT = {
         "Evidence receipt model belongs to M01.07",
         "Human review states belong to M01.08",
     ],
+    "docs/domain/incident-vocabulary.md": [
+        "## Purpose",
+        "## Incident scope",
+        "## What this document defines",
+        "## What this document does not define",
+        "## Relationship to payment lifecycle vocabulary",
+        "## Relationship to ledger vocabulary",
+        "## Relationship to settlement vocabulary",
+        "## Relationship to reconciliation vocabulary",
+        "## Relationship to future invariant engine",
+        "## Relationship to future incident engine",
+        "## Relationship to future causal graph",
+        "## Relationship to future replay engine",
+        "## Relationship to future agentic investigation",
+        "## Relationship to future repair planner",
+        "## Relationship to future MoneyFlowBench scenarios",
+        "## Core incident concepts",
+        "## Incident actors and consumers",
+        "## Incident statuses",
+        "## Incident severity vocabulary",
+        "## Incident type vocabulary",
+        "## Incident paths",
+        "## Incident evidence examples",
+        "## Questions CausalLedger asks about incidents",
+        "## Incident failure patterns",
+        "## Boundaries with other M01 areas",
+        "## Non-implementation statement",
+        "incident trigger",
+        "detection source",
+        "failed invariant",
+        "weak signal",
+        "affected amount",
+        "affected currency",
+        "affected customer",
+        "affected merchant or seller",
+        "affected account",
+        "affected payment",
+        "affected payout",
+        "affected refund",
+        "affected chargeback",
+        "value at risk",
+        "blast radius",
+        "evidence link",
+        "evidence bundle",
+        "suspected root cause",
+        "confirmed root cause",
+        "confidence",
+        "first divergence point",
+        "duplicate incident",
+        "incident deduplication",
+        "incident correlation",
+        "AI investigator",
+        "read-only assistant only",
+        "cannot decide financial truth",
+        "`incident_detected`",
+        "`triage_pending`",
+        "`investigating`",
+        "`evidence_requested`",
+        "`evidence_complete`",
+        "`root_cause_hypothesized`",
+        "`root_cause_confirmed`",
+        "`repair_candidate_identified`",
+        "`awaiting_human_review`",
+        "`resolution_in_progress`",
+        "`resolved`",
+        "`closed`",
+        "`reopened`",
+        "`false_positive`",
+        "`duplicate_incident`",
+        "`deferred`",
+        "`informational`",
+        "`low`",
+        "`medium`",
+        "`high`",
+        "`critical`",
+        "affected customer count",
+        "financial loss risk",
+        "customer harm risk",
+        "operational urgency",
+        "regulatory or audit relevance",
+        "`payment_lifecycle_incident`",
+        "`ledger_correctness_incident`",
+        "`settlement_incident`",
+        "`reconciliation_incident`",
+        "`payout_incident`",
+        "`refund_incident`",
+        "`chargeback_incident`",
+        "`bank_posting_incident`",
+        "`duplicate_event_incident`",
+        "`missing_event_incident`",
+        "`delayed_event_incident`",
+        "`provider_state_disagreement`",
+        "`ledger_lifecycle_divergence`",
+        "`settlement_ledger_divergence`",
+        "`reconciliation_exception_incident`",
+        "`evidence_contradiction_incident`",
+        "`unresolved_money_movement_incident`",
+        "signal -> failed invariant or unresolved evidence -> `incident_detected` -> `triage_pending`",
+        "`triage_pending` -> `investigating` -> `evidence_requested` or `evidence_complete` -> `root_cause_hypothesized`",
+        "`root_cause_hypothesized` -> evidence review -> `root_cause_confirmed`",
+        "`root_cause_confirmed` -> `repair_candidate_identified` -> `awaiting_human_review`",
+        "`awaiting_human_review` -> `resolution_in_progress` -> `resolved` -> `closed`",
+        "`incident_detected` -> `investigating` -> `false_positive` -> `closed`",
+        "`incident_detected` -> `duplicate_incident` -> linked to parent incident",
+        "`closed` -> new evidence or failed replay -> `reopened`",
+        "Provider event",
+        "Payment lifecycle event",
+        "Ledger transaction",
+        "Settlement row",
+        "Provider payout",
+        "Bank statement line",
+        "Webhook delivery log",
+        "Raw payload hash",
+        "Agent memo, as non-authoritative explanation only",
+        "What signal created the incident?",
+        "Which invariant or evidence conflict supports the incident?",
+        "What is the first known divergence point?",
+        "Is human review required before any repair is considered?",
+        "Incident without evidence",
+        "Unsupported root-cause claim",
+        "Missing first divergence point",
+        "Incident closed without resolution evidence",
+        "Agent memo without evidence IDs",
+        "Repair proposed before root cause is supported",
+        "Payment lifecycle vocabulary belongs to M01.01",
+        "Ledger vocabulary belongs to M01.02",
+        "Settlement vocabulary belongs to M01.03",
+        "Reconciliation vocabulary belongs to M01.04",
+        "Safe and unsafe repair vocabulary belongs to M01.06",
+        "Evidence receipt model belongs to M01.07",
+        "Human review states belong to M01.08",
+    ],
     "docs/DOMAIN_MODEL.md": [
         "M01 domain index",
         "Payment lifecycle",
@@ -704,6 +842,7 @@ REQUIRED_TEXT = {
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
         "docs/domain/reconciliation-vocabulary.md",
+        "docs/domain/incident-vocabulary.md",
         "The domain model is not complete",
         "Ledger vocabulary",
         "Settlement vocabulary",
@@ -713,6 +852,88 @@ REQUIRED_TEXT = {
         "Evidence receipt model",
         "Human review states",
         "Out-of-scope domains",
+    ],
+    "docs/evals/ABLATION_STRATEGY.md": [
+        "What an ablation is",
+        "Ablations may disable safety components only inside offline benchmark scenarios. Production runtime must keep safety boundaries enforced.",
+        "offline benchmark experiments, not production toggles",
+        "Unsafe ablations must never be enabled in production",
+        "MoneyFlowBench",
+        "deterministic-first design",
+        "agent safety",
+        "cost and latency",
+        "repair safety",
+        "security testing",
+        "does not implement ablation runners",
+    ],
+    "docs/evals/ABLATION_MATRIX.md": [
+        "Deterministic-first ablations",
+        "Agentic AI ablations",
+        "Repair-safety ablations",
+        "Evidence-quality ablations",
+        "Cost and latency ablations",
+        "Security ablations",
+        "Scenario-complexity ablations",
+        "`full_system`",
+        "`deterministic_only`",
+        "`llm_only_negative_control`",
+        "`no_invariant_engine`",
+        "`no_causal_graph`",
+        "`no_replay`",
+        "`no_critic_agent`",
+        "`no_evidence_id_requirement`",
+        "`small_model_vs_strong_model`",
+        "`no_model_router`",
+        "`no_evidence_cache`",
+        "`missing_evidence`",
+        "`poisoned_evidence`",
+        "`no_repair_validator_negative_control`",
+        "`no_rollback_requirement_negative_control`",
+        "`no_idempotency_requirement_negative_control`",
+        "`no_human_review_negative_control`",
+        "`prompt_injection_attack`",
+        "`forbidden_tool_access_attempt`",
+        "Offline negative control only",
+    ],
+    "docs/evals/MONEYFLOWBENCH_SPEC.md": [
+        "## Ablation support",
+        "named ablation configurations",
+        "Ablations are offline benchmark experiments, not production toggles",
+        "does not implement a runner",
+    ],
+    "docs/evals/SCORING_RUBRIC.md": [
+        "## Ablation-related scoring dimensions",
+        "Root-cause accuracy by ablation variant",
+        "Evidence precision by ablation variant",
+        "Evidence recall by ablation variant",
+        "Unsafe repair rate by ablation variant",
+        "Hallucination rate by ablation variant",
+        "Escalation quality by ablation variant",
+        "Latency by ablation variant",
+        "Token cost by ablation variant",
+    ],
+    "docs/evals/REPAIR_SAFETY_TESTS.md": [
+        "Repair-safety ablation boundary",
+        "must never disable validators in production",
+        "offline benchmark scenarios",
+    ],
+    "docs/evals/HALLUCINATION_TESTS.md": [
+        "no-evidence-ID",
+        "no-critic ablations",
+    ],
+    "docs/evals/COST_BENCHMARKS.md": [
+        "small model",
+        "strong model",
+        "model router",
+        "cached evidence",
+        "compressed context",
+    ],
+    "docs/milestones/M14.md": [
+        "M14.16 | Add benchmark and ablation runner",
+        "M14.23 | Add benchmark and ablation report",
+        "M14.24 | QA MoneyFlowBench and ablation suite",
+        "ablation reporting",
+        "offline benchmark experiments, not production toggles",
     ],
     "docs/ops/github-pr-and-issue-workflow.md": [
         "one branch",
@@ -873,23 +1094,35 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "QA passed, awaiting merge",
+        "Completed and merged",
         "m01-04-define-reconciliation-vocabulary",
+        "5dfe928",
+    ]:
+        if phrase not in row:
+            errors.append(f"M01.04 registry row missing merge marker: {phrase}")
+
+    row = next(
+        (line for line in registry.splitlines() if line.startswith("| M01.05 |")),
+        "",
+    )
+    for phrase in [
+        "Builder complete, awaiting QA",
+        "m01-05-define-incident-vocabulary",
         "validate-control-plane passed",
         "pytest",
         "git diff --check passed",
     ]:
         if phrase not in row:
-            errors.append(f"M01.04 registry row missing QA marker: {phrase}")
+            errors.append(f"M01.05 registry row missing builder marker: {phrase}")
 
-    for index in range(5, 14):
+    for index in range(6, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             (line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")),
             "",
         )
         if "Not started" not in row:
-            errors.append(f"{submilestone} is not Not started during M01.04 QA")
+            errors.append(f"{submilestone} is not Not started during M01.05 builder")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -983,17 +1216,18 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "Merge M01.04 PR - Define Reconciliation Vocabulary" not in next_thread:
+    if "M01.05 QA - Define Incident Vocabulary" not in next_thread:
         errors.append(
-            "Next recommended thread is not Merge M01.04 PR - Define Reconciliation Vocabulary"
+            "Next recommended thread is not M01.05 QA - Define Incident Vocabulary"
         )
-    if "Do not start M01.05" not in next_thread:
-        errors.append("Next recommended thread does not block M01.05 until M01.04 merge")
+    if "Do not start M01.06" not in next_thread:
+        errors.append("Next recommended thread does not block M01.06 until M01.05 merge")
 
     domain_doc = ROOT / "docs/domain/payment-lifecycle.md"
     ledger_doc = ROOT / "docs/domain/ledger-vocabulary.md"
     settlement_doc = ROOT / "docs/domain/settlement-vocabulary.md"
     reconciliation_doc = ROOT / "docs/domain/reconciliation-vocabulary.md"
+    incident_doc = ROOT / "docs/domain/incident-vocabulary.md"
     domain_index = ROOT / "docs/DOMAIN_MODEL.md"
     if not domain_doc.is_file():
         errors.append("M01.01 payment lifecycle doc is missing")
@@ -1003,6 +1237,8 @@ def closeout_state_errors():
         errors.append("M01.03 settlement vocabulary doc is missing")
     if not reconciliation_doc.is_file():
         errors.append("M01.04 reconciliation vocabulary doc is missing")
+    if not incident_doc.is_file():
+        errors.append("M01.05 incident vocabulary doc is missing")
     if domain_doc.is_file():
         text = domain_doc.read_text(encoding="utf-8")
         forbidden_claims = [
@@ -1051,6 +1287,18 @@ def closeout_state_errors():
         for claim in forbidden_claims:
             if claim in text:
                 errors.append(f"Reconciliation vocabulary doc makes forbidden runtime claim: {claim}")
+    if incident_doc.is_file():
+        text = incident_doc.read_text(encoding="utf-8")
+        forbidden_claims = [
+            "implements MoneyEvent",
+            "implements ledger",
+            "implements invariants",
+            "runtime implementation is complete",
+            "schema is defined",
+        ]
+        for claim in forbidden_claims:
+            if claim in text:
+                errors.append(f"Incident vocabulary doc makes forbidden runtime claim: {claim}")
     if domain_index.is_file():
         text = domain_index.read_text(encoding="utf-8")
         if "docs/domain/payment-lifecycle.md" not in text:
@@ -1061,6 +1309,8 @@ def closeout_state_errors():
             errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/settlement-vocabulary.md")
         if "docs/domain/reconciliation-vocabulary.md" not in text:
             errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/reconciliation-vocabulary.md")
+        if "docs/domain/incident-vocabulary.md" not in text:
+            errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/incident-vocabulary.md")
 
     domain_readme = ROOT / "docs/domain/README.md"
     if domain_readme.is_file():
@@ -1071,6 +1321,19 @@ def closeout_state_errors():
             errors.append("docs/domain/README.md does not reference docs/domain/settlement-vocabulary.md")
         if "docs/domain/reconciliation-vocabulary.md" not in text and "reconciliation-vocabulary.md" not in text:
             errors.append("docs/domain/README.md does not reference docs/domain/reconciliation-vocabulary.md")
+        if "docs/domain/incident-vocabulary.md" not in text and "incident-vocabulary.md" not in text:
+            errors.append("docs/domain/README.md does not reference docs/domain/incident-vocabulary.md")
+
+    m14_doc = (ROOT / "docs/milestones/M14.md").read_text(encoding="utf-8")
+    if "Add benchmark and ablation runner" not in m14_doc:
+        errors.append("M14 does not include benchmark and ablation runner wording")
+    if "Add benchmark and ablation report" not in m14_doc:
+        errors.append("M14 does not include benchmark and ablation report wording")
+    if "QA MoneyFlowBench and ablation suite" not in m14_doc:
+        errors.append("M14 does not include MoneyFlowBench and ablation suite QA wording")
+    m14_rows = [line for line in registry.splitlines() if line.startswith("| M14.")]
+    if len(m14_rows) != 24:
+        errors.append("M14 submilestone count changed from 24")
 
     return errors
 

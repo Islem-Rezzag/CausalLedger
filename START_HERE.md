@@ -1,6 +1,6 @@
 # Start Here
 
-This repository has completed the M00 control-plane bootstrap and tagged it as `v0.1.0`. M01 planning is complete and merged, M01 is active in `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, M01.01 Define Payment Lifecycle is recorded as `Completed and merged` after post-merge QA recovery, M01.02 Define Ledger Vocabulary is `Completed and merged`, M01.03 Define Settlement Vocabulary is `Completed and merged` at git commit `e54a917`, and M01.04 Define Reconciliation Vocabulary is `QA passed, awaiting merge`. Do not begin product implementation from this file.
+This repository has completed the M00 control-plane bootstrap and tagged it as `v0.1.0`. M01 planning is complete and merged, M01 is active in `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, M01.01 Define Payment Lifecycle is recorded as `Completed and merged` after post-merge QA recovery, M01.02 Define Ledger Vocabulary is `Completed and merged`, M01.03 Define Settlement Vocabulary is `Completed and merged` at git commit `e54a917`, M01.04 Define Reconciliation Vocabulary is `Completed and merged` at git commit `5dfe928`, and M01.05 Define Incident Vocabulary is `Builder complete, awaiting QA`. Do not begin product implementation from this file.
 
 Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 
@@ -67,7 +67,7 @@ The handoff packet must include files created, files changed, files intentionall
 - Do not implement invariants.
 - Do not implement the agent runtime.
 - Do not implement UI features.
-- Do not start M01.05, M02, or later milestone work before the M01.04 PR merges and post-merge finalization records M01.04 as completed.
+- Do not start M01.06, M02, or later milestone work before the M01.05 PR merges and post-merge finalization records M01.05 as completed.
 - Do not implement product behavior during M01.01, M01.02, M01.03, or M01.04.
 
 ## Correct first success
