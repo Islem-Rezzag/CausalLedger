@@ -2,6 +2,17 @@
 
 ## 2026-05-17
 
+- Started M01.06 Define Safe and Unsafe Repairs builder on branch `m01-06-define-safe-and-unsafe-repairs`; self-healing setup confirmed the starting worktree was clean, updated `main` from `origin/main`, found no unique M01.06 work on the existing branch, and aligned it to updated `origin/main`.
+- Confirmed M01.05 is `Completed and merged` after QA recovery PR #18 at commit `3bdedeb` and M01.06 was the next recommended thread before M01.06 edits.
+- Created `docs/domain/repair-vocabulary.md` as documentation-only safe and unsafe repair vocabulary.
+- Defined repair proposals, repair candidates, safe repairs, unsafe repairs, forbidden autonomous repairs, destructive actions, rollback plans, replay-before-apply, deterministic validation, idempotency keys, human approval, escalation, evidence requirements, uncertainty, blast radius, preconditions, postconditions, audit trails, compensation versus reversal, dry-run simulation, evidence-backed repair plans, rejection reasons, repair categories, and moat rationale.
+- Updated domain links, status docs, M01 tracking, roadmap, capability and risk notes, weekly log, active plan, and control-plane validation coverage.
+- Initial M01.06 `python scripts/validate-control-plane.py` failed because `docs/status/NEXT_RECOMMENDED_THREAD.md` blocked M01.07 and M02 in combined wording while validation expected the exact `Do not start M02` phrase; fixed the scoped wording and reran successfully.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.06 builder.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py -q` successfully with 24 tests for M01.06 builder.
+- Ran `git diff --check` successfully for M01.06 builder.
+- Marked M01.06 `Builder complete, awaiting QA`; M01.07 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- Recommended next thread: `M01.06 QA - Define Safe and Unsafe Repairs`.
 - Ran branch guard on `m01-05-post-merge-finalization`; the starting worktree was clean and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
 - Confirmed local git history has `main`, `origin/main`, and the current branch at commit `3bdedeb` (`test: QA recovery M01.05 incident vocabulary and ablation strategy (#18)`).
 - Finalized M01.05 Define Incident Vocabulary as `Completed and merged`, recorded QA recovery PR #18 and merge commit `3bdedeb`, and kept M01.06 through M01.13 and M02 through M21 `Not started`.

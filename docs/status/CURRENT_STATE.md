@@ -2,11 +2,13 @@
 
 ## Current phase
 
-M00 Repo operating system is completed and tagged as `v0.1.0`. M01 planning is complete and merged into the current branch history at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, the active M01 plan is `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, M01.02 Define ledger vocabulary is `Completed and merged` at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is `Completed and merged` at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is `Completed and merged` at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), and M01.05 Define incident vocabulary is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`.
+M00 Repo operating system is completed and tagged as `v0.1.0`. M01 planning is complete and merged into the current branch history at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, the active M01 plan is `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, M01.02 Define ledger vocabulary is `Completed and merged` at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is `Completed and merged` at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is `Completed and merged` at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), M01.05 Define incident vocabulary is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`, and M01.06 Define safe and unsafe repairs is `Builder complete, awaiting QA`.
 
 M01.01 Define payment lifecycle is domain documentation only and is recorded as `Completed and merged` after post-merge QA recovery. The builder PR #11 was squash-merged before required QA at commit `1175789`, and the protocol deviation was recovered through the M01.01 QA recovery PR merged at commit `6480c1d` (`test: QA recovery M01.01 payment lifecycle (#12)`). Product implementation has not started.
 
 M01.05 Define incident vocabulary is domain vocabulary documentation plus scoped offline ablation planning only. The builder PR #16 was squash-merged before required QA at commit `5c3943b` (`docs: define M01.05 incident vocabulary and ablation strategy (#16)`), and the protocol deviation was recovered by QA recovery PR #18 merged at commit `3bdedeb` (`test: QA recovery M01.05 incident vocabulary and ablation strategy (#18)`). Product implementation has not started.
+
+M01.06 Define safe and unsafe repairs is domain vocabulary documentation only. It defines safe-to-propose repair vocabulary, unsafe and forbidden autonomous repair boundaries, evidence requirements, replay-before-apply expectations, deterministic validation expectations, idempotency, rollback planning, human approval, escalation, repair categories, and moat rationale without implementing repair runtime behavior. Product implementation has not started.
 
 ## What exists
 
@@ -35,7 +37,7 @@ M01.05 Define incident vocabulary is domain vocabulary documentation plus scoped
 - GitHub PR and issue templates.
 - Active M01 plan at `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 - Versioning docs at `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, and `docs/releases/V1_SCOPE.md`.
-- Domain vocabulary docs at `docs/domain/payment-lifecycle.md`, `docs/domain/ledger-vocabulary.md`, `docs/domain/settlement-vocabulary.md`, `docs/domain/reconciliation-vocabulary.md`, and `docs/domain/incident-vocabulary.md`.
+- Domain vocabulary docs at `docs/domain/payment-lifecycle.md`, `docs/domain/ledger-vocabulary.md`, `docs/domain/settlement-vocabulary.md`, `docs/domain/reconciliation-vocabulary.md`, `docs/domain/incident-vocabulary.md`, and `docs/domain/repair-vocabulary.md`.
 - Ablation planning docs at `docs/evals/ABLATION_STRATEGY.md` and `docs/evals/ABLATION_MATRIX.md`.
 - `CHANGELOG.md`.
 
@@ -49,7 +51,7 @@ M01.05 Define incident vocabulary is domain vocabulary documentation plus scoped
 - Causal graph.
 - Replay engine.
 - Agent runtime.
-- Repair planning.
+- Repair planner runtime or repair execution.
 - UI features.
 - External connectors.
 - Scenario benchmark implementation.
@@ -66,7 +68,7 @@ The completed M00 plan remains at `plans/completed/CLP-0001-m00-repo-operating-s
 
 ## Current submilestone
 
-M01.01 Define payment lifecycle is `Completed and merged` after post-merge QA recovery. M01.02 Define ledger vocabulary is `Completed and merged`. M01.03 Define settlement vocabulary is `Completed and merged` at git commit `e54a917`. M01.04 Define reconciliation vocabulary is `Completed and merged` at git commit `5dfe928`. M01.05 Define incident vocabulary is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`. M00.01 through M00.08 are completed and merged. M01.06 through M01.13 remain `Not started`, and M02 through M21 remain `Not started`.
+M01.01 Define payment lifecycle is `Completed and merged` after post-merge QA recovery. M01.02 Define ledger vocabulary is `Completed and merged`. M01.03 Define settlement vocabulary is `Completed and merged` at git commit `e54a917`. M01.04 Define reconciliation vocabulary is `Completed and merged` at git commit `5dfe928`. M01.05 Define incident vocabulary is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`. M01.06 Define safe and unsafe repairs is `Builder complete, awaiting QA`. M00.01 through M00.08 are completed and merged. M01.07 through M01.13 remain `Not started`, and M02 through M21 remain `Not started`.
 
 M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 Planning and Tracking System is completed and merged at commit `f289d5e`. M00.04 Builder and QA Prompt Protocol is completed and merged at commit `e686c77`. M00.05 Validation and Handoff Workflow is completed and merged at commit `b82e5d1`. M00.06 GitHub PR and Issue Workflow is completed and merged at commit `a0fdf6bc422f573235d48ee8cde93fd92d25e617`. M00.07 Milestone Closeout Workflow is completed and merged at commit `ae19cd0e4b34ad8c16c3d4f8ee1adbe08e7575f6`. M00.08 Repo Operating System QA and Freeze is completed and merged at commit `db312d16f3059a2714f929c4bcb831d4a6a5a173`.
 
@@ -76,11 +78,11 @@ No product code exists yet. Product directories contain placeholder README files
 
 ## Next action
 
-Start the next documentation-only M01 submilestone. The exact next recommended thread is `M01.06 Builder - Define Safe and Unsafe Repairs`.
+Run the separate QA thread for the current documentation-only M01 submilestone. The exact next recommended thread is `M01.06 QA - Define Safe and Unsafe Repairs`.
 
 ## Implementation warning
 
-Do not start product implementation. The next M01.06 builder thread may define safe and unsafe repair vocabulary as documentation only. It must not create product behavior, MoneyEvent runtime code, ledger runtime logic, settlement runtime logic, reconciliation runtime logic, incident runtime logic, invariants, graph logic, replay logic, agent runtime, repair planning runtime logic, UI, APIs, databases, external connectors, GitHub Actions, or CI workflows.
+Do not start product implementation. The next M01.06 QA thread may inspect safe and unsafe repair vocabulary as documentation only. It must not create product behavior, MoneyEvent runtime code, ledger runtime logic, settlement runtime logic, reconciliation runtime logic, incident runtime logic, invariants, graph logic, replay logic, agent runtime, repair planning runtime logic, repair execution, UI, APIs, databases, external connectors, GitHub Actions, or CI workflows. Do not start M01.07 until M01.06 QA passes and the PR merges.
 
 ## Validation limitations
 
@@ -102,6 +104,14 @@ Do not start product implementation. The next M01.06 builder thread may define s
 
 ## Latest validation
 
+- 2026-05-17: M01.06 builder branch setup passed on `m01-06-define-safe-and-unsafe-repairs`; the starting worktree was clean, `main` was up to date with `origin/main`, and the existing M01.06 branch contained no unique M01.06 work before it was aligned to updated `origin/main`.
+- 2026-05-17: M01.06 builder defined safe and unsafe repair vocabulary as documentation only in `docs/domain/repair-vocabulary.md`.
+- 2026-05-17: Initial M01.06 `python scripts/validate-control-plane.py` failed because `docs/status/NEXT_RECOMMENDED_THREAD.md` blocked M01.07 and M02 in combined wording while validation expected the exact `Do not start M02` phrase; the scoped wording was fixed and validation was rerun successfully.
+- 2026-05-17: `python scripts/validate-control-plane.py` passed for M01.06 builder.
+- 2026-05-17: `python -m pytest tests/test_control_plane_bootstrap.py -q` passed with 24 tests for M01.06 builder.
+- 2026-05-17: `git diff --check` passed for M01.06 builder.
+- 2026-05-17: M01.06 is marked `Builder complete, awaiting QA`; M01.07 through M01.13 and M02 through M21 remain `Not started`.
+- 2026-05-17: Product implementation has not started; no runtime product code, API, database, GitHub Actions, CI workflow, repair execution, repair planner runtime, or money mutation was added.
 - 2026-05-17: M01.05 post-merge finalization branch guard passed on `m01-05-post-merge-finalization`; the starting worktree was clean and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
 - 2026-05-17: Local git history confirmed `main`, `origin/main`, and the current branch at commit `3bdedeb` (`test: QA recovery M01.05 incident vocabulary and ablation strategy (#18)`).
 - 2026-05-17: Updated M01.05 tracking to `Completed and merged`, recorded QA recovery PR #18 and merge commit `3bdedeb`, kept M01.06 through M01.13 and M02 through M21 `Not started`, and set the next recommended thread to `M01.06 Builder - Define Safe and Unsafe Repairs`.
