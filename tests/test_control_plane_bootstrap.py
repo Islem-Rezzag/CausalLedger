@@ -229,7 +229,7 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01 must not implement APIs, databases, ledger logic, MoneyEvent runtime code, invariants, agent runtime, repair planner, UI, external connectors, GitHub Actions, CI workflows, or product behavior",
         "LLM agents may investigate, summarize, and propose, but they do not mutate money, approve repairs, delete evidence, post ledger entries, modify raw events, or override deterministic invariants",
         "M01 planning is complete and merged at git commit `2cfd75a`",
-        "M01.05 Define incident vocabulary is in post-merge QA recovery passed state awaiting recovery PR merge",
+        "M01.05 Define incident vocabulary is completed and merged after QA recovery PR #18 merged at git commit `3bdedeb`",
         "post-merge QA recovery",
         "M01.01 Define payment lifecycle",
         "M01.02 Define ledger vocabulary",
@@ -1498,11 +1498,12 @@ def test_m00_closeout_state_is_coherent():
     assert "5dfe928" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.05 |"))
-    assert "QA passed, awaiting merge" in row
+    assert "Completed and merged" in row
     assert "m01-05-qa-recovery-incident-vocabulary-ablation-strategy" in row
     assert "post-merge QA recovery" in row
     assert "5c3943b" in row
-    assert "awaiting recovery PR merge" in row
+    assert "#18" in row
+    assert "3bdedeb" in row
     assert "validate-control-plane passed" in row
     assert "git diff --check passed" in row
 
@@ -1537,7 +1538,7 @@ def test_m00_closeout_state_is_coherent():
         "M01.02 Define ledger vocabulary is `Completed and merged`",
         "M01.03 Define settlement vocabulary is `Completed and merged`",
         "M01.04 Define reconciliation vocabulary is `Completed and merged`",
-        "M01.05 Define incident vocabulary is `QA recovery passed, awaiting recovery PR merge`",
+        "M01.05 Define incident vocabulary is `Completed and merged`",
         "M01.06 through M01.13 remain `Not started`",
     ]:
         assert phrase in current_state

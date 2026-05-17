@@ -349,7 +349,7 @@ REQUIRED_TEXT = {
         "M01 freezes CausalLedger domain language, boundaries, and non-goals",
         "M01 must not implement APIs, databases, ledger logic, MoneyEvent runtime code, invariants, agent runtime, repair planner, UI, external connectors, GitHub Actions, CI workflows, or product behavior",
         "M01 planning is complete and merged at git commit `2cfd75a`",
-        "M01.05 Define incident vocabulary is in post-merge QA recovery passed state awaiting recovery PR merge",
+        "M01.05 Define incident vocabulary is completed and merged after QA recovery PR #18 merged at git commit `3bdedeb`",
         "post-merge QA recovery",
         "M01.01 Define payment lifecycle",
         "M01.02 Define ledger vocabulary",
@@ -1106,17 +1106,18 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "QA passed, awaiting merge",
+        "Completed and merged",
         "m01-05-qa-recovery-incident-vocabulary-ablation-strategy",
         "post-merge QA recovery",
         "5c3943b",
-        "awaiting recovery PR merge",
+        "#18",
+        "3bdedeb",
         "validate-control-plane passed",
         "pytest",
         "git diff --check passed",
     ]:
         if phrase not in row:
-            errors.append(f"M01.05 registry row missing QA recovery marker: {phrase}")
+            errors.append(f"M01.05 registry row missing merge marker: {phrase}")
 
     for index in range(6, 14):
         submilestone = f"M01.{index:02}"
@@ -1125,7 +1126,7 @@ def closeout_state_errors():
             "",
         )
         if "Not started" not in row:
-            errors.append(f"{submilestone} is not Not started during M01.05 QA recovery")
+            errors.append(f"{submilestone} is not Not started after M01.05 completion")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -1219,12 +1220,14 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "Merge M01.05 QA Recovery PR - Incident Vocabulary and Ablation Strategy" not in next_thread:
+    if "M01.06 Builder - Define Safe and Unsafe Repairs" not in next_thread:
         errors.append(
-            "Next recommended thread is not Merge M01.05 QA Recovery PR - Incident Vocabulary and Ablation Strategy"
+            "Next recommended thread is not M01.06 Builder - Define Safe and Unsafe Repairs"
         )
-    if "Do not start M01.06" not in next_thread:
-        errors.append("Next recommended thread does not block M01.06 until M01.05 merge")
+    if "M01.06 is `Not started`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.06 as Not started")
+    if "Do not start M02" not in next_thread:
+        errors.append("Next recommended thread does not block M02 and later work")
 
     domain_doc = ROOT / "docs/domain/payment-lifecycle.md"
     ledger_doc = ROOT / "docs/domain/ledger-vocabulary.md"
