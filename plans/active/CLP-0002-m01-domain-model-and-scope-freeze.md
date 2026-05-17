@@ -10,7 +10,7 @@ The safety boundary is non-negotiable: LLM agents may investigate, summarize, an
 
 The first M01 implementation submilestone after this planning thread is `M01.01 Define payment lifecycle`.
 
-Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is completed and merged at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), and M01.05 Define incident vocabulary is the current builder-complete slice awaiting QA on branch `m01-05-define-incident-vocabulary`.
+Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is completed and merged at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), and M01.05 Define incident vocabulary is in post-merge QA recovery passed state awaiting recovery PR merge on branch `m01-05-qa-recovery-incident-vocabulary-ablation-strategy`.
 
 ## Progress
 
@@ -87,6 +87,12 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - [x] 2026-05-16: M01.05 validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 23 tests, and `git diff --check`.
 - [x] 2026-05-16: `make bootstrap-check` could not run for M01.05 builder because `make` is unavailable in the current Windows shell.
 - [x] 2026-05-16: Updated M01.05 tracking to `Builder complete, awaiting QA` while leaving M01.06 through M01.13 and M02 through M21 `Not started`.
+- [x] 2026-05-16: Started M01.05 post-merge QA recovery on branch `m01-05-qa-recovery-incident-vocabulary-ablation-strategy` after builder PR #16 was squash-merged before the required QA thread; branch guard passed, starting worktree was clean, latest commit was `5c3943b`, and tag `v0.1.0` exists.
+- [x] 2026-05-16: Audited merged M01.05 incident vocabulary, ablation planning docs, MoneyFlowBench/eval notes, future milestone ablation notes, tracking/status files, validation coverage, and forbidden-scope boundaries; found no product implementation, runtime logic, ablation runner, benchmark code, runtime toggles, or future milestone start.
+- [x] 2026-05-16: Applied scoped M01.05 QA recovery clarifications to incident vocabulary wording, tracking/status files, and control-plane validation expectations.
+- [x] 2026-05-16: M01.05 post-merge QA recovery validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 23 tests, and `git diff --check`.
+- [x] 2026-05-16: `make bootstrap-check` could not run for M01.05 QA recovery because `make` is unavailable in the current Windows shell.
+- [x] 2026-05-16: Updated M01.05 tracking to `QA recovery passed, awaiting recovery PR merge` while leaving M01.06 through M01.13 and M02 through M21 `Not started`.
 
 ## Surprises & Discoveries
 
@@ -100,6 +106,7 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - M01.03 needs settlement vocabulary precise enough for future MoneyEvent, provider and bank simulator, invariant, incident, graph, replay, and connector work while remaining documentation-only.
 - M01.04 needs reconciliation vocabulary precise enough for future provider and bank simulator, invariant, incident, causal graph, replay, repair planner, and MoneyFlowBench work while remaining documentation-only.
 - M01.05 needs incident vocabulary precise enough for future invariants, incident engine, causal graph, replay, agentic investigation, repair planner, and MoneyFlowBench work while remaining documentation-only.
+- M01.05 builder PR #16 was accidentally squash-merged before the required QA thread; this plan records that the post-merge QA recovery path has passed and must merge before M01.06 begins.
 
 ## Decision Log
 
@@ -118,6 +125,7 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - 2026-05-16: Keep reconciliation matching, tolerance evaluation, exception handling, invariant evaluation, incident creation, replay, repair planning, connectors, and ledger mutation deterministic future work; M01.04 defines vocabulary only and does not authorize agents to mutate money, post ledger entries, or resolve exceptions as financial truth.
 - 2026-05-16: M01.04 is merged at commit `5dfe928`; M01.05 may proceed as documentation-only incident vocabulary work plus scoped ablation roadmap/evaluation planning.
 - 2026-05-16: Ablation planning belongs to offline benchmark strategy and future roadmap notes only in this slice; dangerous ablations may be described as offline negative controls, not production toggles.
+- 2026-05-16: Because M01.05 was merged before QA at commit `5c3943b`, record M01.05 as `QA recovery passed, awaiting recovery PR merge` and do not start M01.06 until the recovery PR merges and post-merge finalization records M01.05 as completed.
 
 ## Context and Orientation
 
@@ -133,7 +141,7 @@ Current M01 submilestone state:
 - `M01.02 Define ledger vocabulary` - Completed and merged.
 - `M01.03 Define settlement vocabulary` - Completed and merged.
 - `M01.04 Define reconciliation vocabulary` - Completed and merged.
-- `M01.05 Define incident vocabulary` - Builder complete, awaiting QA.
+- `M01.05 Define incident vocabulary` - QA recovery passed, awaiting recovery PR merge.
 - `M01.06 Define safe and unsafe repairs`
 - `M01.07 Define evidence receipt model`
 - `M01.08 Define human review states`
@@ -338,6 +346,15 @@ Completed M01.05 builder work:
 8. Add documentation-only validation checks.
 9. Run validation and record results before marking M01.05 `Builder complete, awaiting QA`.
 
+Current M01.05 QA recovery work:
+
+1. Confirm the recovery branch guard and clean starting worktree.
+2. Audit the merged M01.05 incident vocabulary, ablation planning docs, related tracking, and validation coverage from commit `5c3943b`.
+3. Verify no product implementation, ablation runner, benchmark code, runtime toggles, or future milestone start was introduced.
+4. Record the accidental pre-QA merge and post-merge QA recovery.
+5. Update control-plane validation checks from the stale pre-QA state to the recovery state.
+6. Run validation and record results before the recovery PR is opened or merged.
+
 ## Concrete Steps
 
 - Confirm branch guard and starting cleanliness.
@@ -379,13 +396,13 @@ Acceptance criteria:
 - M01.02 is `Completed and merged`.
 - M01.03 is `Completed and merged` at git commit `e54a917`.
 - M01.04 is `Completed and merged` at git commit `5dfe928`.
-- M01.05 is `Builder complete, awaiting QA`.
+- M01.05 is `QA recovery passed, awaiting recovery PR merge`.
 - M01.06 through M01.13 remain `Not started`.
 - M02 through M21 remain `Not started`.
 - Product implementation has not started.
 - No forbidden runtime artifacts are added.
 - Validation passes or limitations are recorded.
-- Next recommended thread after M01.05 builder validation is `M01.05 QA - Define Incident Vocabulary`.
+- Next recommended thread after M01.05 QA recovery is `Merge M01.05 QA Recovery PR - Incident Vocabulary and Ablation Strategy`.
 
 ## Idempotence and Recovery
 
@@ -477,6 +494,14 @@ Notes:
   - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 23 tests.
   - `git diff --check` passed.
   - `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell.
+- 2026-05-16 M01.05 post-merge QA recovery validation results:
+  - Merged builder work at commit `5c3943b` was audited after PR #16 was squash-merged before required QA.
+  - Incident vocabulary documentation, ablation planning, tracking, validation coverage, and forbidden-scope review passed.
+  - QA applied scoped documentation/tracking clarifications only.
+  - `python scripts/validate-control-plane.py` passed.
+  - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 23 tests.
+  - `git diff --check` passed.
+  - `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell.
 
 ## Interfaces and Dependencies
 
@@ -488,7 +513,7 @@ M01 planning depends on:
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` for submilestone state.
 - `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md` for current operational direction.
 
-No product runtime interface is introduced by this M01 planning, M01.01 documentation work, M01.02 documentation work, M01.03 documentation work, M01.04 documentation work, or M01.05 documentation and evaluation-planning work.
+No product runtime interface is introduced by this M01 planning, M01.01 documentation work, M01.02 documentation work, M01.03 documentation work, M01.04 documentation work, M01.05 documentation and evaluation-planning work, or M01.05 QA recovery work.
 
 ## Outcomes & Retrospective
 
@@ -511,5 +536,5 @@ Current M01.01 builder outcome:
 - M01.02 QA passed as documentation-only work and is completed and merged.
 - M01.03 is completed and merged as settlement vocabulary documentation only.
 - M01.04 is completed and merged as reconciliation vocabulary documentation only.
-- M01.05 is builder complete, awaiting QA as incident vocabulary and ablation planning documentation only.
+- M01.05 QA recovery passed as incident vocabulary and ablation planning documentation only, and it awaits recovery PR merge before completion can be recorded.
 - M01.06 through M01.13 remain not started.

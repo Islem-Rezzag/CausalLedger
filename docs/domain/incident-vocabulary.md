@@ -101,7 +101,7 @@ M01.05 does not define scenario schemas, benchmark runners, scoring code, answer
 | Incident trigger | The signal or condition that caused an incident to be opened or considered, such as a future failed invariant, unresolved evidence conflict, reconciliation exception, missing event, duplicate event, delayed event, or failed replay. |
 | Detection source | The source that produced or surfaced the trigger, such as a deterministic invariant, reconciliation run, replay output, provider report, bank file, operator review, support escalation, or future benchmark scenario. |
 | Failed invariant | A future deterministic signal showing that a defined rule did not hold. A failed invariant can support incident detection but is not defined in this document. |
-| Anomaly | A weak signal that something may be unusual. An anomaly alone is not financial truth and should not create unsupported conclusions without evidence or future deterministic support. |
+| Anomaly | A weak signal only that something may be unusual. An anomaly alone is not financial truth and should not create unsupported conclusions without evidence or future deterministic support. |
 | Incident type | A vocabulary label for the broad class of incident, such as payment lifecycle, ledger correctness, settlement, reconciliation, payout, refund, chargeback, bank posting, duplicate event, missing event, delayed event, or evidence contradiction. |
 | Incident status | A vocabulary label describing where the incident is in investigation, evidence gathering, confirmation, repair candidate review, resolution, closure, duplicate handling, reopening, false-positive handling, or deferral. |
 | Severity | The seriousness of the incident based on conceptual dimensions such as affected amount, affected parties, loss risk, customer harm risk, operational urgency, evidence confidence, reversibility, and regulatory or audit relevance. |
@@ -153,7 +153,7 @@ The vocabulary includes incident, financial incident, money movement incident, o
 | Platform engineer | A user who investigates infrastructure, ingestion, webhook delivery, replay availability, deterministic check execution, and operational reliability. |
 | Ledger engineer | A user who investigates ledger representation, posting expectations, account behavior, balance movement, corrections, and deterministic ledger checks. |
 | Risk or compliance observer | A read or review participant who needs auditability, evidence links, regulatory relevance, and boundary clarity. |
-| AI investigator | A read-only assistant only. It may summarize, hypothesize, compare evidence, identify missing evidence, and draft memos, but it cannot decide financial truth, mutate money, approve repairs, delete evidence, post ledger entries, modify raw events, or override deterministic checks. |
+| AI investigator | A read-only assistant only. It may summarize, hypothesize, compare evidence, identify missing evidence, and draft memos, but it cannot decide financial truth. It cannot mutate money, cannot approve repairs, cannot delete evidence, cannot post ledger entries, cannot modify raw events, and cannot override deterministic checks. |
 | Human reviewer | Boundary note only: a future human role that may review evidence, approve or reject repair proposals, or accept closure under future human review vocabulary. Detailed human review states belong to M01.08. |
 | External provider | Evidence source only, such as a payment provider, processor, bank, network, settlement source, or webhook source. Provider text or metadata is not automatically financial truth without evidence handling and deterministic interpretation. |
 | Customer | Affected party only. A customer may be affected by payment, refund, dispute, support, or communication outcomes. |
@@ -186,7 +186,7 @@ Terminal labels describe vocabulary expectations. Future M07 and M13 work must d
 
 ## Incident severity vocabulary
 
-Severity communicates seriousness, not work ordering by itself. Priority may differ from severity when operational constraints, urgency, or review availability require it. Severity scoring is not implemented or defined here.
+Severity communicates seriousness, not work ordering by itself. Priority may differ from severity when operational constraints, urgency, or review availability require it. Severity scoring is not implemented or defined here. M01.05 does not implement severity scoring.
 
 | Severity | Vocabulary meaning |
 | --- | --- |
