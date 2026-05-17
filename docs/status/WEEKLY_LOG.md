@@ -1,5 +1,16 @@
 # Weekly Log
 
+## 2026-05-17
+
+- Ran branch guard on `m01-05-post-merge-finalization`; the starting worktree was clean and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- Confirmed local git history has `main`, `origin/main`, and the current branch at commit `3bdedeb` (`test: QA recovery M01.05 incident vocabulary and ablation strategy (#18)`).
+- Finalized M01.05 Define Incident Vocabulary as `Completed and merged`, recorded QA recovery PR #18 and merge commit `3bdedeb`, and kept M01.06 through M01.13 and M02 through M21 `Not started`.
+- Updated the exact next recommended thread to `M01.06 Builder - Define Safe and Unsafe Repairs`.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.05 post-merge finalization.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py -q` successfully with 23 tests for M01.05 post-merge finalization.
+- Ran `git diff --check` successfully for M01.05 post-merge finalization.
+- Product implementation has not started; no M01.06 content, M02 work, product runtime code, APIs, databases, GitHub Actions, CI workflows, or deployment work was added.
+
 ## 2026-05-16
 
 - Started M01.05 post-merge QA recovery on branch `m01-05-qa-recovery-incident-vocabulary-ablation-strategy` after builder PR #16 was accidentally squash-merged before the required QA thread; branch guard passed, the starting worktree was clean, latest commit was `5c3943b`, and `v0.1.0` exists.
@@ -10,8 +21,8 @@
 - Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 23 tests for M01.05 QA recovery.
 - Ran `git diff --check` successfully for M01.05 QA recovery.
 - `make bootstrap-check` could not run for M01.05 QA recovery because `make` is unavailable in the current Windows shell.
-- Marked M01.05 `QA recovery passed, awaiting recovery PR merge`; M01.06 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
-- Recommended next thread: `Merge M01.05 QA Recovery PR - Incident Vocabulary and Ablation Strategy`.
+- Marked M01.05 in the pre-finalization QA recovery state; M01.06 through M01.13 and M02 through M21 remained `Not started`, and product implementation had not started.
+- Recommended the recovery-merge thread as the next step at that time.
 - Finalized M01.04 Define Reconciliation Vocabulary as `Completed and merged` before starting M01.05; latest git history shows commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`).
 - Started M01.05 Define Incident Vocabulary builder on branch `m01-05-define-incident-vocabulary`; branch guard passed, the starting worktree was clean, latest commit was `5dfe928`, and `v0.1.0` exists.
 - Marked M01.05 `Builder in progress`; M01.06 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
