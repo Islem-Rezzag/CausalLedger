@@ -10,7 +10,7 @@ The safety boundary is non-negotiable: LLM agents may investigate, summarize, an
 
 The first M01 implementation submilestone after this planning thread is `M01.01 Define payment lifecycle`.
 
-Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is completed and merged at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), M01.05 Define incident vocabulary is completed and merged after QA recovery PR #18 merged at git commit `3bdedeb`, and M01.06 Define safe and unsafe repairs is builder complete, awaiting QA.
+Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is completed and merged at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), M01.05 Define incident vocabulary is completed and merged after QA recovery PR #18 merged at git commit `3bdedeb`, and M01.06 Define safe and unsafe repairs is QA passed, awaiting merge.
 
 ## Progress
 
@@ -101,6 +101,12 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - [x] 2026-05-17: Initial M01.06 `python scripts/validate-control-plane.py` failed because `docs/status/NEXT_RECOMMENDED_THREAD.md` blocked M01.07 and M02 in combined wording while validation expected the exact `Do not start M02` phrase; fixed the scoped wording and reran validation successfully.
 - [x] 2026-05-17: M01.06 builder validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py -q` with 24 tests, and `git diff --check`.
 - [x] 2026-05-17: Updated M01.06 tracking to `Builder complete, awaiting QA` while leaving M01.07 through M01.13 and M02 through M21 `Not started`.
+- [x] 2026-05-18: Completed M01.06 QA on branch `m01-06-define-safe-and-unsafe-repairs`; branch guard passed, the branch fast-forwarded cleanly, and PR #21 matches the expected branch and title.
+- [x] 2026-05-18: QA confirmed repair vocabulary is complete, precise, documentation-only, safe-to-propose rather than safe-to-apply, and clear that LLM agents remain proposal-only.
+- [x] 2026-05-18: QA confirmed M01.07 through M01.13 and M02 through M21 remain `Not started`, product implementation has not started, product directories contain placeholder README files only, and `.github/workflows/` does not exist.
+- [x] 2026-05-18: PR #21 body still contained default template placeholders; `gh` is unavailable, so the corrected PR body must be pasted before merge.
+- [x] 2026-05-18: M01.06 QA validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py -q` with 24 tests, and `git diff --check`; `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
+- [x] 2026-05-18: Updated M01.06 tracking to `QA passed, awaiting merge` while leaving M01.07 through M01.13 and M02 through M21 `Not started`.
 
 ## Surprises & Discoveries
 
@@ -138,6 +144,7 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - 2026-05-17: M01.05 QA recovery PR #18 merged at commit `3bdedeb`; record M01.05 as `Completed and merged` and set the next recommended thread to `M01.06 Builder - Define Safe and Unsafe Repairs`.
 - 2026-05-17: Existing branch `m01-06-define-safe-and-unsafe-repairs` contained no unique M01.06 work and was behind `origin/main`; align it to updated `origin/main` before starting M01.06 builder work.
 - 2026-05-17: Keep M01.06 repair work documentation-only. Safe repair means safe to propose for human review, not safe for autonomous application.
+- 2026-05-18: M01.06 QA found no repair-boundary content defect. The remaining pre-merge issue is PR-body accuracy: PR #21 still has default template placeholders and must be updated from the QA handoff because `gh` is unavailable in the current Windows shell.
 
 ## Context and Orientation
 
@@ -154,7 +161,7 @@ Current M01 submilestone state:
 - `M01.03 Define settlement vocabulary` - Completed and merged.
 - `M01.04 Define reconciliation vocabulary` - Completed and merged.
 - `M01.05 Define incident vocabulary` - Completed and merged after QA recovery PR #18.
-- `M01.06 Define safe and unsafe repairs` - Builder complete, awaiting QA.
+- `M01.06 Define safe and unsafe repairs` - QA passed, awaiting merge.
 - `M01.07 Define evidence receipt model`
 - `M01.08 Define human review states`
 - `M01.09 Define out-of-scope domains`
@@ -388,7 +395,7 @@ Current M01.05 post-merge finalization work:
 5. Keep M01.06 through M01.13 and M02 through M21 `Not started`.
 6. Run validation and record results.
 
-Current M01.06 builder work:
+Completed M01.06 builder work:
 
 1. Confirm M01.05 is `Completed and merged` after QA recovery PR #18 and M01.06 is the next recommended thread.
 2. Mark M01.06 as `Builder in progress` on branch `m01-06-define-safe-and-unsafe-repairs`.
@@ -397,6 +404,15 @@ Current M01.06 builder work:
 5. Update M01.06 tracking files.
 6. Add documentation-only validation checks.
 7. Run validation and record results before marking M01.06 `Builder complete, awaiting QA`.
+
+Completed M01.06 QA work:
+
+1. Confirm the branch guard, fast-forward state, expected branch, and expected PR #21 metadata.
+2. Review the repair vocabulary, safe-to-propose boundary, unsafe and forbidden autonomous repair categories, evidence/replay/validation language, domain links, and status tracking.
+3. Confirm no product runtime code, APIs, databases, GitHub Actions, CI workflows, deployment, auth/authz, structured logging, runtime error handling, repair execution, or future milestone work was added.
+4. Update M01.06 tracking files to `QA passed, awaiting merge`.
+5. Record that the PR body must be corrected before merge because `gh` is unavailable.
+6. Run validation and record results before marking M01.06 `QA passed, awaiting merge`.
 
 ## Concrete Steps
 
@@ -440,13 +456,13 @@ Acceptance criteria:
 - M01.03 is `Completed and merged` at git commit `e54a917`.
 - M01.04 is `Completed and merged` at git commit `5dfe928`.
 - M01.05 is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`.
-- M01.06 is `Builder complete, awaiting QA`.
+- M01.06 is `QA passed, awaiting merge`.
 - M01.07 through M01.13 remain `Not started`.
 - M02 through M21 remain `Not started`.
 - Product implementation has not started.
 - No forbidden runtime artifacts are added.
 - Validation passes or limitations are recorded.
-- Next recommended thread after M01.06 builder is `M01.06 QA - Define Safe and Unsafe Repairs`.
+- Next recommended thread after M01.06 QA is `Merge M01.06 PR - Define Safe and Unsafe Repairs`.
 
 ## Idempotence and Recovery
 
@@ -563,6 +579,15 @@ Notes:
   - `python -m pytest tests/test_control_plane_bootstrap.py -q` passed with 24 tests.
   - `git diff --check` passed.
   - Product implementation has not started; no repair runtime logic, repair execution, APIs, databases, GitHub Actions, CI workflows, or product behavior was added.
+- 2026-05-18 M01.06 QA validation results:
+  - QA reviewed safe and unsafe repair vocabulary, tracking, validation coverage, PR #21 metadata, and forbidden-scope boundaries.
+  - QA found the repair vocabulary documentation-only boundary acceptable and found no product implementation or future milestone start.
+  - PR #21 body still contains default template placeholders; `gh` is unavailable, so the corrected PR body must be pasted before merge.
+  - `python scripts/validate-control-plane.py` passed.
+  - `python -m pytest tests/test_control_plane_bootstrap.py -q` passed with 24 tests.
+  - `git diff --check` passed.
+  - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
+  - Product implementation has not started; no repair runtime logic, repair execution, APIs, databases, GitHub Actions, CI workflows, or product behavior was added.
 
 ## Interfaces and Dependencies
 
@@ -598,5 +623,5 @@ Current M01.01 builder outcome:
 - M01.03 is completed and merged as settlement vocabulary documentation only.
 - M01.04 is completed and merged as reconciliation vocabulary documentation only.
 - M01.05 is completed and merged after QA recovery PR #18 merged at commit `3bdedeb`; incident vocabulary and ablation planning remain documentation only.
-- M01.06 is builder complete, awaiting QA as repair vocabulary documentation only.
+- M01.06 is QA passed, awaiting merge as repair vocabulary documentation only.
 - M01.07 through M01.13 remain not started.

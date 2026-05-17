@@ -1,5 +1,18 @@
 # Weekly Log
 
+## 2026-05-18
+
+- Completed M01.06 Define Safe and Unsafe Repairs QA on branch `m01-06-define-safe-and-unsafe-repairs` for PR #21.
+- Verified repair vocabulary is documentation-only, safe repair means safe to propose for human review, unsafe and forbidden autonomous repairs are separated, and LLM agents remain proposal-only with no authority to mutate money, post ledger entries, approve repairs, apply repairs, delete evidence, modify raw events, override invariants, bypass human review, release external communications, or claim unsupported financial facts.
+- Verified M01.07 through M01.13 and M02 through M21 remain `Not started`, product implementation has not started, `.github/workflows/` does not exist, and product directories contain placeholder README files only.
+- Inspected PR #21 through the GitHub public API because `gh` is unavailable; the current PR body still contains default template placeholders, so the corrected QA body must be pasted before merge.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.06 QA.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py -q` successfully with 24 tests for M01.06 QA.
+- Ran `git diff --check` successfully for M01.06 QA.
+- Skipped `make bootstrap-check` because `make` is unavailable in the current Windows shell.
+- Marked M01.06 `QA passed, awaiting merge`; M01.07 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- Recommended next thread: `Merge M01.06 PR - Define Safe and Unsafe Repairs`.
+
 ## 2026-05-17
 
 - Started M01.06 Define Safe and Unsafe Repairs builder on branch `m01-06-define-safe-and-unsafe-repairs`; self-healing setup confirmed the starting worktree was clean, updated `main` from `origin/main`, found no unique M01.06 work on the existing branch, and aligned it to updated `origin/main`.

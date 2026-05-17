@@ -1223,16 +1223,19 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "Builder complete, awaiting QA",
+        "QA passed, awaiting merge",
         "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-06-define-safe-and-unsafe-repairs",
+        "#21",
+        "QA validation passed",
         "validate-control-plane passed",
-        "pytest passed",
+        "pytest 24 passed",
         "git diff --check passed",
+        "make unavailable",
         "No product implementation or runtime repair behavior",
     ]:
         if phrase not in row:
-            errors.append(f"M01.06 registry row missing builder marker: {phrase}")
+            errors.append(f"M01.06 registry row missing QA marker: {phrase}")
 
     for index in range(7, 14):
         submilestone = f"M01.{index:02}"
@@ -1335,12 +1338,14 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "M01.06 QA - Define Safe and Unsafe Repairs" not in next_thread:
+    if "Merge M01.06 PR - Define Safe and Unsafe Repairs" not in next_thread:
         errors.append(
-            "Next recommended thread is not M01.06 QA - Define Safe and Unsafe Repairs"
+            "Next recommended thread is not Merge M01.06 PR - Define Safe and Unsafe Repairs"
         )
-    if "M01.06 is `Builder complete, awaiting QA`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.06 as Builder complete, awaiting QA")
+    if "M01.06 is `QA passed, awaiting merge`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.06 as QA passed, awaiting merge")
+    if "PR #21" not in next_thread or "PR body" not in next_thread:
+        errors.append("Next recommended thread does not record PR #21 body accuracy requirement")
     if "M01.07 through M01.13 are `Not started`" not in next_thread:
         errors.append("Next recommended thread does not record later M01 submilestones as Not started")
     if "Do not start M01.07" not in next_thread or "Do not start M02" not in next_thread:
