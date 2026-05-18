@@ -1633,10 +1633,11 @@ def test_m00_closeout_state_is_coherent():
     assert "git diff --check passed" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.06 |"))
-    assert "QA passed, awaiting merge" in row
+    assert "Completed and merged" in row
     assert "m01-06-define-safe-and-unsafe-repairs" in row
     assert "#21" in row
-    assert "QA validation passed" in row
+    assert "7adc96d" in row
+    assert "post-merge finalization passed" in row
     assert "validate-control-plane passed" in row
     assert "pytest 24 passed" in row
     assert "git diff --check passed" in row
@@ -1675,7 +1676,7 @@ def test_m00_closeout_state_is_coherent():
         "M01.03 Define settlement vocabulary is `Completed and merged`",
         "M01.04 Define reconciliation vocabulary is `Completed and merged`",
         "M01.05 Define incident vocabulary is `Completed and merged`",
-        "M01.06 Define safe and unsafe repairs is `QA passed, awaiting merge`",
+        "M01.06 Define safe and unsafe repairs is `Completed and merged`",
         "M01.07 through M01.13 remain `Not started`",
     ]:
         assert phrase in current_state
