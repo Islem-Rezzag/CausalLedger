@@ -12,9 +12,9 @@ CausalLedger helps fintech teams prove, replay, and safely repair money-movement
 
 ## Current status
 
-CausalLedger has completed M00 Repo Operating System and tagged it as `v0.1.0`. M01 planning is complete and merged, the active M01 plan is `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, M01.01 Define Payment Lifecycle is recorded as `Completed and merged` after post-merge QA recovery, M01.02 Define Ledger Vocabulary is `Completed and merged`, M01.03 Define Settlement Vocabulary is `Completed and merged` at git commit `e54a917`, M01.04 Define Reconciliation Vocabulary is `Completed and merged` at git commit `5dfe928`, M01.05 Define Incident Vocabulary is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`, and M01.06 Define Safe and Unsafe Repairs is `Completed and merged` after PR #21 merged at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`).
+CausalLedger has completed M00 Repo Operating System and tagged it as `v0.1.0`. M01 planning is complete and merged, the active M01 plan is `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, M01.01 Define Payment Lifecycle is recorded as `Completed and merged` after post-merge QA recovery, M01.02 Define Ledger Vocabulary is `Completed and merged`, M01.03 Define Settlement Vocabulary is `Completed and merged` at git commit `e54a917`, M01.04 Define Reconciliation Vocabulary is `Completed and merged` at git commit `5dfe928`, M01.05 Define Incident Vocabulary is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`, M01.06 Define Safe and Unsafe Repairs is `Completed and merged` after PR #21 merged at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`), and M01.07 Define Evidence Receipt Model is `Builder complete, awaiting QA` on branch `m01-07-define-evidence-receipt-model`.
 
-This repository currently contains architecture, planning, prompt, skill, milestone, status, GitHub template, versioning, and validation scaffolding only. No product functionality, MoneyEvent logic, ledger logic, invariants, incident engine, causal graph, replay engine, agent runtime, repair planner runtime, repair execution, UI, APIs, databases, GitHub Actions, CI workflows, secrets, or external connectors exist yet.
+This repository currently contains architecture, planning, prompt, skill, milestone, status, GitHub template, versioning, and validation scaffolding only. No product functionality, evidence ingestion runtime, evidence storage layer, MoneyEvent logic, ledger logic, invariants, incident engine, causal graph, replay engine, agent runtime, repair planner runtime, repair execution, UI, APIs, databases, GitHub Actions, CI workflows, secrets, or external connectors exist yet.
 
 ## What CausalLedger is
 
@@ -66,6 +66,7 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `docs/domain/reconciliation-vocabulary.md` - M01.04 reconciliation vocabulary and boundaries.
 - `docs/domain/incident-vocabulary.md` - M01.05 incident vocabulary and boundaries.
 - `docs/domain/repair-vocabulary.md` - M01.06 safe and unsafe repair vocabulary and boundaries.
+- `docs/domain/evidence-receipt-model.md` - M01.07 evidence receipt vocabulary and evidence-boundary definitions.
 - `docs/evals/ABLATION_STRATEGY.md` - future offline benchmark ablation strategy.
 - `docs/evals/ABLATION_MATRIX.md` - planned ablation groups and negative controls.
 - `docs/VERSIONING.md` - semantic versioning strategy, release tag rules, and overclaim prevention.

@@ -33,6 +33,7 @@ def test_required_project_docs_exist():
         "docs/domain/reconciliation-vocabulary.md",
         "docs/domain/incident-vocabulary.md",
         "docs/domain/repair-vocabulary.md",
+        "docs/domain/evidence-receipt-model.md",
         "docs/RELIABILITY.md",
         "docs/THREAT_MODEL.md",
         "docs/TOKEN_COST_STRATEGY.md",
@@ -244,13 +245,15 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "M01.07 through M01.13 remain planned scope only and are not started",
+        "M01.07 is `Builder complete, awaiting QA`",
+        "M01.08 through M01.13 remain planned scope only and are not started",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
         "docs/domain/reconciliation-vocabulary.md",
         "docs/domain/incident-vocabulary.md",
         "docs/domain/repair-vocabulary.md",
+        "docs/domain/evidence-receipt-model.md",
     ]:
         assert phrase in plan
 
@@ -342,6 +345,7 @@ def test_m01_payment_lifecycle_domain_docs_are_documentation_only():
         "docs/domain/reconciliation-vocabulary.md",
         "docs/domain/incident-vocabulary.md",
         "docs/domain/repair-vocabulary.md",
+        "docs/domain/evidence-receipt-model.md",
         "The domain model is not complete",
         "Ledger vocabulary",
         "Settlement vocabulary",
@@ -1008,6 +1012,119 @@ def test_m01_repair_vocabulary_domain_doc_is_documentation_only():
     assert "docs/domain/repair-vocabulary.md" in domain_model
 
 
+def test_m01_evidence_receipt_model_domain_doc_is_documentation_only():
+    evidence_receipt = (
+        ROOT / "docs" / "domain" / "evidence-receipt-model.md"
+    ).read_text(encoding="utf-8")
+    domain_readme = (ROOT / "docs" / "domain" / "README.md").read_text(
+        encoding="utf-8"
+    )
+    domain_model = (ROOT / "docs" / "DOMAIN_MODEL.md").read_text(encoding="utf-8")
+
+    for phrase in [
+        "No runtime implementation is defined or claimed",
+        "## Purpose",
+        "## Evidence receipt scope",
+        "## What this document defines",
+        "## What this document does not define",
+        "## Relationship to payment lifecycle vocabulary",
+        "## Relationship to ledger vocabulary",
+        "## Relationship to settlement vocabulary",
+        "## Relationship to reconciliation vocabulary",
+        "## Relationship to incident vocabulary",
+        "## Relationship to repair vocabulary",
+        "## Relationship to future human review",
+        "## Core evidence receipt concepts",
+        "## Evidence source examples",
+        "## Evidence receipt statuses",
+        "## Evidence rejection reasons",
+        "## Timestamp vocabulary",
+        "## Raw and derived evidence boundaries",
+        "## Redaction and confidentiality boundary",
+        "## Evidence uncertainty, confidence, limitations, conflicts, coverage, and gaps",
+        "## Evidence bundles",
+        "## Safety boundary",
+        "## Questions CausalLedger asks about evidence receipts",
+        "## Evidence failure patterns",
+        "## Why evidence receipts protect the CausalLedger moat",
+        "## Boundaries with other M01 areas",
+        "## Non-implementation statement",
+        "evidence receipt",
+        "evidence source",
+        "source identity",
+        "evidence provider",
+        "raw evidence reference",
+        "normalized evidence reference",
+        "provenance",
+        "chain of custody",
+        "checksum or hash",
+        "evidence timestamp",
+        "ingestion timestamp",
+        "observation timestamp",
+        "received-at timestamp",
+        "evidence freshness",
+        "evidence retention state",
+        "redaction boundary",
+        "evidence confidentiality class",
+        "evidence uncertainty",
+        "evidence confidence",
+        "evidence limitation",
+        "evidence conflict",
+        "evidence coverage",
+        "evidence gap",
+        "evidence bundle",
+        "evidence receipt status",
+        "evidence rejection reason",
+        "append-only evidence handling",
+        "immutable raw evidence boundary",
+        "derived evidence boundary",
+        "evidence audit trail",
+        "`receipt_observed`",
+        "`receipt_received`",
+        "`receipt_accepted`",
+        "`receipt_limited`",
+        "`receipt_conflicted`",
+        "`receipt_quarantined`",
+        "`receipt_rejected`",
+        "`receipt_redacted`",
+        "`receipt_bundled`",
+        "`receipt_retained`",
+        "`receipt_superseded`",
+        "raw evidence must not be silently modified",
+        "evidence receipts must not become financial truth by themselves",
+        "LLM output must not replace source evidence",
+        "derived summaries must remain linked to source evidence",
+        "conflicting evidence must be surfaced, not hidden",
+        "missing evidence must trigger limitation",
+        "redaction must protect sensitive data without destroying auditability",
+        "evidence mutation or deletion is a destructive action",
+        "Repair proposals from M01.06 require evidence-backed support",
+        "Payment lifecycle vocabulary belongs to M01.01",
+        "Ledger vocabulary belongs to M01.02",
+        "Settlement vocabulary belongs to M01.03",
+        "Reconciliation vocabulary belongs to M01.04",
+        "Incident vocabulary belongs to M01.05",
+        "Safe and unsafe repair vocabulary belongs to M01.06",
+        "Human review states belong to M01.08",
+    ]:
+        assert phrase in evidence_receipt
+
+    for forbidden_claim in [
+        "implements MoneyEvent",
+        "implements ledger",
+        "implements invariants",
+        "runtime implementation is complete",
+        "schema is defined",
+        "ingests evidence",
+        "stores evidence",
+        "deletes evidence",
+    ]:
+        assert forbidden_claim not in evidence_receipt
+
+    assert "evidence-receipt-model.md" in domain_readme
+    assert "docs/domain/evidence-receipt-model.md" in domain_model
+
+
 def test_ablation_planning_docs_are_offline_benchmark_only():
     strategy = (ROOT / "docs" / "evals" / "ABLATION_STRATEGY.md").read_text(
         encoding="utf-8"
@@ -1644,7 +1761,16 @@ def test_m00_closeout_state_is_coherent():
     assert "make unavailable" in row
     assert "No product implementation or runtime repair behavior" in row
 
-    for index in range(7, 14):
+    row = next(line for line in registry.splitlines() if line.startswith("| M01.07 |"))
+    assert "Builder complete, awaiting QA" in row
+    assert "m01-07-define-evidence-receipt-model" in row
+    assert "validate-control-plane passed" in row
+    assert "pytest 25 passed" in row
+    assert "git diff --check passed" in row
+    assert "make unavailable" in row
+    assert "No product implementation or runtime evidence behavior" in row
+
+    for index in range(8, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")
@@ -1677,7 +1803,8 @@ def test_m00_closeout_state_is_coherent():
         "M01.04 Define reconciliation vocabulary is `Completed and merged`",
         "M01.05 Define incident vocabulary is `Completed and merged`",
         "M01.06 Define safe and unsafe repairs is `Completed and merged`",
-        "M01.07 through M01.13 remain `Not started`",
+        "M01.07 Define evidence receipt model is `Builder complete, awaiting QA`",
+        "M01.08 through M01.13 remain `Not started`",
     ]:
         assert phrase in current_state
 

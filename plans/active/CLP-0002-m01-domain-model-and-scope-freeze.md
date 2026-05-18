@@ -10,7 +10,7 @@ The safety boundary is non-negotiable: LLM agents may investigate, summarize, an
 
 The first M01 implementation submilestone after this planning thread is `M01.01 Define payment lifecycle`.
 
-Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is completed and merged at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), M01.05 Define incident vocabulary is completed and merged after QA recovery PR #18 merged at git commit `3bdedeb`, and M01.06 Define safe and unsafe repairs is completed and merged after PR #21 merged at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`).
+Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is completed and merged at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), M01.05 Define incident vocabulary is completed and merged after QA recovery PR #18 merged at git commit `3bdedeb`, M01.06 Define safe and unsafe repairs is completed and merged after PR #21 merged at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`), and M01.07 Define evidence receipt model is `Builder complete, awaiting QA` on branch `m01-07-define-evidence-receipt-model`.
 
 ## Progress
 
@@ -111,6 +111,12 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - [x] 2026-05-18: Updated M01.06 tracking to `Completed and merged` while leaving M01.07 through M01.13 and M02 through M21 `Not started`.
 - [x] 2026-05-18: Updated the exact next recommended thread to `M01.07 Builder - Define Evidence Receipt Model`.
 - [x] 2026-05-18: M01.06 post-merge finalization validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py -q` with 24 tests, and `git diff --check`; `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
+- [x] 2026-05-18: Started M01.07 builder on branch `m01-07-define-evidence-receipt-model`; branch setup passed after fetching `origin`, fast-forwarding `main` to `5cd675c`, confirming M01.06 is completed and merged, confirming M01.07 is the next recommended thread, and confirming the starting worktree was clean.
+- [x] 2026-05-18: Marked M01.07 `Builder in progress` for documentation-only evidence receipt model work; validation expectation is docs-only ladder Levels 0, 1, 2, 4, and 7, with QA Level 8 later.
+- [x] 2026-05-18: Created `docs/domain/evidence-receipt-model.md` as documentation-only M01.07 evidence receipt vocabulary for evidence receipts, sources, source identity, providers, raw and normalized evidence references, provenance, chain of custody, checksums or hashes, timestamps, freshness, retention, redaction, confidentiality, uncertainty, confidence, limitations, conflicts, coverage, gaps, bundles, statuses, rejection reasons, append-only handling, immutable raw evidence boundaries, derived evidence boundaries, and audit trails.
+- [x] 2026-05-18: Updated domain links, documentation maps, status docs, milestone tracking, roadmap, capability and risk notes, weekly log, changelog, and control-plane validation coverage for M01.07 while leaving M01.08 through M01.13 and M02 through M21 `Not started`.
+- [x] 2026-05-18: M01.07 builder validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py -q` with 25 tests, and `git diff --check`; `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
+- [x] 2026-05-18: Updated M01.07 tracking to `Builder complete, awaiting QA`; product implementation has not started, and no evidence ingestion runtime, storage layer, database, schema, API, parser, connector, MoneyEvent runtime, ledger runtime, incident runtime, repair runtime, agent runtime, GitHub Actions, CI workflow, deployment, auth/authz implementation, structured logging implementation, or product behavior was added.
 
 ## Surprises & Discoveries
 
@@ -126,6 +132,7 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - M01.05 needs incident vocabulary precise enough for future invariants, incident engine, causal graph, replay, agentic investigation, repair planner, and MoneyFlowBench work while remaining documentation-only.
 - M01.05 builder PR #16 was accidentally squash-merged before the required QA thread; this plan records that the post-merge QA recovery path merged through PR #18 at commit `3bdedeb` before M01.06 begins.
 - M01.06 needs repair vocabulary precise enough for future agent tool contracts, repair planner, human review, replay, security hardening, and MoneyFlowBench work while remaining documentation-only and proposal-only.
+- M01.07 needs evidence receipt vocabulary precise enough for future evidence bundles, incident timelines, causal graph links, replay, deterministic validation, repair proposals, and enterprise audit boundaries while remaining documentation-only and non-runtime.
 
 ## Decision Log
 
@@ -150,6 +157,7 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - 2026-05-17: Keep M01.06 repair work documentation-only. Safe repair means safe to propose for human review, not safe for autonomous application.
 - 2026-05-18: M01.06 QA found no repair-boundary content defect. At QA time, PR-body accuracy was recorded as a pre-merge issue because PR #21 still had default template placeholders and `gh` was unavailable in the current Windows shell.
 - 2026-05-18: PR #21 merged into `main` at git commit `7adc96d`; record M01.06 as `Completed and merged` and set the next recommended thread to `M01.07 Builder - Define Evidence Receipt Model`.
+- 2026-05-18: Keep M01.07 evidence receipt work documentation-only. Evidence receipts support investigation and repair proposal evidence links, but they do not become financial truth by themselves and do not authorize autonomous evidence mutation, evidence deletion, repair approval, money mutation, or runtime evidence processing.
 
 ## Context and Orientation
 
@@ -167,7 +175,7 @@ Current M01 submilestone state:
 - `M01.04 Define reconciliation vocabulary` - Completed and merged.
 - `M01.05 Define incident vocabulary` - Completed and merged after QA recovery PR #18.
 - `M01.06 Define safe and unsafe repairs` - Completed and merged after PR #21.
-- `M01.07 Define evidence receipt model`
+- `M01.07 Define evidence receipt model` - Builder complete, awaiting QA.
 - `M01.08 Define human review states`
 - `M01.09 Define out-of-scope domains`
 - `M01.10 Write DOMAIN_MODEL.md`
@@ -175,7 +183,7 @@ Current M01 submilestone state:
 - `M01.12 Write THREAT_MODEL.md`
 - `M01.13 QA domain consistency`
 
-M01.07 through M01.13 remain planned scope only and are not started.
+M01.07 is `Builder complete, awaiting QA`. M01.08 through M01.13 remain planned scope only and are not started.
 
 ## Scope
 
@@ -276,6 +284,18 @@ Completed M01.06 builder scope:
 - Keep M01.07 through M01.13 `Not started`.
 - Keep M02 through M21 `Not started`.
 
+Completed M01.07 builder scope:
+
+- Confirm M01.06 is completed and merged after PR #21.
+- Create `docs/domain/evidence-receipt-model.md`.
+- Define evidence receipt, evidence source, source identity, evidence provider, raw evidence reference, normalized evidence reference, provenance, chain of custody, checksum or hash, evidence timestamp, ingestion timestamp, observation timestamp, received-at timestamp, evidence freshness, evidence retention state, redaction boundary, evidence confidentiality class, evidence uncertainty, evidence confidence, evidence limitation, evidence conflict, evidence coverage, evidence gap, evidence bundle, evidence receipt status, evidence rejection reason, append-only evidence handling, immutable raw evidence boundary, derived evidence boundary, and evidence audit trail.
+- Explain evidence safety boundaries, missing-evidence refusal or limitation states, conflict surfacing, redaction without destroyed auditability, and destructive evidence mutation or deletion boundaries.
+- Connect evidence receipts to payment lifecycle events, ledger facts, settlement files, reconciliation findings, incident timelines, and repair proposals.
+- Link the evidence receipt model doc from domain and entry docs.
+- Update M01.07 tracking and validation coverage.
+- Keep M01.08 through M01.13 `Not started`.
+- Keep M02 through M21 `Not started`.
+
 Out of scope:
 
 - Product functionality.
@@ -297,7 +317,8 @@ Out of scope:
 - M01.03 product implementation or runtime behavior.
 - M01.04 product implementation or runtime behavior.
 - M01.05 product implementation or runtime behavior.
-- M01.07 implementation.
+- M01.08 implementation.
+- M01.07 runtime implementation or evidence processing behavior.
 - M02 implementation.
 - M02-M21 started-status changes beyond explicit future-planning wording for ablation support in M11, M12, M14, M17, M18, and M20.
 
@@ -427,6 +448,16 @@ Completed M01.06 post-merge finalization work:
 4. Keep M01.07 through M01.13 and M02 through M21 `Not started`.
 5. Run validation and record results.
 
+Completed M01.07 builder work:
+
+1. Confirm M01.06 is `Completed and merged` after PR #21 and M01.07 is the next recommended thread.
+2. Mark M01.07 as `Builder in progress` on branch `m01-07-define-evidence-receipt-model`.
+3. Define evidence receipt vocabulary in `docs/domain/evidence-receipt-model.md`.
+4. Link the evidence receipt model doc from domain and entry docs.
+5. Update M01.07 tracking files.
+6. Add documentation-only validation checks.
+7. Run validation and record results before marking M01.07 `Builder complete, awaiting QA`.
+
 ## Concrete Steps
 
 - Confirm branch guard and starting cleanliness.
@@ -470,12 +501,13 @@ Acceptance criteria:
 - M01.04 is `Completed and merged` at git commit `5dfe928`.
 - M01.05 is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`.
 - M01.06 is `Completed and merged` after PR #21 merged at git commit `7adc96d`.
-- M01.07 through M01.13 remain `Not started`.
+- M01.07 is `Builder complete, awaiting QA`.
+- M01.08 through M01.13 remain `Not started`.
 - M02 through M21 remain `Not started`.
 - Product implementation has not started.
 - No forbidden runtime artifacts are added.
 - Validation passes or limitations are recorded.
-- Next recommended thread after M01.06 post-merge finalization is `M01.07 Builder - Define Evidence Receipt Model`.
+- Next recommended thread after M01.07 builder is `M01.07 QA - Define Evidence Receipt Model`.
 
 ## Idempotence and Recovery
 
@@ -493,6 +525,7 @@ Created artifacts:
 - `docs/releases/V1_SCOPE.md`
 - `CHANGELOG.md`
 - `docs/domain/repair-vocabulary.md`
+- `docs/domain/evidence-receipt-model.md`
 
 Notes:
 
@@ -609,6 +642,13 @@ Notes:
   - `git diff --check` passed.
   - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
   - Product implementation has not started; no runtime product code, APIs, databases, GitHub Actions, CI workflows, deployment, auth/authz implementation, structured logging implementation, repair runtime logic, repair execution, or product behavior was added.
+- 2026-05-18 M01.07 builder validation results:
+  - M01.07 evidence receipt model vocabulary was added as documentation only.
+  - `python scripts/validate-control-plane.py` passed.
+  - `python -m pytest tests/test_control_plane_bootstrap.py -q` passed with 25 tests.
+  - `git diff --check` passed.
+  - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
+  - Product implementation has not started; no evidence ingestion runtime, evidence storage layer, database, schema, API, file parser, external connector, MoneyEvent runtime, ledger runtime, incident runtime, repair runtime, agent runtime, GitHub Action, CI workflow, deployment, auth/authz implementation, structured logging implementation, or product behavior was added.
 
 ## Interfaces and Dependencies
 
@@ -620,7 +660,7 @@ M01 planning depends on:
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` for submilestone state.
 - `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md` for current operational direction.
 
-No product runtime interface is introduced by this M01 planning, M01.01 documentation work, M01.02 documentation work, M01.03 documentation work, M01.04 documentation work, M01.05 documentation and evaluation-planning work, M01.05 QA recovery work, M01.05 post-merge finalization work, or M01.06 repair vocabulary work.
+No product runtime interface is introduced by this M01 planning, M01.01 documentation work, M01.02 documentation work, M01.03 documentation work, M01.04 documentation work, M01.05 documentation and evaluation-planning work, M01.05 QA recovery work, M01.05 post-merge finalization work, M01.06 repair vocabulary work, or M01.07 evidence receipt model work.
 
 ## Outcomes & Retrospective
 
@@ -645,5 +685,6 @@ Current M01.01 builder outcome:
 - M01.04 is completed and merged as reconciliation vocabulary documentation only.
 - M01.05 is completed and merged after QA recovery PR #18 merged at commit `3bdedeb`; incident vocabulary and ablation planning remain documentation only.
 - M01.06 is completed and merged after PR #21 as repair vocabulary documentation only.
-- M01.07 through M01.13 remain not started.
-- The next safe thread is `M01.07 Builder - Define Evidence Receipt Model`.
+- M01.07 is builder complete, awaiting QA as evidence receipt model documentation only.
+- M01.08 through M01.13 remain not started.
+- The next safe thread is `M01.07 QA - Define Evidence Receipt Model`.

@@ -2,6 +2,18 @@
 
 ## 2026-05-18
 
+- Started M01.07 Define Evidence Receipt Model builder on branch `m01-07-define-evidence-receipt-model` after syncing from updated `main` at commit `5cd675c` (`docs: finalize M01.06 after merge (#22)`).
+- Confirmed M01.06 is completed and merged, M01.07 was the next recommended thread, M01.08 through M01.13 and M02 through M21 were `Not started`, product implementation had not started, and product directories still contain placeholder README files only.
+- Created `docs/domain/evidence-receipt-model.md` as documentation-only evidence receipt vocabulary.
+- Defined evidence receipt, evidence source, source identity, evidence provider, raw evidence reference, normalized evidence reference, provenance, chain of custody, checksum or hash, evidence timestamp, ingestion timestamp, observation timestamp, received-at timestamp, evidence freshness, evidence retention state, redaction boundary, evidence confidentiality class, evidence uncertainty, evidence confidence, evidence limitation, evidence conflict, evidence coverage, evidence gap, evidence bundle, evidence receipt status, evidence rejection reason, append-only evidence handling, immutable raw evidence boundary, derived evidence boundary, and evidence audit trail.
+- Reinforced that evidence receipts support investigation and repair proposals but do not become financial truth by themselves; raw evidence must not be silently modified, LLM output must not replace source evidence, conflicts must be surfaced, missing evidence must trigger limitation or refusal states, redaction must preserve auditability, and evidence mutation or deletion remains outside autonomous agent authority.
+- Updated domain links, documentation maps, status docs, M01 tracking, roadmap, capability and risk notes, changelog, active plan, and control-plane validation coverage.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.07 builder.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py -q` successfully with 25 tests for M01.07 builder.
+- Ran `git diff --check` successfully for M01.07 builder.
+- Skipped `make bootstrap-check` for M01.07 builder because `make` is unavailable in the current Windows shell.
+- Marked M01.07 `Builder complete, awaiting QA`; M01.08 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- Recommended next thread: `M01.07 QA - Define Evidence Receipt Model`.
 - Finalized M01.06 Define Safe and Unsafe Repairs after PR #21 merged into `main` at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`).
 - Updated M01.06 to `Completed and merged`; M01.07 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
 - Updated the exact next recommended thread to `M01.07 Builder - Define Evidence Receipt Model`.
