@@ -223,11 +223,11 @@ CausalLedger may use evidence to investigate and support incident reasoning, but
 - LLM output must not replace source evidence;
 - derived summaries must remain linked to source evidence;
 - conflicting evidence must be surfaced, not hidden;
-- missing evidence must trigger limitation, rejection, evidence request, refusal, or escalation states;
+- missing evidence must trigger limitation, gap, evidence request, refusal, rejection, or escalation states;
 - redaction must protect sensitive data without destroying auditability;
 - evidence mutation or deletion is a destructive action and must remain outside autonomous agent authority.
 
-Evidence receipts can support investigation, replay, incident reasoning, deterministic validation, and repair proposals. They do not approve repairs, post ledger entries, mutate money, close incidents as financial truth, override invariants, or decide what happened without deterministic support.
+Evidence receipts can support investigation, replay, incident reasoning, deterministic validation, and repair proposals. They do not approve repairs, post ledger entries, mutate money, mutate financial truth, close incidents as financial truth, override invariants, or decide what happened without deterministic support.
 
 ## Questions CausalLedger asks about evidence receipts
 

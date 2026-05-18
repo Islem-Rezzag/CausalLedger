@@ -2,6 +2,18 @@
 
 ## 2026-05-18
 
+- Completed M01.07 Define Evidence Receipt Model QA on branch `m01-07-define-evidence-receipt-model` for PR #23.
+- Confirmed branch setup passed, the worktree was clean before QA, the branch was up to date with `origin/m01-07-define-evidence-receipt-model`, PR #23 points at the expected branch and title, and builder commit `509738d` is present.
+- Reviewed the evidence receipt model content, domain links, status tracking, validation coverage, PR body, hidden-character warning, and forbidden-scope boundaries.
+- Confirmed evidence receipts remain documentation-only vocabulary and do not become financial truth, approve repairs, mutate money, mutate financial truth, delete evidence, modify raw evidence, post ledger entries, override invariants, replace source evidence with LLM output, or implement runtime evidence behavior.
+- Applied scoped wording clarifications so missing evidence explicitly includes gap outcomes and evidence receipts explicitly do not mutate financial truth.
+- Hidden-character scan found a UTF-8 BOM in `docs/milestones/SUBMILESTONE_REGISTRY.md`; the same BOM exists on `origin/main`, so it is benign and pre-existing. No risky bidirectional, isolate, or zero-width characters were introduced by M01.07.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.07 QA.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py -q` successfully with 25 tests for M01.07 QA.
+- Ran `git diff --check` successfully for M01.07 QA.
+- Skipped `make bootstrap-check` for M01.07 QA because `make` is unavailable in the current Windows shell.
+- Marked M01.07 `QA passed, awaiting merge`; M01.08 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- Recommended next thread: `Merge M01.07 PR - Define Evidence Receipt Model`.
 - Started M01.07 Define Evidence Receipt Model builder on branch `m01-07-define-evidence-receipt-model` after syncing from updated `main` at commit `5cd675c` (`docs: finalize M01.06 after merge (#22)`).
 - Confirmed M01.06 is completed and merged, M01.07 was the next recommended thread, M01.08 through M01.13 and M02 through M21 were `Not started`, product implementation had not started, and product directories still contain placeholder README files only.
 - Created `docs/domain/evidence-receipt-model.md` as documentation-only evidence receipt vocabulary.

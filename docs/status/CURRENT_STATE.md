@@ -2,7 +2,7 @@
 
 ## Current phase
 
-M00 Repo operating system is completed and tagged as `v0.1.0`. M01 planning is complete and merged into the current branch history at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, the active M01 plan is `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, M01.02 Define ledger vocabulary is `Completed and merged` at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is `Completed and merged` at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is `Completed and merged` at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), M01.05 Define incident vocabulary is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`, M01.06 Define safe and unsafe repairs is `Completed and merged` after PR #21 merged at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`), and M01.07 Define evidence receipt model is `Builder complete, awaiting QA` on branch `m01-07-define-evidence-receipt-model`.
+M00 Repo operating system is completed and tagged as `v0.1.0`. M01 planning is complete and merged into the current branch history at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, the active M01 plan is `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, M01.02 Define ledger vocabulary is `Completed and merged` at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is `Completed and merged` at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is `Completed and merged` at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), M01.05 Define incident vocabulary is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`, M01.06 Define safe and unsafe repairs is `Completed and merged` after PR #21 merged at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`), and M01.07 Define evidence receipt model is `QA passed, awaiting merge` on PR #23.
 
 M01.01 Define payment lifecycle is domain documentation only and is recorded as `Completed and merged` after post-merge QA recovery. The builder PR #11 was squash-merged before required QA at commit `1175789`, and the protocol deviation was recovered through the M01.01 QA recovery PR merged at commit `6480c1d` (`test: QA recovery M01.01 payment lifecycle (#12)`). Product implementation has not started.
 
@@ -71,7 +71,7 @@ The completed M00 plan remains at `plans/completed/CLP-0001-m00-repo-operating-s
 
 ## Current submilestone
 
-M01.01 Define payment lifecycle is `Completed and merged` after post-merge QA recovery. M01.02 Define ledger vocabulary is `Completed and merged`. M01.03 Define settlement vocabulary is `Completed and merged` at git commit `e54a917`. M01.04 Define reconciliation vocabulary is `Completed and merged` at git commit `5dfe928`. M01.05 Define incident vocabulary is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`. M01.06 Define safe and unsafe repairs is `Completed and merged` after PR #21 merged at git commit `7adc96d`. M01.07 Define evidence receipt model is `Builder complete, awaiting QA`. M00.01 through M00.08 are completed and merged. M01.08 through M01.13 remain `Not started`, and M02 through M21 remain `Not started`.
+M01.01 Define payment lifecycle is `Completed and merged` after post-merge QA recovery. M01.02 Define ledger vocabulary is `Completed and merged`. M01.03 Define settlement vocabulary is `Completed and merged` at git commit `e54a917`. M01.04 Define reconciliation vocabulary is `Completed and merged` at git commit `5dfe928`. M01.05 Define incident vocabulary is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`. M01.06 Define safe and unsafe repairs is `Completed and merged` after PR #21 merged at git commit `7adc96d`. M01.07 Define evidence receipt model is `QA passed, awaiting merge`. M00.01 through M00.08 are completed and merged. M01.08 through M01.13 remain `Not started`, and M02 through M21 remain `Not started`.
 
 M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 Planning and Tracking System is completed and merged at commit `f289d5e`. M00.04 Builder and QA Prompt Protocol is completed and merged at commit `e686c77`. M00.05 Validation and Handoff Workflow is completed and merged at commit `b82e5d1`. M00.06 GitHub PR and Issue Workflow is completed and merged at commit `a0fdf6bc422f573235d48ee8cde93fd92d25e617`. M00.07 Milestone Closeout Workflow is completed and merged at commit `ae19cd0e4b34ad8c16c3d4f8ee1adbe08e7575f6`. M00.08 Repo Operating System QA and Freeze is completed and merged at commit `db312d16f3059a2714f929c4bcb831d4a6a5a173`.
 
@@ -81,11 +81,11 @@ No product code exists yet. Product directories contain placeholder README files
 
 ## Next action
 
-Begin the next QA thread for the current documentation-only M01 slice. The exact next recommended thread is `M01.07 QA - Define Evidence Receipt Model`.
+Prepare the existing M01.07 PR for human merge after confirming the QA PASS commit is present, the PR body is accurate, and the final pre-merge check is clean. The exact next recommended thread is `Merge M01.07 PR - Define Evidence Receipt Model`.
 
 ## Implementation warning
 
-Do not start product implementation. The next M01.07 QA thread may only inspect the evidence receipt model documentation, tracking updates, validation coverage, and forbidden-scope boundaries. It must not create product behavior, MoneyEvent runtime code, ledger runtime logic, settlement runtime logic, reconciliation runtime logic, incident runtime logic, invariants, graph logic, replay logic, agent runtime, repair planning runtime logic, repair execution, UI, APIs, databases, storage layers, file parsers, external connectors, GitHub Actions, or CI workflows. Do not start M02.
+Do not start product implementation. The next M01.07 merge thread may only verify merge readiness for the existing PR after QA PASS and hand off to a human operator for merge, then proceed to post-merge finalization after merge. It must not create product behavior, MoneyEvent runtime code, ledger runtime logic, settlement runtime logic, reconciliation runtime logic, incident runtime logic, invariants, graph logic, replay logic, agent runtime, repair planning runtime logic, repair execution, UI, APIs, databases, storage layers, file parsers, external connectors, GitHub Actions, or CI workflows. Do not start M02.
 
 ## Validation limitations
 
@@ -103,6 +103,7 @@ Do not start product implementation. The next M01.07 QA thread may only inspect 
 - `make bootstrap-check` could not be run for M01.06 QA validation on 2026-05-18 because `make` is not available in the current Windows shell.
 - `make bootstrap-check` could not be run for M01.06 post-merge finalization on 2026-05-18 because `make` is not available in the current Windows shell.
 - `make bootstrap-check` could not be run for M01.07 builder validation on 2026-05-18 because `make` is not available in the current Windows shell.
+- `make bootstrap-check` could not be run for M01.07 QA validation on 2026-05-18 because `make` is not available in the current Windows shell.
 - Equivalent underlying checks were run directly with Python:
   - `python scripts/validate-control-plane.py`
   - `python -m pytest tests/test_control_plane_bootstrap.py`
@@ -110,6 +111,16 @@ Do not start product implementation. The next M01.07 QA thread may only inspect 
 
 ## Latest validation
 
+- 2026-05-18: M01.07 QA branch setup passed on `m01-07-define-evidence-receipt-model`; the starting worktree was clean, the branch fast-forwarded cleanly, PR #23 matched the expected branch and title, and builder commit `509738d` was present.
+- 2026-05-18: M01.07 QA reviewed `docs/domain/evidence-receipt-model.md`, domain links, status tracking, validation coverage, PR #23 metadata, hidden Unicode warnings, and forbidden-scope boundaries.
+- 2026-05-18: M01.07 QA applied a scoped documentation clarification so missing evidence explicitly includes gap outcomes and evidence receipts explicitly do not mutate financial truth.
+- 2026-05-18: M01.07 QA marked M01.07 `QA passed, awaiting merge`; M01.08 through M01.13 and M02 through M21 remain `Not started`.
+- 2026-05-18: `python scripts/validate-control-plane.py` passed for M01.07 QA.
+- 2026-05-18: `python -m pytest tests/test_control_plane_bootstrap.py -q` passed with 25 tests for M01.07 QA.
+- 2026-05-18: `git diff --check` passed for M01.07 QA.
+- 2026-05-18: `make bootstrap-check` could not run for M01.07 QA because `make` is unavailable in the current Windows shell.
+- 2026-05-18: Hidden-character scan found a UTF-8 BOM in `docs/milestones/SUBMILESTONE_REGISTRY.md`; the same BOM exists on `origin/main`, so it is a benign pre-existing marker and no risky bidirectional, isolate, or zero-width characters were introduced by M01.07.
+- 2026-05-18: Product implementation has not started; no runtime product code, evidence ingestion runtime, evidence storage layer, database, schema, API, file parser, external connector, GitHub Action, CI workflow, deployment, auth/authz implementation, structured logging implementation, repair execution, repair planner runtime, or money mutation was added.
 - 2026-05-18: M01.07 builder branch setup passed on `m01-07-define-evidence-receipt-model`; the starting worktree was clean, `origin/main` was fetched, `main` fast-forwarded cleanly to `5cd675c`, and M01.06 finalization was confirmed merged at `5cd675c` after PR #22.
 - 2026-05-18: M01.07 evidence receipt model was added as documentation only in `docs/domain/evidence-receipt-model.md`.
 - 2026-05-18: M01.07 was marked `Builder complete, awaiting QA`; M01.08 through M01.13 and M02 through M21 remain `Not started`.

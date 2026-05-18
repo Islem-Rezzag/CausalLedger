@@ -366,7 +366,7 @@ REQUIRED_TEXT = {
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "M01.07 is `Builder complete, awaiting QA`",
+        "M01.07 is `QA passed, awaiting merge`",
         "M01.08 through M01.13 remain planned scope only and are not started",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
@@ -1002,6 +1002,7 @@ REQUIRED_TEXT = {
         "missing evidence must trigger limitation",
         "redaction must protect sensitive data without destroying auditability",
         "evidence mutation or deletion is a destructive action",
+        "mutate financial truth",
         "Payment lifecycle vocabulary belongs to M01.01",
         "Ledger vocabulary belongs to M01.02",
         "Settlement vocabulary belongs to M01.03",
@@ -1321,9 +1322,11 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "Builder complete, awaiting QA",
+        "QA passed, awaiting merge",
         "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-07-define-evidence-receipt-model",
+        "#23",
+        "QA validation passed",
         "validate-control-plane passed",
         "pytest 25 passed",
         "git diff --check passed",
@@ -1331,7 +1334,7 @@ def closeout_state_errors():
         "No product implementation or runtime evidence behavior",
     ]:
         if phrase not in row:
-            errors.append(f"M01.07 registry row missing builder marker: {phrase}")
+            errors.append(f"M01.07 registry row missing QA marker: {phrase}")
 
     for index in range(8, 14):
         submilestone = f"M01.{index:02}"
@@ -1340,7 +1343,7 @@ def closeout_state_errors():
             "",
         )
         if "Not started" not in row:
-            errors.append(f"{submilestone} is not Not started after M01.07 builder")
+            errors.append(f"{submilestone} is not Not started after M01.07 QA")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -1434,16 +1437,16 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "M01.07 QA - Define Evidence Receipt Model" not in next_thread:
+    if "Merge M01.07 PR - Define Evidence Receipt Model" not in next_thread:
         errors.append(
-            "Next recommended thread is not M01.07 QA - Define Evidence Receipt Model"
+            "Next recommended thread is not Merge M01.07 PR - Define Evidence Receipt Model"
         )
     if "M01.06 is `Completed and merged`" not in next_thread:
         errors.append("Next recommended thread does not record M01.06 as Completed and merged")
     if "PR #21" not in next_thread or "7adc96d" not in next_thread:
         errors.append("Next recommended thread does not record PR #21 merge commit")
-    if "M01.07 is `Builder complete, awaiting QA`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.07 as Builder complete, awaiting QA")
+    if "M01.07 is `QA passed, awaiting merge`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.07 as QA passed, awaiting merge")
     if "M01.08 through M01.13 are `Not started`" not in next_thread:
         errors.append("Next recommended thread does not record later M01 submilestones as Not started")
     if "Do not start M02" not in next_thread:
