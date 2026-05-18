@@ -10,7 +10,7 @@ The safety boundary is non-negotiable: LLM agents may investigate, summarize, an
 
 The first M01 implementation submilestone after this planning thread is `M01.01 Define payment lifecycle`.
 
-Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is completed and merged at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), and M01.05 Define incident vocabulary is completed and merged after QA recovery PR #18 merged at git commit `3bdedeb`.
+Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is completed and merged at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), M01.05 Define incident vocabulary is completed and merged after QA recovery PR #18 merged at git commit `3bdedeb`, and M01.06 Define safe and unsafe repairs is QA passed, awaiting merge.
 
 ## Progress
 
@@ -95,6 +95,18 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - [x] 2026-05-16: Updated M01.05 tracking to the pre-finalization QA recovery state while leaving M01.06 through M01.13 and M02 through M21 `Not started`.
 - [x] 2026-05-17: Finalized M01.05 as `Completed and merged` after local git history confirmed `main`, `origin/main`, and the current branch at commit `3bdedeb` (`test: QA recovery M01.05 incident vocabulary and ablation strategy (#18)`), while leaving M01.06 through M01.13 and M02 through M21 `Not started`.
 - [x] 2026-05-17: M01.05 post-merge finalization validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py -q` with 23 tests, and `git diff --check`.
+- [x] 2026-05-17: Started M01.06 builder on branch `m01-06-define-safe-and-unsafe-repairs`; branch setup aligned the existing branch to updated `origin/main`, the starting worktree was clean, and M01.06 was marked `Builder in progress`.
+- [x] 2026-05-17: Created `docs/domain/repair-vocabulary.md` as documentation-only M01.06 domain vocabulary for repair proposals, candidates, safe repairs, unsafe repairs, forbidden autonomous repairs, destructive actions, rollback plans, replay-before-apply, deterministic validation, idempotency, human approval, escalation, evidence requirements, uncertainty, blast radius, preconditions, postconditions, audit trails, compensation versus reversal, dry-run simulation, evidence-backed plans, and rejection reasons.
+- [x] 2026-05-17: Updated domain links, status docs, milestone tracking, roadmap, capability and risk notes, weekly log, and control-plane validation coverage for M01.06.
+- [x] 2026-05-17: Initial M01.06 `python scripts/validate-control-plane.py` failed because `docs/status/NEXT_RECOMMENDED_THREAD.md` blocked M01.07 and M02 in combined wording while validation expected the exact `Do not start M02` phrase; fixed the scoped wording and reran validation successfully.
+- [x] 2026-05-17: M01.06 builder validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py -q` with 24 tests, and `git diff --check`.
+- [x] 2026-05-17: Updated M01.06 tracking to `Builder complete, awaiting QA` while leaving M01.07 through M01.13 and M02 through M21 `Not started`.
+- [x] 2026-05-18: Completed M01.06 QA on branch `m01-06-define-safe-and-unsafe-repairs`; branch guard passed, the branch fast-forwarded cleanly, and PR #21 matches the expected branch and title.
+- [x] 2026-05-18: QA confirmed repair vocabulary is complete, precise, documentation-only, safe-to-propose rather than safe-to-apply, and clear that LLM agents remain proposal-only.
+- [x] 2026-05-18: QA confirmed M01.07 through M01.13 and M02 through M21 remain `Not started`, product implementation has not started, product directories contain placeholder README files only, and `.github/workflows/` does not exist.
+- [x] 2026-05-18: PR #21 body still contained default template placeholders; `gh` is unavailable, so the corrected PR body must be pasted before merge.
+- [x] 2026-05-18: M01.06 QA validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py -q` with 24 tests, and `git diff --check`; `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
+- [x] 2026-05-18: Updated M01.06 tracking to `QA passed, awaiting merge` while leaving M01.07 through M01.13 and M02 through M21 `Not started`.
 
 ## Surprises & Discoveries
 
@@ -109,6 +121,7 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - M01.04 needs reconciliation vocabulary precise enough for future provider and bank simulator, invariant, incident, causal graph, replay, repair planner, and MoneyFlowBench work while remaining documentation-only.
 - M01.05 needs incident vocabulary precise enough for future invariants, incident engine, causal graph, replay, agentic investigation, repair planner, and MoneyFlowBench work while remaining documentation-only.
 - M01.05 builder PR #16 was accidentally squash-merged before the required QA thread; this plan records that the post-merge QA recovery path merged through PR #18 at commit `3bdedeb` before M01.06 begins.
+- M01.06 needs repair vocabulary precise enough for future agent tool contracts, repair planner, human review, replay, security hardening, and MoneyFlowBench work while remaining documentation-only and proposal-only.
 
 ## Decision Log
 
@@ -129,6 +142,9 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - 2026-05-16: Ablation planning belongs to offline benchmark strategy and future roadmap notes only in this slice; dangerous ablations may be described as offline negative controls, not production toggles.
 - 2026-05-16: Because M01.05 was merged before QA at commit `5c3943b`, record M01.05 in the pre-finalization QA recovery state and do not start M01.06 until the recovery PR merges and post-merge finalization records M01.05 as completed.
 - 2026-05-17: M01.05 QA recovery PR #18 merged at commit `3bdedeb`; record M01.05 as `Completed and merged` and set the next recommended thread to `M01.06 Builder - Define Safe and Unsafe Repairs`.
+- 2026-05-17: Existing branch `m01-06-define-safe-and-unsafe-repairs` contained no unique M01.06 work and was behind `origin/main`; align it to updated `origin/main` before starting M01.06 builder work.
+- 2026-05-17: Keep M01.06 repair work documentation-only. Safe repair means safe to propose for human review, not safe for autonomous application.
+- 2026-05-18: M01.06 QA found no repair-boundary content defect. The remaining pre-merge issue is PR-body accuracy: PR #21 still has default template placeholders and must be updated from the QA handoff because `gh` is unavailable in the current Windows shell.
 
 ## Context and Orientation
 
@@ -145,7 +161,7 @@ Current M01 submilestone state:
 - `M01.03 Define settlement vocabulary` - Completed and merged.
 - `M01.04 Define reconciliation vocabulary` - Completed and merged.
 - `M01.05 Define incident vocabulary` - Completed and merged after QA recovery PR #18.
-- `M01.06 Define safe and unsafe repairs`
+- `M01.06 Define safe and unsafe repairs` - QA passed, awaiting merge.
 - `M01.07 Define evidence receipt model`
 - `M01.08 Define human review states`
 - `M01.09 Define out-of-scope domains`
@@ -154,7 +170,7 @@ Current M01 submilestone state:
 - `M01.12 Write THREAT_MODEL.md`
 - `M01.13 QA domain consistency`
 
-M01.06 through M01.13 remain planned scope only and are not started.
+M01.07 through M01.13 remain planned scope only and are not started.
 
 ## Scope
 
@@ -243,6 +259,18 @@ Completed M01.05 builder scope:
 - Keep M01.06 through M01.13 `Not started`.
 - Keep M02 through M21 `Not started`.
 
+Completed M01.06 builder scope:
+
+- Confirm M01.05 is completed and merged after QA recovery PR #18.
+- Create `docs/domain/repair-vocabulary.md`.
+- Define repair proposal, repair candidate, safe repair, unsafe repair, forbidden autonomous repair, destructive action, rollback plan, replay-before-apply, deterministic validation, idempotency key, human approval, escalation, repair evidence requirements, repair uncertainty, repair blast radius, repair preconditions, repair postconditions, repair audit trail, compensation versus reversal, dry-run repair simulation, evidence-backed repair plan, and repair rejection reason.
+- Define repair categories and whether they are safe to propose, require human approval, require replay-before-apply, require deterministic validation, require escalation, or are forbidden for autonomous agents.
+- Explain that LLM agents may propose repair plans but may not apply repairs or mutate financial truth.
+- Link the repair vocabulary doc from domain and entry docs.
+- Update M01.06 tracking and validation coverage.
+- Keep M01.07 through M01.13 `Not started`.
+- Keep M02 through M21 `Not started`.
+
 Out of scope:
 
 - Product functionality.
@@ -264,7 +292,7 @@ Out of scope:
 - M01.03 product implementation or runtime behavior.
 - M01.04 product implementation or runtime behavior.
 - M01.05 product implementation or runtime behavior.
-- M01.06 implementation.
+- M01.07 implementation.
 - M02 implementation.
 - M02-M21 started-status changes beyond explicit future-planning wording for ablation support in M11, M12, M14, M17, M18, and M20.
 
@@ -367,6 +395,25 @@ Current M01.05 post-merge finalization work:
 5. Keep M01.06 through M01.13 and M02 through M21 `Not started`.
 6. Run validation and record results.
 
+Completed M01.06 builder work:
+
+1. Confirm M01.05 is `Completed and merged` after QA recovery PR #18 and M01.06 is the next recommended thread.
+2. Mark M01.06 as `Builder in progress` on branch `m01-06-define-safe-and-unsafe-repairs`.
+3. Define safe and unsafe repair vocabulary in `docs/domain/repair-vocabulary.md`.
+4. Link the repair vocabulary doc from domain and entry docs.
+5. Update M01.06 tracking files.
+6. Add documentation-only validation checks.
+7. Run validation and record results before marking M01.06 `Builder complete, awaiting QA`.
+
+Completed M01.06 QA work:
+
+1. Confirm the branch guard, fast-forward state, expected branch, and expected PR #21 metadata.
+2. Review the repair vocabulary, safe-to-propose boundary, unsafe and forbidden autonomous repair categories, evidence/replay/validation language, domain links, and status tracking.
+3. Confirm no product runtime code, APIs, databases, GitHub Actions, CI workflows, deployment, auth/authz, structured logging, runtime error handling, repair execution, or future milestone work was added.
+4. Update M01.06 tracking files to `QA passed, awaiting merge`.
+5. Record that the PR body must be corrected before merge because `gh` is unavailable.
+6. Run validation and record results before marking M01.06 `QA passed, awaiting merge`.
+
 ## Concrete Steps
 
 - Confirm branch guard and starting cleanliness.
@@ -409,12 +456,13 @@ Acceptance criteria:
 - M01.03 is `Completed and merged` at git commit `e54a917`.
 - M01.04 is `Completed and merged` at git commit `5dfe928`.
 - M01.05 is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`.
-- M01.06 through M01.13 remain `Not started`.
+- M01.06 is `QA passed, awaiting merge`.
+- M01.07 through M01.13 remain `Not started`.
 - M02 through M21 remain `Not started`.
 - Product implementation has not started.
 - No forbidden runtime artifacts are added.
 - Validation passes or limitations are recorded.
-- Next recommended thread after M01.05 post-merge finalization is `M01.06 Builder - Define Safe and Unsafe Repairs`.
+- Next recommended thread after M01.06 QA is `Merge M01.06 PR - Define Safe and Unsafe Repairs`.
 
 ## Idempotence and Recovery
 
@@ -431,6 +479,7 @@ Created artifacts:
 - `docs/releases/RELEASE_LADDER.md`
 - `docs/releases/V1_SCOPE.md`
 - `CHANGELOG.md`
+- `docs/domain/repair-vocabulary.md`
 
 Notes:
 
@@ -521,6 +570,24 @@ Notes:
   - `python -m pytest tests/test_control_plane_bootstrap.py -q` passed with 23 tests.
   - `git diff --check` passed.
   - Product implementation has not started, and M01.06 content was not added.
+- 2026-05-17 M01.06 builder validation results:
+  - Branch setup confirmed `m01-06-define-safe-and-unsafe-repairs` was clean and aligned to updated `origin/main`.
+  - M01.06 safe and unsafe repair vocabulary was added as documentation only.
+  - Initial `python scripts/validate-control-plane.py` failed because `docs/status/NEXT_RECOMMENDED_THREAD.md` blocked M01.07 and M02 in combined wording while validation expected the exact `Do not start M02` phrase.
+  - The scoped next-thread wording was fixed and validation was rerun successfully.
+  - `python scripts/validate-control-plane.py` passed.
+  - `python -m pytest tests/test_control_plane_bootstrap.py -q` passed with 24 tests.
+  - `git diff --check` passed.
+  - Product implementation has not started; no repair runtime logic, repair execution, APIs, databases, GitHub Actions, CI workflows, or product behavior was added.
+- 2026-05-18 M01.06 QA validation results:
+  - QA reviewed safe and unsafe repair vocabulary, tracking, validation coverage, PR #21 metadata, and forbidden-scope boundaries.
+  - QA found the repair vocabulary documentation-only boundary acceptable and found no product implementation or future milestone start.
+  - PR #21 body still contains default template placeholders; `gh` is unavailable, so the corrected PR body must be pasted before merge.
+  - `python scripts/validate-control-plane.py` passed.
+  - `python -m pytest tests/test_control_plane_bootstrap.py -q` passed with 24 tests.
+  - `git diff --check` passed.
+  - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
+  - Product implementation has not started; no repair runtime logic, repair execution, APIs, databases, GitHub Actions, CI workflows, or product behavior was added.
 
 ## Interfaces and Dependencies
 
@@ -532,7 +599,7 @@ M01 planning depends on:
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` for submilestone state.
 - `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md` for current operational direction.
 
-No product runtime interface is introduced by this M01 planning, M01.01 documentation work, M01.02 documentation work, M01.03 documentation work, M01.04 documentation work, M01.05 documentation and evaluation-planning work, M01.05 QA recovery work, or M01.05 post-merge finalization work.
+No product runtime interface is introduced by this M01 planning, M01.01 documentation work, M01.02 documentation work, M01.03 documentation work, M01.04 documentation work, M01.05 documentation and evaluation-planning work, M01.05 QA recovery work, M01.05 post-merge finalization work, or M01.06 repair vocabulary work.
 
 ## Outcomes & Retrospective
 
@@ -556,4 +623,5 @@ Current M01.01 builder outcome:
 - M01.03 is completed and merged as settlement vocabulary documentation only.
 - M01.04 is completed and merged as reconciliation vocabulary documentation only.
 - M01.05 is completed and merged after QA recovery PR #18 merged at commit `3bdedeb`; incident vocabulary and ablation planning remain documentation only.
-- M01.06 through M01.13 remain not started.
+- M01.06 is QA passed, awaiting merge as repair vocabulary documentation only.
+- M01.07 through M01.13 remain not started.

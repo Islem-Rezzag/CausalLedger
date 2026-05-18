@@ -13,3 +13,4 @@ Current domain documents:
 - [Settlement vocabulary](settlement-vocabulary.md) - M01.03 settlement vocabulary, statuses, paths, evidence examples, and boundaries.
 - [Reconciliation vocabulary](reconciliation-vocabulary.md) - M01.04 reconciliation vocabulary, sources, targets, statuses, paths, evidence examples, and boundaries.
 - [Incident vocabulary](incident-vocabulary.md) - M01.05 incident vocabulary, actors, statuses, severity, types, paths, evidence examples, questions, failure patterns, and boundaries.
+- [Repair vocabulary](repair-vocabulary.md) - M01.06 safe and unsafe repair vocabulary, proposal boundaries, evidence requirements, validation expectations, and forbidden autonomous actions.

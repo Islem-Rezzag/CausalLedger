@@ -32,7 +32,7 @@ def test_required_project_docs_exist():
         "docs/domain/settlement-vocabulary.md",
         "docs/domain/reconciliation-vocabulary.md",
         "docs/domain/incident-vocabulary.md",
-        "docs/domain/incident-vocabulary.md",
+        "docs/domain/repair-vocabulary.md",
         "docs/RELIABILITY.md",
         "docs/THREAT_MODEL.md",
         "docs/TOKEN_COST_STRATEGY.md",
@@ -244,12 +244,13 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "M01.06 through M01.13 remain planned scope only and are not started",
+        "M01.07 through M01.13 remain planned scope only and are not started",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
         "docs/domain/reconciliation-vocabulary.md",
         "docs/domain/incident-vocabulary.md",
+        "docs/domain/repair-vocabulary.md",
     ]:
         assert phrase in plan
 
@@ -268,6 +269,7 @@ def test_m01_payment_lifecycle_domain_docs_are_documentation_only():
         "do not implement runtime behavior",
         "Payment lifecycle",
         "Ledger vocabulary",
+        "Repair vocabulary",
     ]:
         assert phrase in domain_readme
 
@@ -338,12 +340,14 @@ def test_m01_payment_lifecycle_domain_docs_are_documentation_only():
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
         "docs/domain/reconciliation-vocabulary.md",
+        "docs/domain/incident-vocabulary.md",
+        "docs/domain/repair-vocabulary.md",
         "The domain model is not complete",
         "Ledger vocabulary",
         "Settlement vocabulary",
         "Reconciliation vocabulary",
         "Incident vocabulary",
-        "Safe and unsafe repairs",
+        "Repair vocabulary",
         "Evidence receipt model",
         "Human review states",
         "Out-of-scope domains",
@@ -881,6 +885,127 @@ def test_m01_incident_vocabulary_domain_doc_is_documentation_only():
 
     assert "incident-vocabulary.md" in domain_readme
     assert "docs/domain/incident-vocabulary.md" in domain_model
+
+
+def test_m01_repair_vocabulary_domain_doc_is_documentation_only():
+    repair_vocabulary = (
+        ROOT / "docs" / "domain" / "repair-vocabulary.md"
+    ).read_text(encoding="utf-8")
+    domain_readme = (ROOT / "docs" / "domain" / "README.md").read_text(
+        encoding="utf-8"
+    )
+    domain_model = (ROOT / "docs" / "DOMAIN_MODEL.md").read_text(encoding="utf-8")
+
+    for phrase in [
+        "No runtime implementation is defined or claimed",
+        "## Purpose",
+        "## Repair scope",
+        "## What this document defines",
+        "## What this document does not define",
+        "## Relationship to payment lifecycle vocabulary",
+        "## Relationship to ledger vocabulary",
+        "## Relationship to settlement vocabulary",
+        "## Relationship to reconciliation vocabulary",
+        "## Relationship to incident vocabulary",
+        "## Relationship to future evidence work",
+        "## Relationship to future replay work",
+        "## Relationship to future agentic investigation",
+        "## Relationship to future repair planner",
+        "## Relationship to future human review",
+        "## Core repair concepts",
+        "## Agent repair boundary",
+        "## Repair evidence requirements",
+        "## Compensation versus reversal",
+        "## Repair proposal lifecycle vocabulary",
+        "## Repair categories",
+        "## Safe to propose, review required, and forbidden",
+        "## Repair rejection reasons",
+        "## Why this boundary protects the CausalLedger moat",
+        "## Boundaries with other M01 areas",
+        "## Non-implementation statement",
+        "repair proposal",
+        "repair candidate",
+        "evidence-backed repair plan",
+        "safe repair",
+        "unsafe repair",
+        "forbidden autonomous repair",
+        "destructive action",
+        "rollback plan",
+        "replay-before-apply",
+        "deterministic validation",
+        "idempotency key",
+        "human approval",
+        "escalation",
+        "repair evidence requirements",
+        "repair uncertainty",
+        "repair blast radius",
+        "repair preconditions",
+        "repair postconditions",
+        "repair audit trail",
+        "compensation",
+        "reversal",
+        "dry-run repair simulation",
+        "repair rejection reason",
+        "mutate money",
+        "post ledger entries",
+        "approve repairs",
+        "apply repairs",
+        "delete evidence",
+        "modify raw events",
+        "override invariants",
+        "bypass human review",
+        "release external communications",
+        "claim unsupported financial facts",
+        "`repair_candidate_identified`",
+        "`repair_proposal_drafted`",
+        "`repair_proposal_rejected`",
+        "`repair_escalated`",
+        "`awaiting_human_approval`",
+        "`repair_approved_by_human`",
+        "`repair_ready_for_dry_run`",
+        "`repair_dry_run_failed`",
+        "`repair_dry_run_passed`",
+        "`repair_application_forbidden`",
+        "Documentation-only correction",
+        "Evidence-link correction",
+        "Case-status correction",
+        "Reconciliation explanation update",
+        "Proposed ledger adjustment",
+        "Proposed settlement adjustment",
+        "Proposed refund correction",
+        "Proposed chargeback correction",
+        "Provider-retry recommendation",
+        "Unsafe autonomous money movement",
+        "Unsafe raw evidence mutation",
+        "Unsafe ledger rewrite",
+        "Unsafe deletion or suppression of audit evidence",
+        "Safe means safe to propose for review, not safe for autonomous application",
+        "Human review is required whenever a proposal changes persistent case state",
+        "Forbidden autonomous repair categories include unsafe autonomous money movement",
+        "turns repair planning into a controlled enterprise workflow rather than a generic agent action",
+        "Payment lifecycle vocabulary belongs to M01.01",
+        "Ledger vocabulary belongs to M01.02",
+        "Settlement vocabulary belongs to M01.03",
+        "Reconciliation vocabulary belongs to M01.04",
+        "Incident vocabulary belongs to M01.05",
+        "Evidence receipt model belongs to M01.07",
+        "Human review states belong to M01.08",
+    ]:
+        assert phrase in repair_vocabulary
+
+    for forbidden_claim in [
+        "implements MoneyEvent",
+        "implements ledger",
+        "implements invariants",
+        "runtime implementation is complete",
+        "schema is defined",
+        "applies repairs",
+        "posts ledger entries",
+    ]:
+        assert forbidden_claim not in repair_vocabulary
+
+    assert "repair-vocabulary.md" in domain_readme
+    assert "docs/domain/repair-vocabulary.md" in domain_model
 
 
 def test_ablation_planning_docs_are_offline_benchmark_only():
@@ -1507,7 +1632,18 @@ def test_m00_closeout_state_is_coherent():
     assert "validate-control-plane passed" in row
     assert "git diff --check passed" in row
 
-    for index in range(6, 14):
+    row = next(line for line in registry.splitlines() if line.startswith("| M01.06 |"))
+    assert "QA passed, awaiting merge" in row
+    assert "m01-06-define-safe-and-unsafe-repairs" in row
+    assert "#21" in row
+    assert "QA validation passed" in row
+    assert "validate-control-plane passed" in row
+    assert "pytest 24 passed" in row
+    assert "git diff --check passed" in row
+    assert "make unavailable" in row
+    assert "No product implementation or runtime repair behavior" in row
+
+    for index in range(7, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")
@@ -1539,7 +1675,8 @@ def test_m00_closeout_state_is_coherent():
         "M01.03 Define settlement vocabulary is `Completed and merged`",
         "M01.04 Define reconciliation vocabulary is `Completed and merged`",
         "M01.05 Define incident vocabulary is `Completed and merged`",
-        "M01.06 through M01.13 remain `Not started`",
+        "M01.06 Define safe and unsafe repairs is `QA passed, awaiting merge`",
+        "M01.07 through M01.13 remain `Not started`",
     ]:
         assert phrase in current_state
 
