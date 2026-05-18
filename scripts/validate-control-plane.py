@@ -366,7 +366,7 @@ REQUIRED_TEXT = {
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "M01.07 is `QA passed, awaiting merge`",
+        "M01.07 is `Completed and merged`",
         "M01.08 through M01.13 remain planned scope only and are not started",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
@@ -1322,11 +1322,13 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "QA passed, awaiting merge",
+        "Completed and merged",
         "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-07-define-evidence-receipt-model",
         "#23",
-        "QA validation passed",
+        "a88b5ff",
+        "0313f4e",
+        "post-merge finalization passed",
         "validate-control-plane passed",
         "pytest 25 passed",
         "git diff --check passed",
@@ -1334,7 +1336,7 @@ def closeout_state_errors():
         "No product implementation or runtime evidence behavior",
     ]:
         if phrase not in row:
-            errors.append(f"M01.07 registry row missing QA marker: {phrase}")
+            errors.append(f"M01.07 registry row missing merge marker: {phrase}")
 
     for index in range(8, 14):
         submilestone = f"M01.{index:02}"
@@ -1343,7 +1345,7 @@ def closeout_state_errors():
             "",
         )
         if "Not started" not in row:
-            errors.append(f"{submilestone} is not Not started after M01.07 QA")
+            errors.append(f"{submilestone} is not Not started after M01.07 finalization")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -1437,17 +1439,17 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "Merge M01.07 PR - Define Evidence Receipt Model" not in next_thread:
+    if "M01.08 Builder - Define Human Review States" not in next_thread:
         errors.append(
-            "Next recommended thread is not Merge M01.07 PR - Define Evidence Receipt Model"
+            "Next recommended thread is not M01.08 Builder - Define Human Review States"
         )
-    if "M01.06 is `Completed and merged`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.06 as Completed and merged")
-    if "PR #21" not in next_thread or "7adc96d" not in next_thread:
-        errors.append("Next recommended thread does not record PR #21 merge commit")
-    if "M01.07 is `QA passed, awaiting merge`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.07 as QA passed, awaiting merge")
-    if "M01.08 through M01.13 are `Not started`" not in next_thread:
+    if "M01.07 is `Completed and merged`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.07 as Completed and merged")
+    if "PR #23" not in next_thread or "a88b5ff" not in next_thread:
+        errors.append("Next recommended thread does not record PR #23 merge commit")
+    if "M01.08 is `Not started`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.08 as Not started")
+    if "M01.09 through M01.13 are `Not started`" not in next_thread:
         errors.append("Next recommended thread does not record later M01 submilestones as Not started")
     if "Do not start M02" not in next_thread:
         errors.append("Next recommended thread does not block M02 later work")
