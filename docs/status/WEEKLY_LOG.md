@@ -2,10 +2,18 @@
 
 ## 2026-05-18
 
+- Finalized M01.06 Define Safe and Unsafe Repairs after PR #21 merged into `main` at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`).
+- Updated M01.06 to `Completed and merged`; M01.07 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- Updated the exact next recommended thread to `M01.07 Builder - Define Evidence Receipt Model`.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.06 post-merge finalization.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py -q` successfully with 24 tests for M01.06 post-merge finalization.
+- Ran `git diff --check` successfully for M01.06 post-merge finalization.
+- Skipped `make bootstrap-check` for M01.06 post-merge finalization because `make` is unavailable in the current Windows shell.
+- Confirmed no product implementation, APIs, databases, GitHub Actions, CI workflows, deployment, auth/authz implementation, structured logging implementation, or repair runtime behavior was introduced.
 - Completed M01.06 Define Safe and Unsafe Repairs QA on branch `m01-06-define-safe-and-unsafe-repairs` for PR #21.
 - Verified repair vocabulary is documentation-only, safe repair means safe to propose for human review, unsafe and forbidden autonomous repairs are separated, and LLM agents remain proposal-only with no authority to mutate money, post ledger entries, approve repairs, apply repairs, delete evidence, modify raw events, override invariants, bypass human review, release external communications, or claim unsupported financial facts.
 - Verified M01.07 through M01.13 and M02 through M21 remain `Not started`, product implementation has not started, `.github/workflows/` does not exist, and product directories contain placeholder README files only.
-- Inspected PR #21 through the GitHub public API because `gh` is unavailable; the current PR body still contains default template placeholders, so the corrected QA body must be pasted before merge.
+- Inspected PR #21 through the GitHub public API because `gh` is unavailable; at QA time, the PR body still contained default template placeholders and was recorded as a pre-merge accuracy note.
 - Ran `python scripts/validate-control-plane.py` successfully for M01.06 QA.
 - Ran `python -m pytest tests/test_control_plane_bootstrap.py -q` successfully with 24 tests for M01.06 QA.
 - Ran `git diff --check` successfully for M01.06 QA.
