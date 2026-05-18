@@ -26,6 +26,7 @@ REQUIRED_FILES = [
     "docs/domain/reconciliation-vocabulary.md",
     "docs/domain/incident-vocabulary.md",
     "docs/domain/repair-vocabulary.md",
+    "docs/domain/evidence-receipt-model.md",
     "docs/RELIABILITY.md",
     "docs/THREAT_MODEL.md",
     "docs/TOKEN_COST_STRATEGY.md",
@@ -365,7 +366,8 @@ REQUIRED_TEXT = {
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "M01.07 through M01.13 remain planned scope only and are not started",
+        "M01.07 is `QA passed, awaiting merge`",
+        "M01.08 through M01.13 remain planned scope only and are not started",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
@@ -373,6 +375,7 @@ REQUIRED_TEXT = {
         "docs/domain/reconciliation-vocabulary.md",
         "docs/domain/incident-vocabulary.md",
         "docs/domain/repair-vocabulary.md",
+        "docs/domain/evidence-receipt-model.md",
     ],
     "docs/domain/README.md": [
         "domain vocabulary",
@@ -383,6 +386,7 @@ REQUIRED_TEXT = {
         "Reconciliation vocabulary",
         "Incident vocabulary",
         "Repair vocabulary",
+        "Evidence receipt model",
     ],
     "docs/domain/payment-lifecycle.md": [
         "No runtime implementation is defined or claimed",
@@ -933,6 +937,80 @@ REQUIRED_TEXT = {
         "Evidence receipt model belongs to M01.07",
         "Human review states belong to M01.08",
     ],
+    "docs/domain/evidence-receipt-model.md": [
+        "No runtime implementation is defined or claimed",
+        "## Purpose",
+        "## Evidence receipt scope",
+        "## What this document defines",
+        "## What this document does not define",
+        "## Relationship to payment lifecycle vocabulary",
+        "## Relationship to ledger vocabulary",
+        "## Relationship to settlement vocabulary",
+        "## Relationship to reconciliation vocabulary",
+        "## Relationship to incident vocabulary",
+        "## Relationship to repair vocabulary",
+        "## Relationship to future human review",
+        "## Core evidence receipt concepts",
+        "## Evidence source examples",
+        "## Evidence receipt statuses",
+        "## Evidence rejection reasons",
+        "## Timestamp vocabulary",
+        "## Raw and derived evidence boundaries",
+        "## Redaction and confidentiality boundary",
+        "## Evidence uncertainty, confidence, limitations, conflicts, coverage, and gaps",
+        "## Evidence bundles",
+        "## Safety boundary",
+        "## Questions CausalLedger asks about evidence receipts",
+        "## Evidence failure patterns",
+        "## Why evidence receipts protect the CausalLedger moat",
+        "## Boundaries with other M01 areas",
+        "## Non-implementation statement",
+        "evidence receipt",
+        "evidence source",
+        "source identity",
+        "evidence provider",
+        "raw evidence reference",
+        "normalized evidence reference",
+        "provenance",
+        "chain of custody",
+        "checksum or hash",
+        "evidence timestamp",
+        "ingestion timestamp",
+        "observation timestamp",
+        "received-at timestamp",
+        "evidence freshness",
+        "evidence retention state",
+        "redaction boundary",
+        "evidence confidentiality class",
+        "evidence uncertainty",
+        "evidence confidence",
+        "evidence limitation",
+        "evidence conflict",
+        "evidence coverage",
+        "evidence gap",
+        "evidence bundle",
+        "evidence receipt status",
+        "evidence rejection reason",
+        "append-only evidence handling",
+        "immutable raw evidence boundary",
+        "derived evidence boundary",
+        "evidence audit trail",
+        "raw evidence must not be silently modified",
+        "evidence receipts must not become financial truth by themselves",
+        "LLM output must not replace source evidence",
+        "conflicting evidence must be surfaced, not hidden",
+        "missing evidence must trigger limitation",
+        "redaction must protect sensitive data without destroying auditability",
+        "evidence mutation or deletion is a destructive action",
+        "mutate financial truth",
+        "Payment lifecycle vocabulary belongs to M01.01",
+        "Ledger vocabulary belongs to M01.02",
+        "Settlement vocabulary belongs to M01.03",
+        "Reconciliation vocabulary belongs to M01.04",
+        "Incident vocabulary belongs to M01.05",
+        "Safe and unsafe repair vocabulary belongs to M01.06",
+        "Human review states belong to M01.08",
+    ],
     "docs/DOMAIN_MODEL.md": [
         "M01 domain index",
         "Payment lifecycle",
@@ -942,6 +1020,7 @@ REQUIRED_TEXT = {
         "docs/domain/reconciliation-vocabulary.md",
         "docs/domain/incident-vocabulary.md",
         "docs/domain/repair-vocabulary.md",
+        "docs/domain/evidence-receipt-model.md",
         "The domain model is not complete",
         "Ledger vocabulary",
         "Settlement vocabulary",
@@ -1238,14 +1317,33 @@ def closeout_state_errors():
         if phrase not in row:
             errors.append(f"M01.06 registry row missing merge marker: {phrase}")
 
-    for index in range(7, 14):
+    row = next(
+        (line for line in registry.splitlines() if line.startswith("| M01.07 |")),
+        "",
+    )
+    for phrase in [
+        "QA passed, awaiting merge",
+        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "m01-07-define-evidence-receipt-model",
+        "#23",
+        "QA validation passed",
+        "validate-control-plane passed",
+        "pytest 25 passed",
+        "git diff --check passed",
+        "make unavailable",
+        "No product implementation or runtime evidence behavior",
+    ]:
+        if phrase not in row:
+            errors.append(f"M01.07 registry row missing QA marker: {phrase}")
+
+    for index in range(8, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             (line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")),
             "",
         )
         if "Not started" not in row:
-            errors.append(f"{submilestone} is not Not started after M01.06 finalization")
+            errors.append(f"{submilestone} is not Not started after M01.07 QA")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -1339,15 +1437,17 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "M01.07 Builder - Define Evidence Receipt Model" not in next_thread:
+    if "Merge M01.07 PR - Define Evidence Receipt Model" not in next_thread:
         errors.append(
-            "Next recommended thread is not M01.07 Builder - Define Evidence Receipt Model"
+            "Next recommended thread is not Merge M01.07 PR - Define Evidence Receipt Model"
         )
     if "M01.06 is `Completed and merged`" not in next_thread:
         errors.append("Next recommended thread does not record M01.06 as Completed and merged")
     if "PR #21" not in next_thread or "7adc96d" not in next_thread:
         errors.append("Next recommended thread does not record PR #21 merge commit")
-    if "M01.07 through M01.13 are `Not started`" not in next_thread:
+    if "M01.07 is `QA passed, awaiting merge`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.07 as QA passed, awaiting merge")
+    if "M01.08 through M01.13 are `Not started`" not in next_thread:
         errors.append("Next recommended thread does not record later M01 submilestones as Not started")
     if "Do not start M02" not in next_thread:
         errors.append("Next recommended thread does not block M02 later work")
@@ -1358,6 +1458,7 @@ def closeout_state_errors():
     reconciliation_doc = ROOT / "docs/domain/reconciliation-vocabulary.md"
     incident_doc = ROOT / "docs/domain/incident-vocabulary.md"
     repair_doc = ROOT / "docs/domain/repair-vocabulary.md"
+    evidence_doc = ROOT / "docs/domain/evidence-receipt-model.md"
     domain_index = ROOT / "docs/DOMAIN_MODEL.md"
     if not domain_doc.is_file():
         errors.append("M01.01 payment lifecycle doc is missing")
@@ -1371,6 +1472,8 @@ def closeout_state_errors():
         errors.append("M01.05 incident vocabulary doc is missing")
     if not repair_doc.is_file():
         errors.append("M01.06 repair vocabulary doc is missing")
+    if not evidence_doc.is_file():
+        errors.append("M01.07 evidence receipt model doc is missing")
     if domain_doc.is_file():
         text = domain_doc.read_text(encoding="utf-8")
         forbidden_claims = [
@@ -1445,6 +1548,21 @@ def closeout_state_errors():
         for claim in forbidden_claims:
             if claim in text:
                 errors.append(f"Repair vocabulary doc makes forbidden runtime claim: {claim}")
+    if evidence_doc.is_file():
+        text = evidence_doc.read_text(encoding="utf-8")
+        forbidden_claims = [
+            "implements MoneyEvent",
+            "implements ledger",
+            "implements invariants",
+            "runtime implementation is complete",
+            "schema is defined",
+            "ingests evidence",
+            "stores evidence",
+            "deletes evidence",
+        ]
+        for claim in forbidden_claims:
+            if claim in text:
+                errors.append(f"Evidence receipt model doc makes forbidden runtime claim: {claim}")
     if domain_index.is_file():
         text = domain_index.read_text(encoding="utf-8")
         if "docs/domain/payment-lifecycle.md" not in text:
@@ -1459,6 +1577,8 @@ def closeout_state_errors():
             errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/incident-vocabulary.md")
         if "docs/domain/repair-vocabulary.md" not in text:
             errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/repair-vocabulary.md")
+        if "docs/domain/evidence-receipt-model.md" not in text:
+            errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/evidence-receipt-model.md")
 
     domain_readme = ROOT / "docs/domain/README.md"
     if domain_readme.is_file():
@@ -1473,6 +1593,8 @@ def closeout_state_errors():
             errors.append("docs/domain/README.md does not reference docs/domain/incident-vocabulary.md")
         if "docs/domain/repair-vocabulary.md" not in text and "repair-vocabulary.md" not in text:
             errors.append("docs/domain/README.md does not reference docs/domain/repair-vocabulary.md")
+        if "docs/domain/evidence-receipt-model.md" not in text and "evidence-receipt-model.md" not in text:
+            errors.append("docs/domain/README.md does not reference docs/domain/evidence-receipt-model.md")
 
     m14_doc = (ROOT / "docs/milestones/M14.md").read_text(encoding="utf-8")
     if "Add benchmark and ablation runner" not in m14_doc:
