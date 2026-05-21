@@ -245,7 +245,7 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "M01.07 is `QA passed, awaiting merge`",
+        "M01.07 is `Completed and merged`",
         "M01.08 through M01.13 remain planned scope only and are not started",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
@@ -1763,10 +1763,12 @@ def test_m00_closeout_state_is_coherent():
     assert "No product implementation or runtime repair behavior" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.07 |"))
-    assert "QA passed, awaiting merge" in row
+    assert "Completed and merged" in row
     assert "m01-07-define-evidence-receipt-model" in row
     assert "#23" in row
-    assert "QA validation passed" in row
+    assert "a88b5ff" in row
+    assert "0313f4e" in row
+    assert "post-merge finalization passed" in row
     assert "validate-control-plane passed" in row
     assert "pytest 25 passed" in row
     assert "git diff --check passed" in row
@@ -1806,7 +1808,7 @@ def test_m00_closeout_state_is_coherent():
         "M01.04 Define reconciliation vocabulary is `Completed and merged`",
         "M01.05 Define incident vocabulary is `Completed and merged`",
         "M01.06 Define safe and unsafe repairs is `Completed and merged`",
-        "M01.07 Define evidence receipt model is `QA passed, awaiting merge`",
+        "M01.07 Define evidence receipt model is `Completed and merged`",
         "M01.08 through M01.13 remain `Not started`",
     ]:
         assert phrase in current_state
