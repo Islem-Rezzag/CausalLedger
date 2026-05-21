@@ -2,6 +2,19 @@
 
 ## 2026-05-21
 
+- Finalized M01.09 Define Out-of-Scope Domains as `Completed and merged` after PR #27 merged at git commit `1b40773` (`docs: define M01.09 out-of-scope domains (#27)`) before M01.10 builder work began.
+- Started M01.10 Write DOMAIN_MODEL.md builder on branch `m01-10-write-domain-model`; branch guard passed, the starting worktree was clean, latest commit was `1b40773`, remote `origin` points to GitHub, and tag `v0.1.0` exists.
+- Marked M01.10 `Builder in progress` while working; M01.11 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- Began rewriting `docs/DOMAIN_MODEL.md` as the canonical M01 domain model summary; this is documentation only and does not implement runtime behavior.
+- Rewrote `docs/DOMAIN_MODEL.md` as the canonical M01 domain model summary covering status, product thesis, purpose, core scope, domain map, source docs, cross-domain lifecycle, object map, evidence/truth model, deterministic boundaries, AI boundaries, human review and repair boundaries, out-of-scope boundaries, future dependencies, versioning, validation/evaluation relevance, remaining M01 work, and implementation guardrails.
+- Updated README, docs index, active plan, roadmap, milestone doc, submilestone registry, current state, next recommended thread, weekly log, capability matrix, tech debt, validation script, and bootstrap tests for M01.10.
+- Initial M01.10 `python scripts/validate-control-plane.py` failed because the M01.10 registry row used lower-case `no product implementation or runtime behavior` while validation expected the exact capitalized marker; the scoped registry wording was fixed and validation was rerun successfully.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.10 builder.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 27 tests for M01.10 builder.
+- Ran `git diff --check` successfully for M01.10 builder.
+- Skipped `make bootstrap-check` for M01.10 builder because `make` is unavailable in the current Windows shell.
+- Marked M01.10 `Builder complete, awaiting QA`; M01.11 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- Recommended next thread: `M01.10 QA - Write DOMAIN_MODEL.md`.
 - Completed M01.09 Define Out-of-Scope Domains QA review on branch `m01-09-define-out-of-scope-domains`; branch guard passed, the starting worktree was clean, latest commit was `e103fa2` (`docs: define M01.09 out-of-scope domains`), and tag `v0.1.0` exists.
 - Verified `docs/domain/out-of-scope-domains.md`, domain links, high-level positioning docs, lightweight spec dependency notes, tracking/status files, validation coverage, and forbidden-scope boundaries.
 - Found no out-of-scope domain content defects; QA changes were tracking/status/control-plane validation updates only.

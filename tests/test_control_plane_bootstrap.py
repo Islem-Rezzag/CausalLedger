@@ -247,9 +247,9 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "M01.08 is `Completed and merged`",
-        "M01.09 is `QA passed, awaiting merge`",
-        "M01.10 through M01.13 remain planned scope only and are not started",
+        "M01.09 is `Completed and merged`",
+        "M01.10 is `Builder complete, awaiting QA`",
+        "M01.11 through M01.13 remain planned scope only and are not started",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
@@ -343,7 +343,30 @@ def test_m01_payment_lifecycle_domain_docs_are_documentation_only():
         assert forbidden_claim not in payment_lifecycle
 
     for phrase in [
-        "M01 domain index",
+        "## Status",
+        "## Product thesis",
+        "## Domain model purpose",
+        "## Core scope",
+        "## Domain map",
+        "## Domain source documents",
+        "## Cross-domain lifecycle",
+        "## Money movement object map",
+        "## Evidence and truth model",
+        "## Deterministic truth boundaries",
+        "## Agentic AI boundaries",
+        "## Human review and repair boundaries",
+        "## Out-of-scope boundaries",
+        "## Future implementation dependencies",
+        "## Versioning and release relevance",
+        "## Validation and evaluation relevance",
+        "## Remaining M01 work",
+        "## Guardrails for implementation milestones",
+        "canonical M01 domain model summary",
+        "M01.01 through M01.09 are defined",
+        "M01.10 is the current submilestone",
+        "M01.11 Reliability, M01.12 Threat Model, and M01.13 QA Domain Consistency remain",
+        "The whole M01 milestone is not complete yet",
+        "Product implementation has not started",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
@@ -352,7 +375,7 @@ def test_m01_payment_lifecycle_domain_docs_are_documentation_only():
         "docs/domain/repair-vocabulary.md",
         "docs/domain/evidence-receipt-model.md",
         "docs/domain/human-review-states.md",
-        "The domain model is not complete",
+        "docs/domain/out-of-scope-domains.md",
         "Ledger vocabulary",
         "Settlement vocabulary",
         "Reconciliation vocabulary",
@@ -2062,8 +2085,11 @@ def test_m00_closeout_state_is_coherent():
     assert "No product implementation or runtime human-review behavior" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.09 |"))
-    assert "QA passed, awaiting merge" in row
+    assert "Completed and merged" in row
     assert "m01-09-define-out-of-scope-domains" in row
+    assert "#27" in row
+    assert "1b40773" in row
+    assert "post-merge finalization recorded" in row
     assert "validate-control-plane passed" in row
     assert "pytest 27 passed" in row
     assert "git diff --check passed" in row
@@ -2071,7 +2097,17 @@ def test_m00_closeout_state_is_coherent():
     assert "hard out-of-scope domains" in row
     assert "No product implementation or runtime out-of-scope behavior" in row
 
-    for index in range(10, 14):
+    row = next(line for line in registry.splitlines() if line.startswith("| M01.10 |"))
+    assert "Builder complete, awaiting QA" in row
+    assert "m01-10-write-domain-model" in row
+    assert "validate-control-plane passed" in row
+    assert "pytest 27 passed" in row
+    assert "git diff --check passed" in row
+    assert "make unavailable" in row
+    assert "canonical M01 domain model summary" in row
+    assert "No product implementation or runtime behavior" in row
+
+    for index in range(11, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")
@@ -2106,8 +2142,9 @@ def test_m00_closeout_state_is_coherent():
         "M01.06 Define safe and unsafe repairs is `Completed and merged`",
         "M01.07 Define evidence receipt model is `Completed and merged`",
         "M01.08 Define human review states is `Completed and merged`",
-        "M01.09 Define out-of-scope domains is `QA passed, awaiting merge`",
-        "M01.10 through M01.13 remain `Not started`",
+        "M01.09 Define out-of-scope domains is `Completed and merged`",
+        "M01.10 Write DOMAIN_MODEL.md is `Builder complete, awaiting QA`",
+        "M01.11 through M01.13 remain `Not started`",
     ]:
         assert phrase in current_state
 

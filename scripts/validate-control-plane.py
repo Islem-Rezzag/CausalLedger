@@ -368,9 +368,9 @@ REQUIRED_TEXT = {
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "M01.08 is `Completed and merged`",
-        "M01.09 is `QA passed, awaiting merge`",
-        "M01.10 through M01.13 remain planned scope only and are not started",
+        "M01.09 is `Completed and merged`",
+        "M01.10 is `Builder complete, awaiting QA`",
+        "M01.11 through M01.13 remain planned scope only and are not started",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
@@ -1237,7 +1237,30 @@ REQUIRED_TEXT = {
         "No product functionality",
     ],
     "docs/DOMAIN_MODEL.md": [
-        "M01 domain index",
+        "## Status",
+        "## Product thesis",
+        "## Domain model purpose",
+        "## Core scope",
+        "## Domain map",
+        "## Domain source documents",
+        "## Cross-domain lifecycle",
+        "## Money movement object map",
+        "## Evidence and truth model",
+        "## Deterministic truth boundaries",
+        "## Agentic AI boundaries",
+        "## Human review and repair boundaries",
+        "## Out-of-scope boundaries",
+        "## Future implementation dependencies",
+        "## Versioning and release relevance",
+        "## Validation and evaluation relevance",
+        "## Remaining M01 work",
+        "## Guardrails for implementation milestones",
+        "canonical M01 domain model summary",
+        "M01.01 through M01.09 are defined",
+        "M01.10 is the current submilestone",
+        "M01.11 Reliability, M01.12 Threat Model, and M01.13 QA Domain Consistency remain",
+        "The whole M01 milestone is not complete yet",
+        "Product implementation has not started",
         "Payment lifecycle",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
@@ -1248,7 +1271,6 @@ REQUIRED_TEXT = {
         "docs/domain/evidence-receipt-model.md",
         "docs/domain/human-review-states.md",
         "docs/domain/out-of-scope-domains.md",
-        "The domain model is not complete",
         "Ledger vocabulary",
         "Settlement vocabulary",
         "Reconciliation vocabulary",
@@ -1590,9 +1612,12 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "QA passed, awaiting merge",
+        "Completed and merged",
         "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-09-define-out-of-scope-domains",
+        "#27",
+        "1b40773",
+        "post-merge finalization recorded",
         "validate-control-plane passed",
         "pytest 27 passed",
         "git diff --check passed",
@@ -1601,16 +1626,34 @@ def closeout_state_errors():
         "No product implementation or runtime out-of-scope behavior",
     ]:
         if phrase not in row:
-            errors.append(f"M01.09 registry row missing QA marker: {phrase}")
+            errors.append(f"M01.09 registry row missing merge marker: {phrase}")
 
-    for index in range(10, 14):
+    row = next(
+        (line for line in registry.splitlines() if line.startswith("| M01.10 |")),
+        "",
+    )
+    for phrase in [
+        "Builder complete, awaiting QA",
+        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "m01-10-write-domain-model",
+        "validate-control-plane passed",
+        "pytest 27 passed",
+        "git diff --check passed",
+        "make unavailable",
+        "canonical M01 domain model summary",
+        "No product implementation or runtime behavior",
+    ]:
+        if phrase not in row:
+            errors.append(f"M01.10 registry row missing builder marker: {phrase}")
+
+    for index in range(11, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             (line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")),
             "",
         )
         if "Not started" not in row:
-            errors.append(f"{submilestone} is not Not started after M01.09 QA")
+            errors.append(f"{submilestone} is not Not started after M01.10 builder")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -1704,15 +1747,15 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "Merge M01.09 PR - Define Out-of-Scope Domains" not in next_thread:
+    if "M01.10 QA - Write DOMAIN_MODEL.md" not in next_thread:
         errors.append(
-            "Next recommended thread is not Merge M01.09 PR - Define Out-of-Scope Domains"
+            "Next recommended thread is not M01.10 QA - Write DOMAIN_MODEL.md"
         )
-    if "M01.08 is `Completed and merged`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.08 as Completed and merged")
-    if "M01.09 is `QA passed, awaiting merge`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.09 as QA passed, awaiting merge")
-    if "M01.10 through M01.13 are `Not started`" not in next_thread:
+    if "M01.09 is `Completed and merged`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.09 as Completed and merged")
+    if "M01.10 is `Builder complete, awaiting QA`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.10 as Builder complete, awaiting QA")
+    if "M01.11 through M01.13 are `Not started`" not in next_thread:
         errors.append("Next recommended thread does not record later M01 submilestones as Not started")
     if "Do not start M02" not in next_thread:
         errors.append("Next recommended thread does not block M02 later work")
@@ -1862,6 +1905,27 @@ def closeout_state_errors():
                 errors.append(f"Out-of-scope domains doc makes forbidden runtime claim: {claim}")
     if domain_index.is_file():
         text = domain_index.read_text(encoding="utf-8")
+        required_sections = [
+            "## Product thesis",
+            "## Domain model purpose",
+            "## Core scope",
+            "## Domain map",
+            "## Cross-domain lifecycle",
+            "## Money movement object map",
+            "## Evidence and truth model",
+            "## Deterministic truth boundaries",
+            "## Agentic AI boundaries",
+            "## Human review and repair boundaries",
+            "## Out-of-scope boundaries",
+            "## Future implementation dependencies",
+            "## Versioning and release relevance",
+            "## Validation and evaluation relevance",
+            "## Remaining M01 work",
+            "## Guardrails for implementation milestones",
+        ]
+        for section in required_sections:
+            if section not in text:
+                errors.append(f"docs/DOMAIN_MODEL.md missing required section: {section}")
         if "docs/domain/payment-lifecycle.md" not in text:
             errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/payment-lifecycle.md")
         if "docs/domain/ledger-vocabulary.md" not in text:
