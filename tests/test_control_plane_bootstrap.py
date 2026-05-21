@@ -248,8 +248,9 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
         "M01.09 is `Completed and merged`",
-        "M01.10 is `QA recovery passed, awaiting recovery PR merge`",
-        "M01.11 through M01.13 remain planned scope only and are not started",
+        "M01.10 is `Completed and merged`",
+        "M01.11 is `QA passed, awaiting merge`",
+        "M01.12 and M01.13 remain planned scope only and are not started",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
@@ -363,10 +364,12 @@ def test_m01_payment_lifecycle_domain_docs_are_documentation_only():
         "## Guardrails for implementation milestones",
         "canonical M01 domain model summary",
         "M01.01 through M01.09 are defined",
-        "M01.10 is the current submilestone",
-        "M01.11 Reliability, M01.12 Threat Model, and M01.13 QA Domain Consistency remain",
+        "M01.10 is `Completed and merged`",
+        "M01.11 is `QA passed, awaiting merge`",
+        "M01.12 Threat Model and M01.13 QA Domain Consistency remain",
         "The whole M01 milestone is not complete yet",
         "Product implementation has not started",
+        "docs/RELIABILITY.md",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
@@ -386,6 +389,84 @@ def test_m01_payment_lifecycle_domain_docs_are_documentation_only():
         "Out-of-scope domains",
     ]:
         assert phrase in domain_model
+
+
+def test_m01_reliability_model_is_documentation_only():
+    reliability = (ROOT / "docs" / "RELIABILITY.md").read_text(encoding="utf-8")
+
+    for phrase in [
+        "## Status",
+        "## Purpose",
+        "## Reliability thesis",
+        "CausalLedger reliability comes from deterministic financial checks, evidence provenance, replay, repair validation, human review, audit trails, and bounded AI assistance.",
+        "The LLM never owns financial truth.",
+        "## Reliability scope",
+        "## What reliability means for CausalLedger",
+        "## What reliability does not mean",
+        "## Financial truth model",
+        "## Deterministic-first reliability",
+        "## Evidence reliability",
+        "## Ledger and accounting reliability",
+        "## Settlement and reconciliation reliability",
+        "## Incident reliability",
+        "## Replay reliability",
+        "## Repair reliability",
+        "## Human review reliability",
+        "## Agentic AI reliability",
+        "## Model routing and cost reliability",
+        "## Observability and auditability",
+        "## Evaluation and ablation reliability",
+        "## Security and threat-model dependency",
+        "## Failure modes and mitigations",
+        "## Reliability metrics",
+        "## Future implementation dependencies",
+        "## Remaining M01 reliability work",
+        "## Guardrails for future implementation milestones",
+        "Current validation proves documentation and control-plane coherence only",
+        "M01.12 Threat Model and M01.13 QA Domain Consistency remain",
+        "Product implementation has not started",
+        "LLM memos are explanations only",
+        "Event identity and idempotency checks",
+        "total debits to equal total credits",
+        "Bank posting is an external cash truth touchpoint",
+        "Root-cause hypotheses are not confirmed facts without evidence",
+        "Safe-to-propose is not safe-to-apply",
+        "AI cannot act as reviewer",
+        "read-only tools by default",
+        "Cost savings must be measured",
+        "request IDs",
+        "root-cause accuracy",
+        "Dangerous ablations are offline negative controls only",
+        "M01.12 `docs/THREAT_MODEL.md` remains",
+        "Do not implement reliability claims without validation",
+    ]:
+        assert phrase in reliability
+
+    for failure_mode in [
+        "Duplicate provider event",
+        "Missing evidence",
+        "Contradictory evidence",
+        "Unbalanced ledger transaction",
+        "Settlement payout mismatch",
+        "Bank posting mismatch",
+        "Unsupported incident",
+        "Hallucinated root cause",
+        "Unsafe repair proposal",
+        "Review without evidence",
+        "Replay cannot reproduce incident",
+        "Cost blowup from large evidence context",
+        "Prompt injection attempt",
+        "Stale domain terminology",
+    ]:
+        assert failure_mode in reliability
+
+    for forbidden_claim in [
+        "runtime reliability is implemented",
+        "product functionality is implemented",
+        "repairs can be applied without deterministic validation",
+        "LLM output can be used as evidence",
+    ]:
+        assert forbidden_claim not in reliability
 
 
 def test_m01_ledger_vocabulary_domain_doc_is_documentation_only():
@@ -2098,12 +2179,12 @@ def test_m00_closeout_state_is_coherent():
     assert "No product implementation or runtime out-of-scope behavior" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.10 |"))
-    assert "QA passed, awaiting merge" in row
+    assert "Completed and merged" in row
     assert "m01-10-qa-recovery-domain-model" in row
-    assert "Builder #28 merged; recovery PR pending" in row
-    assert "QA recovery passed" in row
-    assert "awaiting recovery PR merge" in row
+    assert "Builder #28 merged; recovery PR #29 merged" in row
+    assert "post-merge finalization recorded" in row
     assert "dc6800b" in row
+    assert "a878d55" in row
     assert "validate-control-plane passed" in row
     assert "pytest 27 passed" in row
     assert "git diff --check passed" in row
@@ -2111,7 +2192,24 @@ def test_m00_closeout_state_is_coherent():
     assert "canonical M01 domain model summary" in row
     assert "No product implementation or runtime behavior" in row
 
-    for index in range(11, 14):
+    row = next(line for line in registry.splitlines() if line.startswith("| M01.11 |"))
+    assert "QA passed, awaiting merge" in row
+    assert "m01-11-write-reliability" in row
+    assert "builder validation passed" in row
+    assert "QA passed after reliability model" in row
+    assert "validate-control-plane passed" in row
+    assert "pytest 28 passed" in row
+    assert "git diff --check passed" in row
+    assert "make unavailable" in row
+    assert "canonical reliability model" in row
+    assert "financial truth model" in row
+    assert "deterministic-first reliability" in row
+    assert "evidence reliability" in row
+    assert "repair reliability" in row
+    assert "No product implementation or runtime reliability behavior" in row
+    assert "Not Completed and merged" in row
+
+    for index in range(12, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")
@@ -2147,8 +2245,9 @@ def test_m00_closeout_state_is_coherent():
         "M01.07 Define evidence receipt model is `Completed and merged`",
         "M01.08 Define human review states is `Completed and merged`",
         "M01.09 Define out-of-scope domains is `Completed and merged`",
-        "M01.10 Write DOMAIN_MODEL.md is `QA recovery passed, awaiting recovery PR merge`",
-        "M01.11 through M01.13 remain `Not started`",
+        "M01.10 Write DOMAIN_MODEL.md is `Completed and merged`",
+        "M01.11 Write RELIABILITY.md is `QA passed, awaiting merge`",
+        "M01.12 and M01.13 remain `Not started`",
     ]:
         assert phrase in current_state
 

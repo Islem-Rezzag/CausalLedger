@@ -369,8 +369,9 @@ REQUIRED_TEXT = {
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
         "M01.09 is `Completed and merged`",
-        "M01.10 is `QA recovery passed, awaiting recovery PR merge`",
-        "M01.11 through M01.13 remain planned scope only and are not started",
+        "M01.10 is `Completed and merged`",
+        "M01.11 is `QA passed, awaiting merge`",
+        "M01.12 and M01.13 remain planned scope only and are not started",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
@@ -1257,10 +1258,12 @@ REQUIRED_TEXT = {
         "## Guardrails for implementation milestones",
         "canonical M01 domain model summary",
         "M01.01 through M01.09 are defined",
-        "M01.10 is the current submilestone",
-        "M01.11 Reliability, M01.12 Threat Model, and M01.13 QA Domain Consistency remain",
+        "M01.10 is `Completed and merged`",
+        "M01.11 is `QA passed, awaiting merge`",
+        "M01.12 Threat Model and M01.13 QA Domain Consistency remain",
         "The whole M01 milestone is not complete yet",
         "Product implementation has not started",
+        "docs/RELIABILITY.md",
         "Payment lifecycle",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
@@ -1279,6 +1282,52 @@ REQUIRED_TEXT = {
         "Evidence receipt model",
         "Human review states",
         "Out-of-scope domains",
+    ],
+    "docs/RELIABILITY.md": [
+        "## Status",
+        "## Purpose",
+        "## Reliability thesis",
+        "CausalLedger reliability comes from deterministic financial checks, evidence provenance, replay, repair validation, human review, audit trails, and bounded AI assistance.",
+        "The LLM never owns financial truth.",
+        "## Reliability scope",
+        "## What reliability means for CausalLedger",
+        "## What reliability does not mean",
+        "## Financial truth model",
+        "## Deterministic-first reliability",
+        "## Evidence reliability",
+        "## Ledger and accounting reliability",
+        "## Settlement and reconciliation reliability",
+        "## Incident reliability",
+        "## Replay reliability",
+        "## Repair reliability",
+        "## Human review reliability",
+        "## Agentic AI reliability",
+        "## Model routing and cost reliability",
+        "## Observability and auditability",
+        "## Evaluation and ablation reliability",
+        "## Security and threat-model dependency",
+        "## Failure modes and mitigations",
+        "## Reliability metrics",
+        "## Future implementation dependencies",
+        "## Remaining M01 reliability work",
+        "## Guardrails for future implementation milestones",
+        "Current validation proves documentation and control-plane coherence only",
+        "M01.12 Threat Model and M01.13 QA Domain Consistency remain",
+        "Product implementation has not started",
+        "LLM memos are explanations only",
+        "Event identity and idempotency checks",
+        "total debits to equal total credits",
+        "Bank posting is an external cash truth touchpoint",
+        "Root-cause hypotheses are not confirmed facts without evidence",
+        "Safe-to-propose is not safe-to-apply",
+        "AI cannot act as reviewer",
+        "read-only tools by default",
+        "Cost savings must be measured",
+        "request IDs",
+        "root-cause accuracy",
+        "Dangerous ablations are offline negative controls only",
+        "M01.12 `docs/THREAT_MODEL.md` remains",
+        "Do not implement reliability claims without validation",
     ],
     "docs/evals/ABLATION_STRATEGY.md": [
         "What an ablation is",
@@ -1633,12 +1682,12 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "QA passed, awaiting merge",
+        "Completed and merged",
         "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-10-qa-recovery-domain-model",
-        "Builder #28 merged; recovery PR pending",
-        "QA recovery passed",
-        "awaiting recovery PR merge",
+        "Builder #28 merged; recovery PR #29 merged",
+        "post-merge finalization recorded",
+        "a878d55",
         "dc6800b",
         "validate-control-plane passed",
         "pytest 27 passed",
@@ -1648,16 +1697,41 @@ def closeout_state_errors():
         "No product implementation or runtime behavior",
     ]:
         if phrase not in row:
-            errors.append(f"M01.10 registry row missing QA recovery marker: {phrase}")
+            errors.append(f"M01.10 registry row missing merge marker: {phrase}")
 
-    for index in range(11, 14):
+    row = next(
+        (line for line in registry.splitlines() if line.startswith("| M01.11 |")),
+        "",
+    )
+    for phrase in [
+        "QA passed, awaiting merge",
+        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "m01-11-write-reliability",
+        "builder validation passed",
+        "QA passed after reliability model",
+        "validate-control-plane passed",
+        "pytest 28 passed",
+        "git diff --check passed",
+        "make unavailable",
+        "canonical reliability model",
+        "financial truth model",
+        "deterministic-first reliability",
+        "evidence reliability",
+        "repair reliability",
+        "No product implementation or runtime reliability behavior",
+        "Not Completed and merged",
+    ]:
+        if phrase not in row:
+            errors.append(f"M01.11 registry row missing QA marker: {phrase}")
+
+    for index in range(12, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             (line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")),
             "",
         )
         if "Not started" not in row:
-            errors.append(f"{submilestone} is not Not started after M01.10 QA recovery")
+            errors.append(f"{submilestone} is not Not started after M01.11 builder")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -1751,16 +1825,16 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "Merge M01.10 QA Recovery PR - Write DOMAIN_MODEL.md" not in next_thread:
-        errors.append(
-            "Next recommended thread is not Merge M01.10 QA Recovery PR - Write DOMAIN_MODEL.md"
-        )
-    if "M01.09 is `Completed and merged`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.09 as Completed and merged")
-    if "M01.10 is `QA recovery passed, awaiting recovery PR merge`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.10 as QA recovery passed")
-    if "M01.11 through M01.13 are `Not started`" not in next_thread:
+    if "Merge M01.11 PR - Write RELIABILITY.md" not in next_thread:
+        errors.append("Next recommended thread is not Merge M01.11 PR - Write RELIABILITY.md")
+    if "M01.10 is `Completed and merged`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.10 as Completed and merged")
+    if "M01.11 is `QA passed, awaiting merge`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.11 as QA passed")
+    if "M01.12 and M01.13 are `Not started`" not in next_thread:
         errors.append("Next recommended thread does not record later M01 submilestones as Not started")
+    if "Do not start M01.12" not in next_thread:
+        errors.append("Next recommended thread does not block M01.12 later work")
     if "Do not start M02" not in next_thread:
         errors.append("Next recommended thread does not block M02 later work")
 
