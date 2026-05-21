@@ -36,6 +36,7 @@ Project direction:
 - `docs/domain/repair-vocabulary.md`
 - `docs/domain/evidence-receipt-model.md`
 - `docs/domain/human-review-states.md`
+- `docs/domain/out-of-scope-domains.md`
 - `docs/RELIABILITY.md`
 - `docs/THREAT_MODEL.md`
 - `docs/TOKEN_COST_STRATEGY.md`

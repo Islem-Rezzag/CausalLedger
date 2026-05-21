@@ -35,6 +35,7 @@ def test_required_project_docs_exist():
         "docs/domain/repair-vocabulary.md",
         "docs/domain/evidence-receipt-model.md",
         "docs/domain/human-review-states.md",
+        "docs/domain/out-of-scope-domains.md",
         "docs/RELIABILITY.md",
         "docs/THREAT_MODEL.md",
         "docs/TOKEN_COST_STRATEGY.md",
@@ -246,9 +247,9 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "M01.07 is `Completed and merged`",
-        "M01.08 is `QA passed, awaiting merge`",
-        "M01.09 through M01.13 remain planned scope only and are not started",
+        "M01.08 is `Completed and merged`",
+        "M01.09 is `Builder complete, awaiting QA`",
+        "M01.10 through M01.13 remain planned scope only and are not started",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
@@ -257,6 +258,7 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "docs/domain/repair-vocabulary.md",
         "docs/domain/evidence-receipt-model.md",
         "docs/domain/human-review-states.md",
+        "docs/domain/out-of-scope-domains.md",
     ]:
         assert phrase in plan
 
@@ -1283,6 +1285,121 @@ def test_m01_human_review_states_domain_doc_is_documentation_only():
     assert "docs/domain/human-review-states.md" in domain_model
 
 
+def test_m01_out_of_scope_domains_doc_is_documentation_only():
+    out_of_scope = (
+        ROOT / "docs" / "domain" / "out-of-scope-domains.md"
+    ).read_text(encoding="utf-8")
+    domain_readme = (ROOT / "docs" / "domain" / "README.md").read_text(
+        encoding="utf-8"
+    )
+    domain_model = (ROOT / "docs" / "DOMAIN_MODEL.md").read_text(encoding="utf-8")
+
+    for phrase in [
+        "No runtime implementation is defined or claimed",
+        "## Purpose",
+        "## What this document defines",
+        "## What this document does not define",
+        "## Relationship to payment lifecycle vocabulary",
+        "## Relationship to ledger vocabulary",
+        "## Relationship to settlement vocabulary",
+        "## Relationship to reconciliation vocabulary",
+        "## Relationship to incident vocabulary",
+        "## Relationship to repair vocabulary",
+        "## Relationship to evidence receipt model",
+        "## Relationship to human review states",
+        "## Relationship to future product implementation",
+        "## Relationship to future company and version roadmap",
+        "## CausalLedger core scope",
+        "## Hard out-of-scope domains",
+        "## Adjacent but not core domains",
+        "## Claims CausalLedger must not make",
+        "## Actions the LLM must never perform",
+        "## Future-extension rules",
+        "## Interview and product positioning boundaries",
+        "## Examples",
+        "## Non-implementation statement",
+        "Money movement lifecycle correctness",
+        "ledger correctness evidence",
+        "Settlement and payout evidence",
+        "Reconciliation break evidence",
+        "Financial incident response",
+        "Causal event reconstruction",
+        "Replayable incident evidence",
+        "Safe repair proposal vocabulary",
+        "Human review and approval boundaries",
+        "Benchmark and ablation evaluation",
+        "AML platform",
+        "KYC onboarding platform",
+        "sanctions screening platform",
+        "fraud scoring product",
+        "Credit underwriting",
+        "Credit risk scoring",
+        "Market risk",
+        "Trading risk",
+        "Investment advice",
+        "Tax advice",
+        "Legal or regulatory advice",
+        "Consumer personal finance assistant",
+        "Generic accounting close platform",
+        "ERP replacement",
+        "payment processor",
+        "Bank core system",
+        "treasury management system",
+        "Autonomous finance agent",
+        "autonomous repair executor",
+        "Autonomous money movement system",
+        "general APM or infrastructure observability platform",
+        "Customer support chatbot as a standalone product",
+        "Fraud signals",
+        "AML/KYC references",
+        "Regulatory incident reporting evidence",
+        "Audit evidence support",
+        "Customer support explanation",
+        "Accounting close support",
+        "Treasury context",
+        "provider outage context",
+        "Operational resilience reporting",
+        "Compliance evidence packaging",
+        "CausalLedger is not a bank",
+        "CausalLedger does not autonomously move money",
+        "CausalLedger does not decide financial truth using an LLM",
+        "Move money",
+        "Approve repairs",
+        "Post ledger entries",
+        "Delete evidence",
+        "Modify raw events",
+        "Override deterministic checks",
+        "Make AML/KYC determinations",
+        "Make credit decisions",
+        "Make sanctions determinations",
+        "Call production write APIs",
+        "claim regulatory determinations",
+        "without a new scope decision",
+        "Financial incident response for money movement",
+        "AI accountant",
+        "AI that fixes money automatically",
+        "Duplicate webhook creates duplicate ledger posting",
+        "Missing bank posting after payout",
+        "Suspicious refund pattern",
+        "Customer identity mismatch",
+        "Chargeback affects settlement",
+        "No product functionality",
+    ]:
+        assert phrase in out_of_scope
+
+    for forbidden_claim in [
+        "runtime implementation is complete",
+        "approval engine is implemented",
+        "state machine is implemented",
+        "scoring engine is implemented",
+        "production write API is implemented",
+    ]:
+        assert forbidden_claim not in out_of_scope
+
+    assert "out-of-scope-domains.md" in domain_readme
+    assert "docs/domain/out-of-scope-domains.md" in domain_model
+
+
 def test_ablation_planning_docs_are_offline_benchmark_only():
     strategy = (ROOT / "docs" / "evals" / "ABLATION_STRATEGY.md").read_text(
         encoding="utf-8"
@@ -1933,16 +2050,28 @@ def test_m00_closeout_state_is_coherent():
     assert "No product implementation or runtime evidence behavior" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.08 |"))
-    assert "QA passed, awaiting merge" in row
+    assert "Completed and merged" in row
     assert "m01-08-define-human-review-states" in row
+    assert "#26" in row
+    assert "1fde07a" in row
+    assert "post-merge finalization recorded" in row
     assert "validate-control-plane passed" in row
-    assert "pytest 26 passed" in row
+    assert "pytest 27 passed" in row
     assert "git diff --check passed" in row
     assert "make unavailable" in row
-    assert "QA passed with no content defects" in row
     assert "No product implementation or runtime human-review behavior" in row
 
-    for index in range(9, 14):
+    row = next(line for line in registry.splitlines() if line.startswith("| M01.09 |"))
+    assert "Builder complete, awaiting QA" in row
+    assert "m01-09-define-out-of-scope-domains" in row
+    assert "validate-control-plane passed" in row
+    assert "pytest 27 passed" in row
+    assert "git diff --check passed" in row
+    assert "make unavailable" in row
+    assert "hard out-of-scope domains" in row
+    assert "No product implementation or runtime out-of-scope behavior" in row
+
+    for index in range(10, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")
@@ -1976,8 +2105,9 @@ def test_m00_closeout_state_is_coherent():
         "M01.05 Define incident vocabulary is `Completed and merged`",
         "M01.06 Define safe and unsafe repairs is `Completed and merged`",
         "M01.07 Define evidence receipt model is `Completed and merged`",
-        "M01.08 Define human review states is `QA passed, awaiting merge`",
-        "M01.09 through M01.13 remain `Not started`",
+        "M01.08 Define human review states is `Completed and merged`",
+        "M01.09 Define out-of-scope domains is `Builder complete, awaiting QA`",
+        "M01.10 through M01.13 remain `Not started`",
     ]:
         assert phrase in current_state
 

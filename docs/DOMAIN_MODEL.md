@@ -4,7 +4,7 @@
 
 M01 domain index. This file tracks which domain areas are defined and which remain intentionally undefined until their scoped M01 submilestones.
 
-The domain model is not complete. Payment lifecycle vocabulary is defined in M01.01, ledger vocabulary is defined in M01.02, settlement vocabulary is defined in M01.03, reconciliation vocabulary is defined in M01.04, incident vocabulary is defined in M01.05, safe and unsafe repair vocabulary is defined in M01.06, evidence receipt model is defined in M01.07, human review states are defined in M01.08, and remaining M01 domain areas are not yet defined.
+The domain model is not complete. Payment lifecycle vocabulary is defined in M01.01, ledger vocabulary is defined in M01.02, settlement vocabulary is defined in M01.03, reconciliation vocabulary is defined in M01.04, incident vocabulary is defined in M01.05, safe and unsafe repair vocabulary is defined in M01.06, evidence receipt model is defined in M01.07, human review states are defined in M01.08, out-of-scope domains are defined in M01.09, and remaining M01 domain areas are not yet finalized.
 
 ## Product thesis
 
@@ -26,14 +26,18 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 | Repair vocabulary | Defined in M01.06 | [docs/domain/repair-vocabulary.md](domain/repair-vocabulary.md) |
 | Evidence receipt model | Defined in M01.07 | [docs/domain/evidence-receipt-model.md](domain/evidence-receipt-model.md) |
 | Human review states | Defined in M01.08 | [docs/domain/human-review-states.md](domain/human-review-states.md) |
+| Out-of-scope domains | Defined in M01.09 | [docs/domain/out-of-scope-domains.md](domain/out-of-scope-domains.md) |
 
 ## Domain documentation boundary
 
 Domain documents define vocabulary, scope, and boundaries. They do not implement runtime behavior, schemas, APIs, databases, ledger logic, invariants, incident logic, causal graph traversal, replay, agent runtime, repair application, UI, connectors, GitHub Actions, or CI workflows.
 
-## Remaining M01 domain areas not yet defined
+## Remaining M01 areas not yet finalized
 
-- Out-of-scope domains.
+- M01.10 `DOMAIN_MODEL.md` finalization.
+- M01.11 reliability documentation finalization.
+- M01.12 threat model finalization.
+- M01.13 domain consistency QA.
 
 ## Guardrails for M01
 

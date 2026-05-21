@@ -2,6 +2,21 @@
 
 ## 2026-05-21
 
+- Finalized M01.08 Define Human Review States as `Completed and merged` after PR #26 merged at git commit `1fde07a` (`docs: define M01.08 human review states (#26)`) before M01.09 builder work began.
+- Started M01.09 Define Out-of-Scope Domains builder on branch `m01-09-define-out-of-scope-domains`; branch guard passed, the starting worktree was clean, latest commit was `1fde07a`, and tag `v0.1.0` exists.
+- Marked M01.09 `Builder in progress` while working; M01.10 through M01.13 and M02 through M21 remained `Not started`, and product implementation had not started.
+- Created `docs/domain/out-of-scope-domains.md` as documentation-only domain boundary coverage.
+- Defined core CausalLedger scope, hard out-of-scope domains, adjacent-but-not-core domains, forbidden product claims, LLM forbidden actions, future-extension rules, interview and product positioning boundaries, and examples.
+- Reinforced that CausalLedger is not a bank, payment processor, ledger replacement, AML/KYC platform, sanctions screening platform, fraud scoring engine, credit risk engine, tax or legal advisor, investment advisor, ERP replacement, treasury management system, autonomous repair executor, or autonomous money movement system.
+- Updated domain links, entry docs, high-level positioning docs, lightweight spec dependency notes, status docs, M01 tracking, roadmap, capability and risk notes, tech debt, active plan, and control-plane validation coverage.
+- Initial M01.09 `python scripts/validate-control-plane.py` failed because new validation strings expected lower-case phrases where the domain doc used capitalized Markdown bullets and table cells; aligned the scoped validation and bootstrap-test strings, then reran successfully.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.09 builder.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 27 tests for M01.09 builder.
+- Ran `git diff --check` successfully for M01.09 builder.
+- Skipped `make bootstrap-check` for M01.09 builder because `make` is unavailable in the current Windows shell.
+- Marked M01.09 `Builder complete, awaiting QA`; M01.10 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- Recommended next thread: `M01.09 QA - Define Out-of-Scope Domains`.
+- Confirmed no product implementation, MoneyEvent runtime, ledger runtime, settlement runtime, reconciliation runtime, incident runtime, invariant engine, causal graph runtime, replay runtime, agent runtime, repair planner runtime, human-review runtime, UI, external connector, database schema, API route, GitHub Action, CI workflow, autonomous repair execution, autonomous money movement, legal/tax/AML/KYC/fraud/credit/investment advice, or product behavior was introduced.
 - Completed M01.08 Define Human Review States QA review on branch `m01-08-define-human-review-states`; branch guard passed, the starting worktree was clean, latest commit was `3ed6b7a` (`docs: define M01.08 human review states`), and tag `v0.1.0` exists.
 - Verified `docs/domain/human-review-states.md`, domain links, lightweight spec dependency notes, tracking/status files, validation coverage, and forbidden-scope boundaries.
 - Found no human-review vocabulary content defects; QA changes were tracking/status/control-plane validation updates only.
