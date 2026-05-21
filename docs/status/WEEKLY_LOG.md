@@ -2,6 +2,18 @@
 
 ## 2026-05-21
 
+- Finalized M01.10 Write DOMAIN_MODEL.md as `Completed and merged` after QA recovery PR #29 merged at git commit `a878d55` (`test: QA recovery M01.10 domain model summary (#29)`) before M01.11 builder work began.
+- Started M01.11 Write RELIABILITY.md builder on branch `m01-11-write-reliability`; branch guard passed, the starting worktree was clean, latest commit was `a878d55`, remote `origin` points to GitHub, and tag `v0.1.0` exists.
+- Marked M01.11 `Builder in progress` while working; M01.12 and M01.13 remain `Not started`, M02 through M21 remain `Not started`, and product implementation has not started.
+- Rewrote `docs/RELIABILITY.md` as the canonical CausalLedger reliability model covering status, purpose, thesis, scope, financial truth, deterministic-first reliability, evidence, ledger/accounting, settlement/reconciliation, incident, replay, repair, human review, agentic AI, model routing and cost, observability, evaluation and ablation, security dependency, failure modes, metrics, future dependencies, remaining M01 work, and guardrails.
+- Updated README, docs index, domain model, active plan, roadmap, milestone doc, submilestone registry, current state, next recommended thread, weekly log, capability matrix, tech debt, risk register, validation script, and bootstrap tests for M01.11.
+- Initial M01.11 `python -m pytest tests/test_control_plane_bootstrap.py` failed because the new reliability-model test treated the required negative statement `LLM output is evidence` as a forbidden positive claim; the scoped test assertion was narrowed and validation was rerun successfully.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.11 builder.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 28 tests for M01.11 builder.
+- Ran `git diff --check` successfully for M01.11 builder.
+- Skipped `make bootstrap-check` for M01.11 builder because `make` is unavailable in the current Windows shell.
+- Marked M01.11 `Builder complete, awaiting QA`; M01.12 and M01.13 remain `Not started`, M02 through M21 remain `Not started`, and product implementation has not started.
+- Recommended next thread: `M01.11 QA - Write RELIABILITY.md`.
 - Started M01.10 post-merge QA recovery on branch `m01-10-qa-recovery-domain-model` after builder PR #28 was squash-merged before the required QA thread at commit `dc6800b` (`docs: write M01.10 domain model summary (#28)`); branch guard passed, the starting worktree was clean, remote `origin` points to GitHub, and tag `v0.1.0` exists.
 - Audited the already-merged M01.10 `docs/DOMAIN_MODEL.md` work, domain links, tracking/status files, validation coverage, and forbidden-scope boundaries.
 - Found no DOMAIN_MODEL.md content defects and no product implementation; QA recovery changes were limited to tracking/status/control-plane validation updates.

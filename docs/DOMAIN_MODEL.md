@@ -2,9 +2,9 @@
 
 ## Status
 
-M01.01 through M01.09 are defined domain vocabulary and boundary documents. M01.10 is the current submilestone in post-merge QA recovery: builder PR #28 was squash-merged before the required QA thread at commit `dc6800b`, and this recovery branch has audited and finalized `docs/DOMAIN_MODEL.md` as the canonical M01 domain model summary.
+M01.01 through M01.09 are defined domain vocabulary and boundary documents. M01.10 is `Completed and merged` after QA recovery PR #29 merged at git commit `a878d55` (`test: QA recovery M01.10 domain model summary (#29)`) and remains the canonical M01 domain model summary. M01.11 is `Builder complete, awaiting QA` after writing `docs/RELIABILITY.md` as the reliability model for the domain.
 
-M01.11 Reliability, M01.12 Threat Model, and M01.13 QA Domain Consistency remain. The whole M01 milestone is not complete yet. M01.10 QA recovery has passed and is awaiting recovery PR merge; M01.10 is not `Completed and merged` until that recovery PR merges.
+M01.12 Threat Model and M01.13 QA Domain Consistency remain. The whole M01 milestone is not complete yet.
 
 Product implementation has not started. This file is documentation only and does not implement MoneyEvent runtime logic, ledger runtime logic, settlement runtime logic, reconciliation runtime logic, incident runtime logic, invariants, causal graph runtime logic, replay runtime logic, agent runtime, repair planning runtime logic, human-review runtime logic, UI features, external connectors, database schemas, API routes, GitHub Actions, CI workflows, or product behavior.
 
@@ -21,6 +21,8 @@ LLM agents may investigate, summarize, and propose. LLM agents may not mutate mo
 This domain model defines language and boundaries before schemas and runtime code. It prevents Codex and future implementation threads from inventing inconsistent terms for money movement, evidence, incidents, repair proposals, review states, and out-of-scope areas.
 
 Future milestones should read this file first, then follow the linked source docs for detailed vocabulary. It supports future M03 MoneyEvent, M04 Ledger, M06 Invariant, M07 Incident, M08 Graph, M09 Replay, M10-M13 Agent/Repair/Human Review, and M14 MoneyFlowBench work while keeping scope constrained for a high-stakes fintech AI project.
+
+`docs/RELIABILITY.md` now defines the reliability model for this domain: how financial truth, deterministic validation, evidence handling, replay, repair safety, human review, AI boundaries, cost controls, auditability, and ablations should stay trustworthy in future implementation milestones.
 
 ## Core scope
 
@@ -186,11 +188,11 @@ The ablation strategy is planning only. M14 MoneyFlowBench will eventually test 
 
 ## Remaining M01 work
 
-- M01.11 Write RELIABILITY.md.
+- M01.11 QA and merge for RELIABILITY.md.
 - M01.12 Write THREAT_MODEL.md.
 - M01.13 QA Domain Consistency.
 
-M01.10 must pass QA and merge before M01.11 starts.
+M01.11 must pass QA and merge before M01.12 starts.
 
 ## Guardrails for implementation milestones
 

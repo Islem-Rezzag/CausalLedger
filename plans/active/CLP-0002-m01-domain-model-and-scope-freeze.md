@@ -10,7 +10,7 @@ The safety boundary is non-negotiable: LLM agents may investigate, summarize, an
 
 The first M01 implementation submilestone after this planning thread is `M01.01 Define payment lifecycle`.
 
-Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is completed and merged at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), M01.05 Define incident vocabulary is completed and merged after QA recovery PR #18 merged at git commit `3bdedeb`, M01.06 Define safe and unsafe repairs is completed and merged after PR #21 merged at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`), M01.07 Define evidence receipt model is completed and merged after PR #23 merged at git commit `a88b5ff` (`docs: define M01.07 evidence receipt model (#23)`), M01.08 Define human review states is completed and merged after PR #26 merged at git commit `1fde07a` (`docs: define M01.08 human review states (#26)`), M01.09 Define out-of-scope domains is completed and merged after PR #27 merged at git commit `1b40773` (`docs: define M01.09 out-of-scope domains (#27)`), and M01.10 Write DOMAIN_MODEL.md is `QA recovery passed, awaiting recovery PR merge` after builder PR #28 was squash-merged before required QA at commit `dc6800b`.
+Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is completed and merged at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), M01.05 Define incident vocabulary is completed and merged after QA recovery PR #18 merged at git commit `3bdedeb`, M01.06 Define safe and unsafe repairs is completed and merged after PR #21 merged at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`), M01.07 Define evidence receipt model is completed and merged after PR #23 merged at git commit `a88b5ff` (`docs: define M01.07 evidence receipt model (#23)`), M01.08 Define human review states is completed and merged after PR #26 merged at git commit `1fde07a` (`docs: define M01.08 human review states (#26)`), M01.09 Define out-of-scope domains is completed and merged after PR #27 merged at git commit `1b40773` (`docs: define M01.09 out-of-scope domains (#27)`), M01.10 Write DOMAIN_MODEL.md is completed and merged after QA recovery PR #29 merged at git commit `a878d55` (`test: QA recovery M01.10 domain model summary (#29)`), and M01.11 Write RELIABILITY.md is `Builder complete, awaiting QA`.
 
 ## Progress
 
@@ -155,6 +155,13 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - [x] 2026-05-21: Recorded the M01.10 merge-before-QA protocol deviation and QA recovery in tracking/status files.
 - [x] 2026-05-21: M01.10 QA recovery validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 27 tests, and `git diff --check`; `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
 - [x] 2026-05-21: Updated M01.10 tracking to `QA recovery passed, awaiting recovery PR merge`; M01.11 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- [x] 2026-05-21: Finalized M01.10 as `Completed and merged` after QA recovery PR #29 merged at git commit `a878d55` (`test: QA recovery M01.10 domain model summary (#29)`) before M01.11 builder work began.
+- [x] 2026-05-21: Started M01.11 builder on branch `m01-11-write-reliability`; branch guard passed, the starting worktree was clean, and M01.11 was marked `Builder in progress`.
+- [x] 2026-05-21: Rewrote `docs/RELIABILITY.md` as the canonical CausalLedger reliability model for deterministic financial checks, evidence provenance, replay, repair validation, human review, audit trails, bounded AI assistance, model routing, cost reliability, observability, ablations, failure modes, metrics, future dependencies, and guardrails.
+- [x] 2026-05-21: Updated README, docs index, domain model, active plan, roadmap, milestone doc, submilestone registry, current state, next recommended thread, weekly log, capability matrix, tech debt, risk register, validation script, and bootstrap tests for M01.11.
+- [x] 2026-05-21: Initial M01.11 `python -m pytest tests/test_control_plane_bootstrap.py` failed because the new reliability-model test treated the required negative statement `LLM output is evidence` as a forbidden positive claim; the scoped test assertion was narrowed and validation was rerun successfully.
+- [x] 2026-05-21: M01.11 builder validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 28 tests, and `git diff --check`; `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
+- [x] 2026-05-21: Updated M01.11 tracking to `Builder complete, awaiting QA`; M01.12 and M01.13 remain `Not started`; M02 through M21 remain `Not started`; product implementation has not started.
 
 ## Surprises & Discoveries
 
@@ -174,7 +181,8 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - M01.08 needs human review vocabulary precise enough for future repair planner, human review workbench, security hardening, audit logs, public launch, and agentic investigation boundaries while remaining documentation-only and non-runtime.
 - M01.09 needs out-of-scope boundaries precise enough to prevent future positioning, agent, repair, legal, tax, AML/KYC, sanctions, fraud, credit, treasury, banking, payment-processing, and autonomous-money-movement scope drift while remaining documentation-only and non-runtime.
 - M01.10 needs a canonical domain model summary precise enough for future implementation threads to orient from one file while still following the source domain docs and not duplicating every detail.
-- M01.10 builder PR #28 was accidentally squash-merged before the required QA thread; this plan records that post-merge QA recovery passed and must merge before M01.11 begins.
+- M01.10 builder PR #28 was accidentally squash-merged before the required QA thread; this plan records that post-merge QA recovery passed and merged through PR #29 before M01.11 began.
+- M01.11 needs a reliability model precise enough to connect the domain model to deterministic validation, evidence handling, replay, repair safety, human review, AI boundaries, cost reliability, auditability, ablations, future metrics, and implementation guardrails while remaining documentation-only and non-runtime.
 
 ## Decision Log
 
@@ -205,7 +213,8 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - 2026-05-21: Keep M01.09 out-of-scope domain work documentation-only. It defines non-goals, adjacent-domain boundaries, forbidden claims, and LLM forbidden actions, but it does not create product features, legal/tax/AML/KYC/fraud/credit/investment decisions, production write tools, or runtime behavior.
 - 2026-05-21: PR #27 merged into `main` at git commit `1b40773`; record M01.09 as `Completed and merged` and start M01.10 only after that finalization.
 - 2026-05-21: Keep M01.10 DOMAIN_MODEL.md work documentation-only. The canonical domain model summary may synthesize domain vocabulary and future dependencies, but it does not define runtime schemas, validators, state machines, APIs, databases, or product behavior.
-- 2026-05-21: Because M01.10 was merged before QA at commit `dc6800b`, record M01.10 as `QA recovery passed, awaiting recovery PR merge` after the recovery audit and do not start M01.11 until the recovery PR merges.
+- 2026-05-21: Because M01.10 was merged before QA at commit `dc6800b`, record M01.10 as `Completed and merged` only after QA recovery PR #29 merged at commit `a878d55`.
+- 2026-05-21: Keep M01.11 RELIABILITY.md work documentation-only. Reliability expectations may define future deterministic checks, evidence, replay, repair, human review, AI, cost, audit, evaluation, security dependency, failure-mode, metrics, and milestone guardrails, but they do not implement runtime reliability mechanisms or product behavior.
 
 ## Context and Orientation
 
@@ -226,12 +235,12 @@ Current M01 submilestone state:
 - `M01.07 Define evidence receipt model` - Completed and merged after PR #23.
 - `M01.08 Define human review states` - Completed and merged after PR #26.
 - `M01.09 Define out-of-scope domains` - Completed and merged after PR #27.
-- `M01.10 Write DOMAIN_MODEL.md` - QA recovery passed, awaiting recovery PR merge.
-- `M01.11 Write RELIABILITY.md`
+- `M01.10 Write DOMAIN_MODEL.md` - Completed and merged after QA recovery PR #29.
+- `M01.11 Write RELIABILITY.md` - Builder complete, awaiting QA.
 - `M01.12 Write THREAT_MODEL.md`
 - `M01.13 QA domain consistency`
 
-M01.09 is `Completed and merged`. M01.10 is `QA recovery passed, awaiting recovery PR merge`. M01.11 through M01.13 remain planned scope only and are not started.
+M01.09 is `Completed and merged`. M01.10 is `Completed and merged`. M01.11 is `Builder complete, awaiting QA`. M01.12 and M01.13 remain planned scope only and are not started.
 
 ## Scope
 
@@ -367,7 +376,8 @@ Out of scope:
 - M01.05 product implementation or runtime behavior.
 - M01.07 runtime implementation or evidence processing behavior.
 - M01.08 runtime implementation or human-review behavior.
-- M01.11 implementation.
+- M01.11 runtime reliability mechanisms or product behavior.
+- M01.12 implementation.
 - M02 implementation.
 - M02-M21 started-status changes beyond explicit future-planning wording for ablation support in M11, M12, M14, M17, M18, and M20.
 
@@ -587,6 +597,16 @@ Completed M01.10 QA recovery work:
 6. Set the next recommended thread to `Merge M01.10 QA Recovery PR - Write DOMAIN_MODEL.md`.
 7. Run validation and record results.
 
+Completed M01.11 builder work:
+
+1. Finalize M01.10 as `Completed and merged` from git history at `a878d55` (`test: QA recovery M01.10 domain model summary (#29)`).
+2. Mark M01.11 as `Builder in progress` on branch `m01-11-write-reliability`.
+3. Rewrite `docs/RELIABILITY.md` as the canonical CausalLedger reliability model.
+4. Update concise entry-doc references and tracking files.
+5. Add documentation-only validation checks for the expanded `docs/RELIABILITY.md`.
+6. Run validation and record results.
+7. Mark M01.11 `Builder complete, awaiting QA`.
+
 ## Concrete Steps
 
 - Confirm branch guard and starting cleanliness.
@@ -633,13 +653,14 @@ Acceptance criteria:
 - M01.07 is `Completed and merged`.
 - M01.08 is `Completed and merged` after PR #26 merged at git commit `1fde07a`.
 - M01.09 is `Completed and merged` after PR #27 merged at git commit `1b40773`.
-- M01.10 is `QA recovery passed, awaiting recovery PR merge`.
-- M01.11 through M01.13 remain `Not started`.
+- M01.10 is `Completed and merged` after QA recovery PR #29 merged at git commit `a878d55`.
+- M01.11 is `Builder complete, awaiting QA`.
+- M01.12 and M01.13 remain `Not started`.
 - M02 through M21 remain `Not started`.
 - Product implementation has not started.
 - No forbidden runtime artifacts are added.
 - Validation passes or limitations are recorded.
-- Next recommended thread after M01.10 QA recovery is `Merge M01.10 QA Recovery PR - Write DOMAIN_MODEL.md`.
+- Next recommended thread after M01.11 builder is `M01.11 QA - Write RELIABILITY.md`.
 
 ## Idempotence and Recovery
 
@@ -865,6 +886,18 @@ Notes:
   - `git diff --check` passed.
   - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
   - M01.10 is `QA recovery passed, awaiting recovery PR merge`; M01.11 through M01.13 and M02 through M21 remain `Not started`.
+- 2026-05-21 M01.10 post-merge finalization:
+  - QA recovery PR #29 was confirmed merged at git commit `a878d55` (`test: QA recovery M01.10 domain model summary (#29)`) before M01.11 builder work began.
+  - Tracking updates in this M01.11 builder slice record M01.10 as `Completed and merged`.
+- 2026-05-21 M01.11 builder validation results:
+  - `docs/RELIABILITY.md` was rewritten as the canonical CausalLedger reliability model.
+  - README, docs index, domain model, active plan, roadmap, milestone doc, registry, status docs, capability matrix, tech debt, risk register, validation script, and bootstrap tests were updated for M01.11.
+  - Initial `python -m pytest tests/test_control_plane_bootstrap.py` failed because the new reliability-model test treated the required negative statement `LLM output is evidence` as a forbidden positive claim; the scoped test assertion was narrowed and validation was rerun successfully.
+  - `python scripts/validate-control-plane.py` passed.
+  - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 28 tests.
+  - `git diff --check` passed.
+  - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
+  - Product implementation has not started; no runtime reliability mechanism, MoneyEvent runtime, ledger runtime, settlement runtime, reconciliation runtime, incident runtime, invariant engine, causal graph runtime, replay runtime, agent runtime, repair planner runtime, human-review runtime, UI, external connector, database schema, API route, GitHub Action, CI workflow, or product behavior was added.
 
 ## Interfaces and Dependencies
 
@@ -876,7 +909,7 @@ M01 planning depends on:
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` for submilestone state.
 - `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md` for current operational direction.
 
-No product runtime interface is introduced by this M01 planning, M01.01 documentation work, M01.02 documentation work, M01.03 documentation work, M01.04 documentation work, M01.05 documentation and evaluation-planning work, M01.05 QA recovery work, M01.05 post-merge finalization work, M01.06 repair vocabulary work, M01.07 evidence receipt model work, M01.07 post-merge finalization work, M01.08 human review states work, M01.08 post-merge finalization, M01.09 out-of-scope domain builder work, M01.09 QA work, M01.09 post-merge finalization, M01.10 DOMAIN_MODEL.md builder work, or M01.10 QA recovery work.
+No product runtime interface is introduced by this M01 planning, M01.01 documentation work, M01.02 documentation work, M01.03 documentation work, M01.04 documentation work, M01.05 documentation and evaluation-planning work, M01.05 QA recovery work, M01.05 post-merge finalization work, M01.06 repair vocabulary work, M01.07 evidence receipt model work, M01.07 post-merge finalization work, M01.08 human review states work, M01.08 post-merge finalization, M01.09 out-of-scope domain builder work, M01.09 QA work, M01.09 post-merge finalization, M01.10 DOMAIN_MODEL.md builder work, M01.10 QA recovery work, M01.10 post-merge finalization, or M01.11 RELIABILITY.md builder work.
 
 ## Outcomes & Retrospective
 
@@ -904,6 +937,7 @@ Current M01.01 builder outcome:
 - M01.07 is completed and merged as evidence receipt model documentation only.
 - M01.08 is completed and merged after PR #26 as human review states documentation only.
 - M01.09 is completed and merged after PR #27 as out-of-scope domain documentation only.
-- M01.10 is QA recovery passed, awaiting recovery PR merge as DOMAIN_MODEL.md summary documentation only.
-- M01.11 through M01.13 remain not started.
-- The next safe thread is `Merge M01.10 QA Recovery PR - Write DOMAIN_MODEL.md`.
+- M01.10 is completed and merged after QA recovery PR #29 as DOMAIN_MODEL.md summary documentation only.
+- M01.11 is builder complete, awaiting QA as RELIABILITY.md model documentation only.
+- M01.12 and M01.13 remain not started.
+- The next safe thread is `M01.11 QA - Write RELIABILITY.md`.
