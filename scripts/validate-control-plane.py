@@ -28,6 +28,7 @@ REQUIRED_FILES = [
     "docs/domain/repair-vocabulary.md",
     "docs/domain/evidence-receipt-model.md",
     "docs/domain/human-review-states.md",
+    "docs/domain/out-of-scope-domains.md",
     "docs/RELIABILITY.md",
     "docs/THREAT_MODEL.md",
     "docs/TOKEN_COST_STRATEGY.md",
@@ -367,9 +368,9 @@ REQUIRED_TEXT = {
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
-        "M01.07 is `Completed and merged`",
-        "M01.08 is `QA passed, awaiting merge`",
-        "M01.09 through M01.13 remain planned scope only and are not started",
+        "M01.08 is `Completed and merged`",
+        "M01.09 is `QA passed, awaiting merge`",
+        "M01.10 through M01.13 remain planned scope only and are not started",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
@@ -379,6 +380,7 @@ REQUIRED_TEXT = {
         "docs/domain/repair-vocabulary.md",
         "docs/domain/evidence-receipt-model.md",
         "docs/domain/human-review-states.md",
+        "docs/domain/out-of-scope-domains.md",
     ],
     "docs/domain/README.md": [
         "domain vocabulary",
@@ -391,6 +393,7 @@ REQUIRED_TEXT = {
         "Repair vocabulary",
         "Evidence receipt model",
         "Human review states",
+        "Out-of-scope domains",
     ],
     "docs/domain/payment-lifecycle.md": [
         "No runtime implementation is defined or claimed",
@@ -1142,6 +1145,97 @@ REQUIRED_TEXT = {
         "Out-of-scope domains belong to M01.09",
         "No human-review runtime",
     ],
+    "docs/domain/out-of-scope-domains.md": [
+        "No runtime implementation is defined or claimed",
+        "## Purpose",
+        "## What this document defines",
+        "## What this document does not define",
+        "## Relationship to payment lifecycle vocabulary",
+        "## Relationship to ledger vocabulary",
+        "## Relationship to settlement vocabulary",
+        "## Relationship to reconciliation vocabulary",
+        "## Relationship to incident vocabulary",
+        "## Relationship to repair vocabulary",
+        "## Relationship to evidence receipt model",
+        "## Relationship to human review states",
+        "## Relationship to future product implementation",
+        "## Relationship to future company and version roadmap",
+        "## CausalLedger core scope",
+        "## Hard out-of-scope domains",
+        "## Adjacent but not core domains",
+        "## Claims CausalLedger must not make",
+        "## Actions the LLM must never perform",
+        "## Future-extension rules",
+        "## Interview and product positioning boundaries",
+        "## Examples",
+        "## Non-implementation statement",
+        "Money movement lifecycle correctness",
+        "ledger correctness evidence",
+        "Settlement and payout evidence",
+        "Reconciliation break evidence",
+        "Financial incident response",
+        "Causal event reconstruction",
+        "Replayable incident evidence",
+        "Safe repair proposal vocabulary",
+        "Human review and approval boundaries",
+        "Benchmark and ablation evaluation",
+        "AML platform",
+        "KYC onboarding platform",
+        "sanctions screening platform",
+        "fraud scoring product",
+        "Credit underwriting",
+        "Credit risk scoring",
+        "Market risk",
+        "Trading risk",
+        "Investment advice",
+        "Tax advice",
+        "Legal or regulatory advice",
+        "Consumer personal finance assistant",
+        "Generic accounting close platform",
+        "ERP replacement",
+        "payment processor",
+        "Bank core system",
+        "treasury management system",
+        "Autonomous finance agent",
+        "autonomous repair executor",
+        "Autonomous money movement system",
+        "general APM or infrastructure observability platform",
+        "Customer support chatbot as a standalone product",
+        "Fraud signals",
+        "AML/KYC references",
+        "Regulatory incident reporting evidence",
+        "Audit evidence support",
+        "Customer support explanation",
+        "Accounting close support",
+        "Treasury context",
+        "provider outage context",
+        "Operational resilience reporting",
+        "Compliance evidence packaging",
+        "CausalLedger is not a bank",
+        "CausalLedger does not autonomously move money",
+        "CausalLedger does not decide financial truth using an LLM",
+        "Move money",
+        "Approve repairs",
+        "Post ledger entries",
+        "Delete evidence",
+        "Modify raw events",
+        "Override deterministic checks",
+        "Make AML/KYC determinations",
+        "Make credit decisions",
+        "Make sanctions determinations",
+        "Call production write APIs",
+        "claim regulatory determinations",
+        "without a new scope decision",
+        "Financial incident response for money movement",
+        "AI accountant",
+        "AI that fixes money automatically",
+        "Duplicate webhook creates duplicate ledger posting",
+        "Missing bank posting after payout",
+        "Suspicious refund pattern",
+        "Customer identity mismatch",
+        "Chargeback affects settlement",
+        "No product functionality",
+    ],
     "docs/DOMAIN_MODEL.md": [
         "M01 domain index",
         "Payment lifecycle",
@@ -1153,6 +1247,7 @@ REQUIRED_TEXT = {
         "docs/domain/repair-vocabulary.md",
         "docs/domain/evidence-receipt-model.md",
         "docs/domain/human-review-states.md",
+        "docs/domain/out-of-scope-domains.md",
         "The domain model is not complete",
         "Ledger vocabulary",
         "Settlement vocabulary",
@@ -1475,27 +1570,47 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "QA passed, awaiting merge",
+        "Completed and merged",
         "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-08-define-human-review-states",
+        "#26",
+        "1fde07a",
+        "post-merge finalization recorded",
         "validate-control-plane passed",
-        "pytest 26 passed",
+        "pytest 27 passed",
         "git diff --check passed",
         "make unavailable",
-        "QA passed with no content defects",
         "No product implementation or runtime human-review behavior",
     ]:
         if phrase not in row:
-            errors.append(f"M01.08 registry row missing QA marker: {phrase}")
+            errors.append(f"M01.08 registry row missing merge marker: {phrase}")
 
-    for index in range(9, 14):
+    row = next(
+        (line for line in registry.splitlines() if line.startswith("| M01.09 |")),
+        "",
+    )
+    for phrase in [
+        "QA passed, awaiting merge",
+        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "m01-09-define-out-of-scope-domains",
+        "validate-control-plane passed",
+        "pytest 27 passed",
+        "git diff --check passed",
+        "make unavailable",
+        "hard out-of-scope domains",
+        "No product implementation or runtime out-of-scope behavior",
+    ]:
+        if phrase not in row:
+            errors.append(f"M01.09 registry row missing QA marker: {phrase}")
+
+    for index in range(10, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             (line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")),
             "",
         )
         if "Not started" not in row:
-            errors.append(f"{submilestone} is not Not started after M01.08 QA")
+            errors.append(f"{submilestone} is not Not started after M01.09 QA")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -1589,15 +1704,15 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "Merge M01.08 PR - Define Human Review States" not in next_thread:
+    if "Merge M01.09 PR - Define Out-of-Scope Domains" not in next_thread:
         errors.append(
-            "Next recommended thread is not Merge M01.08 PR - Define Human Review States"
+            "Next recommended thread is not Merge M01.09 PR - Define Out-of-Scope Domains"
         )
-    if "M01.07 is `Completed and merged`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.07 as Completed and merged")
-    if "M01.08 is `QA passed, awaiting merge`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.08 as QA passed, awaiting merge")
-    if "M01.09 through M01.13 are `Not started`" not in next_thread:
+    if "M01.08 is `Completed and merged`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.08 as Completed and merged")
+    if "M01.09 is `QA passed, awaiting merge`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.09 as QA passed, awaiting merge")
+    if "M01.10 through M01.13 are `Not started`" not in next_thread:
         errors.append("Next recommended thread does not record later M01 submilestones as Not started")
     if "Do not start M02" not in next_thread:
         errors.append("Next recommended thread does not block M02 later work")
@@ -1610,6 +1725,7 @@ def closeout_state_errors():
     repair_doc = ROOT / "docs/domain/repair-vocabulary.md"
     evidence_doc = ROOT / "docs/domain/evidence-receipt-model.md"
     human_review_doc = ROOT / "docs/domain/human-review-states.md"
+    out_of_scope_doc = ROOT / "docs/domain/out-of-scope-domains.md"
     domain_index = ROOT / "docs/DOMAIN_MODEL.md"
     if not domain_doc.is_file():
         errors.append("M01.01 payment lifecycle doc is missing")
@@ -1627,6 +1743,8 @@ def closeout_state_errors():
         errors.append("M01.07 evidence receipt model doc is missing")
     if not human_review_doc.is_file():
         errors.append("M01.08 human review states doc is missing")
+    if not out_of_scope_doc.is_file():
+        errors.append("M01.09 out-of-scope domains doc is missing")
     if domain_doc.is_file():
         text = domain_doc.read_text(encoding="utf-8")
         forbidden_claims = [
@@ -1730,6 +1848,18 @@ def closeout_state_errors():
         for claim in forbidden_claims:
             if claim in text:
                 errors.append(f"Human review states doc makes forbidden runtime claim: {claim}")
+    if out_of_scope_doc.is_file():
+        text = out_of_scope_doc.read_text(encoding="utf-8")
+        forbidden_claims = [
+            "runtime implementation is complete",
+            "approval engine is implemented",
+            "state machine is implemented",
+            "scoring engine is implemented",
+            "production write API is implemented",
+        ]
+        for claim in forbidden_claims:
+            if claim in text:
+                errors.append(f"Out-of-scope domains doc makes forbidden runtime claim: {claim}")
     if domain_index.is_file():
         text = domain_index.read_text(encoding="utf-8")
         if "docs/domain/payment-lifecycle.md" not in text:
@@ -1748,6 +1878,8 @@ def closeout_state_errors():
             errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/evidence-receipt-model.md")
         if "docs/domain/human-review-states.md" not in text:
             errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/human-review-states.md")
+        if "docs/domain/out-of-scope-domains.md" not in text:
+            errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/out-of-scope-domains.md")
 
     domain_readme = ROOT / "docs/domain/README.md"
     if domain_readme.is_file():
@@ -1766,6 +1898,8 @@ def closeout_state_errors():
             errors.append("docs/domain/README.md does not reference docs/domain/evidence-receipt-model.md")
         if "docs/domain/human-review-states.md" not in text and "human-review-states.md" not in text:
             errors.append("docs/domain/README.md does not reference docs/domain/human-review-states.md")
+        if "docs/domain/out-of-scope-domains.md" not in text and "out-of-scope-domains.md" not in text:
+            errors.append("docs/domain/README.md does not reference docs/domain/out-of-scope-domains.md")
 
     m14_doc = (ROOT / "docs/milestones/M14.md").read_text(encoding="utf-8")
     if "Add benchmark and ablation runner" not in m14_doc:

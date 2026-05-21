@@ -4,7 +4,7 @@
 
 CausalLedger is an agentic financial incident-response and money-movement digital twin for fintech systems. It helps fintech teams find, prove, replay, and safely repair money-movement breaks across payments, ledgers, settlement files, bank statements, refunds, chargebacks, webhooks, and provider failures.
 
-CausalLedger is not a payment processor, not a ledger replacement, not a generic reconciliation tool, not a fraud platform, not an AML platform, and not an autonomous finance agent.
+CausalLedger is not a bank, payment processor, ledger replacement, AML/KYC platform, fraud scoring engine, credit risk engine, tax or legal advisor, investment advisor, ERP replacement, treasury management system, or autonomous finance agent.
 
 The LLM never owns financial truth. LLM agents may investigate, summarize, and propose. LLM agents may not mutate money, approve repairs, delete evidence, post ledger entries, modify raw events, or override deterministic invariants.
 
@@ -15,6 +15,8 @@ Financial correctness must come from deterministic logic: raw evidence, canonica
 ## LLM cannot mutate money
 
 LLM agents may investigate, summarize, and propose. They may not mutate money, approve repairs, delete evidence, post ledger entries, modify raw events, override deterministic invariants, or release external communications.
+
+LLM agents also may not make AML/KYC, sanctions, fraud, credit, legal, tax, investment, regulatory-reporting, accounting-close, treasury, banking, payment-processing, or autonomous repair decisions. M01.09 records these reliability boundaries in `docs/domain/out-of-scope-domains.md`.
 
 ## Evidence expectations
 

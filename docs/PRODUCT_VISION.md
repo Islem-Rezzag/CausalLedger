@@ -4,13 +4,15 @@
 
 CausalLedger is an agentic financial incident-response and money-movement digital twin for fintech systems. It helps fintech teams find, prove, replay, and safely repair money-movement breaks across payments, ledgers, settlement files, bank statements, refunds, chargebacks, webhooks, and provider failures.
 
-CausalLedger is not a payment processor, not a ledger replacement, not a generic reconciliation tool, not a fraud platform, not an AML platform, and not an autonomous finance agent.
+CausalLedger is not a bank, payment processor, ledger replacement, AML/KYC platform, fraud scoring engine, credit risk engine, tax or legal advisor, investment advisor, ERP replacement, treasury management system, or autonomous finance agent.
 
 The LLM never owns financial truth. LLM agents may investigate, summarize, and propose. LLM agents may not mutate money, approve repairs, delete evidence, post ledger entries, modify raw events, or override deterministic invariants.
 
 ## Product wedge
 
 The wedge is high-stakes fintech incident response for money-movement breaks that are expensive to investigate manually and dangerous to repair casually. The first credible product surface is a deterministic incident workbench backed by replayable evidence and agentic investigation memos.
+
+The wedge is not fraud scoring, AML/KYC, sanctions screening, credit risk, legal compliance autopilot, tax advice, investment advice, ERP replacement, treasury management, payment processing, or autonomous money movement. Those boundaries are recorded in `docs/domain/out-of-scope-domains.md`.
 
 ## Cost-saving value proposition
 
@@ -19,6 +21,8 @@ CausalLedger aims to reduce time spent tracing payment, ledger, settlement, bank
 ## Interview demo narrative
 
 A strong demo should show a fintech operator opening a money-movement incident, inspecting evidence, following a causal trace, seeing deterministic invariant failures, reading an evidence-grounded agent memo, replaying the incident, and reviewing a safe repair proposal that still requires human approval.
+
+A strong demo must not position CausalLedger as an AI accountant, autonomous finance agent, legal compliance autopilot, AI fraud engine, or AI that fixes money automatically.
 
 ## Open-source moat
 

@@ -2,7 +2,7 @@
 
 CausalLedger is an agentic financial incident-response and money-movement digital twin for fintech systems. It helps fintech teams find, prove, replay, and safely repair money-movement breaks across payments, ledgers, settlement files, bank statements, refunds, chargebacks, webhooks, and provider failures.
 
-CausalLedger is not a payment processor, not a ledger replacement, not a generic reconciliation tool, not a fraud platform, not an AML platform, and not an autonomous finance agent.
+CausalLedger is not a bank, payment processor, ledger replacement, AML/KYC platform, fraud scoring engine, credit risk engine, tax or legal advisor, investment advisor, ERP replacement, treasury management system, or autonomous finance agent.
 
 The LLM never owns financial truth. LLM agents may investigate, summarize, and propose. LLM agents may not mutate money, approve repairs, delete evidence, post ledger entries, modify raw events, or override deterministic invariants.
 
@@ -12,7 +12,7 @@ CausalLedger helps fintech teams prove, replay, and safely repair money-movement
 
 ## Current status
 
-CausalLedger has completed M00 Repo Operating System and tagged it as `v0.1.0`. M01 planning is complete and merged, the active M01 plan is `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, M01.01 Define Payment Lifecycle is recorded as `Completed and merged` after post-merge QA recovery, M01.02 Define Ledger Vocabulary is `Completed and merged`, M01.03 Define Settlement Vocabulary is `Completed and merged` at git commit `e54a917`, M01.04 Define Reconciliation Vocabulary is `Completed and merged` at git commit `5dfe928`, M01.05 Define Incident Vocabulary is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`, M01.06 Define Safe and Unsafe Repairs is `Completed and merged` after PR #21 merged at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`), M01.07 Define Evidence Receipt Model is `Completed and merged` after PR #23 merged at git commit `a88b5ff` (`docs: define M01.07 evidence receipt model (#23)`), and M01.08 Define Human Review States is `QA passed, awaiting merge`.
+CausalLedger has completed M00 Repo Operating System and tagged it as `v0.1.0`. M01 planning is complete and merged, the active M01 plan is `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, M01.01 Define Payment Lifecycle is recorded as `Completed and merged` after post-merge QA recovery, M01.02 Define Ledger Vocabulary is `Completed and merged`, M01.03 Define Settlement Vocabulary is `Completed and merged` at git commit `e54a917`, M01.04 Define Reconciliation Vocabulary is `Completed and merged` at git commit `5dfe928`, M01.05 Define Incident Vocabulary is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`, M01.06 Define Safe and Unsafe Repairs is `Completed and merged` after PR #21 merged at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`), M01.07 Define Evidence Receipt Model is `Completed and merged` after PR #23 merged at git commit `a88b5ff` (`docs: define M01.07 evidence receipt model (#23)`), M01.08 Define Human Review States is `Completed and merged` after PR #26 merged at git commit `1fde07a` (`docs: define M01.08 human review states (#26)`), and M01.09 Define Out-of-Scope Domains is `QA passed, awaiting merge`.
 
 This repository currently contains architecture, planning, prompt, skill, milestone, status, GitHub template, versioning, and validation scaffolding only. No product functionality, evidence ingestion runtime, evidence storage layer, MoneyEvent logic, ledger logic, invariants, incident engine, causal graph, replay engine, agent runtime, repair planner runtime, repair execution, UI, APIs, databases, GitHub Actions, CI workflows, secrets, or external connectors exist yet.
 
@@ -33,6 +33,11 @@ This repository currently contains architecture, planning, prompt, skill, milest
 - A generic reconciliation tool.
 - A fraud platform.
 - An AML platform.
+- A KYC onboarding platform.
+- A sanctions screening platform.
+- A credit risk engine.
+- A tax, legal, trading, or investment advisor.
+- An ERP or treasury management replacement.
 - An autonomous finance agent.
 - A source of financial truth through LLM output.
 
@@ -68,6 +73,7 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `docs/domain/repair-vocabulary.md` - M01.06 safe and unsafe repair vocabulary and boundaries.
 - `docs/domain/evidence-receipt-model.md` - M01.07 evidence receipt vocabulary and evidence-boundary definitions.
 - `docs/domain/human-review-states.md` - M01.08 human review states, actors, approval boundaries, AI boundaries, and repair-review vocabulary.
+- `docs/domain/out-of-scope-domains.md` - M01.09 hard out-of-scope domains, adjacent-but-not-core domains, forbidden claims, LLM forbidden actions, future-extension rules, and positioning boundaries.
 - `docs/evals/ABLATION_STRATEGY.md` - future offline benchmark ablation strategy.
 - `docs/evals/ABLATION_MATRIX.md` - planned ablation groups and negative controls.
 - `docs/VERSIONING.md` - semantic versioning strategy, release tag rules, and overclaim prevention.

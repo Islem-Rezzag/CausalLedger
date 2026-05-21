@@ -16,3 +16,4 @@ Current domain documents:
 - [Repair vocabulary](repair-vocabulary.md) - M01.06 safe and unsafe repair vocabulary, proposal boundaries, evidence requirements, validation expectations, and forbidden autonomous actions.
 - [Evidence receipt model](evidence-receipt-model.md) - M01.07 evidence receipt vocabulary, provenance, timestamps, redaction, uncertainty, conflicts, gaps, append-only handling, and immutable raw evidence boundaries.
 - [Human review states](human-review-states.md) - M01.08 human review vocabulary, review actors, statuses, decision boundaries, repair-review states, AI boundaries, evidence expectations, and audit constraints.
+- [Out-of-scope domains](out-of-scope-domains.md) - M01.09 explicit non-goals, adjacent-but-not-core domains, forbidden product claims, LLM forbidden actions, future-extension rules, and positioning boundaries.

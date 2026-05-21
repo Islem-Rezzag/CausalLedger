@@ -7,7 +7,7 @@ All notable CausalLedger release changes are recorded here.
 - Started M01 planning for domain model and scope freeze.
 - Added versioning and release-scope documentation.
 - Added the active M01 planning plan.
-- Added M01 domain vocabulary documents for payment lifecycle, ledger, settlement, reconciliation, incidents, safe and unsafe repairs, and evidence receipts.
+- Added M01 domain vocabulary and boundary documents for payment lifecycle, ledger, settlement, reconciliation, incidents, safe and unsafe repairs, evidence receipts, human review states, and out-of-scope domains.
 - Product functionality remains not implemented.
 
 ## v0.1.0 - Repo Operating System Foundation

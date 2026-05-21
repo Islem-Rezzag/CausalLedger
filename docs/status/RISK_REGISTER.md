@@ -3,6 +3,7 @@
 | Risk | Impact | Mitigation | Status |
 | --- | --- | --- | --- |
 | Safety boundary drift | Agents or docs imply financial mutation authority | Keep AGENTS.md and active docs explicit; require QA review | Open |
+| Out-of-scope domain drift | Future work or positioning implies CausalLedger owns AML/KYC, sanctions, fraud scoring, credit, legal, tax, investment, payment processing, banking, treasury, ERP, autonomous repair execution, or autonomous money movement | M01.09 defines hard out-of-scope domains, adjacent-but-not-core references, forbidden claims, LLM forbidden actions, future-extension rules, and positioning boundaries; future adjacent-domain expansion requires explicit milestone scope and expert review where applicable | Open |
 | Placeholder confusion | Readers mistake scaffolding for implemented product behavior | Mark current status and placeholders clearly | Open |
 | Scope creep before approved implementation | Product code starts during planning or before scoped validation exists | Require active plan before complex work and keep planning threads docs-only | Open |
 | Evidence semantics under-specified | Future incident behavior may lack audit rigor | M01.07 is completed and merged after PR #23 for documentation-only evidence receipt vocabulary, provenance, chain of custody, timestamp, redaction, uncertainty, conflict, gap, append-only, immutable raw evidence, derived evidence, audit-trail, and evidence-backed repair proposal boundaries; future evidence bundle specs and runtime controls remain required before implementation | Open |

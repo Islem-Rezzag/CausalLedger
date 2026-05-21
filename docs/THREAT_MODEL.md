@@ -4,7 +4,7 @@
 
 CausalLedger is an agentic financial incident-response and money-movement digital twin for fintech systems. It helps fintech teams find, prove, replay, and safely repair money-movement breaks across payments, ledgers, settlement files, bank statements, refunds, chargebacks, webhooks, and provider failures.
 
-CausalLedger is not a payment processor, not a ledger replacement, not a generic reconciliation tool, not a fraud platform, not an AML platform, and not an autonomous finance agent.
+CausalLedger is not a bank, payment processor, ledger replacement, AML/KYC platform, fraud scoring engine, credit risk engine, tax or legal advisor, investment advisor, ERP replacement, treasury management system, or autonomous finance agent.
 
 The LLM never owns financial truth. LLM agents may investigate, summarize, and propose. LLM agents may not mutate money, approve repairs, delete evidence, post ledger entries, modify raw events, or override deterministic invariants.
 
@@ -24,6 +24,7 @@ Initial threat model for control-plane planning. M18 will finalize and test the 
 - Secrets exposure.
 - Audit-log gaps.
 - Benchmark poisoning or misleading scenario evidence.
+- Scope drift into AML/KYC, sanctions, fraud scoring, credit decisions, legal advice, tax advice, investment advice, accounting close, treasury, banking, payment processing, autonomous repair execution, or autonomous money movement.
 
 ## Unsafe LLM actions
 
@@ -44,3 +45,7 @@ Future agent workflows must treat imported evidence and external text as untrust
 ## Third-party connector risk
 
 Future connectors must isolate credentials, validate source payloads, support health checks, record provenance, and avoid letting external provider text bypass deterministic controls.
+
+## Domain boundary drift
+
+Future work must not use agent output, evidence packages, or incident summaries to make out-of-scope decisions. `docs/domain/out-of-scope-domains.md` defines the M01.09 boundary for domains CausalLedger may reference as evidence but must not own.
