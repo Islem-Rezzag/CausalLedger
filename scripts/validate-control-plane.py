@@ -369,7 +369,7 @@ REQUIRED_TEXT = {
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
         "M01.08 is `Completed and merged`",
-        "M01.09 is `Builder complete, awaiting QA`",
+        "M01.09 is `QA passed, awaiting merge`",
         "M01.10 through M01.13 remain planned scope only and are not started",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
@@ -1590,7 +1590,7 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "Builder complete, awaiting QA",
+        "QA passed, awaiting merge",
         "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-09-define-out-of-scope-domains",
         "validate-control-plane passed",
@@ -1601,7 +1601,7 @@ def closeout_state_errors():
         "No product implementation or runtime out-of-scope behavior",
     ]:
         if phrase not in row:
-            errors.append(f"M01.09 registry row missing builder marker: {phrase}")
+            errors.append(f"M01.09 registry row missing QA marker: {phrase}")
 
     for index in range(10, 14):
         submilestone = f"M01.{index:02}"
@@ -1610,7 +1610,7 @@ def closeout_state_errors():
             "",
         )
         if "Not started" not in row:
-            errors.append(f"{submilestone} is not Not started after M01.09 builder")
+            errors.append(f"{submilestone} is not Not started after M01.09 QA")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -1704,14 +1704,14 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "M01.09 QA - Define Out-of-Scope Domains" not in next_thread:
+    if "Merge M01.09 PR - Define Out-of-Scope Domains" not in next_thread:
         errors.append(
-            "Next recommended thread is not M01.09 QA - Define Out-of-Scope Domains"
+            "Next recommended thread is not Merge M01.09 PR - Define Out-of-Scope Domains"
         )
     if "M01.08 is `Completed and merged`" not in next_thread:
         errors.append("Next recommended thread does not record M01.08 as Completed and merged")
-    if "M01.09 is `Builder complete, awaiting QA`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.09 as builder complete, awaiting QA")
+    if "M01.09 is `QA passed, awaiting merge`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.09 as QA passed, awaiting merge")
     if "M01.10 through M01.13 are `Not started`" not in next_thread:
         errors.append("Next recommended thread does not record later M01 submilestones as Not started")
     if "Do not start M02" not in next_thread:

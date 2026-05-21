@@ -10,7 +10,7 @@ The safety boundary is non-negotiable: LLM agents may investigate, summarize, an
 
 The first M01 implementation submilestone after this planning thread is `M01.01 Define payment lifecycle`.
 
-Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is completed and merged at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), M01.05 Define incident vocabulary is completed and merged after QA recovery PR #18 merged at git commit `3bdedeb`, M01.06 Define safe and unsafe repairs is completed and merged after PR #21 merged at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`), M01.07 Define evidence receipt model is completed and merged after PR #23 merged at git commit `a88b5ff` (`docs: define M01.07 evidence receipt model (#23)`), M01.08 Define human review states is completed and merged after PR #26 merged at git commit `1fde07a` (`docs: define M01.08 human review states (#26)`), and M01.09 Define out-of-scope domains is `Builder complete, awaiting QA`.
+Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is completed and merged at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), M01.05 Define incident vocabulary is completed and merged after QA recovery PR #18 merged at git commit `3bdedeb`, M01.06 Define safe and unsafe repairs is completed and merged after PR #21 merged at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`), M01.07 Define evidence receipt model is completed and merged after PR #23 merged at git commit `a88b5ff` (`docs: define M01.07 evidence receipt model (#23)`), M01.08 Define human review states is completed and merged after PR #26 merged at git commit `1fde07a` (`docs: define M01.08 human review states (#26)`), and M01.09 Define out-of-scope domains is `QA passed, awaiting merge`.
 
 ## Progress
 
@@ -209,13 +209,13 @@ Current M01 submilestone state:
 - `M01.06 Define safe and unsafe repairs` - Completed and merged after PR #21.
 - `M01.07 Define evidence receipt model` - Completed and merged after PR #23.
 - `M01.08 Define human review states` - Completed and merged after PR #26.
-- `M01.09 Define out-of-scope domains` - Builder complete, awaiting QA.
+- `M01.09 Define out-of-scope domains` - QA passed, awaiting merge.
 - `M01.10 Write DOMAIN_MODEL.md`
 - `M01.11 Write RELIABILITY.md`
 - `M01.12 Write THREAT_MODEL.md`
 - `M01.13 QA domain consistency`
 
-M01.08 is `Completed and merged`. M01.09 is `Builder complete, awaiting QA`. M01.10 through M01.13 remain planned scope only and are not started.
+M01.08 is `Completed and merged`. M01.09 is `QA passed, awaiting merge`. M01.10 through M01.13 remain planned scope only and are not started.
 
 ## Scope
 
@@ -541,6 +541,16 @@ Completed M01.09 builder work:
 7. Add documentation-only validation checks.
 8. Run validation and record results before marking M01.09 `Builder complete, awaiting QA`.
 
+Completed M01.09 QA work:
+
+1. Confirm branch guard, clean starting worktree, latest commit, remote, and `v0.1.0` tag.
+2. Review `docs/domain/out-of-scope-domains.md` for required hard out-of-scope domains, adjacent-but-not-core boundaries, forbidden claims, LLM forbidden actions, future-extension rules, positioning boundaries, and examples.
+3. Verify domain links, high-level positioning docs, lightweight spec dependency notes, tracking/status files, validation coverage, and forbidden-scope boundaries.
+4. Update M01.09 tracking files to `QA passed, awaiting merge`.
+5. Set the next recommended thread to `Merge M01.09 PR - Define Out-of-Scope Domains`.
+6. Update control-plane validation and bootstrap tests to enforce the post-QA M01.09 state.
+7. Run validation and record results.
+
 ## Concrete Steps
 
 - Confirm branch guard and starting cleanliness.
@@ -586,13 +596,13 @@ Acceptance criteria:
 - M01.06 is `Completed and merged` after PR #21 merged at git commit `7adc96d`.
 - M01.07 is `Completed and merged`.
 - M01.08 is `Completed and merged` after PR #26 merged at git commit `1fde07a`.
-- M01.09 is `Builder complete, awaiting QA`.
+- M01.09 is `QA passed, awaiting merge`.
 - M01.10 through M01.13 remain `Not started`.
 - M02 through M21 remain `Not started`.
 - Product implementation has not started.
 - No forbidden runtime artifacts are added.
 - Validation passes or limitations are recorded.
-- Next recommended thread after M01.09 builder is `M01.09 QA - Define Out-of-Scope Domains`.
+- Next recommended thread after M01.09 QA is `Merge M01.09 PR - Define Out-of-Scope Domains`.
 
 ## Idempotence and Recovery
 
@@ -780,6 +790,15 @@ Notes:
   - `git diff --check` passed.
   - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
   - Product implementation has not started; no MoneyEvent runtime, ledger runtime, settlement runtime, reconciliation runtime, incident runtime, invariant engine, causal graph runtime, replay runtime, agent runtime, repair planner runtime, human-review runtime, UI, external connector, database schema, API route, GitHub Action, CI workflow, autonomous repair execution, autonomous money movement, legal/tax/AML/KYC/fraud/credit/investment advice, or product behavior was added.
+- 2026-05-21 M01.09 QA validation results:
+  - QA reviewed M01.09 out-of-scope domain documentation, links, tracking, validation coverage, and forbidden-scope boundaries.
+  - No out-of-scope domain content defects were found.
+  - QA changes were limited to tracking/status/control-plane validation updates.
+  - `python scripts/validate-control-plane.py` passed.
+  - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 27 tests.
+  - `git diff --check` passed.
+  - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
+  - Product implementation has not started; no MoneyEvent runtime, ledger runtime, settlement runtime, reconciliation runtime, incident runtime, invariant engine, causal graph runtime, replay runtime, agent runtime, repair planner runtime, human-review runtime, UI, external connector, database schema, API route, GitHub Action, CI workflow, autonomous repair execution, autonomous money movement, legal/tax/AML/KYC/fraud/credit/investment advice, or product behavior was added.
 
 ## Interfaces and Dependencies
 
@@ -791,7 +810,7 @@ M01 planning depends on:
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` for submilestone state.
 - `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md` for current operational direction.
 
-No product runtime interface is introduced by this M01 planning, M01.01 documentation work, M01.02 documentation work, M01.03 documentation work, M01.04 documentation work, M01.05 documentation and evaluation-planning work, M01.05 QA recovery work, M01.05 post-merge finalization work, M01.06 repair vocabulary work, M01.07 evidence receipt model work, M01.07 post-merge finalization work, M01.08 human review states work, M01.08 post-merge finalization, or M01.09 out-of-scope domain work.
+No product runtime interface is introduced by this M01 planning, M01.01 documentation work, M01.02 documentation work, M01.03 documentation work, M01.04 documentation work, M01.05 documentation and evaluation-planning work, M01.05 QA recovery work, M01.05 post-merge finalization work, M01.06 repair vocabulary work, M01.07 evidence receipt model work, M01.07 post-merge finalization work, M01.08 human review states work, M01.08 post-merge finalization, M01.09 out-of-scope domain builder work, or M01.09 QA work.
 
 ## Outcomes & Retrospective
 
@@ -818,6 +837,6 @@ Current M01.01 builder outcome:
 - M01.06 is completed and merged after PR #21 as repair vocabulary documentation only.
 - M01.07 is completed and merged as evidence receipt model documentation only.
 - M01.08 is completed and merged after PR #26 as human review states documentation only.
-- M01.09 is builder complete, awaiting QA as out-of-scope domain documentation only.
+- M01.09 is QA passed, awaiting merge as out-of-scope domain documentation only.
 - M01.10 through M01.13 remain not started.
-- The next safe thread is `M01.09 QA - Define Out-of-Scope Domains`.
+- The next safe thread is `Merge M01.09 PR - Define Out-of-Scope Domains`.

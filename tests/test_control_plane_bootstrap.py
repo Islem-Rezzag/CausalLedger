@@ -248,7 +248,7 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
         "M01.08 is `Completed and merged`",
-        "M01.09 is `Builder complete, awaiting QA`",
+        "M01.09 is `QA passed, awaiting merge`",
         "M01.10 through M01.13 remain planned scope only and are not started",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
@@ -2062,7 +2062,7 @@ def test_m00_closeout_state_is_coherent():
     assert "No product implementation or runtime human-review behavior" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.09 |"))
-    assert "Builder complete, awaiting QA" in row
+    assert "QA passed, awaiting merge" in row
     assert "m01-09-define-out-of-scope-domains" in row
     assert "validate-control-plane passed" in row
     assert "pytest 27 passed" in row
@@ -2106,7 +2106,7 @@ def test_m00_closeout_state_is_coherent():
         "M01.06 Define safe and unsafe repairs is `Completed and merged`",
         "M01.07 Define evidence receipt model is `Completed and merged`",
         "M01.08 Define human review states is `Completed and merged`",
-        "M01.09 Define out-of-scope domains is `Builder complete, awaiting QA`",
+        "M01.09 Define out-of-scope domains is `QA passed, awaiting merge`",
         "M01.10 through M01.13 remain `Not started`",
     ]:
         assert phrase in current_state
