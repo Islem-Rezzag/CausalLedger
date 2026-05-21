@@ -4,7 +4,7 @@
 
 M01 domain index. This file tracks which domain areas are defined and which remain intentionally undefined until their scoped M01 submilestones.
 
-The domain model is not complete. Payment lifecycle vocabulary is defined in M01.01, ledger vocabulary is defined in M01.02, settlement vocabulary is defined in M01.03, reconciliation vocabulary is defined in M01.04, incident vocabulary is defined in M01.05, repair vocabulary is defined in M01.06, evidence receipt vocabulary is defined in M01.07, and remaining M01 domain areas are not yet defined.
+The domain model is not complete. Payment lifecycle vocabulary is defined in M01.01, ledger vocabulary is defined in M01.02, settlement vocabulary is defined in M01.03, reconciliation vocabulary is defined in M01.04, incident vocabulary is defined in M01.05, safe and unsafe repair vocabulary is defined in M01.06, evidence receipt model is defined in M01.07, human review states are defined in M01.08, and remaining M01 domain areas are not yet defined.
 
 ## Product thesis
 
@@ -25,6 +25,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 | Incident vocabulary | Defined in M01.05 | [docs/domain/incident-vocabulary.md](domain/incident-vocabulary.md) |
 | Repair vocabulary | Defined in M01.06 | [docs/domain/repair-vocabulary.md](domain/repair-vocabulary.md) |
 | Evidence receipt model | Defined in M01.07 | [docs/domain/evidence-receipt-model.md](domain/evidence-receipt-model.md) |
+| Human review states | Defined in M01.08 | [docs/domain/human-review-states.md](domain/human-review-states.md) |
 
 ## Domain documentation boundary
 
@@ -32,7 +33,6 @@ Domain documents define vocabulary, scope, and boundaries. They do not implement
 
 ## Remaining M01 domain areas not yet defined
 
-- Human review states.
 - Out-of-scope domains.
 
 ## Guardrails for M01

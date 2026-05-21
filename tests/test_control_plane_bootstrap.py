@@ -34,6 +34,7 @@ def test_required_project_docs_exist():
         "docs/domain/incident-vocabulary.md",
         "docs/domain/repair-vocabulary.md",
         "docs/domain/evidence-receipt-model.md",
+        "docs/domain/human-review-states.md",
         "docs/RELIABILITY.md",
         "docs/THREAT_MODEL.md",
         "docs/TOKEN_COST_STRATEGY.md",
@@ -246,7 +247,8 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
         "M01.07 is `Completed and merged`",
-        "M01.08 through M01.13 remain planned scope only and are not started",
+        "M01.08 is `QA passed, awaiting merge`",
+        "M01.09 through M01.13 remain planned scope only and are not started",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
@@ -254,6 +256,7 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "docs/domain/incident-vocabulary.md",
         "docs/domain/repair-vocabulary.md",
         "docs/domain/evidence-receipt-model.md",
+        "docs/domain/human-review-states.md",
     ]:
         assert phrase in plan
 
@@ -346,6 +349,7 @@ def test_m01_payment_lifecycle_domain_docs_are_documentation_only():
         "docs/domain/incident-vocabulary.md",
         "docs/domain/repair-vocabulary.md",
         "docs/domain/evidence-receipt-model.md",
+        "docs/domain/human-review-states.md",
         "The domain model is not complete",
         "Ledger vocabulary",
         "Settlement vocabulary",
@@ -1126,6 +1130,159 @@ def test_m01_evidence_receipt_model_domain_doc_is_documentation_only():
     assert "docs/domain/evidence-receipt-model.md" in domain_model
 
 
+def test_m01_human_review_states_domain_doc_is_documentation_only():
+    human_review = (
+        ROOT / "docs" / "domain" / "human-review-states.md"
+    ).read_text(encoding="utf-8")
+    domain_readme = (ROOT / "docs" / "domain" / "README.md").read_text(
+        encoding="utf-8"
+    )
+    domain_model = (ROOT / "docs" / "DOMAIN_MODEL.md").read_text(encoding="utf-8")
+
+    for phrase in [
+        "No runtime implementation is defined or claimed",
+        "## Purpose",
+        "## Human review scope",
+        "## What this document defines",
+        "## What this document does not define",
+        "## Relationship to payment lifecycle vocabulary",
+        "## Relationship to ledger vocabulary",
+        "## Relationship to settlement vocabulary",
+        "## Relationship to reconciliation vocabulary",
+        "## Relationship to incident vocabulary",
+        "## Relationship to safe and unsafe repair vocabulary",
+        "## Relationship to evidence receipt model",
+        "## Relationship to future repair planner",
+        "## Relationship to future human review workbench",
+        "## Relationship to future security and audit logs",
+        "## Relationship to future agentic investigation",
+        "## Core human review concepts",
+        "## Review actors",
+        "## Human review states",
+        "## Repair-review states",
+        "## What humans may approve",
+        "## What humans may not approve inside CausalLedger v1 scope",
+        "## AI boundaries in review",
+        "## Review evidence expectations",
+        "## Questions CausalLedger asks about human review",
+        "## Human review failure patterns",
+        "## Boundaries with other M01 areas",
+        "## Non-implementation statement",
+        "human review",
+        "reviewer",
+        "approver",
+        "requester",
+        "observer",
+        "reviewer identity",
+        "reviewer role",
+        "reviewer reason",
+        "review queue",
+        "review item",
+        "review decision",
+        "approval",
+        "rejection",
+        "request for more evidence",
+        "escalation",
+        "delegation",
+        "reassignment",
+        "approval threshold",
+        "approval policy",
+        "review policy",
+        "approval scope",
+        "review scope",
+        "review status",
+        "decision timestamp",
+        "decision evidence",
+        "decision rationale",
+        "audit trail",
+        "immutable approval record",
+        "review comment",
+        "review attachment",
+        "conflict of interest",
+        "dual control",
+        "four-eyes review",
+        "break-glass approval",
+        "policy exception",
+        "finance operations reviewer",
+        "payment operations reviewer",
+        "ledger engineer reviewer",
+        "platform engineer reviewer",
+        "risk or compliance observer",
+        "support observer",
+        "incident owner",
+        "repair proposer",
+        "AI investigator",
+        "system validator",
+        "cannot approve, reject, apply, or execute repairs",
+        "`review_not_required`",
+        "`review_required`",
+        "`review_pending`",
+        "`reviewer_assigned`",
+        "`evidence_requested`",
+        "`evidence_received`",
+        "`review_in_progress`",
+        "`approved`",
+        "`rejected`",
+        "`escalated`",
+        "`delegated`",
+        "`reassigned`",
+        "`expired`",
+        "`cancelled`",
+        "`policy_exception_requested`",
+        "`policy_exception_denied`",
+        "`policy_exception_approved`",
+        "`break_glass_requested`",
+        "`break_glass_denied`",
+        "`break_glass_approved`",
+        "`review_closed`",
+        "`review_reopened`",
+        "`repair_review_required`",
+        "`repair_review_pending`",
+        "`repair_evidence_incomplete`",
+        "`repair_validator_failed`",
+        "`repair_validator_passed`",
+        "`repair_approved_for_sandbox`",
+        "`repair_rejected`",
+        "`repair_needs_revision`",
+        "`repair_escalated`",
+        "`repair_applied_in_sandbox`",
+        "`repair_ready_for_replay`",
+        "`repair_not_approved_for_production`",
+        "`production_repair_forbidden_without_policy`",
+        "AI may summarize evidence",
+        "AI may not",
+        "Evidence bundle reference",
+        "Was human review required?",
+        "Was the AI kept out of approval authority?",
+        "Approval without evidence",
+        "AI treated as approver",
+        "Payment lifecycle vocabulary belongs to M01.01",
+        "Ledger vocabulary belongs to M01.02",
+        "Settlement vocabulary belongs to M01.03",
+        "Reconciliation vocabulary belongs to M01.04",
+        "Incident vocabulary belongs to M01.05",
+        "Safe and unsafe repair vocabulary belongs to M01.06",
+        "Evidence receipt model belongs to M01.07",
+        "Out-of-scope domains belong to M01.09",
+        "No human-review runtime",
+    ]:
+        assert phrase in human_review
+
+    for forbidden_claim in [
+        "implements MoneyEvent",
+        "implements ledger",
+        "implements invariants",
+        "runtime implementation is complete",
+        "schema is defined",
+        "state machine is implemented",
+        "approval engine is implemented",
+    ]:
+        assert forbidden_claim not in human_review
+
+    assert "human-review-states.md" in domain_readme
+    assert "docs/domain/human-review-states.md" in domain_model
+
+
 def test_ablation_planning_docs_are_offline_benchmark_only():
     strategy = (ROOT / "docs" / "evals" / "ABLATION_STRATEGY.md").read_text(
         encoding="utf-8"
@@ -1775,7 +1932,17 @@ def test_m00_closeout_state_is_coherent():
     assert "make unavailable" in row
     assert "No product implementation or runtime evidence behavior" in row
 
-    for index in range(8, 14):
+    row = next(line for line in registry.splitlines() if line.startswith("| M01.08 |"))
+    assert "QA passed, awaiting merge" in row
+    assert "m01-08-define-human-review-states" in row
+    assert "validate-control-plane passed" in row
+    assert "pytest 26 passed" in row
+    assert "git diff --check passed" in row
+    assert "make unavailable" in row
+    assert "QA passed with no content defects" in row
+    assert "No product implementation or runtime human-review behavior" in row
+
+    for index in range(9, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")
@@ -1809,7 +1976,8 @@ def test_m00_closeout_state_is_coherent():
         "M01.05 Define incident vocabulary is `Completed and merged`",
         "M01.06 Define safe and unsafe repairs is `Completed and merged`",
         "M01.07 Define evidence receipt model is `Completed and merged`",
-        "M01.08 through M01.13 remain `Not started`",
+        "M01.08 Define human review states is `QA passed, awaiting merge`",
+        "M01.09 through M01.13 remain `Not started`",
     ]:
         assert phrase in current_state
 

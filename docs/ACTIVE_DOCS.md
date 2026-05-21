@@ -33,6 +33,9 @@ Project direction:
 - `docs/domain/settlement-vocabulary.md`
 - `docs/domain/reconciliation-vocabulary.md`
 - `docs/domain/incident-vocabulary.md`
+- `docs/domain/repair-vocabulary.md`
+- `docs/domain/evidence-receipt-model.md`
+- `docs/domain/human-review-states.md`
 - `docs/RELIABILITY.md`
 - `docs/THREAT_MODEL.md`
 - `docs/TOKEN_COST_STRATEGY.md`

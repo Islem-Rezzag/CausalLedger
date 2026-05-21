@@ -27,6 +27,7 @@ REQUIRED_FILES = [
     "docs/domain/incident-vocabulary.md",
     "docs/domain/repair-vocabulary.md",
     "docs/domain/evidence-receipt-model.md",
+    "docs/domain/human-review-states.md",
     "docs/RELIABILITY.md",
     "docs/THREAT_MODEL.md",
     "docs/TOKEN_COST_STRATEGY.md",
@@ -367,7 +368,8 @@ REQUIRED_TEXT = {
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
         "M01.07 is `Completed and merged`",
-        "M01.08 through M01.13 remain planned scope only and are not started",
+        "M01.08 is `QA passed, awaiting merge`",
+        "M01.09 through M01.13 remain planned scope only and are not started",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
@@ -376,6 +378,7 @@ REQUIRED_TEXT = {
         "docs/domain/incident-vocabulary.md",
         "docs/domain/repair-vocabulary.md",
         "docs/domain/evidence-receipt-model.md",
+        "docs/domain/human-review-states.md",
     ],
     "docs/domain/README.md": [
         "domain vocabulary",
@@ -387,6 +390,7 @@ REQUIRED_TEXT = {
         "Incident vocabulary",
         "Repair vocabulary",
         "Evidence receipt model",
+        "Human review states",
     ],
     "docs/domain/payment-lifecycle.md": [
         "No runtime implementation is defined or claimed",
@@ -1011,6 +1015,133 @@ REQUIRED_TEXT = {
         "Safe and unsafe repair vocabulary belongs to M01.06",
         "Human review states belong to M01.08",
     ],
+    "docs/domain/human-review-states.md": [
+        "No runtime implementation is defined or claimed",
+        "## Purpose",
+        "## Human review scope",
+        "## What this document defines",
+        "## What this document does not define",
+        "## Relationship to payment lifecycle vocabulary",
+        "## Relationship to ledger vocabulary",
+        "## Relationship to settlement vocabulary",
+        "## Relationship to reconciliation vocabulary",
+        "## Relationship to incident vocabulary",
+        "## Relationship to safe and unsafe repair vocabulary",
+        "## Relationship to evidence receipt model",
+        "## Relationship to future repair planner",
+        "## Relationship to future human review workbench",
+        "## Relationship to future security and audit logs",
+        "## Relationship to future agentic investigation",
+        "## Core human review concepts",
+        "## Review actors",
+        "## Human review states",
+        "## Repair-review states",
+        "## What humans may approve",
+        "## What humans may not approve inside CausalLedger v1 scope",
+        "## AI boundaries in review",
+        "## Review evidence expectations",
+        "## Questions CausalLedger asks about human review",
+        "## Human review failure patterns",
+        "## Boundaries with other M01 areas",
+        "## Non-implementation statement",
+        "human review",
+        "reviewer",
+        "approver",
+        "requester",
+        "observer",
+        "reviewer identity",
+        "reviewer role",
+        "reviewer reason",
+        "review queue",
+        "review item",
+        "review decision",
+        "approval",
+        "rejection",
+        "request for more evidence",
+        "escalation",
+        "delegation",
+        "reassignment",
+        "approval threshold",
+        "approval policy",
+        "review policy",
+        "approval scope",
+        "review scope",
+        "review status",
+        "decision timestamp",
+        "decision evidence",
+        "decision rationale",
+        "audit trail",
+        "immutable approval record",
+        "review comment",
+        "review attachment",
+        "conflict of interest",
+        "dual control",
+        "four-eyes review",
+        "break-glass approval",
+        "policy exception",
+        "finance operations reviewer",
+        "payment operations reviewer",
+        "ledger engineer reviewer",
+        "platform engineer reviewer",
+        "risk or compliance observer",
+        "support observer",
+        "incident owner",
+        "repair proposer",
+        "AI investigator",
+        "system validator",
+        "cannot approve, reject, apply, or execute repairs",
+        "`review_not_required`",
+        "`review_required`",
+        "`review_pending`",
+        "`reviewer_assigned`",
+        "`evidence_requested`",
+        "`evidence_received`",
+        "`review_in_progress`",
+        "`approved`",
+        "`rejected`",
+        "`escalated`",
+        "`delegated`",
+        "`reassigned`",
+        "`expired`",
+        "`cancelled`",
+        "`policy_exception_requested`",
+        "`policy_exception_denied`",
+        "`policy_exception_approved`",
+        "`break_glass_requested`",
+        "`break_glass_denied`",
+        "`break_glass_approved`",
+        "`review_closed`",
+        "`review_reopened`",
+        "`repair_review_required`",
+        "`repair_review_pending`",
+        "`repair_evidence_incomplete`",
+        "`repair_validator_failed`",
+        "`repair_validator_passed`",
+        "`repair_approved_for_sandbox`",
+        "`repair_rejected`",
+        "`repair_needs_revision`",
+        "`repair_escalated`",
+        "`repair_applied_in_sandbox`",
+        "`repair_ready_for_replay`",
+        "`repair_not_approved_for_production`",
+        "`production_repair_forbidden_without_policy`",
+        "AI may summarize evidence",
+        "AI may not",
+        "Evidence bundle reference",
+        "Was human review required?",
+        "Was the AI kept out of approval authority?",
+        "Approval without evidence",
+        "AI treated as approver",
+        "Payment lifecycle vocabulary belongs to M01.01",
+        "Ledger vocabulary belongs to M01.02",
+        "Settlement vocabulary belongs to M01.03",
+        "Reconciliation vocabulary belongs to M01.04",
+        "Incident vocabulary belongs to M01.05",
+        "Safe and unsafe repair vocabulary belongs to M01.06",
+        "Evidence receipt model belongs to M01.07",
+        "Out-of-scope domains belong to M01.09",
+        "No human-review runtime",
+    ],
     "docs/DOMAIN_MODEL.md": [
         "M01 domain index",
         "Payment lifecycle",
@@ -1021,6 +1152,7 @@ REQUIRED_TEXT = {
         "docs/domain/incident-vocabulary.md",
         "docs/domain/repair-vocabulary.md",
         "docs/domain/evidence-receipt-model.md",
+        "docs/domain/human-review-states.md",
         "The domain model is not complete",
         "Ledger vocabulary",
         "Settlement vocabulary",
@@ -1338,14 +1470,32 @@ def closeout_state_errors():
         if phrase not in row:
             errors.append(f"M01.07 registry row missing merge marker: {phrase}")
 
-    for index in range(8, 14):
+    row = next(
+        (line for line in registry.splitlines() if line.startswith("| M01.08 |")),
+        "",
+    )
+    for phrase in [
+        "QA passed, awaiting merge",
+        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "m01-08-define-human-review-states",
+        "validate-control-plane passed",
+        "pytest 26 passed",
+        "git diff --check passed",
+        "make unavailable",
+        "QA passed with no content defects",
+        "No product implementation or runtime human-review behavior",
+    ]:
+        if phrase not in row:
+            errors.append(f"M01.08 registry row missing QA marker: {phrase}")
+
+    for index in range(9, 14):
         submilestone = f"M01.{index:02}"
         row = next(
             (line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")),
             "",
         )
         if "Not started" not in row:
-            errors.append(f"{submilestone} is not Not started after M01.07 finalization")
+            errors.append(f"{submilestone} is not Not started after M01.08 QA")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -1439,16 +1589,14 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "M01.08 Builder - Define Human Review States" not in next_thread:
+    if "Merge M01.08 PR - Define Human Review States" not in next_thread:
         errors.append(
-            "Next recommended thread is not M01.08 Builder - Define Human Review States"
+            "Next recommended thread is not Merge M01.08 PR - Define Human Review States"
         )
     if "M01.07 is `Completed and merged`" not in next_thread:
         errors.append("Next recommended thread does not record M01.07 as Completed and merged")
-    if "PR #23" not in next_thread or "a88b5ff" not in next_thread:
-        errors.append("Next recommended thread does not record PR #23 merge commit")
-    if "M01.08 is `Not started`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.08 as Not started")
+    if "M01.08 is `QA passed, awaiting merge`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.08 as QA passed, awaiting merge")
     if "M01.09 through M01.13 are `Not started`" not in next_thread:
         errors.append("Next recommended thread does not record later M01 submilestones as Not started")
     if "Do not start M02" not in next_thread:
@@ -1461,6 +1609,7 @@ def closeout_state_errors():
     incident_doc = ROOT / "docs/domain/incident-vocabulary.md"
     repair_doc = ROOT / "docs/domain/repair-vocabulary.md"
     evidence_doc = ROOT / "docs/domain/evidence-receipt-model.md"
+    human_review_doc = ROOT / "docs/domain/human-review-states.md"
     domain_index = ROOT / "docs/DOMAIN_MODEL.md"
     if not domain_doc.is_file():
         errors.append("M01.01 payment lifecycle doc is missing")
@@ -1476,6 +1625,8 @@ def closeout_state_errors():
         errors.append("M01.06 repair vocabulary doc is missing")
     if not evidence_doc.is_file():
         errors.append("M01.07 evidence receipt model doc is missing")
+    if not human_review_doc.is_file():
+        errors.append("M01.08 human review states doc is missing")
     if domain_doc.is_file():
         text = domain_doc.read_text(encoding="utf-8")
         forbidden_claims = [
@@ -1565,6 +1716,20 @@ def closeout_state_errors():
         for claim in forbidden_claims:
             if claim in text:
                 errors.append(f"Evidence receipt model doc makes forbidden runtime claim: {claim}")
+    if human_review_doc.is_file():
+        text = human_review_doc.read_text(encoding="utf-8")
+        forbidden_claims = [
+            "implements MoneyEvent",
+            "implements ledger",
+            "implements invariants",
+            "runtime implementation is complete",
+            "schema is defined",
+            "state machine is implemented",
+            "approval engine is implemented",
+        ]
+        for claim in forbidden_claims:
+            if claim in text:
+                errors.append(f"Human review states doc makes forbidden runtime claim: {claim}")
     if domain_index.is_file():
         text = domain_index.read_text(encoding="utf-8")
         if "docs/domain/payment-lifecycle.md" not in text:
@@ -1581,6 +1746,8 @@ def closeout_state_errors():
             errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/repair-vocabulary.md")
         if "docs/domain/evidence-receipt-model.md" not in text:
             errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/evidence-receipt-model.md")
+        if "docs/domain/human-review-states.md" not in text:
+            errors.append("docs/DOMAIN_MODEL.md does not reference docs/domain/human-review-states.md")
 
     domain_readme = ROOT / "docs/domain/README.md"
     if domain_readme.is_file():
@@ -1597,6 +1764,8 @@ def closeout_state_errors():
             errors.append("docs/domain/README.md does not reference docs/domain/repair-vocabulary.md")
         if "docs/domain/evidence-receipt-model.md" not in text and "evidence-receipt-model.md" not in text:
             errors.append("docs/domain/README.md does not reference docs/domain/evidence-receipt-model.md")
+        if "docs/domain/human-review-states.md" not in text and "human-review-states.md" not in text:
+            errors.append("docs/domain/README.md does not reference docs/domain/human-review-states.md")
 
     m14_doc = (ROOT / "docs/milestones/M14.md").read_text(encoding="utf-8")
     if "Add benchmark and ablation runner" not in m14_doc:
