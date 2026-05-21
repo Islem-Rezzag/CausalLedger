@@ -2,7 +2,7 @@
 
 ## Status
 
-M01.11 is writing the CausalLedger reliability model as documentation only. M01.12 Threat Model and M01.13 QA Domain Consistency remain. Product implementation has not started.
+M01.11 completed the CausalLedger reliability model as documentation only. M01.12 is writing the CausalLedger threat model as documentation only. M01.13 QA Domain Consistency remains. Product implementation has not started.
 
 Current validation proves documentation and control-plane coherence only. It does not prove runtime reliability, financial correctness, replay determinism, repair safety, agent safety, observability, security, or production readiness.
 
@@ -179,18 +179,9 @@ Dangerous ablations are offline negative controls only. Variants such as LLM-onl
 
 ## Security and threat-model dependency
 
-This reliability model depends on future M01.12 `docs/THREAT_MODEL.md`. M01.11 names threat categories only so reliability expectations can point to the security work without fully writing the threat model.
+This reliability model depends on M01.12 `docs/THREAT_MODEL.md`, which now defines threat categories and planned mitigations for evidence integrity, deterministic financial truth, repair and human review, agentic AI, prompt injection, tool permissions, model routing and cost, privacy, secrets, supply chain, ablations, operations, governance, and out-of-scope abuse.
 
-M01.12 should deepen:
-
-- Prompt injection.
-- Poisoned evidence.
-- Forbidden tool access.
-- Unsafe repair pressure.
-- Evidence deletion or mutation attempts.
-- Secrets exposure.
-- Unauthorized reviewer action.
-- Overclaiming legal or compliance conclusions.
+Threat-model mitigations remain future implementation dependencies unless a later milestone implements and validates them. M01.12 does not turn reliability expectations into runtime security controls.
 
 ## Failure modes and mitigations
 
@@ -250,7 +241,7 @@ These are future metrics. They are not currently implemented, measured, or valid
 
 ## Remaining M01 reliability work
 
-M01.12 `docs/THREAT_MODEL.md` remains and should deepen security and adversarial risks. It should cover prompt injection, poisoned evidence, forbidden tool access, unsafe repair pressure, evidence deletion or mutation attempts, secrets exposure, unauthorized reviewer action, and overclaiming legal or compliance conclusions.
+M01.12 `docs/THREAT_MODEL.md` defines the threat model for the domain and should complete builder, QA, and merge before M01.13 starts.
 
 M01.13 QA Domain Consistency remains and should verify `docs/DOMAIN_MODEL.md`, `docs/RELIABILITY.md`, `docs/THREAT_MODEL.md`, and all M01 domain docs are consistent.
 

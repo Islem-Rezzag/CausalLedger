@@ -370,8 +370,9 @@ REQUIRED_TEXT = {
         "M01.13 QA domain consistency",
         "M01.09 is `Completed and merged`",
         "M01.10 is `Completed and merged`",
-        "M01.11 is `QA passed, awaiting merge`",
-        "M01.12 and M01.13 remain planned scope only and are not started",
+        "M01.11 is `Completed and merged`",
+        "M01.12 is `Builder complete, awaiting QA`",
+        "M01.13 remains planned scope only and is not started",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
@@ -1259,11 +1260,13 @@ REQUIRED_TEXT = {
         "canonical M01 domain model summary",
         "M01.01 through M01.09 are defined",
         "M01.10 is `Completed and merged`",
-        "M01.11 is `QA passed, awaiting merge`",
-        "M01.12 Threat Model and M01.13 QA Domain Consistency remain",
+        "M01.11 is `Completed and merged`",
+        "M01.12 is writing `docs/THREAT_MODEL.md` as the threat model for the domain",
+        "M01.13 QA Domain Consistency remains",
         "The whole M01 milestone is not complete yet",
         "Product implementation has not started",
         "docs/RELIABILITY.md",
+        "docs/THREAT_MODEL.md",
         "Payment lifecycle",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
@@ -1312,7 +1315,8 @@ REQUIRED_TEXT = {
         "## Remaining M01 reliability work",
         "## Guardrails for future implementation milestones",
         "Current validation proves documentation and control-plane coherence only",
-        "M01.12 Threat Model and M01.13 QA Domain Consistency remain",
+        "M01.12 is writing the CausalLedger threat model",
+        "M01.13 QA Domain Consistency remains",
         "Product implementation has not started",
         "LLM memos are explanations only",
         "Event identity and idempotency checks",
@@ -1326,8 +1330,61 @@ REQUIRED_TEXT = {
         "request IDs",
         "root-cause accuracy",
         "Dangerous ablations are offline negative controls only",
-        "M01.12 `docs/THREAT_MODEL.md` remains",
+        "M01.12 `docs/THREAT_MODEL.md` defines the threat model",
         "Do not implement reliability claims without validation",
+    ],
+    "docs/THREAT_MODEL.md": [
+        "## Status",
+        "## Purpose",
+        "## Threat model thesis",
+        "CausalLedger's threat model is based on protecting financial evidence, deterministic truth boundaries, human approval boundaries, and LLM tool boundaries.",
+        "The LLM never owns financial truth.",
+        "Threats become most dangerous when LLM output, incomplete evidence, unsafe repair pressure, or permission mistakes can influence money-related decisions.",
+        "## Threat model scope",
+        "## What this threat model does not do",
+        "## Protected assets",
+        "## Trust boundaries",
+        "## Actors and adversaries",
+        "## Threat categories",
+        "## Evidence threats",
+        "## Ledger and financial truth threats",
+        "## Settlement and reconciliation threats",
+        "## Incident and replay threats",
+        "## Repair and human review threats",
+        "## Agentic AI threats",
+        "## Prompt injection threats",
+        "## Tool and permission threats",
+        "## Model routing and cost threats",
+        "## Data privacy and confidentiality threats",
+        "## Secrets and credential threats",
+        "## Dependency and supply-chain threats",
+        "## Abuse and out-of-scope domain threats",
+        "## Evaluation and ablation threats",
+        "## Operational and governance threats",
+        "## Threat-to-mitigation matrix",
+        "## Future implementation dependencies",
+        "## Remaining M01 threat-model work",
+        "## Guardrails for future implementation milestones",
+        "Current validation only proves documentation and control-plane coherence, not runtime security",
+        "Product implementation has not started",
+        "Raw evidence",
+        "Evidence receipts",
+        "Evidence bundles",
+        "External provider systems",
+        "LLM context boundary",
+        "Agent tool boundary",
+        "Human review boundary",
+        "Production money movement boundary",
+        "Prompt injection attacker",
+        "Poisoned evidence source",
+        "Write tool exposed to AI",
+        "Repair approval tool exposed",
+        "API keys in repo",
+        "offline-only ablation configs",
+        "Evidence integrity",
+        "M03, M07, M08, M09, M18",
+        "Do not expose write tools to AI agents unless explicitly scoped and guarded.",
+        "Do not enable unsafe ablations outside offline benchmark mode.",
     ],
     "docs/evals/ABLATION_STRATEGY.md": [
         "What an ablation is",
@@ -1704,12 +1761,12 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "QA passed, awaiting merge",
+        "Completed and merged",
         "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-11-write-reliability",
-        "builder validation passed",
-        "QA passed after reliability model",
-        "validate-control-plane passed",
+        "#30 merged",
+        "post-merge finalization recorded",
+        "a424924",
         "pytest 28 passed",
         "git diff --check passed",
         "make unavailable",
@@ -1719,19 +1776,35 @@ def closeout_state_errors():
         "evidence reliability",
         "repair reliability",
         "No product implementation or runtime reliability behavior",
-        "Not Completed and merged",
     ]:
         if phrase not in row:
-            errors.append(f"M01.11 registry row missing QA marker: {phrase}")
+            errors.append(f"M01.11 registry row missing merge marker: {phrase}")
 
-    for index in range(12, 14):
-        submilestone = f"M01.{index:02}"
-        row = next(
-            (line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")),
-            "",
-        )
-        if "Not started" not in row:
-            errors.append(f"{submilestone} is not Not started after M01.11 builder")
+    row = next(
+        (line for line in registry.splitlines() if line.startswith("| M01.12 |")),
+        "",
+    )
+    for phrase in [
+        "Builder complete, awaiting QA",
+        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "m01-12-write-threat-model",
+        "builder validation passed",
+        "validate-control-plane passed",
+        "pytest",
+        "git diff --check passed",
+        "make unavailable",
+        "Documentation-only THREAT_MODEL.md canonical threat model",
+        "No product implementation or runtime security behavior",
+    ]:
+        if phrase not in row:
+            errors.append(f"M01.12 registry row missing builder marker: {phrase}")
+
+    row = next(
+        (line for line in registry.splitlines() if line.startswith("| M01.13 |")),
+        "",
+    )
+    if "Not started" not in row:
+        errors.append("M01.13 is not Not started after M01.12 builder")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -1825,16 +1898,16 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "Merge M01.11 PR - Write RELIABILITY.md" not in next_thread:
-        errors.append("Next recommended thread is not Merge M01.11 PR - Write RELIABILITY.md")
-    if "M01.10 is `Completed and merged`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.10 as Completed and merged")
-    if "M01.11 is `QA passed, awaiting merge`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.11 as QA passed")
-    if "M01.12 and M01.13 are `Not started`" not in next_thread:
-        errors.append("Next recommended thread does not record later M01 submilestones as Not started")
-    if "Do not start M01.12" not in next_thread:
-        errors.append("Next recommended thread does not block M01.12 later work")
+    if "M01.12 QA - Write THREAT_MODEL.md" not in next_thread:
+        errors.append("Next recommended thread is not M01.12 QA - Write THREAT_MODEL.md")
+    if "M01.11 is `Completed and merged`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.11 as Completed and merged")
+    if "M01.12 is `Builder complete, awaiting QA`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.12 as builder complete")
+    if "M01.13 is `Not started`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.13 as Not started")
+    if "Do not start M01.13" not in next_thread:
+        errors.append("Next recommended thread does not block M01.13 later work")
     if "Do not start M02" not in next_thread:
         errors.append("Next recommended thread does not block M02 later work")
 
