@@ -2,6 +2,15 @@
 
 ## 2026-05-21
 
+- Started M01.10 post-merge QA recovery on branch `m01-10-qa-recovery-domain-model` after builder PR #28 was squash-merged before the required QA thread at commit `dc6800b` (`docs: write M01.10 domain model summary (#28)`); branch guard passed, the starting worktree was clean, remote `origin` points to GitHub, and tag `v0.1.0` exists.
+- Audited the already-merged M01.10 `docs/DOMAIN_MODEL.md` work, domain links, tracking/status files, validation coverage, and forbidden-scope boundaries.
+- Found no DOMAIN_MODEL.md content defects and no product implementation; QA recovery changes were limited to tracking/status/control-plane validation updates.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.10 QA recovery.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 27 tests for M01.10 QA recovery.
+- Ran `git diff --check` successfully for M01.10 QA recovery.
+- Skipped `make bootstrap-check` for M01.10 QA recovery because `make` is unavailable in the current Windows shell.
+- Marked M01.10 `QA recovery passed, awaiting recovery PR merge`; M01.11 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- Recommended next thread: `Merge M01.10 QA Recovery PR - Write DOMAIN_MODEL.md`.
 - Finalized M01.09 Define Out-of-Scope Domains as `Completed and merged` after PR #27 merged at git commit `1b40773` (`docs: define M01.09 out-of-scope domains (#27)`) before M01.10 builder work began.
 - Started M01.10 Write DOMAIN_MODEL.md builder on branch `m01-10-write-domain-model`; branch guard passed, the starting worktree was clean, latest commit was `1b40773`, remote `origin` points to GitHub, and tag `v0.1.0` exists.
 - Marked M01.10 `Builder in progress` while working; M01.11 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
