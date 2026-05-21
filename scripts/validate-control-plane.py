@@ -369,7 +369,7 @@ REQUIRED_TEXT = {
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
         "M01.09 is `Completed and merged`",
-        "M01.10 is `Builder complete, awaiting QA`",
+        "M01.10 is `QA recovery passed, awaiting recovery PR merge`",
         "M01.11 through M01.13 remain planned scope only and are not started",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
@@ -1633,9 +1633,13 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "Builder complete, awaiting QA",
+        "QA passed, awaiting merge",
         "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
-        "m01-10-write-domain-model",
+        "m01-10-qa-recovery-domain-model",
+        "Builder #28 merged; recovery PR pending",
+        "QA recovery passed",
+        "awaiting recovery PR merge",
+        "dc6800b",
         "validate-control-plane passed",
         "pytest 27 passed",
         "git diff --check passed",
@@ -1644,7 +1648,7 @@ def closeout_state_errors():
         "No product implementation or runtime behavior",
     ]:
         if phrase not in row:
-            errors.append(f"M01.10 registry row missing builder marker: {phrase}")
+            errors.append(f"M01.10 registry row missing QA recovery marker: {phrase}")
 
     for index in range(11, 14):
         submilestone = f"M01.{index:02}"
@@ -1653,7 +1657,7 @@ def closeout_state_errors():
             "",
         )
         if "Not started" not in row:
-            errors.append(f"{submilestone} is not Not started after M01.10 builder")
+            errors.append(f"{submilestone} is not Not started after M01.10 QA recovery")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -1747,14 +1751,14 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "M01.10 QA - Write DOMAIN_MODEL.md" not in next_thread:
+    if "Merge M01.10 QA Recovery PR - Write DOMAIN_MODEL.md" not in next_thread:
         errors.append(
-            "Next recommended thread is not M01.10 QA - Write DOMAIN_MODEL.md"
+            "Next recommended thread is not Merge M01.10 QA Recovery PR - Write DOMAIN_MODEL.md"
         )
     if "M01.09 is `Completed and merged`" not in next_thread:
         errors.append("Next recommended thread does not record M01.09 as Completed and merged")
-    if "M01.10 is `Builder complete, awaiting QA`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.10 as Builder complete, awaiting QA")
+    if "M01.10 is `QA recovery passed, awaiting recovery PR merge`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.10 as QA recovery passed")
     if "M01.11 through M01.13 are `Not started`" not in next_thread:
         errors.append("Next recommended thread does not record later M01 submilestones as Not started")
     if "Do not start M02" not in next_thread:

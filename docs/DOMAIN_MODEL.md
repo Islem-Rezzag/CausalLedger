@@ -2,9 +2,9 @@
 
 ## Status
 
-M01.01 through M01.09 are defined domain vocabulary and boundary documents. M01.10 is the current submilestone finalizing `docs/DOMAIN_MODEL.md` as the canonical M01 domain model summary.
+M01.01 through M01.09 are defined domain vocabulary and boundary documents. M01.10 is the current submilestone in post-merge QA recovery: builder PR #28 was squash-merged before the required QA thread at commit `dc6800b`, and this recovery branch has audited and finalized `docs/DOMAIN_MODEL.md` as the canonical M01 domain model summary.
 
-M01.11 Reliability, M01.12 Threat Model, and M01.13 QA Domain Consistency remain. The whole M01 milestone is not complete yet, and M01.10 is not QA passed or merged until the M01.10 QA thread and PR merge are complete.
+M01.11 Reliability, M01.12 Threat Model, and M01.13 QA Domain Consistency remain. The whole M01 milestone is not complete yet. M01.10 QA recovery has passed and is awaiting recovery PR merge; M01.10 is not `Completed and merged` until that recovery PR merges.
 
 Product implementation has not started. This file is documentation only and does not implement MoneyEvent runtime logic, ledger runtime logic, settlement runtime logic, reconciliation runtime logic, incident runtime logic, invariants, causal graph runtime logic, replay runtime logic, agent runtime, repair planning runtime logic, human-review runtime logic, UI features, external connectors, database schemas, API routes, GitHub Actions, CI workflows, or product behavior.
 
