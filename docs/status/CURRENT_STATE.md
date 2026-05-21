@@ -2,7 +2,7 @@
 
 ## Current phase
 
-M00 Repo operating system is completed and tagged as `v0.1.0`. M01 planning is complete and merged into the current branch history at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, the active M01 plan is `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, M01.02 Define ledger vocabulary is `Completed and merged` at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is `Completed and merged` at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is `Completed and merged` at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), M01.05 Define incident vocabulary is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`, M01.06 Define safe and unsafe repairs is `Completed and merged` after PR #21 merged at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`), M01.07 Define evidence receipt model is `Completed and merged` after PR #23 merged at git commit `a88b5ff` (`docs: define M01.07 evidence receipt model (#23)`), and M01.08 Define human review states is `Builder complete, awaiting QA`.
+M00 Repo operating system is completed and tagged as `v0.1.0`. M01 planning is complete and merged into the current branch history at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, the active M01 plan is `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`, M01.02 Define ledger vocabulary is `Completed and merged` at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is `Completed and merged` at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is `Completed and merged` at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), M01.05 Define incident vocabulary is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`, M01.06 Define safe and unsafe repairs is `Completed and merged` after PR #21 merged at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`), M01.07 Define evidence receipt model is `Completed and merged` after PR #23 merged at git commit `a88b5ff` (`docs: define M01.07 evidence receipt model (#23)`), and M01.08 Define human review states is `QA passed, awaiting merge`.
 
 M01.01 Define payment lifecycle is domain documentation only and is recorded as `Completed and merged` after post-merge QA recovery. The builder PR #11 was squash-merged before required QA at commit `1175789`, and the protocol deviation was recovered through the M01.01 QA recovery PR merged at commit `6480c1d` (`test: QA recovery M01.01 payment lifecycle (#12)`). Product implementation has not started.
 
@@ -73,7 +73,7 @@ The completed M00 plan remains at `plans/completed/CLP-0001-m00-repo-operating-s
 
 ## Current submilestone
 
-M01.01 Define payment lifecycle is `Completed and merged` after post-merge QA recovery. M01.02 Define ledger vocabulary is `Completed and merged`. M01.03 Define settlement vocabulary is `Completed and merged` at git commit `e54a917`. M01.04 Define reconciliation vocabulary is `Completed and merged` at git commit `5dfe928`. M01.05 Define incident vocabulary is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`. M01.06 Define safe and unsafe repairs is `Completed and merged` after PR #21 merged at git commit `7adc96d`. M01.07 Define evidence receipt model is `Completed and merged` after PR #23 merged at git commit `a88b5ff`. M01.08 Define human review states is `Builder complete, awaiting QA`. M00.01 through M00.08 are completed and merged. M01.09 through M01.13 remain `Not started`, and M02 through M21 remain `Not started`.
+M01.01 Define payment lifecycle is `Completed and merged` after post-merge QA recovery. M01.02 Define ledger vocabulary is `Completed and merged`. M01.03 Define settlement vocabulary is `Completed and merged` at git commit `e54a917`. M01.04 Define reconciliation vocabulary is `Completed and merged` at git commit `5dfe928`. M01.05 Define incident vocabulary is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`. M01.06 Define safe and unsafe repairs is `Completed and merged` after PR #21 merged at git commit `7adc96d`. M01.07 Define evidence receipt model is `Completed and merged` after PR #23 merged at git commit `a88b5ff`. M01.08 Define human review states is `QA passed, awaiting merge`. M00.01 through M00.08 are completed and merged. M01.09 through M01.13 remain `Not started`, and M02 through M21 remain `Not started`.
 
 M00.01 Roadmap and submilestone registry is completed and merged. M00.02 Active docs and repo guidance is completed and merged. M00.03 Planning and Tracking System is completed and merged at commit `f289d5e`. M00.04 Builder and QA Prompt Protocol is completed and merged at commit `e686c77`. M00.05 Validation and Handoff Workflow is completed and merged at commit `b82e5d1`. M00.06 GitHub PR and Issue Workflow is completed and merged at commit `a0fdf6bc422f573235d48ee8cde93fd92d25e617`. M00.07 Milestone Closeout Workflow is completed and merged at commit `ae19cd0e4b34ad8c16c3d4f8ee1adbe08e7575f6`. M00.08 Repo Operating System QA and Freeze is completed and merged at commit `db312d16f3059a2714f929c4bcb831d4a6a5a173`.
 
@@ -83,11 +83,11 @@ No product code exists yet. Product directories contain placeholder README files
 
 ## Next action
 
-Run the exact next recommended thread: `M01.08 QA - Define Human Review States`.
+Run the exact next recommended thread: `Merge M01.08 PR - Define Human Review States`.
 
 ## Implementation warning
 
-Do not start product implementation. The next M01.08 QA thread may inspect and fix only scoped defects in the documentation-only human review states slice after passing the branch guard. It must not create product behavior, MoneyEvent runtime code, ledger runtime logic, settlement runtime logic, reconciliation runtime logic, incident runtime logic, invariants, graph logic, replay logic, agent runtime, repair planning runtime logic, repair execution, human-review runtime logic, UI, APIs, databases, storage layers, file parsers, external connectors, GitHub Actions, or CI workflows. Do not start M01.09 or M02.
+Do not start product implementation. The next M01.08 merge thread may merge only the QA-passed documentation-only human review states PR, then a post-merge finalization thread must record M01.08 as `Completed and merged`. It must not create product behavior, MoneyEvent runtime code, ledger runtime logic, settlement runtime logic, reconciliation runtime logic, incident runtime logic, invariants, graph logic, replay logic, agent runtime, repair planning runtime logic, repair execution, human-review runtime logic, UI, APIs, databases, storage layers, file parsers, external connectors, GitHub Actions, or CI workflows. Do not start M01.09 or M02.
 
 ## Validation limitations
 
@@ -108,6 +108,7 @@ Do not start product implementation. The next M01.08 QA thread may inspect and f
 - `make bootstrap-check` could not be run for M01.07 QA validation on 2026-05-18 because `make` is not available in the current Windows shell.
 - `make bootstrap-check` could not be run for M01.07 post-merge finalization on 2026-05-18 because `make` is not available in the current Windows shell.
 - `make bootstrap-check` could not be run for M01.08 builder validation on 2026-05-21 because `make` is not available in the current Windows shell.
+- `make bootstrap-check` could not be run for M01.08 QA validation on 2026-05-21 because `make` is not available in the current Windows shell.
 - Equivalent underlying checks were run directly with Python:
   - `python scripts/validate-control-plane.py`
   - `python -m pytest tests/test_control_plane_bootstrap.py`
@@ -115,6 +116,15 @@ Do not start product implementation. The next M01.08 QA thread may inspect and f
 
 ## Latest validation
 
+- 2026-05-21: M01.08 QA branch guard passed on `m01-08-define-human-review-states`; the starting worktree was clean, latest commit was `3ed6b7a` (`docs: define M01.08 human review states`), and tag `v0.1.0` exists.
+- 2026-05-21: M01.08 QA reviewed `docs/domain/human-review-states.md`, domain links, lightweight spec dependency notes, tracking/status files, validation coverage, and forbidden-scope boundaries.
+- 2026-05-21: M01.08 QA found no human-review content defects and made only tracking/status/control-plane validation updates.
+- 2026-05-21: M01.08 was marked `QA passed, awaiting merge`; M01.09 through M01.13 and M02 through M21 remain `Not started`.
+- 2026-05-21: `python scripts/validate-control-plane.py` passed for M01.08 QA.
+- 2026-05-21: `python -m pytest tests/test_control_plane_bootstrap.py` passed with 26 tests for M01.08 QA.
+- 2026-05-21: `git diff --check` passed for M01.08 QA.
+- 2026-05-21: `make bootstrap-check` could not run for M01.08 QA because `make` is unavailable in the current Windows shell.
+- 2026-05-21: Product implementation has not started; no human-review runtime, review queue, state machine, approval engine, API, database, UI, repair execution, agent runtime, GitHub Action, CI workflow, deployment, auth/authz implementation, structured logging implementation, or product behavior was added.
 - 2026-05-21: M01.08 builder branch guard passed on `m01-08-define-human-review-states`; the starting worktree was clean, latest commit was `6ff0cfa` (`docs: finalize M01.07 after merge (#25)`), and tag `v0.1.0` exists.
 - 2026-05-21: M01.08 human review states were added as documentation only in `docs/domain/human-review-states.md`.
 - 2026-05-21: M01.08 was marked `Builder complete, awaiting QA`; M01.09 through M01.13 and M02 through M21 remain `Not started`.

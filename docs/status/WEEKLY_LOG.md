@@ -2,6 +2,16 @@
 
 ## 2026-05-21
 
+- Completed M01.08 Define Human Review States QA review on branch `m01-08-define-human-review-states`; branch guard passed, the starting worktree was clean, latest commit was `3ed6b7a` (`docs: define M01.08 human review states`), and tag `v0.1.0` exists.
+- Verified `docs/domain/human-review-states.md`, domain links, lightweight spec dependency notes, tracking/status files, validation coverage, and forbidden-scope boundaries.
+- Found no human-review vocabulary content defects; QA changes were tracking/status/control-plane validation updates only.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.08 QA.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 26 tests for M01.08 QA.
+- Ran `git diff --check` successfully for M01.08 QA.
+- Skipped `make bootstrap-check` for M01.08 QA because `make` is unavailable in the current Windows shell.
+- Marked M01.08 `QA passed, awaiting merge`; M01.09 through M01.13 and M02 through M21 remain `Not started`, and product implementation has not started.
+- Recommended next thread: `Merge M01.08 PR - Define Human Review States`.
+- Confirmed no product implementation, human-review runtime, review queue, state machine, approval engine, APIs, databases, UI, repair execution, agent runtime, GitHub Actions, CI workflows, deployment, auth/authz implementation, structured logging implementation, or product behavior was introduced.
 - Started M01.08 Define Human Review States builder on branch `m01-08-define-human-review-states`; branch guard passed, the starting worktree was clean, latest commit was `6ff0cfa` (`docs: finalize M01.07 after merge (#25)`), and tag `v0.1.0` exists.
 - Confirmed M01.07 is already `Completed and merged`; no current-state wording said M01.07 was awaiting merge or awaiting finalization before M01.08 work began.
 - Marked M01.08 `Builder in progress` while working; M01.09 through M01.13 and M02 through M21 remained `Not started`, and product implementation had not started.
