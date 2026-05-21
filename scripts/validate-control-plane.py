@@ -370,7 +370,7 @@ REQUIRED_TEXT = {
         "M01.13 QA domain consistency",
         "M01.09 is `Completed and merged`",
         "M01.10 is `Completed and merged`",
-        "M01.11 is `Builder complete, awaiting QA`",
+        "M01.11 is `QA passed, awaiting merge`",
         "M01.12 and M01.13 remain planned scope only and are not started",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
@@ -1259,7 +1259,7 @@ REQUIRED_TEXT = {
         "canonical M01 domain model summary",
         "M01.01 through M01.09 are defined",
         "M01.10 is `Completed and merged`",
-        "M01.11 is `Builder complete, awaiting QA`",
+        "M01.11 is `QA passed, awaiting merge`",
         "M01.12 Threat Model and M01.13 QA Domain Consistency remain",
         "The whole M01 milestone is not complete yet",
         "Product implementation has not started",
@@ -1704,10 +1704,11 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "Builder complete, awaiting QA",
+        "QA passed, awaiting merge",
         "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-11-write-reliability",
         "builder validation passed",
+        "QA passed after reliability model",
         "validate-control-plane passed",
         "pytest 28 passed",
         "git diff --check passed",
@@ -1718,9 +1719,10 @@ def closeout_state_errors():
         "evidence reliability",
         "repair reliability",
         "No product implementation or runtime reliability behavior",
+        "Not Completed and merged",
     ]:
         if phrase not in row:
-            errors.append(f"M01.11 registry row missing builder marker: {phrase}")
+            errors.append(f"M01.11 registry row missing QA marker: {phrase}")
 
     for index in range(12, 14):
         submilestone = f"M01.{index:02}"
@@ -1823,12 +1825,12 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "M01.11 QA - Write RELIABILITY.md" not in next_thread:
-        errors.append("Next recommended thread is not M01.11 QA - Write RELIABILITY.md")
+    if "Merge M01.11 PR - Write RELIABILITY.md" not in next_thread:
+        errors.append("Next recommended thread is not Merge M01.11 PR - Write RELIABILITY.md")
     if "M01.10 is `Completed and merged`" not in next_thread:
         errors.append("Next recommended thread does not record M01.10 as Completed and merged")
-    if "M01.11 is `Builder complete, awaiting QA`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.11 as Builder complete")
+    if "M01.11 is `QA passed, awaiting merge`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.11 as QA passed")
     if "M01.12 and M01.13 are `Not started`" not in next_thread:
         errors.append("Next recommended thread does not record later M01 submilestones as Not started")
     if "Do not start M01.12" not in next_thread:

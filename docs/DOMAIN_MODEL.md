@@ -2,7 +2,7 @@
 
 ## Status
 
-M01.01 through M01.09 are defined domain vocabulary and boundary documents. M01.10 is `Completed and merged` after QA recovery PR #29 merged at git commit `a878d55` (`test: QA recovery M01.10 domain model summary (#29)`) and remains the canonical M01 domain model summary. M01.11 is `Builder complete, awaiting QA` after writing `docs/RELIABILITY.md` as the reliability model for the domain.
+M01.01 through M01.09 are defined domain vocabulary and boundary documents. M01.10 is `Completed and merged` after QA recovery PR #29 merged at git commit `a878d55` (`test: QA recovery M01.10 domain model summary (#29)`) and remains the canonical M01 domain model summary. M01.11 is `QA passed, awaiting merge` after writing and reviewing `docs/RELIABILITY.md` as the reliability model for the domain.
 
 M01.12 Threat Model and M01.13 QA Domain Consistency remain. The whole M01 milestone is not complete yet.
 
@@ -188,11 +188,11 @@ The ablation strategy is planning only. M14 MoneyFlowBench will eventually test 
 
 ## Remaining M01 work
 
-- M01.11 QA and merge for RELIABILITY.md.
+- M01.11 merge for RELIABILITY.md.
 - M01.12 Write THREAT_MODEL.md.
 - M01.13 QA Domain Consistency.
 
-M01.11 must pass QA and merge before M01.12 starts.
+M01.11 must merge before M01.12 starts.
 
 ## Guardrails for implementation milestones
 

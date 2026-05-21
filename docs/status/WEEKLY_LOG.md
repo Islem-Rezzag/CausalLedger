@@ -14,6 +14,14 @@
 - Skipped `make bootstrap-check` for M01.11 builder because `make` is unavailable in the current Windows shell.
 - Marked M01.11 `Builder complete, awaiting QA`; M01.12 and M01.13 remain `Not started`, M02 through M21 remain `Not started`, and product implementation has not started.
 - Recommended next thread: `M01.11 QA - Write RELIABILITY.md`.
+- Completed M01.11 Write RELIABILITY.md QA on branch `m01-11-write-reliability`; branch guard passed, the starting worktree was clean, latest commit was `518d8a8`, remote `origin` points to GitHub, and tag `v0.1.0` exists.
+- QA verified the documentation-only reliability model, tracking/status files, validation coverage, and forbidden-scope boundaries; no RELIABILITY.md content defects and no product implementation were found.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.11 QA.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 28 tests for M01.11 QA.
+- Ran `git diff --check` successfully for M01.11 QA.
+- Skipped `make bootstrap-check` for M01.11 QA because `make` is unavailable in the current Windows shell.
+- Marked M01.11 `QA passed, awaiting merge`; M01.12 and M01.13 remain `Not started`, M02 through M21 remain `Not started`, and product implementation has not started.
+- Recommended next thread: `Merge M01.11 PR - Write RELIABILITY.md`.
 - Started M01.10 post-merge QA recovery on branch `m01-10-qa-recovery-domain-model` after builder PR #28 was squash-merged before the required QA thread at commit `dc6800b` (`docs: write M01.10 domain model summary (#28)`); branch guard passed, the starting worktree was clean, remote `origin` points to GitHub, and tag `v0.1.0` exists.
 - Audited the already-merged M01.10 `docs/DOMAIN_MODEL.md` work, domain links, tracking/status files, validation coverage, and forbidden-scope boundaries.
 - Found no DOMAIN_MODEL.md content defects and no product implementation; QA recovery changes were limited to tracking/status/control-plane validation updates.

@@ -249,7 +249,7 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01.13 QA domain consistency",
         "M01.09 is `Completed and merged`",
         "M01.10 is `Completed and merged`",
-        "M01.11 is `Builder complete, awaiting QA`",
+        "M01.11 is `QA passed, awaiting merge`",
         "M01.12 and M01.13 remain planned scope only and are not started",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
@@ -365,7 +365,7 @@ def test_m01_payment_lifecycle_domain_docs_are_documentation_only():
         "canonical M01 domain model summary",
         "M01.01 through M01.09 are defined",
         "M01.10 is `Completed and merged`",
-        "M01.11 is `Builder complete, awaiting QA`",
+        "M01.11 is `QA passed, awaiting merge`",
         "M01.12 Threat Model and M01.13 QA Domain Consistency remain",
         "The whole M01 milestone is not complete yet",
         "Product implementation has not started",
@@ -2193,9 +2193,10 @@ def test_m00_closeout_state_is_coherent():
     assert "No product implementation or runtime behavior" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.11 |"))
-    assert "Builder complete, awaiting QA" in row
+    assert "QA passed, awaiting merge" in row
     assert "m01-11-write-reliability" in row
     assert "builder validation passed" in row
+    assert "QA passed after reliability model" in row
     assert "validate-control-plane passed" in row
     assert "pytest 28 passed" in row
     assert "git diff --check passed" in row
@@ -2206,6 +2207,7 @@ def test_m00_closeout_state_is_coherent():
     assert "evidence reliability" in row
     assert "repair reliability" in row
     assert "No product implementation or runtime reliability behavior" in row
+    assert "Not Completed and merged" in row
 
     for index in range(12, 14):
         submilestone = f"M01.{index:02}"
@@ -2244,7 +2246,7 @@ def test_m00_closeout_state_is_coherent():
         "M01.08 Define human review states is `Completed and merged`",
         "M01.09 Define out-of-scope domains is `Completed and merged`",
         "M01.10 Write DOMAIN_MODEL.md is `Completed and merged`",
-        "M01.11 Write RELIABILITY.md is `Builder complete, awaiting QA`",
+        "M01.11 Write RELIABILITY.md is `QA passed, awaiting merge`",
         "M01.12 and M01.13 remain `Not started`",
     ]:
         assert phrase in current_state
