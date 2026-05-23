@@ -1,7 +1,31 @@
 # Weekly Log
 
+## 2026-05-23
+
+- Completed M01.12 Write THREAT_MODEL.md QA on branch `m01-12-write-threat-model`; branch guard passed, the starting worktree was clean, latest commit was `18a9aa7`, remote `origin` points to GitHub, and tag `v0.1.0` exists.
+- QA verified the documentation-only threat model, tracking/status files, validation coverage, and forbidden-scope boundaries; no THREAT_MODEL.md content defects and no product implementation were found.
+- QA changes were limited to tracking/status and control-plane validation expectation updates, including fixing the active plan's stale outcome summary.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.12 QA.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 29 tests for M01.12 QA.
+- Ran `git diff --check` successfully for M01.12 QA.
+- Skipped `make bootstrap-check` for M01.12 QA because `make` is unavailable in the current Windows shell.
+- Marked M01.12 `QA passed, awaiting merge`; M01.13 remains `Not started`, M02 through M21 remain `Not started`, and product implementation has not started.
+- Recommended next thread: `Merge M01.12 PR - Write THREAT_MODEL.md`.
+
 ## 2026-05-21
 
+- Finalized M01.11 Write RELIABILITY.md as `Completed and merged` after PR #30 merged at git commit `a424924` (`docs: write M01.11 reliability model (#30)`) before M01.12 builder work began.
+- Started M01.12 Write THREAT_MODEL.md builder on branch `m01-12-write-threat-model`; branch guard passed, the starting worktree was clean, latest commit was `a424924`, remote `origin` points to GitHub, and tag `v0.1.0` exists.
+- Marked M01.12 `Builder in progress` while working; M01.13 remains `Not started`, M02 through M21 remain `Not started`, and product implementation has not started.
+- Rewrote `docs/THREAT_MODEL.md` as the canonical CausalLedger threat model covering status, purpose, thesis, scope, protected assets, trust boundaries, actors/adversaries, evidence threats, financial truth threats, settlement/reconciliation threats, incident/replay threats, repair/human review threats, agentic AI threats, prompt injection threats, tool/permission threats, privacy, secrets, supply chain, out-of-scope abuse, evaluation/ablation threats, operational/governance threats, mitigation matrix, future dependencies, remaining M01 work, and guardrails.
+- Updated README, docs index, domain model, reliability model, active plan, roadmap, milestone doc, submilestone registry, current state, next recommended thread, weekly log, capability matrix, tech debt, risk register, validation script, and bootstrap tests for M01.12.
+- Initial M01.12 `python scripts/validate-control-plane.py` failed because `docs/status/NEXT_RECOMMENDED_THREAD.md` recorded M01.11 completion only with the full submilestone name while validation expected the exact shorter phrase; the scoped next-thread wording was fixed and validation was rerun successfully.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.12 builder.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 29 tests for M01.12 builder.
+- Ran `git diff --check` successfully for M01.12 builder.
+- Skipped `make bootstrap-check` for M01.12 builder because `make` is unavailable in the current Windows shell.
+- Marked M01.12 `Builder complete, awaiting QA`; M01.13 remains `Not started`, M02 through M21 remain `Not started`, and product implementation has not started.
+- Recommended next thread: `M01.12 QA - Write THREAT_MODEL.md`.
 - Finalized M01.10 Write DOMAIN_MODEL.md as `Completed and merged` after QA recovery PR #29 merged at git commit `a878d55` (`test: QA recovery M01.10 domain model summary (#29)`) before M01.11 builder work began.
 - Started M01.11 Write RELIABILITY.md builder on branch `m01-11-write-reliability`; branch guard passed, the starting worktree was clean, latest commit was `a878d55`, remote `origin` points to GitHub, and tag `v0.1.0` exists.
 - Marked M01.11 `Builder in progress` while working; M01.12 and M01.13 remain `Not started`, M02 through M21 remain `Not started`, and product implementation has not started.

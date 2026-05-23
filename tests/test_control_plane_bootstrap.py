@@ -249,8 +249,9 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01.13 QA domain consistency",
         "M01.09 is `Completed and merged`",
         "M01.10 is `Completed and merged`",
-        "M01.11 is `QA passed, awaiting merge`",
-        "M01.12 and M01.13 remain planned scope only and are not started",
+        "M01.11 is `Completed and merged`",
+        "M01.12 is `QA passed, awaiting merge`",
+        "M01.13 remains planned scope only and is not started",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
@@ -365,11 +366,13 @@ def test_m01_payment_lifecycle_domain_docs_are_documentation_only():
         "canonical M01 domain model summary",
         "M01.01 through M01.09 are defined",
         "M01.10 is `Completed and merged`",
-        "M01.11 is `QA passed, awaiting merge`",
-        "M01.12 Threat Model and M01.13 QA Domain Consistency remain",
+        "M01.11 is `Completed and merged`",
+        "M01.12 has written `docs/THREAT_MODEL.md` as the threat model for the domain",
+        "M01.13 QA Domain Consistency remains",
         "The whole M01 milestone is not complete yet",
         "Product implementation has not started",
         "docs/RELIABILITY.md",
+        "docs/THREAT_MODEL.md",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
@@ -423,7 +426,8 @@ def test_m01_reliability_model_is_documentation_only():
         "## Remaining M01 reliability work",
         "## Guardrails for future implementation milestones",
         "Current validation proves documentation and control-plane coherence only",
-        "M01.12 Threat Model and M01.13 QA Domain Consistency remain",
+        "M01.12 has written the CausalLedger threat model",
+        "M01.13 QA Domain Consistency remains",
         "Product implementation has not started",
         "LLM memos are explanations only",
         "Event identity and idempotency checks",
@@ -437,7 +441,7 @@ def test_m01_reliability_model_is_documentation_only():
         "request IDs",
         "root-cause accuracy",
         "Dangerous ablations are offline negative controls only",
-        "M01.12 `docs/THREAT_MODEL.md` remains",
+        "M01.12 `docs/THREAT_MODEL.md` defines the threat model",
         "Do not implement reliability claims without validation",
     ]:
         assert phrase in reliability
@@ -467,6 +471,73 @@ def test_m01_reliability_model_is_documentation_only():
         "LLM output can be used as evidence",
     ]:
         assert forbidden_claim not in reliability
+
+
+def test_m01_threat_model_is_documentation_only():
+    threat_model = (ROOT / "docs" / "THREAT_MODEL.md").read_text(encoding="utf-8")
+
+    for phrase in [
+        "## Status",
+        "## Purpose",
+        "## Threat model thesis",
+        "CausalLedger's threat model is based on protecting financial evidence, deterministic truth boundaries, human approval boundaries, and LLM tool boundaries.",
+        "The LLM never owns financial truth.",
+        "Threats become most dangerous when LLM output, incomplete evidence, unsafe repair pressure, or permission mistakes can influence money-related decisions.",
+        "## Threat model scope",
+        "## What this threat model does not do",
+        "## Protected assets",
+        "## Trust boundaries",
+        "## Actors and adversaries",
+        "## Threat categories",
+        "## Evidence threats",
+        "## Ledger and financial truth threats",
+        "## Settlement and reconciliation threats",
+        "## Incident and replay threats",
+        "## Repair and human review threats",
+        "## Agentic AI threats",
+        "## Prompt injection threats",
+        "## Tool and permission threats",
+        "## Model routing and cost threats",
+        "## Data privacy and confidentiality threats",
+        "## Secrets and credential threats",
+        "## Dependency and supply-chain threats",
+        "## Abuse and out-of-scope domain threats",
+        "## Evaluation and ablation threats",
+        "## Operational and governance threats",
+        "## Threat-to-mitigation matrix",
+        "## Future implementation dependencies",
+        "## Remaining M01 threat-model work",
+        "## Guardrails for future implementation milestones",
+        "Current validation only proves documentation and control-plane coherence, not runtime security",
+        "Product implementation has not started",
+        "Raw evidence",
+        "Evidence receipts",
+        "Evidence bundles",
+        "External provider systems",
+        "LLM context boundary",
+        "Agent tool boundary",
+        "Human review boundary",
+        "Production money movement boundary",
+        "Prompt injection attacker",
+        "Poisoned evidence source",
+        "Write tool exposed to AI",
+        "Repair approval tool exposed",
+        "API keys in repo",
+        "offline-only ablation configs",
+        "Evidence integrity",
+        "M03, M07, M08, M09, M18",
+        "Do not expose write tools to AI agents unless explicitly scoped and guarded.",
+        "Do not enable unsafe ablations outside offline benchmark mode.",
+    ]:
+        assert phrase in threat_model
+
+    for forbidden_claim in [
+        "runtime security controls are implemented",
+        "product functionality is implemented",
+        "LLM output can become financial truth",
+        "repair execution is implemented",
+    ]:
+        assert forbidden_claim not in threat_model
 
 
 def test_m01_ledger_vocabulary_domain_doc_is_documentation_only():
@@ -2193,11 +2264,11 @@ def test_m00_closeout_state_is_coherent():
     assert "No product implementation or runtime behavior" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.11 |"))
-    assert "QA passed, awaiting merge" in row
+    assert "Completed and merged" in row
     assert "m01-11-write-reliability" in row
-    assert "builder validation passed" in row
-    assert "QA passed after reliability model" in row
-    assert "validate-control-plane passed" in row
+    assert "#30 merged" in row
+    assert "post-merge finalization recorded" in row
+    assert "a424924" in row
     assert "pytest 28 passed" in row
     assert "git diff --check passed" in row
     assert "make unavailable" in row
@@ -2207,14 +2278,22 @@ def test_m00_closeout_state_is_coherent():
     assert "evidence reliability" in row
     assert "repair reliability" in row
     assert "No product implementation or runtime reliability behavior" in row
-    assert "Not Completed and merged" in row
 
-    for index in range(12, 14):
-        submilestone = f"M01.{index:02}"
-        row = next(
-            line for line in registry.splitlines() if line.startswith(f"| {submilestone} |")
-        )
-        assert "Not started" in row
+    row = next(line for line in registry.splitlines() if line.startswith("| M01.12 |"))
+    assert "QA passed, awaiting merge" in row
+    assert "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md" in row
+    assert "m01-12-write-threat-model" in row
+    assert "QA validation passed" in row
+    assert "builder validation passed" in row
+    assert "validate-control-plane passed" in row
+    assert "pytest" in row
+    assert "git diff --check passed" in row
+    assert "make unavailable" in row
+    assert "Documentation-only THREAT_MODEL.md canonical threat model" in row
+    assert "No product implementation or runtime security behavior" in row
+
+    row = next(line for line in registry.splitlines() if line.startswith("| M01.13 |"))
+    assert "Not started" in row
 
     for milestone in range(2, 22):
         for row in [
@@ -2246,8 +2325,9 @@ def test_m00_closeout_state_is_coherent():
         "M01.08 Define human review states is `Completed and merged`",
         "M01.09 Define out-of-scope domains is `Completed and merged`",
         "M01.10 Write DOMAIN_MODEL.md is `Completed and merged`",
-        "M01.11 Write RELIABILITY.md is `QA passed, awaiting merge`",
-        "M01.12 and M01.13 remain `Not started`",
+        "M01.11 Write RELIABILITY.md is `Completed and merged`",
+        "M01.12 Write THREAT_MODEL.md is `QA passed, awaiting merge`",
+        "M01.13 remains `Not started`",
     ]:
         assert phrase in current_state
 
