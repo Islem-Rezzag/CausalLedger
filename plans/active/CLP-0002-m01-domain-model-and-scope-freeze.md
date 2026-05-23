@@ -10,7 +10,7 @@ The safety boundary is non-negotiable: LLM agents may investigate, summarize, an
 
 The first M01 implementation submilestone after this planning thread is `M01.01 Define payment lifecycle`.
 
-Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is completed and merged at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), M01.05 Define incident vocabulary is completed and merged after QA recovery PR #18 merged at git commit `3bdedeb`, M01.06 Define safe and unsafe repairs is completed and merged after PR #21 merged at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`), M01.07 Define evidence receipt model is completed and merged after PR #23 merged at git commit `a88b5ff` (`docs: define M01.07 evidence receipt model (#23)`), M01.08 Define human review states is completed and merged after PR #26 merged at git commit `1fde07a` (`docs: define M01.08 human review states (#26)`), M01.09 Define out-of-scope domains is completed and merged after PR #27 merged at git commit `1b40773` (`docs: define M01.09 out-of-scope domains (#27)`), M01.10 Write DOMAIN_MODEL.md is completed and merged after QA recovery PR #29 merged at git commit `a878d55` (`test: QA recovery M01.10 domain model summary (#29)`), M01.11 Write RELIABILITY.md is completed and merged after PR #30 merged at git commit `a424924` (`docs: write M01.11 reliability model (#30)`), and M01.12 Write THREAT_MODEL.md is `QA passed, awaiting merge`.
+Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is completed and merged at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), M01.05 Define incident vocabulary is completed and merged after QA recovery PR #18 merged at git commit `3bdedeb`, M01.06 Define safe and unsafe repairs is completed and merged after PR #21 merged at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`), M01.07 Define evidence receipt model is completed and merged after PR #23 merged at git commit `a88b5ff` (`docs: define M01.07 evidence receipt model (#23)`), M01.08 Define human review states is completed and merged after PR #26 merged at git commit `1fde07a` (`docs: define M01.08 human review states (#26)`), M01.09 Define out-of-scope domains is completed and merged after PR #27 merged at git commit `1b40773` (`docs: define M01.09 out-of-scope domains (#27)`), M01.10 Write DOMAIN_MODEL.md is completed and merged after QA recovery PR #29 merged at git commit `a878d55` (`test: QA recovery M01.10 domain model summary (#29)`), M01.11 Write RELIABILITY.md is completed and merged after PR #30 merged at git commit `a424924` (`docs: write M01.11 reliability model (#30)`), and M01.12 Write THREAT_MODEL.md is completed and merged after PR #31 merged. Duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation; no revert is being done in this finalization thread.
 
 ## Progress
 
@@ -179,6 +179,11 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - [x] 2026-05-23: QA fixes were limited to tracking/status and control-plane validation expectation updates, including correcting the stale active-plan outcome summary.
 - [x] 2026-05-23: M01.12 QA validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 29 tests, and `git diff --check`; `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
 - [x] 2026-05-23: Updated M01.12 tracking to `QA passed, awaiting merge`; M01.13 remains `Not started`; M02 through M21 remain `Not started`; product implementation has not started.
+- [x] 2026-05-23: Finalized M01.12 as `Completed and merged` after PR #31 merged; duplicate PR merges #32 and #33 were also created from the same M01.12 branch, which is recorded as a process deviation.
+- [x] 2026-05-23: No revert is being done for duplicate M01.12 PR merges #32 and #33; corrective action is to restore tracking consistency and continue with stricter PR discipline: one PR per branch and branch deletion after merge for future submilestones.
+- [x] 2026-05-23: Set the next recommended thread to `M01.13 Builder - QA Domain Consistency` after this finalization PR merges and local main is updated; M01.13 remains `Not started`, M02 through M21 remain `Not started`, and product implementation has not started.
+- [x] 2026-05-23: Initial M01.12 post-merge finalization `python scripts/validate-control-plane.py` failed because `docs/status/NEXT_RECOMMENDED_THREAD.md` used equivalent but non-exact wording for the finalization-PR precondition; the scoped wording was fixed and validation was rerun successfully.
+- [x] 2026-05-23: M01.12 post-merge finalization validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 29 tests, and `git diff --check`; `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
 
 ## Surprises & Discoveries
 
@@ -235,6 +240,7 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - 2026-05-21: Keep M01.11 RELIABILITY.md work documentation-only. Reliability expectations may define future deterministic checks, evidence, replay, repair, human review, AI, cost, audit, evaluation, security dependency, failure-mode, metrics, and milestone guardrails, but they do not implement runtime reliability mechanisms or product behavior.
 - 2026-05-21: PR #30 merged at git commit `a424924`; record M01.11 as `Completed and merged` and start M01.12 only after that finalization.
 - 2026-05-21: Keep M01.12 THREAT_MODEL.md work documentation-only. Threat categories and planned mitigations may guide future implementation milestones, but they do not implement authentication, authorization, RBAC, encryption, secret management, audit logs, agent tools, repair execution controls, runtime security mechanisms, or product behavior.
+- 2026-05-23: PR #31 merged M01.12; duplicate PR merges #32 and #33 from the same M01.12 branch were also created. This is a process deviation; do not revert in this finalization thread. Restore tracking consistency and use one PR per branch plus branch deletion after merge for future submilestones.
 
 ## Context and Orientation
 
@@ -257,10 +263,10 @@ Current M01 submilestone state:
 - `M01.09 Define out-of-scope domains` - Completed and merged after PR #27.
 - `M01.10 Write DOMAIN_MODEL.md` - Completed and merged after QA recovery PR #29.
 - `M01.11 Write RELIABILITY.md` - Completed and merged after PR #30.
-- `M01.12 Write THREAT_MODEL.md` - QA passed, awaiting merge.
+- `M01.12 Write THREAT_MODEL.md` - Completed and merged after PR #31; duplicate PR merges #32 and #33 recorded as a process deviation.
 - `M01.13 QA domain consistency` - Not started.
 
-M01.09 is `Completed and merged`. M01.10 is `Completed and merged`. M01.11 is `Completed and merged`. M01.12 is `QA passed, awaiting merge`. M01.13 remains planned scope only and is not started.
+M01.09 is `Completed and merged`. M01.10 is `Completed and merged`. M01.11 is `Completed and merged`. M01.12 is `Completed and merged`. M01.13 remains planned scope only and is not started.
 
 ## Scope
 
@@ -948,6 +954,18 @@ Notes:
   - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
   - M01.12 is `QA passed, awaiting merge`; it is not `Completed and merged` until PR merge and post-merge finalization.
   - M01.13 remains `Not started`; M02 through M21 remain `Not started`; product implementation has not started.
+- 2026-05-23 M01.12 post-merge finalization:
+  - PR #31 merged M01.12.
+  - Duplicate PR merges #32 and #33 were also created from the same M01.12 branch; this is recorded as a process deviation.
+  - No revert is being done in this finalization thread.
+  - Corrective action is to restore tracking consistency, continue with stricter PR discipline, create only one PR per branch for future submilestones, and delete the branch after merge.
+  - Initial `python scripts/validate-control-plane.py` failed because the next-thread precondition used equivalent but non-exact wording; the scoped wording was fixed and validation was rerun successfully.
+  - `python scripts/validate-control-plane.py` passed.
+  - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 29 tests.
+  - `git diff --check` passed.
+  - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
+  - M01.12 is `Completed and merged`.
+  - M01.13 remains `Not started`; M02 through M21 remain `Not started`; product implementation has not started.
 
 ## Interfaces and Dependencies
 
@@ -989,6 +1007,6 @@ Current M01.01 builder outcome:
 - M01.09 is completed and merged after PR #27 as out-of-scope domain documentation only.
 - M01.10 is completed and merged after QA recovery PR #29 as DOMAIN_MODEL.md summary documentation only.
 - M01.11 is completed and merged after PR #30 as RELIABILITY.md model documentation only.
-- M01.12 is QA passed, awaiting merge as THREAT_MODEL.md documentation only.
+- M01.12 is completed and merged after PR #31 as THREAT_MODEL.md documentation only; duplicate PR merges #32 and #33 from the same branch are recorded as a process deviation.
 - M01.13 remains not started.
-- The next safe thread is `Merge M01.12 PR - Write THREAT_MODEL.md`.
+- The next safe thread is `M01.13 Builder - QA Domain Consistency` after this finalization PR merges and local main is updated.

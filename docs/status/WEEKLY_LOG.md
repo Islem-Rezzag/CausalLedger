@@ -2,6 +2,13 @@
 
 ## 2026-05-23
 
+- Finalized M01.12 Write THREAT_MODEL.md as `Completed and merged` after PR #31 merged. Recent history also shows duplicate PR merges #32 and #33 from the same M01.12 branch; this was a process deviation, no revert is being done, and future submilestones should use one PR per branch and delete the branch after merge.
+- Updated tracking/status docs so M01.13 QA Domain Consistency is the next submilestone only after this finalization PR merges and local main is updated; M01.13 remains `Not started`, M02 through M21 remain `Not started`, and product implementation has not started.
+- Initial M01.12 post-merge finalization `python scripts/validate-control-plane.py` failed because `docs/status/NEXT_RECOMMENDED_THREAD.md` used equivalent but non-exact wording for the finalization-PR precondition; the scoped wording was fixed and validation was rerun successfully.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.12 post-merge finalization.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 29 tests for M01.12 post-merge finalization.
+- Ran `git diff --check` successfully for M01.12 post-merge finalization.
+- Skipped `make bootstrap-check` for M01.12 post-merge finalization because `make` is unavailable in the current Windows shell.
 - Completed M01.12 Write THREAT_MODEL.md QA on branch `m01-12-write-threat-model`; branch guard passed, the starting worktree was clean, latest commit was `18a9aa7`, remote `origin` points to GitHub, and tag `v0.1.0` exists.
 - QA verified the documentation-only threat model, tracking/status files, validation coverage, and forbidden-scope boundaries; no THREAT_MODEL.md content defects and no product implementation were found.
 - QA changes were limited to tracking/status and control-plane validation expectation updates, including fixing the active plan's stale outcome summary.

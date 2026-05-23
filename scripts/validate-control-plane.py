@@ -371,7 +371,7 @@ REQUIRED_TEXT = {
         "M01.09 is `Completed and merged`",
         "M01.10 is `Completed and merged`",
         "M01.11 is `Completed and merged`",
-        "M01.12 is `QA passed, awaiting merge`",
+        "M01.12 is `Completed and merged`",
         "M01.13 remains planned scope only and is not started",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
@@ -1785,9 +1785,12 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "QA passed, awaiting merge",
+        "Completed and merged",
         "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-12-write-threat-model",
+        "#31 merged",
+        "duplicate #32 and #33 process deviation",
+        "Post-merge finalization recorded",
         "QA validation passed",
         "builder validation passed",
         "validate-control-plane passed",
@@ -1798,14 +1801,14 @@ def closeout_state_errors():
         "No product implementation or runtime security behavior",
     ]:
         if phrase not in row:
-            errors.append(f"M01.12 registry row missing QA marker: {phrase}")
+            errors.append(f"M01.12 registry row missing completion marker: {phrase}")
 
     row = next(
         (line for line in registry.splitlines() if line.startswith("| M01.13 |")),
         "",
     )
     if "Not started" not in row:
-        errors.append("M01.13 is not Not started after M01.12 QA")
+        errors.append("M01.13 is not Not started after M01.12 finalization")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -1899,16 +1902,16 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "Merge M01.12 PR - Write THREAT_MODEL.md" not in next_thread:
-        errors.append("Next recommended thread is not Merge M01.12 PR - Write THREAT_MODEL.md")
+    if "M01.13 Builder - QA Domain Consistency" not in next_thread:
+        errors.append("Next recommended thread is not M01.13 Builder - QA Domain Consistency")
     if "M01.11 is `Completed and merged`" not in next_thread:
         errors.append("Next recommended thread does not record M01.11 as Completed and merged")
-    if "M01.12 is `QA passed, awaiting merge`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.12 as QA passed")
+    if "M01.12 Write THREAT_MODEL.md is `Completed and merged`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.12 as Completed and merged")
     if "M01.13 is `Not started`" not in next_thread:
         errors.append("Next recommended thread does not record M01.13 as Not started")
-    if "Do not start M01.13" not in next_thread:
-        errors.append("Next recommended thread does not block M01.13 later work")
+    if "after this post-merge finalization PR is merged and local main is updated" not in next_thread:
+        errors.append("Next recommended thread does not require finalization PR merge before M01.13")
     if "Do not start M02" not in next_thread:
         errors.append("Next recommended thread does not block M02 later work")
 
