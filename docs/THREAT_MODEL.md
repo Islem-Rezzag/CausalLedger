@@ -2,7 +2,7 @@
 
 ## Status
 
-M01.12 is writing the CausalLedger threat model as documentation only. M01.13 QA Domain Consistency remains and must verify this threat model against `docs/DOMAIN_MODEL.md`, `docs/RELIABILITY.md`, the M01 domain docs, evaluation docs, and tracking files.
+M01.12 has written the CausalLedger threat model as documentation only and is `QA passed, awaiting merge`. M01.13 QA Domain Consistency remains and must verify this threat model against `docs/DOMAIN_MODEL.md`, `docs/RELIABILITY.md`, the M01 domain docs, evaluation docs, and tracking files.
 
 Product implementation has not started. Current validation only proves documentation and control-plane coherence, not runtime security, runtime reliability, financial correctness, replay determinism, repair safety, privacy protection, access control, production readiness, or compliance.
 

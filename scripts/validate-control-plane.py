@@ -371,7 +371,7 @@ REQUIRED_TEXT = {
         "M01.09 is `Completed and merged`",
         "M01.10 is `Completed and merged`",
         "M01.11 is `Completed and merged`",
-        "M01.12 is `Builder complete, awaiting QA`",
+        "M01.12 is `QA passed, awaiting merge`",
         "M01.13 remains planned scope only and is not started",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
@@ -1261,7 +1261,7 @@ REQUIRED_TEXT = {
         "M01.01 through M01.09 are defined",
         "M01.10 is `Completed and merged`",
         "M01.11 is `Completed and merged`",
-        "M01.12 is writing `docs/THREAT_MODEL.md` as the threat model for the domain",
+        "M01.12 has written `docs/THREAT_MODEL.md` as the threat model for the domain",
         "M01.13 QA Domain Consistency remains",
         "The whole M01 milestone is not complete yet",
         "Product implementation has not started",
@@ -1315,7 +1315,7 @@ REQUIRED_TEXT = {
         "## Remaining M01 reliability work",
         "## Guardrails for future implementation milestones",
         "Current validation proves documentation and control-plane coherence only",
-        "M01.12 is writing the CausalLedger threat model",
+        "M01.12 has written the CausalLedger threat model",
         "M01.13 QA Domain Consistency remains",
         "Product implementation has not started",
         "LLM memos are explanations only",
@@ -1785,9 +1785,10 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "Builder complete, awaiting QA",
+        "QA passed, awaiting merge",
         "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-12-write-threat-model",
+        "QA validation passed",
         "builder validation passed",
         "validate-control-plane passed",
         "pytest",
@@ -1797,14 +1798,14 @@ def closeout_state_errors():
         "No product implementation or runtime security behavior",
     ]:
         if phrase not in row:
-            errors.append(f"M01.12 registry row missing builder marker: {phrase}")
+            errors.append(f"M01.12 registry row missing QA marker: {phrase}")
 
     row = next(
         (line for line in registry.splitlines() if line.startswith("| M01.13 |")),
         "",
     )
     if "Not started" not in row:
-        errors.append("M01.13 is not Not started after M01.12 builder")
+        errors.append("M01.13 is not Not started after M01.12 QA")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -1898,12 +1899,12 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "M01.12 QA - Write THREAT_MODEL.md" not in next_thread:
-        errors.append("Next recommended thread is not M01.12 QA - Write THREAT_MODEL.md")
+    if "Merge M01.12 PR - Write THREAT_MODEL.md" not in next_thread:
+        errors.append("Next recommended thread is not Merge M01.12 PR - Write THREAT_MODEL.md")
     if "M01.11 is `Completed and merged`" not in next_thread:
         errors.append("Next recommended thread does not record M01.11 as Completed and merged")
-    if "M01.12 is `Builder complete, awaiting QA`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.12 as builder complete")
+    if "M01.12 is `QA passed, awaiting merge`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.12 as QA passed")
     if "M01.13 is `Not started`" not in next_thread:
         errors.append("Next recommended thread does not record M01.13 as Not started")
     if "Do not start M01.13" not in next_thread:

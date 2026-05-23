@@ -250,7 +250,7 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01.09 is `Completed and merged`",
         "M01.10 is `Completed and merged`",
         "M01.11 is `Completed and merged`",
-        "M01.12 is `Builder complete, awaiting QA`",
+        "M01.12 is `QA passed, awaiting merge`",
         "M01.13 remains planned scope only and is not started",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
@@ -367,7 +367,7 @@ def test_m01_payment_lifecycle_domain_docs_are_documentation_only():
         "M01.01 through M01.09 are defined",
         "M01.10 is `Completed and merged`",
         "M01.11 is `Completed and merged`",
-        "M01.12 is writing `docs/THREAT_MODEL.md` as the threat model for the domain",
+        "M01.12 has written `docs/THREAT_MODEL.md` as the threat model for the domain",
         "M01.13 QA Domain Consistency remains",
         "The whole M01 milestone is not complete yet",
         "Product implementation has not started",
@@ -426,7 +426,7 @@ def test_m01_reliability_model_is_documentation_only():
         "## Remaining M01 reliability work",
         "## Guardrails for future implementation milestones",
         "Current validation proves documentation and control-plane coherence only",
-        "M01.12 is writing the CausalLedger threat model",
+        "M01.12 has written the CausalLedger threat model",
         "M01.13 QA Domain Consistency remains",
         "Product implementation has not started",
         "LLM memos are explanations only",
@@ -2280,9 +2280,10 @@ def test_m00_closeout_state_is_coherent():
     assert "No product implementation or runtime reliability behavior" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.12 |"))
-    assert "Builder complete, awaiting QA" in row
+    assert "QA passed, awaiting merge" in row
     assert "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md" in row
     assert "m01-12-write-threat-model" in row
+    assert "QA validation passed" in row
     assert "builder validation passed" in row
     assert "validate-control-plane passed" in row
     assert "pytest" in row
@@ -2325,7 +2326,7 @@ def test_m00_closeout_state_is_coherent():
         "M01.09 Define out-of-scope domains is `Completed and merged`",
         "M01.10 Write DOMAIN_MODEL.md is `Completed and merged`",
         "M01.11 Write RELIABILITY.md is `Completed and merged`",
-        "M01.12 Write THREAT_MODEL.md is `Builder complete, awaiting QA`",
+        "M01.12 Write THREAT_MODEL.md is `QA passed, awaiting merge`",
         "M01.13 remains `Not started`",
     ]:
         assert phrase in current_state
