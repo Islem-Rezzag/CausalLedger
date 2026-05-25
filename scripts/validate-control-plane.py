@@ -1,4 +1,4 @@
-from pathlib import Path
+﻿from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -53,10 +53,11 @@ REQUIRED_FILES = [
     "docs/status/M00_FREEZE_READINESS.md",
     "docs/status/M00_CLOSEOUT.md",
     "docs/status/M01_DOMAIN_CONSISTENCY.md",
+    "docs/status/M01_CLOSEOUT.md",
     "docs/milestones/SUBMILESTONE_REGISTRY.md",
     "plans/ROADMAP.md",
-    "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
     "plans/completed/CLP-0001-m00-repo-operating-system.md",
+    "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
     "plans/templates/execplan-template.md",
     "plans/templates/qa-plan-template.md",
     "plans/templates/milestone-closeout-template.md",
@@ -350,11 +351,10 @@ REQUIRED_TEXT = {
         "## v0.1.0 - Repo Operating System Foundation",
         "No product functionality is implemented in `v0.1.0`",
     ],
-    "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md": [
+    "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md": [
         "M01 freezes CausalLedger domain language, boundaries, and non-goals",
         "M01 must not implement APIs, databases, ledger logic, MoneyEvent runtime code, invariants, agent runtime, repair planner, UI, external connectors, GitHub Actions, CI workflows, or product behavior",
         "M01 planning is complete and merged at git commit `2cfd75a`",
-        "M01.05 Define incident vocabulary is completed and merged after QA recovery PR #18 merged at git commit `3bdedeb`",
         "post-merge QA recovery",
         "M01.01 Define payment lifecycle",
         "M01.02 Define ledger vocabulary",
@@ -369,11 +369,13 @@ REQUIRED_TEXT = {
         "M01.11 Write RELIABILITY.md",
         "M01.12 Write THREAT_MODEL.md",
         "M01.13 QA domain consistency",
+        "M01.13 QA Domain Consistency merged at git commit `27c39b6`",
         "M01.09 is `Completed and merged`",
         "M01.10 is `Completed and merged`",
         "M01.11 is `Completed and merged`",
         "M01.12 is `Completed and merged`",
-        "M01.13 is QA passed awaiting merge",
+        "M01.13 is `Completed and merged`",
+        "M01 closeout passed on 2026-05-25",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
@@ -1273,6 +1275,33 @@ REQUIRED_TEXT = {
         "M02 through M21 remain `Not started`",
         "M01 is not ready for closeout yet",
     ],
+    "docs/status/M01_CLOSEOUT.md": [
+        "M01 Domain Model and Scope Freeze",
+        "2026-05-25",
+        "M01.01 Define Payment Lifecycle",
+        "M01.13 QA Domain Consistency",
+        "Deferred submilestones",
+        "None",
+        "PR #35, commit `27c39b6`",
+        "Product-scope inspection found only placeholder README files",
+        "python scripts/validate-control-plane.py` passed",
+        "python -m pytest tests/test_control_plane_bootstrap.py` passed",
+        "git diff --check` passed",
+        "Product implementation has not started",
+        "M02 remains `Not started`",
+        "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "M02 Planning - Monorepo and Local Development Environment",
+        "CI/GitHub Actions",
+        "Runtime tests",
+        "Product code",
+        "API",
+        "Database",
+        "Deployment",
+        "Auth/authz runtime",
+        "Structured logging",
+        "Monitoring",
+        "Runtime security controls",
+    ],
     "docs/DOMAIN_MODEL.md": [
         "## Status",
         "## Product thesis",
@@ -1297,8 +1326,9 @@ REQUIRED_TEXT = {
         "M01.10 is `Completed and merged`",
         "M01.11 is `Completed and merged`",
         "M01.12 has written `docs/THREAT_MODEL.md` as the threat model for the domain",
-        "M01.13 QA Domain Consistency has produced",
-        "The whole M01 milestone is not complete yet",
+        "M01.13 QA Domain Consistency produced",
+        "M01 closeout passed",
+        "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "Product implementation has not started",
         "docs/RELIABILITY.md",
         "docs/THREAT_MODEL.md",
@@ -1351,7 +1381,8 @@ REQUIRED_TEXT = {
         "## Guardrails for future implementation milestones",
         "Current validation proves documentation and control-plane coherence only",
         "M01.12 has written the CausalLedger threat model",
-        "M01.13 QA Domain Consistency is `QA passed, awaiting merge`",
+        "M01.13 QA Domain Consistency is `Completed and merged`",
+        "M01 closeout passed",
         "Product implementation has not started",
         "LLM memos are explanations only",
         "Event identity and idempotency checks",
@@ -1514,7 +1545,9 @@ REQUIRED_TEXT = {
         "Auditability And Interview-Grade Traceability",
     ],
     "START_HERE.md": [
-        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "docs/status/M01_CLOSEOUT.md",
+        "M02 Planning - Monorepo and Local Development Environment",
         "docs/VERSIONING.md",
         "docs/releases/RELEASE_LADDER.md",
         "docs/releases/V1_SCOPE.md",
@@ -1525,7 +1558,8 @@ REQUIRED_TEXT = {
         "docs/releases/RELEASE_LADDER.md",
         "docs/releases/V1_SCOPE.md",
         "CHANGELOG.md",
-        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "Current active milestone planning plan: none",
     ],
     ".github/PULL_REQUEST_TEMPLATE.md": [
         "# Submilestone",
@@ -1589,19 +1623,21 @@ def closeout_state_errors():
     completed_m00_plan = ROOT / "plans/completed/CLP-0001-m00-repo-operating-system.md"
     active_plan_dir = ROOT / "plans/active"
     active_m01_plan = ROOT / "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md"
+    completed_m01_plan = ROOT / "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md"
 
     if active_m00_plan.exists():
         errors.append("M00 plan still exists in plans/active after closeout")
     if not completed_m00_plan.is_file():
         errors.append("Completed M00 plan is missing from plans/completed")
 
-    if not active_m01_plan.is_file():
-        errors.append("Active M01 planning plan is missing from plans/active")
+    if active_m01_plan.exists():
+        errors.append("M01 plan still exists in plans/active after closeout")
+    if not completed_m01_plan.is_file():
+        errors.append("Completed M01 plan is missing from plans/completed")
 
     unexpected_active_plans = [
         path.relative_to(ROOT).as_posix()
         for path in active_plan_dir.glob("CLP-*.md")
-        if path != active_m01_plan
     ]
     if unexpected_active_plans:
         errors.append(
@@ -1693,7 +1729,7 @@ def closeout_state_errors():
     )
     for phrase in [
         "Completed and merged",
-        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-06-define-safe-and-unsafe-repairs",
         "#21",
         "7adc96d",
@@ -1713,7 +1749,7 @@ def closeout_state_errors():
     )
     for phrase in [
         "Completed and merged",
-        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-07-define-evidence-receipt-model",
         "#23",
         "a88b5ff",
@@ -1734,7 +1770,7 @@ def closeout_state_errors():
     )
     for phrase in [
         "Completed and merged",
-        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-08-define-human-review-states",
         "#26",
         "1fde07a",
@@ -1754,7 +1790,7 @@ def closeout_state_errors():
     )
     for phrase in [
         "Completed and merged",
-        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-09-define-out-of-scope-domains",
         "#27",
         "1b40773",
@@ -1775,7 +1811,7 @@ def closeout_state_errors():
     )
     for phrase in [
         "Completed and merged",
-        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-10-qa-recovery-domain-model",
         "Builder #28 merged; recovery PR #29 merged",
         "post-merge finalization recorded",
@@ -1797,7 +1833,7 @@ def closeout_state_errors():
     )
     for phrase in [
         "Completed and merged",
-        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-11-write-reliability",
         "#30 merged",
         "post-merge finalization recorded",
@@ -1821,7 +1857,7 @@ def closeout_state_errors():
     )
     for phrase in [
         "Completed and merged",
-        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-12-write-threat-model",
         "#31 merged",
         "duplicate #32 and #33 process deviation",
@@ -1843,19 +1879,21 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "QA passed, awaiting merge",
-        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "Completed and merged",
+        "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-13-qa-domain-consistency",
         "docs/status/M01_DOMAIN_CONSISTENCY.md",
         "validate-control-plane passed",
-        "pytest passed",
+        "pytest 30 passed",
         "git diff --check passed",
         "make unavailable",
+        "#35 merged",
+        "27c39b6",
         "No product implementation",
-        "M01 closeout still required after M01.13 PR merge",
+        "M01 closeout passed after PR #35 merge",
     ]:
         if phrase not in row:
-            errors.append(f"M01.13 registry row missing QA marker: {phrase}")
+            errors.append(f"M01.13 registry row missing completion marker: {phrase}")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -1880,9 +1918,9 @@ def closeout_state_errors():
         errors.append("Roadmap does not mark M00 completed")
     if (
         "| M01 Domain model and scope freeze |" not in roadmap
-        or "| 13 | Active |" not in roadmap
+        or "| 13 | Completed |" not in roadmap
     ):
-        errors.append("Roadmap does not mark M01 active")
+        errors.append("Roadmap does not mark M01 completed")
     if "Add v0.1.0 release" in registry or "Add v0.1.0 release" in roadmap:
         errors.append("Future public-launch wording still reuses v0.1.0")
 
@@ -1939,6 +1977,7 @@ def closeout_state_errors():
     no_product_texts = [
         ("docs/status/CURRENT_STATE.md", current_state),
         ("docs/status/NEXT_RECOMMENDED_THREAD.md", next_thread),
+        ("docs/status/M01_CLOSEOUT.md", (ROOT / "docs/status/M01_CLOSEOUT.md").read_text(encoding="utf-8")),
         ("README.md", (ROOT / "README.md").read_text(encoding="utf-8")),
         ("CHANGELOG.md", (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")),
     ]
@@ -1949,18 +1988,18 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "Merge M01.13 PR - Domain Consistency" not in next_thread:
-        errors.append("Next recommended thread is not Merge M01.13 PR - Domain Consistency")
-    if "M01.11 is `Completed and merged`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.11 as Completed and merged")
-    if "M01.12 Write THREAT_MODEL.md is `Completed and merged`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.12 as Completed and merged")
-    if "M01.13 is `QA passed, awaiting merge`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.13 as QA passed awaiting merge")
-    if "M01 closeout is not started and remains required after M01.13 PR merge" not in next_thread:
-        errors.append("Next recommended thread does not preserve M01 closeout boundary")
-    if "Do not start M02" not in next_thread:
-        errors.append("Next recommended thread does not block M02 later work")
+    if "M02 Planning - Monorepo and Local Development Environment" not in next_thread:
+        errors.append("Next recommended thread is not M02 planning")
+    if "M01 is completed and closed" not in next_thread:
+        errors.append("Next recommended thread does not record M01 as completed and closed")
+    if "M01.01 through M01.13 are `Completed and merged`" not in next_thread:
+        errors.append("Next recommended thread does not record all M01 submilestones as completed")
+    if "27c39b6" not in next_thread:
+        errors.append("Next recommended thread does not record M01.13 merge commit")
+    if "M02 through M21 are `Not started`" not in next_thread:
+        errors.append("Next recommended thread does not preserve future milestone status")
+    if "Do not create an M02 active plan until the M02 planning thread begins" not in next_thread:
+        errors.append("Next recommended thread does not block premature M02 active plan creation")
 
     domain_doc = ROOT / "docs/domain/payment-lifecycle.md"
     ledger_doc = ROOT / "docs/domain/ledger-vocabulary.md"

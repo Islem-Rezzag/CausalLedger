@@ -4,7 +4,7 @@
 
 M01.01 through M01.09 are defined domain vocabulary and boundary documents. M01.10 is `Completed and merged` after QA recovery PR #29 merged at git commit `a878d55` (`test: QA recovery M01.10 domain model summary (#29)`) and remains the canonical M01 domain model summary. M01.11 is `Completed and merged` after PR #30 merged at git commit `a424924` (`docs: write M01.11 reliability model (#30)`) and defines `docs/RELIABILITY.md` as the reliability model for the domain. M01.12 has written `docs/THREAT_MODEL.md` as the threat model for the domain and is `Completed and merged` after PR #31 merged; duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation.
 
-M01.13 QA Domain Consistency has produced `docs/status/M01_DOMAIN_CONSISTENCY.md` and is `QA passed, awaiting merge`. The whole M01 milestone is not complete yet; M01.13 still requires PR merge, and M01 closeout remains required after that.
+M01.13 QA Domain Consistency produced `docs/status/M01_DOMAIN_CONSISTENCY.md` and merged at git commit `27c39b6` (`docs: run M01.13 domain consistency QA (#35)`). M01 closeout passed, and the completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
 Product implementation has not started. This file is documentation only and does not implement MoneyEvent runtime logic, ledger runtime logic, settlement runtime logic, reconciliation runtime logic, incident runtime logic, invariants, causal graph runtime logic, replay runtime logic, agent runtime, repair planning runtime logic, human-review runtime logic, UI features, external connectors, database schemas, API routes, GitHub Actions, CI workflows, or product behavior.
 
@@ -190,10 +190,9 @@ The ablation strategy is planning only. M14 MoneyFlowBench will eventually test 
 
 ## Remaining M01 work
 
-- M01.13 PR merge and post-merge tracking finalization.
-- M01 closeout.
+No M01 submilestones remain. M02 planning is next, but M02 remains `Not started` until its planning thread begins.
 
-M01.12 has merged, duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation, and M01.13 QA passed after synchronizing the domain docs and tracking without starting product implementation.
+M01.12 has merged, duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation, and M01.13 QA plus M01 closeout synchronized the domain docs and tracking without starting product implementation.
 
 ## Guardrails for implementation milestones
 

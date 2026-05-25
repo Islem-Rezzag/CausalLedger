@@ -82,14 +82,16 @@ Current status:
 - `docs/status/M00_FREEZE_READINESS.md`
 - `docs/status/M00_CLOSEOUT.md`
 - `docs/status/M01_DOMAIN_CONSISTENCY.md`
+- `docs/status/M01_CLOSEOUT.md`
 
 Completed execution:
 
 - `plans/completed/CLP-0001-m00-repo-operating-system.md`
+- `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`
 
 Active execution:
 
-- `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`
+- No active milestone plan. M02 planning is the next recommended thread and must create its own active plan when it begins.
 
 Plan state:
 

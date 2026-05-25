@@ -1,14 +1,14 @@
 # CausalLedger Roadmap
 
-Current milestone marker: M01 Domain model and scope freeze is active. M01 planning is complete and merged at git commit `2cfd75a`.
-Current submilestone status: M00.01 through M00.08 are completed and merged. M00 is tagged as `v0.1.0` for the repo operating system foundation. M01.01 Define payment lifecycle is recorded as `Completed and merged` after post-merge QA recovery, M01.02 Define ledger vocabulary is `Completed and merged`, M01.03 Define settlement vocabulary is `Completed and merged` at git commit `e54a917`, M01.04 Define reconciliation vocabulary is `Completed and merged` at git commit `5dfe928`, M01.05 Define incident vocabulary is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`, M01.06 Define safe and unsafe repairs is `Completed and merged` after PR #21 merged at git commit `7adc96d`, M01.07 Define evidence receipt model is `Completed and merged` after PR #23 merged at git commit `a88b5ff`, M01.08 Define human review states is `Completed and merged` after PR #26 merged at git commit `1fde07a`, M01.09 Define out-of-scope domains is `Completed and merged` after PR #27 merged at git commit `1b40773`, M01.10 Write DOMAIN_MODEL.md is `Completed and merged` after QA recovery PR #29 merged at git commit `a878d55`, M01.11 Write RELIABILITY.md is `Completed and merged` after PR #30 merged at git commit `a424924`, and M01.12 Write THREAT_MODEL.md is `Completed and merged` after PR #31 merged; duplicate PR merges #32 and #33 from the same branch are recorded as a process deviation. M01.13 QA Domain Consistency is `QA passed, awaiting merge`.
+Current milestone marker: M01 Domain model and scope freeze is completed and closed. M02 Monorepo and local development is next but remains `Not started`.
+Current submilestone status: M00.01 through M00.08 are completed and merged. M00 is tagged as `v0.1.0` for the repo operating system foundation. M01.01 through M01.13 are `Completed and merged`; M01.13 QA Domain Consistency merged at git commit `27c39b6` (`docs: run M01.13 domain consistency QA (#35)`). The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`, and the M01 closeout packet lives at `docs/status/M01_CLOSEOUT.md`. Duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation. M02 through M21 remain `Not started`.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 
 | Milestone | Goal | Focus | Exit criteria | Submilestone count | Status |
 | --- | --- | --- | --- | --- | --- |
 | M00 Repo operating system | Establish the durable repository operating system for CausalLedger. | Control-plane docs, workflow, planning, validation | Codex can continue from repo state without chat memory | 8 | Completed |
-| M01 Domain model and scope freeze | Freeze CausalLedger domain language, scope, and non-goals. | Concepts, non-goals, glossary | Domain model and scope are approved | 13 | Active |
+| M01 Domain model and scope freeze | Freeze CausalLedger domain language, scope, and non-goals. | Concepts, non-goals, glossary | Domain model and scope are approved | 13 | Completed |
 | M02 Monorepo and local development | Create the runnable local development foundation. | Tooling, packages, CI shape | Local checks run consistently | 20 | Not started |
 | M03 Canonical MoneyEvent engine | Define and implement the canonical event representation. | Event schemas and normalization | MoneyEvent behavior is specified and validated | 19 | Not started |
 | M04 Double-entry ledger core | Implement deterministic double-entry ledger primitives. | Transactions, entries, balances | Ledger checks pass deterministic tests | 18 | Not started |
@@ -36,12 +36,13 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 - M00.01 through M00.08 are completed and merged.
 - `v0.1.0` is the M00 repo operating system foundation release, not a product release.
 - The completed M00 plan lives at `plans/completed/CLP-0001-m00-repo-operating-system.md`.
-- The active M01 plan lives at `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`.
+- The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 - M01 planning is complete and merged at git commit `2cfd75a`.
-- M01 is active; M01.01 is `Completed and merged` after post-merge QA recovery, M01.02 is `Completed and merged`, M01.03 is `Completed and merged` at git commit `e54a917`, M01.04 is `Completed and merged` at git commit `5dfe928`, M01.05 is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`, M01.06 is `Completed and merged` after PR #21 merged at git commit `7adc96d`, M01.07 is `Completed and merged` after PR #23 merged at git commit `a88b5ff`, M01.08 is `Completed and merged` after PR #26 merged at git commit `1fde07a`, M01.09 is `Completed and merged` after PR #27 merged at git commit `1b40773`, M01.10 is `Completed and merged` after QA recovery PR #29 merged at git commit `a878d55`, M01.11 is `Completed and merged` after PR #30 merged at git commit `a424924`, M01.12 is `Completed and merged` after PR #31 merged, and M01.13 is `QA passed, awaiting merge`.
-- M01.12 duplicate PR merges #32 and #33 from the same branch are recorded as a process deviation. No revert is being done in this finalization thread; future submilestones should use one PR per branch and delete the branch after merge.
+- M01 is completed and closed; M01.01 through M01.13 are `Completed and merged`.
+- M01.13 merged at git commit `27c39b6` (`docs: run M01.13 domain consistency QA (#35)`).
+- M01.12 duplicate PR merges #32 and #33 from the same branch are recorded as a process deviation. No revert was performed; future submilestones should use one PR per branch and delete the branch after merge.
 - M02-M21 remain `Not started`.
 - Product implementation has not started.
-- The first M01 implementation submilestone after planning is `M01.01 Define payment lifecycle`.
+- The next recommended thread is `M02 Planning - Monorepo and Local Development Environment`.
 - Versioning strategy is documented in `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed registry.

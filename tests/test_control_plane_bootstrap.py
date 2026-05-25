@@ -55,9 +55,10 @@ def test_required_project_docs_exist():
         "docs/status/M00_FREEZE_READINESS.md",
         "docs/status/M00_CLOSEOUT.md",
         "docs/status/M01_DOMAIN_CONSISTENCY.md",
+        "docs/status/M01_CLOSEOUT.md",
         "docs/milestones/SUBMILESTONE_REGISTRY.md",
-        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "plans/completed/CLP-0001-m00-repo-operating-system.md",
+        "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
     ]:
         assert (ROOT / rel).is_file(), rel
 
@@ -216,14 +217,14 @@ def test_versioning_and_release_docs_are_coherent():
             "docs/releases/RELEASE_LADDER.md",
             "docs/releases/V1_SCOPE.md",
             "CHANGELOG.md",
-            "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+            "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
         ]:
             assert reference in text, f"{rel} missing {reference}"
 
 
-def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
+def test_completed_m01_plan_lists_submilestones_and_scope_boundary():
     plan = (
-        ROOT / "plans" / "active" / "CLP-0002-m01-domain-model-and-scope-freeze.md"
+        ROOT / "plans" / "completed" / "CLP-0002-m01-domain-model-and-scope-freeze.md"
     ).read_text(encoding="utf-8")
 
     for phrase in [
@@ -233,7 +234,6 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01 must not implement APIs, databases, ledger logic, MoneyEvent runtime code, invariants, agent runtime, repair planner, UI, external connectors, GitHub Actions, CI workflows, or product behavior",
         "LLM agents may investigate, summarize, and propose, but they do not mutate money, approve repairs, delete evidence, post ledger entries, modify raw events, or override deterministic invariants",
         "M01 planning is complete and merged at git commit `2cfd75a`",
-        "M01.05 Define incident vocabulary is completed and merged after QA recovery PR #18 merged at git commit `3bdedeb`",
         "post-merge QA recovery",
         "M01.01 Define payment lifecycle",
         "M01.02 Define ledger vocabulary",
@@ -252,7 +252,9 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01.10 is `Completed and merged`",
         "M01.11 is `Completed and merged`",
         "M01.12 is `Completed and merged`",
-        "M01.13 is QA passed awaiting merge",
+        "M01.13 is `Completed and merged`",
+        "M01 closeout passed on 2026-05-25",
+        "M01.13 QA Domain Consistency merged at git commit `27c39b6`",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
@@ -369,8 +371,9 @@ def test_m01_payment_lifecycle_domain_docs_are_documentation_only():
         "M01.10 is `Completed and merged`",
         "M01.11 is `Completed and merged`",
         "M01.12 has written `docs/THREAT_MODEL.md` as the threat model for the domain",
-        "M01.13 QA Domain Consistency has produced",
-        "The whole M01 milestone is not complete yet",
+        "M01.13 QA Domain Consistency produced",
+        "M01 closeout passed",
+        "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "Product implementation has not started",
         "docs/RELIABILITY.md",
         "docs/THREAT_MODEL.md",
@@ -428,7 +431,8 @@ def test_m01_reliability_model_is_documentation_only():
         "## Guardrails for future implementation milestones",
         "Current validation proves documentation and control-plane coherence only",
         "M01.12 has written the CausalLedger threat model",
-        "M01.13 QA Domain Consistency is `QA passed, awaiting merge`",
+        "M01.13 QA Domain Consistency is `Completed and merged`",
+        "M01 closeout passed",
         "Product implementation has not started",
         "LLM memos are explanations only",
         "Event identity and idempotency checks",
@@ -591,6 +595,51 @@ def test_m01_domain_consistency_report_is_documentation_only():
         "implements CI",
     ]:
         assert forbidden_claim not in report
+
+
+def test_m01_closeout_packet_records_closed_state_without_product_claims():
+    closeout = (ROOT / "docs" / "status" / "M01_CLOSEOUT.md").read_text(
+        encoding="utf-8"
+    )
+
+    for phrase in [
+        "M01 Domain Model and Scope Freeze",
+        "2026-05-25",
+        "M01.01 Define Payment Lifecycle",
+        "M01.13 QA Domain Consistency",
+        "Deferred submilestones",
+        "None",
+        "PR #35, commit `27c39b6`",
+        "Product-scope inspection found only placeholder README files",
+        "`python scripts/validate-control-plane.py` passed",
+        "`python -m pytest tests/test_control_plane_bootstrap.py` passed",
+        "`git diff --check` passed",
+        "Product implementation has not started",
+        "M02 remains `Not started`",
+        "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "M02 Planning - Monorepo and Local Development Environment",
+        "CI/GitHub Actions",
+        "Runtime tests",
+        "Product code",
+        "API",
+        "Database",
+        "Deployment",
+        "Auth/authz runtime",
+        "Structured logging",
+        "Monitoring",
+        "Runtime security controls",
+    ]:
+        assert phrase in closeout
+
+    for forbidden_claim in [
+        "implements product functionality",
+        "implements MoneyEvent runtime",
+        "implements ledger runtime",
+        "implements API",
+        "implements database",
+        "M02 is started",
+    ]:
+        assert forbidden_claim not in closeout
 
 
 def test_m01_ledger_vocabulary_domain_doc_is_documentation_only():
@@ -2201,11 +2250,12 @@ def test_m00_closeout_state_is_coherent():
         ROOT / "plans" / "completed" / "CLP-0001-m00-repo-operating-system.md"
     ).is_file()
     active_m01_plan = ROOT / "plans" / "active" / "CLP-0002-m01-domain-model-and-scope-freeze.md"
-    assert active_m01_plan.is_file()
-    assert [
-        path.name
-        for path in (ROOT / "plans" / "active").glob("CLP-*.md")
-    ] == [active_m01_plan.name]
+    completed_m01_plan = (
+        ROOT / "plans" / "completed" / "CLP-0002-m01-domain-model-and-scope-freeze.md"
+    )
+    assert not active_m01_plan.exists()
+    assert completed_m01_plan.is_file()
+    assert [path.name for path in (ROOT / "plans" / "active").glob("CLP-*.md")] == []
 
     for index in range(1, 9):
         submilestone = f"M00.{index:02}"
@@ -2217,7 +2267,7 @@ def test_m00_closeout_state_is_coherent():
     assert "| M00 Repo operating system |" in roadmap
     assert "| 8 | Completed |" in roadmap
     assert "| M01 Domain model and scope freeze |" in roadmap
-    assert "| 13 | Active |" in roadmap
+    assert "| 13 | Completed |" in roadmap
     assert "Add v0.1.0 release" not in registry
     assert "Prepare v1.0.0 public release" in registry
 
@@ -2334,7 +2384,7 @@ def test_m00_closeout_state_is_coherent():
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.12 |"))
     assert "Completed and merged" in row
-    assert "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md" in row
+    assert "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md" in row
     assert "m01-12-write-threat-model" in row
     assert "#31 merged" in row
     assert "duplicate #32 and #33 process deviation" in row
@@ -2349,16 +2399,18 @@ def test_m00_closeout_state_is_coherent():
     assert "No product implementation or runtime security behavior" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.13 |"))
-    assert "QA passed, awaiting merge" in row
-    assert "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md" in row
+    assert "Completed and merged" in row
+    assert "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md" in row
     assert "m01-13-qa-domain-consistency" in row
     assert "docs/status/M01_DOMAIN_CONSISTENCY.md" in row
     assert "validate-control-plane passed" in row
-    assert "pytest passed" in row
+    assert "pytest 30 passed" in row
     assert "git diff --check passed" in row
     assert "make unavailable" in row
+    assert "#35 merged" in row
+    assert "27c39b6" in row
     assert "No product implementation" in row
-    assert "M01 closeout still required after M01.13 PR merge" in row
+    assert "M01 closeout passed after PR #35 merge" in row
 
     for milestone in range(2, 22):
         for row in [
@@ -2377,9 +2429,11 @@ def test_m00_closeout_state_is_coherent():
         assert phrase in closeout
 
     for phrase in [
-        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "docs/status/M01_CLOSEOUT.md",
         "Product directories contain placeholder README files only",
         "M00.01 through M00.08 are completed and merged",
+        "M01 Domain Model and Scope Freeze is completed and closed",
         "M01.01 Define payment lifecycle is `Completed and merged` after post-merge QA recovery",
         "M01.02 Define ledger vocabulary is `Completed and merged`",
         "M01.03 Define settlement vocabulary is `Completed and merged`",
@@ -2392,7 +2446,8 @@ def test_m00_closeout_state_is_coherent():
         "M01.10 Write DOMAIN_MODEL.md is `Completed and merged`",
         "M01.11 Write RELIABILITY.md is `Completed and merged`",
         "M01.12 Write THREAT_MODEL.md is `Completed and merged`",
-        "M01.13 QA Domain Consistency is `QA passed, awaiting merge`",
+        "M01.13 QA Domain Consistency is `Completed and merged`",
+        "M02 through M21 remain `Not started`",
     ]:
         assert phrase in current_state
 

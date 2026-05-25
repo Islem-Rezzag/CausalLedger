@@ -2,6 +2,17 @@
 
 ## 2026-05-25
 
+- Started M01 closeout on branch `m01-closeout-domain-model-and-scope-freeze`; branch guard passed, the starting worktree was clean, latest history showed M01.13 merged at `27c39b6`, remote `origin` points to GitHub, and tag `v0.1.0` exists.
+- Created `docs/status/M01_CLOSEOUT.md` and verified M01.01 through M01.13 are `Completed and merged`.
+- Moved the M01 plan to `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`; no M02 active plan was created.
+- Updated roadmap, milestone, registry, current-state, next-thread, weekly-log, capability-matrix, entry-point, project brief, domain model, reliability, threat-model, validation script, and bootstrap-test tracking for M01 closeout.
+- Confirmed product implementation has not started; future product directories contain placeholder README files only, `.github/workflows/` does not exist, and no real secrets were found.
+- Recorded M01.01, M01.05, and M01.10 QA recovery history plus the M01.12 duplicate PR merges #32 and #33 as audit history without overexpanding the process-deviation section.
+- Ran `python scripts/validate-control-plane.py` successfully for M01 closeout.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 31 tests for M01 closeout.
+- Ran `git diff --check` successfully for M01 closeout.
+- Skipped `make bootstrap-check` for M01 closeout because `make` is unavailable in the current Windows shell.
+- Recommended next thread after the M01 closeout PR merges: `M02 Planning - Monorepo and Local Development Environment`.
 - Completed M01.13 QA Domain Consistency on branch `m01-13-qa-domain-consistency`; branch guard passed, the starting worktree was clean, latest commit was `254bdcd`, remote `origin` points to GitHub, and tag `v0.1.0` exists.
 - QA verified the domain consistency report, DOMAIN_MODEL, RELIABILITY, THREAT_MODEL, M01 domain docs, eval docs, spec placeholders, roadmap, registry, active plan, status docs, validation coverage, and forbidden-scope boundaries.
 - Fixed the scoped report defect where `docs/status/M01_DOMAIN_CONSISTENCY.md` did not list itself in the checked-file list.
