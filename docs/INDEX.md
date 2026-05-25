@@ -47,9 +47,10 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/status/M00_FREEZE_READINESS.md` - M00 freeze readiness report.
 - `docs/status/M00_CLOSEOUT.md` - M00 closeout packet.
 - `docs/status/M01_DOMAIN_CONSISTENCY.md` - M01 domain consistency QA report.
+- `docs/status/M01_CLOSEOUT.md` - M01 closeout packet.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` - canonical M00-M21 submilestone registry.
 - `plans/completed/CLP-0001-m00-repo-operating-system.md` - completed M00 execution plan.
-- `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md` - active M01 planning plan.
+- `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md` - completed M01 plan.
 - `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
 - `prompts/template_qa_submilestone.md` - reusable QA thread prompt template.
 - `prompts/template_handoff_packet.md` - reusable handoff packet template.
@@ -97,7 +98,8 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/status/M00_FREEZE_READINESS.md` - M00 freeze readiness, limitations, remaining steps, and next threads.
 - `docs/status/M00_CLOSEOUT.md` - M00 closeout packet, validation summary, plan movement, and M01 readiness.
 - `docs/status/M01_DOMAIN_CONSISTENCY.md` - M01 domain consistency QA report.
+- `docs/status/M01_CLOSEOUT.md` - M01 closeout packet.
 
 ## Current implementation status
 
-The repository has completed M00 and tagged the repo operating system foundation as `v0.1.0`. M01 planning is complete and merged, M01 is active, M01.01 Define Payment Lifecycle is recorded as `Completed and merged` after post-merge QA recovery, M01.02 Define Ledger Vocabulary is `Completed and merged`, M01.03 Define Settlement Vocabulary is `Completed and merged` at git commit `e54a917`, M01.04 Define Reconciliation Vocabulary is `Completed and merged` at git commit `5dfe928`, M01.05 Define Incident Vocabulary is `Completed and merged` after QA recovery PR #18 merged at git commit `3bdedeb`, M01.06 Define Safe and Unsafe Repairs is `Completed and merged` after PR #21 merged at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`), M01.07 Define Evidence Receipt Model is `Completed and merged` after PR #23 merged at git commit `a88b5ff` (`docs: define M01.07 evidence receipt model (#23)`), M01.08 Define Human Review States is `Completed and merged` after PR #26 merged at git commit `1fde07a` (`docs: define M01.08 human review states (#26)`), M01.09 Define Out-of-Scope Domains is `Completed and merged` after PR #27 merged at git commit `1b40773` (`docs: define M01.09 out-of-scope domains (#27)`), M01.10 Write DOMAIN_MODEL.md is `Completed and merged` after QA recovery PR #29 merged at git commit `a878d55` (`test: QA recovery M01.10 domain model summary (#29)`), M01.11 Write RELIABILITY.md is `Completed and merged` after PR #30 merged at git commit `a424924` (`docs: write M01.11 reliability model (#30)`), M01.12 Write THREAT_MODEL.md is `Completed and merged` after PR #31 merged, with duplicate PR merges #32 and #33 recorded as a process deviation from the same M01.12 branch, and M01.13 QA Domain Consistency is `QA passed, awaiting merge`. The repo contains docs, plans, prompt templates, skills, placeholder directories, GitHub templates, versioning docs, domain vocabulary, ablation planning docs, and control-plane validation only. It does not contain product functionality.
+The repository has completed M00 and tagged the repo operating system foundation as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed after M01.01 through M01.13 completed and merged. The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`, and the M01 closeout packet lives at `docs/status/M01_CLOSEOUT.md`. M02 Planning - Monorepo and Local Development Environment is the next recommended thread, but M02 remains `Not started` until that planning thread begins. The repo contains docs, plans, prompt templates, skills, placeholder directories, GitHub templates, versioning docs, domain vocabulary, ablation planning docs, and control-plane validation only. It does not contain product functionality.

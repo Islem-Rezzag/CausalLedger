@@ -10,7 +10,7 @@ The safety boundary is non-negotiable: LLM agents may investigate, summarize, an
 
 The first M01 implementation submilestone after this planning thread is `M01.01 Define payment lifecycle`.
 
-Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01 is the active milestone, M01.01 Define payment lifecycle is completed and merged after post-merge QA recovery, M01.02 Define ledger vocabulary is completed and merged at git commit `fd1e259` (`docs: define M01.02 ledger vocabulary (#13)`), M01.03 Define settlement vocabulary is completed and merged at git commit `e54a917` (`docs: define M01.03 settlement vocabulary (#14)`), M01.04 Define reconciliation vocabulary is completed and merged at git commit `5dfe928` (`docs: define M01.04 reconciliation vocabulary (#15)`), M01.05 Define incident vocabulary is completed and merged after QA recovery PR #18 merged at git commit `3bdedeb`, M01.06 Define safe and unsafe repairs is completed and merged after PR #21 merged at git commit `7adc96d` (`docs: define M01.06 safe and unsafe repairs (#21)`), M01.07 Define evidence receipt model is completed and merged after PR #23 merged at git commit `a88b5ff` (`docs: define M01.07 evidence receipt model (#23)`), M01.08 Define human review states is completed and merged after PR #26 merged at git commit `1fde07a` (`docs: define M01.08 human review states (#26)`), M01.09 Define out-of-scope domains is completed and merged after PR #27 merged at git commit `1b40773` (`docs: define M01.09 out-of-scope domains (#27)`), M01.10 Write DOMAIN_MODEL.md is completed and merged after QA recovery PR #29 merged at git commit `a878d55` (`test: QA recovery M01.10 domain model summary (#29)`), M01.11 Write RELIABILITY.md is completed and merged after PR #30 merged at git commit `a424924` (`docs: write M01.11 reliability model (#30)`), M01.12 Write THREAT_MODEL.md is completed and merged after PR #31 merged, and M01.13 QA Domain Consistency is QA passed awaiting merge. Duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation; M01 closeout remains required after M01.13 PR merge.
+Current M01 execution status: M01 planning is complete and merged at git commit `2cfd75a` (`docs: plan M01 domain model and scope freeze (#10)`). M01.01 through M01.13 are completed and merged, M01.13 QA Domain Consistency merged at git commit `27c39b6` (`docs: run M01.13 domain consistency QA (#35)`), and M01 closeout passed on 2026-05-25. Duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation. Product implementation has not started. M02 through M21 remain `Not started`.
 
 ## Progress
 
@@ -184,6 +184,9 @@ Current M01 execution status: M01 planning is complete and merged at git commit 
 - [x] 2026-05-23: Set the next recommended thread to `M01.13 Builder - QA Domain Consistency` after M01.12 finalization merged; M01.13 had not started at that checkpoint, M02 through M21 remained `Not started`, and product implementation had not started.
 - [x] 2026-05-23: Initial M01.12 post-merge finalization `python scripts/validate-control-plane.py` failed because `docs/status/NEXT_RECOMMENDED_THREAD.md` used equivalent but non-exact wording for the finalization-PR precondition; the scoped wording was fixed and validation was rerun successfully.
 - [x] 2026-05-23: M01.12 post-merge finalization validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 29 tests, and `git diff --check`; `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
+- [x] 2026-05-25: M01.13 QA Domain Consistency merged at git commit `27c39b6` (`docs: run M01.13 domain consistency QA (#35)`).
+- [x] 2026-05-25: M01 closeout created `docs/status/M01_CLOSEOUT.md`, confirmed M01.01 through M01.13 are `Completed and merged`, confirmed product implementation has not started, kept M02 through M21 `Not started`, and did not create an M02 active plan.
+- [x] 2026-05-25: M01 closeout validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 31 tests, and `git diff --check`; `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell.
 - [x] 2026-05-23: Started M01.13 builder on branch `m01-13-qa-domain-consistency`; branch guard passed, the starting worktree was clean, latest commit was `686f69b`, remote `origin` points to GitHub, and tag `v0.1.0` exists.
 - [x] 2026-05-23: Marked M01.13 `Builder in progress` for documentation/control-plane domain consistency QA while leaving M02 through M21 `Not started`; product implementation has not started.
 - [x] 2026-05-23: Created `docs/status/M01_DOMAIN_CONSISTENCY.md` as the M01 domain consistency QA report.
@@ -277,7 +280,7 @@ Current M01 submilestone state:
 - `M01.12 Write THREAT_MODEL.md` - Completed and merged after PR #31; duplicate PR merges #32 and #33 recorded as a process deviation.
 - `M01.13 QA domain consistency` - QA passed, awaiting merge.
 
-M01.09 is `Completed and merged`. M01.10 is `Completed and merged`. M01.11 is `Completed and merged`. M01.12 is `Completed and merged`. M01.13 is QA passed awaiting merge. M01 closeout remains required after M01.13 PR merge.
+M01.09 is `Completed and merged`. M01.10 is `Completed and merged`. M01.11 is `Completed and merged`. M01.12 is `Completed and merged`. M01.13 is `Completed and merged`. M01 closeout passed on 2026-05-25.
 
 ## Scope
 
@@ -992,6 +995,8 @@ No product runtime interface is introduced by this M01 planning, M01.01 document
 
 No product runtime interface is introduced by M01.13 QA Domain Consistency builder or QA work. It created and reviewed a status report and validation coverage only.
 
+No product runtime interface is introduced by M01 closeout. It created a closeout packet, synchronized status and planning docs, moved this plan to `plans/completed/`, and updated control-plane validation only.
+
 ## Outcomes & Retrospective
 
 Outcome after M01 planning QA validation:
@@ -1021,6 +1026,9 @@ Current M01.01 builder outcome:
 - M01.10 is completed and merged after QA recovery PR #29 as DOMAIN_MODEL.md summary documentation only.
 - M01.11 is completed and merged after PR #30 as RELIABILITY.md model documentation only.
 - M01.12 is completed and merged after PR #31 as THREAT_MODEL.md documentation only; duplicate PR merges #32 and #33 from the same branch are recorded as a process deviation.
-- M01.13 is QA passed awaiting merge as documentation/control-plane consistency QA only.
-- The next safe thread is `Merge M01.13 PR - Domain Consistency`.
-- M01 closeout remains required after M01.13 PR merge.
+- M01.13 is completed and merged as documentation/control-plane consistency QA only.
+- M01 closeout passed as documentation/control-plane work only.
+- This plan moved to `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
+- M02 through M21 remain `Not started`.
+- Product implementation has not started.
+- The next safe thread is `M02 Planning - Monorepo and Local Development Environment` after the M01 closeout PR merges.

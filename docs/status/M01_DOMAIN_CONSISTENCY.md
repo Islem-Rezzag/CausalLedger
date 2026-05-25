@@ -187,3 +187,7 @@ The M01.12 duplicate PR merges #32 and #33 remain recorded as a process deviatio
 ## Recommendation For M01 Closeout Readiness
 
 M01 is not ready for closeout yet because M01.13 still requires PR merge and post-merge tracking finalization. PR #35 is ready for merge after QA PASS. After M01.13 merges, M01 should be ready for an M01 closeout thread that verifies final validation evidence, confirms no product implementation started, keeps M02 through M21 `Not started`, and only then decides whether the active M01 plan can move to completed.
+
+## Post-merge closeout note
+
+M01.13 later merged at git commit `27c39b6` (`docs: run M01.13 domain consistency QA (#35)`). M01 closeout then created `docs/status/M01_CLOSEOUT.md`, moved the plan to `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`, kept M02 through M21 `Not started`, and confirmed product implementation has not started.

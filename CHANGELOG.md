@@ -6,9 +6,10 @@ All notable CausalLedger release changes are recorded here.
 
 - Started M01 planning for domain model and scope freeze.
 - Added versioning and release-scope documentation.
-- Added the active M01 planning plan.
+- Added and completed the M01 plan at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 - Added M01 domain vocabulary and boundary documents for payment lifecycle, ledger, settlement, reconciliation, incidents, safe and unsafe repairs, evidence receipts, human review states, and out-of-scope domains.
 - Added canonical M01 domain, reliability, threat-model, and domain consistency QA documentation.
+- Added `docs/status/M01_CLOSEOUT.md` and closed M01 as documentation/control-plane work.
 - Product functionality remains not implemented.
 
 ## v0.1.0 - Repo Operating System Foundation
