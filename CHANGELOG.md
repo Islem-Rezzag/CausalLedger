@@ -8,6 +8,7 @@ All notable CausalLedger release changes are recorded here.
 - Added versioning and release-scope documentation.
 - Added the active M01 planning plan.
 - Added M01 domain vocabulary and boundary documents for payment lifecycle, ledger, settlement, reconciliation, incidents, safe and unsafe repairs, evidence receipts, human review states, and out-of-scope domains.
+- Added canonical M01 domain, reliability, threat-model, and domain consistency QA documentation.
 - Product functionality remains not implemented.
 
 ## v0.1.0 - Repo Operating System Foundation

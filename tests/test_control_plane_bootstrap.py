@@ -54,6 +54,7 @@ def test_required_project_docs_exist():
         "docs/ops/repo-operating-system-freeze.md",
         "docs/status/M00_FREEZE_READINESS.md",
         "docs/status/M00_CLOSEOUT.md",
+        "docs/status/M01_DOMAIN_CONSISTENCY.md",
         "docs/milestones/SUBMILESTONE_REGISTRY.md",
         "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "plans/completed/CLP-0001-m00-repo-operating-system.md",
@@ -251,7 +252,7 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01.10 is `Completed and merged`",
         "M01.11 is `Completed and merged`",
         "M01.12 is `Completed and merged`",
-        "M01.13 remains planned scope only and is not started",
+        "M01.13 is builder complete awaiting QA",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
@@ -368,7 +369,7 @@ def test_m01_payment_lifecycle_domain_docs_are_documentation_only():
         "M01.10 is `Completed and merged`",
         "M01.11 is `Completed and merged`",
         "M01.12 has written `docs/THREAT_MODEL.md` as the threat model for the domain",
-        "M01.13 QA Domain Consistency remains",
+        "M01.13 QA Domain Consistency has produced",
         "The whole M01 milestone is not complete yet",
         "Product implementation has not started",
         "docs/RELIABILITY.md",
@@ -427,7 +428,7 @@ def test_m01_reliability_model_is_documentation_only():
         "## Guardrails for future implementation milestones",
         "Current validation proves documentation and control-plane coherence only",
         "M01.12 has written the CausalLedger threat model",
-        "M01.13 QA Domain Consistency remains",
+        "M01.13 QA Domain Consistency is `Builder complete, awaiting QA`",
         "Product implementation has not started",
         "LLM memos are explanations only",
         "Event identity and idempotency checks",
@@ -538,6 +539,58 @@ def test_m01_threat_model_is_documentation_only():
         "repair execution is implemented",
     ]:
         assert forbidden_claim not in threat_model
+
+
+def test_m01_domain_consistency_report_is_documentation_only():
+    report = (ROOT / "docs" / "status" / "M01_DOMAIN_CONSISTENCY.md").read_text(
+        encoding="utf-8"
+    )
+
+    for phrase in [
+        "## Purpose",
+        "## Scope",
+        "## Checked Files",
+        "## Current Milestone Status",
+        "## Completed M01 Submilestones",
+        "## Remaining M01 Status",
+        "## Product Implementation Status",
+        "## Terminology Consistency Results",
+        "## Domain Boundary Consistency Results",
+        "## Reliability Consistency Results",
+        "## Threat Model Consistency Results",
+        "## AI Boundary Consistency Results",
+        "## Evaluation And Ablation Consistency Results",
+        "## Versioning Consistency Results",
+        "## Roadmap And Registry Consistency Results",
+        "## Spec Placeholder Consistency Results",
+        "## Missing CI And Production Feature Consistency Results",
+        "## Forbidden-Scope Verification",
+        "## Unresolved Issues",
+        "## Recommendation For M01 Closeout Readiness",
+        "M01.12 Write THREAT_MODEL.md is `Completed and merged`",
+        "Duplicate PR merges #32 and #33",
+        "M01.13 QA Domain Consistency is the current submilestone",
+        "Builder complete, awaiting QA",
+        "Product implementation has not started",
+        "No GitHub Actions or CI workflows exist",
+        "No runtime tests, APIs, database schemas, deployment, auth/authz runtime",
+        "LLM output is not evidence",
+        "Dangerous ablations are offline negative controls only",
+        "MoneyFlowBench implementation is future work",
+        "M02 through M21 remain `Not started`",
+        "M01 is not ready for closeout yet",
+    ]:
+        assert phrase in report
+
+    for forbidden_claim in [
+        "implements product functionality",
+        "implements MoneyEvent runtime",
+        "implements ledger runtime",
+        "implements API",
+        "implements database",
+        "implements CI",
+    ]:
+        assert forbidden_claim not in report
 
 
 def test_m01_ledger_vocabulary_domain_doc_is_documentation_only():
@@ -2296,7 +2349,16 @@ def test_m00_closeout_state_is_coherent():
     assert "No product implementation or runtime security behavior" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.13 |"))
-    assert "Not started" in row
+    assert "Builder complete, awaiting QA" in row
+    assert "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md" in row
+    assert "m01-13-qa-domain-consistency" in row
+    assert "docs/status/M01_DOMAIN_CONSISTENCY.md" in row
+    assert "validate-control-plane passed" in row
+    assert "pytest passed" in row
+    assert "git diff --check passed" in row
+    assert "make unavailable" in row
+    assert "No product implementation" in row
+    assert "M01 closeout still required after QA PASS and merge" in row
 
     for milestone in range(2, 22):
         for row in [
@@ -2330,7 +2392,7 @@ def test_m00_closeout_state_is_coherent():
         "M01.10 Write DOMAIN_MODEL.md is `Completed and merged`",
         "M01.11 Write RELIABILITY.md is `Completed and merged`",
         "M01.12 Write THREAT_MODEL.md is `Completed and merged`",
-        "M01.13 remains `Not started`",
+        "M01.13 QA Domain Consistency is `Builder complete, awaiting QA`",
     ]:
         assert phrase in current_state
 

@@ -2,6 +2,16 @@
 
 ## 2026-05-23
 
+- Started M01.13 QA Domain Consistency builder on branch `m01-13-qa-domain-consistency`; branch guard passed, the starting worktree was clean, latest commit was `686f69b`, remote `origin` points to GitHub, and tag `v0.1.0` exists.
+- Confirmed M01.12 Write THREAT_MODEL.md is `Completed and merged`; duplicate PR merges #32 and #33 from the same M01.12 branch remain recorded as a process deviation.
+- Created `docs/status/M01_DOMAIN_CONSISTENCY.md` as the M01 domain consistency QA report.
+- Verified DOMAIN_MODEL, RELIABILITY, THREAT_MODEL, M01 domain docs, eval docs, spec placeholders, roadmap, registry, active plan, status docs, and forbidden-scope boundaries for builder-side consistency.
+- Updated tracking/status docs so M01.13 is `Builder complete, awaiting QA`; M01 remains active, M01 closeout remains required after M01.13 QA PASS and PR merge, M02 through M21 remain `Not started`, and product implementation has not started.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.13 builder.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully for M01.13 builder.
+- Ran `git diff --check` successfully for M01.13 builder.
+- Skipped `make bootstrap-check` for M01.13 builder because `make` is unavailable in the current Windows shell.
+- Recommended next thread: `M01.13 QA - Domain Consistency`.
 - Finalized M01.12 Write THREAT_MODEL.md as `Completed and merged` after PR #31 merged. Recent history also shows duplicate PR merges #32 and #33 from the same M01.12 branch; this was a process deviation, no revert is being done, and future submilestones should use one PR per branch and delete the branch after merge.
 - Updated tracking/status docs so M01.13 QA Domain Consistency is the next submilestone only after this finalization PR merges and local main is updated; M01.13 remains `Not started`, M02 through M21 remain `Not started`, and product implementation has not started.
 - Initial M01.12 post-merge finalization `python scripts/validate-control-plane.py` failed because `docs/status/NEXT_RECOMMENDED_THREAD.md` used equivalent but non-exact wording for the finalization-PR precondition; the scoped wording was fixed and validation was rerun successfully.

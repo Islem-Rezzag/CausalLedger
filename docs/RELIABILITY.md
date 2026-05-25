@@ -2,7 +2,7 @@
 
 ## Status
 
-M01.11 completed the CausalLedger reliability model as documentation only. M01.12 has written the CausalLedger threat model as documentation only and is `Completed and merged` after PR #31 merged; duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation. M01.13 QA Domain Consistency remains `Not started`. Product implementation has not started.
+M01.11 completed the CausalLedger reliability model as documentation only. M01.12 has written the CausalLedger threat model as documentation only and is `Completed and merged` after PR #31 merged; duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation. M01.13 QA Domain Consistency is `Builder complete, awaiting QA` after producing `docs/status/M01_DOMAIN_CONSISTENCY.md`. Product implementation has not started.
 
 Current validation proves documentation and control-plane coherence only. It does not prove runtime reliability, financial correctness, replay determinism, repair safety, agent safety, observability, security, or production readiness.
 
@@ -243,7 +243,7 @@ These are future metrics. They are not currently implemented, measured, or valid
 
 M01.12 `docs/THREAT_MODEL.md` defines the threat model for the domain and has merged before M01.13 starts.
 
-M01.13 QA Domain Consistency remains and should verify `docs/DOMAIN_MODEL.md`, `docs/RELIABILITY.md`, `docs/THREAT_MODEL.md`, and all M01 domain docs are consistent.
+M01.13 QA Domain Consistency has verified `docs/DOMAIN_MODEL.md`, `docs/RELIABILITY.md`, `docs/THREAT_MODEL.md`, and all M01 domain docs for builder-side consistency. QA PASS, PR merge, and M01 closeout remain required before M01 can close.
 
 ## Guardrails for future implementation milestones
 

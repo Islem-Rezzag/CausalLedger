@@ -81,6 +81,7 @@ Current status:
 - `docs/status/OPEN_QUESTIONS.md`
 - `docs/status/M00_FREEZE_READINESS.md`
 - `docs/status/M00_CLOSEOUT.md`
+- `docs/status/M01_DOMAIN_CONSISTENCY.md`
 
 Completed execution:
 
