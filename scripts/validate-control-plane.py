@@ -52,6 +52,7 @@ REQUIRED_FILES = [
     "docs/status/NEXT_RECOMMENDED_THREAD.md",
     "docs/status/M00_FREEZE_READINESS.md",
     "docs/status/M00_CLOSEOUT.md",
+    "docs/status/M01_DOMAIN_CONSISTENCY.md",
     "docs/milestones/SUBMILESTONE_REGISTRY.md",
     "plans/ROADMAP.md",
     "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
@@ -372,7 +373,7 @@ REQUIRED_TEXT = {
         "M01.10 is `Completed and merged`",
         "M01.11 is `Completed and merged`",
         "M01.12 is `Completed and merged`",
-        "M01.13 remains planned scope only and is not started",
+        "M01.13 is QA passed awaiting merge",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
@@ -1238,6 +1239,40 @@ REQUIRED_TEXT = {
         "Chargeback affects settlement",
         "No product functionality",
     ],
+    "docs/status/M01_DOMAIN_CONSISTENCY.md": [
+        "## Purpose",
+        "## Scope",
+        "## Checked Files",
+        "## Current Milestone Status",
+        "## Completed M01 Submilestones",
+        "## Remaining M01 Status",
+        "## Product Implementation Status",
+        "## Terminology Consistency Results",
+        "## Domain Boundary Consistency Results",
+        "## Reliability Consistency Results",
+        "## Threat Model Consistency Results",
+        "## AI Boundary Consistency Results",
+        "## Evaluation And Ablation Consistency Results",
+        "## Versioning Consistency Results",
+        "## Roadmap And Registry Consistency Results",
+        "## Spec Placeholder Consistency Results",
+        "## Missing CI And Production Feature Consistency Results",
+        "## Forbidden-Scope Verification",
+        "## Unresolved Issues",
+        "## Recommendation For M01 Closeout Readiness",
+        "M01.12 Write THREAT_MODEL.md is `Completed and merged`",
+        "Duplicate PR merges #32 and #33",
+        "M01.13 QA Domain Consistency is the current submilestone",
+        "QA passed, awaiting merge",
+        "Product implementation has not started",
+        "No GitHub Actions or CI workflows exist",
+        "No runtime tests, APIs, database schemas, deployment, auth/authz runtime",
+        "LLM output is not evidence",
+        "Dangerous ablations are offline negative controls only",
+        "MoneyFlowBench implementation is future work",
+        "M02 through M21 remain `Not started`",
+        "M01 is not ready for closeout yet",
+    ],
     "docs/DOMAIN_MODEL.md": [
         "## Status",
         "## Product thesis",
@@ -1262,7 +1297,7 @@ REQUIRED_TEXT = {
         "M01.10 is `Completed and merged`",
         "M01.11 is `Completed and merged`",
         "M01.12 has written `docs/THREAT_MODEL.md` as the threat model for the domain",
-        "M01.13 QA Domain Consistency remains",
+        "M01.13 QA Domain Consistency has produced",
         "The whole M01 milestone is not complete yet",
         "Product implementation has not started",
         "docs/RELIABILITY.md",
@@ -1316,7 +1351,7 @@ REQUIRED_TEXT = {
         "## Guardrails for future implementation milestones",
         "Current validation proves documentation and control-plane coherence only",
         "M01.12 has written the CausalLedger threat model",
-        "M01.13 QA Domain Consistency remains",
+        "M01.13 QA Domain Consistency is `QA passed, awaiting merge`",
         "Product implementation has not started",
         "LLM memos are explanations only",
         "Event identity and idempotency checks",
@@ -1807,8 +1842,20 @@ def closeout_state_errors():
         (line for line in registry.splitlines() if line.startswith("| M01.13 |")),
         "",
     )
-    if "Not started" not in row:
-        errors.append("M01.13 is not Not started after M01.12 finalization")
+    for phrase in [
+        "QA passed, awaiting merge",
+        "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "m01-13-qa-domain-consistency",
+        "docs/status/M01_DOMAIN_CONSISTENCY.md",
+        "validate-control-plane passed",
+        "pytest passed",
+        "git diff --check passed",
+        "make unavailable",
+        "No product implementation",
+        "M01 closeout still required after M01.13 PR merge",
+    ]:
+        if phrase not in row:
+            errors.append(f"M01.13 registry row missing QA marker: {phrase}")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -1902,16 +1949,16 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "M01.13 Builder - QA Domain Consistency" not in next_thread:
-        errors.append("Next recommended thread is not M01.13 Builder - QA Domain Consistency")
+    if "Merge M01.13 PR - Domain Consistency" not in next_thread:
+        errors.append("Next recommended thread is not Merge M01.13 PR - Domain Consistency")
     if "M01.11 is `Completed and merged`" not in next_thread:
         errors.append("Next recommended thread does not record M01.11 as Completed and merged")
     if "M01.12 Write THREAT_MODEL.md is `Completed and merged`" not in next_thread:
         errors.append("Next recommended thread does not record M01.12 as Completed and merged")
-    if "M01.13 is `Not started`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.13 as Not started")
-    if "after this post-merge finalization PR is merged and local main is updated" not in next_thread:
-        errors.append("Next recommended thread does not require finalization PR merge before M01.13")
+    if "M01.13 is `QA passed, awaiting merge`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.13 as QA passed awaiting merge")
+    if "M01 closeout is not started and remains required after M01.13 PR merge" not in next_thread:
+        errors.append("Next recommended thread does not preserve M01 closeout boundary")
     if "Do not start M02" not in next_thread:
         errors.append("Next recommended thread does not block M02 later work")
 
