@@ -37,58 +37,59 @@ The QA pass checked M01 documentation consistency across:
 14. `docs/status/RISK_REGISTER.md`
 15. `docs/status/OPEN_QUESTIONS.md`
 16. `docs/status/CAPABILITY_MATRIX.md`
-17. `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`
-18. `plans/completed/CLP-0001-m00-repo-operating-system.md`
-19. `docs/milestones/M01.md`
-20. `docs/milestones/SUBMILESTONE_REGISTRY.md`
-21. `docs/DOMAIN_MODEL.md`
-22. `docs/RELIABILITY.md`
-23. `docs/THREAT_MODEL.md`
-24. `docs/ARCHITECTURE.md`
-25. `docs/PROJECT_BRIEF.md`
-26. `docs/PRODUCT_VISION.md`
-27. `docs/TOKEN_COST_STRATEGY.md`
-28. `docs/VERSIONING.md`
-29. `docs/releases/RELEASE_LADDER.md`
-30. `docs/releases/V1_SCOPE.md`
-31. `docs/domain/README.md`
-32. `docs/domain/payment-lifecycle.md`
-33. `docs/domain/ledger-vocabulary.md`
-34. `docs/domain/settlement-vocabulary.md`
-35. `docs/domain/reconciliation-vocabulary.md`
-36. `docs/domain/incident-vocabulary.md`
-37. `docs/domain/repair-vocabulary.md`
-38. `docs/domain/evidence-receipt-model.md`
-39. `docs/domain/human-review-states.md`
-40. `docs/domain/out-of-scope-domains.md`
-41. `docs/evals/ABLATION_STRATEGY.md`
-42. `docs/evals/ABLATION_MATRIX.md`
-43. `docs/evals/MONEYFLOWBENCH_SPEC.md`
-44. `docs/evals/SCENARIO_FORMAT.md`
-45. `docs/evals/SCORING_RUBRIC.md`
-46. `docs/evals/REPAIR_SAFETY_TESTS.md`
-47. `docs/evals/HALLUCINATION_TESTS.md`
-48. `docs/evals/COST_BENCHMARKS.md`
-49. `docs/specs/money-event-schema.md`
-50. `docs/specs/ledger-transaction-schema.md`
-51. `docs/specs/invariant-spec.md`
-52. `docs/specs/incident-schema.md`
-53. `docs/specs/causal-graph-spec.md`
-54. `docs/specs/replay-session-schema.md`
-55. `docs/specs/repair-plan-schema.md`
-56. `docs/specs/evidence-bundle-schema.md`
-57. `prompts/template_builder_submilestone.md`
-58. `prompts/template_qa_submilestone.md`
-59. `prompts/template_handoff_packet.md`
-60. `prompts/template_milestone_closeout.md`
-61. `scripts/validate-control-plane.py`
-62. `tests/test_control_plane_bootstrap.py`
+17. `docs/status/M01_DOMAIN_CONSISTENCY.md`
+18. `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`
+19. `plans/completed/CLP-0001-m00-repo-operating-system.md`
+20. `docs/milestones/M01.md`
+21. `docs/milestones/SUBMILESTONE_REGISTRY.md`
+22. `docs/DOMAIN_MODEL.md`
+23. `docs/RELIABILITY.md`
+24. `docs/THREAT_MODEL.md`
+25. `docs/ARCHITECTURE.md`
+26. `docs/PROJECT_BRIEF.md`
+27. `docs/PRODUCT_VISION.md`
+28. `docs/TOKEN_COST_STRATEGY.md`
+29. `docs/VERSIONING.md`
+30. `docs/releases/RELEASE_LADDER.md`
+31. `docs/releases/V1_SCOPE.md`
+32. `docs/domain/README.md`
+33. `docs/domain/payment-lifecycle.md`
+34. `docs/domain/ledger-vocabulary.md`
+35. `docs/domain/settlement-vocabulary.md`
+36. `docs/domain/reconciliation-vocabulary.md`
+37. `docs/domain/incident-vocabulary.md`
+38. `docs/domain/repair-vocabulary.md`
+39. `docs/domain/evidence-receipt-model.md`
+40. `docs/domain/human-review-states.md`
+41. `docs/domain/out-of-scope-domains.md`
+42. `docs/evals/ABLATION_STRATEGY.md`
+43. `docs/evals/ABLATION_MATRIX.md`
+44. `docs/evals/MONEYFLOWBENCH_SPEC.md`
+45. `docs/evals/SCENARIO_FORMAT.md`
+46. `docs/evals/SCORING_RUBRIC.md`
+47. `docs/evals/REPAIR_SAFETY_TESTS.md`
+48. `docs/evals/HALLUCINATION_TESTS.md`
+49. `docs/evals/COST_BENCHMARKS.md`
+50. `docs/specs/money-event-schema.md`
+51. `docs/specs/ledger-transaction-schema.md`
+52. `docs/specs/invariant-spec.md`
+53. `docs/specs/incident-schema.md`
+54. `docs/specs/causal-graph-spec.md`
+55. `docs/specs/replay-session-schema.md`
+56. `docs/specs/repair-plan-schema.md`
+57. `docs/specs/evidence-bundle-schema.md`
+58. `prompts/template_builder_submilestone.md`
+59. `prompts/template_qa_submilestone.md`
+60. `prompts/template_handoff_packet.md`
+61. `prompts/template_milestone_closeout.md`
+62. `scripts/validate-control-plane.py`
+63. `tests/test_control_plane_bootstrap.py`
 
 ## Current Milestone Status
 
 M00 is completed and tagged as `v0.1.0`. M01 planning is complete and merged. M01 is the active milestone. The active M01 plan is `plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md`. The completed M00 plan remains at `plans/completed/CLP-0001-m00-repo-operating-system.md`.
 
-M01.12 Write THREAT_MODEL.md is `Completed and merged` after PR #31 merged. Duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation. M01.13 QA Domain Consistency is the current submilestone.
+M01.12 Write THREAT_MODEL.md is `Completed and merged` after PR #31 merged. Duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation. M01.13 QA Domain Consistency is the current submilestone and is `QA passed, awaiting merge`.
 
 ## Completed M01 Submilestones
 
@@ -107,7 +108,7 @@ M01.12 Write THREAT_MODEL.md is `Completed and merged` after PR #31 merged. Dupl
 
 ## Remaining M01 Status
 
-M01.13 QA Domain Consistency is `Builder complete, awaiting QA` after this report and validation update. M01 is not complete. M01 closeout remains required after M01.13 QA PASS and PR merge. The active M01 plan must remain in `plans/active/` until milestone closeout criteria are satisfied.
+M01.13 QA Domain Consistency is `QA passed, awaiting merge` after same-branch QA. M01.13 must not become `Completed and merged` until PR merge and post-merge tracking finalization. M01 is not complete. M01 closeout remains required after M01.13 PR merge. The active M01 plan must remain in `plans/active/` until milestone closeout criteria are satisfied.
 
 ## Product Implementation Status
 
@@ -173,6 +174,10 @@ PASS. Current docs truthfully represent that no GitHub Actions or CI workflows e
 
 PASS. This submilestone did not add product code, runtime schemas, APIs, databases, ledgers, invariants, agents, UI, connectors, GitHub Actions, CI workflows, deployment, auth/authz runtime, evidence ingestion runtime, benchmark runner, or product behavior.
 
+## QA Validation Results
+
+PASS. M01.13 QA validation ran `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 30 tests, and `git diff --check` successfully. `make bootstrap-check` could not run because `make` is unavailable in the current Windows shell; the direct Python validation and pytest commands ran instead.
+
 ## Unresolved Issues
 
 No blocking domain consistency issues were found.
@@ -181,4 +186,4 @@ The M01.12 duplicate PR merges #32 and #33 remain recorded as a process deviatio
 
 ## Recommendation For M01 Closeout Readiness
 
-M01 is not ready for closeout yet because M01.13 still requires QA PASS and PR merge. After M01.13 QA passes and the PR merges, M01 should be ready for an M01 closeout thread that verifies final validation evidence, confirms no product implementation started, keeps M02 through M21 `Not started`, and only then decides whether the active M01 plan can move to completed.
+M01 is not ready for closeout yet because M01.13 still requires PR merge and post-merge tracking finalization. PR #35 is ready for merge after QA PASS. After M01.13 merges, M01 should be ready for an M01 closeout thread that verifies final validation evidence, confirms no product implementation started, keeps M02 through M21 `Not started`, and only then decides whether the active M01 plan can move to completed.

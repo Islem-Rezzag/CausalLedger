@@ -252,7 +252,7 @@ def test_active_m01_plan_lists_planned_submilestones_and_scope_boundary():
         "M01.10 is `Completed and merged`",
         "M01.11 is `Completed and merged`",
         "M01.12 is `Completed and merged`",
-        "M01.13 is builder complete awaiting QA",
+        "M01.13 is QA passed awaiting merge",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
         "docs/domain/settlement-vocabulary.md",
@@ -428,7 +428,7 @@ def test_m01_reliability_model_is_documentation_only():
         "## Guardrails for future implementation milestones",
         "Current validation proves documentation and control-plane coherence only",
         "M01.12 has written the CausalLedger threat model",
-        "M01.13 QA Domain Consistency is `Builder complete, awaiting QA`",
+        "M01.13 QA Domain Consistency is `QA passed, awaiting merge`",
         "Product implementation has not started",
         "LLM memos are explanations only",
         "Event identity and idempotency checks",
@@ -570,7 +570,7 @@ def test_m01_domain_consistency_report_is_documentation_only():
         "M01.12 Write THREAT_MODEL.md is `Completed and merged`",
         "Duplicate PR merges #32 and #33",
         "M01.13 QA Domain Consistency is the current submilestone",
-        "Builder complete, awaiting QA",
+        "QA passed, awaiting merge",
         "Product implementation has not started",
         "No GitHub Actions or CI workflows exist",
         "No runtime tests, APIs, database schemas, deployment, auth/authz runtime",
@@ -2349,7 +2349,7 @@ def test_m00_closeout_state_is_coherent():
     assert "No product implementation or runtime security behavior" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M01.13 |"))
-    assert "Builder complete, awaiting QA" in row
+    assert "QA passed, awaiting merge" in row
     assert "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md" in row
     assert "m01-13-qa-domain-consistency" in row
     assert "docs/status/M01_DOMAIN_CONSISTENCY.md" in row
@@ -2358,7 +2358,7 @@ def test_m00_closeout_state_is_coherent():
     assert "git diff --check passed" in row
     assert "make unavailable" in row
     assert "No product implementation" in row
-    assert "M01 closeout still required after QA PASS and merge" in row
+    assert "M01 closeout still required after M01.13 PR merge" in row
 
     for milestone in range(2, 22):
         for row in [
@@ -2392,7 +2392,7 @@ def test_m00_closeout_state_is_coherent():
         "M01.10 Write DOMAIN_MODEL.md is `Completed and merged`",
         "M01.11 Write RELIABILITY.md is `Completed and merged`",
         "M01.12 Write THREAT_MODEL.md is `Completed and merged`",
-        "M01.13 QA Domain Consistency is `Builder complete, awaiting QA`",
+        "M01.13 QA Domain Consistency is `QA passed, awaiting merge`",
     ]:
         assert phrase in current_state
 

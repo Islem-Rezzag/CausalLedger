@@ -373,7 +373,7 @@ REQUIRED_TEXT = {
         "M01.10 is `Completed and merged`",
         "M01.11 is `Completed and merged`",
         "M01.12 is `Completed and merged`",
-        "M01.13 is builder complete awaiting QA",
+        "M01.13 is QA passed awaiting merge",
         "M02 through M21 remain `Not started`",
         "docs/domain/payment-lifecycle.md",
         "docs/domain/ledger-vocabulary.md",
@@ -1263,7 +1263,7 @@ REQUIRED_TEXT = {
         "M01.12 Write THREAT_MODEL.md is `Completed and merged`",
         "Duplicate PR merges #32 and #33",
         "M01.13 QA Domain Consistency is the current submilestone",
-        "Builder complete, awaiting QA",
+        "QA passed, awaiting merge",
         "Product implementation has not started",
         "No GitHub Actions or CI workflows exist",
         "No runtime tests, APIs, database schemas, deployment, auth/authz runtime",
@@ -1351,7 +1351,7 @@ REQUIRED_TEXT = {
         "## Guardrails for future implementation milestones",
         "Current validation proves documentation and control-plane coherence only",
         "M01.12 has written the CausalLedger threat model",
-        "M01.13 QA Domain Consistency is `Builder complete, awaiting QA`",
+        "M01.13 QA Domain Consistency is `QA passed, awaiting merge`",
         "Product implementation has not started",
         "LLM memos are explanations only",
         "Event identity and idempotency checks",
@@ -1843,7 +1843,7 @@ def closeout_state_errors():
         "",
     )
     for phrase in [
-        "Builder complete, awaiting QA",
+        "QA passed, awaiting merge",
         "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "m01-13-qa-domain-consistency",
         "docs/status/M01_DOMAIN_CONSISTENCY.md",
@@ -1852,10 +1852,10 @@ def closeout_state_errors():
         "git diff --check passed",
         "make unavailable",
         "No product implementation",
-        "M01 closeout still required after QA PASS and merge",
+        "M01 closeout still required after M01.13 PR merge",
     ]:
         if phrase not in row:
-            errors.append(f"M01.13 registry row missing builder marker: {phrase}")
+            errors.append(f"M01.13 registry row missing QA marker: {phrase}")
 
     for milestone in range(2, 22):
         prefix = f"| M{milestone:02}."
@@ -1949,15 +1949,15 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "M01.13 QA - Domain Consistency" not in next_thread:
-        errors.append("Next recommended thread is not M01.13 QA - Domain Consistency")
+    if "Merge M01.13 PR - Domain Consistency" not in next_thread:
+        errors.append("Next recommended thread is not Merge M01.13 PR - Domain Consistency")
     if "M01.11 is `Completed and merged`" not in next_thread:
         errors.append("Next recommended thread does not record M01.11 as Completed and merged")
     if "M01.12 Write THREAT_MODEL.md is `Completed and merged`" not in next_thread:
         errors.append("Next recommended thread does not record M01.12 as Completed and merged")
-    if "M01.13 is `Builder complete, awaiting QA`" not in next_thread:
-        errors.append("Next recommended thread does not record M01.13 as Builder complete awaiting QA")
-    if "M01 closeout is not started and remains required after M01.13 QA PASS and PR merge" not in next_thread:
+    if "M01.13 is `QA passed, awaiting merge`" not in next_thread:
+        errors.append("Next recommended thread does not record M01.13 as QA passed awaiting merge")
+    if "M01 closeout is not started and remains required after M01.13 PR merge" not in next_thread:
         errors.append("Next recommended thread does not preserve M01 closeout boundary")
     if "Do not start M02" not in next_thread:
         errors.append("Next recommended thread does not block M02 later work")

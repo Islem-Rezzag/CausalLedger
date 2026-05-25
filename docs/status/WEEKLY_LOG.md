@@ -1,5 +1,18 @@
 # Weekly Log
 
+## 2026-05-25
+
+- Completed M01.13 QA Domain Consistency on branch `m01-13-qa-domain-consistency`; branch guard passed, the starting worktree was clean, latest commit was `254bdcd`, remote `origin` points to GitHub, and tag `v0.1.0` exists.
+- QA verified the domain consistency report, DOMAIN_MODEL, RELIABILITY, THREAT_MODEL, M01 domain docs, eval docs, spec placeholders, roadmap, registry, active plan, status docs, validation coverage, and forbidden-scope boundaries.
+- Fixed the scoped report defect where `docs/status/M01_DOMAIN_CONSISTENCY.md` did not list itself in the checked-file list.
+- Updated tracking/status docs so M01.13 is `QA passed, awaiting merge`; M01 remains active, M01 closeout remains required after M01.13 PR merge, M02 through M21 remain `Not started`, and product implementation has not started.
+- Ran `python scripts/validate-control-plane.py` successfully for M01.13 QA.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 30 tests for M01.13 QA.
+- Ran `git diff --check` successfully for M01.13 QA.
+- Skipped `make bootstrap-check` for M01.13 QA because `make` is unavailable in the current Windows shell.
+- Verified PR #35 is open for branch `m01-13-qa-domain-consistency` using the GitHub API.
+- Recommended next thread: `Merge M01.13 PR - Domain Consistency`, then `M01 Closeout - Domain Model and Scope Freeze` after merge confirmation.
+
 ## 2026-05-23
 
 - Started M01.13 QA Domain Consistency builder on branch `m01-13-qa-domain-consistency`; branch guard passed, the starting worktree was clean, latest commit was `686f69b`, remote `origin` points to GitHub, and tag `v0.1.0` exists.
