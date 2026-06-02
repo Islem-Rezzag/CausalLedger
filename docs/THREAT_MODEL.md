@@ -151,6 +151,7 @@ High-level categories for future implementation and evaluation:
 - Evidence integrity threats.
 - Provenance threats.
 - Prompt injection threats.
+- Live-processing threats.
 - Tool misuse threats.
 - Authorization threats.
 - Repair safety threats.
@@ -187,6 +188,22 @@ Evidence threats include:
 Why this matters: evidence is the starting point for future incident records, replay inputs, repair proposals, human review decisions, and audit explanations. If evidence is incomplete, altered, deleted, misattributed, over-redacted, under-redacted, or poisoned, CausalLedger can produce plausible but unsafe narratives.
 
 Planned mitigations include future evidence receipts, source payload hashes, provenance metadata, chain-of-custody metadata, append-only handling, evidence gap tracking, evidence conflict preservation, confidentiality classes, redaction boundaries, and human review when evidence is missing or contradictory. These are future controls, not implemented mechanisms.
+
+## Live-processing threats
+
+Live-processing threats include:
+
+- Premature incident confirmation.
+- False positive during delayed settlement.
+- Out-of-order event causing wrong early diagnosis.
+- Stale stream event overriding newer evidence.
+- Duplicate webhook creating duplicate incident.
+- Real-time alert fatigue.
+- Live event poisoning.
+
+Why this matters: future live lifecycle observation can surface suspected breaks before all settlement and bank evidence has arrived. Early alerts are useful only if they preserve uncertainty, ordering, idempotency, source identity, freshness, and later correction paths.
+
+Planned mitigations include progressive certainty states, idempotency, source ordering metadata, stale-event handling, evidence freshness checks, duplicate incident prevention, alert tuning, poisoned-evidence tests, and human review. These mitigations are planned only; this document does not claim they are implemented.
 
 ## Ledger and financial truth threats
 
@@ -450,6 +467,10 @@ Planned mitigations include branch guards, builder/QA protocol, post-merge final
 | Human approval without authority | Human review decisions, human review boundary | Medium | Critical | Reviewer identity, role authority, approval scope, audit trail, escalation | M13, M18 |
 | Hallucinated root cause | Agent outputs, incident records | High | High | Evidence-ID requirements, structured outputs, critic agents, hallucination tests | M11, M14, M18 |
 | Prompt injection in provider payload | LLM context boundary, evidence ingestion boundary | Medium | High | Evidence/tool separation, instruction hierarchy, prompt-injection tests, forbidden-tool guards | M10, M14, M18 |
+| Premature incident confirmation | Incident certainty state, live evidence boundary | Medium | High | Progressive certainty states, delayed-evidence handling, and closure requirements | M05, M07, M09, M13, M18 |
+| Out-of-order or stale live event | Living causal timeline, incident state, replay ordering | Medium | High | Source timestamps, observed timestamps, idempotency, stale-event rules, and replay ordering checks | M03, M05, M07, M08, M09 |
+| Duplicate webhook creates duplicate incident | Evidence ingestion boundary, incident deduplication | Medium | High | Event IDs, idempotency keys, duplicate detection, and incident deduplication | M03, M06, M07 |
+| Live event poisoning | Evidence ingestion boundary, LLM context boundary | Medium | High | Treat evidence text as untrusted, preserve provenance, run poisoned-evidence tests, and require evidence-linked conclusions | M10, M14, M18 |
 | Forbidden write tool exposed to AI | Agent tool boundary, production money movement boundary | Low | Critical | Tool contracts, explicit permissions, read-only SQL enforcement, negative permission tests | M10, M18 |
 | Customer or merchant data leaked | Model inputs/outputs, prompt logs, audit trails | Medium | High | Confidentiality classes, redaction, least-necessary context, future access controls | M16, M18, M19 |
 | Secrets exposed in repo or prompts | Secrets and credentials, local development environment | Medium | Critical | `.env.example`, no real secrets, secrets scanning in future, connector credential boundaries | M16, M18, M19 |

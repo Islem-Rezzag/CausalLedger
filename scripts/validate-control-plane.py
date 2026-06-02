@@ -56,6 +56,7 @@ REQUIRED_FILES = [
     "docs/status/M01_CLOSEOUT.md",
     "docs/milestones/SUBMILESTONE_REGISTRY.md",
     "plans/ROADMAP.md",
+    "plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md",
     "plans/completed/CLP-0001-m00-repo-operating-system.md",
     "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
     "plans/templates/execplan-template.md",
@@ -166,6 +167,9 @@ ADR_FILES = [
     "docs/decisions/ADR-0002-llm-cannot-mutate-money.md",
     "docs/decisions/ADR-0003-deterministic-invariants-first.md",
     "docs/decisions/ADR-0004-codex-threading-model.md",
+    "docs/decisions/ADR-0005-m02-stack-and-monorepo-direction.md",
+    "docs/decisions/ADR-0006-local-dev-and-ci-baseline.md",
+    "docs/decisions/ADR-0007-logging-error-handling-and-observability-direction.md",
 ]
 
 SKILLS = [
@@ -1559,7 +1563,7 @@ REQUIRED_TEXT = {
         "docs/releases/V1_SCOPE.md",
         "CHANGELOG.md",
         "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
-        "Current active milestone planning plan: none",
+        "Current active milestone planning plan: `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`",
     ],
     ".github/PULL_REQUEST_TEMPLATE.md": [
         "# Submilestone",
@@ -1593,6 +1597,91 @@ REQUIRED_TEXT = {
         "GitHub reviewer approvals may remain off",
         "QA thread discipline still applies",
     ],
+    "plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md": [
+        "M02 Monorepo and Local Development Environment",
+        "continuous payment lifecycle observability",
+        "living causal timeline",
+        "Live Monitoring and Historical Replay Planning Boundary",
+        "same future canonical event engine",
+        "Progressive Incident Certainty Planning Boundary",
+        "OrbitSoft-Readiness Constraints",
+        "M02.01 | Choose backend and frontend stack | Not started",
+        "M02.20 | QA dev environment | Not started",
+        "M02 Planning QA - Monorepo and Local Development Environment",
+        "No runtime logging or error-handling code is implemented",
+        "This planning thread must not create `.github/workflows/`",
+    ],
+    "docs/PROJECT_BRIEF.md": [
+        "progressive certainty",
+        "suspected break",
+        "confirm the break",
+        "dismiss it as a false positive",
+        "keep it unresolved due to missing evidence",
+        "post-settlement confirmation",
+    ],
+    "docs/ARCHITECTURE.md": [
+        "Live event stream and historical replay inputs",
+        "same canonical event engine",
+        "difference is input timing",
+        "does not implement event streaming",
+    ],
+    "docs/DOMAIN_MODEL.md": [
+        "continuous lifecycle observation",
+        "living causal timeline update",
+        "suspected, confirmed, dismissed, or unresolved break",
+        "closure or continued monitoring",
+    ],
+    "docs/domain/payment-lifecycle.md": [
+        "Live lifecycle observation vs historical replay",
+        "process lifecycle evidence as it arrives",
+        "replay it later from stored evidence",
+        "confirm a break, dismiss a suspected break, resolve it after delayed evidence arrives",
+    ],
+    "docs/domain/ledger-vocabulary.md": [
+        "Ledger records may arrive during the payment lifecycle",
+        "before settlement is complete",
+        "deterministic checks and later reconciliation evidence",
+    ],
+    "docs/RELIABILITY.md": [
+        "Progressive certainty reliability",
+        "suspected break",
+        "evidence missing",
+        "evidence delayed",
+        "contradictory evidence",
+        "confirmed mismatch",
+        "resolved after later evidence",
+        "unresolved pending review",
+        "must not promote suspicion into final truth",
+    ],
+    "docs/THREAT_MODEL.md": [
+        "Live-processing threats",
+        "Premature incident confirmation",
+        "False positive during delayed settlement",
+        "Out-of-order event causing wrong early diagnosis",
+        "Stale stream event overriding newer evidence",
+        "Duplicate webhook creating duplicate incident",
+        "Real-time alert fatigue",
+        "Live event poisoning",
+        "does not claim they are implemented",
+    ],
+    "docs/releases/V1_SCOPE.md": [
+        "At least one simulated payment lifecycle that starts normal, becomes suspicious, and is later confirmed, dismissed, resolved, or kept unresolved through settlement and bank evidence",
+    ],
+    "docs/decisions/ADR-0005-m02-stack-and-monorepo-direction.md": [
+        "Planning placeholder",
+        "M02 must choose the backend stack",
+        "Do not implement product code in this ADR",
+    ],
+    "docs/decisions/ADR-0006-local-dev-and-ci-baseline.md": [
+        "Planning placeholder",
+        "Do not create `.github/workflows/`",
+        "Do not claim CI/CD exists",
+    ],
+    "docs/decisions/ADR-0007-logging-error-handling-and-observability-direction.md": [
+        "Planning placeholder",
+        "OrbitSoft feedback",
+        "Do not implement runtime logging",
+    ],
 }
 
 
@@ -1624,6 +1713,7 @@ def closeout_state_errors():
     active_plan_dir = ROOT / "plans/active"
     active_m01_plan = ROOT / "plans/active/CLP-0002-m01-domain-model-and-scope-freeze.md"
     completed_m01_plan = ROOT / "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md"
+    active_m02_plan = ROOT / "plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md"
 
     if active_m00_plan.exists():
         errors.append("M00 plan still exists in plans/active after closeout")
@@ -1635,15 +1725,22 @@ def closeout_state_errors():
     if not completed_m01_plan.is_file():
         errors.append("Completed M01 plan is missing from plans/completed")
 
-    unexpected_active_plans = [
+    active_plans = [
         path.relative_to(ROOT).as_posix()
         for path in active_plan_dir.glob("CLP-*.md")
     ]
-    if unexpected_active_plans:
+    expected_active_plans = [
+        "plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md",
+    ]
+    if sorted(active_plans) != expected_active_plans:
         errors.append(
-            "Unexpected active milestone plans exist: "
-            + ", ".join(unexpected_active_plans)
+            "Unexpected active milestone plans: "
+            + ", ".join(active_plans)
+            + "; expected "
+            + ", ".join(expected_active_plans)
         )
+    if not active_m02_plan.is_file():
+        errors.append("M02 active planning plan is missing")
 
     registry = (ROOT / "docs/milestones/SUBMILESTONE_REGISTRY.md").read_text(
         encoding="utf-8"
@@ -1921,6 +2018,11 @@ def closeout_state_errors():
         or "| 13 | Completed |" not in roadmap
     ):
         errors.append("Roadmap does not mark M01 completed")
+    if (
+        "| M02 Monorepo and local development |" not in roadmap
+        or "| 20 | Planning in progress |" not in roadmap
+    ):
+        errors.append("Roadmap does not mark M02 planning in progress")
     if "Add v0.1.0 release" in registry or "Add v0.1.0 release" in roadmap:
         errors.append("Future public-launch wording still reuses v0.1.0")
 
@@ -1978,6 +2080,7 @@ def closeout_state_errors():
         ("docs/status/CURRENT_STATE.md", current_state),
         ("docs/status/NEXT_RECOMMENDED_THREAD.md", next_thread),
         ("docs/status/M01_CLOSEOUT.md", (ROOT / "docs/status/M01_CLOSEOUT.md").read_text(encoding="utf-8")),
+        ("plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md", active_m02_plan.read_text(encoding="utf-8")),
         ("README.md", (ROOT / "README.md").read_text(encoding="utf-8")),
         ("CHANGELOG.md", (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")),
     ]
@@ -1988,18 +2091,20 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "M02 Planning - Monorepo and Local Development Environment" not in next_thread:
-        errors.append("Next recommended thread is not M02 planning")
+    if "M02 Planning QA - Monorepo and Local Development Environment" not in next_thread:
+        errors.append("Next recommended thread is not M02 planning QA")
     if "M01 is completed and closed" not in next_thread:
         errors.append("Next recommended thread does not record M01 as completed and closed")
     if "M01.01 through M01.13 are `Completed and merged`" not in next_thread:
         errors.append("Next recommended thread does not record all M01 submilestones as completed")
     if "27c39b6" not in next_thread:
         errors.append("Next recommended thread does not record M01.13 merge commit")
-    if "M02 through M21 are `Not started`" not in next_thread:
+    if "M02.01 through M02.20 remain `Not started`" not in next_thread:
+        errors.append("Next recommended thread does not preserve M02 submilestone status")
+    if "M03 through M21 are `Not started`" not in next_thread:
         errors.append("Next recommended thread does not preserve future milestone status")
-    if "Do not create an M02 active plan until the M02 planning thread begins" not in next_thread:
-        errors.append("Next recommended thread does not block premature M02 active plan creation")
+    if "Do not start M02.01 Builder until M02 planning QA passes" not in next_thread:
+        errors.append("Next recommended thread does not block premature M02.01 implementation")
 
     domain_doc = ROOT / "docs/domain/payment-lifecycle.md"
     ledger_doc = ROOT / "docs/domain/ledger-vocabulary.md"

@@ -2,12 +2,12 @@
 
 ## Status
 
-Accepted as initial thesis.
+Accepted as initial thesis; refined by M02 planning for continuous lifecycle observation.
 
 ## Decision
 
-CausalLedger is an agentic financial incident-response and money-movement digital twin for fintech systems.
+CausalLedger is a planned continuous payment lifecycle observability and incident-response system for fintech money movement. It builds toward a living causal timeline from provider events, webhooks, ledger entries, settlement files, bank evidence, refunds, chargebacks, and provider failures.
 
 ## Consequences
 
-The repo prioritizes evidence, deterministic correctness, replay, repair safety, and human approval.
+The repo prioritizes evidence, deterministic correctness, living causal timelines, replay, repair safety, and human approval.

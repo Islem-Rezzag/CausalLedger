@@ -31,6 +31,7 @@ Reliability for CausalLedger covers the planned ability to keep these areas expl
 - Settlement and payout interpretation.
 - Reconciliation breaks.
 - Incident creation and triage.
+- Progressive incident certainty.
 - Evidence receipts and evidence bundles.
 - Causal graph references.
 - Replay sessions.
@@ -121,6 +122,12 @@ Where possible, incident records should capture affected amount, currency, objec
 
 Incident closure requires resolution evidence. Closure should not rely on an agent narrative alone. If evidence remains missing or replay cannot reproduce the incident state, the incident should remain open, be reopened, or be explicitly closed as unresolved through human review with recorded rationale.
 
+## Progressive certainty reliability
+
+Future incident reliability must avoid claiming final truth too early. CausalLedger should distinguish suspected break, evidence missing, evidence delayed, contradictory evidence, confirmed mismatch, resolved after later evidence, and unresolved pending review.
+
+Progressive certainty means early lifecycle evidence may justify a suspected break, but later settlement files, bank evidence, ledger records, refunds, chargebacks, or provider evidence can confirm the break, dismiss it as a false positive, resolve it after delayed evidence arrives, or leave it unresolved pending human review. CausalLedger must not promote suspicion into final truth through LLM confidence or operational urgency.
+
 ## Replay reliability
 
 Replay should reproduce the event sequence, evidence assumptions, ordering rules, clocks, snapshots, validator inputs, and incident state from explicit artifacts. A replay result is stronger than an agent narrative because it can be rerun and compared.
@@ -190,6 +197,8 @@ Threat-model mitigations remain future implementation dependencies unless a late
 | Duplicate provider event | Duplicate evidence can create duplicate lifecycle, ledger, settlement, or incident effects. | Event identity and idempotency checks with source references and evidence receipts. | M03, M06, M07 |
 | Missing evidence | Missing inputs can make a false narrative look complete. | Evidence gap recording, uncertainty flags, escalation, and reviewer questions. | M03, M07, M11, M13 |
 | Contradictory evidence | Conflicts can hide true incident state or cause unsafe repair proposals. | Conflict preservation, deterministic comparison, evidence bundles, and human review. | M07, M09, M13, M18 |
+| Premature final truth claim | Early evidence can look suspicious before settlement or bank evidence arrives. | Progressive certainty states, delayed-evidence handling, and human review before closure. | M05, M07, M09, M13, M18 |
+| Resolved after later evidence | A suspected break can become explainable after delayed settlement or bank evidence arrives. | Living causal timeline updates, evidence freshness, replay, and explicit resolution evidence. | M05, M07, M08, M09 |
 | Unbalanced ledger transaction | An unbalanced ledger claim breaks accounting reliability. | Double-entry validators and rejection of unsupported ledger postings. | M04, M06 |
 | Settlement payout mismatch | Payout differences can indicate missing fees, refunds, reserves, chargebacks, FX, or provider errors. | Settlement total checks, payout evidence linkage, and reconciliation exceptions. | M05, M06, M07 |
 | Bank posting mismatch | Bank-side cash evidence may not align with provider payout evidence. | Bank matching checks, unresolved exception handling, and incident creation when needed. | M05, M06, M07, M09 |

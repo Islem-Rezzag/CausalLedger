@@ -2,7 +2,7 @@
 
 ## Product thesis
 
-CausalLedger is an agentic financial incident-response and money-movement digital twin for fintech systems. It helps fintech teams find, prove, replay, and safely repair money-movement breaks across payments, ledgers, settlement files, bank statements, refunds, chargebacks, webhooks, and provider failures.
+CausalLedger is a planned continuous payment lifecycle observability and incident-response system for fintech money movement. It is designed to build a living causal timeline from provider events, webhooks, ledger entries, settlement files, bank evidence, refunds, chargebacks, and provider failures so teams can find, prove, replay, and safely review repairs for money-movement breaks.
 
 CausalLedger is not a bank, payment processor, ledger replacement, AML/KYC platform, fraud scoring engine, credit risk engine, tax or legal advisor, investment advisor, ERP replacement, treasury management system, or autonomous finance agent.
 
@@ -20,9 +20,11 @@ CausalLedger aims to reduce time spent tracing payment, ledger, settlement, bank
 
 ## Interview demo narrative
 
-A strong demo should show a fintech operator opening a money-movement incident, inspecting evidence, following a causal trace, seeing deterministic invariant failures, reading an evidence-grounded agent memo, replaying the incident, and reviewing a safe repair proposal that still requires human approval.
+A strong future demo should show a simulated payment moving through its lifecycle while CausalLedger observes provider events, ledger postings, settlement rows, and bank lines as evidence arrives. The story should show the system first flagging a suspected break, updating the living causal timeline as more evidence appears, and producing an evidence-backed incident report with replay context and a safe repair proposal that still requires human approval.
 
 A strong demo must not position CausalLedger as an AI accountant, autonomous finance agent, legal compliance autopilot, AI fraud engine, or AI that fixes money automatically.
+
+This demo narrative is not implemented yet.
 
 ## Open-source moat
 

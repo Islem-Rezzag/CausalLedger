@@ -91,7 +91,7 @@ Completed execution:
 
 Active execution:
 
-- No active milestone plan. M02 planning is the next recommended thread and must create its own active plan when it begins.
+- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md` - active M02 planning plan. M02.01 through M02.20 remain `Not started`.
 
 Plan state:
 

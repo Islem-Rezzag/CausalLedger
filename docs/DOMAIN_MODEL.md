@@ -10,7 +10,7 @@ Product implementation has not started. This file is documentation only and does
 
 ## Product thesis
 
-CausalLedger is an agentic financial incident-response and money-movement digital twin for fintech systems. It helps fintech teams find, prove, replay, and safely repair money-movement breaks across payments, ledgers, settlement files, bank statements, refunds, chargebacks, webhooks, and provider failures.
+CausalLedger is a planned continuous payment lifecycle observability and incident-response system for fintech money movement. It is designed to build a living causal timeline from provider events, webhooks, ledger entries, settlement files, bank evidence, refunds, chargebacks, and provider failures so teams can find, prove, replay, and safely review repairs for money-movement breaks.
 
 The safety thesis is non-negotiable: the LLM never owns financial truth.
 
@@ -31,10 +31,12 @@ Future milestones should read this file first, then follow the linked source doc
 CausalLedger domain scope includes:
 
 - payment lifecycle correctness;
+- continuous lifecycle observation;
 - ledger correctness evidence;
 - settlement and payout evidence;
 - reconciliation breaks;
-- financial incidents;
+- living causal timelines;
+- financial incidents and progressive certainty states;
 - evidence receipts and bundles;
 - safe repair proposal vocabulary;
 - human review states;
@@ -74,18 +76,20 @@ The detailed source documents remain authoritative for their own vocabulary boun
 
 ## Cross-domain lifecycle
 
-At a conceptual level, CausalLedger follows money movement through this domain story:
+At a conceptual level, CausalLedger follows money movement through this living lifecycle model:
 
 ```text
 payment lifecycle event
   -> evidence receipt
-  -> possible ledger movement
-  -> possible settlement or payout touchpoint
-  -> possible reconciliation match or break
-  -> possible incident
-  -> possible repair proposal
+  -> canonical MoneyEvent update
+  -> living causal timeline update
+  -> deterministic check
+  -> suspected, confirmed, dismissed, or unresolved break
+  -> incident if required
+  -> replay and evidence bundle
+  -> repair proposal if safe
   -> human review
-  -> replay or closure
+  -> closure or continued monitoring
 ```
 
 This is a conceptual model only. It does not define schemas, state machines, validators, graph edges, replay ordering, repair workflows, review permissions, storage, APIs, or product behavior.
@@ -190,7 +194,7 @@ The ablation strategy is planning only. M14 MoneyFlowBench will eventually test 
 
 ## Remaining M01 work
 
-No M01 submilestones remain. M02 planning is next, but M02 remains `Not started` until its planning thread begins.
+No M01 submilestones remain. M02 planning is in progress with active plan `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`, but M02.01 through M02.20 remain `Not started`.
 
 M01.12 has merged, duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation, and M01.13 QA plus M01 closeout synchronized the domain docs and tracking without starting product implementation.
 

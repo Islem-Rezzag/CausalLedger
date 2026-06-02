@@ -2,7 +2,7 @@
 
 ## Project thesis
 
-CausalLedger is an agentic financial incident-response and money-movement digital twin for fintech systems. It helps fintech teams find, prove, replay, and safely repair money-movement breaks across payments, ledgers, settlement files, bank statements, refunds, chargebacks, webhooks, and provider failures.
+CausalLedger is a planned continuous payment lifecycle observability and incident-response system for fintech money movement. It is designed to build a living causal timeline from provider events, webhooks, ledger entries, settlement files, bank evidence, refunds, chargebacks, and provider failures so teams can find, prove, replay, and safely review repairs for money-movement breaks.
 
 CausalLedger is not a payment processor, not a ledger replacement, not a generic reconciliation tool, not a fraud platform, not an AML platform, and not an autonomous finance agent.
 
@@ -49,6 +49,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/status/M01_DOMAIN_CONSISTENCY.md` - M01 domain consistency QA report.
 - `docs/status/M01_CLOSEOUT.md` - M01 closeout packet.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` - canonical M00-M21 submilestone registry.
+- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md` - active M02 planning plan.
 - `plans/completed/CLP-0001-m00-repo-operating-system.md` - completed M00 execution plan.
 - `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md` - completed M01 plan.
 - `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
@@ -102,4 +103,4 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-The repository has completed M00 and tagged the repo operating system foundation as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed after M01.01 through M01.13 completed and merged. The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`, and the M01 closeout packet lives at `docs/status/M01_CLOSEOUT.md`. M02 Planning - Monorepo and Local Development Environment is the next recommended thread, but M02 remains `Not started` until that planning thread begins. The repo contains docs, plans, prompt templates, skills, placeholder directories, GitHub templates, versioning docs, domain vocabulary, ablation planning docs, and control-plane validation only. It does not contain product functionality.
+The repository has completed M00 and tagged the repo operating system foundation as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed after M01.01 through M01.13 completed and merged. The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`, and the M01 closeout packet lives at `docs/status/M01_CLOSEOUT.md`. M02 Planning - Monorepo and Local Development Environment is in progress with active plan `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`; M02.01 through M02.20 remain `Not started`. The repo contains docs, plans, prompt templates, skills, placeholder directories, GitHub templates, versioning docs, domain vocabulary, ablation planning docs, and control-plane validation only. It does not contain product functionality.
