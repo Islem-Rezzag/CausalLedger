@@ -14,6 +14,14 @@ The lifecycle starts when a payment is requested by a merchant, platform, user, 
 
 The lifecycle covers payment movement vocabulary only. It can name lifecycle touchpoints for ledger, settlement, bank posting, and reconciliation, but it does not define those domains in full.
 
+## Live lifecycle observation vs historical replay
+
+CausalLedger may process lifecycle evidence as it arrives or replay it later from stored evidence. Both paths should use the same future MoneyEvent, invariant, incident, graph, replay, evidence, and repair-safety concepts.
+
+Live lifecycle observation can flag suspected breaks while evidence is still incomplete. Later settlement files, bank evidence, ledger records, refund records, chargeback records, or provider evidence can confirm a break, dismiss a suspected break, resolve it after delayed evidence arrives, or keep it unresolved when evidence remains missing or contradictory.
+
+This section is planning vocabulary only. It does not implement live ingestion, streaming, replay, incident creation, or timeline updates.
+
 ## What this document defines
 
 - Payment lifecycle actors.
@@ -23,6 +31,7 @@ The lifecycle covers payment movement vocabulary only. It can name lifecycle tou
 - Failure and exception path vocabulary.
 - Terminal and non-terminal lifecycle states.
 - Provider event perspective.
+- Live lifecycle observation vs historical replay.
 - Boundary notes for internal ledger, settlement, and reconciliation perspectives.
 - Evidence and uncertainty examples.
 - Correctness questions CausalLedger should ask about payment lifecycle.

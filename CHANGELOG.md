@@ -10,6 +10,7 @@ All notable CausalLedger release changes are recorded here.
 - Added M01 domain vocabulary and boundary documents for payment lifecycle, ledger, settlement, reconciliation, incidents, safe and unsafe repairs, evidence receipts, human review states, and out-of-scope domains.
 - Added canonical M01 domain, reliability, threat-model, and domain consistency QA documentation.
 - Added `docs/status/M01_CLOSEOUT.md` and closed M01 as documentation/control-plane work.
+- Started M02 planning with active plan `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`, continuous lifecycle observer alignment, and lightweight M02 planning ADR placeholders.
 - Product functionality remains not implemented.
 
 ## v0.1.0 - Repo Operating System Foundation

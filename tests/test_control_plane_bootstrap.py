@@ -57,8 +57,12 @@ def test_required_project_docs_exist():
         "docs/status/M01_DOMAIN_CONSISTENCY.md",
         "docs/status/M01_CLOSEOUT.md",
         "docs/milestones/SUBMILESTONE_REGISTRY.md",
+        "plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md",
         "plans/completed/CLP-0001-m00-repo-operating-system.md",
         "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
+        "docs/decisions/ADR-0005-m02-stack-and-monorepo-direction.md",
+        "docs/decisions/ADR-0006-local-dev-and-ci-baseline.md",
+        "docs/decisions/ADR-0007-logging-error-handling-and-observability-direction.md",
     ]:
         assert (ROOT / rel).is_file(), rel
 
@@ -191,6 +195,7 @@ def test_versioning_and_release_docs_are_coherent():
         "Minimum M17 cost and latency tracking for agent runs",
         "Minimum M18 proof that the LLM cannot mutate money",
         "Minimum M20 public README, demo script, architecture diagram, benchmark table, and launch-quality docs",
+        "At least one simulated payment lifecycle that starts normal, becomes suspicious",
         "At least one public ablation table",
         "`v1.0.0` must not require all M16-M21 work to be complete",
     ]:
@@ -416,6 +421,7 @@ def test_m01_reliability_model_is_documentation_only():
         "## Ledger and accounting reliability",
         "## Settlement and reconciliation reliability",
         "## Incident reliability",
+        "## Progressive certainty reliability",
         "## Replay reliability",
         "## Repair reliability",
         "## Human review reliability",
@@ -439,6 +445,7 @@ def test_m01_reliability_model_is_documentation_only():
         "total debits to equal total credits",
         "Bank posting is an external cash truth touchpoint",
         "Root-cause hypotheses are not confirmed facts without evidence",
+        "must not promote suspicion into final truth",
         "Safe-to-propose is not safe-to-apply",
         "AI cannot act as reviewer",
         "read-only tools by default",
@@ -455,6 +462,8 @@ def test_m01_reliability_model_is_documentation_only():
         "Duplicate provider event",
         "Missing evidence",
         "Contradictory evidence",
+        "Premature final truth claim",
+        "Resolved after later evidence",
         "Unbalanced ledger transaction",
         "Settlement payout mismatch",
         "Bank posting mismatch",
@@ -495,6 +504,7 @@ def test_m01_threat_model_is_documentation_only():
         "## Actors and adversaries",
         "## Threat categories",
         "## Evidence threats",
+        "## Live-processing threats",
         "## Ledger and financial truth threats",
         "## Settlement and reconciliation threats",
         "## Incident and replay threats",
@@ -529,6 +539,13 @@ def test_m01_threat_model_is_documentation_only():
         "Repair approval tool exposed",
         "API keys in repo",
         "offline-only ablation configs",
+        "Premature incident confirmation",
+        "False positive during delayed settlement",
+        "Out-of-order event causing wrong early diagnosis",
+        "Stale stream event overriding newer evidence",
+        "Duplicate webhook creating duplicate incident",
+        "Real-time alert fatigue",
+        "Live event poisoning",
         "Evidence integrity",
         "M03, M07, M08, M09, M18",
         "Do not expose write tools to AI agents unless explicitly scoped and guarded.",
@@ -640,6 +657,60 @@ def test_m01_closeout_packet_records_closed_state_without_product_claims():
         "M02 is started",
     ]:
         assert forbidden_claim not in closeout
+
+
+def test_m02_planning_artifacts_are_documentation_only():
+    plan = (
+        ROOT
+        / "plans"
+        / "active"
+        / "CLP-0003-m02-monorepo-and-local-development-environment.md"
+    ).read_text(encoding="utf-8")
+    registry = (
+        ROOT / "docs" / "milestones" / "SUBMILESTONE_REGISTRY.md"
+    ).read_text(encoding="utf-8")
+    roadmap = (ROOT / "plans" / "ROADMAP.md").read_text(encoding="utf-8")
+    next_thread = (
+        ROOT / "docs" / "status" / "NEXT_RECOMMENDED_THREAD.md"
+    ).read_text(encoding="utf-8")
+
+    for phrase in [
+        "M02 Monorepo and Local Development Environment",
+        "continuous payment lifecycle observability",
+        "living causal timeline",
+        "Live Monitoring and Historical Replay Planning Boundary",
+        "same future canonical event engine",
+        "Progressive Incident Certainty Planning Boundary",
+        "OrbitSoft-Readiness Constraints",
+        "M02.01 | Choose backend and frontend stack | Not started",
+        "M02.20 | QA dev environment | Not started",
+        "M02 Planning QA - Monorepo and Local Development Environment",
+        "This planning thread must not create `.github/workflows/`",
+    ]:
+        assert phrase in plan
+
+    for adr in [
+        "ADR-0005-m02-stack-and-monorepo-direction.md",
+        "ADR-0006-local-dev-and-ci-baseline.md",
+        "ADR-0007-logging-error-handling-and-observability-direction.md",
+    ]:
+        text = (ROOT / "docs" / "decisions" / adr).read_text(encoding="utf-8")
+        assert "Planning placeholder" in text
+        assert "Do not" in text
+
+    for index in range(1, 21):
+        row = next(
+            line for line in registry.splitlines() if line.startswith(f"| M02.{index:02} |")
+        )
+        assert "Not started" in row
+        assert "plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md" in row
+
+    assert "| M02 Monorepo and local development |" in roadmap
+    assert "| 20 | Planning in progress |" in roadmap
+    assert "M02.01 through M02.20 remain `Not started`" in next_thread
+    assert "M03 through M21 are `Not started`" in next_thread
+    assert "Do not start M02.01 Builder until M02 planning QA passes" in next_thread
+    assert not (ROOT / ".github" / "workflows").exists()
 
 
 def test_m01_ledger_vocabulary_domain_doc_is_documentation_only():
@@ -2250,12 +2321,16 @@ def test_m00_closeout_state_is_coherent():
         ROOT / "plans" / "completed" / "CLP-0001-m00-repo-operating-system.md"
     ).is_file()
     active_m01_plan = ROOT / "plans" / "active" / "CLP-0002-m01-domain-model-and-scope-freeze.md"
+    active_m02_plan = ROOT / "plans" / "active" / "CLP-0003-m02-monorepo-and-local-development-environment.md"
     completed_m01_plan = (
         ROOT / "plans" / "completed" / "CLP-0002-m01-domain-model-and-scope-freeze.md"
     )
     assert not active_m01_plan.exists()
+    assert active_m02_plan.is_file()
     assert completed_m01_plan.is_file()
-    assert [path.name for path in (ROOT / "plans" / "active").glob("CLP-*.md")] == []
+    assert [path.name for path in (ROOT / "plans" / "active").glob("CLP-*.md")] == [
+        "CLP-0003-m02-monorepo-and-local-development-environment.md"
+    ]
 
     for index in range(1, 9):
         submilestone = f"M00.{index:02}"
@@ -2268,6 +2343,8 @@ def test_m00_closeout_state_is_coherent():
     assert "| 8 | Completed |" in roadmap
     assert "| M01 Domain model and scope freeze |" in roadmap
     assert "| 13 | Completed |" in roadmap
+    assert "| M02 Monorepo and local development |" in roadmap
+    assert "| 20 | Planning in progress |" in roadmap
     assert "Add v0.1.0 release" not in registry
     assert "Prepare v1.0.0 public release" in registry
 
@@ -2419,6 +2496,10 @@ def test_m00_closeout_state_is_coherent():
             if line.startswith(f"| M{milestone:02}.")
         ]:
             assert "Not started" in row
+    for row in [
+        line for line in registry.splitlines() if line.startswith("| M02.")
+    ]:
+        assert "plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md" in row
 
     for phrase in [
         "M00 is a control-plane milestone",
@@ -2447,7 +2528,9 @@ def test_m00_closeout_state_is_coherent():
         "M01.11 Write RELIABILITY.md is `Completed and merged`",
         "M01.12 Write THREAT_MODEL.md is `Completed and merged`",
         "M01.13 QA Domain Consistency is `Completed and merged`",
-        "M02 through M21 remain `Not started`",
+        "M02 planning is in progress",
+        "M02.01 through M02.20 remain `Not started`",
+        "M03 through M21 remain `Not started`",
     ]:
         assert phrase in current_state
 

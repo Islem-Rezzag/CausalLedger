@@ -12,6 +12,7 @@ Minimum `v1.0.0` should include:
 - Minimum M17 cost and latency tracking for agent runs.
 - Minimum M18 proof that the LLM cannot mutate money.
 - Minimum M20 public README, demo script, architecture diagram, benchmark table, and launch-quality docs.
+- At least one simulated payment lifecycle that starts normal, becomes suspicious, and is later confirmed, dismissed, resolved, or kept unresolved through settlement and bank evidence.
 - At least one public ablation table for MoneyFlowBench or the first duplicate-webhook demo scenario, even if the full ablation suite is deferred.
 
 ## Optional v1.0.0 Stretch

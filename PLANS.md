@@ -32,7 +32,11 @@ Use `CLP-0001-short-name.md`. Increment the number monotonically and keep the sh
 - Completed plans move to `plans/completed/`.
 - Archived or stale plans move to `plans/archived/`.
 
-Current active milestone planning plan: none. The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`; M02 planning is next and must create its own active plan when it begins.
+Current active milestone planning plan: `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`.
+
+The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
+
+M02 planning is active on branch `m02-planning-monorepo-and-local-development-environment`. M02 planning is documentation/control-plane work only. M02.01 through M02.20 remain `Not started` until M02 planning QA passes, the planning PR merges, and a separate M02.01 builder thread begins.
 
 Progress is recorded in the active plan during the slice. Submilestone status is recorded in `docs/milestones/SUBMILESTONE_REGISTRY.md`, reflected in the relevant milestone doc, and summarized in `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md`.
 

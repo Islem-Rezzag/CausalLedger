@@ -45,6 +45,8 @@ Payment lifecycle vocabulary belongs to M01.01 and is defined in `docs/domain/pa
 
 Ledger vocabulary may reference payment lifecycle events, such as `payment_captured`, `refund_completed`, `chargeback_created`, `provider_payout_paid`, and `bank_posted`, because future ledger records should be explainable against lifecycle evidence.
 
+Ledger records may arrive during the payment lifecycle and may update the future causal timeline before settlement is complete. Ledger correctness remains subject to deterministic checks and later reconciliation evidence; an early ledger record is not final financial truth by itself.
+
 M01.02 does not redefine payment lifecycle phases and does not decide whether a lifecycle event should create a ledger posting.
 
 ## Relationship to future MoneyEvent schema

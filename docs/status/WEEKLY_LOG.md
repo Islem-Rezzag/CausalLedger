@@ -1,5 +1,34 @@
 # Weekly Log
 
+## 2026-06-08
+
+- Completed formal PR QA for M02 Planning - Monorepo and Local Development Environment on branch `m02-planning-monorepo-and-local-development-environment`; PR #37 is open at `https://github.com/Islem-Rezzag/CausalLedger/pull/37`.
+- Verified commit `64b1f7b` fixed the stale `PLANS.md` active-plan reference, and `PLANS.md` now points to `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`.
+- Confirmed M02 planning remains documentation/control-plane only; M02.01 through M02.20 remain `Not started`, and M03 through M21 remain `Not started`.
+- Confirmed product implementation has not started; no MoneyEvent runtime, ledger runtime, settlement runtime, reconciliation runtime, invariant engine, incident runtime, causal graph runtime, replay runtime, agent runtime, repair planner runtime, human-review runtime, API, database, UI feature, external connector, CI workflow, runtime logging, auth/authz runtime, deployment, monitoring, runtime security control, or product behavior exists.
+- Confirmed `apps/` and `packages/` contain placeholder documentation only and `.github/workflows/` does not exist.
+- Confirmed continuous lifecycle observer language, live monitoring, historical replay, progressive incident certainty, OrbitSoft-readiness mapping, and ADR-0005 through ADR-0007 remain future planning language only.
+- Ran `python scripts/validate-control-plane.py` successfully for M02 Planning QA.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 32 tests for M02 Planning QA.
+- Ran `git diff --check` successfully for M02 Planning QA.
+- Skipped `make bootstrap-check` for M02 Planning QA because `make` is unavailable in the current Windows shell.
+- Recommended next thread: `Merge M02 Planning PR - Monorepo and Local Development Environment`.
+
+## 2026-06-02
+
+- Started M02 planning on branch `m02-planning-monorepo-and-local-development-environment`; branch guard passed, the starting worktree was clean, latest history showed M01 closeout at `0d58f04`, remote `origin` points to GitHub, and tag `v0.1.0` exists.
+- Created `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md` as the M02 active planning plan.
+- Added lightweight M02 planning ADR placeholders for stack/monorepo direction, local development and CI baseline, and logging/error-handling/observability direction.
+- Aligned documentation with continuous payment lifecycle observability, living causal timeline, live/replay input timing, and progressive incident certainty as planning language only.
+- Mapped OrbitSoft-readiness feedback to future milestones without implementing product behavior.
+- Updated roadmap, M02 milestone doc, submilestone registry, current-state, next-thread, capability, tech-debt, risk, open-question, active-doc, index, changelog, validation script, and bootstrap tests for M02 planning.
+- Confirmed M02.01 through M02.20 remain `Not started`, M03 through M21 remain `Not started`, and product implementation has not started.
+- Ran `python scripts/validate-control-plane.py` successfully for M02 planning.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 32 tests for M02 planning.
+- Ran `git diff --check` successfully for M02 planning.
+- Skipped `make bootstrap-check` for M02 planning because `make` is unavailable in the current Windows shell.
+- Recommended next thread: `M02 Planning QA - Monorepo and Local Development Environment`.
+
 ## 2026-05-25
 
 - Started M01 closeout on branch `m01-closeout-domain-model-and-scope-freeze`; branch guard passed, the starting worktree was clean, latest history showed M01.13 merged at `27c39b6`, remote `origin` points to GitHub, and tag `v0.1.0` exists.

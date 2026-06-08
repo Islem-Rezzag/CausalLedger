@@ -1,6 +1,6 @@
 # CausalLedger
 
-CausalLedger is an agentic financial incident-response and money-movement digital twin for fintech systems. It helps fintech teams find, prove, replay, and safely repair money-movement breaks across payments, ledgers, settlement files, bank statements, refunds, chargebacks, webhooks, and provider failures.
+CausalLedger is a planned continuous payment lifecycle observability and incident-response system for fintech money movement. It is designed to build a living causal timeline from provider events, webhooks, ledger entries, settlement files, bank evidence, refunds, chargebacks, and provider failures so teams can find, prove, replay, and safely review repairs for money-movement breaks.
 
 CausalLedger is not a bank, payment processor, ledger replacement, AML/KYC platform, fraud scoring engine, credit risk engine, tax or legal advisor, investment advisor, ERP replacement, treasury management system, or autonomous finance agent.
 
@@ -12,14 +12,15 @@ CausalLedger helps fintech teams prove, replay, and safely repair money-movement
 
 ## Current status
 
-CausalLedger has completed M00 Repo Operating System and tagged it as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed after M01.01 through M01.13 completed and merged. The completed M01 plan is `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`, and the closeout packet is `docs/status/M01_CLOSEOUT.md`. M01.13 QA Domain Consistency merged at git commit `27c39b6` (`docs: run M01.13 domain consistency QA (#35)`). M01.01, M01.05, and M01.10 required post-merge QA recovery after builder PRs merged before QA; those recoveries completed before later submilestones proceeded. Duplicate M01.12 PR merges #32 and #33 from the same branch are recorded as a process deviation with no revert performed. M02 Monorepo and Local Development Environment is the next milestone, but it remains `Not started` until its planning thread creates an active plan.
+CausalLedger has completed M00 Repo Operating System and tagged it as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed after M01.01 through M01.13 completed and merged. The completed M01 plan is `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`, and the closeout packet is `docs/status/M01_CLOSEOUT.md`. M01.13 QA Domain Consistency merged at git commit `27c39b6` (`docs: run M01.13 domain consistency QA (#35)`). M01.01, M01.05, and M01.10 required post-merge QA recovery after builder PRs merged before QA; those recoveries completed before later submilestones proceeded. Duplicate M01.12 PR merges #32 and #33 from the same branch are recorded as a process deviation with no revert performed. M02 Monorepo and Local Development Environment planning is in progress, with active plan `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`. M02.01 through M02.20 remain `Not started`.
 
 This repository currently contains architecture, planning, prompt, skill, milestone, status, GitHub template, versioning, and validation scaffolding only. No product functionality, evidence ingestion runtime, evidence storage layer, MoneyEvent logic, ledger logic, invariants, incident engine, causal graph, replay engine, agent runtime, repair planner runtime, repair execution, UI, APIs, databases, runtime tests, GitHub Actions, CI workflows, deployment, auth/authz runtime, structured logging, monitoring, runtime security controls, secrets, or external connectors exist yet.
 
 ## What CausalLedger is
 
 - A planned financial incident-response system.
-- A planned money-movement digital twin.
+- A planned continuous payment lifecycle observer.
+- A planned money-movement digital twin with a living causal timeline.
 - A planned causal debugging layer for payment operations.
 - A planned deterministic financial correctness engine.
 - A planned agentic investigation workbench.

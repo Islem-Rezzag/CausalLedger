@@ -2,7 +2,7 @@
 
 ## Product thesis
 
-CausalLedger is an agentic financial incident-response and money-movement digital twin for fintech systems. It helps fintech teams find, prove, replay, and safely repair money-movement breaks across payments, ledgers, settlement files, bank statements, refunds, chargebacks, webhooks, and provider failures.
+CausalLedger is a planned continuous payment lifecycle observability and incident-response system for fintech money movement. It is designed to build a living causal timeline from provider events, webhooks, ledger entries, settlement files, bank evidence, refunds, chargebacks, and provider failures so teams can find, prove, replay, and safely review repairs for money-movement breaks.
 
 CausalLedger is not a bank, payment processor, ledger replacement, AML/KYC platform, fraud scoring engine, credit risk engine, tax or legal advisor, investment advisor, ERP replacement, treasury management system, or autonomous finance agent.
 
@@ -15,8 +15,8 @@ This document describes planned architecture only. It does not claim product fun
 ## High-level architecture
 
 ```text
-Source evidence and simulators
-  payments, ledger records, settlement files, bank statements, refunds, chargebacks, webhooks
+Live or replayed source evidence and simulators
+  provider events, webhooks, ledger records, settlement files, bank statements, refunds, chargebacks
         |
         v
 Evidence and ingestion boundary
@@ -59,6 +59,14 @@ Human review and evidence bundles
 - Repair safety: future repair proposals, simulations, rollback plans, and validators.
 - Agent tools: future read-only investigation tools and proposal-only repair simulation tools.
 - Human review: future approval, rejection, and audit workflow.
+
+## Live event stream and historical replay inputs
+
+Live monitoring and historical replay are planned to use the same canonical event engine. The difference is input timing, not product mode: live monitoring would process evidence as it arrives, while historical replay would process stored evidence later.
+
+Both paths should preserve the same MoneyEvent, evidence receipt, invariant, incident, causal graph, replay, repair proposal, and human review concepts. A live event stream may flag a suspected break early, while later settlement and bank evidence may confirm, dismiss, resolve, or keep the break unresolved.
+
+This repository does not implement event streaming, historical replay, canonical event processing, or timeline updates yet.
 
 ## Agent safety boundary
 

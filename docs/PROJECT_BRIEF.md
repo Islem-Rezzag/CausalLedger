@@ -2,7 +2,7 @@
 
 ## Product thesis
 
-CausalLedger is an agentic financial incident-response and money-movement digital twin for fintech systems. It helps fintech teams find, prove, replay, and safely repair money-movement breaks across payments, ledgers, settlement files, bank statements, refunds, chargebacks, webhooks, and provider failures.
+CausalLedger is a planned continuous payment lifecycle observability and incident-response system for fintech money movement. It is designed to build a living causal timeline from provider events, webhooks, ledger entries, settlement files, bank evidence, refunds, chargebacks, and provider failures so teams can find, prove, replay, and safely review repairs for money-movement breaks.
 
 CausalLedger is not a bank, payment processor, ledger replacement, AML/KYC platform, fraud scoring engine, credit risk engine, tax or legal advisor, investment advisor, ERP replacement, treasury management system, or autonomous finance agent.
 
@@ -28,6 +28,8 @@ Fintech teams often need to reconcile contradictory signals from payment provide
 
 The planned system will collect raw evidence, normalize canonical events, check deterministic financial invariants, construct causal traces, create incidents, support evidence-grounded investigation, simulate repairs, and produce replayable evidence bundles.
 
+The planned incident lifecycle should support progressive certainty. CausalLedger may flag a suspected break when early provider, ledger, webhook, settlement, bank, refund, or chargeback evidence looks inconsistent; later evidence can confirm the break, dismiss it as a false positive, resolve it after delayed settlement or bank evidence arrives, keep it unresolved due to missing evidence, or support post-settlement confirmation. This is product direction only and is not implemented yet.
+
 ## What it refuses to do
 
 CausalLedger refuses to let LLM agents mutate money, approve repairs, delete evidence, post ledger entries, modify raw events, override deterministic invariants, or become the source of financial truth.
@@ -36,7 +38,7 @@ CausalLedger also refuses to make AML/KYC, sanctions, fraud, credit, legal, tax,
 
 ## Why CausalLedger is not just reconciliation
 
-Traditional reconciliation focuses on matching records and explaining differences. CausalLedger is scoped as incident response and a money-movement digital twin: it connects evidence, event lifecycles, ledger behavior, causal graph traversal, replay, repair safety, and human approval into a provable workflow.
+Traditional reconciliation focuses on matching records and explaining differences. CausalLedger is scoped as incident response and a money-movement digital twin: it connects continuous lifecycle evidence, ledger behavior, causal graph traversal, replay, repair safety, and human approval into a provable workflow.
 
 ## Current status
 
