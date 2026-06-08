@@ -1606,9 +1606,9 @@ REQUIRED_TEXT = {
         "Progressive Incident Certainty Planning Boundary",
         "OrbitSoft-Readiness Constraints",
         "M02.01 | Choose backend and frontend stack | Completed and merged",
-        "M02.02 | Create apps/api | Builder complete, awaiting QA",
+        "M02.02 | Create apps/api | QA passed, awaiting merge",
         "M02.20 | QA dev environment | Not started",
-        "M02.02 QA - Create apps/api",
+        "Merge M02.02 PR - Create apps/api",
         "No runtime logging or error-handling code is implemented",
         "This planning thread must not create `.github/workflows/`",
     ],
@@ -2005,10 +2005,11 @@ def closeout_state_errors():
         "",
     )
     if (
-        "Builder complete, awaiting QA" not in m02_02_row
+        "QA passed, awaiting merge" not in m02_02_row
         or "m02-02-create-apps-api" not in m02_02_row
+        or "#39" not in m02_02_row
     ):
-        errors.append("M02.02 is not recorded as builder complete on the expected branch")
+        errors.append("M02.02 is not recorded as QA passed on the expected branch and PR")
 
     for index in range(3, 21):
         row = next(
@@ -2134,8 +2135,8 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "M02.02 QA - Create apps/api" not in next_thread:
-        errors.append("Next recommended thread is not M02.02 QA")
+    if "Merge M02.02 PR - Create apps/api" not in next_thread:
+        errors.append("Next recommended thread is not M02.02 merge")
     if "M01 is completed and closed" not in next_thread:
         errors.append("Next recommended thread does not record M01 as completed and closed")
     if "M01.01 through M01.13 are `Completed and merged`" not in next_thread:
@@ -2146,7 +2147,7 @@ def closeout_state_errors():
         errors.append("Next recommended thread does not preserve M02 submilestone status")
     if "M03 through M21 are `Not started`" not in next_thread:
         errors.append("Next recommended thread does not preserve future milestone status")
-    if "Do not start M02.03 until M02.02 QA passes" not in next_thread:
+    if "Do not start M02.03 until the M02.02 PR is merged into `main`" not in next_thread:
         errors.append("Next recommended thread does not block premature M02.03 implementation")
 
     domain_doc = ROOT / "docs/domain/payment-lifecycle.md"

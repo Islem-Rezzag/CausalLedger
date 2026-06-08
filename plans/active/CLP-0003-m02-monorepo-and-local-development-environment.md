@@ -10,7 +10,7 @@ M02 planning also aligns CausalLedger's product direction with the continuous pa
 
 The original M02 planning thread did not start M02.01 implementation and did not create product behavior.
 
-M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`). M02.02 Create apps/api is `Builder complete, awaiting QA` on branch `m02-02-create-apps-api`.
+M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`). M02.02 Create apps/api is `QA passed, awaiting merge` on branch `m02-02-create-apps-api` for PR #39.
 
 ## Progress
 
@@ -49,6 +49,12 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 - [x] 2026-06-08: Created `pnpm-lock.yaml` after successful dependency installation.
 - [x] 2026-06-08: Ran package validation for M02.02: `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm lint`, and `pnpm format:check`.
 - [x] 2026-06-08: M02.02 Builder complete, awaiting QA.
+- [x] 2026-06-09: M02.02 QA branch guard passed on `m02-02-create-apps-api`; `git status --short` was clean and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- [x] 2026-06-09: Verified PR #39 at `https://github.com/Islem-Rezzag/CausalLedger/pull/39`; GitHub API reported it open, non-draft, mergeable clean, and unmerged.
+- [x] 2026-06-09: Inspected M02.02 docs, workspace manifests, API scaffold, validator, and bootstrap tests for forbidden scope and status consistency.
+- [x] 2026-06-09: M02.02 QA found no scaffold or safety defects.
+- [x] 2026-06-09: M02.02 QA validation passed.
+- [x] 2026-06-09: M02.02 marked `QA passed, awaiting merge`.
 
 ## Surprises & Discoveries
 
@@ -71,12 +77,13 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 | 2026-06-08 | M02.01 PR #38 merged into `main`. | Recorded | Merge commit `fb2b901`; M02.01 is completed and merged. |
 | 2026-06-08 | M02.02 builder starts from updated `main`. | Recorded | Branch `m02-02-create-apps-api`; scope is a minimal non-domain `apps/api` foundation and required workspace manifests only. |
 | 2026-06-08 | M02.02 creates a non-domain API foundation. | Accepted | Fastify app factory, server entrypoint, bootstrap test, workspace manifests, and package scripts only; no product/domain behavior, routes, database, auth/authz, health check, connector, structured logging runtime, CI workflow, or Docker Compose. |
+| 2026-06-09 | M02.02 QA passed. | Accepted | PR #39 is safe for human merge after QA validation; M02.02 is not completed until the PR merges into `main` and post-merge tracking is finalized. |
 
 ## Context and Orientation
 
 M00 Repo Operating System is completed and tagged as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed. M01.01 through M01.13 are `Completed and merged`, and the completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M02 planning PR #37 has merged into `main` at commit `18148f7`. M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901`. M02.02 Create apps/api is `Builder complete, awaiting QA` on branch `m02-02-create-apps-api`.
+M02 planning PR #37 has merged into `main` at commit `18148f7`. M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901`. M02.02 Create apps/api is `QA passed, awaiting merge` on branch `m02-02-create-apps-api` for PR #39.
 
 Historical planning marker before M02.01 started: M02.01 through M02.20 remain `Not started`.
 
@@ -161,7 +168,7 @@ Out of scope for M02.02:
 | ID | Name | Status | Expected branch |
 | --- | --- | --- | --- |
 | M02.01 | Choose backend and frontend stack | Completed and merged | `m02-01-choose-backend-and-frontend-stack` |
-| M02.02 | Create apps/api | Builder complete, awaiting QA | `m02-02-create-apps-api` |
+| M02.02 | Create apps/api | QA passed, awaiting merge | `m02-02-create-apps-api` |
 | M02.03 | Create apps/web | Not started | `m02-03-create-apps-web` |
 | M02.04 | Create apps/worker | Not started | `m02-04-create-apps-worker` |
 | M02.05 | Create apps/agent-runtime | Not started | `m02-05-create-apps-agent-runtime` |
@@ -378,7 +385,7 @@ M02.01 QA acceptance criteria:
 - Product implementation has not started.
 - Next recommended thread is `Merge M02.01 PR - Choose Backend and Frontend Stack`.
 
-Acceptance criteria for M02.02:
+M02.02 builder acceptance criteria:
 
 - M02.01 PR #38 is confirmed merged into `main` at commit `fb2b901`.
 - M02.01 status is recorded as `Completed and merged`.
@@ -391,6 +398,19 @@ Acceptance criteria for M02.02:
 - Product domain implementation has not started.
 - Validation passes or skipped validation is recorded with a reason.
 - Next recommended thread is `M02.02 QA - Create apps/api`.
+
+M02.02 QA acceptance criteria:
+
+- M02.02 status is recorded as `QA passed, awaiting merge`.
+- PR #39 is identified as the M02.02 PR.
+- Required docs, manifests, API scaffold, validator, and bootstrap tests are inspected.
+- QA defects and fixes are recorded.
+- No product/domain behavior, future submilestone work, CI workflow, Docker Compose, health check, auth/authz, database, connector, structured logging runtime, or product tests are added.
+- M02.03 through M02.20 remain `Not started`.
+- M03 through M21 remain `Not started`.
+- Product domain implementation has not started.
+- Required control-plane and package validation pass or skipped validation is recorded with a reason.
+- Next recommended thread is `Merge M02.02 PR - Create apps/api`.
 
 ## M02 Planning QA Record
 
@@ -547,6 +567,174 @@ QA decision: PASS.
 
 Safe-to-merge statement: safe to merge PR #38 after human review. M02.01 is not `Completed and merged` until PR #38 actually merges into `main` and post-merge tracking is finalized. Do not start M02.02 until after that merge and finalization.
 
+## M02.02 QA Record
+
+QA date: 2026-06-09.
+
+PR: #39, `https://github.com/Islem-Rezzag/CausalLedger/pull/39`.
+
+Branch: `m02-02-create-apps-api`.
+
+Branch and PR guard:
+
+- `git branch --show-current` returned `m02-02-create-apps-api`.
+- `git status --short` was clean before QA edits.
+- `git remote -v` showed `origin` at `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- `git log --oneline main..HEAD` showed one builder commit before QA changes: `d3e6b4f chore: create M02.02 api scaffold`.
+- `git diff --name-status main...HEAD` matched the M02.02 builder scope.
+- `gh` is unavailable in the current Windows shell.
+- GitHub API reported PR #39 open, non-draft, mergeable clean, and unmerged.
+
+Files inspected:
+
+- `docs/ACTIVE_DOCS.md`
+- `README.md`
+- `START_HERE.md`
+- `AGENTS.md`
+- `PLANS.md`
+- `WORKFLOW.md`
+- `docs/INDEX.md`
+- `plans/ROADMAP.md`
+- `docs/status/CURRENT_STATE.md`
+- `docs/status/NEXT_RECOMMENDED_THREAD.md`
+- `docs/status/WEEKLY_LOG.md`
+- `docs/status/RISK_REGISTER.md`
+- `docs/status/TECH_DEBT.md`
+- `docs/status/CAPABILITY_MATRIX.md`
+- `docs/milestones/M02.md`
+- `docs/milestones/SUBMILESTONE_REGISTRY.md`
+- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`
+- `docs/decisions/ADR-0005-m02-stack-and-monorepo-direction.md`
+- `docs/decisions/ADR-0006-local-dev-and-ci-baseline.md`
+- `docs/decisions/ADR-0007-logging-error-handling-and-observability-direction.md`
+- `docs/ops/planning-and-tracking-system.md`
+- `docs/ops/builder-qa-prompt-protocol.md`
+- `docs/ops/validation-and-handoff-workflow.md`
+- `docs/ops/github-pr-and-issue-workflow.md`
+- `.github/PULL_REQUEST_TEMPLATE.md`
+- `scripts/validate-control-plane.py`
+- `tests/test_control_plane_bootstrap.py`
+- `package.json`
+- `pnpm-workspace.yaml`
+- `turbo.json`
+- `tsconfig.base.json`
+- `pnpm-lock.yaml`
+- `apps/api/package.json`
+- `apps/api/tsconfig.json`
+- `apps/api/src/app.ts`
+- `apps/api/src/index.ts`
+- `apps/api/test/bootstrap.test.ts`
+- `apps/api/README.md`
+
+QA findings:
+
+- M02.01 is finalized as `Completed and merged` after PR #38 merged into `main` at commit `fb2b901`.
+- M02.02 is the current submilestone and was `Builder complete, awaiting QA` before QA updates.
+- M02.03 through M02.20 remain `Not started`.
+- M03 through M21 remain `Not started`.
+- Product domain implementation has not started.
+- The branch contained exactly one M02.02 builder commit beyond `main` before QA changes.
+- Root `package.json` is private and contains workspace-level scripts only.
+- `pnpm-workspace.yaml` includes only `apps/*` and `packages/*`.
+- `turbo.json` defines local workspace tasks without CI or deployment behavior.
+- `tsconfig.base.json` is a shared TypeScript config and does not define product schemas.
+- `pnpm-lock.yaml` exists.
+- `apps/api/package.json` is private, scoped as `@causalledger/api`, and contains minimal scripts plus Fastify, TypeScript, tsx, Vitest, Prettier, and Node types.
+- `apps/api/src/app.ts` creates a minimal Fastify app factory only.
+- `apps/api/src/index.ts` is a minimal local server entrypoint only.
+- `apps/api/test/bootstrap.test.ts` is a non-domain bootstrap test only.
+- `apps/api/README.md` clearly states that no product/domain behavior is implemented.
+- No MoneyEvent, ledger, invariant, incident, evidence ingestion, repair, auth/authz, database, external connector, health-check endpoint, structured logging runtime, GitHub Actions or CI workflow, Docker Compose, UI, product/domain test, M02.03, or M03 work was added.
+- `scripts/validate-control-plane.py` and `tests/test_control_plane_bootstrap.py` were updated to validate the new M02.02 scaffold and did not remove important existing checks.
+- The non-blocking pnpm approve-builds warning for `esbuild@0.28.0` remains recorded from the builder dependency installation.
+
+Files changed by QA:
+
+- `docs/ACTIVE_DOCS.md`
+- `README.md`
+- `START_HERE.md`
+- `PLANS.md`
+- `WORKFLOW.md`
+- `docs/INDEX.md`
+- `plans/ROADMAP.md`
+- `docs/status/CURRENT_STATE.md`
+- `docs/status/NEXT_RECOMMENDED_THREAD.md`
+- `docs/status/WEEKLY_LOG.md`
+- `docs/status/CAPABILITY_MATRIX.md`
+- `docs/milestones/M02.md`
+- `docs/milestones/SUBMILESTONE_REGISTRY.md`
+- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`
+- `scripts/validate-control-plane.py`
+- `tests/test_control_plane_bootstrap.py`
+
+Defects found:
+
+- No scaffold, package, validator, or safety defects were found.
+
+Fixes applied:
+
+- Updated durable tracking from `Builder complete, awaiting QA` to `QA passed, awaiting merge`.
+- Set the exact next recommended thread to `Merge M02.02 PR - Create apps/api`.
+- Updated control-plane validation expectations to validate the post-QA state.
+
+Validation ladder:
+
+- Level 0: branch and worktree guard.
+- Level 1: file, diff, status, and forbidden-scope inspection.
+- Level 2: control-plane validation.
+- Level 3: bootstrap tests and API bootstrap test.
+- Level 4: diff and whitespace checks.
+- Level 7: forbidden-scope checks for product/domain behavior and safety boundaries.
+- Level 8: QA merge-readiness review.
+
+Validation commands:
+
+- `python scripts/validate-control-plane.py`
+- `python -m pytest tests/test_control_plane_bootstrap.py`
+- `git diff --check`
+- `node --version`
+- `npm --version`
+- `pnpm --version`
+- `pnpm install`
+- `pnpm typecheck`
+- `pnpm test`
+- `pnpm build`
+- `pnpm lint`
+- `pnpm format:check`
+- `make bootstrap-check`, only if `make` is available
+
+Validation results:
+
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 32 tests.
+- `git diff --check` passed.
+- `node --version` returned `v22.16.0`.
+- `npm --version` returned `10.9.2`.
+- `pnpm --version` returned `10.32.1`.
+- Initial `python scripts/validate-control-plane.py` failed because `docs/status/NEXT_RECOMMENDED_THREAD.md` lacked the required M01 completion context after the QA next-thread rewrite; the scoped next-thread context was restored and validation was rerun successfully.
+- `pnpm install` passed, reported the lockfile was up to date, and emitted the non-blocking approve-builds warning for `esbuild@0.28.0`.
+- `pnpm typecheck` passed.
+- `pnpm test` passed with 1 Vitest test.
+- `pnpm build` passed.
+- `pnpm lint` passed.
+- `pnpm format:check` passed.
+- `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
+
+Skipped validation and reason:
+
+- `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
+- GitHub PR body update via `gh` was skipped because `gh` is unavailable in the current Windows shell.
+
+pnpm approve-builds warning status:
+
+- The builder dependency installation recorded a non-blocking warning that `esbuild@0.28.0` build scripts were ignored by pnpm approve-builds policy.
+- QA `pnpm install` emitted the same non-blocking warning: `Ignored build scripts: esbuild@0.28.0. Run "pnpm approve-builds" to pick which dependencies should be allowed to run scripts.`
+- The warning does not block validation because all TypeScript/package checks passed.
+
+QA decision: PASS.
+
+Safe-to-merge statement: safe to merge PR #39 after human review. M02.02 is not `Completed and merged` until PR #39 actually merges into `main` and post-merge tracking is finalized. Do not start M02.03 until after that merge and finalization.
+
 ## Validation Results
 
 2026-06-02 validation results:
@@ -590,6 +778,23 @@ Safe-to-merge statement: safe to merge PR #38 after human review. M02.01 is not 
 - `python scripts/validate-control-plane.py` passed.
 - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 32 tests.
 - `git diff --check` passed.
+- `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
+
+2026-06-09 M02.02 QA validation results:
+
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 32 tests.
+- `git diff --check` passed.
+- `node --version` returned `v22.16.0`.
+- `npm --version` returned `10.9.2`.
+- `pnpm --version` returned `10.32.1`.
+- Initial `python scripts/validate-control-plane.py` failed because `docs/status/NEXT_RECOMMENDED_THREAD.md` lacked the required M01 completion context after the QA next-thread rewrite; the scoped next-thread context was restored and validation was rerun successfully.
+- `pnpm install` passed, reported the lockfile was up to date, and emitted the non-blocking approve-builds warning for `esbuild@0.28.0`.
+- `pnpm typecheck` passed.
+- `pnpm test` passed with 1 Vitest test.
+- `pnpm build` passed.
+- `pnpm lint` passed.
+- `pnpm format:check` passed.
 - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
 
 ## Idempotence and Recovery
@@ -651,6 +856,6 @@ Stack decision summary:
 - Vitest.
 - TypeScript types plus Zod or equivalent future runtime schema validation for MoneyEvent contracts.
 
-M02.02 builder work created a minimal non-domain `apps/api` TypeScript/Fastify foundation and required pnpm/Turborepo workspace manifests. Product domain implementation has not started. M02.02 is `Builder complete, awaiting QA`; M02.03 through M02.20 remain `Not started`; M03 through M21 remain `Not started`.
+M02.02 builder work created a minimal non-domain `apps/api` TypeScript/Fastify foundation and required pnpm/Turborepo workspace manifests. M02.02 QA passed for PR #39. Product domain implementation has not started. M02.02 is `QA passed, awaiting merge`; M02.03 through M02.20 remain `Not started`; M03 through M21 remain `Not started`.
 
-Exact next recommended thread after M02.02 builder is complete: `M02.02 QA - Create apps/api`.
+Exact next recommended thread after M02.02 QA is complete: `Merge M02.02 PR - Create apps/api`.

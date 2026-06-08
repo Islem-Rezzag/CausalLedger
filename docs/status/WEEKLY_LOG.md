@@ -1,5 +1,20 @@
 # Weekly Log
 
+## 2026-06-09
+
+- Completed M02.02 QA - Create apps/api on branch `m02-02-create-apps-api`; branch guard passed, the starting worktree was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- Verified PR #39 at `https://github.com/Islem-Rezzag/CausalLedger/pull/39`; the GitHub API reported it open, non-draft, mergeable clean, and unmerged. The `gh` CLI is unavailable in the current Windows shell.
+- Confirmed the branch contained exactly one M02.02 builder commit beyond `main` before QA tracking changes.
+- Inspected required active docs, status docs, M02 milestone and registry, ADRs, ops workflow docs, root workspace manifests, `pnpm-lock.yaml`, `apps/api` manifest/config/source/test/README, and the updated control-plane validator and bootstrap tests.
+- Verified the M02.02 scaffold is minimal and non-domain: no MoneyEvent routes or logic, ledger routes or logic, invariant logic, incident routes or logic, evidence ingestion routes, repair routes, auth/authz, database behavior, external connectors, health-check endpoint, structured logging runtime, GitHub Actions or CI workflow, Docker Compose, UI, product/domain tests, M02.03 work, or M03 work were added.
+- M02.02 QA found no scaffold or safety defects and applied scoped tracking/status updates only.
+- Marked M02.02 `QA passed, awaiting merge`; M02.03 through M02.20 remain `Not started`, M03 through M21 remain `Not started`, and product domain implementation has not started.
+- Initial `python scripts/validate-control-plane.py` failed because `docs/status/NEXT_RECOMMENDED_THREAD.md` lacked the required M01 completion context after the QA next-thread rewrite; the scoped next-thread context was restored and validation was rerun successfully.
+- Ran `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 32 tests, `git diff --check`, `pnpm install`, `pnpm typecheck`, `pnpm test` with 1 Vitest test, `pnpm build`, `pnpm lint`, and `pnpm format:check` successfully for M02.02 QA.
+- Skipped `make bootstrap-check` for M02.02 QA because `make` is unavailable in the current Windows shell; equivalent direct Python validation commands were run.
+- M02.02 QA `pnpm install` emitted the same non-blocking approve-builds warning for `esbuild@0.28.0`; package validation still passed.
+- Recommended next thread: `Merge M02.02 PR - Create apps/api`.
+
 ## 2026-06-08
 
 - Confirmed M02.01 PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`) before starting M02.02.
