@@ -1,7 +1,7 @@
 # CausalLedger Roadmap
 
-Current milestone marker: M01 Domain model and scope freeze is completed and closed. M02 Monorepo and local development planning is in progress on branch `m02-planning-monorepo-and-local-development-environment`; M02 Planning QA passed on 2026-06-08 and is awaiting planning PR merge.
-Current submilestone status: M00.01 through M00.08 are completed and merged. M00 is tagged as `v0.1.0` for the repo operating system foundation. M01.01 through M01.13 are `Completed and merged`; M01.13 QA Domain Consistency merged at git commit `27c39b6` (`docs: run M01.13 domain consistency QA (#35)`). The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`, and the M01 closeout packet lives at `docs/status/M01_CLOSEOUT.md`. Duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation. M02.01 through M02.20 remain `Not started`; M03 through M21 remain `Not started`.
+Current milestone marker: M01 Domain model and scope freeze is completed and closed. M02 Monorepo and local development planning is in progress under active plan `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`; M02 planning PR #37 merged into `main` at commit `18148f7`, and M02.01 QA passed on branch `m02-01-choose-backend-and-frontend-stack`, awaiting PR merge.
+Current submilestone status: M00.01 through M00.08 are completed and merged. M00 is tagged as `v0.1.0` for the repo operating system foundation. M01.01 through M01.13 are `Completed and merged`; M01.13 QA Domain Consistency merged at git commit `27c39b6` (`docs: run M01.13 domain consistency QA (#35)`). The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`, and the M01 closeout packet lives at `docs/status/M01_CLOSEOUT.md`. Duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation. M02.01 is `QA passed, awaiting PR merge`; M02.02 through M02.20 remain `Not started`; M03 through M21 remain `Not started`. Historical planning marker before M02.01 started: M02.01 through M02.20 remain `Not started`.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 
@@ -41,10 +41,11 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 - M01 is completed and closed; M01.01 through M01.13 are `Completed and merged`.
 - M01.13 merged at git commit `27c39b6` (`docs: run M01.13 domain consistency QA (#35)`).
 - M01.12 duplicate PR merges #32 and #33 from the same branch are recorded as a process deviation. No revert was performed; future submilestones should use one PR per branch and delete the branch after merge.
-- M02 planning is in progress; M02.01 through M02.20 remain `Not started`.
-- M02 Planning QA passed on 2026-06-08 and is awaiting planning PR merge.
+- M02 planning is in progress under active plan `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`; PR #37 merged into `main` at commit `18148f7` on 2026-06-08.
+- M02.01 is `QA passed, awaiting PR merge`; M02.02 through M02.20 remain `Not started`.
+- Historical planning marker before M02.01 started: M02.01 through M02.20 remain `Not started`.
 - M03-M21 remain `Not started`.
 - Product implementation has not started.
-- The next recommended thread is `Merge M02 Planning PR - Monorepo and Local Development Environment`.
+- The next recommended thread is `Merge M02.01 PR - Choose Backend and Frontend Stack`.
 - Versioning strategy is documented in `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed registry.
