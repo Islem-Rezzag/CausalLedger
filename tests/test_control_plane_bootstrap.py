@@ -682,9 +682,10 @@ def test_m02_planning_artifacts_are_documentation_only():
         "same future canonical event engine",
         "Progressive Incident Certainty Planning Boundary",
         "OrbitSoft-Readiness Constraints",
-        "M02.01 | Choose backend and frontend stack | Not started",
+        "M02.01 | Choose backend and frontend stack | Completed and merged",
+        "M02.02 | Create apps/api | Builder complete, awaiting QA",
         "M02.20 | QA dev environment | Not started",
-        "M02 Planning QA - Monorepo and Local Development Environment",
+        "M02.02 QA - Create apps/api",
         "This planning thread must not create `.github/workflows/`",
     ]:
         assert phrase in plan
@@ -698,7 +699,16 @@ def test_m02_planning_artifacts_are_documentation_only():
         assert "Planning placeholder" in text
         assert "Do not" in text
 
-    for index in range(1, 21):
+    m02_01 = next(line for line in registry.splitlines() if line.startswith("| M02.01 |"))
+    assert "Completed and merged" in m02_01
+    assert "fb2b901" in m02_01
+
+    m02_02 = next(line for line in registry.splitlines() if line.startswith("| M02.02 |"))
+    assert "Builder complete, awaiting QA" in m02_02
+    assert "m02-02-create-apps-api" in m02_02
+    assert "No product/domain routes" in m02_02
+
+    for index in range(3, 21):
         row = next(
             line for line in registry.splitlines() if line.startswith(f"| M02.{index:02} |")
         )
@@ -706,11 +716,28 @@ def test_m02_planning_artifacts_are_documentation_only():
         assert "plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md" in row
 
     assert "| M02 Monorepo and local development |" in roadmap
-    assert "| 20 | Planning in progress |" in roadmap
-    assert "M02.01 through M02.20 remain `Not started`" in next_thread
+    assert "| 20 | In progress |" in roadmap
+    assert "M02.03 through M02.20 remain `Not started`" in next_thread
     assert "M03 through M21 are `Not started`" in next_thread
-    assert "Do not start M02.01 Builder until M02 planning QA passes" in next_thread
+    assert "Do not start M02.03 until M02.02 QA passes" in next_thread
     assert not (ROOT / ".github" / "workflows").exists()
+
+    for rel in [
+        "package.json",
+        "pnpm-workspace.yaml",
+        "turbo.json",
+        "tsconfig.base.json",
+        "pnpm-lock.yaml",
+        "apps/api/package.json",
+        "apps/api/tsconfig.json",
+        "apps/api/src/app.ts",
+        "apps/api/src/index.ts",
+        "apps/api/test/bootstrap.test.ts",
+    ]:
+        assert (ROOT / rel).is_file()
+
+    api_readme = (ROOT / "apps" / "api" / "README.md").read_text(encoding="utf-8")
+    assert "No CausalLedger product or domain behavior is implemented here" in api_readme
 
 
 def test_m01_ledger_vocabulary_domain_doc_is_documentation_only():
@@ -2344,7 +2371,7 @@ def test_m00_closeout_state_is_coherent():
     assert "| M01 Domain model and scope freeze |" in roadmap
     assert "| 13 | Completed |" in roadmap
     assert "| M02 Monorepo and local development |" in roadmap
-    assert "| 20 | Planning in progress |" in roadmap
+    assert "| 20 | In progress |" in roadmap
     assert "Add v0.1.0 release" not in registry
     assert "Prepare v1.0.0 public release" in registry
 
@@ -2489,17 +2516,28 @@ def test_m00_closeout_state_is_coherent():
     assert "No product implementation" in row
     assert "M01 closeout passed after PR #35 merge" in row
 
-    for milestone in range(2, 22):
+    row = next(line for line in registry.splitlines() if line.startswith("| M02.01 |"))
+    assert "Completed and merged" in row
+    assert "fb2b901" in row
+
+    row = next(line for line in registry.splitlines() if line.startswith("| M02.02 |"))
+    assert "Builder complete, awaiting QA" in row
+    assert "m02-02-create-apps-api" in row
+
+    for index in range(3, 21):
+        row = next(
+            line for line in registry.splitlines() if line.startswith(f"| M02.{index:02} |")
+        )
+        assert "Not started" in row
+        assert "plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md" in row
+
+    for milestone in range(3, 22):
         for row in [
             line
             for line in registry.splitlines()
             if line.startswith(f"| M{milestone:02}.")
         ]:
             assert "Not started" in row
-    for row in [
-        line for line in registry.splitlines() if line.startswith("| M02.")
-    ]:
-        assert "plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md" in row
 
     for phrase in [
         "M00 is a control-plane milestone",
@@ -2512,7 +2550,6 @@ def test_m00_closeout_state_is_coherent():
     for phrase in [
         "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "docs/status/M01_CLOSEOUT.md",
-        "Product directories contain placeholder README files only",
         "M00.01 through M00.08 are completed and merged",
         "M01 Domain Model and Scope Freeze is completed and closed",
         "M01.01 Define payment lifecycle is `Completed and merged` after post-merge QA recovery",
@@ -2528,18 +2565,31 @@ def test_m00_closeout_state_is_coherent():
         "M01.11 Write RELIABILITY.md is `Completed and merged`",
         "M01.12 Write THREAT_MODEL.md is `Completed and merged`",
         "M01.13 QA Domain Consistency is `Completed and merged`",
-        "M02 planning is in progress",
-        "M02.01 through M02.20 remain `Not started`",
+        "M02.01 Choose backend and frontend stack is `Completed and merged`",
+        "M02.02 Create apps/api is `Builder complete, awaiting QA`",
+        "M02.03 through M02.20 remain `Not started`",
         "M03 through M21 remain `Not started`",
     ]:
         assert phrase in current_state
 
     assert not (ROOT / ".github" / "workflows").exists()
 
+    allowed_m02_api_files = {
+        "apps/api/package.json",
+        "apps/api/README.md",
+        "apps/api/tsconfig.json",
+        "apps/api/src/app.ts",
+        "apps/api/src/index.ts",
+        "apps/api/test/bootstrap.test.ts",
+    }
+    generated_parts = {"node_modules", "dist", ".turbo", ".vite"}
     for rel in ["apps", "packages", "scenarios", "data", "infra"]:
         for path in (ROOT / rel).rglob("*"):
+            if generated_parts.intersection(path.relative_to(ROOT).parts):
+                continue
             if path.is_file():
-                assert path.name == "README.md", path
+                relative = path.relative_to(ROOT).as_posix()
+                assert path.name == "README.md" or relative in allowed_m02_api_files, path
 
     env_example = (ROOT / ".env.example").read_text(encoding="utf-8")
     for line in env_example.splitlines():

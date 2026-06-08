@@ -36,7 +36,7 @@ Current active milestone planning plan: `plans/active/CLP-0003-m02-monorepo-and-
 
 The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M02 planning is active on branch `m02-planning-monorepo-and-local-development-environment`. M02 planning is documentation/control-plane work only. M02.01 through M02.20 remain `Not started` until M02 planning QA passes, the planning PR merges, and a separate M02.01 builder thread begins.
+M02 is active under `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`. M02 planning PR #37 merged into `main` at commit `18148f7`; M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901`; M02.02 is `Builder complete, awaiting QA` on branch `m02-02-create-apps-api`; M02.03 through M02.20 remain `Not started`.
 
 Progress is recorded in the active plan during the slice. Submilestone status is recorded in `docs/milestones/SUBMILESTONE_REGISTRY.md`, reflected in the relevant milestone doc, and summarized in `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md`.
 

@@ -2,6 +2,20 @@
 
 ## 2026-06-08
 
+- Confirmed M02.01 PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`) before starting M02.02.
+- Created branch `m02-02-create-apps-api` from updated `main`; branch guard passed, the starting worktree was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- Finalized M02.01 as `Completed and merged` in durable tracking.
+- Started and completed M02.02 Builder - Create apps/api.
+- Created root workspace manifests for pnpm/Turborepo and TypeScript base configuration.
+- Created a minimal non-domain `apps/api` TypeScript/Fastify scaffold with app factory, server entrypoint, package scripts, README, and bootstrap test.
+- Created `pnpm-lock.yaml` after successful pnpm dependency installation.
+- Confirmed no MoneyEvent routes, ledger routes, incident routes, evidence ingestion routes, repair routes, auth/authz, database behavior, external connectors, health-check endpoints, CI workflows, Docker Compose, structured logging runtime, or CausalLedger product/domain behavior were added.
+- M02.03 through M02.20 remain `Not started`, M03 through M21 remain `Not started`, and product domain implementation has not started.
+- Ran `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 32 tests, and `git diff --check` successfully for M02.02 builder.
+- Ran `pnpm install`, `pnpm typecheck`, `pnpm test` with 1 Vitest test, `pnpm build`, `pnpm lint`, and `pnpm format:check`; the first `pnpm format:check` failed only on Prettier formatting for the new API source files, was fixed with scoped Prettier formatting, and passed on rerun.
+- Recorded a non-blocking pnpm install warning: `esbuild@0.28.0` build scripts were ignored by pnpm approve-builds policy, while package validation still passed.
+- Skipped `make bootstrap-check` for M02.02 builder because `make` is unavailable in the current Windows shell; equivalent direct Python validation commands were run.
+- Recommended next thread: `M02.02 QA - Create apps/api`.
 - Confirmed M02 planning PR #37 merged into `main` at commit `18148f7` (`M02 planning monorepo and local development environment (#37)`) before starting M02.01.
 - Created branch `m02-01-choose-backend-and-frontend-stack` from updated `main`; branch guard passed, the starting worktree was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
 - Started and completed M02.01 Builder - Choose Backend and Frontend Stack as documentation/control-plane work only.

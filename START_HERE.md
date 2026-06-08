@@ -1,6 +1,6 @@
 # Start Here
 
-This repository has completed the M00 control-plane bootstrap and tagged it as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed. M01.01 through M01.13 are `Completed and merged`, M01.13 QA Domain Consistency merged at git commit `27c39b6` (`docs: run M01.13 domain consistency QA (#35)`), the completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`, and the M01 closeout packet lives at `docs/status/M01_CLOSEOUT.md`. Duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation. M02 Planning - Monorepo and Local Development Environment is in progress with active plan `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`; M02.01 through M02.20 remain `Not started`. Do not begin product implementation from this file.
+This repository has completed the M00 control-plane bootstrap and tagged it as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed. M01.01 through M01.13 are `Completed and merged`, M01.13 QA Domain Consistency merged at git commit `27c39b6` (`docs: run M01.13 domain consistency QA (#35)`), the completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`, and the M01 closeout packet lives at `docs/status/M01_CLOSEOUT.md`. Duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation. M02 Monorepo and Local Development Environment is in progress with active plan `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`; M02.01 is `Completed and merged`, M02.02 is `Builder complete, awaiting QA`, M02.03 through M02.20 remain `Not started`, and product domain implementation has not started. Do not begin product domain implementation from this file.
 
 Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 
@@ -67,7 +67,7 @@ The handoff packet must include files created, files changed, files intentionall
 - Do not implement invariants.
 - Do not implement the agent runtime.
 - Do not implement UI features.
-- Do not start M02.01 or later implementation work before M02 planning QA passes and the planning PR merges.
+- Do not start M02.03 or later implementation work before M02.02 QA passes, the M02.02 PR merges, and post-merge tracking is finalized.
 - Do not implement product behavior during M01.01, M01.02, M01.03, or M01.04.
 
 ## Correct first success
