@@ -14,6 +14,16 @@
 - Ran `git diff --check` successfully for M02.01 builder.
 - Skipped `make bootstrap-check` for M02.01 builder because `make` is unavailable in the current Windows shell.
 - Recommended next thread: `M02.01 QA - Choose Backend and Frontend Stack`.
+- Completed M02.01 QA - Choose Backend and Frontend Stack on branch `m02-01-choose-backend-and-frontend-stack`; PR #38 is open at `https://github.com/Islem-Rezzag/CausalLedger/pull/38` and was reported by the GitHub API as non-draft despite the QA prompt expecting a draft PR.
+- Found one scoped tracking defect: `README.md` still said M02.01 through M02.20 remained `Not started`; updated it and durable tracking to record M02.01 as `QA passed, awaiting PR merge`.
+- QA verified ADR-0005 and ADR-0006 record a TypeScript-first stack direction without adding product runtime behavior; ADR-0007 remains planning-only.
+- QA verified no dependencies, package manifests, lockfiles, app runtimes, product files, APIs, databases, MoneyEvent behavior, CI workflow, or M02.02 work were added.
+- M02.02 through M02.20 remain `Not started`, M03 through M21 remain `Not started`, and product implementation has not started.
+- Ran `python scripts/validate-control-plane.py` successfully for M02.01 QA.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 32 tests for M02.01 QA.
+- Ran `git diff --check` successfully for M02.01 QA.
+- Skipped `make bootstrap-check` for M02.01 QA because `make` is unavailable in the current Windows shell.
+- Recommended next thread: `Merge M02.01 PR - Choose Backend and Frontend Stack`.
 - Completed formal PR QA for M02 Planning - Monorepo and Local Development Environment on branch `m02-planning-monorepo-and-local-development-environment`; PR #37 is open at `https://github.com/Islem-Rezzag/CausalLedger/pull/37`.
 - Verified commit `64b1f7b` fixed the stale `PLANS.md` active-plan reference, and `PLANS.md` now points to `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`.
 - Confirmed M02 planning remains documentation/control-plane only; M02.01 through M02.20 remain `Not started`, and M03 through M21 remain `Not started`.

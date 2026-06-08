@@ -10,7 +10,7 @@ M02 planning also aligns CausalLedger's product direction with the continuous pa
 
 The original M02 planning thread did not start M02.01 implementation and did not create product behavior.
 
-M02.01 has now started as a documentation-only stack decision slice after M02 planning PR #37 merged into `main`. M02.01 does not create product runtime behavior.
+M02.01 is `QA passed, awaiting PR merge` as a documentation-only stack decision slice after M02 planning PR #37 merged into `main`. M02.01 does not create product runtime behavior.
 
 ## Progress
 
@@ -38,6 +38,9 @@ M02.01 has now started as a documentation-only stack decision slice after M02 pl
 - [x] 2026-06-08: Kept M02.02 through M02.20 `Not started`, M03 through M21 `Not started`, and product implementation not started.
 - [x] 2026-06-08: M02.01 builder validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 32 tests, and `git diff --check`; `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
 - [x] 2026-06-08: M02.01 Builder complete, awaiting QA.
+- [x] 2026-06-08: M02.01 QA passed on branch `m02-01-choose-backend-and-frontend-stack` for PR #38.
+- [x] 2026-06-08: M02.01 QA validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 32 tests, and `git diff --check`; `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
+- [x] 2026-06-08: M02.01 marked `QA passed, awaiting PR merge`.
 
 ## Surprises & Discoveries
 
@@ -55,12 +58,13 @@ M02.01 has now started as a documentation-only stack decision slice after M02 pl
 | 2026-06-08 | M02 planning PR #37 merged into `main`. | Recorded | Merge commit `18148f7`; M02.01 is safe to start after post-merge tracking finalization. |
 | 2026-06-08 | Choose a TypeScript-first monorepo direction. | Accepted | Future stack: Node.js/Fastify API, React/Vite web, pnpm workspaces, Turborepo, TypeScript shared packages, ESLint/Prettier, Vitest, and Zod or equivalent schema validation later. |
 | 2026-06-08 | Keep M02.01 documentation-only. | Accepted | No dependency installation, package manifests, lockfiles, app runtime, package runtime, API behavior, database behavior, CI workflow, or MoneyEvent behavior. |
+| 2026-06-08 | M02.01 QA passed. | Accepted | PR #38 is ready for human merge; M02.01 is not completed until PR #38 merges into `main` and post-merge tracking is finalized. |
 
 ## Context and Orientation
 
 M00 Repo Operating System is completed and tagged as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed. M01.01 through M01.13 are `Completed and merged`, and the completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M02 planning PR #37 has merged into `main` at commit `18148f7`. M02.01 is the current submilestone and is documentation-only stack decision work on branch `m02-01-choose-backend-and-frontend-stack`.
+M02 planning PR #37 has merged into `main` at commit `18148f7`. M02.01 is the current submilestone and is documentation-only stack decision work on branch `m02-01-choose-backend-and-frontend-stack`; QA passed and PR #38 is awaiting human merge.
 
 Historical planning marker before M02.01 started: M02.01 through M02.20 remain `Not started`.
 
@@ -119,7 +123,7 @@ Out of scope for this planning thread:
 
 | ID | Name | Status | Expected branch |
 | --- | --- | --- | --- |
-| M02.01 | Choose backend and frontend stack | Builder complete, awaiting QA | `m02-01-choose-backend-and-frontend-stack` |
+| M02.01 | Choose backend and frontend stack | QA passed, awaiting PR merge | `m02-01-choose-backend-and-frontend-stack` |
 | M02.02 | Create apps/api | Not started | `m02-02-create-apps-api` |
 | M02.03 | Create apps/web | Not started | `m02-03-create-apps-web` |
 | M02.04 | Create apps/worker | Not started | `m02-04-create-apps-worker` |
@@ -327,6 +331,16 @@ Acceptance criteria for M02.01:
 
 Historical M02 planning acceptance marker retained for validation: M02.01 through M02.20 remain `Not started`; next recommended thread was `M02 Planning QA - Monorepo and Local Development Environment`.
 
+M02.01 QA acceptance criteria:
+
+- ADR-0005 and ADR-0006 remain documentation-only stack decisions.
+- No product runtime, package manifests, dependency installation, lockfiles, app runtime, database behavior, API behavior, MoneyEvent behavior, CI workflow, or M02.02 work exists.
+- M02.01 status is recorded as `QA passed, awaiting PR merge`.
+- M02.02 through M02.20 remain `Not started`.
+- M03 through M21 remain `Not started`.
+- Product implementation has not started.
+- Next recommended thread is `Merge M02.01 PR - Choose Backend and Frontend Stack`.
+
 ## M02 Planning QA Record
 
 QA date: 2026-06-08.
@@ -403,6 +417,85 @@ QA decision: PASS.
 
 Safe-to-merge statement: safe to merge the M02 planning PR after human review. M02 planning is not completed and merged until the PR actually merges into `main` and post-merge tracking is finalized. Do not start M02.01 until after that merge and finalization.
 
+## M02.01 QA Record
+
+QA date: 2026-06-08.
+
+PR: #38, `https://github.com/Islem-Rezzag/CausalLedger/pull/38`.
+
+Branch: `m02-01-choose-backend-and-frontend-stack`.
+
+Files inspected:
+
+- `docs/ACTIVE_DOCS.md`
+- `README.md`
+- `START_HERE.md`
+- `AGENTS.md`
+- `PLANS.md`
+- `WORKFLOW.md`
+- `docs/INDEX.md`
+- `plans/ROADMAP.md`
+- `docs/status/CURRENT_STATE.md`
+- `docs/status/NEXT_RECOMMENDED_THREAD.md`
+- `docs/status/WEEKLY_LOG.md`
+- `docs/status/RISK_REGISTER.md`
+- `docs/status/TECH_DEBT.md`
+- `docs/status/CAPABILITY_MATRIX.md`
+- `docs/milestones/M02.md`
+- `docs/milestones/SUBMILESTONE_REGISTRY.md`
+- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`
+- `docs/decisions/ADR-0005-m02-stack-and-monorepo-direction.md`
+- `docs/decisions/ADR-0006-local-dev-and-ci-baseline.md`
+- `docs/decisions/ADR-0007-logging-error-handling-and-observability-direction.md`
+- `docs/ops/planning-and-tracking-system.md`
+- `docs/ops/builder-qa-prompt-protocol.md`
+- `docs/ops/validation-and-handoff-workflow.md`
+- `docs/ops/github-pr-and-issue-workflow.md`
+- `.github/PULL_REQUEST_TEMPLATE.md`
+- `tests/test_control_plane_bootstrap.py`
+- `scripts/validate-control-plane.py`
+
+QA findings:
+
+- ADR-0005 records the TypeScript-first stack direction: Node.js/Fastify backend, React/Vite frontend, pnpm workspaces, Turborepo, ESLint/Prettier, Vitest, and Zod or equivalent future schema validation.
+- ADR-0006 records local development implications without adding package manifests, lockfiles, runtime services, Docker Compose, migrations, health checks, or CI workflows.
+- ADR-0007 remains planning-only and untouched by M02.01.
+- No product implementation, dependency installation, app runtime, package runtime, API behavior, database behavior, MoneyEvent behavior, CI workflow, or M02.02 work exists.
+- `apps/`, `packages/`, `scenarios/`, `data/`, and `infra/` contain placeholder README files only.
+- `.github/workflows/` does not exist.
+- M02.02 through M02.20 remain `Not started`.
+- M03 through M21 remain `Not started`.
+
+Defects found:
+
+- `README.md` still reported the pre-M02.01 planning state where M02.01 through M02.20 remained `Not started`.
+- The GitHub API reports PR #38 as open and non-draft, while the QA prompt expected an open draft PR.
+- The `gh` CLI is unavailable in this Windows shell, so PR status was checked with the GitHub API instead.
+
+Fixes applied:
+
+- Updated `README.md` current status to reflect M02.01 QA passed, awaiting PR merge.
+- Updated durable tracking in current state, next recommended thread, weekly log, roadmap, M02 milestone doc, registry, and this active plan.
+- Set the exact next recommended thread to `Merge M02.01 PR - Choose Backend and Frontend Stack`.
+
+Validation commands:
+
+- `python scripts/validate-control-plane.py`
+- `python -m pytest tests/test_control_plane_bootstrap.py`
+- `git diff --check`
+- `make bootstrap-check`, only if `make` is available
+
+Validation results:
+
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 32 tests.
+- `git diff --check` passed.
+- `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
+
+QA decision: PASS.
+
+Safe-to-merge statement: safe to merge PR #38 after human review. M02.01 is not `Completed and merged` until PR #38 actually merges into `main` and post-merge tracking is finalized. Do not start M02.02 until after that merge and finalization.
+
 ## Validation Results
 
 2026-06-02 validation results:
@@ -413,6 +506,13 @@ Safe-to-merge statement: safe to merge the M02 planning PR after human review. M
 - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
 
 2026-06-08 M02.01 builder validation results:
+
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 32 tests.
+- `git diff --check` passed.
+- `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
+
+2026-06-08 M02.01 QA validation results:
 
 - `python scripts/validate-control-plane.py` passed.
 - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 32 tests.
@@ -451,7 +551,7 @@ M02 planning builder work completed as documentation/control-plane work only. At
 
 Exact next recommended thread after this planning builder is complete: `M02 Planning QA - Monorepo and Local Development Environment`.
 
-M02.01 builder work completed as documentation/control-plane work only. Product implementation has not started. M02.01 is `Builder complete, awaiting QA`; M02.02 through M02.20 remain `Not started`; M03 through M21 remain `Not started`.
+M02.01 builder and QA work completed as documentation/control-plane work only. Product implementation has not started. M02.01 is `QA passed, awaiting PR merge`; M02.02 through M02.20 remain `Not started`; M03 through M21 remain `Not started`.
 
 Stack decision summary:
 
@@ -464,4 +564,4 @@ Stack decision summary:
 - Vitest.
 - TypeScript types plus Zod or equivalent future runtime schema validation for MoneyEvent contracts.
 
-Exact next recommended thread after M02.01 builder is complete: `M02.01 QA - Choose Backend and Frontend Stack`.
+Exact next recommended thread after M02.01 QA is complete: `Merge M02.01 PR - Choose Backend and Frontend Stack`.
