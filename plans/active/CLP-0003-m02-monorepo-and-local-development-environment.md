@@ -24,7 +24,9 @@ This plan does not start M02.01 implementation and does not create product behav
 - [x] Update status and tracking docs for M02 planning.
 - [x] Update control-plane validation for M02 planning artifacts.
 - [x] Run validation.
-- [ ] Hand off to M02 planning QA.
+- [x] Hand off to M02 planning QA.
+- [x] 2026-06-08: M02 Planning QA passed for PR #37 on branch `m02-planning-monorepo-and-local-development-environment`.
+- [ ] Human merge of the M02 planning PR into `main`.
 
 ## Surprises & Discoveries
 
@@ -285,6 +287,82 @@ Acceptance criteria:
 - Product implementation has not started.
 - Validation passes or skipped validation is recorded with a reason.
 - Next recommended thread is `M02 Planning QA - Monorepo and Local Development Environment`.
+
+## M02 Planning QA Record
+
+QA date: 2026-06-08.
+
+Files inspected:
+
+- `docs/ACTIVE_DOCS.md`
+- `README.md`
+- `START_HERE.md`
+- `AGENTS.md`
+- `PLANS.md`
+- `WORKFLOW.md`
+- `docs/INDEX.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DOMAIN_MODEL.md`
+- `docs/PRODUCT_VISION.md`
+- `docs/RELIABILITY.md`
+- `docs/THREAT_MODEL.md`
+- `docs/TOKEN_COST_STRATEGY.md`
+- `plans/ROADMAP.md`
+- `docs/status/CURRENT_STATE.md`
+- `docs/status/NEXT_RECOMMENDED_THREAD.md`
+- `docs/status/WEEKLY_LOG.md`
+- `docs/status/RISK_REGISTER.md`
+- `docs/status/TECH_DEBT.md`
+- `docs/status/CAPABILITY_MATRIX.md`
+- `docs/milestones/M02.md`
+- `docs/milestones/SUBMILESTONE_REGISTRY.md`
+- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`
+- `docs/decisions/ADR-0005-m02-stack-and-monorepo-direction.md`
+- `docs/decisions/ADR-0006-local-dev-and-ci-baseline.md`
+- `docs/decisions/ADR-0007-logging-error-handling-and-observability-direction.md`
+- `.github/PULL_REQUEST_TEMPLATE.md`
+- `tests/test_control_plane_bootstrap.py`
+- `scripts/validate-control-plane.py`
+
+QA findings:
+
+- Active M02 planning plan exists.
+- `PLANS.md` references the active M02 plan and no longer says the active plan is none.
+- M02 planning remains documentation/control-plane only.
+- M02.01 through M02.20 remain `Not started`.
+- M03 through M21 remain `Not started`.
+- Product implementation has not started.
+- `apps/` and `packages/` contain placeholder documentation only.
+- `.github/workflows/` does not exist.
+- Continuous lifecycle observer language is future planning language only.
+- Live monitoring and historical replay are described as future paths using the same future canonical event engine with different input timing.
+- Progressive incident certainty keeps LLM output out of confirmed financial truth.
+- OrbitSoft-readiness feedback is mapped to future milestones without implementation in this planning PR.
+- ADR-0005, ADR-0006, and ADR-0007 are planning placeholders and do not claim final implementation.
+- Validation tests cover the M02 planning artifacts without claiming product behavior.
+
+Defects found:
+
+- No new formal PR QA defects were found.
+- The prior stale `PLANS.md` active-plan reference was already fixed in commit `64b1f7b` and was verified in this QA.
+
+Validation commands:
+
+- `python scripts/validate-control-plane.py`
+- `python -m pytest tests/test_control_plane_bootstrap.py`
+- `git diff --check`
+- `make bootstrap-check`, only if `make` is available
+
+Validation results:
+
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 32 tests.
+- `git diff --check` passed.
+- `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent Python validation commands were run directly.
+
+QA decision: PASS.
+
+Safe-to-merge statement: safe to merge the M02 planning PR after human review. M02 planning is not completed and merged until the PR actually merges into `main` and post-merge tracking is finalized. Do not start M02.01 until after that merge and finalization.
 
 ## Validation Results
 
