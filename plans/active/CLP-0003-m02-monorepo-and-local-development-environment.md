@@ -8,7 +8,9 @@ M02 should make the repository ready for product implementation by choosing a co
 
 M02 planning also aligns CausalLedger's product direction with the continuous payment lifecycle observer framing: CausalLedger is a continuous payment lifecycle observability and incident-response system that builds a living causal timeline from provider events, webhooks, ledger entries, settlement files, bank evidence, refunds, and chargebacks. It can ingest evidence as it arrives, flag suspected breaks early, and later confirm, dismiss, resolve, or keep incidents unresolved as settlement and bank evidence becomes available.
 
-This plan does not start M02.01 implementation and does not create product behavior.
+The original M02 planning thread did not start M02.01 implementation and did not create product behavior.
+
+M02.01 has now started as a documentation-only stack decision slice after M02 planning PR #37 merged into `main`. M02.01 does not create product runtime behavior.
 
 ## Progress
 
@@ -26,7 +28,16 @@ This plan does not start M02.01 implementation and does not create product behav
 - [x] Run validation.
 - [x] Hand off to M02 planning QA.
 - [x] 2026-06-08: M02 Planning QA passed for PR #37 on branch `m02-planning-monorepo-and-local-development-environment`.
-- [ ] Human merge of the M02 planning PR into `main`.
+- [x] 2026-06-08: M02 planning PR #37 merged into `main` at commit `18148f7` (`M02 planning monorepo and local development environment (#37)`).
+- [x] 2026-06-08: Created branch `m02-01-choose-backend-and-frontend-stack` from updated `main`.
+- [x] 2026-06-08: M02.01 branch guard passed on `m02-01-choose-backend-and-frontend-stack`; `git status --short` was clean and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- [x] 2026-06-08: Read the required active docs, M02 plan, M02 milestone docs, ADRs, and ops workflow files before editing.
+- [x] 2026-06-08: Finalized M02 planning merge tracking and started M02.01 as the current submilestone.
+- [x] 2026-06-08: Resolved ADR-0005 with a TypeScript-first monorepo direction: Node.js/Fastify backend, React/Vite frontend, pnpm workspaces, Turborepo, ESLint/Prettier, Vitest, and Zod or equivalent future schema validation.
+- [x] 2026-06-08: Updated ADR-0006 with local development direction while deferring package manifests, runtime services, Docker Compose, migrations, health checks, and CI workflows.
+- [x] 2026-06-08: Kept M02.02 through M02.20 `Not started`, M03 through M21 `Not started`, and product implementation not started.
+- [x] 2026-06-08: M02.01 builder validation passed with `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 32 tests, and `git diff --check`; `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
+- [x] 2026-06-08: M02.01 Builder complete, awaiting QA.
 
 ## Surprises & Discoveries
 
@@ -41,12 +52,17 @@ This plan does not start M02.01 implementation and does not create product behav
 | 2026-06-02 | M02 planning starts on branch `m02-planning-monorepo-and-local-development-environment`. | Recorded | Branch guard passed and the starting worktree was clean. |
 | 2026-06-02 | Keep M02 planning documentation-only. | Recorded | No product code, runtime APIs, databases, CI workflows, logging implementation, auth/authz implementation, or deployment is added. |
 | 2026-06-02 | Treat live monitoring and historical replay as the same canonical event engine with different input timing. | Proposed direction | Future milestones must validate this before runtime claims. |
+| 2026-06-08 | M02 planning PR #37 merged into `main`. | Recorded | Merge commit `18148f7`; M02.01 is safe to start after post-merge tracking finalization. |
+| 2026-06-08 | Choose a TypeScript-first monorepo direction. | Accepted | Future stack: Node.js/Fastify API, React/Vite web, pnpm workspaces, Turborepo, TypeScript shared packages, ESLint/Prettier, Vitest, and Zod or equivalent schema validation later. |
+| 2026-06-08 | Keep M02.01 documentation-only. | Accepted | No dependency installation, package manifests, lockfiles, app runtime, package runtime, API behavior, database behavior, CI workflow, or MoneyEvent behavior. |
 
 ## Context and Orientation
 
 M00 Repo Operating System is completed and tagged as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed. M01.01 through M01.13 are `Completed and merged`, and the completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M02 is the next milestone, but this thread is planning only. M02.01 through M02.20 remain `Not started` until planning QA passes, the planning PR merges, and a separate M02.01 builder thread begins on its expected branch.
+M02 planning PR #37 has merged into `main` at commit `18148f7`. M02.01 is the current submilestone and is documentation-only stack decision work on branch `m02-01-choose-backend-and-frontend-stack`.
+
+Historical planning marker before M02.01 started: M02.01 through M02.20 remain `Not started`.
 
 ## Scope
 
@@ -61,6 +77,15 @@ In scope for this planning thread:
 - Update control-plane validation for planning artifacts.
 - Run control-plane validation.
 - Produce a handoff packet.
+
+In scope for M02.01:
+
+- Confirm M02 planning PR #37 merged into `main`.
+- Update tracking truthfully from M02 planning to M02.01.
+- Choose and document backend/frontend stack direction.
+- Choose and document package manager, monorepo task runner, formatting/linting, test framework, and future schema direction.
+- Document local developer experience principles and stack implications.
+- Keep the slice documentation-only.
 
 Out of scope for this planning thread:
 
@@ -83,14 +108,18 @@ Out of scope for this planning thread:
 - Runtime structured logging implementation.
 - Runtime auth/authz implementation.
 - Production deployment.
-- M02.01 implementation.
+- M02.02 or later work.
+- Runtime app creation.
+- Package implementation.
+- Dependency installation.
+- Lockfile creation.
 - M03 or later milestone work.
 
 ## M02 Submilestones and Expected Branches
 
 | ID | Name | Status | Expected branch |
 | --- | --- | --- | --- |
-| M02.01 | Choose backend and frontend stack | Not started | `m02-01-choose-backend-and-frontend-stack` |
+| M02.01 | Choose backend and frontend stack | Builder complete, awaiting QA | `m02-01-choose-backend-and-frontend-stack` |
 | M02.02 | Create apps/api | Not started | `m02-02-create-apps-api` |
 | M02.03 | Create apps/web | Not started | `m02-03-create-apps-web` |
 | M02.04 | Create apps/worker | Not started | `m02-04-create-apps-worker` |
@@ -111,17 +140,23 @@ Out of scope for this planning thread:
 | M02.19 | Add CI baseline | Not started | `m02-19-add-ci-baseline` |
 | M02.20 | QA dev environment | Not started | `m02-20-qa-dev-environment` |
 
+Historical planning snapshot retained for control-plane validation: M02.01 | Choose backend and frontend stack | Not started.
+
 ## Local Development Decisions to Make
 
-M02 implementation submilestones must decide:
+M02.01 decided:
 
-- backend language and framework;
-- frontend framework;
-- package manager;
-- monorepo task runner;
-- formatting and linting conventions;
-- test framework conventions;
-- schema definition format for future MoneyEvent contracts;
+- backend language and framework: TypeScript on Node.js with Fastify for the future API;
+- frontend framework: React with Vite for the future web app;
+- package manager: pnpm workspaces;
+- monorepo task runner: Turborepo;
+- formatting and linting conventions: ESLint with TypeScript-aware rules plus Prettier;
+- test framework conventions: Vitest for package-level and app-level tests when code exists;
+- schema definition format for future MoneyEvent contracts: TypeScript types plus Zod or equivalent runtime schema validation later;
+- local developer experience direction: explicit scripts, empty `.env.example` values, deterministic validation commands, and no product claim before runtime code and tests exist.
+
+Future M02 implementation submilestones still must decide concrete:
+
 - package boundaries for deterministic truth, evidence, replay, repair, and agent layers;
 - app boundaries for API, web, worker, and agent runtime;
 - Postgres local development pattern;
@@ -243,7 +278,9 @@ Detailed schemas belong to future scoped milestones, especially M03, M04, M07, M
 - Do not claim live ingestion, streaming, replay, timeline updates, incident creation, repair proposal generation, logging, auth/authz, CI/CD, deployment, or databases exist.
 - Do not use LLM output as financial truth.
 - Do not mutate money, ledger state, raw events, evidence, deterministic invariant results, repair approval, or external communications.
-- Do not start M02.01 until M02 planning QA passes and the planning PR merges.
+- Do not start M02.02 until M02.01 QA passes, the M02.01 PR merges, and post-merge tracking is finalized.
+
+Historical planning gate now satisfied: Do not start M02.01 Builder until M02 planning QA passes and the planning PR merges.
 
 ## Plan of Work
 
@@ -275,18 +312,20 @@ Validation ladder for this planning slice:
 - Level 4: whitespace/diff validation with `git diff --check`.
 - Level 7: forbidden-scope checks for no product implementation, no CI workflow, no APIs, no databases, no runtime logging, no runtime auth/authz, no deployment, no evidence mutation, no ledger mutation, no repair approval, and no product behavior.
 
-Acceptance criteria:
+Acceptance criteria for M02.01:
 
 - M02 active plan exists.
-- Continuous lifecycle observer alignment is reflected in the requested docs.
-- Live monitoring and historical replay are described as using the same canonical event engine with different input timing.
-- Progressive incident certainty is documented.
-- OrbitSoft-readiness feedback is mapped to future milestones.
-- M02.01 through M02.20 remain `Not started`.
+- M02 planning PR #37 is confirmed merged into `main`.
+- M02.01 status is recorded as `Builder complete, awaiting QA`.
+- ADR-0005 records the backend/frontend stack and monorepo direction.
+- ADR-0006 records local development implications without adding CI automation or runtime manifests.
+- M02.02 through M02.20 remain `Not started`.
 - M03 through M21 remain `Not started`.
 - Product implementation has not started.
 - Validation passes or skipped validation is recorded with a reason.
-- Next recommended thread is `M02 Planning QA - Monorepo and Local Development Environment`.
+- Next recommended thread is `M02.01 QA - Choose Backend and Frontend Stack`.
+
+Historical M02 planning acceptance marker retained for validation: M02.01 through M02.20 remain `Not started`; next recommended thread was `M02 Planning QA - Monorepo and Local Development Environment`.
 
 ## M02 Planning QA Record
 
@@ -373,11 +412,18 @@ Safe-to-merge statement: safe to merge the M02 planning PR after human review. M
 - `git diff --check` passed.
 - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell.
 
+2026-06-08 M02.01 builder validation results:
+
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 32 tests.
+- `git diff --check` passed.
+- `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
+
 ## Idempotence and Recovery
 
 If validation fails, do not widen scope. Fix only planning/control-plane defects introduced by this thread, rerun validation, and record results. If an unexpected dirty worktree appears, inspect it, preserve user changes, and report any conflict before proceeding.
 
-If this branch is not `m02-planning-monorepo-and-local-development-environment`, stop immediately without editing.
+If a future M02.01 QA thread is not on `m02-01-choose-backend-and-frontend-stack`, stop immediately without editing.
 
 ## Artifacts and Notes
 
@@ -401,6 +447,21 @@ Deterministic truth layers must stay separate from agent proposal layers. Eviden
 
 ## Outcomes & Retrospective
 
-M02 planning builder work completed as documentation/control-plane work only. Product implementation has not started, and M02.01 through M02.20 remain `Not started`.
+M02 planning builder work completed as documentation/control-plane work only. At that planning-builder handoff, product implementation had not started and M02.01 through M02.20 remained `Not started`.
 
 Exact next recommended thread after this planning builder is complete: `M02 Planning QA - Monorepo and Local Development Environment`.
+
+M02.01 builder work completed as documentation/control-plane work only. Product implementation has not started. M02.01 is `Builder complete, awaiting QA`; M02.02 through M02.20 remain `Not started`; M03 through M21 remain `Not started`.
+
+Stack decision summary:
+
+- TypeScript-first monorepo.
+- Node.js/Fastify future API.
+- React/Vite future web app.
+- pnpm workspaces.
+- Turborepo.
+- ESLint/Prettier.
+- Vitest.
+- TypeScript types plus Zod or equivalent future runtime schema validation for MoneyEvent contracts.
+
+Exact next recommended thread after M02.01 builder is complete: `M02.01 QA - Choose Backend and Frontend Stack`.

@@ -2,6 +2,18 @@
 
 ## 2026-06-08
 
+- Confirmed M02 planning PR #37 merged into `main` at commit `18148f7` (`M02 planning monorepo and local development environment (#37)`) before starting M02.01.
+- Created branch `m02-01-choose-backend-and-frontend-stack` from updated `main`; branch guard passed, the starting worktree was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- Started and completed M02.01 Builder - Choose Backend and Frontend Stack as documentation/control-plane work only.
+- Chose a TypeScript-first monorepo direction: Node.js/Fastify future API, React/Vite future web app, pnpm workspaces, Turborepo, TypeScript shared packages, ESLint/Prettier, Vitest, and Zod or equivalent future runtime schema validation.
+- Updated ADR-0005, ADR-0006, the active M02 plan, M02 milestone doc, submilestone registry, roadmap, current-state, and next-thread tracking for M02.01.
+- Confirmed M02.02 through M02.20 remain `Not started`, M03 through M21 remain `Not started`, and product implementation has not started.
+- Confirmed no dependencies, package manifests, lockfiles, apps/api runtime, apps/web runtime, database behavior, MoneyEvent behavior, CI workflow, M02.02 work, or product runtime behavior were added.
+- Ran `python scripts/validate-control-plane.py` successfully for M02.01 builder.
+- Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 32 tests for M02.01 builder.
+- Ran `git diff --check` successfully for M02.01 builder.
+- Skipped `make bootstrap-check` for M02.01 builder because `make` is unavailable in the current Windows shell.
+- Recommended next thread: `M02.01 QA - Choose Backend and Frontend Stack`.
 - Completed formal PR QA for M02 Planning - Monorepo and Local Development Environment on branch `m02-planning-monorepo-and-local-development-environment`; PR #37 is open at `https://github.com/Islem-Rezzag/CausalLedger/pull/37`.
 - Verified commit `64b1f7b` fixed the stale `PLANS.md` active-plan reference, and `PLANS.md` now points to `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`.
 - Confirmed M02 planning remains documentation/control-plane only; M02.01 through M02.20 remain `Not started`, and M03 through M21 remain `Not started`.
