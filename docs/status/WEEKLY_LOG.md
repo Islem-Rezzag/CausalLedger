@@ -2,6 +2,17 @@
 
 ## 2026-06-09
 
+- Confirmed M02.03 PR #40 merged into `main` at commit `6ad4b0c` (`chore: create M02.03 web scaffold (#40)`) before starting M02.04.
+- Created branch `m02-04-create-apps-worker` from updated `main`; branch guard passed, the starting worktree was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- Finalized M02.03 as `Completed and merged` in durable tracking.
+- Started and completed M02.04 Builder - Create apps/worker.
+- Created a minimal non-domain `apps/worker` TypeScript scaffold with package scripts, TypeScript config, bootstrap module, README, and bootstrap test.
+- Confirmed no jobs, queues, schedulers, provider connectors, database behavior, MoneyEvent logic, ledger logic, invariant checks, incident processing, evidence ingestion, replay behavior, graph behavior, repair behavior, health checks, GitHub Actions, CI workflows, Docker Compose, or product/domain behavior was added.
+- M02.05 through M02.20 remain `Not started`, M03 through M21 remain `Not started`, and product domain implementation has not started.
+- Ran `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 32 tests, `git diff --check`, `node --version` (`v22.16.0`), `npm --version` (`10.9.2`), `pnpm --version` (`10.32.1`), `pnpm install`, `pnpm typecheck`, `pnpm test` with 3 Vitest tests, `pnpm build`, `pnpm lint`, and `pnpm format:check` successfully for M02.04 builder.
+- Skipped `make bootstrap-check` for M02.04 builder because `make` is unavailable in the current Windows shell; equivalent direct Python validation commands were run.
+- M02.04 `pnpm install` did not emit the `esbuild@0.28.0` approve-builds warning; prior M02.02 and M02.03 warnings remain historical only.
+- Recommended next thread: `M02.04 QA - Create apps/worker`.
 - Completed M02.03 QA - Create apps/web on branch `m02-03-create-apps-web`; branch guard passed, the starting worktree was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
 - Verified PR #40 at `https://github.com/Islem-Rezzag/CausalLedger/pull/40`; the GitHub API reported it open, non-draft, mergeable clean, unmerged, with head SHA `d7904c3b56d6d7df4c98d3103fe86e0c0fd045d2`. The `gh` CLI is unavailable in the current Windows shell.
 - Confirmed the branch contained exactly one M02.03 builder commit beyond `main` before QA tracking changes.

@@ -684,9 +684,10 @@ def test_m02_planning_artifacts_are_documentation_only():
         "OrbitSoft-Readiness Constraints",
         "M02.01 | Choose backend and frontend stack | Completed and merged",
         "M02.02 | Create apps/api | Completed and merged",
-        "M02.03 | Create apps/web | QA passed, awaiting merge",
+        "M02.03 | Create apps/web | Completed and merged",
+        "M02.04 | Create apps/worker | Builder complete, awaiting QA",
         "M02.20 | QA dev environment | Not started",
-        "Merge M02.03 PR - Create apps/web",
+        "M02.04 QA - Create apps/worker",
         "This planning thread must not create `.github/workflows/`",
     ]:
         assert phrase in plan
@@ -712,12 +713,18 @@ def test_m02_planning_artifacts_are_documentation_only():
     assert "No product/domain routes" in m02_02
 
     m02_03 = next(line for line in registry.splitlines() if line.startswith("| M02.03 |"))
-    assert "QA passed, awaiting merge" in m02_03
+    assert "Completed and merged" in m02_03
     assert "m02-03-create-apps-web" in m02_03
-    assert "#40" in m02_03
+    assert "#40 merged" in m02_03
+    assert "6ad4b0c" in m02_03
     assert "React/Vite" in m02_03
 
-    for index in range(4, 21):
+    m02_04 = next(line for line in registry.splitlines() if line.startswith("| M02.04 |"))
+    assert "Builder complete, awaiting QA" in m02_04
+    assert "m02-04-create-apps-worker" in m02_04
+    assert "worker" in m02_04
+
+    for index in range(5, 21):
         row = next(
             line for line in registry.splitlines() if line.startswith(f"| M02.{index:02} |")
         )
@@ -726,9 +733,9 @@ def test_m02_planning_artifacts_are_documentation_only():
 
     assert "| M02 Monorepo and local development |" in roadmap
     assert "| 20 | In progress |" in roadmap
-    assert "M02.04 through M02.20 remain `Not started`" in next_thread
+    assert "M02.05 through M02.20 remain `Not started`" in next_thread
     assert "M03 through M21 are `Not started`" in next_thread
-    assert "Do not start M02.04 until the M02.03 PR merges" in next_thread
+    assert "Do not start M02.05 until M02.04 QA passes and the M02.04 PR merges" in next_thread
     assert not (ROOT / ".github" / "workflows").exists()
 
     for rel in [
@@ -750,6 +757,10 @@ def test_m02_planning_artifacts_are_documentation_only():
         "apps/web/src/App.tsx",
         "apps/web/src/main.tsx",
         "apps/web/src/App.test.tsx",
+        "apps/worker/package.json",
+        "apps/worker/tsconfig.json",
+        "apps/worker/src/index.ts",
+        "apps/worker/test/bootstrap.test.ts",
     ]:
         assert (ROOT / rel).is_file()
 
@@ -757,6 +768,9 @@ def test_m02_planning_artifacts_are_documentation_only():
     assert "No CausalLedger product or domain behavior is implemented here" in api_readme
     web_readme = (ROOT / "apps" / "web" / "README.md").read_text(encoding="utf-8")
     assert "No CausalLedger product or domain behavior is implemented here" in web_readme
+    worker_readme = (ROOT / "apps" / "worker" / "README.md").read_text(encoding="utf-8")
+    assert "No CausalLedger product or domain behavior is implemented here" in worker_readme
+    assert "There are no jobs, queues, schedulers" in worker_readme
 
 
 def test_m01_ledger_vocabulary_domain_doc_is_documentation_only():
@@ -2546,11 +2560,17 @@ def test_m00_closeout_state_is_coherent():
     assert "8ddf5da" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M02.03 |"))
-    assert "QA passed, awaiting merge" in row
+    assert "Completed and merged" in row
     assert "m02-03-create-apps-web" in row
-    assert "#40" in row
+    assert "#40 merged" in row
+    assert "6ad4b0c" in row
 
-    for index in range(4, 21):
+    row = next(line for line in registry.splitlines() if line.startswith("| M02.04 |"))
+    assert "Builder complete, awaiting QA" in row
+    assert "m02-04-create-apps-worker" in row
+    assert "worker" in row
+
+    for index in range(5, 21):
         row = next(
             line for line in registry.splitlines() if line.startswith(f"| M02.{index:02} |")
         )
@@ -2593,8 +2613,9 @@ def test_m00_closeout_state_is_coherent():
         "M01.13 QA Domain Consistency is `Completed and merged`",
         "M02.01 Choose backend and frontend stack is `Completed and merged`",
         "M02.02 Create apps/api is `Completed and merged`",
-        "M02.03 Create apps/web is `QA passed, awaiting merge`",
-        "M02.04 through M02.20 remain `Not started`",
+        "M02.03 Create apps/web is `Completed and merged`",
+        "M02.04 Create apps/worker is `Builder complete, awaiting QA`",
+        "M02.05 through M02.20 remain `Not started`",
         "M03 through M21 remain `Not started`",
     ]:
         assert phrase in current_state
@@ -2617,6 +2638,11 @@ def test_m00_closeout_state_is_coherent():
         "apps/web/src/App.tsx",
         "apps/web/src/main.tsx",
         "apps/web/src/App.test.tsx",
+        "apps/worker/package.json",
+        "apps/worker/README.md",
+        "apps/worker/tsconfig.json",
+        "apps/worker/src/index.ts",
+        "apps/worker/test/bootstrap.test.ts",
     }
     generated_parts = {"node_modules", "dist", ".turbo", ".vite"}
     for rel in ["apps", "packages", "scenarios", "data", "infra"]:
