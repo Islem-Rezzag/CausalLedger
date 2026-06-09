@@ -1551,7 +1551,7 @@ REQUIRED_TEXT = {
     "START_HERE.md": [
         "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
         "docs/status/M01_CLOSEOUT.md",
-        "M02 Planning - Monorepo and Local Development Environment",
+        "M02 Monorepo and Local Development Environment",
         "docs/VERSIONING.md",
         "docs/releases/RELEASE_LADDER.md",
         "docs/releases/V1_SCOPE.md",
@@ -1563,7 +1563,7 @@ REQUIRED_TEXT = {
         "docs/releases/V1_SCOPE.md",
         "CHANGELOG.md",
         "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
-        "Current active milestone planning plan: `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`",
+        "Current active milestone plan: `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`",
     ],
     ".github/PULL_REQUEST_TEMPLATE.md": [
         "# Submilestone",
@@ -1605,9 +1605,10 @@ REQUIRED_TEXT = {
         "same future canonical event engine",
         "Progressive Incident Certainty Planning Boundary",
         "OrbitSoft-Readiness Constraints",
-        "M02.01 | Choose backend and frontend stack | Not started",
+        "M02.01 | Choose backend and frontend stack | Completed and merged",
+        "M02.02 | Create apps/api | QA passed, awaiting merge",
         "M02.20 | QA dev environment | Not started",
-        "M02 Planning QA - Monorepo and Local Development Environment",
+        "Merge M02.02 PR - Create apps/api",
         "No runtime logging or error-handling code is implemented",
         "This planning thread must not create `.github/workflows/`",
     ],
@@ -1992,7 +1993,33 @@ def closeout_state_errors():
         if phrase not in row:
             errors.append(f"M01.13 registry row missing completion marker: {phrase}")
 
-    for milestone in range(2, 22):
+    m02_01_row = next(
+        (line for line in registry.splitlines() if line.startswith("| M02.01 |")),
+        "",
+    )
+    if "Completed and merged" not in m02_01_row or "fb2b901" not in m02_01_row:
+        errors.append("M02.01 is not recorded as completed and merged at fb2b901")
+
+    m02_02_row = next(
+        (line for line in registry.splitlines() if line.startswith("| M02.02 |")),
+        "",
+    )
+    if (
+        "QA passed, awaiting merge" not in m02_02_row
+        or "m02-02-create-apps-api" not in m02_02_row
+        or "#39" not in m02_02_row
+    ):
+        errors.append("M02.02 is not recorded as QA passed on the expected branch and PR")
+
+    for index in range(3, 21):
+        row = next(
+            (line for line in registry.splitlines() if line.startswith(f"| M02.{index:02} |")),
+            "",
+        )
+        if "Not started" not in row:
+            errors.append(f"M02.{index:02} is not Not started")
+
+    for milestone in range(3, 22):
         prefix = f"| M{milestone:02}."
         for row in [line for line in registry.splitlines() if line.startswith(prefix)]:
             if "Not started" not in row:
@@ -2020,9 +2047,9 @@ def closeout_state_errors():
         errors.append("Roadmap does not mark M01 completed")
     if (
         "| M02 Monorepo and local development |" not in roadmap
-        or "| 20 | Planning in progress |" not in roadmap
+        or "| 20 | In progress |" not in roadmap
     ):
-        errors.append("Roadmap does not mark M02 planning in progress")
+        errors.append("Roadmap does not mark M02 in progress")
     if "Add v0.1.0 release" in registry or "Add v0.1.0 release" in roadmap:
         errors.append("Future public-launch wording still reuses v0.1.0")
 
@@ -2052,10 +2079,26 @@ def closeout_state_errors():
         errors.append(".github/workflows exists before CI is authorized")
 
     placeholder_roots = ["apps", "packages", "scenarios", "data", "infra"]
+    allowed_m02_api_files = {
+        "apps/api/package.json",
+        "apps/api/README.md",
+        "apps/api/tsconfig.json",
+        "apps/api/src/app.ts",
+        "apps/api/src/index.ts",
+        "apps/api/test/bootstrap.test.ts",
+    }
     unexpected_product_files = []
+    generated_parts = {"node_modules", "dist", ".turbo", ".vite"}
     for rel in placeholder_roots:
         for path in (ROOT / rel).rglob("*"):
-            if path.is_file() and path.name != "README.md":
+            if generated_parts.intersection(path.relative_to(ROOT).parts):
+                continue
+            relative = path.relative_to(ROOT).as_posix()
+            if (
+                path.is_file()
+                and path.name != "README.md"
+                and relative not in allowed_m02_api_files
+            ):
                 unexpected_product_files.append(path.relative_to(ROOT).as_posix())
     if unexpected_product_files:
         errors.append(
@@ -2087,24 +2130,25 @@ def closeout_state_errors():
     for rel, text in no_product_texts:
         if (
             "Product implementation has not started" not in text
+            and "Product domain implementation has not started" not in text
             and "No product functionality" not in text
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "M02 Planning QA - Monorepo and Local Development Environment" not in next_thread:
-        errors.append("Next recommended thread is not M02 planning QA")
+    if "Merge M02.02 PR - Create apps/api" not in next_thread:
+        errors.append("Next recommended thread is not M02.02 merge")
     if "M01 is completed and closed" not in next_thread:
         errors.append("Next recommended thread does not record M01 as completed and closed")
     if "M01.01 through M01.13 are `Completed and merged`" not in next_thread:
         errors.append("Next recommended thread does not record all M01 submilestones as completed")
     if "27c39b6" not in next_thread:
         errors.append("Next recommended thread does not record M01.13 merge commit")
-    if "M02.01 through M02.20 remain `Not started`" not in next_thread:
+    if "M02.03 through M02.20 remain `Not started`" not in next_thread:
         errors.append("Next recommended thread does not preserve M02 submilestone status")
     if "M03 through M21 are `Not started`" not in next_thread:
         errors.append("Next recommended thread does not preserve future milestone status")
-    if "Do not start M02.01 Builder until M02 planning QA passes" not in next_thread:
-        errors.append("Next recommended thread does not block premature M02.01 implementation")
+    if "Do not start M02.03 until the M02.02 PR is merged into `main`" not in next_thread:
+        errors.append("Next recommended thread does not block premature M02.03 implementation")
 
     domain_doc = ROOT / "docs/domain/payment-lifecycle.md"
     ledger_doc = ROOT / "docs/domain/ledger-vocabulary.md"

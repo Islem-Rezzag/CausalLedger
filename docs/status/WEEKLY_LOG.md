@@ -1,7 +1,36 @@
 # Weekly Log
 
+## 2026-06-09
+
+- Completed M02.02 QA - Create apps/api on branch `m02-02-create-apps-api`; branch guard passed, the starting worktree was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- Verified PR #39 at `https://github.com/Islem-Rezzag/CausalLedger/pull/39`; the GitHub API reported it open, non-draft, mergeable clean, and unmerged. The `gh` CLI is unavailable in the current Windows shell.
+- Confirmed the branch contained exactly one M02.02 builder commit beyond `main` before QA tracking changes.
+- Inspected required active docs, status docs, M02 milestone and registry, ADRs, ops workflow docs, root workspace manifests, `pnpm-lock.yaml`, `apps/api` manifest/config/source/test/README, and the updated control-plane validator and bootstrap tests.
+- Verified the M02.02 scaffold is minimal and non-domain: no MoneyEvent routes or logic, ledger routes or logic, invariant logic, incident routes or logic, evidence ingestion routes, repair routes, auth/authz, database behavior, external connectors, health-check endpoint, structured logging runtime, GitHub Actions or CI workflow, Docker Compose, UI, product/domain tests, M02.03 work, or M03 work were added.
+- M02.02 QA found no scaffold or safety defects and applied scoped tracking/status updates only.
+- Marked M02.02 `QA passed, awaiting merge`; M02.03 through M02.20 remain `Not started`, M03 through M21 remain `Not started`, and product domain implementation has not started.
+- Initial `python scripts/validate-control-plane.py` failed because `docs/status/NEXT_RECOMMENDED_THREAD.md` lacked the required M01 completion context after the QA next-thread rewrite; the scoped next-thread context was restored and validation was rerun successfully.
+- Ran `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 32 tests, `git diff --check`, `pnpm install`, `pnpm typecheck`, `pnpm test` with 1 Vitest test, `pnpm build`, `pnpm lint`, and `pnpm format:check` successfully for M02.02 QA.
+- Skipped `make bootstrap-check` for M02.02 QA because `make` is unavailable in the current Windows shell; equivalent direct Python validation commands were run.
+- M02.02 QA `pnpm install` emitted the same non-blocking approve-builds warning for `esbuild@0.28.0`; package validation still passed.
+- Recommended next thread: `Merge M02.02 PR - Create apps/api`.
+
 ## 2026-06-08
 
+- Confirmed M02.01 PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`) before starting M02.02.
+- Created branch `m02-02-create-apps-api` from updated `main`; branch guard passed, the starting worktree was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- Finalized M02.01 as `Completed and merged` in durable tracking.
+- Started and completed M02.02 Builder - Create apps/api.
+- Created root workspace manifests for pnpm/Turborepo and TypeScript base configuration.
+- Created a minimal non-domain `apps/api` TypeScript/Fastify scaffold with app factory, server entrypoint, package scripts, README, and bootstrap test.
+- Created `pnpm-lock.yaml` after successful pnpm dependency installation.
+- Confirmed no MoneyEvent routes, ledger routes, incident routes, evidence ingestion routes, repair routes, auth/authz, database behavior, external connectors, health-check endpoints, CI workflows, Docker Compose, structured logging runtime, or CausalLedger product/domain behavior were added.
+- M02.03 through M02.20 remain `Not started`, M03 through M21 remain `Not started`, and product domain implementation has not started.
+- Ran `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 32 tests, and `git diff --check` successfully for M02.02 builder.
+- Ran `pnpm install`, `pnpm typecheck`, `pnpm test` with 1 Vitest test, `pnpm build`, `pnpm lint`, and `pnpm format:check`; the first `pnpm format:check` failed only on Prettier formatting for the new API source files, was fixed with scoped Prettier formatting, and passed on rerun.
+- Recorded a non-blocking pnpm install warning: `esbuild@0.28.0` build scripts were ignored by pnpm approve-builds policy, while package validation still passed.
+- Skipped `make bootstrap-check` for M02.02 builder because `make` is unavailable in the current Windows shell; equivalent direct Python validation commands were run.
+- Recommended next thread: `M02.02 QA - Create apps/api`.
 - Confirmed M02 planning PR #37 merged into `main` at commit `18148f7` (`M02 planning monorepo and local development environment (#37)`) before starting M02.01.
 - Created branch `m02-01-choose-backend-and-frontend-stack` from updated `main`; branch guard passed, the starting worktree was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
 - Started and completed M02.01 Builder - Choose Backend and Frontend Stack as documentation/control-plane work only.
