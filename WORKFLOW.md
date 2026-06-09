@@ -54,7 +54,7 @@ Use `docs/ops/repo-operating-system-freeze.md` and `docs/status/M00_FREEZE_READI
 
 Use `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md` for release versioning, release-scope, and overclaim-prevention guidance.
 
-Current active milestone plan: `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`. The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`; M02 planning, M02.01, and M02.02 are merged, M02.03 is `Builder complete, awaiting QA`, and M02.04 must not start until M02.03 QA passes, the M02.03 PR merges, and post-merge tracking is finalized.
+Current active milestone plan: `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`. The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`; M02 planning, M02.01, and M02.02 are merged, M02.03 is `QA passed, awaiting merge`, and M02.04 must not start until the M02.03 PR merges and post-merge tracking is finalized.
 
 ## Sandbox assumptions
 

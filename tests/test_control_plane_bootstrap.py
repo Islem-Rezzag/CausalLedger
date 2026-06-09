@@ -684,9 +684,9 @@ def test_m02_planning_artifacts_are_documentation_only():
         "OrbitSoft-Readiness Constraints",
         "M02.01 | Choose backend and frontend stack | Completed and merged",
         "M02.02 | Create apps/api | Completed and merged",
-        "M02.03 | Create apps/web | Builder complete, awaiting QA",
+        "M02.03 | Create apps/web | QA passed, awaiting merge",
         "M02.20 | QA dev environment | Not started",
-        "M02.03 QA - Create apps/web",
+        "Merge M02.03 PR - Create apps/web",
         "This planning thread must not create `.github/workflows/`",
     ]:
         assert phrase in plan
@@ -712,8 +712,9 @@ def test_m02_planning_artifacts_are_documentation_only():
     assert "No product/domain routes" in m02_02
 
     m02_03 = next(line for line in registry.splitlines() if line.startswith("| M02.03 |"))
-    assert "Builder complete, awaiting QA" in m02_03
+    assert "QA passed, awaiting merge" in m02_03
     assert "m02-03-create-apps-web" in m02_03
+    assert "#40" in m02_03
     assert "React/Vite" in m02_03
 
     for index in range(4, 21):
@@ -727,7 +728,7 @@ def test_m02_planning_artifacts_are_documentation_only():
     assert "| 20 | In progress |" in roadmap
     assert "M02.04 through M02.20 remain `Not started`" in next_thread
     assert "M03 through M21 are `Not started`" in next_thread
-    assert "Do not start M02.04 until M02.03 QA passes" in next_thread
+    assert "Do not start M02.04 until the M02.03 PR merges" in next_thread
     assert not (ROOT / ".github" / "workflows").exists()
 
     for rel in [
@@ -2545,8 +2546,9 @@ def test_m00_closeout_state_is_coherent():
     assert "8ddf5da" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M02.03 |"))
-    assert "Builder complete, awaiting QA" in row
+    assert "QA passed, awaiting merge" in row
     assert "m02-03-create-apps-web" in row
+    assert "#40" in row
 
     for index in range(4, 21):
         row = next(
@@ -2591,7 +2593,7 @@ def test_m00_closeout_state_is_coherent():
         "M01.13 QA Domain Consistency is `Completed and merged`",
         "M02.01 Choose backend and frontend stack is `Completed and merged`",
         "M02.02 Create apps/api is `Completed and merged`",
-        "M02.03 Create apps/web is `Builder complete, awaiting QA`",
+        "M02.03 Create apps/web is `QA passed, awaiting merge`",
         "M02.04 through M02.20 remain `Not started`",
         "M03 through M21 remain `Not started`",
     ]:

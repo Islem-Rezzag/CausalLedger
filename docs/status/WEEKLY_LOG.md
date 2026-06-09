@@ -2,6 +2,18 @@
 
 ## 2026-06-09
 
+- Completed M02.03 QA - Create apps/web on branch `m02-03-create-apps-web`; branch guard passed, the starting worktree was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- Verified PR #40 at `https://github.com/Islem-Rezzag/CausalLedger/pull/40`; the GitHub API reported it open, non-draft, mergeable clean, unmerged, with head SHA `d7904c3b56d6d7df4c98d3103fe86e0c0fd045d2`. The `gh` CLI is unavailable in the current Windows shell.
+- Confirmed the branch contained exactly one M02.03 builder commit beyond `main` before QA tracking changes.
+- Inspected required active docs, status docs, M02 milestone and registry, ADRs, ops workflow docs, root workspace manifests, `pnpm-lock.yaml`, `apps/api` manifest/config/source/test/README, `apps/web` manifest/config/source/test/README, and the updated control-plane validator and bootstrap tests.
+- Verified the M02.03 scaffold is minimal and non-domain: no dashboard UI, MoneyEvent UI or logic, ledger UI or logic, invariant logic, incident UI or logic, evidence UI or ingestion behavior, repair UI or behavior, API calls, routing, auth/authz, database/storage behavior, charts, external connectors, health-check UI or endpoint, structured logging runtime, GitHub Actions or CI workflow, Docker Compose, product/domain tests, M02.04 work, or M03 work were added.
+- M02.03 QA found no scaffold or safety defects and applied scoped tracking/status updates only.
+- Marked M02.03 `QA passed, awaiting merge`; M02.04 through M02.20 remain `Not started`, M03 through M21 remain `Not started`, and product domain implementation has not started.
+- Ran `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 32 tests, `git diff --check`, `pnpm install`, `pnpm typecheck`, `pnpm test` with 2 Vitest tests, `pnpm build`, `pnpm lint`, and `pnpm format:check` successfully for M02.03 QA.
+- Skipped `make bootstrap-check` for M02.03 QA because `make` is unavailable in the current Windows shell; equivalent direct Python validation commands were run.
+- M02.03 QA `pnpm install` emitted the same non-blocking approve-builds warning for `esbuild@0.28.0`; package validation still passed.
+- Optional dev-server smoke passed at `http://localhost:5173` with HTTP 200 and `CausalLedger Web` in the response.
+- Recommended next thread: `Merge M02.03 PR - Create apps/web`.
 - Confirmed M02.02 PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`) before starting M02.03.
 - Created branch `m02-03-create-apps-web` from updated `main`; branch guard passed, the starting worktree was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
 - Finalized M02.02 as `Completed and merged` in durable tracking.
