@@ -10,7 +10,7 @@ M02 planning also aligns CausalLedger's product direction with the continuous pa
 
 The original M02 planning thread did not start M02.01 implementation and did not create product behavior.
 
-M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`). M02.02 Create apps/api is `QA passed, awaiting merge` on branch `m02-02-create-apps-api` for PR #39.
+M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`). M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`). M02.03 Create apps/web is `Builder complete, awaiting QA` on branch `m02-03-create-apps-web`.
 
 ## Progress
 
@@ -55,11 +55,19 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 - [x] 2026-06-09: M02.02 QA found no scaffold or safety defects.
 - [x] 2026-06-09: M02.02 QA validation passed.
 - [x] 2026-06-09: M02.02 marked `QA passed, awaiting merge`.
+- [x] 2026-06-09: Confirmed M02.02 PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`).
+- [x] 2026-06-09: Created branch `m02-03-create-apps-web` from updated `main`.
+- [x] 2026-06-09: M02.03 branch guard passed on `m02-03-create-apps-web`; `git status --short` was clean and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- [x] 2026-06-09: Read the required active docs, status docs, M02 milestone and registry, ADRs, ops workflow docs, root workspace manifests, `pnpm-lock.yaml`, existing `apps/api` scaffold docs, existing `apps/web` README, validator, and bootstrap tests before editing.
+- [x] 2026-06-09: Finalized M02.02 as `Completed and merged` and started M02.03 Builder - Create apps/web.
+- [x] 2026-06-09: Created minimal non-domain `apps/web` React/Vite scaffold.
+- [x] 2026-06-09: Ran package validation for M02.03: `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm lint`, and `pnpm format:check`.
+- [x] 2026-06-09: M02.03 Builder complete, awaiting QA.
 
 ## Surprises & Discoveries
 
 - OrbitSoft feedback highlights missing professional engineering evidence: comprehensive error handling, structured logging, CI/CD pipeline, architecture and deployment documentation, authentication and authorization in API projects, and advanced data modeling. M02 planning must map these gaps to the right milestones without implementing them here.
-- Product domain implementation has not started. `apps/api` now has a minimal non-domain scaffold; other future product directories still contain placeholder README files only.
+- Product domain implementation has not started. `apps/api` has a minimal non-domain scaffold, `apps/web` has a minimal non-domain scaffold, and other future product directories still contain placeholder README files only.
 - pnpm emitted a non-blocking warning that `esbuild@0.28.0` build scripts were ignored by the approve-builds policy. Package validation still passed.
 - `.github/workflows/` does not exist and must not be created in this planning thread.
 
@@ -78,12 +86,15 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 | 2026-06-08 | M02.02 builder starts from updated `main`. | Recorded | Branch `m02-02-create-apps-api`; scope is a minimal non-domain `apps/api` foundation and required workspace manifests only. |
 | 2026-06-08 | M02.02 creates a non-domain API foundation. | Accepted | Fastify app factory, server entrypoint, bootstrap test, workspace manifests, and package scripts only; no product/domain behavior, routes, database, auth/authz, health check, connector, structured logging runtime, CI workflow, or Docker Compose. |
 | 2026-06-09 | M02.02 QA passed. | Accepted | PR #39 is safe for human merge after QA validation; M02.02 is not completed until the PR merges into `main` and post-merge tracking is finalized. |
+| 2026-06-09 | M02.02 PR #39 merged into `main`. | Recorded | Merge commit `8ddf5da`; M02.02 is completed and merged. |
+| 2026-06-09 | M02.03 builder starts from updated `main`. | Recorded | Branch `m02-03-create-apps-web`; scope is a minimal non-domain `apps/web` React/Vite foundation only. |
+| 2026-06-09 | M02.03 creates a non-domain web foundation. | Accepted | React/Vite app bootstrap, browser entrypoint, bootstrap test, package scripts, and README only; no product UI, domain behavior, API calls, routing, database, auth/authz, connector, chart, structured logging runtime, CI workflow, health check, or Docker Compose. |
 
 ## Context and Orientation
 
 M00 Repo Operating System is completed and tagged as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed. M01.01 through M01.13 are `Completed and merged`, and the completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M02 planning PR #37 has merged into `main` at commit `18148f7`. M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901`. M02.02 Create apps/api is `QA passed, awaiting merge` on branch `m02-02-create-apps-api` for PR #39.
+M02 planning PR #37 has merged into `main` at commit `18148f7`. M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901`. M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da`. M02.03 Create apps/web is the current builder submilestone on branch `m02-03-create-apps-web`.
 
 Historical planning marker before M02.01 started: M02.01 through M02.20 remain `Not started`.
 
@@ -118,6 +129,14 @@ In scope for M02.02:
 - Add API app scripts for `dev`, `build`, `test`, `lint`, `format:check`, and `typecheck`.
 - Add a non-domain bootstrap test that verifies app creation without registering product routes.
 - Update durable tracking and hand off to M02.02 QA.
+
+In scope for M02.03:
+
+- Finalize M02.02 post-merge tracking after PR #39 merged into `main`.
+- Create a minimal non-domain `apps/web` React/Vite scaffold.
+- Add web app scripts for `dev`, `build`, `test`, `lint`, `format:check`, and `typecheck`.
+- Add a non-domain bootstrap test that verifies minimal React rendering only.
+- Update durable tracking and hand off to M02.03 QA.
 
 Out of scope for this planning thread:
 
@@ -163,13 +182,33 @@ Out of scope for M02.02:
 - Docker Compose.
 - M02.03 or later work.
 
+Out of scope for M02.03:
+
+- CausalLedger dashboard or command-center UI.
+- MoneyEvent UI or runtime logic.
+- Ledger UI or runtime logic.
+- Incident UI or runtime logic.
+- Evidence UI or ingestion behavior.
+- Repair UI or behavior.
+- API calls.
+- Auth/authz.
+- Routing beyond minimal app rendering.
+- Charts.
+- External connectors.
+- Database or storage behavior.
+- Health checks.
+- Structured logging runtime.
+- CI workflows.
+- Docker Compose.
+- Product/domain behavior or product functionality claims.
+
 ## M02 Submilestones and Expected Branches
 
 | ID | Name | Status | Expected branch |
 | --- | --- | --- | --- |
 | M02.01 | Choose backend and frontend stack | Completed and merged | `m02-01-choose-backend-and-frontend-stack` |
-| M02.02 | Create apps/api | QA passed, awaiting merge | `m02-02-create-apps-api` |
-| M02.03 | Create apps/web | Not started | `m02-03-create-apps-web` |
+| M02.02 | Create apps/api | Completed and merged | `m02-02-create-apps-api` |
+| M02.03 | Create apps/web | Builder complete, awaiting QA | `m02-03-create-apps-web` |
 | M02.04 | Create apps/worker | Not started | `m02-04-create-apps-worker` |
 | M02.05 | Create apps/agent-runtime | Not started | `m02-05-create-apps-agent-runtime` |
 | M02.06 | Create packages/core | Not started | `m02-06-create-packages-core` |
@@ -411,6 +450,19 @@ M02.02 QA acceptance criteria:
 - Product domain implementation has not started.
 - Required control-plane and package validation pass or skipped validation is recorded with a reason.
 - Next recommended thread is `Merge M02.02 PR - Create apps/api`.
+
+M02.03 builder acceptance criteria:
+
+- M02.02 PR #39 is confirmed merged into `main` at commit `8ddf5da`.
+- M02.02 status is recorded as `Completed and merged`.
+- M02.03 status is recorded as `Builder complete, awaiting QA`.
+- `apps/web` contains a minimal React/Vite scaffold with Vite config, TypeScript configs, HTML entrypoint, React bootstrap component, browser render entrypoint, package scripts, README, and non-domain bootstrap test.
+- No CausalLedger dashboard, MoneyEvent UI or logic, ledger UI or logic, incident UI or logic, evidence UI or ingestion behavior, repair UI or behavior, API calls, auth/authz, routing, charts, external connectors, database behavior, health checks, structured logging runtime, CI workflows, Docker Compose, or product/domain behavior exists.
+- M02.04 through M02.20 remain `Not started`.
+- M03 through M21 remain `Not started`.
+- Product domain implementation has not started.
+- Validation passes or skipped validation is recorded with a reason.
+- Next recommended thread is `M02.03 QA - Create apps/web`.
 
 ## M02 Planning QA Record
 
@@ -735,6 +787,152 @@ QA decision: PASS.
 
 Safe-to-merge statement: safe to merge PR #39 after human review. M02.02 is not `Completed and merged` until PR #39 actually merges into `main` and post-merge tracking is finalized. Do not start M02.03 until after that merge and finalization.
 
+## M02.03 Builder Record
+
+Builder date: 2026-06-09.
+
+Branch: `m02-03-create-apps-web`.
+
+Starting branch and merge confirmation:
+
+- `git switch main` succeeded.
+- `git pull --ff-only origin main` fast-forwarded `main` to `8ddf5da`.
+- `git log --oneline -12` confirmed PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`).
+- `git status --short` was clean before the M02.03 branch was created.
+- `git branch --list m02-03-create-apps-web` and `git ls-remote --heads origin m02-03-create-apps-web` found no existing branch.
+- `git switch -c m02-03-create-apps-web` created the expected branch.
+
+Branch guard:
+
+- `git branch --show-current` returned `m02-03-create-apps-web`.
+- `git status --short` was clean before edits.
+- `git remote -v` showed `origin` at `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- `git log --oneline -5` showed `8ddf5da` as the latest commit.
+
+Files inspected:
+
+- `docs/ACTIVE_DOCS.md`
+- `README.md`
+- `START_HERE.md`
+- `AGENTS.md`
+- `PLANS.md`
+- `WORKFLOW.md`
+- `docs/INDEX.md`
+- `plans/ROADMAP.md`
+- `docs/status/CURRENT_STATE.md`
+- `docs/status/NEXT_RECOMMENDED_THREAD.md`
+- `docs/status/WEEKLY_LOG.md`
+- `docs/status/RISK_REGISTER.md`
+- `docs/status/TECH_DEBT.md`
+- `docs/status/CAPABILITY_MATRIX.md`
+- `docs/milestones/M02.md`
+- `docs/milestones/SUBMILESTONE_REGISTRY.md`
+- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`
+- `docs/decisions/ADR-0005-m02-stack-and-monorepo-direction.md`
+- `docs/decisions/ADR-0006-local-dev-and-ci-baseline.md`
+- `docs/decisions/ADR-0007-logging-error-handling-and-observability-direction.md`
+- `docs/ops/planning-and-tracking-system.md`
+- `docs/ops/builder-qa-prompt-protocol.md`
+- `docs/ops/validation-and-handoff-workflow.md`
+- `docs/ops/github-pr-and-issue-workflow.md`
+- `.github/PULL_REQUEST_TEMPLATE.md`
+- `scripts/validate-control-plane.py`
+- `tests/test_control_plane_bootstrap.py`
+- `package.json`
+- `pnpm-workspace.yaml`
+- `turbo.json`
+- `tsconfig.base.json`
+- `pnpm-lock.yaml`
+- `apps/api/package.json`
+- `apps/api/README.md`
+- `apps/web/README.md`
+
+Files created:
+
+- `apps/web/package.json`
+- `apps/web/tsconfig.json`
+- `apps/web/tsconfig.node.json`
+- `apps/web/vite.config.ts`
+- `apps/web/index.html`
+- `apps/web/src/App.tsx`
+- `apps/web/src/main.tsx`
+- `apps/web/src/App.test.tsx`
+
+Files changed:
+
+- `apps/web/README.md`
+- `pnpm-lock.yaml`
+- `README.md`
+- `START_HERE.md`
+- `PLANS.md`
+- `WORKFLOW.md`
+- `docs/ACTIVE_DOCS.md`
+- `docs/INDEX.md`
+- `plans/ROADMAP.md`
+- `docs/status/CURRENT_STATE.md`
+- `docs/status/NEXT_RECOMMENDED_THREAD.md`
+- `docs/status/WEEKLY_LOG.md`
+- `docs/status/CAPABILITY_MATRIX.md`
+- `docs/milestones/M02.md`
+- `docs/milestones/SUBMILESTONE_REGISTRY.md`
+- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`
+- `scripts/validate-control-plane.py`
+- `tests/test_control_plane_bootstrap.py`
+
+Builder findings:
+
+- M02.02 is finalized as `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da`.
+- M02.03 creates a minimal non-domain React/Vite app foundation only.
+- `apps/web/package.json` is private, scoped as `@causalledger/web`, and contains minimal scripts plus React, React DOM, Vite, TypeScript, Vitest, Prettier, React type packages, Node types, and the Vite React plugin.
+- `apps/web/src/App.tsx` renders a minimal bootstrap component only.
+- `apps/web/src/main.tsx` mounts the React app to the Vite root element only.
+- `apps/web/src/App.test.tsx` is a non-domain bootstrap render test only.
+- No CausalLedger dashboard, MoneyEvent UI or logic, ledger UI or logic, incident UI or logic, evidence UI or ingestion behavior, repair UI or behavior, API calls, auth/authz, routing, charts, external connectors, database behavior, health checks, structured logging runtime, GitHub Actions or CI workflows, Docker Compose, or product/domain behavior was added.
+- M02.04 through M02.20 remain `Not started`.
+- M03 through M21 remain `Not started`.
+- Product domain implementation has not started.
+
+Validation ladder:
+
+- Level 0: branch and worktree guard.
+- Level 1: file, diff, status, and forbidden-scope inspection.
+- Level 2: control-plane validation.
+- Level 3: bootstrap tests and app bootstrap tests.
+- Level 4: diff and whitespace checks.
+- Level 7: forbidden-scope checks for product/domain behavior and safety boundaries.
+- Level 8: PR and QA readiness handoff.
+
+Package validation results:
+
+- `node --version` returned `v22.16.0`.
+- `npm --version` returned `10.9.2`.
+- `pnpm --version` returned `10.32.1`.
+- `pnpm install` passed and updated `pnpm-lock.yaml`.
+- `pnpm typecheck` initially failed because `apps/web/tsconfig.json` lacked DOM libs for `document`; adding `DOM` and `DOM.Iterable` fixed the scoped issue, and rerun passed.
+- `pnpm test` passed with 2 Vitest tests total.
+- `pnpm build` passed.
+- `pnpm lint` passed.
+- `pnpm format:check` initially failed because `apps/web/package.json` included a nonexistent `src/**/*.ts` Prettier glob; removing the glob fixed the scoped issue, and rerun passed.
+
+Control-plane validation results:
+
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 32 tests.
+- `git diff --check` passed.
+- `Get-Command make -ErrorAction SilentlyContinue` found no `make` command in the current Windows shell.
+- Optional dev-server smoke: started `pnpm --filter @causalledger/web dev -- --host 127.0.0.1 --port 5173 --strictPort`; Vite served the scaffold at `http://localhost:5173`, and `Invoke-WebRequest -UseBasicParsing http://localhost:5173` returned HTTP 200 with `CausalLedger Web` in the response. The server is listening on `::1:5173`; use `http://localhost:5173`.
+
+Skipped validation and reason:
+
+- `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
+
+pnpm approve-builds warning status:
+
+- `pnpm install` emitted the non-blocking warning: `Ignored build scripts: esbuild@0.28.0. Run "pnpm approve-builds" to pick which dependencies should be allowed to run scripts.`
+- The warning does not block validation because package validation passed.
+
+Current builder decision: M02.03 is builder complete and ready for QA. Do not start M02.04.
+
 ## Validation Results
 
 2026-06-02 validation results:
@@ -797,11 +995,32 @@ Safe-to-merge statement: safe to merge PR #39 after human review. M02.02 is not 
 - `pnpm format:check` passed.
 - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
 
+2026-06-09 M02.03 package validation results:
+
+- Initial `pnpm typecheck` failed because `apps/web/tsconfig.json` lacked DOM libs for `document`.
+- Scoped fix: added `DOM` and `DOM.Iterable` to the web tsconfig `lib` setting.
+- Rerun `pnpm typecheck` passed.
+- `pnpm test` passed with 2 Vitest tests total.
+- `pnpm build` passed.
+- `pnpm lint` passed.
+- Initial `pnpm format:check` failed because `apps/web/package.json` included a nonexistent `src/**/*.ts` Prettier glob.
+- Scoped fix: removed the nonexistent glob from the web `format:check` script.
+- Rerun `pnpm format:check` passed.
+- `pnpm install` passed and emitted the non-blocking approve-builds warning for `esbuild@0.28.0`.
+
+2026-06-09 M02.03 control-plane validation results:
+
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 32 tests.
+- `git diff --check` passed.
+- `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
+- Optional dev-server smoke passed at `http://localhost:5173` with HTTP 200 and `CausalLedger Web` in the response.
+
 ## Idempotence and Recovery
 
 If validation fails, do not widen scope. Fix only planning/control-plane defects introduced by this thread, rerun validation, and record results. If an unexpected dirty worktree appears, inspect it, preserve user changes, and report any conflict before proceeding.
 
-If the M02.02 QA thread is not on `m02-02-create-apps-api`, stop immediately without editing.
+If the M02.03 QA thread is not on `m02-03-create-apps-web`, stop immediately without editing.
 
 ## Artifacts and Notes
 
@@ -825,6 +1044,18 @@ Created M02.02 API foundation artifacts:
 - `apps/api/src/index.ts`
 - `apps/api/test/bootstrap.test.ts`
 - `apps/api/README.md`
+
+Created M02.03 web foundation artifacts:
+
+- `apps/web/package.json`
+- `apps/web/tsconfig.json`
+- `apps/web/tsconfig.node.json`
+- `apps/web/vite.config.ts`
+- `apps/web/index.html`
+- `apps/web/src/App.tsx`
+- `apps/web/src/main.tsx`
+- `apps/web/src/App.test.tsx`
+- `apps/web/README.md`
 
 ## Interfaces and Dependencies
 
@@ -856,6 +1087,8 @@ Stack decision summary:
 - Vitest.
 - TypeScript types plus Zod or equivalent future runtime schema validation for MoneyEvent contracts.
 
-M02.02 builder work created a minimal non-domain `apps/api` TypeScript/Fastify foundation and required pnpm/Turborepo workspace manifests. M02.02 QA passed for PR #39. Product domain implementation has not started. M02.02 is `QA passed, awaiting merge`; M02.03 through M02.20 remain `Not started`; M03 through M21 remain `Not started`.
+M02.02 builder work created a minimal non-domain `apps/api` TypeScript/Fastify foundation and required pnpm/Turborepo workspace manifests. M02.02 QA passed for PR #39, and PR #39 merged into `main` at commit `8ddf5da`.
 
-Exact next recommended thread after M02.02 QA is complete: `Merge M02.02 PR - Create apps/api`.
+M02.03 builder work created a minimal non-domain `apps/web` React/Vite foundation. Product domain implementation has not started. M02.03 is `Builder complete, awaiting QA`; M02.04 through M02.20 remain `Not started`; M03 through M21 remain `Not started`.
+
+Exact next recommended thread after M02.03 builder is complete: `M02.03 QA - Create apps/web`.

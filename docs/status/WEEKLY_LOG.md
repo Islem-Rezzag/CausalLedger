@@ -2,6 +2,21 @@
 
 ## 2026-06-09
 
+- Confirmed M02.02 PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`) before starting M02.03.
+- Created branch `m02-03-create-apps-web` from updated `main`; branch guard passed, the starting worktree was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- Finalized M02.02 as `Completed and merged` in durable tracking.
+- Started and completed M02.03 Builder - Create apps/web.
+- Created a minimal non-domain `apps/web` React/Vite scaffold with package scripts, Vite config, TypeScript configs, HTML entrypoint, React bootstrap component, browser render entrypoint, README, and bootstrap test.
+- Confirmed no CausalLedger dashboard, MoneyEvent UI or logic, ledger UI or logic, incident UI or logic, evidence UI or ingestion behavior, repair UI or behavior, API calls, auth/authz, routing, charts, external connectors, database behavior, health checks, GitHub Actions, CI workflows, Docker Compose, or product/domain behavior was added.
+- M02.04 through M02.20 remain `Not started`, M03 through M21 remain `Not started`, and product domain implementation has not started.
+- Initial `pnpm typecheck` failed because `apps/web/tsconfig.json` lacked DOM libs for `document`; the scoped config fix was applied and `pnpm typecheck` passed on rerun.
+- Initial `pnpm format:check` failed because `apps/web/package.json` included a nonexistent `src/**/*.ts` Prettier glob; the scoped script fix was applied and `pnpm format:check` passed on rerun.
+- Ran `node --version` (`v22.16.0`), `npm --version` (`10.9.2`), `pnpm --version` (`10.32.1`), `pnpm install`, `pnpm typecheck`, `pnpm test` with 2 Vitest tests total, `pnpm build`, `pnpm lint`, and `pnpm format:check` successfully for M02.03 builder.
+- Ran `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 32 tests, and `git diff --check` successfully for M02.03 builder.
+- Skipped `make bootstrap-check` for M02.03 builder because `make` is unavailable in the current Windows shell; equivalent direct Python validation commands were run.
+- Optional dev-server smoke passed at `http://localhost:5173` with HTTP 200 and `CausalLedger Web` in the response.
+- `pnpm install` emitted the same non-blocking approve-builds warning for `esbuild@0.28.0`; package validation still passed.
+- Recommended next thread: `M02.03 QA - Create apps/web`.
 - Completed M02.02 QA - Create apps/api on branch `m02-02-create-apps-api`; branch guard passed, the starting worktree was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
 - Verified PR #39 at `https://github.com/Islem-Rezzag/CausalLedger/pull/39`; the GitHub API reported it open, non-draft, mergeable clean, and unmerged. The `gh` CLI is unavailable in the current Windows shell.
 - Confirmed the branch contained exactly one M02.02 builder commit beyond `main` before QA tracking changes.

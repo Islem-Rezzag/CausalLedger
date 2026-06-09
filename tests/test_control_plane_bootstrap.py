@@ -683,9 +683,10 @@ def test_m02_planning_artifacts_are_documentation_only():
         "Progressive Incident Certainty Planning Boundary",
         "OrbitSoft-Readiness Constraints",
         "M02.01 | Choose backend and frontend stack | Completed and merged",
-        "M02.02 | Create apps/api | QA passed, awaiting merge",
+        "M02.02 | Create apps/api | Completed and merged",
+        "M02.03 | Create apps/web | Builder complete, awaiting QA",
         "M02.20 | QA dev environment | Not started",
-        "Merge M02.02 PR - Create apps/api",
+        "M02.03 QA - Create apps/web",
         "This planning thread must not create `.github/workflows/`",
     ]:
         assert phrase in plan
@@ -704,12 +705,18 @@ def test_m02_planning_artifacts_are_documentation_only():
     assert "fb2b901" in m02_01
 
     m02_02 = next(line for line in registry.splitlines() if line.startswith("| M02.02 |"))
-    assert "QA passed, awaiting merge" in m02_02
+    assert "Completed and merged" in m02_02
     assert "m02-02-create-apps-api" in m02_02
-    assert "#39" in m02_02
+    assert "#39 merged" in m02_02
+    assert "8ddf5da" in m02_02
     assert "No product/domain routes" in m02_02
 
-    for index in range(3, 21):
+    m02_03 = next(line for line in registry.splitlines() if line.startswith("| M02.03 |"))
+    assert "Builder complete, awaiting QA" in m02_03
+    assert "m02-03-create-apps-web" in m02_03
+    assert "React/Vite" in m02_03
+
+    for index in range(4, 21):
         row = next(
             line for line in registry.splitlines() if line.startswith(f"| M02.{index:02} |")
         )
@@ -718,9 +725,9 @@ def test_m02_planning_artifacts_are_documentation_only():
 
     assert "| M02 Monorepo and local development |" in roadmap
     assert "| 20 | In progress |" in roadmap
-    assert "M02.03 through M02.20 remain `Not started`" in next_thread
+    assert "M02.04 through M02.20 remain `Not started`" in next_thread
     assert "M03 through M21 are `Not started`" in next_thread
-    assert "Do not start M02.03 until the M02.02 PR is merged into `main`" in next_thread
+    assert "Do not start M02.04 until M02.03 QA passes" in next_thread
     assert not (ROOT / ".github" / "workflows").exists()
 
     for rel in [
@@ -734,11 +741,21 @@ def test_m02_planning_artifacts_are_documentation_only():
         "apps/api/src/app.ts",
         "apps/api/src/index.ts",
         "apps/api/test/bootstrap.test.ts",
+        "apps/web/package.json",
+        "apps/web/tsconfig.json",
+        "apps/web/tsconfig.node.json",
+        "apps/web/vite.config.ts",
+        "apps/web/index.html",
+        "apps/web/src/App.tsx",
+        "apps/web/src/main.tsx",
+        "apps/web/src/App.test.tsx",
     ]:
         assert (ROOT / rel).is_file()
 
     api_readme = (ROOT / "apps" / "api" / "README.md").read_text(encoding="utf-8")
     assert "No CausalLedger product or domain behavior is implemented here" in api_readme
+    web_readme = (ROOT / "apps" / "web" / "README.md").read_text(encoding="utf-8")
+    assert "No CausalLedger product or domain behavior is implemented here" in web_readme
 
 
 def test_m01_ledger_vocabulary_domain_doc_is_documentation_only():
@@ -2522,11 +2539,16 @@ def test_m00_closeout_state_is_coherent():
     assert "fb2b901" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M02.02 |"))
-    assert "QA passed, awaiting merge" in row
+    assert "Completed and merged" in row
     assert "m02-02-create-apps-api" in row
-    assert "#39" in row
+    assert "#39 merged" in row
+    assert "8ddf5da" in row
 
-    for index in range(3, 21):
+    row = next(line for line in registry.splitlines() if line.startswith("| M02.03 |"))
+    assert "Builder complete, awaiting QA" in row
+    assert "m02-03-create-apps-web" in row
+
+    for index in range(4, 21):
         row = next(
             line for line in registry.splitlines() if line.startswith(f"| M02.{index:02} |")
         )
@@ -2568,21 +2590,31 @@ def test_m00_closeout_state_is_coherent():
         "M01.12 Write THREAT_MODEL.md is `Completed and merged`",
         "M01.13 QA Domain Consistency is `Completed and merged`",
         "M02.01 Choose backend and frontend stack is `Completed and merged`",
-        "M02.02 Create apps/api is `QA passed, awaiting merge`",
-        "M02.03 through M02.20 remain `Not started`",
+        "M02.02 Create apps/api is `Completed and merged`",
+        "M02.03 Create apps/web is `Builder complete, awaiting QA`",
+        "M02.04 through M02.20 remain `Not started`",
         "M03 through M21 remain `Not started`",
     ]:
         assert phrase in current_state
 
     assert not (ROOT / ".github" / "workflows").exists()
 
-    allowed_m02_api_files = {
+    allowed_m02_scaffold_files = {
         "apps/api/package.json",
         "apps/api/README.md",
         "apps/api/tsconfig.json",
         "apps/api/src/app.ts",
         "apps/api/src/index.ts",
         "apps/api/test/bootstrap.test.ts",
+        "apps/web/package.json",
+        "apps/web/README.md",
+        "apps/web/tsconfig.json",
+        "apps/web/tsconfig.node.json",
+        "apps/web/vite.config.ts",
+        "apps/web/index.html",
+        "apps/web/src/App.tsx",
+        "apps/web/src/main.tsx",
+        "apps/web/src/App.test.tsx",
     }
     generated_parts = {"node_modules", "dist", ".turbo", ".vite"}
     for rel in ["apps", "packages", "scenarios", "data", "infra"]:
@@ -2591,7 +2623,7 @@ def test_m00_closeout_state_is_coherent():
                 continue
             if path.is_file():
                 relative = path.relative_to(ROOT).as_posix()
-                assert path.name == "README.md" or relative in allowed_m02_api_files, path
+                assert path.name == "README.md" or relative in allowed_m02_scaffold_files, path
 
     env_example = (ROOT / ".env.example").read_text(encoding="utf-8")
     for line in env_example.splitlines():
