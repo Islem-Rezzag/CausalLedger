@@ -1,5 +1,19 @@
 # Weekly Log
 
+## 2026-06-11
+
+- Recovered M02.04 QA by stashing unrelated local report/status edits with `git stash push -u -m "wip: local reports and status edits before M02.04 QA"`; stash `stash@{0}` was preserved and not popped, dropped, deleted, or committed.
+- Synced and guarded branch `m02-04-create-apps-worker`; local `HEAD` matched `origin/m02-04-create-apps-worker` at builder commit `9b9df8d`; `git log --oneline main..HEAD` showed one builder commit before QA edits.
+- Verified PR #41 at `https://github.com/Islem-Rezzag/CausalLedger/pull/41` through the GitHub PR page because `gh` is unavailable in the current Windows shell.
+- Inspected required active docs, status docs, M02 milestone and registry, ADRs, ops workflow docs, workspace manifests, `pnpm-lock.yaml`, `apps/api` and `apps/web` scaffold docs, `apps/worker` manifest/config/source/test/README, and the updated control-plane validator and bootstrap tests.
+- Verified the M02.04 scaffold is minimal and non-domain: no jobs, queues, schedulers, provider connectors, database behavior, MoneyEvent logic, ledger logic, invariant checks, incident processing, evidence ingestion, replay behavior, graph behavior, repair behavior, health checks, GitHub Actions, CI workflows, Docker Compose, or product/domain behavior was added.
+- Found one scoped documentation defect in `apps/worker/README.md`; expanded it with worker check commands and an explicit future-milestone boundary statement.
+- Marked M02.04 `QA passed, awaiting merge`; M02.05 through M02.20 remain `Not started`, M03 through M21 remain `Not started`, and product domain implementation has not started.
+- Ran `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 32 tests, `git diff --check`, `node --version` (`v22.16.0`), `npm --version` (`10.9.2`), `pnpm --version` (`10.32.1`), `pnpm install`, `pnpm typecheck`, `pnpm test` with 3 Vitest tests, `pnpm build`, `pnpm lint`, and `pnpm format:check` successfully for M02.04 QA.
+- Skipped `make bootstrap-check` for M02.04 QA because `make` is unavailable in the current Windows shell; equivalent direct Python validation commands were run.
+- M02.04 QA `pnpm install` did not emit the `esbuild@0.28.0` approve-builds warning; prior M02.02 and M02.03 warnings remain historical only.
+- Recommended next thread: `Merge M02.04 PR - Create apps/worker`.
+
 ## 2026-06-09
 
 - Confirmed M02.03 PR #40 merged into `main` at commit `6ad4b0c` (`chore: create M02.03 web scaffold (#40)`) before starting M02.04.

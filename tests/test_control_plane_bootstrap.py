@@ -685,9 +685,9 @@ def test_m02_planning_artifacts_are_documentation_only():
         "M02.01 | Choose backend and frontend stack | Completed and merged",
         "M02.02 | Create apps/api | Completed and merged",
         "M02.03 | Create apps/web | Completed and merged",
-        "M02.04 | Create apps/worker | Builder complete, awaiting QA",
+        "M02.04 | Create apps/worker | QA passed, awaiting merge",
         "M02.20 | QA dev environment | Not started",
-        "M02.04 QA - Create apps/worker",
+        "Merge M02.04 PR - Create apps/worker",
         "This planning thread must not create `.github/workflows/`",
     ]:
         assert phrase in plan
@@ -720,8 +720,9 @@ def test_m02_planning_artifacts_are_documentation_only():
     assert "React/Vite" in m02_03
 
     m02_04 = next(line for line in registry.splitlines() if line.startswith("| M02.04 |"))
-    assert "Builder complete, awaiting QA" in m02_04
+    assert "QA passed, awaiting merge" in m02_04
     assert "m02-04-create-apps-worker" in m02_04
+    assert "#41" in m02_04
     assert "worker" in m02_04
 
     for index in range(5, 21):
@@ -735,7 +736,7 @@ def test_m02_planning_artifacts_are_documentation_only():
     assert "| 20 | In progress |" in roadmap
     assert "M02.05 through M02.20 remain `Not started`" in next_thread
     assert "M03 through M21 are `Not started`" in next_thread
-    assert "Do not start M02.05 until M02.04 QA passes and the M02.04 PR merges" in next_thread
+    assert "Do not start M02.05 or the process amendment until PR #41 merges into `main`" in next_thread
     assert not (ROOT / ".github" / "workflows").exists()
 
     for rel in [
@@ -2566,8 +2567,9 @@ def test_m00_closeout_state_is_coherent():
     assert "6ad4b0c" in row
 
     row = next(line for line in registry.splitlines() if line.startswith("| M02.04 |"))
-    assert "Builder complete, awaiting QA" in row
+    assert "QA passed, awaiting merge" in row
     assert "m02-04-create-apps-worker" in row
+    assert "#41" in row
     assert "worker" in row
 
     for index in range(5, 21):
@@ -2614,7 +2616,7 @@ def test_m00_closeout_state_is_coherent():
         "M02.01 Choose backend and frontend stack is `Completed and merged`",
         "M02.02 Create apps/api is `Completed and merged`",
         "M02.03 Create apps/web is `Completed and merged`",
-        "M02.04 Create apps/worker is `Builder complete, awaiting QA`",
+        "M02.04 Create apps/worker is `QA passed, awaiting merge`",
         "M02.05 through M02.20 remain `Not started`",
         "M03 through M21 remain `Not started`",
     ]:

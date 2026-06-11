@@ -91,7 +91,7 @@ Completed execution:
 
 Active execution:
 
-- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md` - active M02 plan. M02.01, M02.02, and M02.03 are `Completed and merged`, M02.04 is `Builder complete, awaiting QA`, and M02.05 through M02.20 remain `Not started`.
+- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md` - active M02 plan. M02.01, M02.02, and M02.03 are `Completed and merged`, M02.04 is `QA passed, awaiting merge`, and M02.05 through M02.20 remain `Not started`.
 
 Plan state:
 
