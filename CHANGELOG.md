@@ -11,6 +11,11 @@ All notable CausalLedger release changes are recorded here.
 - Added canonical M01 domain, reliability, threat-model, and domain consistency QA documentation.
 - Added `docs/status/M01_CLOSEOUT.md` and closed M01 as documentation/control-plane work.
 - Started M02 planning with active plan `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`, continuous lifecycle observer alignment, and lightweight M02 planning ADR placeholders.
+- Completed M02.01 stack ADRs for TypeScript-first monorepo direction, local development implications, and deferred CI/runtime boundaries.
+- Completed M02.02 minimal non-domain `apps/api` TypeScript/Fastify scaffold.
+- Completed M02.03 minimal non-domain `apps/web` React/Vite scaffold.
+- Completed M02.04 minimal non-domain `apps/worker` TypeScript scaffold.
+- Added M02 process-amendment tracking fixes, M02 process diet, structural control-plane validation direction, and ADR-0008 identity, money, and storage direction.
 - Product functionality remains not implemented.
 
 ## v0.1.0 - Repo Operating System Foundation

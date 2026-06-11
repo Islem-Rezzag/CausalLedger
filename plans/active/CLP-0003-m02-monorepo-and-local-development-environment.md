@@ -10,7 +10,7 @@ M02 planning also aligns CausalLedger's product direction with the continuous pa
 
 The original M02 planning thread did not start M02.01 implementation and did not create product behavior.
 
-M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`). M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`). M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c` (`chore: create M02.03 web scaffold (#40)`). M02.04 Create apps/worker is `QA passed, awaiting merge` on branch `m02-04-create-apps-worker` for PR #41.
+M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`). M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`). M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c` (`chore: create M02.03 web scaffold (#40)`). M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f` (`chore: create M02.04 worker scaffold (#41)`). The current slice is `M02 process amendment - tracking fixes, process diet, validator cleanup, and ADR-0008` on branch `m02-amendment-process-diet`.
 
 ## Progress
 
@@ -81,6 +81,12 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 - [x] 2026-06-11: M02.04 QA inspected PR #41, required docs, workspace manifests, API/web/worker scaffolds, control-plane validator, and bootstrap tests.
 - [x] 2026-06-11: M02.04 QA expanded `apps/worker/README.md` with worker check commands and a future-milestone boundary statement.
 - [x] 2026-06-11: M02.04 QA passed and marked M02.04 `QA passed, awaiting merge`; M02.05 through M02.20 remain `Not started`, M03 through M21 remain `Not started`, and product domain implementation has not started.
+- [x] 2026-06-11: Synced `main`, confirmed PR #41 merged at `f52396558e127e33e02c6e992d8a5f91cfe4dc0f`, and created branch `m02-amendment-process-diet`.
+- [x] 2026-06-11: Started `M02 process amendment - tracking fixes, process diet, validator cleanup, and ADR-0008`.
+- [x] 2026-06-11: Finalized M02.04 as `Completed and merged`; M02.04 created a minimal non-domain `apps/worker` scaffold and did not create product/domain behavior.
+- [x] 2026-06-11: Applied tracking fixes, process diet, validator cleanup, and ADR-0008.
+- [x] 2026-06-11: Ran required control-plane, package, and diff validation for the process amendment.
+- [x] 2026-06-11: Committed scoped process-amendment changes; push and PR status are recorded in the final handoff.
 
 ## Surprises & Discoveries
 
@@ -112,12 +118,19 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 | 2026-06-09 | M02.04 builder starts from updated `main`. | Recorded | Branch `m02-04-create-apps-worker`; scope is a minimal non-domain `apps/worker` TypeScript foundation only. |
 | 2026-06-09 | M02.04 creates a non-domain worker foundation. | Accepted | Worker bootstrap module, bootstrap test, package scripts, TypeScript config, and README only; no jobs, queues, schedulers, provider connectors, database, MoneyEvent, ledger, invariant, incident, evidence, replay, graph, repair, health check, CI workflow, or Docker Compose. |
 | 2026-06-11 | M02.04 QA passed. | Accepted | PR #41 is safe for human merge after QA validation. M02.04 is not completed until PR #41 merges into `main` and post-merge tracking is finalized. |
+| 2026-06-11 | M02.04 PR #41 merged into `main`. | Recorded | Merge commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f`; M02.04 is `Completed and merged`. |
+| 2026-06-11 | Run process amendment before M02.05. | Accepted | Scope is tracking fixes, process diet, validator structural cleanup, repo hygiene, and ADR-0008 only; no product/domain behavior. |
+| 2026-06-11 | Shrink remaining M02 process overhead. | Accepted | Solo-builder process cost; ceremony scaled to risk; avoid 20 tiny scaffolding PRs before domain implementation. |
+| 2026-06-11 | Defer `apps/agent-runtime` to the M10 era. | Accepted | Agent runtime should not exist before deterministic evidence, MoneyEvent, invariant, incident, graph, replay, and repair boundaries exist. |
+| 2026-06-11 | Defer Redis until needed. | Accepted | No queue or scheduler should be added before the worker or orchestration design proves the need. |
 
 ## Context and Orientation
 
 M00 Repo Operating System is completed and tagged as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed. M01.01 through M01.13 are `Completed and merged`, and the completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M02 planning PR #37 has merged into `main` at commit `18148f7`. M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901`. M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da`. M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c`. M02.04 Create apps/worker is `QA passed, awaiting merge` on branch `m02-04-create-apps-worker` for PR #41.
+M02 planning PR #37 has merged into `main` at commit `18148f7`. M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901`. M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da`. M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c`. M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f`.
+
+The current branch is `m02-amendment-process-diet`. The current slice is `M02 process amendment - tracking fixes, process diet, validator cleanup, and ADR-0008`.
 
 Historical planning marker before M02.01 started: M02.01 through M02.20 remain `Not started`.
 
@@ -168,6 +181,19 @@ In scope for M02.04:
 - Add worker app scripts for `dev`, `build`, `test`, `lint`, `format:check`, and `typecheck`.
 - Add a non-domain bootstrap test that verifies no jobs are registered.
 - Update durable tracking and hand off to M02.04 QA.
+
+In scope for the M02 process amendment:
+
+- Finalize M02.04 as `Completed and merged` after PR #41 merged into `main`.
+- Fix stale tracking and status claims.
+- Add `reports/*.pdf` and `reports/*.xlsx` to `.gitignore` while keeping Markdown reports trackable.
+- Restructure remaining M02 into M02.05 package scaffolds plus ESLint plus CI baseline, M02.06 local infrastructure, and M02.07 QA dev environment.
+- Defer `apps/agent-runtime` to the M10 era and defer Redis until a queue or scheduler design proves the need.
+- Compact `docs/status/CURRENT_STATE.md` and move older detail into `docs/status/WEEKLY_LOG.md` without rewriting historical log lines.
+- Replace brittle exact-sentence control-plane validation with structural checks.
+- Add ADR-0008 for ID, money, and storage direction as documentation only.
+- Update active tracking, status docs, registry, roadmap, milestone docs, changelog, and index files as needed.
+- Run required validation and hand off to process-amendment QA.
 
 Out of scope for this planning thread:
 
@@ -260,23 +286,12 @@ Out of scope for M02.04:
 | M02.01 | Choose backend and frontend stack | Completed and merged | `m02-01-choose-backend-and-frontend-stack` |
 | M02.02 | Create apps/api | Completed and merged | `m02-02-create-apps-api` |
 | M02.03 | Create apps/web | Completed and merged | `m02-03-create-apps-web` |
-| M02.04 | Create apps/worker | QA passed, awaiting merge | `m02-04-create-apps-worker` |
-| M02.05 | Create apps/agent-runtime | Not started | `m02-05-create-apps-agent-runtime` |
-| M02.06 | Create packages/core | Not started | `m02-06-create-packages-core` |
-| M02.07 | Create packages/events | Not started | `m02-07-create-packages-events` |
-| M02.08 | Create packages/ledger | Not started | `m02-08-create-packages-ledger` |
-| M02.09 | Create packages/invariants | Not started | `m02-09-create-packages-invariants` |
-| M02.10 | Create packages/incidents | Not started | `m02-10-create-packages-incidents` |
-| M02.11 | Create packages/graph | Not started | `m02-11-create-packages-graph` |
-| M02.12 | Create packages/replay | Not started | `m02-12-create-packages-replay` |
-| M02.13 | Create packages/repair | Not started | `m02-13-create-packages-repair` |
-| M02.14 | Add Postgres | Not started | `m02-14-add-postgres` |
-| M02.15 | Add Redis | Not started | `m02-15-add-redis` |
-| M02.16 | Add Docker Compose | Not started | `m02-16-add-docker-compose` |
-| M02.17 | Add migrations | Not started | `m02-17-add-migrations` |
-| M02.18 | Add health checks | Not started | `m02-18-add-health-checks` |
-| M02.19 | Add CI baseline | Not started | `m02-19-add-ci-baseline` |
-| M02.20 | QA dev environment | Not started | `m02-20-qa-dev-environment` |
+| M02.04 | Create apps/worker | Completed and merged | `m02-04-create-apps-worker` |
+| M02.05 | Create all remaining package scaffolds + ESLint + CI baseline | Not started | `m02-05-package-scaffolds-eslint-ci-baseline` |
+| M02.06 | Local infrastructure: Docker Compose + Postgres + migration tool + health-check stubs | Not started | `m02-06-local-infrastructure` |
+| M02.07 | QA dev environment | Not started | `m02-07-qa-dev-environment` |
+
+Former M02.08 through M02.20 rows are deferred or absorbed in `docs/milestones/SUBMILESTONE_REGISTRY.md`. `apps/agent-runtime` creation is deferred to the M10 era. Redis is deferred until needed.
 
 Historical planning snapshot retained for control-plane validation: M02.01 | Choose backend and frontend stack | Not started.
 
@@ -540,6 +555,21 @@ M02.04 builder acceptance criteria:
 - Product domain implementation has not started.
 - Required control-plane and package validation pass or skipped validation is recorded with a reason.
 - Next recommended thread is `M02.04 QA - Create apps/worker`.
+
+M02 process amendment acceptance criteria:
+
+- M02.04 PR #41 is confirmed merged into `main` and recorded with merge commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f`.
+- M02.04 status is recorded as `Completed and merged`.
+- Stale M02 status claims are fixed in active docs, roadmap, milestone docs, registry, status docs, and entry-point docs.
+- `docs/status/CURRENT_STATE.md` stays under 80 lines and older detail remains preserved in `docs/status/WEEKLY_LOG.md` and historical active-plan records.
+- Remaining active M02 work is restructured as M02.05 package scaffolds plus ESLint plus CI baseline, M02.06 local infrastructure, and M02.07 QA dev environment.
+- `apps/agent-runtime` and Redis are explicitly deferred with rationale.
+- `.gitignore` ignores generated report PDF/XLSX artifacts while keeping Markdown reports trackable.
+- `scripts/validate-control-plane.py` and `tests/test_control_plane_bootstrap.py` use structural checks rather than brittle exact-sentence checks.
+- ADR-0008 documents ID, money, and storage direction without implementing runtime behavior.
+- No product/domain behavior, CI workflow, ESLint implementation, package scaffold creation, database, Docker, Redis, queue, scheduler, route, or runtime is implemented by this amendment.
+- Required control-plane, package, and diff validation pass or skipped validation is recorded with a reason.
+- Next recommended thread is `M02 process amendment QA - tracking fixes, process diet, validator cleanup, and ADR-0008`.
 
 ## M02 Planning QA Record
 
@@ -1577,6 +1607,12 @@ QA decision: PASS.
 
 Safe-to-merge statement: PR #41 is safe to merge after human review. M02.04 is not `Completed and merged` until PR #41 actually merges into `main` and post-merge tracking is finalized. Do not start M02.05 or the process amendment until after that merge and finalization.
 
+## Completed Detail Archived
+
+Completed M02 planning, M02.01, M02.02, M02.03, and M02.04 builder/QA detail is retained in this plan as historical records below and in `docs/status/WEEKLY_LOG.md`. Current live state should be read from the Progress, Decision Log, Context and Orientation, Scope, M02 Submilestones and Expected Branches, and Outcomes sections rather than from older completed-submilestone records.
+
+The current process-amendment slice supersedes older "next thread" statements that pointed to merging PR #41 or starting the former 20-slice M02 sequence.
+
 ## Validation Results
 
 2026-06-02 validation results:
@@ -1711,6 +1747,23 @@ Safe-to-merge statement: PR #41 is safe to merge after human review. M02.04 is n
 - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
 - M02.04 QA `pnpm install` did not emit the `esbuild@0.28.0` approve-builds warning.
 
+2026-06-11 M02 process amendment builder validation results:
+
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 32 tests.
+- `git diff --check` passed.
+- `node --version` returned `v22.16.0`.
+- `npm --version` returned `10.9.2`.
+- `pnpm --version` returned `10.32.1`.
+- `pnpm install` passed across all 4 workspace projects and reported the lockfile was up to date.
+- `pnpm typecheck` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
+- `pnpm test` passed with 3 Vitest tests.
+- `pnpm build` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
+- `pnpm lint` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
+- `pnpm format:check` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
+- `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
+- Process-amendment `pnpm install` did not emit the `esbuild@0.28.0` approve-builds warning.
+
 ## Idempotence and Recovery
 
 If validation fails, do not widen scope. Fix only planning/control-plane defects introduced by this thread, rerun validation, and record results. If an unexpected dirty worktree appears, inspect it, preserve user changes, and report any conflict before proceeding.
@@ -1794,6 +1847,6 @@ M02.02 builder work created a minimal non-domain `apps/api` TypeScript/Fastify f
 
 M02.03 builder work created a minimal non-domain `apps/web` React/Vite foundation. M02.03 QA passed for PR #40, and PR #40 merged into `main` at commit `6ad4b0c`.
 
-M02.04 builder work created a minimal non-domain `apps/worker` TypeScript foundation. M02.04 QA passed for PR #41 after a scoped README documentation fix. Product domain implementation has not started. M02.04 is `QA passed, awaiting merge`; M02.05 through M02.20 remain `Not started`; M03 through M21 remain `Not started`.
+M02.04 builder work created a minimal non-domain `apps/worker` TypeScript foundation. M02.04 QA passed for PR #41 after a scoped README documentation fix, and PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f`. Product domain implementation has not started. M02.05 through M02.07 remain `Not started`; former M02.08 through M02.20 rows are deferred or absorbed; M03 through M21 remain `Not started`.
 
-Exact next recommended thread after M02.04 QA is complete: `Merge M02.04 PR - Create apps/worker`.
+Exact next recommended thread after this process-amendment builder is complete: `M02 process amendment QA - tracking fixes, process diet, validator cleanup, and ADR-0008`.

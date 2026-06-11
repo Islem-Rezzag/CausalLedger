@@ -61,9 +61,12 @@ Zod or an equivalent schema validator fits future MoneyEvent contract work becau
 
 - `apps/api` runtime creation is deferred to M02.02.
 - `apps/web` runtime creation is deferred to M02.03.
-- `apps/worker` and `apps/agent-runtime` are deferred to M02.04 and M02.05.
-- Package creation under `packages/` is deferred to M02.06 through M02.13.
-- Postgres, Redis, Docker Compose, migrations, health checks, and CI baseline are deferred to M02.14 through M02.19.
+- `apps/worker` was created in M02.04 as a minimal non-domain scaffold.
+- `apps/agent-runtime` is deferred to the M10 era because agent runtime should not exist before deterministic evidence, MoneyEvent, invariant, incident, graph, replay, and repair boundaries exist.
+- Package creation under `packages/` is deferred to redefined M02.05.
+- ESLint and CI baseline are deferred to redefined M02.05.
+- Postgres, Docker Compose, migrations, and health-check stubs are deferred to redefined M02.06.
+- Redis is deferred until needed because no queue or scheduler should be added before the worker or orchestration design proves the need.
 - MoneyEvent contracts and runtime validation behavior are deferred to M03.
 - Ledger, invariants, incidents, graph, replay, repair, human review, observability, security hardening, deployment, and production polish remain future milestones.
 

@@ -40,6 +40,7 @@ Project direction:
 - `docs/RELIABILITY.md`
 - `docs/THREAT_MODEL.md`
 - `docs/TOKEN_COST_STRATEGY.md`
+- `docs/decisions/ADR-0008-identity-money-and-storage.md`
 - `docs/evals/ABLATION_STRATEGY.md`
 - `docs/evals/ABLATION_MATRIX.md`
 - `docs/VERSIONING.md`
@@ -91,7 +92,7 @@ Completed execution:
 
 Active execution:
 
-- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md` - active M02 plan. M02.01, M02.02, and M02.03 are `Completed and merged`, M02.04 is `QA passed, awaiting merge`, and M02.05 through M02.20 remain `Not started`.
+- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md` - active M02 plan. M02.01 through M02.04 are `Completed and merged`; remaining active M02 work is restructured into M02.05 package scaffolds plus ESLint plus CI baseline, M02.06 local infrastructure, and M02.07 QA dev environment.
 
 Plan state:
 
