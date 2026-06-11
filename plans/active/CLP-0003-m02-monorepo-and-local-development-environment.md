@@ -10,7 +10,7 @@ M02 planning also aligns CausalLedger's product direction with the continuous pa
 
 The original M02 planning thread did not start M02.01 implementation and did not create product behavior.
 
-M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`). M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`). M02.03 Create apps/web is `QA passed, awaiting merge` for PR #40 on branch `m02-03-create-apps-web`.
+M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`). M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`). M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c` (`chore: create M02.03 web scaffold (#40)`). M02.04 Create apps/worker is `QA passed, awaiting merge` on branch `m02-04-create-apps-worker` for PR #41.
 
 ## Progress
 
@@ -69,11 +69,23 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 - [x] 2026-06-09: M02.03 QA found no scaffold or safety defects.
 - [x] 2026-06-09: M02.03 QA validation passed.
 - [x] 2026-06-09: M02.03 marked `QA passed, awaiting merge`.
+- [x] 2026-06-09: Confirmed M02.03 PR #40 merged into `main` at commit `6ad4b0c` (`chore: create M02.03 web scaffold (#40)`).
+- [x] 2026-06-09: Created branch `m02-04-create-apps-worker` from updated `main`.
+- [x] 2026-06-09: M02.04 branch guard passed on `m02-04-create-apps-worker`; `git status --short` was clean and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- [x] 2026-06-09: Read the required active docs, status docs, M02 milestone and registry, ADRs, ops workflow docs, root workspace manifests, `pnpm-lock.yaml`, existing `apps/api` and `apps/web` scaffold docs, existing `apps/worker` README, validator, and bootstrap tests before editing.
+- [x] 2026-06-09: Finalized M02.03 as `Completed and merged` and started M02.04 Builder - Create apps/worker.
+- [x] 2026-06-09: Created minimal non-domain `apps/worker` TypeScript scaffold.
+- [x] 2026-06-09: Updated control-plane validation and bootstrap tests for the worker scaffold and M02.04 builder state.
+- [x] 2026-06-09: M02.04 Builder complete, awaiting QA.
+- [x] 2026-06-11: M02.04 QA recovery preserved unrelated local report/status edits in stash `stash@{0}` with message `wip: local reports and status edits before M02.04 QA`; the stash was not popped, dropped, deleted, or committed.
+- [x] 2026-06-11: M02.04 QA inspected PR #41, required docs, workspace manifests, API/web/worker scaffolds, control-plane validator, and bootstrap tests.
+- [x] 2026-06-11: M02.04 QA expanded `apps/worker/README.md` with worker check commands and a future-milestone boundary statement.
+- [x] 2026-06-11: M02.04 QA passed and marked M02.04 `QA passed, awaiting merge`; M02.05 through M02.20 remain `Not started`, M03 through M21 remain `Not started`, and product domain implementation has not started.
 
 ## Surprises & Discoveries
 
 - OrbitSoft feedback highlights missing professional engineering evidence: comprehensive error handling, structured logging, CI/CD pipeline, architecture and deployment documentation, authentication and authorization in API projects, and advanced data modeling. M02 planning must map these gaps to the right milestones without implementing them here.
-- Product domain implementation has not started. `apps/api` has a minimal non-domain scaffold, `apps/web` has a minimal non-domain scaffold, and other future product directories still contain placeholder README files only.
+- Product domain implementation has not started. `apps/api` has a minimal non-domain scaffold, `apps/web` has a minimal non-domain scaffold, `apps/worker` has a minimal non-domain scaffold, and other future product directories still contain placeholder README files only.
 - pnpm emitted a non-blocking warning that `esbuild@0.28.0` build scripts were ignored by the approve-builds policy. Package validation still passed.
 - `.github/workflows/` does not exist and must not be created in this planning thread.
 
@@ -96,12 +108,16 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 | 2026-06-09 | M02.03 builder starts from updated `main`. | Recorded | Branch `m02-03-create-apps-web`; scope is a minimal non-domain `apps/web` React/Vite foundation only. |
 | 2026-06-09 | M02.03 creates a non-domain web foundation. | Accepted | React/Vite app bootstrap, browser entrypoint, bootstrap test, package scripts, and README only; no product UI, domain behavior, API calls, routing, database, auth/authz, connector, chart, structured logging runtime, CI workflow, health check, or Docker Compose. |
 | 2026-06-09 | M02.03 QA passed. | Accepted | PR #40 is safe for human merge after QA validation; M02.03 is not completed until the PR merges into `main` and post-merge tracking is finalized. |
+| 2026-06-09 | M02.03 PR #40 merged into `main`. | Recorded | Merge commit `6ad4b0c`; M02.03 is completed and merged. |
+| 2026-06-09 | M02.04 builder starts from updated `main`. | Recorded | Branch `m02-04-create-apps-worker`; scope is a minimal non-domain `apps/worker` TypeScript foundation only. |
+| 2026-06-09 | M02.04 creates a non-domain worker foundation. | Accepted | Worker bootstrap module, bootstrap test, package scripts, TypeScript config, and README only; no jobs, queues, schedulers, provider connectors, database, MoneyEvent, ledger, invariant, incident, evidence, replay, graph, repair, health check, CI workflow, or Docker Compose. |
+| 2026-06-11 | M02.04 QA passed. | Accepted | PR #41 is safe for human merge after QA validation. M02.04 is not completed until PR #41 merges into `main` and post-merge tracking is finalized. |
 
 ## Context and Orientation
 
 M00 Repo Operating System is completed and tagged as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed. M01.01 through M01.13 are `Completed and merged`, and the completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M02 planning PR #37 has merged into `main` at commit `18148f7`. M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901`. M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da`. M02.03 Create apps/web is `QA passed, awaiting merge` for PR #40 on branch `m02-03-create-apps-web`.
+M02 planning PR #37 has merged into `main` at commit `18148f7`. M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901`. M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da`. M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c`. M02.04 Create apps/worker is `QA passed, awaiting merge` on branch `m02-04-create-apps-worker` for PR #41.
 
 Historical planning marker before M02.01 started: M02.01 through M02.20 remain `Not started`.
 
@@ -144,6 +160,14 @@ In scope for M02.03:
 - Add web app scripts for `dev`, `build`, `test`, `lint`, `format:check`, and `typecheck`.
 - Add a non-domain bootstrap test that verifies minimal React rendering only.
 - Update durable tracking and hand off to M02.03 QA.
+
+In scope for M02.04:
+
+- Finalize M02.03 post-merge tracking after PR #40 merged into `main`.
+- Create a minimal non-domain `apps/worker` TypeScript scaffold.
+- Add worker app scripts for `dev`, `build`, `test`, `lint`, `format:check`, and `typecheck`.
+- Add a non-domain bootstrap test that verifies no jobs are registered.
+- Update durable tracking and hand off to M02.04 QA.
 
 Out of scope for this planning thread:
 
@@ -209,14 +233,34 @@ Out of scope for M02.03:
 - Docker Compose.
 - Product/domain behavior or product functionality claims.
 
+Out of scope for M02.04:
+
+- MoneyEvent runtime logic.
+- Ledger runtime logic.
+- Invariant checks.
+- Incident processing.
+- Evidence ingestion.
+- Replay behavior.
+- Causal graph behavior.
+- Repair behavior.
+- Jobs, queues, schedulers, or job processing.
+- Provider connectors or external connectors.
+- Databases or storage behavior.
+- Auth/authz.
+- Structured logging runtime.
+- Health checks.
+- CI workflows.
+- Docker Compose.
+- Product/domain behavior or product functionality claims.
+
 ## M02 Submilestones and Expected Branches
 
 | ID | Name | Status | Expected branch |
 | --- | --- | --- | --- |
 | M02.01 | Choose backend and frontend stack | Completed and merged | `m02-01-choose-backend-and-frontend-stack` |
 | M02.02 | Create apps/api | Completed and merged | `m02-02-create-apps-api` |
-| M02.03 | Create apps/web | QA passed, awaiting merge | `m02-03-create-apps-web` |
-| M02.04 | Create apps/worker | Not started | `m02-04-create-apps-worker` |
+| M02.03 | Create apps/web | Completed and merged | `m02-03-create-apps-web` |
+| M02.04 | Create apps/worker | QA passed, awaiting merge | `m02-04-create-apps-worker` |
 | M02.05 | Create apps/agent-runtime | Not started | `m02-05-create-apps-agent-runtime` |
 | M02.06 | Create packages/core | Not started | `m02-06-create-packages-core` |
 | M02.07 | Create packages/events | Not started | `m02-07-create-packages-events` |
@@ -483,6 +527,19 @@ M02.03 QA acceptance criteria:
 - Product domain implementation has not started.
 - Required control-plane and package validation pass or skipped validation is recorded with a reason.
 - Next recommended thread is `Merge M02.03 PR - Create apps/web`.
+
+M02.04 builder acceptance criteria:
+
+- M02.03 PR #40 is confirmed merged into `main` at commit `6ad4b0c`.
+- M02.03 status is recorded as `Completed and merged`.
+- M02.04 status is recorded as `Builder complete, awaiting QA`.
+- `apps/worker` contains a minimal TypeScript scaffold with package scripts, TypeScript config, README, bootstrap module, and non-domain bootstrap test.
+- No jobs, queues, schedulers, provider connectors, databases, MoneyEvent logic, ledger logic, invariant checks, incident processing, evidence ingestion, replay behavior, graph behavior, repair behavior, health checks, structured logging runtime, auth/authz, CI workflow, Docker Compose, or product/domain behavior exists.
+- M02.05 through M02.20 remain `Not started`.
+- M03 through M21 remain `Not started`.
+- Product domain implementation has not started.
+- Required control-plane and package validation pass or skipped validation is recorded with a reason.
+- Next recommended thread is `M02.04 QA - Create apps/worker`.
 
 ## M02 Planning QA Record
 
@@ -951,7 +1008,7 @@ pnpm approve-builds warning status:
 - `pnpm install` emitted the non-blocking warning: `Ignored build scripts: esbuild@0.28.0. Run "pnpm approve-builds" to pick which dependencies should be allowed to run scripts.`
 - The warning does not block validation because package validation passed.
 
-Current builder decision: M02.03 is builder complete and ready for QA. Do not start M02.04.
+Historical M02.03 builder decision: M02.03 was builder complete and ready for QA at this point. M02.04 was blocked until M02.03 QA passed and PR #40 merged.
 
 ## M02.03 QA Record
 
@@ -1158,7 +1215,367 @@ Optional dev-server smoke status:
 
 QA decision: PASS.
 
-Safe-to-merge statement: safe to merge PR #40 after human review. M02.03 is not `Completed and merged` until PR #40 actually merges into `main` and post-merge tracking is finalized. Do not start M02.04 until after that merge and finalization.
+Historical M02.03 QA safe-to-merge statement: PR #40 was safe to merge after human review. PR #40 has since merged into `main` at commit `6ad4b0c`, and M02.03 is now `Completed and merged`.
+
+## M02.04 Builder Record
+
+Builder date: 2026-06-09.
+
+Branch: `m02-04-create-apps-worker`.
+
+Branch guard:
+
+- `git switch main` succeeded before builder work.
+- `git pull --ff-only origin main` fast-forwarded `main` to `6ad4b0c`.
+- `git log --oneline --grep="#40" -20` confirmed PR #40 merged at `6ad4b0c` (`chore: create M02.03 web scaffold (#40)`).
+- `git branch --list m02-04-create-apps-worker` found no existing local branch.
+- `git ls-remote --heads origin m02-04-create-apps-worker` found no existing remote branch.
+- `git switch -c m02-04-create-apps-worker` created the branch from updated `main`.
+- `git branch --show-current` returned `m02-04-create-apps-worker`.
+- `git status --short` was clean before edits.
+- `git remote -v` showed `origin` at `https://github.com/Islem-Rezzag/CausalLedger.git`.
+
+Files inspected:
+
+- `docs/ACTIVE_DOCS.md`
+- `README.md`
+- `START_HERE.md`
+- `AGENTS.md`
+- `PLANS.md`
+- `WORKFLOW.md`
+- `docs/INDEX.md`
+- `plans/ROADMAP.md`
+- `docs/status/CURRENT_STATE.md`
+- `docs/status/NEXT_RECOMMENDED_THREAD.md`
+- `docs/status/WEEKLY_LOG.md`
+- `docs/status/RISK_REGISTER.md`
+- `docs/status/TECH_DEBT.md`
+- `docs/status/CAPABILITY_MATRIX.md`
+- `docs/milestones/M02.md`
+- `docs/milestones/SUBMILESTONE_REGISTRY.md`
+- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`
+- `docs/decisions/ADR-0005-m02-stack-and-monorepo-direction.md`
+- `docs/decisions/ADR-0006-local-dev-and-ci-baseline.md`
+- `docs/decisions/ADR-0007-logging-error-handling-and-observability-direction.md`
+- `docs/ops/planning-and-tracking-system.md`
+- `docs/ops/builder-qa-prompt-protocol.md`
+- `docs/ops/validation-and-handoff-workflow.md`
+- `docs/ops/github-pr-and-issue-workflow.md`
+- `.github/PULL_REQUEST_TEMPLATE.md`
+- `scripts/validate-control-plane.py`
+- `tests/test_control_plane_bootstrap.py`
+- `package.json`
+- `pnpm-workspace.yaml`
+- `turbo.json`
+- `tsconfig.base.json`
+- `pnpm-lock.yaml`
+- `apps/api/package.json`
+- `apps/api/README.md`
+- `apps/api/tsconfig.json`
+- `apps/api/src/app.ts`
+- `apps/api/src/index.ts`
+- `apps/api/test/bootstrap.test.ts`
+- `apps/web/package.json`
+- `apps/web/README.md`
+- `apps/web/tsconfig.json`
+- `apps/web/tsconfig.node.json`
+- `apps/web/vite.config.ts`
+- `apps/web/index.html`
+- `apps/web/src/App.tsx`
+- `apps/web/src/main.tsx`
+- `apps/web/src/App.test.tsx`
+- `apps/worker/README.md`
+
+Builder findings:
+
+- M02.03 PR #40 is merged into `main` at commit `6ad4b0c`.
+- M02.04 was the current submilestone after post-merge finalization.
+- `apps/worker` contained only a placeholder README before this builder.
+- The root workspace already includes `apps/*`, so no workspace globs changed.
+- The worker scaffold adds no runtime dependencies and no jobs, queues, schedulers, connectors, database behavior, health checks, CI workflow, Docker Compose, or product/domain behavior.
+- M02.05 through M02.20 remain `Not started`.
+- M03 through M21 remain `Not started`.
+- Product domain implementation has not started.
+
+Files created by builder:
+
+- `apps/worker/package.json`
+- `apps/worker/tsconfig.json`
+- `apps/worker/src/index.ts`
+- `apps/worker/test/bootstrap.test.ts`
+
+Files changed by builder:
+
+- `README.md`
+- `START_HERE.md`
+- `PLANS.md`
+- `WORKFLOW.md`
+- `docs/ACTIVE_DOCS.md`
+- `docs/INDEX.md`
+- `plans/ROADMAP.md`
+- `docs/status/CURRENT_STATE.md`
+- `docs/status/NEXT_RECOMMENDED_THREAD.md`
+- `docs/status/WEEKLY_LOG.md`
+- `docs/status/CAPABILITY_MATRIX.md`
+- `docs/milestones/M02.md`
+- `docs/milestones/SUBMILESTONE_REGISTRY.md`
+- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`
+- `scripts/validate-control-plane.py`
+- `tests/test_control_plane_bootstrap.py`
+- `apps/worker/README.md`
+- `pnpm-lock.yaml` after `pnpm install`
+
+Files intentionally not touched by builder:
+
+- `apps/api` scaffold files
+- `apps/web` scaffold files
+- `packages/` future package placeholders
+- `.github/workflows/`
+- Future M02.05 through M02.20 app, package, database, Redis, Docker Compose, migration, health-check, and CI work
+- All M03 through M21 product areas
+
+Validation ladder:
+
+- Level 0: branch and worktree guard.
+- Level 1: file, diff, status, and forbidden-scope inspection.
+- Level 2: control-plane validation.
+- Level 3: bootstrap tests and worker bootstrap test.
+- Level 4: diff and whitespace checks.
+- Level 7: forbidden-scope checks for product/domain behavior and safety boundaries.
+- Level 8: PR and QA readiness handoff.
+
+Validation commands:
+
+- `python scripts/validate-control-plane.py`
+- `python -m pytest tests/test_control_plane_bootstrap.py`
+- `git diff --check`
+- `node --version`
+- `npm --version`
+- `pnpm --version`
+- `pnpm install`
+- `pnpm typecheck`
+- `pnpm test`
+- `pnpm build`
+- `pnpm lint`
+- `pnpm format:check`
+- `make bootstrap-check`, only if `make` is available
+
+Validation results:
+
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 32 tests.
+- `git diff --check` passed.
+- `node --version` returned `v22.16.0`.
+- `npm --version` returned `10.9.2`.
+- `pnpm --version` returned `10.32.1`.
+- `pnpm install` passed across all 4 workspace projects and updated `pnpm-lock.yaml`.
+- `pnpm typecheck` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
+- `pnpm test` passed with 3 Vitest tests total.
+- `pnpm build` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
+- `pnpm lint` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
+- `pnpm format:check` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
+
+Skipped validation and reason:
+
+- `make bootstrap-check` was skipped because `Get-Command make -ErrorAction SilentlyContinue` found no `make` command in the current Windows shell. Equivalent direct Python validation commands were run.
+
+pnpm approve-builds warning status:
+
+- M02.04 `pnpm install` did not emit the `esbuild@0.28.0` approve-builds warning. The prior M02.02 and M02.03 warning remains historical only.
+
+Current builder decision: M02.04 is builder complete and ready for QA. Do not start M02.05.
+
+## M02.04 QA Record
+
+QA date: 2026-06-11.
+
+PR: `https://github.com/Islem-Rezzag/CausalLedger/pull/41`.
+
+Branch: `m02-04-create-apps-worker`.
+
+Stash note:
+
+- Previous unrelated local report/status edits were preserved with `git stash push -u -m "wip: local reports and status edits before M02.04 QA"`.
+- `git stash list --max-count=3` showed `stash@{0}: On m02-04-create-apps-worker: wip: local reports and status edits before M02.04 QA`.
+- The stash was not popped, dropped, deleted, or committed during QA.
+
+Branch and PR guard:
+
+- `git branch --show-current` returned `m02-04-create-apps-worker`.
+- `git status --short` was clean after the recovery stash.
+- `git remote -v` showed `origin` at `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- `git fetch origin` succeeded.
+- Local `HEAD` and `origin/m02-04-create-apps-worker` both resolved to `9b9df8d1886b55495322150aa27e2bba32da89a9` before QA edits.
+- `git log --oneline main..HEAD` showed one builder commit before QA edits: `9b9df8d chore: create M02.04 worker scaffold`.
+- `git diff --name-status main...HEAD` showed only M02.04 builder files and tracking updates.
+- `gh pr list --head m02-04-create-apps-worker --base main` could not run because `gh` is unavailable in the current Windows shell.
+- The GitHub PR page showed PR #41 open from `m02-04-create-apps-worker` into `main` with builder commit `9b9df8d`.
+
+Files inspected:
+
+- `docs/ACTIVE_DOCS.md`
+- `README.md`
+- `START_HERE.md`
+- `AGENTS.md`
+- `PLANS.md`
+- `WORKFLOW.md`
+- `docs/INDEX.md`
+- `plans/ROADMAP.md`
+- `docs/status/CURRENT_STATE.md`
+- `docs/status/NEXT_RECOMMENDED_THREAD.md`
+- `docs/status/WEEKLY_LOG.md`
+- `docs/status/RISK_REGISTER.md`
+- `docs/status/TECH_DEBT.md`
+- `docs/status/CAPABILITY_MATRIX.md`
+- `docs/milestones/M02.md`
+- `docs/milestones/SUBMILESTONE_REGISTRY.md`
+- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`
+- `docs/decisions/ADR-0005-m02-stack-and-monorepo-direction.md`
+- `docs/decisions/ADR-0006-local-dev-and-ci-baseline.md`
+- `docs/decisions/ADR-0007-logging-error-handling-and-observability-direction.md`
+- `docs/ops/planning-and-tracking-system.md`
+- `docs/ops/builder-qa-prompt-protocol.md`
+- `docs/ops/validation-and-handoff-workflow.md`
+- `docs/ops/github-pr-and-issue-workflow.md`
+- `.github/PULL_REQUEST_TEMPLATE.md`
+- `scripts/validate-control-plane.py`
+- `tests/test_control_plane_bootstrap.py`
+- `package.json`
+- `pnpm-workspace.yaml`
+- `turbo.json`
+- `tsconfig.base.json`
+- `pnpm-lock.yaml`
+- `apps/api/package.json`
+- `apps/api/README.md`
+- `apps/web/package.json`
+- `apps/web/README.md`
+- `apps/worker/package.json`
+- `apps/worker/tsconfig.json`
+- `apps/worker/src/index.ts`
+- `apps/worker/test/bootstrap.test.ts`
+- `apps/worker/README.md`
+
+QA findings:
+
+- M02.03 is finalized as `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c`.
+- M02.04 is the current submilestone.
+- M02.04 was `Builder complete, awaiting QA` before QA updates.
+- PR #41 contains the M02.04 builder commit `9b9df8d`.
+- `apps/api` remains a minimal non-domain API scaffold.
+- `apps/web` remains a minimal non-domain web scaffold.
+- `apps/worker/package.json` is private, scoped as `@causalledger/worker`, and contains only minimal scripts and development dependencies.
+- `apps/worker/tsconfig.json` extends the root TypeScript base config and stays minimal.
+- `apps/worker/src/index.ts` is a minimal bootstrap module only.
+- `apps/worker/test/bootstrap.test.ts` is a non-domain bootstrap test only.
+- `apps/worker/README.md` needed modest expansion to include concrete worker check commands and an explicit future-milestone statement.
+- No MoneyEvent processing, ledger processing, invariant processing, incident processing, evidence ingestion, replay jobs, repair jobs, queues, schedulers, database connections, external connectors, agent runtime, auth/authz, health checks, structured logging runtime, GitHub Actions, CI workflow, Docker Compose, product/domain tests, M02.05 work, or M03 work was added.
+- `scripts/validate-control-plane.py` and `tests/test_control_plane_bootstrap.py` were updated honestly to validate the M02.04 QA-passed state and did not remove existing important checks.
+- M02.05 through M02.20 remain `Not started`.
+- M03 through M21 remain `Not started`.
+- Product domain implementation has not started.
+
+Defects found:
+
+- `apps/worker/README.md` was too terse for the QA prompt because it did not list concrete worker check commands or state that future product worker behavior belongs to later milestones.
+
+Fixes applied:
+
+- Expanded `apps/worker/README.md` with `pnpm --filter @causalledger/worker` build, test, typecheck, lint, and format-check commands.
+- Added an explicit statement that future product worker behavior belongs to later scoped milestones.
+- Updated durable tracking from `Builder complete, awaiting QA` to `QA passed, awaiting merge`.
+- Set the exact next recommended thread to `Merge M02.04 PR - Create apps/worker`.
+- Updated control-plane validation expectations to validate the post-QA state.
+
+Files changed by QA:
+
+- `README.md`
+- `START_HERE.md`
+- `PLANS.md`
+- `WORKFLOW.md`
+- `docs/ACTIVE_DOCS.md`
+- `docs/INDEX.md`
+- `plans/ROADMAP.md`
+- `docs/status/CURRENT_STATE.md`
+- `docs/status/NEXT_RECOMMENDED_THREAD.md`
+- `docs/status/WEEKLY_LOG.md`
+- `docs/status/CAPABILITY_MATRIX.md`
+- `docs/milestones/M02.md`
+- `docs/milestones/SUBMILESTONE_REGISTRY.md`
+- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`
+- `scripts/validate-control-plane.py`
+- `tests/test_control_plane_bootstrap.py`
+- `apps/worker/README.md`
+
+Files intentionally not touched by QA:
+
+- `apps/worker/package.json`
+- `apps/worker/tsconfig.json`
+- `apps/worker/src/index.ts`
+- `apps/worker/test/bootstrap.test.ts`
+- `apps/api` scaffold files
+- `apps/web` scaffold files
+- `package.json`
+- `pnpm-workspace.yaml`
+- `turbo.json`
+- `tsconfig.base.json`
+- `pnpm-lock.yaml`
+- `.github/workflows/`
+- Docker Compose files
+- Future M02.05 through M02.20 files and all M03 through M21 product areas
+- Stashed unrelated report/status files
+
+Validation ladder:
+
+- Level 0: branch and worktree guard.
+- Level 1: file, diff, status, and forbidden-scope inspection.
+- Level 2: control-plane validation.
+- Level 3: bootstrap tests and worker bootstrap test.
+- Level 4: diff and whitespace checks.
+- Level 7: forbidden-scope checks for product/domain behavior and safety boundaries.
+- Level 8: QA merge-readiness review.
+
+Validation commands:
+
+- `python scripts/validate-control-plane.py`
+- `python -m pytest tests/test_control_plane_bootstrap.py`
+- `git diff --check`
+- `node --version`
+- `npm --version`
+- `pnpm --version`
+- `pnpm install`
+- `pnpm typecheck`
+- `pnpm test`
+- `pnpm build`
+- `pnpm lint`
+- `pnpm format:check`
+- `make bootstrap-check`, only if `make` is available
+
+Validation results:
+
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 32 tests.
+- `git diff --check` passed.
+- `node --version` returned `v22.16.0`.
+- `npm --version` returned `10.9.2`.
+- `pnpm --version` returned `10.32.1`.
+- `pnpm install` passed across all 4 workspace projects.
+- `pnpm typecheck` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
+- `pnpm test` passed with 3 Vitest tests total.
+- `pnpm build` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
+- `pnpm lint` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
+- `pnpm format:check` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
+
+Skipped validation and reason:
+
+- `make bootstrap-check` was skipped because `Get-Command make -ErrorAction SilentlyContinue` found no `make` command in the current Windows shell. Equivalent direct Python validation commands were run.
+
+pnpm approve-builds warning status:
+
+- M02.04 QA `pnpm install` did not emit the `esbuild@0.28.0` approve-builds warning. The prior M02.02 and M02.03 warning remains historical only.
+
+QA decision: PASS.
+
+Safe-to-merge statement: PR #41 is safe to merge after human review. M02.04 is not `Completed and merged` until PR #41 actually merges into `main` and post-merge tracking is finalized. Do not start M02.05 or the process amendment until after that merge and finalization.
 
 ## Validation Results
 
@@ -1260,11 +1677,45 @@ Safe-to-merge statement: safe to merge PR #40 after human review. M02.03 is not 
 - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
 - Optional dev-server smoke passed at `http://localhost:5173` with HTTP 200 and `CausalLedger Web` in the response.
 
+2026-06-09 M02.04 builder validation results:
+
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 32 tests.
+- `git diff --check` passed.
+- `node --version` returned `v22.16.0`.
+- `npm --version` returned `10.9.2`.
+- `pnpm --version` returned `10.32.1`.
+- `pnpm install` passed across all 4 workspace projects and updated `pnpm-lock.yaml`.
+- `pnpm typecheck` passed.
+- `pnpm test` passed with 3 Vitest tests.
+- `pnpm build` passed.
+- `pnpm lint` passed.
+- `pnpm format:check` passed.
+- `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
+- M02.04 `pnpm install` did not emit the `esbuild@0.28.0` approve-builds warning.
+
+2026-06-11 M02.04 QA validation results:
+
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 32 tests.
+- `git diff --check` passed.
+- `node --version` returned `v22.16.0`.
+- `npm --version` returned `10.9.2`.
+- `pnpm --version` returned `10.32.1`.
+- `pnpm install` passed across all 4 workspace projects.
+- `pnpm typecheck` passed.
+- `pnpm test` passed with 3 Vitest tests.
+- `pnpm build` passed.
+- `pnpm lint` passed.
+- `pnpm format:check` passed.
+- `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
+- M02.04 QA `pnpm install` did not emit the `esbuild@0.28.0` approve-builds warning.
+
 ## Idempotence and Recovery
 
 If validation fails, do not widen scope. Fix only planning/control-plane defects introduced by this thread, rerun validation, and record results. If an unexpected dirty worktree appears, inspect it, preserve user changes, and report any conflict before proceeding.
 
-If the M02.03 QA thread is not on `m02-03-create-apps-web`, stop immediately without editing.
+If the M02.04 merge/finalization thread is not on updated `main` after PR #41 merges, stop immediately before post-merge tracking edits.
 
 ## Artifacts and Notes
 
@@ -1301,6 +1752,14 @@ Created M02.03 web foundation artifacts:
 - `apps/web/src/App.test.tsx`
 - `apps/web/README.md`
 
+Created M02.04 worker foundation artifacts:
+
+- `apps/worker/package.json`
+- `apps/worker/tsconfig.json`
+- `apps/worker/src/index.ts`
+- `apps/worker/test/bootstrap.test.ts`
+- `apps/worker/README.md`
+
 ## Interfaces and Dependencies
 
 Future M02 implementation dependencies:
@@ -1333,6 +1792,8 @@ Stack decision summary:
 
 M02.02 builder work created a minimal non-domain `apps/api` TypeScript/Fastify foundation and required pnpm/Turborepo workspace manifests. M02.02 QA passed for PR #39, and PR #39 merged into `main` at commit `8ddf5da`.
 
-M02.03 builder work created a minimal non-domain `apps/web` React/Vite foundation. M02.03 QA passed for PR #40. Product domain implementation has not started. M02.03 is `QA passed, awaiting merge`; M02.04 through M02.20 remain `Not started`; M03 through M21 remain `Not started`.
+M02.03 builder work created a minimal non-domain `apps/web` React/Vite foundation. M02.03 QA passed for PR #40, and PR #40 merged into `main` at commit `6ad4b0c`.
 
-Exact next recommended thread after M02.03 QA is complete: `Merge M02.03 PR - Create apps/web`.
+M02.04 builder work created a minimal non-domain `apps/worker` TypeScript foundation. M02.04 QA passed for PR #41 after a scoped README documentation fix. Product domain implementation has not started. M02.04 is `QA passed, awaiting merge`; M02.05 through M02.20 remain `Not started`; M03 through M21 remain `Not started`.
+
+Exact next recommended thread after M02.04 QA is complete: `Merge M02.04 PR - Create apps/worker`.

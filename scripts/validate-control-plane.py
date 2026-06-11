@@ -95,6 +95,11 @@ REQUIRED_FILES = [
     "apps/web/src/App.tsx",
     "apps/web/src/main.tsx",
     "apps/web/src/App.test.tsx",
+    "apps/worker/package.json",
+    "apps/worker/README.md",
+    "apps/worker/tsconfig.json",
+    "apps/worker/src/index.ts",
+    "apps/worker/test/bootstrap.test.ts",
 ]
 
 REQUIRED_DIRS = [
@@ -1627,9 +1632,10 @@ REQUIRED_TEXT = {
         "OrbitSoft-Readiness Constraints",
         "M02.01 | Choose backend and frontend stack | Completed and merged",
         "M02.02 | Create apps/api | Completed and merged",
-        "M02.03 | Create apps/web | QA passed, awaiting merge",
+        "M02.03 | Create apps/web | Completed and merged",
+        "M02.04 | Create apps/worker | QA passed, awaiting merge",
         "M02.20 | QA dev environment | Not started",
-        "Merge M02.03 PR - Create apps/web",
+        "Merge M02.04 PR - Create apps/worker",
         "No runtime logging or error-handling code is implemented",
         "This planning thread must not create `.github/workflows/`",
     ],
@@ -2038,13 +2044,26 @@ def closeout_state_errors():
         "",
     )
     if (
-        "QA passed, awaiting merge" not in m02_03_row
+        "Completed and merged" not in m02_03_row
         or "m02-03-create-apps-web" not in m02_03_row
-        or "#40" not in m02_03_row
+        or "#40 merged" not in m02_03_row
+        or "6ad4b0c" not in m02_03_row
     ):
-        errors.append("M02.03 is not recorded as QA passed on the expected branch and PR")
+        errors.append("M02.03 is not recorded as completed and merged at PR #40 commit 6ad4b0c")
 
-    for index in range(4, 21):
+    m02_04_row = next(
+        (line for line in registry.splitlines() if line.startswith("| M02.04 |")),
+        "",
+    )
+    if (
+        "QA passed, awaiting merge" not in m02_04_row
+        or "m02-04-create-apps-worker" not in m02_04_row
+        or "#41" not in m02_04_row
+        or "worker" not in m02_04_row
+    ):
+        errors.append("M02.04 is not recorded as QA passed on the expected branch and PR")
+
+    for index in range(5, 21):
         row = next(
             (line for line in registry.splitlines() if line.startswith(f"| M02.{index:02} |")),
             "",
@@ -2128,6 +2147,11 @@ def closeout_state_errors():
         "apps/web/src/App.tsx",
         "apps/web/src/main.tsx",
         "apps/web/src/App.test.tsx",
+        "apps/worker/package.json",
+        "apps/worker/README.md",
+        "apps/worker/tsconfig.json",
+        "apps/worker/src/index.ts",
+        "apps/worker/test/bootstrap.test.ts",
     }
     unexpected_product_files = []
     generated_parts = {"node_modules", "dist", ".turbo", ".vite"}
@@ -2177,20 +2201,20 @@ def closeout_state_errors():
         ):
             errors.append(f"{rel} does not clearly state product implementation is absent")
 
-    if "Merge M02.03 PR - Create apps/web" not in next_thread:
-        errors.append("Next recommended thread is not M02.03 merge")
+    if "Merge M02.04 PR - Create apps/worker" not in next_thread:
+        errors.append("Next recommended thread is not the M02.04 merge thread")
     if "M01 is completed and closed" not in next_thread:
         errors.append("Next recommended thread does not record M01 as completed and closed")
     if "M01.01 through M01.13 are `Completed and merged`" not in next_thread:
         errors.append("Next recommended thread does not record all M01 submilestones as completed")
     if "27c39b6" not in next_thread:
         errors.append("Next recommended thread does not record M01.13 merge commit")
-    if "M02.04 through M02.20 remain `Not started`" not in next_thread:
+    if "M02.05 through M02.20 remain `Not started`" not in next_thread:
         errors.append("Next recommended thread does not preserve M02 submilestone status")
     if "M03 through M21 are `Not started`" not in next_thread:
         errors.append("Next recommended thread does not preserve future milestone status")
-    if "Do not start M02.04 until the M02.03 PR merges" not in next_thread:
-        errors.append("Next recommended thread does not block premature M02.04 implementation")
+    if "Do not start M02.05 or the process amendment until PR #41 merges into `main`" not in next_thread:
+        errors.append("Next recommended thread does not block premature M02.05 or process-amendment work")
 
     domain_doc = ROOT / "docs/domain/payment-lifecycle.md"
     ledger_doc = ROOT / "docs/domain/ledger-vocabulary.md"
