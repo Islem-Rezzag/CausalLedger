@@ -5,7 +5,7 @@
 M02.05 creates only package scaffolding:
 
 - package manifest;
-- TypeScript config extending the root config;
+- TypeScript source and test configs extending the root config;
 - scaffold metadata export;
 - bootstrap test;
 - local build, typecheck, test, lint, and format-check scripts.

@@ -6,10 +6,11 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit --pretty false && tsc -p tsconfig.test.json --noEmit --pretty false",
+    "typecheck:test": "tsc -p tsconfig.test.json --noEmit --pretty false",
     "test": "vitest run --exclude \"dist/**\"",
     "lint": "eslint . --max-warnings=0",
-    "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\" \"README.md\" \"package.json\" \"tsconfig.json\"",
-    "typecheck": "tsc -p tsconfig.json --noEmit --pretty false"
+    "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\" \"README.md\" \"package.json\" \"tsconfig*.json\""
   },
   "devDependencies": {
     "@types/node": "^25.9.2",

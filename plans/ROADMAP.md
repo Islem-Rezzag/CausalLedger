@@ -1,7 +1,7 @@
 # CausalLedger Roadmap
 
 Current milestone marker: M01 Domain model and scope freeze is completed and closed. M02 Monorepo and local development is in progress under active plan `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`; M02 planning PR #37 merged into `main` at commit `18148f7`, M02.01 PR #38 merged into `main` at commit `fb2b901`, M02.02 PR #39 merged into `main` at commit `8ddf5da`, M02.03 PR #40 merged into `main` at commit `6ad4b0c`, and M02.04 PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f`.
-Current submilestone status: M00.01 through M00.08 are completed and merged. M00 is tagged as `v0.1.0` for the repo operating system foundation. M01.01 through M01.13 are `Completed and merged`; M01.13 QA Domain Consistency merged at git commit `27c39b6` (`docs: run M01.13 domain consistency QA (#35)`). The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`, and the M01 closeout packet lives at `docs/status/M01_CLOSEOUT.md`. Duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation. M02.01 through M02.04 are `Completed and merged`; M02 process amendment PR #42 merged into `main` at commit `d5c27c4`; M02.05 is `Builder complete, awaiting QA`; remaining active M02 work is M02.06 local infrastructure and M02.07 QA dev environment. Former M02.08 through M02.20 rows are deferred or absorbed. M03 through M21 remain `Not started`.
+Current submilestone status: M00.01 through M00.08 are completed and merged. M00 is tagged as `v0.1.0` for the repo operating system foundation. M01.01 through M01.13 are `Completed and merged`; M01.13 QA Domain Consistency merged at git commit `27c39b6` (`docs: run M01.13 domain consistency QA (#35)`). The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`, and the M01 closeout packet lives at `docs/status/M01_CLOSEOUT.md`. Duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation. M02.01 through M02.04 are `Completed and merged`; M02 process amendment PR #42 merged into `main` at commit `d5c27c4`; M02.05 is `QA passed, awaiting merge`; remaining active M02 work is M02.06 local infrastructure and M02.07 QA dev environment. Former M02.08 through M02.20 rows are deferred or absorbed. M03 through M21 remain `Not started`.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 
@@ -42,7 +42,7 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 - M01.13 merged at git commit `27c39b6` (`docs: run M01.13 domain consistency QA (#35)`).
 - M01.12 duplicate PR merges #32 and #33 from the same branch are recorded as a process deviation. No revert was performed; future submilestones should use one PR per branch and delete the branch after merge.
 - M02 is in progress under active plan `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`; planning PR #37 merged into `main` at commit `18148f7` on 2026-06-08, M02.01 PR #38 merged into `main` at commit `fb2b901` on 2026-06-08, M02.02 PR #39 merged into `main` at commit `8ddf5da` on 2026-06-09, M02.03 PR #40 merged into `main` at commit `6ad4b0c` on 2026-06-09, and M02.04 PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f` on 2026-06-11.
-- M02.01 through M02.04 are `Completed and merged`; M02.05 is `Builder complete, awaiting QA`; M02.06 and M02.07 remain `Not started`; former M02.08 through M02.20 rows are deferred or absorbed by the process amendment.
+- M02.01 through M02.04 are `Completed and merged`; M02.05 is `QA passed, awaiting merge`; M02.06 and M02.07 remain `Not started`; former M02.08 through M02.20 rows are deferred or absorbed by the process amendment.
 - M02.05 is now `Create all remaining package scaffolds + ESLint + CI baseline`.
 - M02.06 is now `Local infrastructure: Docker Compose + Postgres + migration tool + health-check stubs`.
 - M02.07 is now `QA dev environment`.
@@ -50,6 +50,6 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 - Redis is deferred until needed because no queue or scheduler should be added before the worker or orchestration design proves the need.
 - M03-M21 remain `Not started`.
 - Product implementation has not started.
-- The next recommended thread is `M02.05 QA - Package Scaffolds, ESLint, and CI Baseline`.
+- The next recommended thread is `Merge M02.05 PR - Package Scaffolds, ESLint, and CI Baseline`.
 - Versioning strategy is documented in `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed registry.

@@ -10,7 +10,7 @@ M02 planning also aligns CausalLedger's product direction with the continuous pa
 
 The original M02 planning thread did not start M02.01 implementation and did not create product behavior.
 
-M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`). M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`). M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c` (`chore: create M02.03 web scaffold (#40)`). M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f` (`chore: create M02.04 worker scaffold (#41)`). The M02 process amendment PR #42 merged into `main` at commit `d5c27c4` (`docs: amend M02 process tracking and validation (#42)`). The current slice is `M02.05 Builder - Package Scaffolds, ESLint, and CI Baseline` on branch `m02-05-package-scaffolds-eslint-ci`.
+M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`). M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`). M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c` (`chore: create M02.03 web scaffold (#40)`). M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f` (`chore: create M02.04 worker scaffold (#41)`). The M02 process amendment PR #42 merged into `main` at commit `d5c27c4` (`docs: amend M02 process tracking and validation (#42)`). The current slice is `M02.05 QA - Package Scaffolds, ESLint, and CI Baseline` on branch `m02-05-package-scaffolds-eslint-ci`; PR #43 is `QA passed, awaiting merge`.
 
 ## Progress
 
@@ -101,6 +101,13 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 - [x] 2026-06-24: Updated control-plane validation and bootstrap tests for M02.05 package allowlists, workflow allowlists, and forbidden product/domain package source patterns.
 - [x] 2026-06-24: Initial `pnpm typecheck` and `pnpm test` failed before package workspace links were installed; `pnpm install` fixed the local package links and reruns passed.
 - [x] 2026-06-24: M02.05 Builder complete, awaiting QA; M02.06 and M02.07 remain `Not started`; M03 through M21 remain `Not started`; product implementation has not started.
+- [x] 2026-06-24: M02.05 QA branch guard passed on `m02-05-package-scaffolds-eslint-ci`; starting worktree was clean, local HEAD matched `origin/m02-05-package-scaffolds-eslint-ci`, and builder commit `96a9f89` was confirmed.
+- [x] 2026-06-24: Verified PR #43 at `https://github.com/Islem-Rezzag/CausalLedger/pull/43`; it targets `main`, uses head branch `m02-05-package-scaffolds-eslint-ci`, is open and non-draft, and contains builder commit `96a9f89`.
+- [x] 2026-06-24: M02.05 QA found two scoped defects: CI invoked pytest without explicitly installing Python dev dependencies, and TypeScript test files outside `apps/web/src` were executed by Vitest but not typechecked by `tsc`.
+- [x] 2026-06-24: Added `requirements-dev.txt` and CI installation for Python dev dependencies before control-plane pytest.
+- [x] 2026-06-24: Added `tsconfig.test.json` and `typecheck:test` coverage for `apps/api`, `apps/web`, `apps/worker`, and all ten M02.05 packages without adding tests to production build output.
+- [x] 2026-06-24: Updated control-plane validation and bootstrap tests for package test tsconfig allowlists, CI Python dependency installation, pytest dependency declaration, package script defects, and scaffold boundary cases.
+- [x] 2026-06-24: M02.05 QA passed; M02.05 is `QA passed, awaiting merge`, M02.06 and M02.07 remain `Not started`, M03 through M21 remain `Not started`, and product implementation has not started.
 
 ## Surprises & Discoveries
 
@@ -109,6 +116,8 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 - M02 process amendment QA found that the builder's structural-validation claim was incomplete: the validator still coupled project truth to today's M02 status map and exact current-state prose.
 - pnpm emitted a non-blocking warning that `esbuild@0.28.0` build scripts were ignored by the approve-builds policy. Package validation still passed.
 - `.github/workflows/ci.yml` now exists as the M02.05 baseline CI workflow. Any additional workflow remains out of scope until explicitly planned.
+- M02.05 QA confirmed a fresh Linux runner does not inherit local Python tools; CI needed an explicit pytest dependency installation step.
+- M02.05 QA confirmed Vitest execution is not the same as TypeScript test typechecking; API, worker, and package tests needed separate `tsconfig.test.json` coverage.
 
 ## Decision Log
 
@@ -139,8 +148,9 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 | 2026-06-11 | Defer `apps/agent-runtime` to the M10 era. | Accepted | Agent runtime should not exist before deterministic evidence, MoneyEvent, invariant, incident, graph, replay, and repair boundaries exist. |
 | 2026-06-11 | Defer Redis until needed. | Accepted | No queue or scheduler should be added before the worker or orchestration design proves the need. |
 | 2026-06-24 | M02 process amendment PR #42 merged before M02.05. | Recorded | Merge commit `d5c27c4`; M02.05 started only after sync from updated `main`. |
-| 2026-06-24 | M02.05 creates package boundaries without product/domain behavior. | Accepted | Each M02.05 package contains only `package.json`, `tsconfig.json`, `src/index.ts`, `test/bootstrap.test.ts`, and `README.md`; exported values are scaffold metadata only. |
+| 2026-06-24 | M02.05 creates package boundaries without product/domain behavior. | Accepted | Each M02.05 package contains only `package.json`, `tsconfig.json`, `tsconfig.test.json`, `src/index.ts`, `test/bootstrap.test.ts`, and `README.md`; exported values are scaffold metadata only. |
 | 2026-06-24 | M02.05 introduces real ESLint and baseline CI. | Accepted | ESLint is separate from typecheck; CI is validation-only and does not deploy, release, seed data, run migrations, or touch money state. |
+| 2026-06-24 | M02.05 QA requires clean-runner dependency and test typecheck coverage. | Accepted | CI installs `requirements-dev.txt`; workspace `typecheck` now includes source and test configs without adding tests to production build output. |
 
 ## Context and Orientation
 
@@ -148,7 +158,7 @@ M00 Repo Operating System is completed and tagged as `v0.1.0`. M01 Domain Model 
 
 M02 planning PR #37 has merged into `main` at commit `18148f7`. M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901`. M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da`. M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c`. M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f`. The M02 process amendment PR #42 merged into `main` at commit `d5c27c4`.
 
-The current branch is `m02-05-package-scaffolds-eslint-ci`. The current slice is `M02.05 Builder - Package Scaffolds, ESLint, and CI Baseline`.
+The current branch is `m02-05-package-scaffolds-eslint-ci`. The current slice is `M02.05 QA - Package Scaffolds, ESLint, and CI Baseline`.
 
 Historical planning marker before M02.01 started: M02.01 through M02.20 remain `Not started`.
 
@@ -217,10 +227,12 @@ In scope for M02.05:
 
 - Finalize process-amendment merge tracking after PR #42 merged into `main`.
 - Create scaffold-only package boundaries for `packages/core`, `packages/events`, `packages/ledger`, `packages/invariants`, `packages/incidents`, `packages/graph`, `packages/replay`, `packages/repair`, `packages/evidence`, and `packages/evals`.
-- Keep each M02.05 package limited to `package.json`, `tsconfig.json`, `src/index.ts`, `test/bootstrap.test.ts`, and `README.md`.
+- Keep each M02.05 package limited to `package.json`, `tsconfig.json`, `tsconfig.test.json`, `src/index.ts`, `test/bootstrap.test.ts`, and `README.md`.
 - Add flat ESLint configuration as real linting, separate from typecheck.
 - Convert app lint scripts to use ESLint.
 - Add `.github/workflows/ci.yml` with the baseline validation command set.
+- Add explicit Python dev dependency installation for the CI commands that invoke pytest.
+- Add test TypeScript configs and `typecheck:test` scripts without emitting test build output.
 - Update control-plane validation and bootstrap tests for package scaffold allowlists, workflow allowlists, and forbidden product/domain package source patterns.
 - Update active plan, status docs, registry, roadmap, M02 milestone docs, ADR-0006, changelog, index files, and handoff tracking.
 - Run required control-plane, package, format, and diff validation and hand off to M02.05 QA.
@@ -321,7 +333,7 @@ Out of scope for M02.05:
 | M02.02 | Create apps/api | Completed and merged | `m02-02-create-apps-api` |
 | M02.03 | Create apps/web | Completed and merged | `m02-03-create-apps-web` |
 | M02.04 | Create apps/worker | Completed and merged | `m02-04-create-apps-worker` |
-| M02.05 | Create all remaining package scaffolds + ESLint + CI baseline | Builder complete, awaiting QA | `m02-05-package-scaffolds-eslint-ci` |
+| M02.05 | Create all remaining package scaffolds + ESLint + CI baseline | QA passed, awaiting merge | `m02-05-package-scaffolds-eslint-ci` |
 | M02.06 | Local infrastructure: Docker Compose + Postgres + migration tool + health-check stubs | Not started | `m02-06-local-infrastructure` |
 | M02.07 | QA dev environment | Not started | `m02-07-qa-dev-environment` |
 
@@ -346,7 +358,9 @@ M02.05 implemented:
 
 - package scaffold boundaries for `packages/core`, `packages/events`, `packages/ledger`, `packages/invariants`, `packages/incidents`, `packages/graph`, `packages/replay`, `packages/repair`, `packages/evidence`, and `packages/evals`;
 - flat ESLint as the real lint baseline for TypeScript app and package scaffolds;
-- CI baseline command set in `.github/workflows/ci.yml`.
+- CI baseline command set in `.github/workflows/ci.yml`;
+- explicit Python dev dependencies for CI pytest;
+- separate TypeScript test typecheck configs for apps and M02.05 packages.
 
 Future M02 implementation submilestones still must decide concrete:
 
@@ -1853,6 +1867,26 @@ The current process-amendment slice supersedes older "next thread" statements th
 - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
 - `pnpm install` emitted the non-blocking `esbuild@0.28.0` ignored-build-scripts warning; validation still passed.
 
+2026-06-24 M02.05 QA validation results:
+
+- `git branch --show-current` returned `m02-05-package-scaffolds-eslint-ci`.
+- `git status --short` was clean before QA edits.
+- `git remote -v` showed `origin` as `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- `git stash list --max-count=5` returned no stashes.
+- `git log --oneline -10` showed builder commit `96a9f89`.
+- `git rev-parse HEAD` matched `origin/m02-05-package-scaffolds-eslint-ci` before QA edits.
+- GitHub REST API verified PR #43 is open, non-draft, targets `main`, and uses head branch `m02-05-package-scaffolds-eslint-ci`.
+- Initial remote CI for builder commit `96a9f89` failed in `Run control-plane tests`; GitHub public page annotations showed `Process completed with exit code 1`.
+- Scoped QA fixes added explicit pytest installation through `requirements-dev.txt` and test TypeScript configs.
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 48 tests.
+- `pnpm typecheck` passed and invoked both source and test TypeScript configs across all 13 workspaces.
+- Full QA validation passed: `git diff --check`, Node/npm/pnpm version checks, `python -m pip install -r requirements-dev.txt --dry-run`, `pnpm install --frozen-lockfile`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check`.
+- ESLint proof passed with `pnpm exec eslint --print-config packages/events/src/index.ts`.
+- Post-push GitHub Actions CI passed for the QA commit.
+- `gh`, `actionlint`, and `make bootstrap-check` were unavailable in the current Windows shell; GitHub REST/API page inspection and direct Python validation were used where applicable.
+- GitHub Actions emitted a non-blocking warning that Node.js 20 actions internals are deprecated and forced to Node.js 24 for `actions/checkout@v4`, `actions/setup-node@v4`, and `actions/setup-python@v5`.
+
 ## Idempotence and Recovery
 
 If validation fails, do not widen scope. Fix only planning/control-plane defects introduced by this thread, rerun validation, and record results. If an unexpected dirty worktree appears, inspect it, preserve user changes, and report any conflict before proceeding.
@@ -1905,12 +1939,14 @@ Created M02.04 worker foundation artifacts:
 Created M02.05 package, ESLint, CI, and validation artifacts:
 
 - `.github/workflows/ci.yml`
+- `requirements-dev.txt`
 - `eslint.config.js`
 - updated root `package.json` and `pnpm-lock.yaml`
-- updated `apps/api/package.json`, `apps/web/package.json`, and `apps/worker/package.json` lint scripts
+- updated `apps/api/package.json`, `apps/web/package.json`, and `apps/worker/package.json` lint and typecheck scripts
+- added `apps/api/tsconfig.test.json`, `apps/web/tsconfig.test.json`, and `apps/worker/tsconfig.test.json`
 - updated `scripts/validate-control-plane.py`
 - updated `tests/test_control_plane_bootstrap.py`
-- package scaffold files under each M02.05 package: `package.json`, `tsconfig.json`, `src/index.ts`, `test/bootstrap.test.ts`, and `README.md`
+- package scaffold files under each M02.05 package: `package.json`, `tsconfig.json`, `tsconfig.test.json`, `src/index.ts`, `test/bootstrap.test.ts`, and `README.md`
 
 ## Interfaces and Dependencies
 
@@ -1950,6 +1986,6 @@ M02.04 builder work created a minimal non-domain `apps/worker` TypeScript founda
 
 M02 process amendment QA passed for PR #42 after replacing brittle live-status validation with structural registry, milestone, roadmap, current-state, and next-thread parsing. PR #42 merged into `main` at commit `d5c27c4`.
 
-M02.05 builder work created scaffold-only package boundaries, introduced real flat ESLint, added baseline validation-only CI, and updated control-plane validation for those boundaries. M02.05 is `Builder complete, awaiting QA`. Product domain implementation has not started. M02.06 and M02.07 remain `Not started`; former M02.08 through M02.20 rows are deferred or absorbed; M03 through M21 remain `Not started`.
+M02.05 builder work created scaffold-only package boundaries, introduced real flat ESLint, added baseline validation-only CI, and updated control-plane validation for those boundaries. M02.05 QA found and fixed missing clean-runner pytest installation and missing test typecheck coverage, then passed local and remote validation. M02.05 is `QA passed, awaiting merge`. Product domain implementation has not started. M02.06 and M02.07 remain `Not started`; former M02.08 through M02.20 rows are deferred or absorbed; M03 through M21 remain `Not started`.
 
-Exact next recommended thread after this M02.05 builder is complete: `M02.05 QA - Package Scaffolds, ESLint, and CI Baseline`.
+Exact next recommended thread after this M02.05 QA is complete: `Merge M02.05 PR - Package Scaffolds, ESLint, and CI Baseline`.

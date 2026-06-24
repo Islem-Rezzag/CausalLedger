@@ -35,11 +35,12 @@ APPROVED_PACKAGE_SCAFFOLD_FILES = [
     "README.md",
     "package.json",
     "tsconfig.json",
+    "tsconfig.test.json",
     "src/index.ts",
     "test/bootstrap.test.ts",
 ]
 
-PACKAGE_SCRIPT_NAMES = ["build", "typecheck", "test", "lint", "format:check"]
+PACKAGE_SCRIPT_NAMES = ["build", "typecheck", "typecheck:test", "test", "lint", "format:check"]
 
 GENERATED_PACKAGE_DIR_NAMES = {"node_modules", "dist", ".turbo", "coverage"}
 
@@ -52,6 +53,7 @@ REQUIRED_FILES = [
     "Makefile",
     ".gitignore",
     "CHANGELOG.md",
+    "requirements-dev.txt",
     "docs/ACTIVE_DOCS.md",
     "docs/INDEX.md",
     "docs/PROJECT_BRIEF.md",
@@ -96,6 +98,7 @@ REQUIRED_FILES = [
     "apps/api/package.json",
     "apps/api/README.md",
     "apps/api/tsconfig.json",
+    "apps/api/tsconfig.test.json",
     "apps/api/src/app.ts",
     "apps/api/src/index.ts",
     "apps/api/test/bootstrap.test.ts",
@@ -103,6 +106,7 @@ REQUIRED_FILES = [
     "apps/web/README.md",
     "apps/web/tsconfig.json",
     "apps/web/tsconfig.node.json",
+    "apps/web/tsconfig.test.json",
     "apps/web/vite.config.ts",
     "apps/web/index.html",
     "apps/web/src/App.tsx",
@@ -111,6 +115,7 @@ REQUIRED_FILES = [
     "apps/worker/package.json",
     "apps/worker/README.md",
     "apps/worker/tsconfig.json",
+    "apps/worker/tsconfig.test.json",
     "apps/worker/src/index.ts",
     "apps/worker/test/bootstrap.test.ts",
     *[
@@ -644,7 +649,7 @@ def validate_docs() -> list[str]:
         "Completed M02.02 minimal non-domain `apps/api`",
         "Completed M02.03 minimal non-domain `apps/web`",
         "Completed M02.04 minimal non-domain `apps/worker`",
-        "M02.05 Builder complete, awaiting QA for package scaffolds, ESLint baseline, and CI baseline",
+        "M02.05 QA passed, awaiting merge for package scaffolds, ESLint baseline, CI baseline, test typecheck coverage, and explicit Python CI dependencies",
         "ADR-0008 identity, money, and storage direction",
     ]:
         if phrase not in changelog:
@@ -675,6 +680,13 @@ def validate_no_secrets() -> list[str]:
     return []
 
 
+def validate_python_dev_requirements() -> list[str]:
+    requirements = read_text("requirements-dev.txt")
+    if not re.search(r"(?m)^pytest(?:[<>=~!].*)?$", requirements):
+        return ["requirements-dev.txt must declare pytest for CI control-plane tests"]
+    return []
+
+
 def path_has_generated_part(path: Path, root: Path) -> bool:
     return any(part in GENERATED_PACKAGE_DIR_NAMES for part in path.relative_to(root).parts)
 
@@ -700,6 +712,9 @@ def validate_github_workflows() -> list[str]:
         errors.append(f".github/workflows contains unexpected directories: {', '.join(child_dirs)}")
     if child_files != ["ci.yml"]:
         errors.append(".github/workflows may contain exactly ci.yml")
+    workflow = read_text(".github/workflows/ci.yml") if (workflow_dir / "ci.yml").exists() else None
+    if workflow is not None and "python -m pip install -r requirements-dev.txt" not in workflow:
+        errors.append(".github/workflows/ci.yml must install Python dev dependencies")
     return errors
 
 
@@ -722,11 +737,17 @@ def validate_package_manifest(package_dir: str) -> list[str]:
 
 
 def validate_package_tsconfig(package_dir: str) -> list[str]:
-    rel = f"packages/{package_dir}/tsconfig.json"
-    tsconfig = json.loads(read_text(rel))
+    errors: list[str] = []
+    rel = f"packages/{package_dir}"
+    tsconfig = json.loads(read_text(f"{rel}/tsconfig.json"))
     if tsconfig.get("extends") != "../../tsconfig.base.json":
-        return [f"{rel} must extend ../../tsconfig.base.json"]
-    return []
+        errors.append(f"{rel}/tsconfig.json must extend ../../tsconfig.base.json")
+    test_tsconfig = json.loads(read_text(f"{rel}/tsconfig.test.json"))
+    if test_tsconfig.get("extends") != "./tsconfig.json":
+        errors.append(f"{rel}/tsconfig.test.json must extend ./tsconfig.json")
+    if "test/**/*.ts" not in test_tsconfig.get("include", []):
+        errors.append(f"{rel}/tsconfig.test.json must include test files")
+    return errors
 
 
 def validate_package_sources(package_dir: str) -> list[str]:
@@ -845,6 +866,7 @@ def validate() -> list[str]:
     errors.extend(validate_status_consistency())
     errors.extend(validate_docs())
     errors.extend(validate_no_secrets())
+    errors.extend(validate_python_dev_requirements())
     errors.extend(validate_forbidden_paths())
     errors.extend(validate_app_scaffolds())
     errors.extend(validate_adr_0008())

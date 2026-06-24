@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import sys
 from pathlib import Path
 
@@ -309,7 +310,7 @@ def test_25_changelog_records_m02_01_through_m02_05():
     assert "Completed M02.03 minimal non-domain `apps/web`" in changelog
     assert "Completed M02.04 minimal non-domain `apps/worker`" in changelog
     assert (
-        "M02.05 Builder complete, awaiting QA for package scaffolds, ESLint baseline, and CI baseline"
+        "M02.05 QA passed, awaiting merge for package scaffolds, ESLint baseline, CI baseline, test typecheck coverage, and explicit Python CI dependencies"
         in changelog
     )
 
@@ -427,3 +428,138 @@ def test_39_no_product_implementation_claims_in_live_status():
 
 def test_40_validator_main_checks_pass():
     assert validator.validate() == []
+
+
+def write_package_manifest(
+    root: Path,
+    package_dir: str = "events",
+    *,
+    name: str = "@causalledger/events",
+    private: bool = True,
+    scripts: dict[str, str] | None = None,
+) -> Path:
+    package_path = root / "packages" / package_dir
+    package_path.mkdir(parents=True, exist_ok=True)
+    package_scripts = scripts or {
+        "build": "tsc -p tsconfig.json",
+        "typecheck": "tsc -p tsconfig.json --noEmit --pretty false && tsc -p tsconfig.test.json --noEmit --pretty false",
+        "typecheck:test": "tsc -p tsconfig.test.json --noEmit --pretty false",
+        "test": "vitest run --exclude \"dist/**\"",
+        "lint": "eslint . --max-warnings=0",
+        "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\" \"README.md\" \"package.json\" \"tsconfig*.json\"",
+    }
+    (package_path / "package.json").write_text(
+        json.dumps(
+            {
+                "name": name,
+                "version": "0.0.0",
+                "private": private,
+                "type": "module",
+                "scripts": package_scripts,
+            }
+        ),
+        encoding="utf-8",
+    )
+    return package_path
+
+
+def write_package_tsconfigs(package_path: Path) -> None:
+    (package_path / "tsconfig.json").write_text(
+        json.dumps({"extends": "../../tsconfig.base.json", "include": ["src/**/*.ts"]}),
+        encoding="utf-8",
+    )
+    (package_path / "tsconfig.test.json").write_text(
+        json.dumps(
+            {
+                "extends": "./tsconfig.json",
+                "compilerOptions": {"noEmit": True, "rootDir": "."},
+                "include": ["src/**/*.ts", "test/**/*.ts"],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+
+def test_41_missing_package_file_is_rejected_from_fixture(tmp_path, monkeypatch):
+    package_path = write_package_manifest(tmp_path)
+    write_package_tsconfigs(package_path)
+    (package_path / "src").mkdir()
+    (package_path / "src" / "index.ts").write_text("export const ok = true;\n", encoding="utf-8")
+    (package_path / "README.md").write_text("# Events\n", encoding="utf-8")
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert validator.validate_package_scaffolds() == [
+        "package scaffold missing files: packages/events -> test/bootstrap.test.ts"
+    ]
+
+
+def test_42_wrong_package_name_is_rejected_from_fixture(tmp_path, monkeypatch):
+    write_package_manifest(tmp_path, name="@causalledger/wrong")
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert validator.validate_package_manifest("events") == [
+        "packages/events/package.json name must be @causalledger/events"
+    ]
+
+
+def test_43_non_private_package_is_rejected_from_fixture(tmp_path, monkeypatch):
+    write_package_manifest(tmp_path, private=False)
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert validator.validate_package_manifest("events") == [
+        "packages/events/package.json must be private"
+    ]
+
+
+def test_44_missing_required_package_script_is_rejected_from_fixture(tmp_path, monkeypatch):
+    scripts = {
+        "build": "tsc -p tsconfig.json",
+        "typecheck": "tsc -p tsconfig.json --noEmit --pretty false",
+        "typecheck:test": "tsc -p tsconfig.test.json --noEmit --pretty false",
+        "lint": "eslint . --max-warnings=0",
+        "format:check": "prettier --check \"src/**/*.ts\"",
+    }
+    write_package_manifest(tmp_path, scripts=scripts)
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert validator.validate_package_manifest("events") == [
+        "packages/events/package.json missing test script"
+    ]
+
+
+def test_45_fake_lint_script_is_rejected_from_fixture(tmp_path, monkeypatch):
+    package_path = write_package_manifest(tmp_path)
+    manifest = json.loads((package_path / "package.json").read_text(encoding="utf-8"))
+    manifest["scripts"]["lint"] = "tsc -p tsconfig.json --noEmit"
+    (package_path / "package.json").write_text(json.dumps(manifest), encoding="utf-8")
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert validator.validate_package_manifest("events") == [
+        "packages/events/package.json lint script must run real ESLint"
+    ]
+
+
+def test_46_package_test_tsconfig_must_include_tests(tmp_path, monkeypatch):
+    package_path = write_package_manifest(tmp_path)
+    write_package_tsconfigs(package_path)
+    (package_path / "tsconfig.test.json").write_text(
+        json.dumps({"extends": "./tsconfig.json", "include": ["src/**/*.ts"]}),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert validator.validate_package_tsconfig("events") == [
+        "packages/events/tsconfig.test.json must include test files"
+    ]
+
+
+def test_47_ci_must_install_python_dev_dependencies(tmp_path, monkeypatch):
+    workflow_dir = tmp_path / ".github" / "workflows"
+    workflow_dir.mkdir(parents=True)
+    (workflow_dir / "ci.yml").write_text("name: CI\n", encoding="utf-8")
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert validator.validate_github_workflows() == [
+        ".github/workflows/ci.yml must install Python dev dependencies"
+    ]
+
+
+def test_48_requirements_dev_declares_pytest(tmp_path, monkeypatch):
+    (tmp_path / "requirements-dev.txt").write_text("ruff>=0.1\n", encoding="utf-8")
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert validator.validate_python_dev_requirements() == [
+        "requirements-dev.txt must declare pytest for CI control-plane tests"
+    ]

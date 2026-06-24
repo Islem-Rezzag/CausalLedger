@@ -16,7 +16,7 @@ All notable CausalLedger release changes are recorded here.
 - Completed M02.03 minimal non-domain `apps/web` React/Vite scaffold.
 - Completed M02.04 minimal non-domain `apps/worker` TypeScript scaffold.
 - Added M02 process-amendment tracking fixes, M02 process diet, structural control-plane validation direction, and ADR-0008 identity, money, and storage direction.
-- M02.05 Builder complete, awaiting QA for package scaffolds, ESLint baseline, and CI baseline.
+- M02.05 QA passed, awaiting merge for package scaffolds, ESLint baseline, CI baseline, test typecheck coverage, and explicit Python CI dependencies.
 - Product functionality remains not implemented.
 
 ## v0.1.0 - Repo Operating System Foundation

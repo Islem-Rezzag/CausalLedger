@@ -8,11 +8,11 @@ M02 Monorepo and Local Development Environment is in progress under active plan 
 
 ## Current submilestone and branch
 
-Current slice: `M02.05 Builder - Package Scaffolds, ESLint, and CI Baseline`.
+Current slice: `M02.05 QA - Package Scaffolds, ESLint, and CI Baseline`.
 
 Current branch: `m02-05-package-scaffolds-eslint-ci`.
 
-M02.01 through M02.04 are `Completed and merged`; the process amendment is merged. M02.05 is `Builder complete, awaiting QA`. M02.06 and M02.07 remain `Not started`.
+M02.01 through M02.04 are `Completed and merged`; the process amendment is merged. M02.05 is `QA passed, awaiting merge`. M02.06 and M02.07 remain `Not started`.
 
 ## What exists
 
@@ -21,9 +21,9 @@ M02.01 through M02.04 are `Completed and merged`; the process amendment is merge
 - Minimal non-domain TypeScript/Fastify `apps/api` scaffold.
 - Minimal non-domain React/Vite `apps/web` scaffold.
 - Minimal non-domain TypeScript `apps/worker` scaffold.
-- Scaffold-only package boundaries for `packages/core`, `packages/events`, `packages/ledger`, `packages/invariants`, `packages/incidents`, `packages/graph`, `packages/replay`, `packages/repair`, `packages/evidence`, and `packages/evals`.
+- Scaffold-only package boundaries for `packages/core`, `packages/events`, `packages/ledger`, `packages/invariants`, `packages/incidents`, `packages/graph`, `packages/replay`, `packages/repair`, `packages/evidence`, and `packages/evals`, with separate source and test TypeScript configs.
 - A flat ESLint baseline for TypeScript app and package scaffolds.
-- Minimal `.github/workflows/ci.yml` baseline that runs install, typecheck, lint, test, build, format check, and control-plane validation.
+- Minimal `.github/workflows/ci.yml` baseline that installs Node and Python dev dependencies, then runs install, typecheck, lint, test, build, format check, and control-plane validation.
 - Deferred app and package directories outside M02.05 still contain README files only.
 
 ## What does not exist
@@ -34,13 +34,14 @@ M02.01 through M02.04 are `Completed and merged`; the process amendment is merge
 
 ## Next action
 
-Run `M02.05 QA - Package Scaffolds, ESLint, and CI Baseline` on the same branch and PR.
+Merge M02.05 PR #43 after human review.
 
-Do not start M02.06 until M02.05 QA passes, the M02.05 PR merges into `main`, and post-merge tracking is finalized.
+Do not start M02.06 until M02.05 merges into `main` and post-merge tracking is finalized.
 
 ## Latest validation
 
-- 2026-06-24 M02.05 builder: final validation passed for control-plane validation, bootstrap pytest with 40 tests, diff check, Node/npm/pnpm version checks, `pnpm install`, `pnpm typecheck`, forced ESLint plus `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check`; initial package `typecheck` and `test` failed before the workspace install refreshed package links, then passed after `pnpm install`; `pnpm install` emitted the non-blocking `esbuild@0.28.0` ignored-build-scripts warning; `make bootstrap-check` skipped because `make` is unavailable in this Windows shell.
+- 2026-06-24 M02.05 QA: PR #43 local validation passed after scoped fixes for explicit Python CI dependency installation and test TypeScript coverage; bootstrap pytest passed with 48 tests; `pnpm install --frozen-lockfile`, typecheck, lint, test, build, format check, and GitHub Actions CI passed; `gh`, `actionlint`, and `make` were unavailable locally.
+- 2026-06-24 M02.05 builder: final validation passed for control-plane validation, bootstrap pytest with 40 tests, diff check, Node/npm/pnpm version checks, `pnpm install`, `pnpm typecheck`, forced ESLint plus `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check`; `pnpm install` emitted the non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
 - 2026-06-24 M02 process amendment QA: validation passed and PR #42 merged at `d5c27c4`.
 - 2026-06-11 M02 process amendment builder: control-plane validation, pytest with 32 tests, diff check, and package validation passed; `make bootstrap-check` skipped because `make` is unavailable.
 - 2026-06-11 M02.04 QA: control-plane validation, pytest with 32 tests, diff check, and package validation passed; `make bootstrap-check` skipped because `make` is unavailable.

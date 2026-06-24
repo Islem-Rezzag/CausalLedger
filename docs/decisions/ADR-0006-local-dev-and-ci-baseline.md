@@ -46,6 +46,8 @@ Future M02 implementation should prefer a small command surface such as:
 
 These commands are implemented for the current app scaffolds and M02.05 package scaffolds. Future product packages must add deterministic tests before product behavior can be claimed.
 
+M02.05 QA added explicit test TypeScript configurations and `typecheck:test` scripts so tests are typechecked without being included in production build output.
+
 ## M02.05 CI Baseline
 
 M02.05 creates `.github/workflows/ci.yml` with pull request and `main` push triggers.
@@ -55,6 +57,7 @@ The workflow uses:
 - Node.js 22;
 - pnpm through Corepack pinned to the workspace package manager version;
 - Python 3.12 for control-plane validation.
+- `requirements-dev.txt` for explicit Python dev dependencies invoked by CI.
 
 The workflow runs:
 
