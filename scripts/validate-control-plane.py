@@ -44,6 +44,23 @@ PACKAGE_SCRIPT_NAMES = ["build", "typecheck", "typecheck:test", "test", "lint", 
 
 GENERATED_PACKAGE_DIR_NAMES = {"node_modules", "dist", ".turbo", "coverage"}
 
+REQUIRED_LOCAL_ENV_KEYS = [
+    "DATABASE_URL",
+    "CAUSALLEDGER_POSTGRES_DB",
+    "CAUSALLEDGER_POSTGRES_USER",
+    "CAUSALLEDGER_POSTGRES_PASSWORD",
+    "CAUSALLEDGER_POSTGRES_HOST",
+    "CAUSALLEDGER_POSTGRES_PORT",
+]
+
+REQUIRED_INFRA_SCRIPTS = {
+    "infra:up": "docker compose up -d postgres",
+    "infra:down": "docker compose down",
+    "infra:reset": "docker compose down -v",
+    "migrate:up": "node-pg-migrate up --migrations-dir infra/migrations --ignore-pattern README.md --database-url-var DATABASE_URL",
+    "migrate:down": "node-pg-migrate down --migrations-dir infra/migrations --ignore-pattern README.md --database-url-var DATABASE_URL",
+}
+
 REQUIRED_FILES = [
     "README.md",
     "START_HERE.md",
@@ -52,6 +69,8 @@ REQUIRED_FILES = [
     "WORKFLOW.md",
     "Makefile",
     ".gitignore",
+    ".env.example",
+    "docker-compose.yml",
     "CHANGELOG.md",
     "requirements-dev.txt",
     "docs/ACTIVE_DOCS.md",
@@ -95,6 +114,9 @@ REQUIRED_FILES = [
     "turbo.json",
     "tsconfig.base.json",
     "pnpm-lock.yaml",
+    "infra/README.md",
+    "infra/docker/README.md",
+    "infra/migrations/README.md",
     "apps/api/package.json",
     "apps/api/README.md",
     "apps/api/tsconfig.json",
@@ -649,7 +671,8 @@ def validate_docs() -> list[str]:
         "Completed M02.02 minimal non-domain `apps/api`",
         "Completed M02.03 minimal non-domain `apps/web`",
         "Completed M02.04 minimal non-domain `apps/worker`",
-        "M02.05 QA passed, awaiting merge for package scaffolds, ESLint baseline, CI baseline, test typecheck coverage, and explicit Python CI dependencies",
+        "Completed and merged M02.05 package scaffolds, ESLint baseline, CI baseline, test typecheck coverage, and explicit Python CI dependencies",
+        "M02.06 QA passed, awaiting merge for local-only Docker Compose/Postgres, migration tooling, env placeholders, infrastructure readiness stubs, and remote infrastructure smoke validation",
         "ADR-0008 identity, money, and storage direction",
     ]:
         if phrase not in changelog:
@@ -678,6 +701,15 @@ def validate_no_secrets() -> list[str]:
     if populated:
         return [".env.example contains populated values before secrets handling exists"]
     return []
+
+
+def validate_env_example_keys() -> list[str]:
+    env_example = read_text(".env.example")
+    errors: list[str] = []
+    for key in REQUIRED_LOCAL_ENV_KEYS:
+        if not re.search(rf"(?m)^{re.escape(key)}=", env_example):
+            errors.append(f".env.example missing local infra key: {key}")
+    return errors
 
 
 def validate_python_dev_requirements() -> list[str]:
@@ -715,6 +747,19 @@ def validate_github_workflows() -> list[str]:
     workflow = read_text(".github/workflows/ci.yml") if (workflow_dir / "ci.yml").exists() else None
     if workflow is not None and "python -m pip install -r requirements-dev.txt" not in workflow:
         errors.append(".github/workflows/ci.yml must install Python dev dependencies")
+    if workflow is not None:
+        for phrase in [
+            "infra-smoke:",
+            "docker compose config",
+            "docker compose up -d postgres",
+            "DATABASE_URL: postgres://causalledger:causalledger_local_password@127.0.0.1:5432/causalledger_dev",
+            "pnpm migrate:up",
+            "docker compose exec -T postgres psql",
+            "docker compose down -v",
+            "if: always()",
+        ]:
+            if phrase not in workflow:
+                errors.append(f".github/workflows/ci.yml missing infra-smoke coverage: {phrase}")
     return errors
 
 
@@ -805,11 +850,91 @@ def validate_forbidden_paths() -> list[str]:
     return errors
 
 
+def validate_root_infra_scripts() -> list[str]:
+    errors: list[str] = []
+    manifest = json.loads(read_text("package.json"))
+    scripts = manifest.get("scripts", {})
+    for script_name, expected_command in REQUIRED_INFRA_SCRIPTS.items():
+        if scripts.get(script_name) != expected_command:
+            errors.append(f"package.json {script_name} script must be `{expected_command}`")
+    dev_dependencies = manifest.get("devDependencies", {})
+    if "node-pg-migrate" not in dev_dependencies:
+        errors.append("package.json must include node-pg-migrate as a dev dependency")
+    return errors
+
+
+def validate_compose_postgres() -> list[str]:
+    errors: list[str] = []
+    compose = read_text("docker-compose.yml")
+    if not re.search(r"(?m)^\s{2}postgres:\s*$", compose):
+        errors.append("docker-compose.yml must define a postgres service")
+    if not re.search(r"(?m)^\s*image:\s*postgres:", compose):
+        errors.append("docker-compose.yml postgres service must use a postgres image")
+    if "127.0.0.1" not in compose:
+        errors.append("docker-compose.yml must bind Postgres to 127.0.0.1 by default")
+    if "POSTGRES_PASSWORD" not in compose:
+        errors.append("docker-compose.yml must define a local placeholder Postgres password")
+    if "causalledger_local_password" not in compose:
+        errors.append("docker-compose.yml must use an explicit local-only placeholder password")
+    if "pg_isready" not in compose:
+        errors.append("docker-compose.yml must include a Postgres healthcheck")
+    if re.search(r"(?m)^\s*container_name\s*:", compose):
+        errors.append("docker-compose.yml must not set a fixed container_name for local Postgres")
+
+    forbidden_terms = ["redis", "queue", "scheduler", "deploy"]
+    lower_compose = compose.lower()
+    for term in forbidden_terms:
+        if re.search(rf"\b{re.escape(term)}\b", lower_compose):
+            errors.append(f"docker-compose.yml must not define {term} behavior in M02.06")
+    return errors
+
+
+def validate_migration_directory() -> list[str]:
+    migration_dir = ROOT / "infra" / "migrations"
+    files = sorted(
+        path.relative_to(migration_dir).as_posix()
+        for path in migration_dir.rglob("*")
+        if path.is_file()
+    )
+    extra_files = [file_name for file_name in files if file_name != "README.md"]
+    if extra_files:
+        return [
+            "infra/migrations may contain only README.md before product schema scope: "
+            + ", ".join(extra_files)
+        ]
+    return []
+
+
+def validate_local_infrastructure() -> list[str]:
+    errors: list[str] = []
+    errors.extend(validate_env_example_keys())
+    errors.extend(validate_root_infra_scripts())
+    errors.extend(validate_compose_postgres())
+    errors.extend(validate_migration_directory())
+    return errors
+
+
 def validate_app_scaffolds() -> list[str]:
     errors: list[str] = []
     api_source = read_text("apps/api/src/app.ts")
-    if ".get(" in api_source or ".post(" in api_source or ".route(" in api_source:
-        errors.append("apps/api registers routes before domain API scope")
+    registered_methods = re.findall(
+        r"\.(get|post|put|patch|delete|route)\s*\(",
+        api_source,
+    )
+    if registered_methods != ["get"]:
+        errors.append("apps/api may register only the GET infrastructure readiness stub")
+    if '"/infra/ready"' not in api_source:
+        errors.append("apps/api must expose only the /infra/ready infrastructure readiness stub")
+    if 'status: "ready"' in api_source:
+        errors.append("apps/api /infra/ready must not report generic ready status")
+    for phrase in [
+        'status: "process-ready"',
+        'database: "not-checked"',
+        'migrations: "not-checked"',
+        'productImplementation: "not-started"',
+    ]:
+        if phrase not in api_source:
+            errors.append(f"apps/api /infra/ready missing truthful stub field: {phrase}")
 
     web_source = read_text("apps/web/src/App.tsx")
     for term in ["MoneyEvent", "ledger", "incident", "evidence", "repair"]:
@@ -866,6 +991,7 @@ def validate() -> list[str]:
     errors.extend(validate_status_consistency())
     errors.extend(validate_docs())
     errors.extend(validate_no_secrets())
+    errors.extend(validate_local_infrastructure())
     errors.extend(validate_python_dev_requirements())
     errors.extend(validate_forbidden_paths())
     errors.extend(validate_app_scaffolds())

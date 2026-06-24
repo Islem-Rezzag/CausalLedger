@@ -1,3 +1,18 @@
 # Migrations
 
-Future database migrations will live here. No schema migrations exist yet.
+M02.06 establishes the migration tooling boundary with `node-pg-migrate`.
+
+This directory intentionally contains no product schema migrations yet. Do not add MoneyEvent, ledger, invariant, incident, evidence, graph, replay, repair, agent, connector, queue, or scheduler tables in M02.06.
+
+Run migrations against local Postgres only after setting `DATABASE_URL` in an untracked local environment:
+
+```powershell
+pnpm migrate:up
+pnpm migrate:down
+```
+
+The migration commands require `DATABASE_URL`; they must fail rather than silently target an implicit database when the variable is absent.
+
+The root migration scripts explicitly ignore this `README.md` file. Until product schema work starts, the directory contains documentation only and no runnable migration files.
+
+At this stage the migration tool may create its own metadata table when executed. That metadata does not represent CausalLedger product storage behavior.

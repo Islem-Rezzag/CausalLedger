@@ -310,7 +310,11 @@ def test_25_changelog_records_m02_01_through_m02_05():
     assert "Completed M02.03 minimal non-domain `apps/web`" in changelog
     assert "Completed M02.04 minimal non-domain `apps/worker`" in changelog
     assert (
-        "M02.05 QA passed, awaiting merge for package scaffolds, ESLint baseline, CI baseline, test typecheck coverage, and explicit Python CI dependencies"
+        "Completed and merged M02.05 package scaffolds, ESLint baseline, CI baseline, test typecheck coverage, and explicit Python CI dependencies"
+        in changelog
+    )
+    assert (
+        "M02.06 QA passed, awaiting merge for local-only Docker Compose/Postgres, migration tooling, env placeholders, infrastructure readiness stubs, and remote infrastructure smoke validation"
         in changelog
     )
 
@@ -348,9 +352,14 @@ def test_29_package_scaffolds_are_exactly_allowlisted():
 
 def test_30_api_scaffold_has_no_domain_routes():
     api_source = text("apps/api/src/app.ts")
-    assert ".get(" not in api_source
+    assert '"/infra/ready"' in api_source
+    assert api_source.count(".get(") == 1
     assert ".post(" not in api_source
     assert ".route(" not in api_source
+    assert 'status: "process-ready"' in api_source
+    assert 'status: "ready"' not in api_source
+    assert 'database: "not-checked"' in api_source
+    assert 'migrations: "not-checked"' in api_source
 
 
 def test_31_web_scaffold_has_no_product_ui():
@@ -552,9 +561,10 @@ def test_47_ci_must_install_python_dev_dependencies(tmp_path, monkeypatch):
     workflow_dir.mkdir(parents=True)
     (workflow_dir / "ci.yml").write_text("name: CI\n", encoding="utf-8")
     monkeypatch.setattr(validator, "ROOT", tmp_path)
-    assert validator.validate_github_workflows() == [
+    assert (
         ".github/workflows/ci.yml must install Python dev dependencies"
-    ]
+        in validator.validate_github_workflows()
+    )
 
 
 def test_48_requirements_dev_declares_pytest(tmp_path, monkeypatch):
@@ -563,3 +573,144 @@ def test_48_requirements_dev_declares_pytest(tmp_path, monkeypatch):
     assert validator.validate_python_dev_requirements() == [
         "requirements-dev.txt must declare pytest for CI control-plane tests"
     ]
+
+
+def test_49_local_infrastructure_baseline_is_valid():
+    assert validator.validate_local_infrastructure() == []
+
+
+def test_50_env_example_contains_required_local_infra_keys():
+    env_example = text(".env.example")
+    for key in validator.REQUIRED_LOCAL_ENV_KEYS:
+        assert f"{key}=" in env_example
+
+
+def test_51_docker_compose_is_local_postgres_only():
+    compose = text("docker-compose.yml")
+    assert "postgres:" in compose
+    assert "postgres:17-alpine" in compose
+    assert "127.0.0.1" in compose
+    assert "pg_isready" in compose
+    assert "container_name:" not in compose
+    assert "redis" not in compose.lower()
+
+
+def test_52_migration_directory_contains_no_schema_files():
+    migration_files = {
+        path.name
+        for path in (ROOT / "infra" / "migrations").iterdir()
+        if path.is_file()
+    }
+    assert migration_files == {"README.md"}
+
+
+def test_53_product_migration_file_is_rejected(tmp_path, monkeypatch):
+    migration_dir = tmp_path / "infra" / "migrations"
+    migration_dir.mkdir(parents=True)
+    (migration_dir / "README.md").write_text("# Migrations\n", encoding="utf-8")
+    (migration_dir / "001_create_money_events.sql").write_text(
+        "create table money_events (id text primary key);\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert validator.validate_migration_directory() == [
+        "infra/migrations may contain only README.md before product schema scope: 001_create_money_events.sql"
+    ]
+
+
+def test_54_compose_rejects_redis_scope(tmp_path, monkeypatch):
+    (tmp_path / "docker-compose.yml").write_text(
+        """services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_PASSWORD: causalledger_local_password
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+  redis:
+    image: redis:7-alpine
+""",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert "docker-compose.yml must not define redis behavior in M02.06" in (
+        validator.validate_compose_postgres()
+    )
+
+
+def test_55_compose_rejects_fixed_container_name(tmp_path, monkeypatch):
+    (tmp_path / "docker-compose.yml").write_text(
+        """services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: causalledger-postgres
+    environment:
+      POSTGRES_PASSWORD: causalledger_local_password
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+""",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert "docker-compose.yml must not set a fixed container_name for local Postgres" in (
+        validator.validate_compose_postgres()
+    )
+
+
+def test_56_api_readiness_rejects_ambiguous_ready_status(tmp_path, monkeypatch):
+    api_source = tmp_path / "apps" / "api" / "src" / "app.ts"
+    api_source.parent.mkdir(parents=True)
+    api_source.write_text(
+        """const infrastructureReadyResponse = {
+  service: "api",
+  status: "ready",
+  scope: "infrastructure",
+  productImplementation: "not-started",
+} as const;
+
+export function buildApiApp() {
+  app.get("/infra/ready", async () => infrastructureReadyResponse);
+}
+""",
+        encoding="utf-8",
+    )
+    web_source = tmp_path / "apps" / "web" / "src" / "App.tsx"
+    web_source.parent.mkdir(parents=True)
+    web_source.write_text("export function App() { return null; }\n", encoding="utf-8")
+    worker_source = tmp_path / "apps" / "worker" / "src" / "index.ts"
+    worker_source.parent.mkdir(parents=True)
+    worker_source.write_text("export const worker = { jobs: [] };\n", encoding="utf-8")
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    errors = validator.validate_app_scaffolds()
+    assert "apps/api /infra/ready must not report generic ready status" in errors
+    assert (
+        'apps/api /infra/ready missing truthful stub field: status: "process-ready"'
+        in errors
+    )
+    assert (
+        'apps/api /infra/ready missing truthful stub field: database: "not-checked"'
+        in errors
+    )
+
+
+def test_57_ci_requires_infra_smoke_job(tmp_path, monkeypatch):
+    workflow_dir = tmp_path / ".github" / "workflows"
+    workflow_dir.mkdir(parents=True)
+    (workflow_dir / "ci.yml").write_text(
+        """name: CI
+jobs:
+  validate:
+    steps:
+      - run: python -m pip install -r requirements-dev.txt
+""",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert (
+        ".github/workflows/ci.yml missing infra-smoke coverage: infra-smoke:"
+        in validator.validate_github_workflows()
+    )

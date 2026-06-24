@@ -55,3 +55,77 @@ jobs:
 
       - name: Run control-plane tests
         run: python -m pytest tests/test_control_plane_bootstrap.py
+
+  infra-smoke:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Enable pnpm through Corepack
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.32.1 --activate
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate Compose config
+        run: docker compose config
+
+      - name: Start local Postgres
+        run: docker compose up -d postgres
+
+      - name: Wait for Postgres health
+        run: |
+          for attempt in {1..30}; do
+            container_id="$(docker compose ps -q postgres)"
+            if [ -n "$container_id" ]; then
+              status="$(docker inspect --format='{{.State.Health.Status}}' "$container_id")"
+              if [ "$status" = "healthy" ]; then
+                exit 0
+              fi
+              if [ "$status" = "unhealthy" ]; then
+                docker compose logs postgres
+                exit 1
+              fi
+            fi
+            sleep 2
+          done
+
+          docker compose ps
+          docker compose logs postgres
+          exit 1
+
+      - name: Run empty migration boundary
+        env:
+          DATABASE_URL: postgres://causalledger:causalledger_local_password@127.0.0.1:5432/causalledger_dev
+        run: pnpm migrate:up
+
+      - name: Inspect public schema
+        run: |
+          tables="$(docker compose exec -T postgres psql -U causalledger -d causalledger_dev -Atc "select tablename from pg_tables where schemaname = 'public' order by tablename;")"
+          printf 'Public tables:\n%s\n' "${tables:-<none>}"
+
+          forbidden_tables='^(money_events|ledger_entries|ledger_transactions|balances|invariant_results|incidents|evidence_receipts|evidence_bundles|graph_nodes|graph_edges|replay_sessions|repair_proposals|agent_runs)$'
+          if printf '%s\n' "$tables" | grep -E "$forbidden_tables"; then
+            echo "Forbidden product/domain table found."
+            exit 1
+          fi
+
+          unexpected_tables="$(printf '%s\n' "$tables" | sed '/^$/d' | grep -Ev '^(pgmigrations)$' || true)"
+          if [ -n "$unexpected_tables" ]; then
+            echo "Unexpected public schema table(s):"
+            printf '%s\n' "$unexpected_tables"
+            exit 1
+          fi
+
+      - name: Clean up Compose
+        if: always()
+        run: docker compose down -v

@@ -92,7 +92,7 @@ Completed execution:
 
 Active execution:
 
-- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md` - active M02 plan. M02.01 through M02.04 are `Completed and merged`; the process amendment is merged; M02.05 is `QA passed, awaiting merge`; remaining active M02 work is M02.06 local infrastructure and M02.07 QA dev environment.
+- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md` - active M02 plan. M02.01 through M02.05 are `Completed and merged`; the process amendment is merged; M02.06 is `QA passed, awaiting merge`; remaining active M02 work is M02.07 QA dev environment after M02.06 merges.
 
 Plan state:
 

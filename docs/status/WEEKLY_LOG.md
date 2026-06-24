@@ -2,6 +2,40 @@
 
 ## 2026-06-24
 
+- Completed formal QA for PR #44 on branch `m02-06-local-infra-postgres-migrations-health`.
+- Verified PR #44 targets `main`, uses head branch `m02-06-local-infra-postgres-migrations-health`, is open and unmerged, and contains builder commit `b3c9c43`.
+- Found three scoped QA defects: `/infra/ready` returned ambiguous `status: "ready"` without checking Postgres, `docker-compose.yml` used a fixed `container_name`, and CI lacked real Docker/Postgres/migration smoke validation while local Docker was unavailable.
+- Changed `/infra/ready` to return `status: "process-ready"`, `database: "not-checked"`, and `migrations: "not-checked"`; updated API tests and documentation consistently.
+- Removed the fixed Postgres `container_name` so Docker Compose can namespace containers per checkout.
+- Added a GitHub Actions `infra-smoke` job that validates Compose config, starts Postgres, waits for health, runs `pnpm migrate:up`, inspects the public schema, rejects product/domain tables, and always runs `docker compose down -v`.
+- Initial remote `infra-smoke` failed in `Run empty migration boundary` because the README-only migration directory let `node-pg-migrate` treat `README.md` as a migration candidate; the root migration scripts now explicitly ignore `README.md`.
+- Updated control-plane validation and bootstrap tests for the infra-smoke job, fixed-container rejection, and truthful readiness stub semantics.
+- Ran M02.06 QA validation successfully: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 57 tests, `git diff --check`, Node/npm/pnpm version checks, `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check`.
+- Local Docker validation remained unavailable because `docker` is not recognized in this Windows shell; remote GitHub Actions `infra-smoke` passed on the latest QA commit and provided real Postgres/migration/schema evidence.
+- Confirmed no MoneyEvent schema, ledger table, invariant table, incident table, evidence table, graph table, replay table, repair table, agent table, Redis, queue, scheduler, connector, deployment, product UI, domain API route, auth/authz, real secret, or product behavior was added.
+- M02.06 QA passed, awaiting merge. M02.07 remains `Not started`; M03 through M21 remain `Not started`; product implementation has not started.
+- Recommended next thread: `Merge M02.06 PR - Local Infrastructure Baseline`.
+- Next after merge: `M02.07 Builder - QA Development Environment`.
+
+- Confirmed PR #43 merged into `main` at commit `6e76045` (`chore: create M02.05 package ESLint and CI baseline (#43)`) before starting M02.06.
+- Created branch `m02-06-local-infra-postgres-migrations-health` from updated `main`; branch guard passed and the starting worktree was clean.
+- Finalized M02.05 as `Completed and merged` in durable tracking.
+- Started and completed M02.06 Builder - Local Infrastructure: Docker Compose, Postgres, Migration Tool, and Health-Check Stubs.
+- Created root `docker-compose.yml` for one local-only Postgres service bound to `127.0.0.1` by default with placeholder local credentials only.
+- Added empty local Postgres override keys to `.env.example`; no real secrets were committed.
+- Added `node-pg-migrate` as a root dev dependency with `migrate:up` and `migrate:down` scripts; the migration directory remains documentation-only with no product schema migrations.
+- Added local infrastructure docs in `infra/README.md`, updated `infra/docker/README.md`, and updated `infra/migrations/README.md`.
+- Added `/infra/ready` as an infrastructure-only API readiness stub; it does not check product health, database readiness, financial correctness, evidence availability, or domain behavior.
+- Updated control-plane validation and bootstrap tests for local Postgres compose structure, empty env placeholders, root infra scripts, migration boundary, and the allowed readiness stub.
+- Confirmed no MoneyEvent schema, ledger logic, invariant logic, incident lifecycle, graph traversal, replay algorithm, repair approval/application, evidence storage, benchmark implementation, product UI, domain API route, Redis, queue, scheduler, external connector, agent runtime, production deployment, or real secret was added.
+- Ran M02.06 builder validation successfully: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 54 tests, `git diff --check`, `node --version` (`v22.16.0`), `npm --version` (`10.9.2`), `pnpm --version` (`10.32.1`), `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check`.
+- Ran `pnpm exec node-pg-migrate --help` successfully; installed CLI supports `up`, `down`, `create`, and `redo`, so no migration status script was added.
+- Docker validation was skipped because `docker --version` and `docker compose version` failed with `docker` not recognized in the current Windows shell. `docker compose config`, `docker compose up -d`, `docker compose ps`, local migration execution against Postgres, and `docker compose down -v` were skipped for that reason.
+- Skipped `make bootstrap-check` because `make` is unavailable in the current Windows shell; equivalent direct Python validation commands passed.
+- `pnpm add -D node-pg-migrate -w` emitted a non-blocking deprecated subdependency warning for `glob@11.1.0`; `pnpm add` and `pnpm install --frozen-lockfile` emitted the non-blocking `esbuild@0.28.0` ignored-build-scripts warning; validation still passed.
+- M02.06 Builder complete, awaiting QA. M02.07 remains `Not started`; M03 through M21 remain `Not started`; product implementation has not started.
+- Recommended next thread: `M02.06 QA - Local Infrastructure: Docker Compose, Postgres, Migration Tool, and Health-Check Stubs`.
+
 - Completed formal QA for PR #43 on branch `m02-05-package-scaffolds-eslint-ci`.
 - Verified PR #43 is open, non-draft, targets `main`, uses head branch `m02-05-package-scaffolds-eslint-ci`, and contains builder commit `96a9f89`.
 - Confirmed initial remote CI for builder commit `96a9f89` failed in `Run control-plane tests`; public GitHub annotations showed exit code 1, and unauthenticated logs were unavailable.

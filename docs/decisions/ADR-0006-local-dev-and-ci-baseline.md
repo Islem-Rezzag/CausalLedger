@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted for M02 local development direction. Package scaffolds, real ESLint enforcement, and the baseline GitHub Actions CI workflow were implemented in M02.05. Detailed local services, health checks, and migrations remain deferred to their scoped M02 submilestones.
+Accepted for M02 local development direction. Package scaffolds, real ESLint enforcement, and the baseline GitHub Actions CI workflow were implemented in M02.05. Local-only Postgres, Docker Compose, migration tooling, a process readiness stub, and remote infrastructure smoke validation were implemented in M02.06 without product storage behavior.
 
 Legacy validation marker retained from the original M02 planning placeholder: Planning placeholder.
 
@@ -24,6 +24,7 @@ The local development direction is:
 - Add ESLint and Prettier checks when TypeScript manifests are created.
 - Keep `.env.example` values empty and never commit real secrets.
 - Add a minimal CI workflow in M02.05 after package scaffolds and real lint scripts exist.
+- Add local-only Docker Compose/Postgres, migration commands, and infrastructure readiness stubs in M02.06 without product schema or production deployment.
 
 ## Planning Constraints
 
@@ -72,15 +73,33 @@ The workflow runs:
 
 This CI baseline does not deploy, release, provision databases, run Docker, use Redis, read secrets, or perform production work.
 
+## M02.06 Local Infrastructure Baseline
+
+M02.06 creates root `docker-compose.yml` for a single local Postgres service bound to `127.0.0.1` by default.
+
+The local infrastructure baseline uses:
+
+- empty `.env.example` values for local overrides;
+- root `infra:up`, `infra:down`, and `infra:reset` scripts for Docker Compose;
+- `node-pg-migrate` as the lightweight TypeScript/Postgres migration tool;
+- root `migrate:up` and `migrate:down` scripts using `DATABASE_URL`;
+- `infra/migrations/` as an empty migration boundary with documentation only;
+- `/infra/ready` as an API process readiness stub that returns `process-ready` and explicitly marks database and migrations as not checked;
+- a GitHub Actions `infra-smoke` job for Compose config, Postgres health, empty migration execution, public schema inspection, and cleanup.
+
+The Compose service intentionally avoids a fixed `container_name` so Docker Compose can namespace containers per checkout.
+
+This baseline does not create product database schema, domain tables, storage behavior, production deployment, Redis, queues, schedulers, external connectors, real secrets, or product health behavior.
+
 ## Deferred Work
 
 - `apps/api`, `apps/web`, and `apps/worker` manifests were created in M02.02 through M02.04 as minimal non-domain scaffolds.
 - `apps/agent-runtime` is deferred to the M10 era.
 - Shared package manifests were created in redefined M02.05 as scaffold-only package boundaries.
 - ESLint baseline and the baseline GitHub Actions workflow were created in redefined M02.05.
-- Postgres local development, Docker Compose, migrations, and health-check stubs are deferred to redefined M02.06.
+- Postgres local development, Docker Compose, migrations, and health-check stubs were created in redefined M02.06 as local infrastructure only.
 - Redis local development is deferred until a queue or scheduler design proves the need.
 
 ## Next Step
 
-Use this ADR as the local-development constraint set for the remaining M02 work. Do not start M02.06 until M02.05 QA passes, the M02.05 PR merges, and post-merge tracking is finalized.
+Use this ADR as the local-development constraint set for the remaining M02 work. Do not start M02.07 until M02.06 QA passes, the M02.06 PR merges, and post-merge tracking is finalized.
