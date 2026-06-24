@@ -31,13 +31,13 @@ M02.01 through M02.06 are `Completed and merged`. M02.07 is `QA passed, awaiting
 
 ## Next action
 
-Human merges M02.07 PR #45 after normal review and required remote checks are green.
+Human merges M02.07 PR #45 after normal review. Required remote checks are green on the latest QA head.
 
 Do not start M02 closeout until M02.07 PR #45 merges into `main` and post-merge tracking is finalized.
 
 ## Latest validation
 
-- 2026-06-24 M02.07 QA: branch guard, PR #45 inspection, builder commit `e231cec`, local identity configuration, required file inspection, control-plane validation, 76 bootstrap tests, diff check, Node/npm/pnpm version checks, frozen install, typecheck, lint, tests, build, format check, `pnpm qa:dev -- --allow-dirty`, and final clean-worktree `pnpm qa:dev` passed locally. Final `pnpm qa:dev` reported 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`. QA corrected dirty-worktree failure semantics, repository-local identity lookup, deterministic Docker environment isolation, Docker flow control, standard `pnpm qa:dev` CI proof, and behavioral tests. Local Docker and `make bootstrap-check` are unavailable in this Windows shell; remote `infra-smoke` plus behavioral Docker tests are the accepted Docker proof pending post-push checks.
+- 2026-06-24 M02.07 QA: branch guard, PR #45 inspection, builder commit `e231cec`, local identity configuration, required file inspection, control-plane validation, 76 bootstrap tests, diff check, Node/npm/pnpm version checks, frozen install, typecheck, lint, tests, build, format check, `pnpm qa:dev -- --allow-dirty`, and final clean-worktree `pnpm qa:dev` passed locally. Final `pnpm qa:dev` reported 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`. QA corrected dirty-worktree failure semantics, repository-local identity lookup, deterministic Docker environment isolation, Docker flow control, standard `pnpm qa:dev` CI proof, and behavioral tests. Local Docker and `make bootstrap-check` are unavailable in this Windows shell; remote GitHub Actions `validate` and `infra-smoke` passed on the latest QA head, with `infra-smoke` plus behavioral Docker tests as the accepted Docker proof.
 - 2026-06-24 M02.06 QA: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 57 tests, `git diff --check`, Node/npm/pnpm version checks, `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check` passed. Remote GitHub Actions `infra-smoke` passed before PR #44 merged.
 
 ## Terminology note

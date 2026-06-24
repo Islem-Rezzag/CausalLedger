@@ -14,9 +14,9 @@
 - Local M02.07 QA validation passed: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 76 tests, `git diff --check`, Node/npm/pnpm version checks, `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, `pnpm format:check`, and `pnpm qa:dev -- --allow-dirty`.
 - `pnpm qa:dev -- --allow-dirty` reported 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`; the clean-worktree requirement was skipped only because QA work was uncommitted, and Docker validation was skipped in default mode by design.
 - After committing the scoped QA fixes and confirming a clean worktree, final `pnpm qa:dev` passed with 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`; Docker validation was skipped in default mode by design.
-- Local Docker validation was skipped because `docker --version` and `docker compose version` failed with `docker` not recognized in the current Windows shell. Existing remote `infra-smoke` plus behavioral Docker-delegation tests are the accepted equivalent proof until post-push checks complete.
+- Local Docker validation was skipped because `docker --version` and `docker compose version` failed with `docker` not recognized in the current Windows shell. Remote GitHub Actions `infra-smoke` plus behavioral Docker-delegation tests are the accepted equivalent proof.
 - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell; equivalent direct Python validation commands passed.
-- M02.07 QA passed locally and awaits post-push remote validation. M03 through M21 remain `Not started`; product implementation has not started.
+- M02.07 QA passed locally and remote GitHub Actions `validate` and `infra-smoke` passed on the latest QA head. M03 through M21 remain `Not started`; product implementation has not started.
 - Recommended next thread after merge readiness: `Merge M02.07 PR - QA Development Environment`.
 - Next after merge: `M02 Closeout - Monorepo and Local Development Environment`.
 

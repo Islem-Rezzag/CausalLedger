@@ -2067,6 +2067,7 @@ The current process-amendment slice supersedes older "next thread" statements th
 - `pnpm qa:dev -- --allow-dirty` passed during uncommitted QA work with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`; the clean-worktree requirement was skipped only because `--allow-dirty` was explicit, and Docker validation was skipped in default mode by design.
 - After committing the scoped QA fixes and confirming a clean worktree, final `pnpm qa:dev` passed with 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`; Docker validation was skipped in default mode by design.
 - Local Docker validation did not run because `docker --version` and `docker compose version` both failed with `docker` not recognized in the current Windows shell. The accepted equivalent proof is the existing remote `infra-smoke` Docker/Postgres/migration job plus behavioral tests proving the QA script constructs isolated Docker actions.
+- Post-push GitHub Actions passed on the latest QA head: `validate` and `infra-smoke` completed successfully for PR #45.
 - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands passed.
 
 ## Idempotence and Recovery
