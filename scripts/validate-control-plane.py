@@ -146,28 +146,29 @@ REQUIRED_DIRS = [
     "infra/local-observability",
 ]
 
-EXPECTED_M02_STATUSES = {
-    "M02.01": "Completed and merged",
-    "M02.02": "Completed and merged",
-    "M02.03": "Completed and merged",
-    "M02.04": "Completed and merged",
-    "M02.05": "Not started",
-    "M02.06": "Not started",
-    "M02.07": "Not started",
-    "M02.08": "Deferred",
-    "M02.09": "Deferred",
-    "M02.10": "Deferred",
-    "M02.11": "Deferred",
-    "M02.12": "Deferred",
-    "M02.13": "Deferred",
-    "M02.14": "Deferred",
-    "M02.15": "Deferred",
-    "M02.16": "Deferred",
-    "M02.17": "Deferred",
-    "M02.18": "Deferred",
-    "M02.19": "Deferred",
-    "M02.20": "Deferred",
-}
+REGISTRY_COLUMNS = [
+    "ID",
+    "Name",
+    "Milestone",
+    "Status",
+    "Active Plan",
+    "Branch",
+    "PR",
+    "Last Validation",
+    "Last Updated",
+    "Notes",
+]
+
+MILESTONE_COLUMNS = ["ID", "Name", "Status", "Notes"]
+
+ROADMAP_COLUMNS = [
+    "Milestone",
+    "Goal",
+    "Focus",
+    "Exit criteria",
+    "Submilestone count",
+    "Status",
+]
 
 FORBIDDEN_APP_TERMS = [
     "MoneyEvent",
@@ -198,6 +199,24 @@ class RegistryRow:
     notes: str
 
 
+@dataclass(frozen=True)
+class MilestoneSubmilestoneRow:
+    submilestone_id: str
+    name: str
+    status: str
+    notes: str
+
+
+@dataclass(frozen=True)
+class RoadmapRow:
+    milestone: str
+    goal: str
+    focus: str
+    exit_criteria: str
+    submilestone_count: str
+    status: str
+
+
 def read_text(rel: str) -> str:
     return (ROOT / rel).read_text(encoding="utf-8")
 
@@ -213,25 +232,144 @@ def missing_paths(paths: list[str], kind: str) -> list[str]:
     return missing
 
 
-def parse_registry() -> list[RegistryRow]:
-    rows: list[RegistryRow] = []
-    registry = read_text("docs/milestones/SUBMILESTONE_REGISTRY.md")
-    for line in registry.splitlines():
-        if not line.startswith("| M"):
+def split_markdown_row(line: str) -> list[str]:
+    return [cell.strip() for cell in line.strip().strip("|").split("|")]
+
+
+def is_table_divider(line: str) -> bool:
+    cells = split_markdown_row(line)
+    return bool(cells) and all(cell and set(cell) <= {"-", ":"} for cell in cells)
+
+
+def parse_markdown_table(text: str, required_columns: list[str]) -> list[dict[str, str]]:
+    lines = text.splitlines()
+    for index, line in enumerate(lines):
+        if not line.strip().startswith("|"):
             continue
-        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
-        if len(cells) != 10:
-            raise ValueError(f"registry row has {len(cells)} cells: {line}")
-        rows.append(RegistryRow(*cells))
+        headers = split_markdown_row(line)
+        if not all(column in headers for column in required_columns):
+            continue
+        if index + 1 >= len(lines) or not is_table_divider(lines[index + 1]):
+            continue
+
+        rows: list[dict[str, str]] = []
+        for row_line in lines[index + 2 :]:
+            if not row_line.strip().startswith("|"):
+                break
+            if is_table_divider(row_line):
+                continue
+            cells = split_markdown_row(row_line)
+            if len(cells) != len(headers):
+                raise ValueError(
+                    f"markdown table row has {len(cells)} cells, expected {len(headers)}: {row_line}"
+                )
+            rows.append(dict(zip(headers, cells)))
+        return rows
+    raise ValueError(f"markdown table not found with columns: {', '.join(required_columns)}")
+
+
+def parse_registry_table(text: str) -> list[RegistryRow]:
+    rows: list[RegistryRow] = []
+    for row in parse_markdown_table(text, REGISTRY_COLUMNS):
+        submilestone_id = row["ID"]
+        if not submilestone_id.startswith("M"):
+            continue
+        rows.append(
+            RegistryRow(
+                submilestone_id=submilestone_id,
+                name=row["Name"],
+                milestone=row["Milestone"],
+                status=row["Status"],
+                active_plan=row["Active Plan"],
+                branch=row["Branch"],
+                pr=row["PR"],
+                last_validation=row["Last Validation"],
+                last_updated=row["Last Updated"],
+                notes=row["Notes"],
+            )
+        )
     return rows
+
+
+def parse_registry() -> list[RegistryRow]:
+    return parse_registry_table(read_text("docs/milestones/SUBMILESTONE_REGISTRY.md"))
 
 
 def registry_by_id() -> dict[str, RegistryRow]:
     return {row.submilestone_id: row for row in parse_registry()}
 
 
+def parse_milestone_submilestone_table(text: str) -> list[MilestoneSubmilestoneRow]:
+    rows: list[MilestoneSubmilestoneRow] = []
+    for row in parse_markdown_table(text, MILESTONE_COLUMNS):
+        submilestone_id = row["ID"]
+        if not submilestone_id.startswith("M"):
+            continue
+        rows.append(
+            MilestoneSubmilestoneRow(
+                submilestone_id=submilestone_id,
+                name=row["Name"],
+                status=row["Status"],
+                notes=row["Notes"],
+            )
+        )
+    return rows
+
+
+def parse_roadmap_table(text: str) -> list[RoadmapRow]:
+    rows: list[RoadmapRow] = []
+    for row in parse_markdown_table(text, ROADMAP_COLUMNS):
+        rows.append(
+            RoadmapRow(
+                milestone=row["Milestone"],
+                goal=row["Goal"],
+                focus=row["Focus"],
+                exit_criteria=row["Exit criteria"],
+                submilestone_count=row["Submilestone count"],
+                status=row["Status"],
+            )
+        )
+    return rows
+
+
+def markdown_sections(text: str) -> dict[str, str]:
+    sections: dict[str, list[str]] = {}
+    current_heading: str | None = None
+    for line in text.splitlines():
+        if line.startswith("## "):
+            current_heading = line[3:].strip().lower()
+            sections[current_heading] = []
+            continue
+        if current_heading is not None:
+            sections[current_heading].append(line)
+    return {heading: "\n".join(lines).strip() for heading, lines in sections.items()}
+
+
+def labeled_value(text: str, label: str) -> str | None:
+    normalized_label = label.lower()
+    lines = text.splitlines()
+    for index, line in enumerate(lines):
+        stripped = line.strip()
+        lower = stripped.lower()
+        if lower.startswith(f"{normalized_label}:"):
+            value = stripped.split(":", 1)[1].strip()
+            if value:
+                return value.strip("` ")
+            for next_line in lines[index + 1 :]:
+                value = next_line.strip()
+                if value:
+                    return value.strip("` ")
+    return None
+
+
 def active_plan_files() -> list[Path]:
     return sorted((ROOT / "plans" / "active").glob("CLP-*.md"))
+
+
+def validate_active_plan_count() -> list[str]:
+    if len(active_plan_files()) != 1:
+        return ["plans/active must contain exactly one CLP-*.md active plan"]
+    return []
 
 
 def validate_required_structure() -> list[str]:
@@ -240,18 +378,12 @@ def validate_required_structure() -> list[str]:
         errors.append(f"missing required file: {rel}")
     for rel in missing_paths(REQUIRED_DIRS, "dir"):
         errors.append(f"missing required directory: {rel}")
-    if len(active_plan_files()) != 1:
-        errors.append("plans/active must contain exactly one CLP-*.md active plan")
+    errors.extend(validate_active_plan_count())
     return errors
 
 
-def validate_registry() -> list[str]:
+def validate_registry_rows(rows: list[RegistryRow]) -> list[str]:
     errors: list[str] = []
-    try:
-        rows = parse_registry()
-    except ValueError as exc:
-        return [str(exc)]
-
     if not rows:
         return ["registry table did not parse any submilestone rows"]
 
@@ -262,56 +394,171 @@ def validate_registry() -> list[str]:
         seen.add(row.submilestone_id)
         if row.status not in ALLOWED_STATUSES:
             errors.append(f"{row.submilestone_id} has invalid status: {row.status}")
+    return errors
 
-    by_id = {row.submilestone_id: row for row in rows}
-    for submilestone_id, expected_status in EXPECTED_M02_STATUSES.items():
-        row = by_id.get(submilestone_id)
-        if row is None:
-            errors.append(f"{submilestone_id} missing from registry")
-        elif row.status != expected_status:
+
+def validate_registry() -> list[str]:
+    try:
+        rows = parse_registry()
+    except ValueError as exc:
+        return [str(exc)]
+    return validate_registry_rows(rows)
+
+
+def validate_m02_milestone_consistency(
+    registry_rows: list[RegistryRow], m02_text: str
+) -> list[str]:
+    errors: list[str] = []
+    by_id = {row.submilestone_id: row for row in registry_rows}
+    try:
+        milestone_rows = parse_milestone_submilestone_table(m02_text)
+    except ValueError as exc:
+        return [f"docs/milestones/M02.md {exc}"]
+
+    if not milestone_rows:
+        return ["docs/milestones/M02.md did not parse any submilestone rows"]
+
+    seen: set[str] = set()
+    for row in milestone_rows:
+        if row.submilestone_id in seen:
+            errors.append(f"docs/milestones/M02.md duplicate ID: {row.submilestone_id}")
+        seen.add(row.submilestone_id)
+        if not row.submilestone_id.startswith("M02."):
+            errors.append(f"docs/milestones/M02.md contains non-M02 row: {row.submilestone_id}")
+            continue
+        registry_row = by_id.get(row.submilestone_id)
+        if registry_row is None:
+            errors.append(f"docs/milestones/M02.md row missing from registry: {row.submilestone_id}")
+            continue
+        if row.status != registry_row.status:
             errors.append(
-                f"{submilestone_id} status is {row.status}, expected {expected_status}"
+                f"docs/milestones/M02.md {row.submilestone_id} status is {row.status}, "
+                f"registry says {registry_row.status}"
+            )
+    return errors
+
+
+def milestone_id_from_submilestone(submilestone_id: str) -> str:
+    return submilestone_id.split(".", 1)[0]
+
+
+def milestone_id_from_roadmap(row: RoadmapRow) -> str:
+    return row.milestone.split(" ", 1)[0]
+
+
+def expected_roadmap_status(statuses: list[str]) -> str:
+    if statuses and all(status == "Completed and merged" for status in statuses):
+        return "Completed"
+    if statuses and all(status == "Not started" for status in statuses):
+        return "Not started"
+    return "In progress"
+
+
+def validate_roadmap_consistency(
+    registry_rows: list[RegistryRow], roadmap_text: str
+) -> list[str]:
+    errors: list[str] = []
+    try:
+        roadmap_rows = parse_roadmap_table(roadmap_text)
+    except ValueError as exc:
+        return [f"plans/ROADMAP.md {exc}"]
+
+    registry_by_milestone: dict[str, list[RegistryRow]] = {}
+    for row in registry_rows:
+        registry_by_milestone.setdefault(
+            milestone_id_from_submilestone(row.submilestone_id), []
+        ).append(row)
+
+    roadmap_seen: set[str] = set()
+    for row in roadmap_rows:
+        milestone_id = milestone_id_from_roadmap(row)
+        if not milestone_id.startswith("M"):
+            continue
+        roadmap_seen.add(milestone_id)
+        registry_milestone_rows = registry_by_milestone.get(milestone_id)
+        if not registry_milestone_rows:
+            errors.append(f"plans/ROADMAP.md has milestone missing from registry: {milestone_id}")
+            continue
+        try:
+            roadmap_count = int(row.submilestone_count)
+        except ValueError:
+            errors.append(
+                f"plans/ROADMAP.md {milestone_id} has non-numeric submilestone count: {row.submilestone_count}"
+            )
+            continue
+        if roadmap_count != len(registry_milestone_rows):
+            errors.append(
+                f"plans/ROADMAP.md {milestone_id} count is {roadmap_count}, "
+                f"registry has {len(registry_milestone_rows)}"
+            )
+        expected_status = expected_roadmap_status(
+            [registry_row.status for registry_row in registry_milestone_rows]
+        )
+        if row.status != expected_status:
+            errors.append(
+                f"plans/ROADMAP.md {milestone_id} status is {row.status}, "
+                f"registry implies {expected_status}"
             )
 
-    for milestone in range(3, 22):
-        prefix = f"M{milestone:02}."
-        for row in rows:
-            if row.submilestone_id.startswith(prefix) and row.status != "Not started":
-                errors.append(f"{row.submilestone_id} must remain Not started")
+    for milestone_id in sorted(registry_by_milestone):
+        if milestone_id not in roadmap_seen:
+            errors.append(f"registry milestone missing from plans/ROADMAP.md: {milestone_id}")
+    return errors
+
+
+def validate_current_state_structure(current: str) -> list[str]:
+    errors: list[str] = []
+    sections = markdown_sections(current)
+    for heading in [
+        "current phase",
+        "current submilestone and branch",
+        "next action",
+        "product implementation status",
+    ]:
+        if not sections.get(heading):
+            errors.append(f"CURRENT_STATE.md missing or empty section: {heading}")
+
+    current_slice = labeled_value(current, "Current slice")
+    if not current_slice:
+        errors.append("CURRENT_STATE.md missing labeled current slice")
+    current_branch = labeled_value(current, "Current branch")
+    if not current_branch:
+        errors.append("CURRENT_STATE.md missing labeled current branch")
+
+    product_status = sections.get("product implementation status", "").lower()
+    if "not started" not in product_status:
+        errors.append("CURRENT_STATE.md product implementation status must say not started")
+
+    if len(current.splitlines()) > 80:
+        errors.append("CURRENT_STATE.md exceeds the 80 line cap")
+    return errors
+
+
+def validate_next_thread_structure(next_thread: str) -> list[str]:
+    errors: list[str] = []
+    for label in ["Thread name", "Precondition", "Next after merge"]:
+        if not labeled_value(next_thread, label):
+            errors.append(f"NEXT_RECOMMENDED_THREAD.md missing labeled {label.lower()}")
     return errors
 
 
 def validate_status_consistency() -> list[str]:
     errors: list[str] = []
-    roadmap = read_text("plans/ROADMAP.md")
-    current = read_text("docs/status/CURRENT_STATE.md")
-    m02 = read_text("docs/milestones/M02.md")
-    next_thread = read_text("docs/status/NEXT_RECOMMENDED_THREAD.md")
+    try:
+        registry_rows = parse_registry()
+    except ValueError as exc:
+        return [str(exc)]
 
-    expected_phrases = [
-        "M02.01 through M02.04 are `Completed and merged`",
-        "M02.05 through M02.07 remain `Not started`",
-        "M03 through M21 remain `Not started`",
-        "Product implementation has not started",
-    ]
-    for rel, text in [
-        ("plans/ROADMAP.md", roadmap),
-        ("docs/status/CURRENT_STATE.md", current),
-        ("docs/milestones/M02.md", m02),
-    ]:
-        for phrase in expected_phrases:
-            if phrase not in text:
-                errors.append(f"{rel} missing status phrase: {phrase}")
-
-    if (
-        "M02 process amendment QA - tracking fixes, process diet, validator cleanup, and ADR-0008"
-        not in next_thread
-    ):
-        errors.append("NEXT_RECOMMENDED_THREAD.md does not point to process amendment QA")
-    if "M02.05 Builder - package scaffolds + ESLint + CI baseline" not in next_thread:
-        errors.append("NEXT_RECOMMENDED_THREAD.md does not name M02.05 as next after merge")
-    if len(current.splitlines()) > 80:
-        errors.append("CURRENT_STATE.md exceeds the 80 line cap")
+    errors.extend(
+        validate_m02_milestone_consistency(
+            registry_rows, read_text("docs/milestones/M02.md")
+        )
+    )
+    errors.extend(validate_roadmap_consistency(registry_rows, read_text("plans/ROADMAP.md")))
+    errors.extend(validate_current_state_structure(read_text("docs/status/CURRENT_STATE.md")))
+    errors.extend(
+        validate_next_thread_structure(read_text("docs/status/NEXT_RECOMMENDED_THREAD.md"))
+    )
     return errors
 
 
@@ -320,16 +567,8 @@ def validate_docs() -> list[str]:
     domain_model = read_text("docs/DOMAIN_MODEL.md")
     if "M02.01 through M02.20 remain `Not started`" in domain_model:
         errors.append("DOMAIN_MODEL.md hardcodes stale live M02 status")
-    if "Live milestone progress is tracked in `plans/ROADMAP.md`" not in domain_model:
+    if "Live milestone progress" not in domain_model or "plans/ROADMAP.md" not in domain_model:
         errors.append("DOMAIN_MODEL.md does not redirect live milestone progress")
-
-    current = read_text("docs/status/CURRENT_STATE.md")
-    for phrase in [
-        'Current "lint" validation before the real ESLint baseline means TypeScript no-emit or script-level validation',
-        "The 32 Python tests are control-plane/doc-coherence tests",
-    ]:
-        if phrase not in current:
-            errors.append(f"CURRENT_STATE.md missing terminology note: {phrase}")
 
     changelog = read_text("CHANGELOG.md")
     for phrase in [
@@ -372,12 +611,17 @@ def validate_forbidden_paths() -> list[str]:
     if (ROOT / ".github" / "workflows").exists():
         errors.append(".github/workflows exists before CI is authorized in this amendment")
 
-    for package_dir in (ROOT / "packages").iterdir():
+    packages_root = ROOT / "packages"
+    if not packages_root.exists():
+        return errors
+    for package_dir in packages_root.iterdir():
         if not package_dir.is_dir():
             continue
         for path in package_dir.rglob("*"):
             if path.is_file() and path.name != "README.md":
-                errors.append(f"packages placeholder contains non-README file: {path.relative_to(ROOT).as_posix()}")
+                errors.append(
+                    f"packages placeholder contains non-README file: {path.relative_to(ROOT).as_posix()}"
+                )
     return errors
 
 
@@ -396,7 +640,7 @@ def validate_app_scaffolds() -> list[str]:
     if "jobs: []" not in worker_source:
         errors.append("apps/worker no longer has an empty jobs list")
     for term in FORBIDDEN_APP_TERMS:
-        if term.lower() in worker_source.lower() and term not in {"queue", "scheduler"}:
+        if term.lower() in worker_source.lower():
             errors.append(f"apps/worker contains forbidden domain term: {term}")
     return errors
 

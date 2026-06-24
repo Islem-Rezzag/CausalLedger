@@ -8,16 +8,16 @@ M02 Monorepo and Local Development Environment is in progress under active plan 
 
 ## Current submilestone and branch
 
-Current slice: `M02 process amendment - tracking fixes, process diet, validator cleanup, and ADR-0008`.
+Current slice: `M02 process amendment QA - tracking fixes, process diet, validator cleanup, and ADR-0008`.
 
 Current branch: `m02-amendment-process-diet`.
 
-M02.01 through M02.04 are `Completed and merged`. M02.05 through M02.07 remain `Not started`. M02.05 is now the next builder thread after this process-amendment PR merges and QA passes.
+M02 process amendment QA passed and is awaiting PR #42 merge. M02.01 through M02.04 are `Completed and merged`. M02.05 through M02.07 remain `Not started`.
 
 ## What exists
 
 - Active M02 plan and durable M00/M01 completed plans.
-- Documentation, active docs, planning workflows, prompt templates, local skills, milestone docs, status docs, GitHub templates, versioning docs, and control-plane validation.
+- Documentation, active docs, planning workflows, prompt templates, local skills, milestone docs, status docs, GitHub templates, versioning docs, ADR-0008, and control-plane validation.
 - Minimal non-domain TypeScript/Fastify `apps/api` scaffold.
 - Minimal non-domain React/Vite `apps/web` scaffold.
 - Minimal non-domain TypeScript `apps/worker` scaffold.
@@ -31,23 +31,23 @@ M02.01 through M02.04 are `Completed and merged`. M02.05 through M02.07 remain `
 
 ## Next action
 
-Run `M02 process amendment QA - tracking fixes, process diet, validator cleanup, and ADR-0008` after this builder branch has a PR or is ready to open one.
+Merge `M02 process amendment PR` after human review.
 
-Next after merge: `M02.05 Builder - package scaffolds + ESLint + CI baseline`, but only after the process-amendment PR merges into `main` and post-merge tracking is finalized.
+Next after merge: `M02.05 Builder - Create all remaining package scaffolds + ESLint + CI baseline`, but only after PR #42 merges into `main` and post-merge tracking is finalized.
 
 ## Latest validation
 
-- 2026-06-11 M02 process amendment builder: `python scripts/validate-control-plane.py` passed; `python -m pytest tests/test_control_plane_bootstrap.py` passed with 32 tests; `git diff --check` passed; `pnpm install`, `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm lint`, and `pnpm format:check` passed; `make bootstrap-check` skipped because `make` is unavailable.
-- 2026-06-11 M02.04 QA: `python scripts/validate-control-plane.py` passed; `python -m pytest tests/test_control_plane_bootstrap.py` passed with 32 tests; `git diff --check` passed; package validation passed; `make bootstrap-check` skipped because `make` is unavailable.
-- 2026-06-09 M02.04 builder: control-plane validation, pytest, diff check, and package validation passed; `make bootstrap-check` skipped because `make` is unavailable.
+- 2026-06-24 M02 process amendment QA: `python scripts/validate-control-plane.py` passed; `python -m pytest tests/test_control_plane_bootstrap.py` passed with 38 tests; `git diff --check` passed; `pnpm install`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check` passed; `pnpm install` emitted the non-blocking `esbuild@0.28.0` ignored-build-scripts warning; `make bootstrap-check` skipped because `make` is unavailable in this Windows shell.
+- 2026-06-11 M02 process amendment builder: control-plane validation, pytest with 32 tests, diff check, and package validation passed; `make bootstrap-check` skipped because `make` is unavailable.
+- 2026-06-11 M02.04 QA: control-plane validation, pytest with 32 tests, diff check, and package validation passed; `make bootstrap-check` skipped because `make` is unavailable.
 
 ## Terminology note
 
-- Current "lint" validation before the real ESLint baseline means TypeScript no-emit or script-level validation, not full ESLint enforcement unless explicitly stated.
-- The 32 Python tests are control-plane/doc-coherence tests, not CausalLedger product/domain tests.
+- Current `lint` validation before the real ESLint baseline means TypeScript no-emit or script-level validation, not full ESLint enforcement unless explicitly stated.
+- Python tests are control-plane/doc-coherence tests, not CausalLedger product/domain tests.
 
 ## Product implementation status
 
-Product implementation has not started. No product/domain behavior was implemented by M02.01, M02.02, M02.03, M02.04, or this process-amendment slice.
+Product implementation has not started. No product/domain behavior was implemented by M02.01, M02.02, M02.03, M02.04, or this process-amendment QA slice.
 
 M03 through M21 remain `Not started`.

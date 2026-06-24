@@ -87,11 +87,18 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 - [x] 2026-06-11: Applied tracking fixes, process diet, validator cleanup, and ADR-0008.
 - [x] 2026-06-11: Ran required control-plane, package, and diff validation for the process amendment.
 - [x] 2026-06-11: Committed scoped process-amendment changes; push and PR status are recorded in the final handoff.
+- [x] 2026-06-24: M02 process amendment QA branch guard passed on `m02-amendment-process-diet`; starting worktree was clean and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- [x] 2026-06-24: Verified PR #42 is open, non-draft, mergeable, targets `main`, and uses head branch `m02-amendment-process-diet`.
+- [x] 2026-06-24: QA found the validator remained brittle because it still encoded `EXPECTED_M02_STATUSES`, exact current-status prose checks, and live M02 status assertions in tests.
+- [x] 2026-06-24: Replaced brittle validator behavior with structural markdown parsing for the submilestone registry, M02 milestone table, roadmap table, `CURRENT_STATE.md` headings and labels, and `NEXT_RECOMMENDED_THREAD.md` labels.
+- [x] 2026-06-24: Added fixture-based parser and validation tests for invalid statuses, duplicate IDs, M02/registry mismatches, active-plan count errors, populated `.env.example` values, forbidden package files, and harmless prose changes.
+- [x] 2026-06-24: M02 process amendment QA passed, awaiting PR #42 merge; next thread is `Merge M02 process amendment PR`.
 
 ## Surprises & Discoveries
 
 - OrbitSoft feedback highlights missing professional engineering evidence: comprehensive error handling, structured logging, CI/CD pipeline, architecture and deployment documentation, authentication and authorization in API projects, and advanced data modeling. M02 planning must map these gaps to the right milestones without implementing them here.
 - Product domain implementation has not started. `apps/api` has a minimal non-domain scaffold, `apps/web` has a minimal non-domain scaffold, `apps/worker` has a minimal non-domain scaffold, and other future product directories still contain placeholder README files only.
+- M02 process amendment QA found that the builder's structural-validation claim was incomplete: the validator still coupled project truth to today's M02 status map and exact current-state prose.
 - pnpm emitted a non-blocking warning that `esbuild@0.28.0` build scripts were ignored by the approve-builds policy. Package validation still passed.
 - `.github/workflows/` does not exist and must not be created in this planning thread.
 
@@ -569,7 +576,7 @@ M02 process amendment acceptance criteria:
 - ADR-0008 documents ID, money, and storage direction without implementing runtime behavior.
 - No product/domain behavior, CI workflow, ESLint implementation, package scaffold creation, database, Docker, Redis, queue, scheduler, route, or runtime is implemented by this amendment.
 - Required control-plane, package, and diff validation pass or skipped validation is recorded with a reason.
-- Next recommended thread is `M02 process amendment QA - tracking fixes, process diet, validator cleanup, and ADR-0008`.
+- Next recommended thread is `Merge M02 process amendment PR`.
 
 ## M02 Planning QA Record
 
@@ -1756,6 +1763,7 @@ The current process-amendment slice supersedes older "next thread" statements th
 - `npm --version` returned `10.9.2`.
 - `pnpm --version` returned `10.32.1`.
 - `pnpm install` passed across all 4 workspace projects and reported the lockfile was up to date.
+- `pnpm install` emitted the non-blocking `esbuild@0.28.0` ignored-build-scripts warning; package validation still passed.
 - `pnpm typecheck` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
 - `pnpm test` passed with 3 Vitest tests.
 - `pnpm build` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
@@ -1763,6 +1771,22 @@ The current process-amendment slice supersedes older "next thread" statements th
 - `pnpm format:check` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
 - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
 - Process-amendment `pnpm install` did not emit the `esbuild@0.28.0` approve-builds warning.
+
+2026-06-24 M02 process amendment QA validation results:
+
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 38 tests.
+- `git diff --check` passed.
+- `node --version` returned `v22.16.0`.
+- `npm --version` returned `10.9.2`.
+- `pnpm --version` returned `10.32.1`.
+- `pnpm install` passed across all 4 workspace projects and reported the lockfile was up to date.
+- `pnpm typecheck` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
+- `pnpm lint` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
+- `pnpm test` passed with 3 Vitest tests.
+- `pnpm build` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
+- `pnpm format:check` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
+- `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
 
 ## Idempotence and Recovery
 
@@ -1849,4 +1873,8 @@ M02.03 builder work created a minimal non-domain `apps/web` React/Vite foundatio
 
 M02.04 builder work created a minimal non-domain `apps/worker` TypeScript foundation. M02.04 QA passed for PR #41 after a scoped README documentation fix, and PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f`. Product domain implementation has not started. M02.05 through M02.07 remain `Not started`; former M02.08 through M02.20 rows are deferred or absorbed; M03 through M21 remain `Not started`.
 
-Exact next recommended thread after this process-amendment builder is complete: `M02 process amendment QA - tracking fixes, process diet, validator cleanup, and ADR-0008`.
+M02 process amendment QA passed for PR #42 after replacing brittle live-status validation with structural registry, milestone, roadmap, current-state, and next-thread parsing. The amendment is `QA passed, awaiting PR merge`; it is not completed until PR #42 merges into `main` and post-merge tracking is finalized.
+
+Exact next recommended thread after this process-amendment QA is complete: `Merge M02 process amendment PR`.
+
+Next builder after merge: `M02.05 Builder - Create all remaining package scaffolds + ESLint + CI baseline`.
