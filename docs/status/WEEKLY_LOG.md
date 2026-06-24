@@ -2,6 +2,25 @@
 
 ## 2026-06-24
 
+- Confirmed PR #43 merged into `main` at commit `6e76045` (`chore: create M02.05 package ESLint and CI baseline (#43)`) before starting M02.06.
+- Created branch `m02-06-local-infra-postgres-migrations-health` from updated `main`; branch guard passed and the starting worktree was clean.
+- Finalized M02.05 as `Completed and merged` in durable tracking.
+- Started and completed M02.06 Builder - Local Infrastructure: Docker Compose, Postgres, Migration Tool, and Health-Check Stubs.
+- Created root `docker-compose.yml` for one local-only Postgres service bound to `127.0.0.1` by default with placeholder local credentials only.
+- Added empty local Postgres override keys to `.env.example`; no real secrets were committed.
+- Added `node-pg-migrate` as a root dev dependency with `migrate:up` and `migrate:down` scripts; the migration directory remains documentation-only with no product schema migrations.
+- Added local infrastructure docs in `infra/README.md`, updated `infra/docker/README.md`, and updated `infra/migrations/README.md`.
+- Added `/infra/ready` as an infrastructure-only API readiness stub; it does not check product health, database readiness, financial correctness, evidence availability, or domain behavior.
+- Updated control-plane validation and bootstrap tests for local Postgres compose structure, empty env placeholders, root infra scripts, migration boundary, and the allowed readiness stub.
+- Confirmed no MoneyEvent schema, ledger logic, invariant logic, incident lifecycle, graph traversal, replay algorithm, repair approval/application, evidence storage, benchmark implementation, product UI, domain API route, Redis, queue, scheduler, external connector, agent runtime, production deployment, or real secret was added.
+- Ran M02.06 builder validation successfully: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 54 tests, `git diff --check`, `node --version` (`v22.16.0`), `npm --version` (`10.9.2`), `pnpm --version` (`10.32.1`), `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check`.
+- Ran `pnpm exec node-pg-migrate --help` successfully; installed CLI supports `up`, `down`, `create`, and `redo`, so no migration status script was added.
+- Docker validation was skipped because `docker --version` and `docker compose version` failed with `docker` not recognized in the current Windows shell. `docker compose config`, `docker compose up -d`, `docker compose ps`, local migration execution against Postgres, and `docker compose down -v` were skipped for that reason.
+- Skipped `make bootstrap-check` because `make` is unavailable in the current Windows shell; equivalent direct Python validation commands passed.
+- `pnpm add -D node-pg-migrate -w` emitted a non-blocking deprecated subdependency warning for `glob@11.1.0`; `pnpm add` and `pnpm install --frozen-lockfile` emitted the non-blocking `esbuild@0.28.0` ignored-build-scripts warning; validation still passed.
+- M02.06 Builder complete, awaiting QA. M02.07 remains `Not started`; M03 through M21 remain `Not started`; product implementation has not started.
+- Recommended next thread: `M02.06 QA - Local Infrastructure: Docker Compose, Postgres, Migration Tool, and Health-Check Stubs`.
+
 - Completed formal QA for PR #43 on branch `m02-05-package-scaffolds-eslint-ci`.
 - Verified PR #43 is open, non-draft, targets `main`, uses head branch `m02-05-package-scaffolds-eslint-ci`, and contains builder commit `96a9f89`.
 - Confirmed initial remote CI for builder commit `96a9f89` failed in `Run control-plane tests`; public GitHub annotations showed exit code 1, and unauthenticated logs were unavailable.

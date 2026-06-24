@@ -9,4 +9,6 @@ M02.02 creates only a minimal TypeScript/Fastify application foundation:
 - non-domain bootstrap validation;
 - package scripts for local development, build, test, lint, format checking, and type checking.
 
-No CausalLedger product or domain behavior is implemented here. There are no MoneyEvent routes, ledger routes, incident routes, evidence ingestion routes, repair routes, auth/authz, database connections, external connectors, or health-check endpoints.
+M02.06 adds `/infra/ready` as an infrastructure-only readiness stub. It confirms that the API process can respond, but it does not check product health, database readiness, financial correctness, evidence availability, or domain behavior.
+
+No CausalLedger product or domain behavior is implemented here. There are no MoneyEvent routes, ledger routes, incident routes, evidence ingestion routes, repair routes, auth/authz, database connections, or external connectors.
