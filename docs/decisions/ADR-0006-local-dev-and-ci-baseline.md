@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted for M02.01 stack implications. Detailed local services, health checks, migrations, and CI automation remain deferred to their scoped M02 submilestones.
+Accepted for M02 local development direction. Package scaffolds, real ESLint enforcement, and the baseline GitHub Actions CI workflow were implemented in M02.05. Detailed local services, health checks, and migrations remain deferred to their scoped M02 submilestones.
 
 Legacy validation marker retained from the original M02 planning placeholder: Planning placeholder.
 
@@ -23,12 +23,12 @@ The local development direction is:
 - Add Vitest-based package tests when TypeScript packages are created.
 - Add ESLint and Prettier checks when TypeScript manifests are created.
 - Keep `.env.example` values empty and never commit real secrets.
-- Keep CI workflow creation deferred to M02.19.
+- Add a minimal CI workflow in M02.05 after package scaffolds and real lint scripts exist.
 
 ## Planning Constraints
 
-- Do not create `.github/workflows/` in this submilestone.
-- Do not claim CI/CD exists before M02.19 implements and validates its scope.
+- Keep `.github/workflows/ci.yml` minimal in M02.05.
+- Do not claim deployment, release automation, production jobs, secrets, environments, databases, Docker, or Redis exist because the CI baseline exists.
 - Do not create `package.json`, `pnpm-workspace.yaml`, `turbo.json`, `pnpm-lock.yaml`, app manifests, package manifests, or dependency installs in M02.01.
 - Keep validation commands explicit and reproducible.
 - Keep future product directories as placeholders until their scoped M02 submilestones begin.
@@ -44,17 +44,43 @@ Future M02 implementation should prefer a small command surface such as:
 - `pnpm typecheck` for TypeScript type validation once packages exist.
 - Existing Python control-plane validation commands for docs, status, registry, and bootstrap tests.
 
-These commands are direction only until the relevant manifests are created by later submilestones.
+These commands are implemented for the current app scaffolds and M02.05 package scaffolds. Future product packages must add deterministic tests before product behavior can be claimed.
+
+M02.05 QA added explicit test TypeScript configurations and `typecheck:test` scripts so tests are typechecked without being included in production build output.
+
+## M02.05 CI Baseline
+
+M02.05 creates `.github/workflows/ci.yml` with pull request and `main` push triggers.
+
+The workflow uses:
+
+- Node.js 22;
+- pnpm through Corepack pinned to the workspace package manager version;
+- Python 3.12 for control-plane validation.
+- `requirements-dev.txt` for explicit Python dev dependencies invoked by CI.
+
+The workflow runs:
+
+- `pnpm install --frozen-lockfile`;
+- `pnpm typecheck`;
+- `pnpm lint`;
+- `pnpm test`;
+- `pnpm build`;
+- `pnpm format:check`;
+- `python scripts/validate-control-plane.py`;
+- `python -m pytest tests/test_control_plane_bootstrap.py`.
+
+This CI baseline does not deploy, release, provision databases, run Docker, use Redis, read secrets, or perform production work.
 
 ## Deferred Work
 
 - `apps/api`, `apps/web`, and `apps/worker` manifests were created in M02.02 through M02.04 as minimal non-domain scaffolds.
 - `apps/agent-runtime` is deferred to the M10 era.
-- Shared package manifests are deferred to redefined M02.05.
-- ESLint baseline and any GitHub Actions workflow are deferred to redefined M02.05.
+- Shared package manifests were created in redefined M02.05 as scaffold-only package boundaries.
+- ESLint baseline and the baseline GitHub Actions workflow were created in redefined M02.05.
 - Postgres local development, Docker Compose, migrations, and health-check stubs are deferred to redefined M02.06.
 - Redis local development is deferred until a queue or scheduler design proves the need.
 
 ## Next Step
 
-Use this ADR as the local-development constraint set for M02.02 through M02.19. Do not start M02.02 until M02.01 QA passes, the M02.01 PR merges, and post-merge tracking is finalized.
+Use this ADR as the local-development constraint set for the remaining M02 work. Do not start M02.06 until M02.05 QA passes, the M02.05 PR merges, and post-merge tracking is finalized.
