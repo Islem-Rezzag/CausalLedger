@@ -7,7 +7,7 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsc -p tsconfig.json",
     "test": "vitest run --exclude \"dist/**\"",
-    "lint": "tsc -p tsconfig.json --noEmit --pretty false",
+    "lint": "eslint . --max-warnings=0",
     "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\" \"README.md\" \"package.json\" \"tsconfig.json\"",
     "typecheck": "tsc -p tsconfig.json --noEmit --pretty false"
   },

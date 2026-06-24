@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -15,6 +17,31 @@ ALLOWED_STATUSES = {
     "Blocked",
     "Deferred",
 }
+
+M02_05_PACKAGE_DIRS = [
+    "core",
+    "events",
+    "ledger",
+    "invariants",
+    "incidents",
+    "graph",
+    "replay",
+    "repair",
+    "evidence",
+    "evals",
+]
+
+APPROVED_PACKAGE_SCAFFOLD_FILES = [
+    "README.md",
+    "package.json",
+    "tsconfig.json",
+    "src/index.ts",
+    "test/bootstrap.test.ts",
+]
+
+PACKAGE_SCRIPT_NAMES = ["build", "typecheck", "test", "lint", "format:check"]
+
+GENERATED_PACKAGE_DIR_NAMES = {"node_modules", "dist", ".turbo", "coverage"}
 
 REQUIRED_FILES = [
     "README.md",
@@ -59,6 +86,8 @@ REQUIRED_FILES = [
     "plans/completed/CLP-0001-m00-repo-operating-system.md",
     "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
     "tests/test_control_plane_bootstrap.py",
+    "eslint.config.js",
+    ".github/workflows/ci.yml",
     "package.json",
     "pnpm-workspace.yaml",
     "turbo.json",
@@ -84,6 +113,11 @@ REQUIRED_FILES = [
     "apps/worker/tsconfig.json",
     "apps/worker/src/index.ts",
     "apps/worker/test/bootstrap.test.ts",
+    *[
+        f"packages/{package_dir}/{file_name}"
+        for package_dir in M02_05_PACKAGE_DIRS
+        for file_name in APPROVED_PACKAGE_SCAFFOLD_FILES
+    ],
 ]
 
 REQUIRED_DIRS = [
@@ -92,6 +126,7 @@ REQUIRED_DIRS = [
     "prompts",
     ".github",
     ".github/ISSUE_TEMPLATE",
+    ".github/workflows",
     ".agents",
     "apps",
     "packages",
@@ -120,16 +155,36 @@ REQUIRED_DIRS = [
     "apps/worker",
     "apps/agent-runtime",
     "packages/core",
+    "packages/core/src",
+    "packages/core/test",
     "packages/events",
+    "packages/events/src",
+    "packages/events/test",
     "packages/ledger",
+    "packages/ledger/src",
+    "packages/ledger/test",
     "packages/invariants",
+    "packages/invariants/src",
+    "packages/invariants/test",
     "packages/incidents",
+    "packages/incidents/src",
+    "packages/incidents/test",
     "packages/graph",
+    "packages/graph/src",
+    "packages/graph/test",
     "packages/replay",
+    "packages/replay/src",
+    "packages/replay/test",
     "packages/repair",
+    "packages/repair/src",
+    "packages/repair/test",
     "packages/evidence",
+    "packages/evidence/src",
+    "packages/evidence/test",
     "packages/connectors",
     "packages/evals",
+    "packages/evals/src",
+    "packages/evals/test",
     "packages/sdk-python",
     "packages/sdk-typescript",
     "packages/mcp-server",
@@ -182,6 +237,19 @@ FORBIDDEN_APP_TERMS = [
     "scheduler",
     "connector",
     "database",
+]
+
+FORBIDDEN_PACKAGE_SOURCE_PATTERNS = [
+    (re.compile(r"\b(?:type|interface|class)\s+MoneyEvent\b"), "MoneyEvent schema"),
+    (re.compile(r"\bMoneyEventSchema\b|\bz\.object\s*\("), "runtime schema implementation"),
+    (re.compile(r"\b(?:ledgerEntry|ledgerEntries|balance|balances)\b"), "ledger entries or balances"),
+    (re.compile(r"\b(?:InvariantCheck|InvariantResult|financialInvariant)\b"), "financial invariant implementation"),
+    (re.compile(r"\b(?:IncidentState|IncidentStatus|incidentStateMachine)\b"), "incident lifecycle implementation"),
+    (re.compile(r"\b(?:GraphNode|GraphEdge|graphTraversal|traverseGraph)\b"), "graph traversal implementation"),
+    (re.compile(r"\b(?:ReplaySession|replayAlgorithm|runReplay)\b"), "replay algorithm implementation"),
+    (re.compile(r"\b(?:RepairPlan|RepairProposal|approveRepair|applyRepair)\b"), "repair logic implementation"),
+    (re.compile(r"\b(?:EvidenceStore|EvidenceBundle|storeEvidence)\b"), "evidence storage implementation"),
+    (re.compile(r"\b(?:BenchmarkScenario|benchmarkRunner|scoreBenchmark)\b"), "benchmark implementation"),
 ]
 
 
@@ -576,6 +644,7 @@ def validate_docs() -> list[str]:
         "Completed M02.02 minimal non-domain `apps/api`",
         "Completed M02.03 minimal non-domain `apps/web`",
         "Completed M02.04 minimal non-domain `apps/worker`",
+        "M02.05 Builder complete, awaiting QA for package scaffolds, ESLint baseline, and CI baseline",
         "ADR-0008 identity, money, and storage direction",
     ]:
         if phrase not in changelog:
@@ -606,10 +675,73 @@ def validate_no_secrets() -> list[str]:
     return []
 
 
-def validate_forbidden_paths() -> list[str]:
+def path_has_generated_part(path: Path, root: Path) -> bool:
+    return any(part in GENERATED_PACKAGE_DIR_NAMES for part in path.relative_to(root).parts)
+
+
+def package_files(package_dir: Path) -> set[str]:
+    files: set[str] = set()
+    for path in package_dir.rglob("*"):
+        if path_has_generated_part(path, package_dir):
+            continue
+        if path.is_file():
+            files.add(path.relative_to(package_dir).as_posix())
+    return files
+
+
+def validate_github_workflows() -> list[str]:
     errors: list[str] = []
-    if (ROOT / ".github" / "workflows").exists():
-        errors.append(".github/workflows exists before CI is authorized in this amendment")
+    workflow_dir = ROOT / ".github" / "workflows"
+    if not workflow_dir.exists():
+        return [".github/workflows must exist for the M02.05 CI baseline"]
+    child_dirs = sorted(path.name for path in workflow_dir.iterdir() if path.is_dir())
+    child_files = sorted(path.name for path in workflow_dir.iterdir() if path.is_file())
+    if child_dirs:
+        errors.append(f".github/workflows contains unexpected directories: {', '.join(child_dirs)}")
+    if child_files != ["ci.yml"]:
+        errors.append(".github/workflows may contain exactly ci.yml")
+    return errors
+
+
+def validate_package_manifest(package_dir: str) -> list[str]:
+    errors: list[str] = []
+    rel = f"packages/{package_dir}"
+    manifest = json.loads(read_text(f"{rel}/package.json"))
+    expected_name = f"@causalledger/{package_dir}"
+    if manifest.get("name") != expected_name:
+        errors.append(f"{rel}/package.json name must be {expected_name}")
+    if manifest.get("private") is not True:
+        errors.append(f"{rel}/package.json must be private")
+    scripts = manifest.get("scripts", {})
+    for script_name in PACKAGE_SCRIPT_NAMES:
+        if script_name not in scripts:
+            errors.append(f"{rel}/package.json missing {script_name} script")
+    if scripts.get("lint") != "eslint . --max-warnings=0":
+        errors.append(f"{rel}/package.json lint script must run real ESLint")
+    return errors
+
+
+def validate_package_tsconfig(package_dir: str) -> list[str]:
+    rel = f"packages/{package_dir}/tsconfig.json"
+    tsconfig = json.loads(read_text(rel))
+    if tsconfig.get("extends") != "../../tsconfig.base.json":
+        return [f"{rel} must extend ../../tsconfig.base.json"]
+    return []
+
+
+def validate_package_sources(package_dir: str) -> list[str]:
+    errors: list[str] = []
+    source_path = ROOT / "packages" / package_dir / "src" / "index.ts"
+    source = source_path.read_text(encoding="utf-8")
+    for pattern, description in FORBIDDEN_PACKAGE_SOURCE_PATTERNS:
+        if pattern.search(source):
+            errors.append(f"{source_path.relative_to(ROOT).as_posix()} contains {description}")
+    return errors
+
+
+def validate_package_scaffolds() -> list[str]:
+    errors: list[str] = []
+    expected_files = set(APPROVED_PACKAGE_SCAFFOLD_FILES)
 
     packages_root = ROOT / "packages"
     if not packages_root.exists():
@@ -617,11 +749,38 @@ def validate_forbidden_paths() -> list[str]:
     for package_dir in packages_root.iterdir():
         if not package_dir.is_dir():
             continue
-        for path in package_dir.rglob("*"):
-            if path.is_file() and path.name != "README.md":
+        files = package_files(package_dir)
+        if package_dir.name not in M02_05_PACKAGE_DIRS:
+            if files != {"README.md"}:
+                unexpected = sorted(files - {"README.md"})
                 errors.append(
-                    f"packages placeholder contains non-README file: {path.relative_to(ROOT).as_posix()}"
+                    f"deferred package directory contains non-README files: "
+                    f"{package_dir.relative_to(ROOT).as_posix()} -> {', '.join(unexpected)}"
                 )
+            continue
+        if files != expected_files:
+            missing = sorted(expected_files - files)
+            extra = sorted(files - expected_files)
+            if missing:
+                errors.append(
+                    f"package scaffold missing files: {package_dir.relative_to(ROOT).as_posix()} -> "
+                    f"{', '.join(missing)}"
+                )
+            if extra:
+                errors.append(
+                    f"package scaffold contains unexpected files: {package_dir.relative_to(ROOT).as_posix()} -> "
+                    f"{', '.join(extra)}"
+                )
+        errors.extend(validate_package_manifest(package_dir.name))
+        errors.extend(validate_package_tsconfig(package_dir.name))
+        errors.extend(validate_package_sources(package_dir.name))
+    return errors
+
+
+def validate_forbidden_paths() -> list[str]:
+    errors: list[str] = []
+    errors.extend(validate_github_workflows())
+    errors.extend(validate_package_scaffolds())
     return errors
 
 

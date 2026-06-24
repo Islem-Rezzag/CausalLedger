@@ -10,7 +10,7 @@ M02 planning also aligns CausalLedger's product direction with the continuous pa
 
 The original M02 planning thread did not start M02.01 implementation and did not create product behavior.
 
-M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`). M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`). M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c` (`chore: create M02.03 web scaffold (#40)`). M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f` (`chore: create M02.04 worker scaffold (#41)`). The current slice is `M02 process amendment - tracking fixes, process diet, validator cleanup, and ADR-0008` on branch `m02-amendment-process-diet`.
+M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`). M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`). M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c` (`chore: create M02.03 web scaffold (#40)`). M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f` (`chore: create M02.04 worker scaffold (#41)`). The M02 process amendment PR #42 merged into `main` at commit `d5c27c4` (`docs: amend M02 process tracking and validation (#42)`). The current slice is `M02.05 Builder - Package Scaffolds, ESLint, and CI Baseline` on branch `m02-05-package-scaffolds-eslint-ci`.
 
 ## Progress
 
@@ -93,14 +93,22 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 - [x] 2026-06-24: Replaced brittle validator behavior with structural markdown parsing for the submilestone registry, M02 milestone table, roadmap table, `CURRENT_STATE.md` headings and labels, and `NEXT_RECOMMENDED_THREAD.md` labels.
 - [x] 2026-06-24: Added fixture-based parser and validation tests for invalid statuses, duplicate IDs, M02/registry mismatches, active-plan count errors, populated `.env.example` values, forbidden package files, and harmless prose changes.
 - [x] 2026-06-24: M02 process amendment QA passed, awaiting PR #42 merge; next thread is `Merge M02 process amendment PR`.
+- [x] 2026-06-24: Confirmed PR #42 merged into `main` at `d5c27c4` and created branch `m02-05-package-scaffolds-eslint-ci` from updated `main`.
+- [x] 2026-06-24: Read required active docs, status docs, M02 milestone docs, ADRs, ops workflow docs, root manifests, app scaffolds, package placeholders, validator, and bootstrap tests before editing.
+- [x] 2026-06-24: Created scaffold-only package boundaries for `packages/core`, `packages/events`, `packages/ledger`, `packages/invariants`, `packages/incidents`, `packages/graph`, `packages/replay`, `packages/repair`, `packages/evidence`, and `packages/evals`.
+- [x] 2026-06-24: Added a real flat ESLint baseline and converted app `lint` scripts to use ESLint instead of TypeScript no-emit as lint.
+- [x] 2026-06-24: Added baseline `.github/workflows/ci.yml` for install, typecheck, lint, test, build, format check, control-plane validation, and bootstrap pytest.
+- [x] 2026-06-24: Updated control-plane validation and bootstrap tests for M02.05 package allowlists, workflow allowlists, and forbidden product/domain package source patterns.
+- [x] 2026-06-24: Initial `pnpm typecheck` and `pnpm test` failed before package workspace links were installed; `pnpm install` fixed the local package links and reruns passed.
+- [x] 2026-06-24: M02.05 Builder complete, awaiting QA; M02.06 and M02.07 remain `Not started`; M03 through M21 remain `Not started`; product implementation has not started.
 
 ## Surprises & Discoveries
 
 - OrbitSoft feedback highlights missing professional engineering evidence: comprehensive error handling, structured logging, CI/CD pipeline, architecture and deployment documentation, authentication and authorization in API projects, and advanced data modeling. M02 planning must map these gaps to the right milestones without implementing them here.
-- Product domain implementation has not started. `apps/api` has a minimal non-domain scaffold, `apps/web` has a minimal non-domain scaffold, `apps/worker` has a minimal non-domain scaffold, and other future product directories still contain placeholder README files only.
+- Product domain implementation has not started. `apps/api` has a minimal non-domain scaffold, `apps/web` has a minimal non-domain scaffold, `apps/worker` has a minimal non-domain scaffold, M02.05 package directories contain scaffold-only TypeScript package boundaries, and deferred future product directories still contain placeholder README files only.
 - M02 process amendment QA found that the builder's structural-validation claim was incomplete: the validator still coupled project truth to today's M02 status map and exact current-state prose.
 - pnpm emitted a non-blocking warning that `esbuild@0.28.0` build scripts were ignored by the approve-builds policy. Package validation still passed.
-- `.github/workflows/` does not exist and must not be created in this planning thread.
+- `.github/workflows/ci.yml` now exists as the M02.05 baseline CI workflow. Any additional workflow remains out of scope until explicitly planned.
 
 ## Decision Log
 
@@ -130,14 +138,17 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 | 2026-06-11 | Shrink remaining M02 process overhead. | Accepted | Solo-builder process cost; ceremony scaled to risk; avoid 20 tiny scaffolding PRs before domain implementation. |
 | 2026-06-11 | Defer `apps/agent-runtime` to the M10 era. | Accepted | Agent runtime should not exist before deterministic evidence, MoneyEvent, invariant, incident, graph, replay, and repair boundaries exist. |
 | 2026-06-11 | Defer Redis until needed. | Accepted | No queue or scheduler should be added before the worker or orchestration design proves the need. |
+| 2026-06-24 | M02 process amendment PR #42 merged before M02.05. | Recorded | Merge commit `d5c27c4`; M02.05 started only after sync from updated `main`. |
+| 2026-06-24 | M02.05 creates package boundaries without product/domain behavior. | Accepted | Each M02.05 package contains only `package.json`, `tsconfig.json`, `src/index.ts`, `test/bootstrap.test.ts`, and `README.md`; exported values are scaffold metadata only. |
+| 2026-06-24 | M02.05 introduces real ESLint and baseline CI. | Accepted | ESLint is separate from typecheck; CI is validation-only and does not deploy, release, seed data, run migrations, or touch money state. |
 
 ## Context and Orientation
 
 M00 Repo Operating System is completed and tagged as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed. M01.01 through M01.13 are `Completed and merged`, and the completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M02 planning PR #37 has merged into `main` at commit `18148f7`. M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901`. M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da`. M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c`. M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f`.
+M02 planning PR #37 has merged into `main` at commit `18148f7`. M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901`. M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da`. M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c`. M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f`. The M02 process amendment PR #42 merged into `main` at commit `d5c27c4`.
 
-The current branch is `m02-amendment-process-diet`. The current slice is `M02 process amendment - tracking fixes, process diet, validator cleanup, and ADR-0008`.
+The current branch is `m02-05-package-scaffolds-eslint-ci`. The current slice is `M02.05 Builder - Package Scaffolds, ESLint, and CI Baseline`.
 
 Historical planning marker before M02.01 started: M02.01 through M02.20 remain `Not started`.
 
@@ -201,6 +212,18 @@ In scope for the M02 process amendment:
 - Add ADR-0008 for ID, money, and storage direction as documentation only.
 - Update active tracking, status docs, registry, roadmap, milestone docs, changelog, and index files as needed.
 - Run required validation and hand off to process-amendment QA.
+
+In scope for M02.05:
+
+- Finalize process-amendment merge tracking after PR #42 merged into `main`.
+- Create scaffold-only package boundaries for `packages/core`, `packages/events`, `packages/ledger`, `packages/invariants`, `packages/incidents`, `packages/graph`, `packages/replay`, `packages/repair`, `packages/evidence`, and `packages/evals`.
+- Keep each M02.05 package limited to `package.json`, `tsconfig.json`, `src/index.ts`, `test/bootstrap.test.ts`, and `README.md`.
+- Add flat ESLint configuration as real linting, separate from typecheck.
+- Convert app lint scripts to use ESLint.
+- Add `.github/workflows/ci.yml` with the baseline validation command set.
+- Update control-plane validation and bootstrap tests for package scaffold allowlists, workflow allowlists, and forbidden product/domain package source patterns.
+- Update active plan, status docs, registry, roadmap, M02 milestone docs, ADR-0006, changelog, index files, and handoff tracking.
+- Run required control-plane, package, format, and diff validation and hand off to M02.05 QA.
 
 Out of scope for this planning thread:
 
@@ -286,6 +309,10 @@ Out of scope for M02.04:
 - Docker Compose.
 - Product/domain behavior or product functionality claims.
 
+Out of scope for M02.05:
+
+- MoneyEvent schema, runtime schema validation, canonical event transforms, ledger entries, balances, invariant logic, incident lifecycle logic, causal graph traversal, replay algorithms, repair proposal logic, repair approval or application, evidence storage, benchmark scoring, context-pack generation, lessons store, knowledge wiki, product-agent memory, agent runtime, product UI, API routes, database, Docker Compose, Redis, queue, scheduler, external connectors, migrations, health checks, deployment, release, secrets, or money-moving behavior.
+
 ## M02 Submilestones and Expected Branches
 
 | ID | Name | Status | Expected branch |
@@ -294,7 +321,7 @@ Out of scope for M02.04:
 | M02.02 | Create apps/api | Completed and merged | `m02-02-create-apps-api` |
 | M02.03 | Create apps/web | Completed and merged | `m02-03-create-apps-web` |
 | M02.04 | Create apps/worker | Completed and merged | `m02-04-create-apps-worker` |
-| M02.05 | Create all remaining package scaffolds + ESLint + CI baseline | Not started | `m02-05-package-scaffolds-eslint-ci-baseline` |
+| M02.05 | Create all remaining package scaffolds + ESLint + CI baseline | Builder complete, awaiting QA | `m02-05-package-scaffolds-eslint-ci` |
 | M02.06 | Local infrastructure: Docker Compose + Postgres + migration tool + health-check stubs | Not started | `m02-06-local-infrastructure` |
 | M02.07 | QA dev environment | Not started | `m02-07-qa-dev-environment` |
 
@@ -315,16 +342,20 @@ M02.01 decided:
 - schema definition format for future MoneyEvent contracts: TypeScript types plus Zod or equivalent runtime schema validation later;
 - local developer experience direction: explicit scripts, empty `.env.example` values, deterministic validation commands, and no product claim before runtime code and tests exist.
 
+M02.05 implemented:
+
+- package scaffold boundaries for `packages/core`, `packages/events`, `packages/ledger`, `packages/invariants`, `packages/incidents`, `packages/graph`, `packages/replay`, `packages/repair`, `packages/evidence`, and `packages/evals`;
+- flat ESLint as the real lint baseline for TypeScript app and package scaffolds;
+- CI baseline command set in `.github/workflows/ci.yml`.
+
 Future M02 implementation submilestones still must decide concrete:
 
-- package boundaries for deterministic truth, evidence, replay, repair, and agent layers;
 - app boundaries for API, web, worker, and agent runtime;
 - Postgres local development pattern;
 - Redis local development pattern;
 - Docker Compose profile structure;
 - migration tooling;
 - health check expectations;
-- CI baseline command set;
 - local secrets pattern using empty `.env.example` values only.
 
 ## Continuous Lifecycle Observer Alignment
@@ -577,6 +608,21 @@ M02 process amendment acceptance criteria:
 - No product/domain behavior, CI workflow, ESLint implementation, package scaffold creation, database, Docker, Redis, queue, scheduler, route, or runtime is implemented by this amendment.
 - Required control-plane, package, and diff validation pass or skipped validation is recorded with a reason.
 - Next recommended thread is `Merge M02 process amendment PR`.
+
+M02.05 builder acceptance criteria:
+
+- M02 process amendment PR #42 is confirmed merged into `main` at commit `d5c27c4`.
+- M02.05 status is recorded as `Builder complete, awaiting QA`.
+- `packages/core`, `packages/events`, `packages/ledger`, `packages/invariants`, `packages/incidents`, `packages/graph`, `packages/replay`, `packages/repair`, `packages/evidence`, and `packages/evals` each contain only `package.json`, `tsconfig.json`, `src/index.ts`, `test/bootstrap.test.ts`, and `README.md`.
+- Package source and tests expose scaffold metadata only; they do not implement MoneyEvent schemas, ledger behavior, invariants, incident lifecycle, graph traversal, replay, repair, evidence storage, benchmarks, agents, product features, or financial behavior.
+- A flat `eslint.config.js` exists and app lint scripts use ESLint rather than TypeScript no-emit as lint.
+- `.github/workflows/ci.yml` exists and is validation-only.
+- Control-plane validation rejects unexpected workflow files, package files outside the allowlist, and forbidden package source patterns.
+- M02.06 and M02.07 remain `Not started`.
+- M03 through M21 remain `Not started`.
+- Product domain implementation has not started.
+- Required control-plane, package, format, and diff validation pass or skipped validation is recorded with a reason.
+- Next recommended thread is `M02.05 QA - Package Scaffolds, ESLint, and CI Baseline`.
 
 ## M02 Planning QA Record
 
@@ -1788,6 +1834,25 @@ The current process-amendment slice supersedes older "next thread" statements th
 - `pnpm format:check` passed across `@causalledger/api`, `@causalledger/web`, and `@causalledger/worker`.
 - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
 
+2026-06-24 M02.05 builder validation results:
+
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 40 tests.
+- `git diff --check` passed.
+- `node --version` returned `v22.16.0`.
+- `npm --version` returned `10.9.2`.
+- `pnpm --version` returned `10.32.1`.
+- `pnpm install` passed across all 14 workspace projects after adding package workspaces and updating `pnpm-lock.yaml`.
+- `pnpm typecheck` initially failed before package workspace links were installed, then passed after `pnpm install`.
+- `pnpm test` initially failed before package workspace links were installed, then passed after `pnpm install`.
+- `pnpm exec turbo lint --force` and `pnpm lint` passed with real ESLint.
+- `pnpm build` passed.
+- `pnpm format:check` passed.
+- `.github/workflows/ci.yml` parsed as YAML, and root config formatting passed through package-local Prettier.
+- `actionlint` was unavailable in the current Windows shell, so CI validation was limited to structural validator checks, YAML parsing, and formatting.
+- `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands were run.
+- `pnpm install` emitted the non-blocking `esbuild@0.28.0` ignored-build-scripts warning; validation still passed.
+
 ## Idempotence and Recovery
 
 If validation fails, do not widen scope. Fix only planning/control-plane defects introduced by this thread, rerun validation, and record results. If an unexpected dirty worktree appears, inspect it, preserve user changes, and report any conflict before proceeding.
@@ -1837,14 +1902,24 @@ Created M02.04 worker foundation artifacts:
 - `apps/worker/test/bootstrap.test.ts`
 - `apps/worker/README.md`
 
+Created M02.05 package, ESLint, CI, and validation artifacts:
+
+- `.github/workflows/ci.yml`
+- `eslint.config.js`
+- updated root `package.json` and `pnpm-lock.yaml`
+- updated `apps/api/package.json`, `apps/web/package.json`, and `apps/worker/package.json` lint scripts
+- updated `scripts/validate-control-plane.py`
+- updated `tests/test_control_plane_bootstrap.py`
+- package scaffold files under each M02.05 package: `package.json`, `tsconfig.json`, `src/index.ts`, `test/bootstrap.test.ts`, and `README.md`
+
 ## Interfaces and Dependencies
 
 Future M02 implementation dependencies:
 
-- app layout: `apps/api`, `apps/web`, `apps/worker`, `apps/agent-runtime`;
-- package layout: `packages/core`, `packages/events`, `packages/ledger`, `packages/invariants`, `packages/incidents`, `packages/graph`, `packages/replay`, `packages/repair`;
-- local services: Postgres, Redis, Docker Compose, migrations, health checks;
-- validation: local checks and CI baseline planning only.
+- app layout: `apps/api`, `apps/web`, and `apps/worker`; `apps/agent-runtime` remains deferred to the M10 era.
+- package layout: `packages/core`, `packages/events`, `packages/ledger`, `packages/invariants`, `packages/incidents`, `packages/graph`, `packages/replay`, `packages/repair`, `packages/evidence`, and `packages/evals`.
+- local services: Postgres, Docker Compose, migrations, and health checks remain for M02.06; Redis remains deferred until needed.
+- validation: local checks plus the M02.05 baseline CI workflow.
 
 Deterministic truth layers must stay separate from agent proposal layers. Evidence handling remains append-only by design. Repair proposal work must not become repair application work.
 
@@ -1873,8 +1948,8 @@ M02.03 builder work created a minimal non-domain `apps/web` React/Vite foundatio
 
 M02.04 builder work created a minimal non-domain `apps/worker` TypeScript foundation. M02.04 QA passed for PR #41 after a scoped README documentation fix, and PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f`. Product domain implementation has not started. M02.05 through M02.07 remain `Not started`; former M02.08 through M02.20 rows are deferred or absorbed; M03 through M21 remain `Not started`.
 
-M02 process amendment QA passed for PR #42 after replacing brittle live-status validation with structural registry, milestone, roadmap, current-state, and next-thread parsing. The amendment is `QA passed, awaiting PR merge`; it is not completed until PR #42 merges into `main` and post-merge tracking is finalized.
+M02 process amendment QA passed for PR #42 after replacing brittle live-status validation with structural registry, milestone, roadmap, current-state, and next-thread parsing. PR #42 merged into `main` at commit `d5c27c4`.
 
-Exact next recommended thread after this process-amendment QA is complete: `Merge M02 process amendment PR`.
+M02.05 builder work created scaffold-only package boundaries, introduced real flat ESLint, added baseline validation-only CI, and updated control-plane validation for those boundaries. M02.05 is `Builder complete, awaiting QA`. Product domain implementation has not started. M02.06 and M02.07 remain `Not started`; former M02.08 through M02.20 rows are deferred or absorbed; M03 through M21 remain `Not started`.
 
-Next builder after merge: `M02.05 Builder - Create all remaining package scaffolds + ESLint + CI baseline`.
+Exact next recommended thread after this M02.05 builder is complete: `M02.05 QA - Package Scaffolds, ESLint, and CI Baseline`.

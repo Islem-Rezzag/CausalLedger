@@ -151,19 +151,39 @@ def test_07_populated_env_example_secret_is_rejected(tmp_path, monkeypatch):
     ]
 
 
-def test_08_forbidden_product_file_in_placeholder_package_is_rejected(
+def test_08_forbidden_product_file_in_deferred_package_is_rejected(
     tmp_path, monkeypatch
 ):
-    product_file = tmp_path / "packages" / "events" / "src" / "index.ts"
+    product_file = tmp_path / "packages" / "connectors" / "src" / "index.ts"
     product_file.parent.mkdir(parents=True)
     product_file.write_text("export const product = true;\n", encoding="utf-8")
     monkeypatch.setattr(validator, "ROOT", tmp_path)
-    assert validator.validate_forbidden_paths() == [
-        "packages placeholder contains non-README file: packages/events/src/index.ts"
+    assert validator.validate_package_scaffolds() == [
+        "deferred package directory contains non-README files: packages/connectors -> src/index.ts"
     ]
 
 
-def test_09_exact_prose_changes_do_not_fail_current_state_structure():
+def test_09_unexpected_github_workflow_is_rejected(tmp_path, monkeypatch):
+    workflow_dir = tmp_path / ".github" / "workflows"
+    workflow_dir.mkdir(parents=True)
+    (workflow_dir / "deploy.yml").write_text("name: Deploy\n", encoding="utf-8")
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert validator.validate_github_workflows() == [
+        ".github/workflows may contain exactly ci.yml"
+    ]
+
+
+def test_10_money_event_schema_in_package_source_is_rejected(tmp_path, monkeypatch):
+    source = tmp_path / "packages" / "events" / "src" / "index.ts"
+    source.parent.mkdir(parents=True)
+    source.write_text("export type MoneyEvent = { id: string };\n", encoding="utf-8")
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert validator.validate_package_sources("events") == [
+        "packages/events/src/index.ts contains MoneyEvent schema"
+    ]
+
+
+def test_11_exact_prose_changes_do_not_fail_current_state_structure():
     current = """# Current State
 
 ## Current phase
@@ -187,7 +207,7 @@ The product remains not started.
     assert validator.validate_current_state_structure(current) == []
 
 
-def test_10_next_thread_uses_labels_not_exact_sentences():
+def test_12_next_thread_uses_labels_not_exact_sentences():
     next_thread = """# Next Recommended Thread
 
 Thread name:
@@ -202,7 +222,7 @@ M02.05 Builder - Create all remaining package scaffolds + ESLint + CI baseline
     assert validator.validate_next_thread_structure(next_thread) == []
 
 
-def test_11_roadmap_status_is_derived_from_registry_fixture():
+def test_13_roadmap_status_is_derived_from_registry_fixture():
     rows = validator.parse_registry_table(
         registry_table(
             [
@@ -224,7 +244,7 @@ def test_11_roadmap_status_is_derived_from_registry_fixture():
     assert validator.validate_roadmap_consistency(rows, roadmap) == []
 
 
-def test_12_roadmap_count_mismatch_is_rejected_from_fixture():
+def test_14_roadmap_count_mismatch_is_rejected_from_fixture():
     rows = validator.parse_registry_table(valid_registry_text())
     roadmap = roadmap_table(
         [["M02 Monorepo and local development", "Goal", "Focus", "Exit", "99", "In progress"]]
@@ -233,71 +253,75 @@ def test_12_roadmap_count_mismatch_is_rejected_from_fixture():
     assert "plans/ROADMAP.md M02 count is 99, registry has 1" in errors
 
 
-def test_13_required_files_exist():
+def test_15_required_files_exist():
     assert not validator.missing_paths(validator.REQUIRED_FILES, "file")
 
 
-def test_14_required_directories_exist():
+def test_16_required_directories_exist():
     assert not validator.missing_paths(validator.REQUIRED_DIRS, "dir")
 
 
-def test_15_exactly_one_active_plan_exists():
+def test_17_exactly_one_active_plan_exists():
     assert [path.name for path in validator.active_plan_files()] == [
         "CLP-0003-m02-monorepo-and-local-development-environment.md"
     ]
 
 
-def test_16_live_registry_table_parses():
+def test_18_live_registry_table_parses():
     assert len(validator.parse_registry()) > 300
 
 
-def test_17_live_registry_statuses_are_allowed():
+def test_19_live_registry_statuses_are_allowed():
     assert validator.validate_registry() == []
 
 
-def test_18_live_m02_doc_matches_registry_statuses():
+def test_20_live_m02_doc_matches_registry_statuses():
     rows = validator.parse_registry()
     assert validator.validate_m02_milestone_consistency(rows, text("docs/milestones/M02.md")) == []
 
 
-def test_19_live_roadmap_matches_registry_statuses_and_counts():
+def test_21_live_roadmap_matches_registry_statuses_and_counts():
     rows = validator.parse_registry()
     assert validator.validate_roadmap_consistency(rows, text("plans/ROADMAP.md")) == []
 
 
-def test_20_current_state_is_structural_and_short():
+def test_22_current_state_is_structural_and_short():
     current = text("docs/status/CURRENT_STATE.md")
     assert validator.validate_current_state_structure(current) == []
 
 
-def test_21_next_recommended_thread_is_structural():
+def test_23_next_recommended_thread_is_structural():
     next_thread = text("docs/status/NEXT_RECOMMENDED_THREAD.md")
     assert validator.validate_next_thread_structure(next_thread) == []
 
 
-def test_22_domain_model_does_not_hardcode_live_m02_status():
+def test_24_domain_model_does_not_hardcode_live_m02_status():
     domain_model = text("docs/DOMAIN_MODEL.md")
     assert "M02.01 through M02.20 remain `Not started`" not in domain_model
     assert "Live milestone progress" in domain_model
     assert "plans/ROADMAP.md" in domain_model
 
 
-def test_23_changelog_records_m02_01_through_m02_04():
+def test_25_changelog_records_m02_01_through_m02_05():
     changelog = text("CHANGELOG.md")
     assert "Completed M02.01 stack ADRs" in changelog
     assert "Completed M02.02 minimal non-domain `apps/api`" in changelog
     assert "Completed M02.03 minimal non-domain `apps/web`" in changelog
     assert "Completed M02.04 minimal non-domain `apps/worker`" in changelog
+    assert (
+        "M02.05 Builder complete, awaiting QA for package scaffolds, ESLint baseline, and CI baseline"
+        in changelog
+    )
 
 
-def test_24_gitignore_ignores_generated_report_binaries():
+def test_26_gitignore_ignores_generated_report_binaries():
     gitignore = text(".gitignore")
     assert "reports/*.pdf" in gitignore
     assert "reports/*.xlsx" in gitignore
     assert "reports/tmp/" in gitignore
 
 
-def test_25_env_example_has_no_populated_values():
+def test_27_env_example_has_no_populated_values():
     env_path = ROOT / ".env.example"
     if env_path.exists():
         for line in env_path.read_text(encoding="utf-8").splitlines():
@@ -305,45 +329,49 @@ def test_25_env_example_has_no_populated_values():
                 assert not line.split("=", 1)[1].strip()
 
 
-def test_26_github_workflows_do_not_exist_yet():
-    assert not (ROOT / ".github" / "workflows").exists()
+def test_28_github_workflows_contains_only_ci_yml():
+    workflow_dir = ROOT / ".github" / "workflows"
+    assert sorted(path.name for path in workflow_dir.iterdir() if path.is_file()) == ["ci.yml"]
 
 
-def test_27_packages_are_placeholder_only():
+def test_29_package_scaffolds_are_exactly_allowlisted():
+    expected_scaffold = set(validator.APPROVED_PACKAGE_SCAFFOLD_FILES)
     for package_dir in (ROOT / "packages").iterdir():
         if package_dir.is_dir():
-            assert [path.name for path in package_dir.rglob("*") if path.is_file()] == [
-                "README.md"
-            ]
+            files = validator.package_files(package_dir)
+            if package_dir.name in validator.M02_05_PACKAGE_DIRS:
+                assert files == expected_scaffold
+            else:
+                assert files == {"README.md"}
 
 
-def test_28_api_scaffold_has_no_domain_routes():
+def test_30_api_scaffold_has_no_domain_routes():
     api_source = text("apps/api/src/app.ts")
     assert ".get(" not in api_source
     assert ".post(" not in api_source
     assert ".route(" not in api_source
 
 
-def test_29_web_scaffold_has_no_product_ui():
+def test_31_web_scaffold_has_no_product_ui():
     web_source = text("apps/web/src/App.tsx")
     for term in ["MoneyEvent", "ledger", "incident", "evidence", "repair"]:
         assert term not in web_source
 
 
-def test_30_worker_scaffold_has_no_jobs_or_domain_behavior():
+def test_32_worker_scaffold_has_no_jobs_or_domain_behavior():
     worker_source = text("apps/worker/src/index.ts")
     assert "jobs: []" in worker_source
     for term in ["MoneyEvent", "ledger", "invariant", "incident", "evidence", "replay", "repair"]:
         assert term.lower() not in worker_source.lower()
 
 
-def test_31_adr_0008_exists_and_is_accepted():
+def test_33_adr_0008_exists_and_is_accepted():
     adr = text("docs/decisions/ADR-0008-identity-money-and-storage.md")
     assert "# ADR-0008: Identity, Money, and Storage Direction" in adr
     assert "Accepted." in adr
 
 
-def test_32_adr_0008_records_id_direction():
+def test_34_adr_0008_records_id_direction():
     adr = text("docs/decisions/ADR-0008-identity-money-and-storage.md")
     for prefix in [
         "`rcpt_`",
@@ -361,32 +389,34 @@ def test_32_adr_0008_records_id_direction():
     assert "`correlation_id` is propagated to worker jobs" in adr
 
 
-def test_33_adr_0008_records_money_direction():
+def test_35_adr_0008_records_money_direction():
     adr = text("docs/decisions/ADR-0008-identity-money-and-storage.md")
     assert "Money is stored as integer minor units" in adr
     assert "Currencies use ISO 4217 currency codes" in adr
     assert "Floats are forbidden for money" in adr
 
 
-def test_34_adr_0008_records_storage_direction():
+def test_36_adr_0008_records_storage_direction():
     adr = text("docs/decisions/ADR-0008-identity-money-and-storage.md")
     assert "Postgres is the planned system of record" in adr
     assert "Raw evidence bytes are stored write-once, keyed by SHA-256 content hash" in adr
     assert "Evidence receipts store hash and locator, not raw payload bodies" in adr
 
 
-def test_35_adr_0008_is_indexed():
+def test_37_adr_0008_is_indexed():
     for rel in ["docs/ACTIVE_DOCS.md", "docs/INDEX.md"]:
         assert "docs/decisions/ADR-0008-identity-money-and-storage.md" in text(rel)
 
 
-def test_36_workspace_manifests_remain_minimal():
+def test_38_workspace_manifests_include_eslint_baseline():
     assert "packages/*" in text("pnpm-workspace.yaml")
     assert "turbo" in text("package.json")
+    assert "eslint" in text("package.json")
+    assert "typescript-eslint" in text("package.json")
     assert "strict" in text("tsconfig.base.json")
 
 
-def test_37_no_product_implementation_claims_in_live_status():
+def test_39_no_product_implementation_claims_in_live_status():
     for rel in ["README.md", "docs/status/CURRENT_STATE.md", "docs/status/NEXT_RECOMMENDED_THREAD.md"]:
         content = text(rel).lower()
         assert (
@@ -395,5 +425,5 @@ def test_37_no_product_implementation_claims_in_live_status():
         )
 
 
-def test_38_validator_main_checks_pass():
+def test_40_validator_main_checks_pass():
     assert validator.validate() == []

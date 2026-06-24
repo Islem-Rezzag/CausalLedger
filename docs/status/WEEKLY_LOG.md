@@ -2,6 +2,21 @@
 
 ## 2026-06-24
 
+- Confirmed M02 process amendment PR #42 merged into `main` at `d5c27c4` (`docs: amend M02 process tracking and validation (#42)`).
+- Created M02.05 builder branch `m02-05-package-scaffolds-eslint-ci` from updated `main`.
+- Created scaffold-only package boundaries for `packages/core`, `packages/events`, `packages/ledger`, `packages/invariants`, `packages/incidents`, `packages/graph`, `packages/replay`, `packages/repair`, `packages/evidence`, and `packages/evals`.
+- Added real flat ESLint configuration for app and package TypeScript files and converted app `lint` scripts from TypeScript no-emit checks to ESLint.
+- Added baseline `.github/workflows/ci.yml` for install, typecheck, lint, test, build, format check, control-plane validation, and bootstrap pytest.
+- Updated control-plane validation and bootstrap tests so `.github/workflows` may contain exactly `ci.yml`, M02.05 package scaffolds may contain only approved scaffold files, deferred packages remain README-only, and package source files reject domain/product implementation patterns.
+- Confirmed no MoneyEvent schema, ledger logic, invariant logic, incident lifecycle, graph traversal, replay algorithm, repair approval/application, evidence storage, benchmark implementation, product UI, database, Docker, Redis, queue, scheduler, external connector, or agent runtime was added.
+- Initial `pnpm typecheck` and `pnpm test` failed before `pnpm install` refreshed package workspace links; `pnpm install` fixed the workspace links and reruns passed.
+- Ran M02.05 builder validation successfully: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 40 tests, `git diff --check`, `node --version` (`v22.16.0`), `npm --version` (`10.9.2`), `pnpm --version` (`10.32.1`), `pnpm install`, `pnpm typecheck`, forced ESLint via `pnpm exec turbo lint --force`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check`.
+- Parsed `.github/workflows/ci.yml` as YAML and checked root config formatting through package-local Prettier; `actionlint` was unavailable in this Windows shell.
+- `pnpm install` emitted the non-blocking `esbuild@0.28.0` ignored-build-scripts warning; package validation still passed.
+- Skipped `make bootstrap-check` because `make` is unavailable in the current Windows shell; equivalent direct Python validation commands were run.
+- M02.05 Builder complete, awaiting QA. M02.06 and M02.07 remain `Not started`; M03 through M21 remain `Not started`; product implementation has not started.
+- Recommended next thread: `M02.05 QA - Package Scaffolds, ESLint, and CI Baseline`.
+
 - Completed formal QA for PR #42 on branch `m02-amendment-process-diet`.
 - Verified PR #42 is open, non-draft, targets `main`, and uses head branch `m02-amendment-process-diet`.
 - Found the known validator defect: `scripts/validate-control-plane.py` still used a hardcoded `EXPECTED_M02_STATUSES` mapping and exact current-status prose checks, while `tests/test_control_plane_bootstrap.py` asserted today's M02.01-M02.07 status values directly.

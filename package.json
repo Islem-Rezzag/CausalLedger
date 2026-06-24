@@ -2,6 +2,7 @@
   "name": "causalledger",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "description": "CausalLedger monorepo workspace.",
   "packageManager": "pnpm@10.32.1",
   "scripts": {
@@ -13,6 +14,10 @@
     "typecheck": "turbo typecheck"
   },
   "devDependencies": {
-    "turbo": "^2.9.16"
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.5.0",
+    "globals": "^17.7.0",
+    "turbo": "^2.9.16",
+    "typescript-eslint": "^8.62.0"
   }
 }

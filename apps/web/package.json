@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "test": "vitest run --exclude \"dist/**\"",
-    "lint": "tsc -p tsconfig.json --noEmit --pretty false && tsc -p tsconfig.node.json --noEmit --pretty false",
+    "lint": "eslint . --max-warnings=0",
     "format:check": "prettier --check \"index.html\" \"src/**/*.tsx\" \"README.md\" \"package.json\" \"tsconfig*.json\" \"vite.config.ts\"",
     "typecheck": "tsc -p tsconfig.json --noEmit --pretty false && tsc -p tsconfig.node.json --noEmit --pretty false"
   },
