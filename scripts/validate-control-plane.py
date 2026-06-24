@@ -57,8 +57,8 @@ REQUIRED_INFRA_SCRIPTS = {
     "infra:up": "docker compose up -d postgres",
     "infra:down": "docker compose down",
     "infra:reset": "docker compose down -v",
-    "migrate:up": "node-pg-migrate up --migrations-dir infra/migrations --database-url-var DATABASE_URL",
-    "migrate:down": "node-pg-migrate down --migrations-dir infra/migrations --database-url-var DATABASE_URL",
+    "migrate:up": "node-pg-migrate up --migrations-dir infra/migrations --ignore-pattern README.md --database-url-var DATABASE_URL",
+    "migrate:down": "node-pg-migrate down --migrations-dir infra/migrations --ignore-pattern README.md --database-url-var DATABASE_URL",
 }
 
 REQUIRED_FILES = [

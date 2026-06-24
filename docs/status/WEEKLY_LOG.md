@@ -8,6 +8,7 @@
 - Changed `/infra/ready` to return `status: "process-ready"`, `database: "not-checked"`, and `migrations: "not-checked"`; updated API tests and documentation consistently.
 - Removed the fixed Postgres `container_name` so Docker Compose can namespace containers per checkout.
 - Added a GitHub Actions `infra-smoke` job that validates Compose config, starts Postgres, waits for health, runs `pnpm migrate:up`, inspects the public schema, rejects product/domain tables, and always runs `docker compose down -v`.
+- Initial remote `infra-smoke` failed in `Run empty migration boundary` because the README-only migration directory let `node-pg-migrate` treat `README.md` as a migration candidate; the root migration scripts now explicitly ignore `README.md`.
 - Updated control-plane validation and bootstrap tests for the infra-smoke job, fixed-container rejection, and truthful readiness stub semantics.
 - Ran M02.06 QA validation successfully: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 57 tests, `git diff --check`, Node/npm/pnpm version checks, `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check`.
 - Local Docker validation remained unavailable because `docker` is not recognized in this Windows shell; remote GitHub Actions `infra-smoke` passed on the latest QA commit and provided real Postgres/migration/schema evidence.

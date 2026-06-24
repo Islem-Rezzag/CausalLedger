@@ -13,4 +13,6 @@ pnpm migrate:down
 
 The migration commands require `DATABASE_URL`; they must fail rather than silently target an implicit database when the variable is absent.
 
+The root migration scripts explicitly ignore this `README.md` file. Until product schema work starts, the directory contains documentation only and no runnable migration files.
+
 At this stage the migration tool may create its own metadata table when executed. That metadata does not represent CausalLedger product storage behavior.

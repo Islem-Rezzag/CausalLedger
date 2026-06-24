@@ -120,6 +120,7 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 - [x] 2026-06-24: Verified PR #44 targets `main`, uses head branch `m02-06-local-infra-postgres-migrations-health`, is open and unmerged, and contains builder commit `b3c9c43`.
 - [x] 2026-06-24: M02.06 QA found three scoped defects: `/infra/ready` returned ambiguous `status: "ready"` without checking Postgres, `docker-compose.yml` used a fixed `container_name`, and CI lacked real Docker/Postgres/migration smoke validation while local Docker was unavailable.
 - [x] 2026-06-24: M02.06 QA changed `/infra/ready` to process-only readiness with `database: "not-checked"` and `migrations: "not-checked"`, removed the fixed Compose container name, and added a remote `infra-smoke` CI job.
+- [x] 2026-06-24: Initial remote `infra-smoke` failed in the migration step because `node-pg-migrate` treated `README.md` as a migration candidate; QA fixed the migration scripts to ignore `README.md`.
 - [x] 2026-06-24: M02.06 QA validation passed locally and remotely; M02.06 is `QA passed, awaiting merge`, M02.07 remains `Not started`, M03 through M21 remain `Not started`, and product implementation has not started.
 
 ## Surprises & Discoveries
@@ -137,6 +138,7 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 - M02.06 QA confirmed the builder's generic readiness word was too broad. `/infra/ready` now reports `process-ready` and explicitly says database and migrations are not checked.
 - A fixed Docker Compose `container_name` is unnecessary for this local baseline and can collide across multiple checkouts; Compose namespacing is the safer default.
 - Because Docker is unavailable in the local Windows shell, M02.06 QA added remote infrastructure smoke validation to obtain real Postgres and migration evidence.
+- `node-pg-migrate` needs explicit ignore handling for documentation-only migration directories; the root migration scripts now ignore `README.md` until real migration files exist.
 
 ## Decision Log
 
@@ -1950,6 +1952,7 @@ The current process-amendment slice supersedes older "next thread" statements th
 - Initial remote CI for builder commit `b3c9c43` passed the standard `validate` job but had no infrastructure smoke job.
 - Local Docker validation was unavailable because `docker --version`, `docker compose version`, and `docker compose config` failed with `docker` not recognized in this Windows shell.
 - Scoped QA fixes added a remote `infra-smoke` CI job, removed the fixed Compose `container_name`, and changed `/infra/ready` to explicit process-only readiness.
+- First post-push `infra-smoke` failed in `Run empty migration boundary`; the migration scripts were corrected to ignore `README.md` in the documentation-only migration directory.
 - `python scripts/validate-control-plane.py` passed.
 - `python -m pytest tests/test_control_plane_bootstrap.py` passed with 57 tests.
 - `pnpm --filter @causalledger/api test` passed with 1 Vitest test.
