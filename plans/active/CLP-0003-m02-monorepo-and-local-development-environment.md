@@ -10,7 +10,7 @@ M02 planning also aligns CausalLedger's product direction with the continuous pa
 
 The original M02 planning thread did not start M02.01 implementation and did not create product behavior.
 
-M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`). M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`). M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c` (`chore: create M02.03 web scaffold (#40)`). M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f` (`chore: create M02.04 worker scaffold (#41)`). The M02 process amendment PR #42 merged into `main` at commit `d5c27c4` (`docs: amend M02 process tracking and validation (#42)`). M02.05 is `Completed and merged` after PR #43 merged into `main` at commit `6e76045` (`chore: create M02.05 package ESLint and CI baseline (#43)`). M02.06 is `Completed and merged` after PR #44 merged into `main` at commit `80ce206` (`chore: create M02.06 local infra baseline (#44)`). The current slice is `M02.07 Builder - QA Development Environment` on branch `m02-07-qa-development-environment`.
+M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`). M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`). M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c` (`chore: create M02.03 web scaffold (#40)`). M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f` (`chore: create M02.04 worker scaffold (#41)`). The M02 process amendment PR #42 merged into `main` at commit `d5c27c4` (`docs: amend M02 process tracking and validation (#42)`). M02.05 is `Completed and merged` after PR #43 merged into `main` at commit `6e76045` (`chore: create M02.05 package ESLint and CI baseline (#43)`). M02.06 is `Completed and merged` after PR #44 merged into `main` at commit `80ce206` (`chore: create M02.06 local infra baseline (#44)`). The current slice is `M02.07 QA - QA Development Environment` on branch `m02-07-qa-development-environment`.
 
 ## Progress
 
@@ -130,6 +130,12 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 - [x] 2026-06-24: Created `scripts/qa-dev-environment.py`, root `pnpm qa:dev`, and `docs/ops/qa-development-environment.md`.
 - [x] 2026-06-24: Updated control-plane validation and bootstrap tests for the QA development environment script, root command, status labels, Docker opt-in, cleanup path, and documentation boundary.
 - [x] 2026-06-24: M02.07 Builder complete, awaiting QA; M03 through M21 remain `Not started`; product implementation has not started.
+- [x] 2026-06-24: M02.07 QA branch guard passed on `m02-07-qa-development-environment`; starting worktree was clean, local HEAD matched origin, and builder commit `e231cec` was confirmed.
+- [x] 2026-06-24: Verified PR #45 targets `main`, uses head branch `m02-07-qa-development-environment`, is open and unmerged, and contains builder commit `e231cec`.
+- [x] 2026-06-24: M02.07 QA found four scoped defects: dirty worktree was reported as PASS, repository-local identity used global-fallback lookup, Docker mode inherited conflicting shell database values, and Docker flow control could continue after failed Compose or migration steps.
+- [x] 2026-06-24: M02.07 QA added default dirty-worktree failure with explicit `--allow-dirty`, enforced `git config --local`, isolated QA Docker database/user/password/host/port and `DATABASE_URL`, tightened Docker flow control and diagnostics, added Linux CI proof for `pnpm qa:dev`, and added behavioral QA-orchestrator tests.
+- [x] 2026-06-24: M02.07 QA uses existing remote `infra-smoke` as the real Docker/Postgres/migration proof and adds behavioral tests proving the QA script delegates equivalent isolated Docker actions; local Docker remains unavailable in this Windows shell.
+- [x] 2026-06-24: M02.07 QA passed; M02.07 is `QA passed, awaiting merge`; M03 through M21 remain `Not started`; product implementation has not started.
 
 ## Surprises & Discoveries
 
@@ -191,6 +197,9 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 | 2026-06-24 | M02.06 Compose should not use a fixed container name. | Accepted | `container_name` was removed so Compose can namespace containers per checkout. |
 | 2026-06-24 | M02.06 PR #44 merged before M02.07. | Recorded | Merge commit `80ce206`; M02.07 started only after sync from updated `main`. |
 | 2026-06-24 | M02.07 uses a Python QA orchestrator with explicit Docker opt-in. | Accepted | `pnpm qa:dev` runs the non-destructive standard checks by default; `--with-docker` runs stateful Compose/Postgres/migration smoke and cleanup. |
+| 2026-06-24 | M02.07 final QA requires a clean worktree by default. | Accepted | Dirty worktrees fail unless `--allow-dirty` is explicitly provided for intermediate validation; allowed dirty mode is reported as `SKIPPED`, not clean. |
+| 2026-06-24 | M02.07 repository identity must be repository-local. | Accepted | The QA script reads `git config --local --get` for name and email, rejects missing local values, and rejects the forbidden institutional domain. |
+| 2026-06-24 | M02.07 Docker proof uses existing `infra-smoke` plus behavioral script tests. | Accepted | This avoids duplicating the full QA command under `--with-docker` in CI while preserving real Docker/Postgres/migration evidence from `infra-smoke` and proving the script isolates Docker env values. |
 
 ## Context and Orientation
 
@@ -198,7 +207,7 @@ M00 Repo Operating System is completed and tagged as `v0.1.0`. M01 Domain Model 
 
 M02 planning PR #37 has merged into `main` at commit `18148f7`. M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901`. M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da`. M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c`. M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f`. The M02 process amendment PR #42 merged into `main` at commit `d5c27c4`. M02.05 PR #43 merged into `main` at commit `6e76045`.
 
-The current branch is `m02-07-qa-development-environment`. The current slice is `M02.07 Builder - QA Development Environment`.
+The current branch is `m02-07-qa-development-environment`. The current slice is `M02.07 QA - QA Development Environment`.
 
 Historical planning marker before M02.01 started: M02.01 through M02.20 remain `Not started`.
 
@@ -375,7 +384,7 @@ Out of scope for M02.05:
 | M02.04 | Create apps/worker | Completed and merged | `m02-04-create-apps-worker` |
 | M02.05 | Create all remaining package scaffolds + ESLint + CI baseline | Completed and merged | `m02-05-package-scaffolds-eslint-ci` |
 | M02.06 | Local infrastructure: Docker Compose + Postgres + migration tool + health-check stubs | Completed and merged | `m02-06-local-infra-postgres-migrations-health` |
-| M02.07 | QA dev environment | Builder complete, awaiting QA | `m02-07-qa-development-environment` |
+| M02.07 | QA dev environment | QA passed, awaiting merge | `m02-07-qa-development-environment` |
 
 Former M02.08 through M02.20 rows are deferred or absorbed in `docs/milestones/SUBMILESTONE_REGISTRY.md`. `apps/agent-runtime` creation is deferred to the M10 era. Redis is deferred until needed.
 
@@ -417,6 +426,15 @@ M02.07 implemented:
 - root `pnpm qa:dev`;
 - `docs/ops/qa-development-environment.md`;
 - structural validator and bootstrap-test coverage for the QA environment.
+
+M02.07 QA corrected:
+
+- dirty-worktree default failure and explicit `--allow-dirty` for intermediate validation;
+- repository-local Git identity enforcement;
+- deterministic Docker QA database environment isolation;
+- Docker flow control after Compose, start, health, and migration failures;
+- Linux CI proof for the standard QA command;
+- behavioral tests for the QA orchestrator.
 
 M02 now has concrete local-development foundations for API, web, worker, package scaffolds, linting, CI, Postgres, migrations, process readiness, and QA validation. `apps/agent-runtime` remains deferred to the M10 era. Redis remains deferred until a queue or scheduler design proves the need.
 
@@ -690,17 +708,18 @@ M02.07 builder acceptance criteria:
 
 - M02.06 PR #44 is confirmed merged into `main` at commit `80ce206`.
 - M02.06 status is recorded as `Completed and merged`.
-- M02.07 status is recorded as `Builder complete, awaiting QA`.
+- M02.07 status is recorded as `QA passed, awaiting merge`.
 - A repeatable QA development environment script exists at `scripts/qa-dev-environment.py`.
 - Root `pnpm qa:dev` runs the default non-destructive QA environment command.
 - Docker Compose/Postgres/migration smoke validation requires explicit `--with-docker` opt-in and includes cleanup.
 - `docs/ops/qa-development-environment.md` documents prerequisites, setup, default validation, Docker validation, what each check proves, what it does not prove, common failures, CI relation, and the no-product boundary.
 - Control-plane validation and bootstrap tests cover the QA environment artifacts structurally.
+- QA behavioral tests cover clean, dirty, `--allow-dirty`, repository-local identity, Docker environment isolation, Docker default skip, Docker opt-in flow control, cleanup, missing commands, and timeouts.
 - No MoneyEvent schemas or transformations, ledger primitives, financial invariants, incidents, evidence ingestion or storage, causal graph behavior, replay, repair behavior, agent runtime, product UI, domain API routes, auth/authz, product database schema, Redis, queues, schedulers, connectors, deployment, real secrets, or product/domain behavior exists.
 - M03 through M21 remain `Not started`.
 - Product domain implementation has not started.
 - Required control-plane, package, QA command, Docker availability check, and diff validation pass or skipped validation is recorded with a reason.
-- Next recommended thread is `M02.07 QA - QA Development Environment`.
+- Next recommended thread is `Merge M02.07 PR - QA Development Environment`.
 
 ## M02 Planning QA Record
 
@@ -2023,6 +2042,33 @@ The current process-amendment slice supersedes older "next thread" statements th
 - `make bootstrap-check` was skipped because `Get-Command make -ErrorAction SilentlyContinue` found no `make` command in the current Windows shell. Equivalent direct Python validation commands passed.
 - `pnpm install --frozen-lockfile` emitted the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning; validation still passed.
 
+2026-06-24 M02.07 QA validation results:
+
+- `git branch --show-current` returned `m02-07-qa-development-environment`.
+- `git status --short` was clean before QA edits.
+- `git remote -v` showed `origin` as `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- `git stash list --max-count=5` returned no stashes.
+- `git log --oneline -10` showed builder commit `e231cec`.
+- `git rev-parse HEAD` matched `origin/m02-07-qa-development-environment` before QA edits.
+- GitHub API verified PR #45 is open, draft, unmerged, targets `main`, uses head branch `m02-07-qa-development-environment`, and contains builder commit `e231cec`.
+- Scoped QA fixes corrected dirty-worktree failure semantics, repository-local identity lookup, deterministic Docker env isolation, Docker flow control, standard `pnpm qa:dev` CI proof, and behavioral tests.
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 76 tests.
+- `git diff --check` passed.
+- `node --version` returned `v22.16.0`.
+- `npm --version` returned `10.9.2`.
+- `pnpm --version` returned `10.32.1`.
+- `pnpm install --frozen-lockfile` passed across all 14 workspace projects and emitted the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
+- `pnpm typecheck` passed across all 13 workspaces.
+- `pnpm lint` passed across all 13 workspaces.
+- `pnpm test` passed across all 13 workspaces.
+- `pnpm build` passed across all 13 workspaces.
+- `pnpm format:check` passed across all 13 workspaces.
+- `pnpm qa:dev -- --allow-dirty` passed during uncommitted QA work with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`; the clean-worktree requirement was skipped only because `--allow-dirty` was explicit, and Docker validation was skipped in default mode by design.
+- After committing the scoped QA fixes and confirming a clean worktree, final `pnpm qa:dev` passed with 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`; Docker validation was skipped in default mode by design.
+- Local Docker validation did not run because `docker --version` and `docker compose version` both failed with `docker` not recognized in the current Windows shell. The accepted equivalent proof is the existing remote `infra-smoke` Docker/Postgres/migration job plus behavioral tests proving the QA script constructs isolated Docker actions.
+- `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Equivalent direct Python validation commands passed.
+
 ## Idempotence and Recovery
 
 If validation fails, do not widen scope. Fix only planning/control-plane defects introduced by this thread, rerun validation, and record results. If an unexpected dirty worktree appears, inspect it, preserve user changes, and report any conflict before proceeding.
@@ -2150,6 +2196,6 @@ M02.05 builder work created scaffold-only package boundaries, introduced real fl
 
 M02.06 builder work created local-only Docker Compose/Postgres, `node-pg-migrate` root commands, empty env placeholders, migration boundary documentation, and `/infra/ready` as an infrastructure readiness stub. M02.06 QA corrected the readiness stub to process-only semantics, removed the fixed Compose container name, and added remote infrastructure smoke validation. M02.06 is `Completed and merged` after PR #44 merged into `main` at commit `80ce206`.
 
-M02.07 builder work created a repeatable QA development environment with `scripts/qa-dev-environment.py`, root `pnpm qa:dev`, explicit Docker opt-in, documentation, validator coverage, and bootstrap tests. Product domain implementation has not started. M02.07 is `Builder complete, awaiting QA`; former M02.08 through M02.20 rows are deferred or absorbed; M03 through M21 remain `Not started`.
+M02.07 builder work created a repeatable QA development environment with `scripts/qa-dev-environment.py`, root `pnpm qa:dev`, explicit Docker opt-in, documentation, validator coverage, and bootstrap tests. M02.07 QA corrected truthful dirty-worktree behavior, repository-local identity enforcement, Docker environment isolation, Docker flow control, Linux QA-command proof, and behavioral tests. Product domain implementation has not started. M02.07 is `QA passed, awaiting merge`; former M02.08 through M02.20 rows are deferred or absorbed; M03 through M21 remain `Not started`.
 
-Exact next recommended thread after this M02.07 builder is complete: `M02.07 QA - QA Development Environment`.
+Exact next recommended thread after this M02.07 QA is complete: `Merge M02.07 PR - QA Development Environment`.

@@ -19,6 +19,7 @@ All notable CausalLedger release changes are recorded here.
 - Completed and merged M02.05 package scaffolds, ESLint baseline, CI baseline, test typecheck coverage, and explicit Python CI dependencies after PR #43 merged at `6e76045`.
 - Completed and merged M02.06 local-only Docker Compose/Postgres, migration tooling, env placeholders, infrastructure readiness stubs, and remote infrastructure smoke validation after PR #44 merged at `80ce206`.
 - M02.07 Builder created a repeatable QA development environment with `pnpm qa:dev`, `scripts/qa-dev-environment.py`, explicit Docker opt-in, documentation, validator coverage, and bootstrap tests.
+- M02.07 QA corrected truthful dirty-worktree, repository-local identity, deterministic Docker environment, flow-control, CI proof, and behavioral-test coverage; M02.07 is `QA passed, awaiting merge`.
 - Product functionality remains not implemented.
 
 ## v0.1.0 - Repo Operating System Foundation

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -17,9 +18,21 @@ assert spec.loader is not None
 sys.modules[spec.name] = validator
 spec.loader.exec_module(validator)
 
+QA_PATH = ROOT / "scripts" / "qa-dev-environment.py"
+qa_spec = importlib.util.spec_from_file_location("qa_dev_environment", QA_PATH)
+assert qa_spec is not None
+qa_dev = importlib.util.module_from_spec(qa_spec)
+assert qa_spec.loader is not None
+sys.modules[qa_spec.name] = qa_dev
+qa_spec.loader.exec_module(qa_dev)
+
 
 def text(rel: str) -> str:
     return (ROOT / rel).read_text(encoding="utf-8")
+
+
+def completed(args: list[str], stdout: str = "", returncode: int = 0) -> subprocess.CompletedProcess[str]:
+    return subprocess.CompletedProcess(args, returncode, stdout=stdout, stderr="")
 
 
 def registry_table(rows: list[list[str]]) -> str:
@@ -321,6 +334,7 @@ def test_25_changelog_records_m02_01_through_m02_05():
         "M02.07 Builder created a repeatable QA development environment"
         in changelog
     )
+    assert "M02.07 QA corrected truthful dirty-worktree" in changelog
 
 
 def test_26_gitignore_ignores_generated_report_binaries():
@@ -772,3 +786,238 @@ def test_61_qa_dev_environment_guide_records_scope_and_boundaries():
 
 def test_62_validator_accepts_qa_dev_environment_artifacts():
     assert validator.validate_qa_development_environment() == []
+
+
+def git_capture_for(status: str, *, name: str = "Mohamed Islem Rezzag Baara", email: str = "Islem-Rezzag@users.noreply.github.com"):
+    responses = {
+        ("git", "branch", "--show-current"): completed(
+            ["git", "branch", "--show-current"], "m02-07-qa-development-environment\n"
+        ),
+        ("git", "status", "--short"): completed(["git", "status", "--short"], status),
+        ("git", "remote", "-v"): completed(
+            ["git", "remote", "-v"],
+            "origin\thttps://github.com/Islem-Rezzag/CausalLedger.git (fetch)\n",
+        ),
+        ("git", "config", "--local", "--get", "user.name"): completed(
+            ["git", "config", "--local", "--get", "user.name"], f"{name}\n"
+        ),
+        ("git", "config", "--local", "--get", "user.email"): completed(
+            ["git", "config", "--local", "--get", "user.email"], f"{email}\n"
+        ),
+    }
+
+    def fake_run_capture(args: list[str], **_kwargs):
+        return responses[tuple(args)]
+
+    return fake_run_capture
+
+
+def result_by_name(reporter: object, name: str):
+    for result in reporter.results:
+        if result.name == name:
+            return result
+    raise AssertionError(f"missing result: {name}")
+
+
+def test_63_reporter_failure_controls_exit_behavior():
+    reporter = qa_dev.Reporter()
+    assert reporter.pass_("ok", "detail") is True
+    assert reporter.skip("skip", "detail") is True
+    assert reporter.failed() is False
+    assert reporter.fail("bad", "detail") is False
+    assert reporter.failed() is True
+
+
+def test_64_qa_git_state_clean_worktree_passes(monkeypatch):
+    monkeypatch.setattr(qa_dev, "run_capture", git_capture_for(""))
+    reporter = qa_dev.Reporter()
+    qa_dev.check_git_state(reporter, allow_dirty=False)
+    assert result_by_name(reporter, "Git clean worktree requirement").status == "PASS"
+    assert result_by_name(reporter, "Repository-local Git identity").status == "PASS"
+    assert reporter.failed() is False
+
+
+def test_65_qa_git_state_dirty_worktree_fails_by_default(monkeypatch):
+    monkeypatch.setattr(qa_dev, "run_capture", git_capture_for(" M scripts/qa-dev-environment.py\n"))
+    reporter = qa_dev.Reporter()
+    qa_dev.check_git_state(reporter, allow_dirty=False)
+    assert result_by_name(reporter, "Git clean worktree requirement").status == "FAIL"
+    assert reporter.failed() is True
+
+
+def test_66_qa_git_state_dirty_worktree_can_be_explicitly_allowed(monkeypatch):
+    monkeypatch.setattr(qa_dev, "run_capture", git_capture_for(" M scripts/qa-dev-environment.py\n"))
+    reporter = qa_dev.Reporter()
+    qa_dev.check_git_state(reporter, allow_dirty=True)
+    result = result_by_name(reporter, "Git clean worktree requirement")
+    assert result.status == "SKIPPED"
+    assert "--allow-dirty" in result.detail
+    assert reporter.failed() is False
+
+
+def test_67_repository_local_identity_missing_is_rejected(monkeypatch):
+    responses = {
+        ("git", "branch", "--show-current"): completed(["git", "branch", "--show-current"], "branch\n"),
+        ("git", "status", "--short"): completed(["git", "status", "--short"], ""),
+        ("git", "remote", "-v"): completed(["git", "remote", "-v"], "origin\turl (fetch)\n"),
+        ("git", "config", "--local", "--get", "user.name"): completed(
+            ["git", "config", "--local", "--get", "user.name"], "", 1
+        ),
+        ("git", "config", "--local", "--get", "user.email"): completed(
+            ["git", "config", "--local", "--get", "user.email"], "", 1
+        ),
+    }
+    monkeypatch.setattr(qa_dev, "run_capture", lambda args, **_kwargs: responses[tuple(args)])
+    reporter = qa_dev.Reporter()
+    qa_dev.check_git_state(reporter, allow_dirty=False)
+    assert result_by_name(reporter, "Repository-local Git identity").status == "FAIL"
+
+
+def test_68_repository_local_identity_rejects_forbidden_domain(monkeypatch):
+    monkeypatch.setattr(
+        qa_dev,
+        "run_capture",
+        git_capture_for("", email="person@qmul.ac.uk"),
+    )
+    reporter = qa_dev.Reporter()
+    qa_dev.check_git_state(reporter, allow_dirty=False)
+    result = result_by_name(reporter, "Repository-local Git identity")
+    assert result.status == "FAIL"
+    assert "forbidden institutional email domain" in result.detail
+
+
+def test_69_global_only_identity_is_not_accepted_as_local(monkeypatch):
+    calls: list[tuple[str, ...]] = []
+
+    def fake_run_capture(args: list[str], **_kwargs):
+        calls.append(tuple(args))
+        if args == ["git", "branch", "--show-current"]:
+            return completed(args, "branch\n")
+        if args == ["git", "status", "--short"]:
+            return completed(args, "")
+        if args == ["git", "remote", "-v"]:
+            return completed(args, "origin\turl (fetch)\n")
+        return completed(args, "", 1)
+
+    monkeypatch.setattr(qa_dev, "run_capture", fake_run_capture)
+    reporter = qa_dev.Reporter()
+    qa_dev.check_git_state(reporter, allow_dirty=False)
+    assert ("git", "config", "--local", "--get", "user.name") in calls
+    assert ("git", "config", "--get", "user.name") not in calls
+    assert result_by_name(reporter, "Repository-local Git identity").status == "FAIL"
+
+
+def test_70_run_check_reports_missing_command(monkeypatch):
+    monkeypatch.setattr(
+        qa_dev,
+        "resolve_command",
+        lambda _args: (None, "required command not found: pnpm"),
+    )
+    reporter = qa_dev.Reporter()
+    assert qa_dev.run_check(reporter, "Missing pnpm", ["pnpm", "--version"]) is False
+    result = result_by_name(reporter, "Missing pnpm")
+    assert result.status == "FAIL"
+    assert "required command not found: pnpm" in result.detail
+
+
+def test_71_run_check_reports_timeout(monkeypatch):
+    monkeypatch.setattr(qa_dev, "resolve_command", lambda args: (args, None))
+
+    def fake_run(*_args, **_kwargs):
+        raise subprocess.TimeoutExpired(cmd=["pnpm", "test"], timeout=1)
+
+    monkeypatch.setattr(qa_dev.subprocess, "run", fake_run)
+    reporter = qa_dev.Reporter()
+    assert qa_dev.run_check(reporter, "Timed command", ["pnpm", "test"], timeout_seconds=1) is False
+    result = result_by_name(reporter, "Timed command")
+    assert result.status == "FAIL"
+    assert "timed out after 1 seconds" in result.detail
+
+
+def test_72_docker_default_mode_is_skipped():
+    reporter = qa_dev.Reporter()
+    qa_dev.check_docker_environment(reporter, with_docker=False)
+    result = result_by_name(reporter, "Docker validation")
+    assert result.status == "SKIPPED"
+    assert "--with-docker" in result.detail
+
+
+def test_73_docker_environment_overrides_shell_values(monkeypatch):
+    monkeypatch.setenv("CAUSALLEDGER_POSTGRES_DB", "wrong_db")
+    monkeypatch.setenv("CAUSALLEDGER_POSTGRES_USER", "wrong_user")
+    monkeypatch.setenv("CAUSALLEDGER_POSTGRES_PASSWORD", "wrong_password")
+    monkeypatch.setenv("CAUSALLEDGER_POSTGRES_HOST", "0.0.0.0")
+    monkeypatch.setenv("DATABASE_URL", "postgres://wrong:wrong@host/wrong")
+    monkeypatch.setattr(qa_dev, "find_local_port", lambda: 15432)
+    observed_envs: dict[str, dict[str, str]] = {}
+
+    def fake_run_check(_reporter, name, _args, *, env=None, **_kwargs):
+        observed_envs[name] = dict(env or {})
+        return True
+
+    monkeypatch.setattr(qa_dev, "run_check", fake_run_check)
+    monkeypatch.setattr(qa_dev, "wait_for_postgres_health", lambda *_args, **_kwargs: True)
+    monkeypatch.setattr(qa_dev, "inspect_schema", lambda *_args, **_kwargs: True)
+    reporter = qa_dev.Reporter()
+    qa_dev.check_docker_environment(reporter, with_docker=True)
+
+    compose_env = observed_envs["Docker Compose configuration"]
+    assert compose_env["CAUSALLEDGER_POSTGRES_DB"] == "causalledger_qa"
+    assert compose_env["CAUSALLEDGER_POSTGRES_USER"] == "causalledger_qa"
+    assert compose_env["CAUSALLEDGER_POSTGRES_PASSWORD"] == "causalledger_qa_local_password"
+    assert compose_env["CAUSALLEDGER_POSTGRES_HOST"] == "127.0.0.1"
+    migration_env = observed_envs["Migration smoke"]
+    assert "wrong" not in migration_env["DATABASE_URL"]
+    assert "causalledger_qa" in migration_env["DATABASE_URL"]
+    assert "15432" in migration_env["DATABASE_URL"]
+
+
+def test_74_docker_flow_stops_after_compose_config_failure(monkeypatch):
+    monkeypatch.setattr(qa_dev, "find_local_port", lambda: 15432)
+    called: list[str] = []
+
+    def fake_run_check(_reporter, name, _args, **_kwargs):
+        called.append(name)
+        return name != "Docker Compose configuration"
+
+    monkeypatch.setattr(qa_dev, "run_check", fake_run_check)
+    reporter = qa_dev.Reporter()
+    qa_dev.check_docker_environment(reporter, with_docker=True)
+    assert "Docker Compose configuration" in called
+    assert "Postgres start" not in called
+    assert "Docker cleanup" not in called
+
+
+def test_75_docker_cleanup_runs_after_start_failure(monkeypatch):
+    monkeypatch.setattr(qa_dev, "find_local_port", lambda: 15432)
+    called: list[str] = []
+
+    def fake_run_check(_reporter, name, _args, **_kwargs):
+        called.append(name)
+        return name != "Postgres start"
+
+    monkeypatch.setattr(qa_dev, "run_check", fake_run_check)
+    reporter = qa_dev.Reporter()
+    qa_dev.check_docker_environment(reporter, with_docker=True)
+    assert "Postgres start" in called
+    assert "Migration smoke" not in called
+    assert "Docker cleanup" in called
+
+
+def test_76_docker_schema_inspection_waits_for_successful_migration(monkeypatch):
+    monkeypatch.setattr(qa_dev, "find_local_port", lambda: 15432)
+    called: list[str] = []
+    inspected = {"value": False}
+
+    def fake_run_check(_reporter, name, _args, **_kwargs):
+        called.append(name)
+        return name != "Migration smoke"
+
+    monkeypatch.setattr(qa_dev, "run_check", fake_run_check)
+    monkeypatch.setattr(qa_dev, "wait_for_postgres_health", lambda *_args, **_kwargs: True)
+    monkeypatch.setattr(qa_dev, "inspect_schema", lambda *_args, **_kwargs: inspected.update(value=True))
+    reporter = qa_dev.Reporter()
+    qa_dev.check_docker_environment(reporter, with_docker=True)
+    assert "Migration smoke" in called
+    assert inspected["value"] is False
+    assert "Docker cleanup" in called

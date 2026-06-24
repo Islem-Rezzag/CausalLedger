@@ -2,6 +2,24 @@
 
 ## 2026-06-24
 
+- Completed formal QA for PR #45 on branch `m02-07-qa-development-environment`.
+- Verified PR #45 is open, draft, targets `main`, uses head branch `m02-07-qa-development-environment`, and contains builder commit `e231cec`.
+- Found four scoped QA defects: dirty worktrees were reported as `PASS`, repository-local identity used global-fallback `git config --get`, Docker mode inherited possible shell-level database overrides, and Docker flow control could attempt later steps after Compose or migration failures.
+- Changed `scripts/qa-dev-environment.py` so default mode fails dirty worktrees, `--allow-dirty` reports the clean-worktree requirement as `SKIPPED`, identity uses `git config --local --get`, forbidden institutional domains fail, Docker mode sets its own QA database/user/password/host/port and `DATABASE_URL`, diagnostic Docker output avoids misleading PASS records, and schema inspection waits for successful migration.
+- Added Linux CI proof for `pnpm qa:dev` after configuring repository-local test identity in `.github/workflows/ci.yml`.
+- Kept the existing `infra-smoke` job as the real Docker/Postgres/migration proof and added behavioral tests that prove the QA script constructs and delegates isolated Docker actions. This is the smaller maintainable option versus duplicating the full standard QA command under `--with-docker` in CI.
+- Expanded bootstrap tests from 62 to 76 tests with behavioral coverage for reporter failure behavior, clean and dirty worktrees, explicit `--allow-dirty`, local identity, forbidden institutional email, global-only identity rejection, missing command failures, timeouts, Docker default skip, Docker explicit opt-in, Docker env isolation, cleanup after start failure, Compose failure flow control, and migration/schema flow control.
+- Updated `docs/ops/qa-development-environment.md`, control-plane validation, active plan, status docs, roadmap, registry, M02 milestone doc, and entry docs for M02.07 QA status and behavior.
+- Confirmed no MoneyEvent schema, ledger logic, invariant logic, incident lifecycle, evidence ingestion or storage, causal graph behavior, replay, repair behavior, agent runtime, product UI, domain API route, auth/authz, product database schema, Redis, queues, schedulers, connectors, deployment, real secrets, or product/domain behavior was added.
+- Local M02.07 QA validation passed: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 76 tests, `git diff --check`, Node/npm/pnpm version checks, `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, `pnpm format:check`, and `pnpm qa:dev -- --allow-dirty`.
+- `pnpm qa:dev -- --allow-dirty` reported 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`; the clean-worktree requirement was skipped only because QA work was uncommitted, and Docker validation was skipped in default mode by design.
+- After committing the scoped QA fixes and confirming a clean worktree, final `pnpm qa:dev` passed with 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`; Docker validation was skipped in default mode by design.
+- Local Docker validation was skipped because `docker --version` and `docker compose version` failed with `docker` not recognized in the current Windows shell. Existing remote `infra-smoke` plus behavioral Docker-delegation tests are the accepted equivalent proof until post-push checks complete.
+- `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell; equivalent direct Python validation commands passed.
+- M02.07 QA passed locally and awaits post-push remote validation. M03 through M21 remain `Not started`; product implementation has not started.
+- Recommended next thread after merge readiness: `Merge M02.07 PR - QA Development Environment`.
+- Next after merge: `M02 Closeout - Monorepo and Local Development Environment`.
+
 - Confirmed PR #44 merged into `main` at commit `80ce206` (`chore: create M02.06 local infra baseline (#44)`) before starting M02.07.
 - Created branch `m02-07-qa-development-environment` from updated `main`; branch guard passed and the starting worktree was clean.
 - Finalized M02.06 as `Completed and merged` in durable tracking.

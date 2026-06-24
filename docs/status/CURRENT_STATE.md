@@ -8,11 +8,11 @@ M02 Monorepo and Local Development Environment is in progress under active plan 
 
 ## Current submilestone and branch
 
-Current slice: `M02.07 Builder - QA Development Environment`.
+Current slice: `M02.07 QA - QA Development Environment`.
 
 Current branch: `m02-07-qa-development-environment`.
 
-M02.01 through M02.06 are `Completed and merged`. M02.07 is `Builder complete, awaiting QA`.
+M02.01 through M02.06 are `Completed and merged`. M02.07 is `QA passed, awaiting merge`.
 
 ## What exists
 
@@ -21,7 +21,7 @@ M02.01 through M02.06 are `Completed and merged`. M02.07 is `Builder complete, a
 - Scaffold-only package boundaries for the ten M02.05 packages, with source and test TypeScript configs.
 - Flat ESLint, baseline CI, and explicit Python dev dependencies for control-plane tests.
 - Local-only Docker Compose/Postgres, empty local env placeholders, `node-pg-migrate` commands, an empty migration boundary, remote infrastructure smoke validation, and `/infra/ready` process readiness stub.
-- M02.07 QA development environment command `pnpm qa:dev`, explicit Docker opt-in through `scripts/qa-dev-environment.py --with-docker`, and `docs/ops/qa-development-environment.md`.
+- M02.07 QA development environment command `pnpm qa:dev`, explicit Docker opt-in through `scripts/qa-dev-environment.py --with-docker`, dirty-worktree enforcement with `--allow-dirty` only for intermediate checks, repository-local Git identity enforcement, deterministic Docker env isolation, and behavioral QA tests.
 
 ## What does not exist
 
@@ -31,20 +31,20 @@ M02.01 through M02.06 are `Completed and merged`. M02.07 is `Builder complete, a
 
 ## Next action
 
-Run `M02.07 QA - QA Development Environment` on branch `m02-07-qa-development-environment`.
+Human merges M02.07 PR #45 after normal review and required remote checks are green.
 
-Do not start M02 closeout until M02.07 QA passes, the M02.07 PR merges into `main`, and post-merge tracking is finalized.
+Do not start M02 closeout until M02.07 PR #45 merges into `main` and post-merge tracking is finalized.
 
 ## Latest validation
 
-- 2026-06-24 M02.07 Builder: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 62 tests, `git diff --check`, Node/npm/pnpm version checks, `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, `pnpm format:check`, and `pnpm qa:dev` passed. `pnpm qa:dev` reported 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`; Docker validation was skipped in default mode by design. Local Docker and `make bootstrap-check` are unavailable in this Windows shell.
+- 2026-06-24 M02.07 QA: branch guard, PR #45 inspection, builder commit `e231cec`, local identity configuration, required file inspection, control-plane validation, 76 bootstrap tests, diff check, Node/npm/pnpm version checks, frozen install, typecheck, lint, tests, build, format check, `pnpm qa:dev -- --allow-dirty`, and final clean-worktree `pnpm qa:dev` passed locally. Final `pnpm qa:dev` reported 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`. QA corrected dirty-worktree failure semantics, repository-local identity lookup, deterministic Docker environment isolation, Docker flow control, standard `pnpm qa:dev` CI proof, and behavioral tests. Local Docker and `make bootstrap-check` are unavailable in this Windows shell; remote `infra-smoke` plus behavioral Docker tests are the accepted Docker proof pending post-push checks.
 - 2026-06-24 M02.06 QA: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 57 tests, `git diff --check`, Node/npm/pnpm version checks, `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check` passed. Remote GitHub Actions `infra-smoke` passed before PR #44 merged.
 
 ## Terminology note
 
 - `/infra/ready` is a process readiness stub with database and migrations explicitly not checked; it is not product health behavior.
 - `pnpm qa:dev` validates the M02 development foundation. It is not product/domain QA.
-- Python tests are control-plane/doc-coherence tests, not CausalLedger product/domain tests.
+- Python tests are control-plane/doc-coherence and QA-orchestrator behavior tests, not CausalLedger product/domain tests.
 
 ## Product implementation status
 

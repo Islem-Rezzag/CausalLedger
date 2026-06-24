@@ -35,6 +35,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Configure repository-local Git identity
+        run: |
+          git config user.name "Mohamed Islem Rezzag Baara"
+          git config user.email "Islem-Rezzag@users.noreply.github.com"
+
+      - name: Run QA development environment
+        run: pnpm qa:dev
+
       - name: Typecheck
         run: pnpm typecheck
 

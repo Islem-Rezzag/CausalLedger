@@ -13,6 +13,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 FORBIDDEN_EMAIL_DOMAIN = "qmul" + ".ac.uk"
+QA_POSTGRES_DB = "causalledger_qa"
+QA_POSTGRES_USER = "causalledger_qa"
+QA_POSTGRES_PASSWORD = "causalledger_qa_local_password"
+QA_POSTGRES_HOST = "127.0.0.1"
 
 FORBIDDEN_PRODUCT_TABLES = {
     "money_events",
@@ -73,6 +77,10 @@ class Reporter:
 
 def display_command(args: list[str]) -> str:
     return " ".join(args)
+
+
+def redact(text: str) -> str:
+    return text.replace(QA_POSTGRES_PASSWORD, "<redacted>")
 
 
 def resolve_command(args: list[str]) -> tuple[list[str] | None, str | None]:
@@ -144,7 +152,7 @@ def run_check(
             f"timed out after {timeout_seconds} seconds: {display_command(args)}",
         )
 
-    output = completed.stdout.strip()
+    output = redact(completed.stdout.strip())
     if completed.returncode == 0:
         detail = output.splitlines()[0] if output else display_command(args)
         return reporter.pass_(name, detail)
@@ -156,7 +164,23 @@ def run_check(
     )
 
 
-def check_git_state(reporter: Reporter) -> None:
+def run_diagnostic(
+    name: str,
+    args: list[str],
+    *,
+    env: dict[str, str] | None = None,
+) -> None:
+    completed = run_capture(args, env=env)
+    if completed is None:
+        print(f"[diagnostic] {name}: command unavailable")
+        return
+    output = redact(completed.stdout.strip())
+    print(f"[diagnostic] {name}: exit {completed.returncode}")
+    if output:
+        print(output)
+
+
+def check_git_state(reporter: Reporter, *, allow_dirty: bool) -> None:
     branch = run_capture(["git", "branch", "--show-current"])
     if branch is None or branch.returncode != 0:
         reporter.fail("Git branch", "could not read current branch")
@@ -169,13 +193,19 @@ def check_git_state(reporter: Reporter) -> None:
     else:
         status_text = status.stdout.strip()
         if status_text:
-            reporter.pass_(
-                "Git worktree state",
-                "dirty; scoped changes should be reviewed before commit",
-            )
+            if allow_dirty:
+                reporter.skip(
+                    "Git clean worktree requirement",
+                    "dirty worktree allowed by --allow-dirty; final QA requires a clean worktree",
+                )
+            else:
+                reporter.fail(
+                    "Git clean worktree requirement",
+                    "dirty worktree; rerun with --allow-dirty only for intermediate validation",
+                )
             print(status_text)
         else:
-            reporter.pass_("Git worktree state", "clean")
+            reporter.pass_("Git clean worktree requirement", "clean")
 
     remote = run_capture(["git", "remote", "-v"])
     if remote is None or remote.returncode != 0:
@@ -186,8 +216,8 @@ def check_git_state(reporter: Reporter) -> None:
         first_line = remote.stdout.strip().splitlines()[0]
         reporter.pass_("Git remote", first_line)
 
-    user_name = run_capture(["git", "config", "--get", "user.name"])
-    user_email = run_capture(["git", "config", "--get", "user.email"])
+    user_name = run_capture(["git", "config", "--local", "--get", "user.name"])
+    user_email = run_capture(["git", "config", "--local", "--get", "user.email"])
     if (
         user_name is None
         or user_email is None
@@ -199,7 +229,7 @@ def check_git_state(reporter: Reporter) -> None:
 
     name = user_name.stdout.strip()
     email = user_email.stdout.strip()
-    if FORBIDDEN_EMAIL_DOMAIN in email.lower():
+    if FORBIDDEN_EMAIL_DOMAIN in f"{name}\n{email}".lower():
         reporter.fail(
             "Repository-local Git identity",
             "forbidden institutional email domain configured",
@@ -207,7 +237,7 @@ def check_git_state(reporter: Reporter) -> None:
     elif not name or not email:
         reporter.fail("Repository-local Git identity", "user.name or user.email is empty")
     else:
-        reporter.pass_("Repository-local Git identity", f"{name} <{email}>")
+        reporter.pass_("Repository-local Git identity", f"local {name} <{email}>")
 
 
 def check_tool_versions(reporter: Reporter) -> None:
@@ -264,11 +294,11 @@ def wait_for_postgres_health(
             if status == "healthy":
                 return reporter.pass_("Postgres health", "postgres container is healthy")
             if status == "unhealthy":
-                run_check(reporter, "Postgres logs", docker_compose_args(project, "logs", "postgres"), env=env)
+                run_diagnostic("Postgres logs", docker_compose_args(project, "logs", "postgres"), env=env)
                 return reporter.fail("Postgres health", "postgres container became unhealthy")
         time.sleep(2)
-    run_check(reporter, "Postgres compose status", docker_compose_args(project, "ps"), env=env)
-    run_check(reporter, "Postgres logs", docker_compose_args(project, "logs", "postgres"), env=env)
+    run_diagnostic("Postgres compose status", docker_compose_args(project, "ps"), env=env)
+    run_diagnostic("Postgres logs", docker_compose_args(project, "logs", "postgres"), env=env)
     return reporter.fail("Postgres health", "timed out waiting for healthy status")
 
 
@@ -281,9 +311,9 @@ def inspect_schema(reporter: Reporter, project: str, env: dict[str, str]) -> boo
             "postgres",
             "psql",
             "-U",
-            "causalledger",
+            env["CAUSALLEDGER_POSTGRES_USER"],
             "-d",
-            "causalledger_dev",
+            env["CAUSALLEDGER_POSTGRES_DB"],
             "-Atc",
             "select tablename from pg_tables where schemaname = 'public' order by tablename;",
         ),
@@ -325,39 +355,49 @@ def check_docker_environment(reporter: Reporter, *, with_docker: bool) -> None:
     project = f"causalledger-qa-{os.getpid()}"
     port = find_local_port()
     docker_env = {
+        "CAUSALLEDGER_POSTGRES_DB": QA_POSTGRES_DB,
+        "CAUSALLEDGER_POSTGRES_USER": QA_POSTGRES_USER,
+        "CAUSALLEDGER_POSTGRES_PASSWORD": QA_POSTGRES_PASSWORD,
+        "CAUSALLEDGER_POSTGRES_HOST": QA_POSTGRES_HOST,
         "CAUSALLEDGER_POSTGRES_PORT": str(port),
     }
     migration_env = {
         **docker_env,
         "DATABASE_URL": (
-            "postgres://causalledger:causalledger_local_password"
-            f"@127.0.0.1:{port}/causalledger_dev"
+            f"postgres://{QA_POSTGRES_USER}:{QA_POSTGRES_PASSWORD}"
+            f"@{QA_POSTGRES_HOST}:{port}/{QA_POSTGRES_DB}"
         ),
     }
 
+    cleanup_required = False
     try:
-        run_check(
+        compose_configured = run_check(
             reporter,
             "Docker Compose configuration",
             docker_compose_args(project, "config"),
             env=docker_env,
         )
+        if not compose_configured:
+            return
         started = run_check(
             reporter,
             "Postgres start",
             docker_compose_args(project, "up", "-d", "postgres"),
             env=docker_env,
         )
+        cleanup_required = True
         if started and wait_for_postgres_health(reporter, project, docker_env):
-            run_check(reporter, "Migration smoke", ["pnpm", "migrate:up"], env=migration_env)
-            inspect_schema(reporter, project, docker_env)
+            migrated = run_check(reporter, "Migration smoke", ["pnpm", "migrate:up"], env=migration_env)
+            if migrated:
+                inspect_schema(reporter, project, docker_env)
     finally:
-        run_check(
-            reporter,
-            "Docker cleanup",
-            docker_compose_args(project, "down", "-v"),
-            env=docker_env,
-        )
+        if cleanup_required:
+            run_check(
+                reporter,
+                "Docker cleanup",
+                docker_compose_args(project, "down", "-v"),
+                env=docker_env,
+            )
 
 
 def parse_args() -> argparse.Namespace:
@@ -369,6 +409,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Run explicit Docker Compose/Postgres/migration smoke validation.",
     )
+    parser.add_argument(
+        "--allow-dirty",
+        action="store_true",
+        help="Allow dirty-worktree intermediate validation; final QA must omit this flag.",
+    )
     return parser.parse_args()
 
 
@@ -379,9 +424,10 @@ def main() -> int:
     print("CausalLedger QA development environment")
     print(f"Repository: {ROOT}")
     print(f"Docker mode: {'enabled' if args.with_docker else 'disabled'}\n")
+    print(f"Dirty worktree override: {'enabled' if args.allow_dirty else 'disabled'}\n")
 
     check_tool_versions(reporter)
-    check_git_state(reporter)
+    check_git_state(reporter, allow_dirty=args.allow_dirty)
     check_standard_environment(reporter)
     check_docker_environment(reporter, with_docker=args.with_docker)
     reporter.summary()
