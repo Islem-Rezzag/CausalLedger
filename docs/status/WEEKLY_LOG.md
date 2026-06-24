@@ -1,7 +1,36 @@
 # Weekly Log
 
+## 2026-06-24
+
+- Completed formal QA for PR #42 on branch `m02-amendment-process-diet`.
+- Verified PR #42 is open, non-draft, targets `main`, and uses head branch `m02-amendment-process-diet`.
+- Found the known validator defect: `scripts/validate-control-plane.py` still used a hardcoded `EXPECTED_M02_STATUSES` mapping and exact current-status prose checks, while `tests/test_control_plane_bootstrap.py` asserted today's M02.01-M02.07 status values directly.
+- Replaced the brittle validator behavior with structural markdown parsing for the registry, M02 milestone table, roadmap table, `CURRENT_STATE.md` sections and labeled fields, and `NEXT_RECOMMENDED_THREAD.md` labels.
+- Added fixture-based tests for valid registry parsing, invalid status values, duplicate IDs, registry/M02 mismatch, missing active plan, multiple active plans, populated `.env.example` values, forbidden package files, and current-status prose changes that should not fail structural validation.
+- Confirmed M02.04 remains `Completed and merged`; M02.05 through M02.07 remain `Not started`; former M02.08 through M02.20 remain deferred or absorbed; M03 through M21 remain `Not started`.
+- Confirmed no product/domain behavior, CI workflow, ESLint implementation, package scaffold, database, Docker, Redis, queue, scheduler, API route, or product runtime was added.
+- Ran M02 process amendment QA validation successfully: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 38 tests, `git diff --check`, `node --version` (`v22.16.0`), `npm --version` (`10.9.2`), `pnpm --version` (`10.32.1`), `pnpm install`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check`.
+- `pnpm install` emitted the non-blocking `esbuild@0.28.0` ignored-build-scripts warning; package validation still passed.
+- Skipped `make bootstrap-check` because `make` is unavailable in the current Windows shell; equivalent direct Python validation commands were run.
+- M02 process amendment QA passed, awaiting PR #42 merge.
+- Recommended next thread: `Merge M02 process amendment PR`.
+- Next after merge: `M02.05 Builder - Create all remaining package scaffolds + ESLint + CI baseline`.
+
 ## 2026-06-11
 
+- Synced `main` and confirmed PR #41 merged at `f52396558e127e33e02c6e992d8a5f91cfe4dc0f` (`chore: create M02.04 worker scaffold (#41)`).
+- Created process-amendment branch `m02-amendment-process-diet` from updated `main`.
+- Started `M02 process amendment - tracking fixes, process diet, validator cleanup, and ADR-0008`.
+- Finalized M02.04 as `Completed and merged`; M02.04 created a minimal non-domain `apps/worker` scaffold and did not create product/domain behavior.
+- Archived older detailed current-state history out of `docs/status/CURRENT_STATE.md` by keeping the live file short and relying on this chronological log plus the active plan for detailed history. Historical `WEEKLY_LOG.md` entries below this point were preserved without rewriting.
+- Process-amendment scope: stale tracking fixes, M02 process diet, repo hygiene ignores for generated report artifacts, validator structural cleanup, ADR-0008, and next-thread tracking only.
+- Repo hygiene check found no tracked `dist/`, `node_modules/`, or binary artifact paths from the prompt's tracked-file query.
+- Rewrote control-plane validation and bootstrap tests around structural checks: required files/directories, exactly one active plan, parsed registry statuses, M02 status consistency, empty `.env.example` values, no `.github/workflows`, placeholder-only packages, non-domain app scaffolds, and ADR-0008 coverage.
+- Added ADR-0008 for prefixed ULIDs, integer minor-unit money, ISO 4217 currencies, planned Postgres system of record, SHA-256 keyed write-once raw evidence bytes, evidence receipt locator/hash boundaries, and future append-only permission direction.
+- Ran process-amendment validation successfully: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 32 tests, `git diff --check`, `node --version` (`v22.16.0`), `npm --version` (`10.9.2`), `pnpm --version` (`10.32.1`), `pnpm install`, `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm lint`, and `pnpm format:check`.
+- Skipped `make bootstrap-check` for the process amendment because `make` is unavailable in the current Windows shell; equivalent direct Python validation commands were run.
+- Process-amendment `pnpm install` did not emit the `esbuild@0.28.0` approve-builds warning.
+- Recommended next thread: `M02 process amendment QA - tracking fixes, process diet, validator cleanup, and ADR-0008`.
 - Recovered M02.04 QA by stashing unrelated local report/status edits with `git stash push -u -m "wip: local reports and status edits before M02.04 QA"`; stash `stash@{0}` was preserved and not popped, dropped, deleted, or committed.
 - Synced and guarded branch `m02-04-create-apps-worker`; local `HEAD` matched `origin/m02-04-create-apps-worker` at builder commit `9b9df8d`; `git log --oneline main..HEAD` showed one builder commit before QA edits.
 - Verified PR #41 at `https://github.com/Islem-Rezzag/CausalLedger/pull/41` through the GitHub PR page because `gh` is unavailable in the current Windows shell.

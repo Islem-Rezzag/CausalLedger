@@ -48,14 +48,12 @@ These commands are direction only until the relevant manifests are created by la
 
 ## Deferred Work
 
-- `apps/api`, `apps/web`, `apps/worker`, and `apps/agent-runtime` manifests are deferred to M02.02 through M02.05.
-- Shared package manifests are deferred to M02.06 through M02.13.
-- Postgres local development is deferred to M02.14.
-- Redis local development is deferred to M02.15.
-- Docker Compose is deferred to M02.16.
-- Migrations are deferred to M02.17.
-- Health checks are deferred to M02.18.
-- CI baseline and any GitHub Actions workflow are deferred to M02.19.
+- `apps/api`, `apps/web`, and `apps/worker` manifests were created in M02.02 through M02.04 as minimal non-domain scaffolds.
+- `apps/agent-runtime` is deferred to the M10 era.
+- Shared package manifests are deferred to redefined M02.05.
+- ESLint baseline and any GitHub Actions workflow are deferred to redefined M02.05.
+- Postgres local development, Docker Compose, migrations, and health-check stubs are deferred to redefined M02.06.
+- Redis local development is deferred until a queue or scheduler design proves the need.
 
 ## Next Step
 

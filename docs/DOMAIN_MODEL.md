@@ -194,7 +194,9 @@ The ablation strategy is planning only. M14 MoneyFlowBench will eventually test 
 
 ## Remaining M01 work
 
-No M01 submilestones remain. M02 planning is in progress with active plan `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`, but M02.01 through M02.20 remain `Not started`.
+No M01 submilestones remain.
+
+Live milestone progress is tracked in `plans/ROADMAP.md` and `docs/milestones/SUBMILESTONE_REGISTRY.md`. `DOMAIN_MODEL.md` must not hardcode live submilestone state.
 
 M01.12 has merged, duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation, and M01.13 QA plus M01 closeout synchronized the domain docs and tracking without starting product implementation.
 

@@ -32,6 +32,8 @@ temp/
 *.tmp
 artifacts/tmp/
 reports/tmp/
+reports/*.pdf
+reports/*.xlsx
 
 *.sqlite
 *.sqlite3
