@@ -672,7 +672,7 @@ def validate_docs() -> list[str]:
         "Completed M02.03 minimal non-domain `apps/web`",
         "Completed M02.04 minimal non-domain `apps/worker`",
         "Completed and merged M02.05 package scaffolds, ESLint baseline, CI baseline, test typecheck coverage, and explicit Python CI dependencies",
-        "M02.06 Builder complete, awaiting QA for local-only Docker Compose/Postgres, migration tooling, env placeholders, and infrastructure readiness stubs",
+        "M02.06 QA passed, awaiting merge for local-only Docker Compose/Postgres, migration tooling, env placeholders, infrastructure readiness stubs, and remote infrastructure smoke validation",
         "ADR-0008 identity, money, and storage direction",
     ]:
         if phrase not in changelog:
@@ -747,6 +747,19 @@ def validate_github_workflows() -> list[str]:
     workflow = read_text(".github/workflows/ci.yml") if (workflow_dir / "ci.yml").exists() else None
     if workflow is not None and "python -m pip install -r requirements-dev.txt" not in workflow:
         errors.append(".github/workflows/ci.yml must install Python dev dependencies")
+    if workflow is not None:
+        for phrase in [
+            "infra-smoke:",
+            "docker compose config",
+            "docker compose up -d postgres",
+            "DATABASE_URL: postgres://causalledger:causalledger_local_password@127.0.0.1:5432/causalledger_dev",
+            "pnpm migrate:up",
+            "docker compose exec -T postgres psql",
+            "docker compose down -v",
+            "if: always()",
+        ]:
+            if phrase not in workflow:
+                errors.append(f".github/workflows/ci.yml missing infra-smoke coverage: {phrase}")
     return errors
 
 
@@ -865,6 +878,8 @@ def validate_compose_postgres() -> list[str]:
         errors.append("docker-compose.yml must use an explicit local-only placeholder password")
     if "pg_isready" not in compose:
         errors.append("docker-compose.yml must include a Postgres healthcheck")
+    if re.search(r"(?m)^\s*container_name\s*:", compose):
+        errors.append("docker-compose.yml must not set a fixed container_name for local Postgres")
 
     forbidden_terms = ["redis", "queue", "scheduler", "deploy"]
     lower_compose = compose.lower()
@@ -910,6 +925,16 @@ def validate_app_scaffolds() -> list[str]:
         errors.append("apps/api may register only the GET infrastructure readiness stub")
     if '"/infra/ready"' not in api_source:
         errors.append("apps/api must expose only the /infra/ready infrastructure readiness stub")
+    if 'status: "ready"' in api_source:
+        errors.append("apps/api /infra/ready must not report generic ready status")
+    for phrase in [
+        'status: "process-ready"',
+        'database: "not-checked"',
+        'migrations: "not-checked"',
+        'productImplementation: "not-started"',
+    ]:
+        if phrase not in api_source:
+            errors.append(f"apps/api /infra/ready missing truthful stub field: {phrase}")
 
     web_source = read_text("apps/web/src/App.tsx")
     for term in ["MoneyEvent", "ledger", "incident", "evidence", "repair"]:

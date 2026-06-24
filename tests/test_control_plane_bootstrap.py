@@ -314,7 +314,7 @@ def test_25_changelog_records_m02_01_through_m02_05():
         in changelog
     )
     assert (
-        "M02.06 Builder complete, awaiting QA for local-only Docker Compose/Postgres, migration tooling, env placeholders, and infrastructure readiness stubs"
+        "M02.06 QA passed, awaiting merge for local-only Docker Compose/Postgres, migration tooling, env placeholders, infrastructure readiness stubs, and remote infrastructure smoke validation"
         in changelog
     )
 
@@ -356,6 +356,10 @@ def test_30_api_scaffold_has_no_domain_routes():
     assert api_source.count(".get(") == 1
     assert ".post(" not in api_source
     assert ".route(" not in api_source
+    assert 'status: "process-ready"' in api_source
+    assert 'status: "ready"' not in api_source
+    assert 'database: "not-checked"' in api_source
+    assert 'migrations: "not-checked"' in api_source
 
 
 def test_31_web_scaffold_has_no_product_ui():
@@ -557,9 +561,10 @@ def test_47_ci_must_install_python_dev_dependencies(tmp_path, monkeypatch):
     workflow_dir.mkdir(parents=True)
     (workflow_dir / "ci.yml").write_text("name: CI\n", encoding="utf-8")
     monkeypatch.setattr(validator, "ROOT", tmp_path)
-    assert validator.validate_github_workflows() == [
+    assert (
         ".github/workflows/ci.yml must install Python dev dependencies"
-    ]
+        in validator.validate_github_workflows()
+    )
 
 
 def test_48_requirements_dev_declares_pytest(tmp_path, monkeypatch):
@@ -586,6 +591,7 @@ def test_51_docker_compose_is_local_postgres_only():
     assert "postgres:17-alpine" in compose
     assert "127.0.0.1" in compose
     assert "pg_isready" in compose
+    assert "container_name:" not in compose
     assert "redis" not in compose.lower()
 
 
@@ -631,4 +637,80 @@ def test_54_compose_rejects_redis_scope(tmp_path, monkeypatch):
     monkeypatch.setattr(validator, "ROOT", tmp_path)
     assert "docker-compose.yml must not define redis behavior in M02.06" in (
         validator.validate_compose_postgres()
+    )
+
+
+def test_55_compose_rejects_fixed_container_name(tmp_path, monkeypatch):
+    (tmp_path / "docker-compose.yml").write_text(
+        """services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: causalledger-postgres
+    environment:
+      POSTGRES_PASSWORD: causalledger_local_password
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+""",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert "docker-compose.yml must not set a fixed container_name for local Postgres" in (
+        validator.validate_compose_postgres()
+    )
+
+
+def test_56_api_readiness_rejects_ambiguous_ready_status(tmp_path, monkeypatch):
+    api_source = tmp_path / "apps" / "api" / "src" / "app.ts"
+    api_source.parent.mkdir(parents=True)
+    api_source.write_text(
+        """const infrastructureReadyResponse = {
+  service: "api",
+  status: "ready",
+  scope: "infrastructure",
+  productImplementation: "not-started",
+} as const;
+
+export function buildApiApp() {
+  app.get("/infra/ready", async () => infrastructureReadyResponse);
+}
+""",
+        encoding="utf-8",
+    )
+    web_source = tmp_path / "apps" / "web" / "src" / "App.tsx"
+    web_source.parent.mkdir(parents=True)
+    web_source.write_text("export function App() { return null; }\n", encoding="utf-8")
+    worker_source = tmp_path / "apps" / "worker" / "src" / "index.ts"
+    worker_source.parent.mkdir(parents=True)
+    worker_source.write_text("export const worker = { jobs: [] };\n", encoding="utf-8")
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    errors = validator.validate_app_scaffolds()
+    assert "apps/api /infra/ready must not report generic ready status" in errors
+    assert (
+        'apps/api /infra/ready missing truthful stub field: status: "process-ready"'
+        in errors
+    )
+    assert (
+        'apps/api /infra/ready missing truthful stub field: database: "not-checked"'
+        in errors
+    )
+
+
+def test_57_ci_requires_infra_smoke_job(tmp_path, monkeypatch):
+    workflow_dir = tmp_path / ".github" / "workflows"
+    workflow_dir.mkdir(parents=True)
+    (workflow_dir / "ci.yml").write_text(
+        """name: CI
+jobs:
+  validate:
+    steps:
+      - run: python -m pip install -r requirements-dev.txt
+""",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert (
+        ".github/workflows/ci.yml missing infra-smoke coverage: infra-smoke:"
+        in validator.validate_github_workflows()
     )

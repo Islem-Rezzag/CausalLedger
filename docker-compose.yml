@@ -3,7 +3,6 @@ name: causalledger-local
 services:
   postgres:
     image: postgres:17-alpine
-    container_name: causalledger-postgres
     environment:
       POSTGRES_DB: ${CAUSALLEDGER_POSTGRES_DB:-causalledger_dev}
       POSTGRES_USER: ${CAUSALLEDGER_POSTGRES_USER:-causalledger}

@@ -2,6 +2,20 @@
 
 ## 2026-06-24
 
+- Completed formal QA for PR #44 on branch `m02-06-local-infra-postgres-migrations-health`.
+- Verified PR #44 targets `main`, uses head branch `m02-06-local-infra-postgres-migrations-health`, is open and unmerged, and contains builder commit `b3c9c43`.
+- Found three scoped QA defects: `/infra/ready` returned ambiguous `status: "ready"` without checking Postgres, `docker-compose.yml` used a fixed `container_name`, and CI lacked real Docker/Postgres/migration smoke validation while local Docker was unavailable.
+- Changed `/infra/ready` to return `status: "process-ready"`, `database: "not-checked"`, and `migrations: "not-checked"`; updated API tests and documentation consistently.
+- Removed the fixed Postgres `container_name` so Docker Compose can namespace containers per checkout.
+- Added a GitHub Actions `infra-smoke` job that validates Compose config, starts Postgres, waits for health, runs `pnpm migrate:up`, inspects the public schema, rejects product/domain tables, and always runs `docker compose down -v`.
+- Updated control-plane validation and bootstrap tests for the infra-smoke job, fixed-container rejection, and truthful readiness stub semantics.
+- Ran M02.06 QA validation successfully: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 57 tests, `git diff --check`, Node/npm/pnpm version checks, `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check`.
+- Local Docker validation remained unavailable because `docker` is not recognized in this Windows shell; remote GitHub Actions `infra-smoke` passed on the latest QA commit and provided real Postgres/migration/schema evidence.
+- Confirmed no MoneyEvent schema, ledger table, invariant table, incident table, evidence table, graph table, replay table, repair table, agent table, Redis, queue, scheduler, connector, deployment, product UI, domain API route, auth/authz, real secret, or product behavior was added.
+- M02.06 QA passed, awaiting merge. M02.07 remains `Not started`; M03 through M21 remain `Not started`; product implementation has not started.
+- Recommended next thread: `Merge M02.06 PR - Local Infrastructure Baseline`.
+- Next after merge: `M02.07 Builder - QA Development Environment`.
+
 - Confirmed PR #43 merged into `main` at commit `6e76045` (`chore: create M02.05 package ESLint and CI baseline (#43)`) before starting M02.06.
 - Created branch `m02-06-local-infra-postgres-migrations-health` from updated `main`; branch guard passed and the starting worktree was clean.
 - Finalized M02.05 as `Completed and merged` in durable tracking.

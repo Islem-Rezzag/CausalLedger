@@ -41,6 +41,8 @@ pnpm infra:reset
 
 The compose file binds Postgres to `127.0.0.1` by default. The default database, user, password, host, and port are local placeholders only and can be overridden with untracked `.env` values.
 
+The default Postgres password is a public local-development placeholder, not a secret. Do not reuse it outside local development. The compose service intentionally omits a fixed `container_name` so Docker Compose can namespace containers per checkout.
+
 ## Migrations
 
 Set `DATABASE_URL` in an untracked local shell or `.env` file before running migrations. Example using the local placeholder service:

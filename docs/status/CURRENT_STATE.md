@@ -8,11 +8,11 @@ M02 Monorepo and Local Development Environment is in progress under active plan 
 
 ## Current submilestone and branch
 
-Current slice: `M02.06 Builder - Local Infrastructure: Docker Compose, Postgres, Migration Tool, and Health-Check Stubs`.
+Current slice: `M02.06 QA - Local Infrastructure: Docker Compose, Postgres, Migration Tool, and Health-Check Stubs`.
 
 Current branch: `m02-06-local-infra-postgres-migrations-health`.
 
-M02.01 through M02.05 are `Completed and merged`. M02.06 is `Builder complete, awaiting QA`. M02.07 remains `Not started`.
+M02.01 through M02.05 are `Completed and merged`. M02.06 is `QA passed, awaiting merge`. M02.07 remains `Not started`.
 
 ## What exists
 
@@ -20,7 +20,7 @@ M02.01 through M02.05 are `Completed and merged`. M02.06 is `Builder complete, a
 - Minimal non-domain `apps/api`, `apps/web`, and `apps/worker` scaffolds.
 - Scaffold-only package boundaries for the ten M02.05 packages, with source and test TypeScript configs.
 - Flat ESLint, baseline CI, and explicit Python dev dependencies for control-plane tests.
-- Local-only Docker Compose/Postgres, empty local env placeholders, `node-pg-migrate` commands, an empty migration boundary, and `/infra/ready` infrastructure readiness stub.
+- Local-only Docker Compose/Postgres, empty local env placeholders, `node-pg-migrate` commands, an empty migration boundary, remote infrastructure smoke validation, and `/infra/ready` process readiness stub.
 
 ## What does not exist
 
@@ -30,19 +30,19 @@ M02.01 through M02.05 are `Completed and merged`. M02.06 is `Builder complete, a
 
 ## Next action
 
-Run `M02.06 QA - Local Infrastructure: Docker Compose, Postgres, Migration Tool, and Health-Check Stubs` on the same branch and PR.
+Run `Merge M02.06 PR - Local Infrastructure Baseline` after normal human review.
 
-Do not start M02.07 until M02.06 QA passes, the M02.06 PR merges, and post-merge tracking is finalized.
+Do not start M02.07 until the M02.06 PR merges and post-merge tracking is finalized.
 
 ## Latest validation
 
-- 2026-06-24 M02.06 builder: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 54 tests, `git diff --check`, Node/npm/pnpm version checks, `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check` passed.
-- Docker validation was skipped because `docker` is unavailable in the current Windows shell. `make bootstrap-check` was skipped because `make` is unavailable; direct Python validation passed.
+- 2026-06-24 M02.06 QA: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 57 tests, `git diff --check`, Node/npm/pnpm version checks, `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check` passed.
+- Local Docker validation was skipped because `docker` is unavailable in the current Windows shell. Remote GitHub Actions `infra-smoke` passed on the latest QA commit and validated Compose config, Postgres health, empty migrations, public schema inspection, and cleanup. `make bootstrap-check` was skipped because `make` is unavailable; direct Python validation passed.
 - 2026-06-24 M02.05 QA: PR #43 local validation passed after scoped fixes for explicit Python CI dependency installation and test TypeScript coverage; GitHub Actions CI passed; PR #43 merged at `6e76045`.
 
 ## Terminology note
 
-- `/infra/ready` is an infrastructure readiness stub, not product health behavior.
+- `/infra/ready` is a process readiness stub with database and migrations explicitly not checked; it is not product health behavior.
 - Python tests are control-plane/doc-coherence tests, not CausalLedger product/domain tests.
 
 ## Product implementation status

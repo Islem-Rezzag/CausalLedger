@@ -2,8 +2,10 @@ import Fastify, { type FastifyInstance } from "fastify";
 
 const infrastructureReadyResponse = {
   service: "api",
-  status: "ready",
+  status: "process-ready",
   scope: "infrastructure",
+  database: "not-checked",
+  migrations: "not-checked",
   productImplementation: "not-started",
 } as const;
 

@@ -20,8 +20,10 @@ describe("API app bootstrap", () => {
       expect(response.statusCode).toBe(200);
       expect(response.json()).toEqual({
         service: "api",
-        status: "ready",
+        status: "process-ready",
         scope: "infrastructure",
+        database: "not-checked",
+        migrations: "not-checked",
         productImplementation: "not-started",
       });
     } finally {

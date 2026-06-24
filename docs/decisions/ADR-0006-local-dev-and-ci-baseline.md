@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted for M02 local development direction. Package scaffolds, real ESLint enforcement, and the baseline GitHub Actions CI workflow were implemented in M02.05. Local-only Postgres, Docker Compose, migration tooling, and an infrastructure readiness stub were implemented in M02.06 without product storage behavior.
+Accepted for M02 local development direction. Package scaffolds, real ESLint enforcement, and the baseline GitHub Actions CI workflow were implemented in M02.05. Local-only Postgres, Docker Compose, migration tooling, a process readiness stub, and remote infrastructure smoke validation were implemented in M02.06 without product storage behavior.
 
 Legacy validation marker retained from the original M02 planning placeholder: Planning placeholder.
 
@@ -84,7 +84,10 @@ The local infrastructure baseline uses:
 - `node-pg-migrate` as the lightweight TypeScript/Postgres migration tool;
 - root `migrate:up` and `migrate:down` scripts using `DATABASE_URL`;
 - `infra/migrations/` as an empty migration boundary with documentation only;
-- `/infra/ready` as an API process readiness stub.
+- `/infra/ready` as an API process readiness stub that returns `process-ready` and explicitly marks database and migrations as not checked;
+- a GitHub Actions `infra-smoke` job for Compose config, Postgres health, empty migration execution, public schema inspection, and cleanup.
+
+The Compose service intentionally avoids a fixed `container_name` so Docker Compose can namespace containers per checkout.
 
 This baseline does not create product database schema, domain tables, storage behavior, production deployment, Redis, queues, schedulers, external connectors, real secrets, or product health behavior.
 
