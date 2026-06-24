@@ -314,7 +314,11 @@ def test_25_changelog_records_m02_01_through_m02_05():
         in changelog
     )
     assert (
-        "M02.06 QA passed, awaiting merge for local-only Docker Compose/Postgres, migration tooling, env placeholders, infrastructure readiness stubs, and remote infrastructure smoke validation"
+        "Completed and merged M02.06 local-only Docker Compose/Postgres, migration tooling, env placeholders, infrastructure readiness stubs, and remote infrastructure smoke validation"
+        in changelog
+    )
+    assert (
+        "M02.07 Builder created a repeatable QA development environment"
         in changelog
     )
 
@@ -714,3 +718,57 @@ jobs:
         ".github/workflows/ci.yml missing infra-smoke coverage: infra-smoke:"
         in validator.validate_github_workflows()
     )
+
+
+def test_58_qa_dev_environment_command_is_configured():
+    manifest = json.loads(text("package.json"))
+    assert manifest["scripts"]["qa:dev"] == "python scripts/qa-dev-environment.py"
+    assert "scripts/qa-dev-environment.py" in validator.REQUIRED_FILES
+    assert "docs/ops/qa-development-environment.md" in validator.REQUIRED_FILES
+
+
+def test_59_qa_dev_environment_script_reports_statuses_and_standard_checks():
+    script = text("scripts/qa-dev-environment.py")
+    for phrase in [
+        "PASS",
+        "FAIL",
+        "SKIPPED",
+        "install",
+        "--frozen-lockfile",
+        "typecheck",
+        "lint",
+        "test",
+        "build",
+        "format:check",
+        "validate-control-plane.py",
+        "test_control_plane_bootstrap.py",
+        "--check",
+    ]:
+        assert phrase in script
+
+
+def test_60_qa_dev_environment_docker_path_is_explicit_and_cleans_up():
+    script = text("scripts/qa-dev-environment.py")
+    assert "--with-docker" in script
+    assert "not requested; run with --with-docker" in script
+    assert "docker" in script
+    assert "compose" in script
+    assert "finally:" in script
+    assert "down" in script
+    assert "-v" in script
+
+
+def test_61_qa_dev_environment_guide_records_scope_and_boundaries():
+    guide = text("docs/ops/qa-development-environment.md")
+    assert "pnpm qa:dev" in guide
+    assert "--with-docker" in guide
+    assert "PASS" in guide
+    assert "FAIL" in guide
+    assert "SKIPPED" in guide
+    assert "does not validate CausalLedger product behavior" in guide
+    assert "No product/domain behavior is implemented or validated" in guide
+    assert "GitHub Actions `infra-smoke`" in guide
+
+
+def test_62_validator_accepts_qa_dev_environment_artifacts():
+    assert validator.validate_qa_development_environment() == []

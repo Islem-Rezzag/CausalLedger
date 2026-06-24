@@ -2,6 +2,24 @@
 
 ## 2026-06-24
 
+- Confirmed PR #44 merged into `main` at commit `80ce206` (`chore: create M02.06 local infra baseline (#44)`) before starting M02.07.
+- Created branch `m02-07-qa-development-environment` from updated `main`; branch guard passed and the starting worktree was clean.
+- Finalized M02.06 as `Completed and merged` in durable tracking.
+- Started and completed M02.07 Builder - QA Development Environment.
+- Created `scripts/qa-dev-environment.py` as a cross-platform QA orchestrator that reports `PASS`, `FAIL`, and `SKIPPED`, runs standard checks by default, and keeps Docker validation behind explicit `--with-docker` opt-in.
+- Added root `pnpm qa:dev`.
+- Added `docs/ops/qa-development-environment.md` with prerequisites, first-time setup, standard validation, optional Docker validation, what each check proves, what it does not prove, common failures, CI relation, and the no-product boundary.
+- Updated control-plane validation and bootstrap tests for the QA script, root command, Docker opt-in, cleanup path, guide, and status labels.
+- Confirmed no MoneyEvent schema, ledger logic, invariant logic, incident lifecycle, evidence ingestion or storage, causal graph behavior, replay, repair behavior, agent runtime, product UI, domain API route, auth/authz, product database schema, Redis, queue, scheduler, connector, deployment, real secret, or product/domain behavior was added.
+- Ran M02.07 builder validation successfully: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 62 tests, `git diff --check`, `node --version` (`v22.16.0`), `npm --version` (`10.9.2`), `pnpm --version` (`10.32.1`), `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, `pnpm format:check`, and `pnpm qa:dev`.
+- `pnpm qa:dev` passed with 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`; Docker validation was skipped in default mode by design.
+- Local Docker validation was skipped because `docker --version` and `docker compose version` failed with `docker` not recognized in the current Windows shell. Existing GitHub Actions `infra-smoke` evidence from M02.06 remains the available remote Docker/Postgres/migration smoke record.
+- Skipped `make bootstrap-check` because `make` is unavailable in the current Windows shell; equivalent direct Python validation commands passed.
+- `pnpm install --frozen-lockfile` emitted the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning; validation still passed.
+- M02.07 Builder complete, awaiting QA. M03 through M21 remain `Not started`; product implementation has not started.
+- Recommended next thread: `M02.07 QA - QA Development Environment`.
+- Next after merge: `M02 Closeout - Monorepo and Local Development Environment`.
+
 - Completed formal QA for PR #44 on branch `m02-06-local-infra-postgres-migrations-health`.
 - Verified PR #44 targets `main`, uses head branch `m02-06-local-infra-postgres-migrations-health`, is open and unmerged, and contains builder commit `b3c9c43`.
 - Found three scoped QA defects: `/infra/ready` returned ambiguous `status: "ready"` without checking Postgres, `docker-compose.yml` used a fixed `container_name`, and CI lacked real Docker/Postgres/migration smoke validation while local Docker was unavailable.

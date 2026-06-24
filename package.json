@@ -12,6 +12,7 @@
     "infra:up": "docker compose up -d postgres",
     "migrate:down": "node-pg-migrate down --migrations-dir infra/migrations --ignore-pattern README.md --database-url-var DATABASE_URL",
     "migrate:up": "node-pg-migrate up --migrations-dir infra/migrations --ignore-pattern README.md --database-url-var DATABASE_URL",
+    "qa:dev": "python scripts/qa-dev-environment.py",
     "build": "turbo build",
     "test": "turbo test",
     "lint": "turbo lint",

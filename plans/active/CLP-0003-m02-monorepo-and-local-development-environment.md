@@ -10,7 +10,7 @@ M02 planning also aligns CausalLedger's product direction with the continuous pa
 
 The original M02 planning thread did not start M02.01 implementation and did not create product behavior.
 
-M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`). M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`). M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c` (`chore: create M02.03 web scaffold (#40)`). M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f` (`chore: create M02.04 worker scaffold (#41)`). The M02 process amendment PR #42 merged into `main` at commit `d5c27c4` (`docs: amend M02 process tracking and validation (#42)`). M02.05 is `Completed and merged` after PR #43 merged into `main` at commit `6e76045` (`chore: create M02.05 package ESLint and CI baseline (#43)`). The current slice is `M02.06 QA - Local Infrastructure: Docker Compose, Postgres, Migration Tool, and Health-Check Stubs` on branch `m02-06-local-infra-postgres-migrations-health`.
+M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`). M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`). M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c` (`chore: create M02.03 web scaffold (#40)`). M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f` (`chore: create M02.04 worker scaffold (#41)`). The M02 process amendment PR #42 merged into `main` at commit `d5c27c4` (`docs: amend M02 process tracking and validation (#42)`). M02.05 is `Completed and merged` after PR #43 merged into `main` at commit `6e76045` (`chore: create M02.05 package ESLint and CI baseline (#43)`). M02.06 is `Completed and merged` after PR #44 merged into `main` at commit `80ce206` (`chore: create M02.06 local infra baseline (#44)`). The current slice is `M02.07 Builder - QA Development Environment` on branch `m02-07-qa-development-environment`.
 
 ## Progress
 
@@ -122,6 +122,14 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 - [x] 2026-06-24: M02.06 QA changed `/infra/ready` to process-only readiness with `database: "not-checked"` and `migrations: "not-checked"`, removed the fixed Compose container name, and added a remote `infra-smoke` CI job.
 - [x] 2026-06-24: Initial remote `infra-smoke` failed in the migration step because `node-pg-migrate` treated `README.md` as a migration candidate; QA fixed the migration scripts to ignore `README.md`.
 - [x] 2026-06-24: M02.06 QA validation passed locally and remotely; M02.06 is `QA passed, awaiting merge`, M02.07 remains `Not started`, M03 through M21 remain `Not started`, and product implementation has not started.
+- [x] 2026-06-24: Synced `main`, confirmed PR #44 merged into `main` at commit `80ce206`, and created branch `m02-07-qa-development-environment`.
+- [x] 2026-06-24: M02.07 branch guard passed; starting branch was `m02-06-local-infra-postgres-migrations-health`, the starting worktree was clean, and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- [x] 2026-06-24: Read required active docs, status docs, M02 milestone and registry, ADRs, ops workflow docs, workspace manifests, CI, infra docs, app scaffolds, package scaffolds, validator, and bootstrap tests before editing.
+- [x] 2026-06-24: Completed M02.07 reasoning checkpoint and classified the slice as Tier 1 QA environment validation, not product financial behavior.
+- [x] 2026-06-24: Finalized M02.06 as `Completed and merged` and started M02.07 Builder - QA Development Environment.
+- [x] 2026-06-24: Created `scripts/qa-dev-environment.py`, root `pnpm qa:dev`, and `docs/ops/qa-development-environment.md`.
+- [x] 2026-06-24: Updated control-plane validation and bootstrap tests for the QA development environment script, root command, status labels, Docker opt-in, cleanup path, and documentation boundary.
+- [x] 2026-06-24: M02.07 Builder complete, awaiting QA; M03 through M21 remain `Not started`; product implementation has not started.
 
 ## Surprises & Discoveries
 
@@ -139,6 +147,8 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 - A fixed Docker Compose `container_name` is unnecessary for this local baseline and can collide across multiple checkouts; Compose namespacing is the safer default.
 - Because Docker is unavailable in the local Windows shell, M02.06 QA added remote infrastructure smoke validation to obtain real Postgres and migration evidence.
 - `node-pg-migrate` needs explicit ignore handling for documentation-only migration directories; the root migration scripts now ignore `README.md` until real migration files exist.
+- M02.07 uses a Python orchestrator rather than a shell script so the QA development environment works across Windows and Linux while still invoking existing pnpm, Python, Git, and Docker commands.
+- The QA command reports dirty worktree state without failing solely on it because builder threads run it before commit; QA and merge readiness still require explicit `git status --short` review.
 
 ## Decision Log
 
@@ -179,6 +189,8 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 | 2026-06-24 | M02.06 QA requires remote infrastructure smoke evidence when local Docker is unavailable. | Accepted | `.github/workflows/ci.yml` now includes `infra-smoke` for Compose config, Postgres health, empty migration execution, public schema inspection, and cleanup. |
 | 2026-06-24 | M02.06 readiness wording must be process-only. | Accepted | `/infra/ready` returns `status: "process-ready"`, `database: "not-checked"`, and `migrations: "not-checked"`. |
 | 2026-06-24 | M02.06 Compose should not use a fixed container name. | Accepted | `container_name` was removed so Compose can namespace containers per checkout. |
+| 2026-06-24 | M02.06 PR #44 merged before M02.07. | Recorded | Merge commit `80ce206`; M02.07 started only after sync from updated `main`. |
+| 2026-06-24 | M02.07 uses a Python QA orchestrator with explicit Docker opt-in. | Accepted | `pnpm qa:dev` runs the non-destructive standard checks by default; `--with-docker` runs stateful Compose/Postgres/migration smoke and cleanup. |
 
 ## Context and Orientation
 
@@ -186,7 +198,7 @@ M00 Repo Operating System is completed and tagged as `v0.1.0`. M01 Domain Model 
 
 M02 planning PR #37 has merged into `main` at commit `18148f7`. M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901`. M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da`. M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c`. M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f`. The M02 process amendment PR #42 merged into `main` at commit `d5c27c4`. M02.05 PR #43 merged into `main` at commit `6e76045`.
 
-The current branch is `m02-06-local-infra-postgres-migrations-health`. The current slice is `M02.06 QA - Local Infrastructure: Docker Compose, Postgres, Migration Tool, and Health-Check Stubs`.
+The current branch is `m02-07-qa-development-environment`. The current slice is `M02.07 Builder - QA Development Environment`.
 
 Historical planning marker before M02.01 started: M02.01 through M02.20 remain `Not started`.
 
@@ -362,8 +374,8 @@ Out of scope for M02.05:
 | M02.03 | Create apps/web | Completed and merged | `m02-03-create-apps-web` |
 | M02.04 | Create apps/worker | Completed and merged | `m02-04-create-apps-worker` |
 | M02.05 | Create all remaining package scaffolds + ESLint + CI baseline | Completed and merged | `m02-05-package-scaffolds-eslint-ci` |
-| M02.06 | Local infrastructure: Docker Compose + Postgres + migration tool + health-check stubs | QA passed, awaiting merge | `m02-06-local-infra-postgres-migrations-health` |
-| M02.07 | QA dev environment | Not started | `m02-07-qa-dev-environment` |
+| M02.06 | Local infrastructure: Docker Compose + Postgres + migration tool + health-check stubs | Completed and merged | `m02-06-local-infra-postgres-migrations-health` |
+| M02.07 | QA dev environment | Builder complete, awaiting QA | `m02-07-qa-development-environment` |
 
 Former M02.08 through M02.20 rows are deferred or absorbed in `docs/milestones/SUBMILESTONE_REGISTRY.md`. `apps/agent-runtime` creation is deferred to the M10 era. Redis is deferred until needed.
 
@@ -390,15 +402,23 @@ M02.05 implemented:
 - explicit Python dev dependencies for CI pytest;
 - separate TypeScript test typecheck configs for apps and M02.05 packages.
 
-Future M02 implementation submilestones still must decide concrete:
+M02.06 implemented:
 
-- app boundaries for API, web, worker, and agent runtime;
-- Postgres local development pattern;
-- Redis local development pattern;
-- Docker Compose profile structure;
-- migration tooling;
-- health check expectations;
-- local secrets pattern using empty `.env.example` values only.
+- local-only Docker Compose/Postgres;
+- empty local env placeholders;
+- root infra and migration scripts;
+- an empty migration boundary with no product schema;
+- `/infra/ready` as process-only readiness;
+- remote `infra-smoke` validation.
+
+M02.07 implemented:
+
+- `scripts/qa-dev-environment.py`;
+- root `pnpm qa:dev`;
+- `docs/ops/qa-development-environment.md`;
+- structural validator and bootstrap-test coverage for the QA environment.
+
+M02 now has concrete local-development foundations for API, web, worker, package scaffolds, linting, CI, Postgres, migrations, process readiness, and QA validation. `apps/agent-runtime` remains deferred to the M10 era. Redis remains deferred until a queue or scheduler design proves the need.
 
 ## Continuous Lifecycle Observer Alignment
 
@@ -511,7 +531,7 @@ Detailed schemas belong to future scoped milestones, especially M03, M04, M07, M
 - Do not claim live ingestion, streaming, replay, timeline updates, incident creation, repair proposal generation, logging, auth/authz, CI/CD, deployment, or databases exist.
 - Do not use LLM output as financial truth.
 - Do not mutate money, ledger state, raw events, evidence, deterministic invariant results, repair approval, or external communications.
-- Do not start M02.02 until M02.01 QA passes, the M02.01 PR merges, and post-merge tracking is finalized.
+- Do not start M02 closeout until M02.07 QA passes, the M02.07 PR merges, and post-merge tracking is finalized.
 
 Historical planning gate now satisfied: Do not start M02.01 Builder until M02 planning QA passes and the planning PR merges.
 
@@ -665,6 +685,22 @@ M02.05 builder acceptance criteria:
 - Product domain implementation has not started.
 - Required control-plane, package, format, and diff validation pass or skipped validation is recorded with a reason.
 - Next recommended thread is `M02.05 QA - Package Scaffolds, ESLint, and CI Baseline`.
+
+M02.07 builder acceptance criteria:
+
+- M02.06 PR #44 is confirmed merged into `main` at commit `80ce206`.
+- M02.06 status is recorded as `Completed and merged`.
+- M02.07 status is recorded as `Builder complete, awaiting QA`.
+- A repeatable QA development environment script exists at `scripts/qa-dev-environment.py`.
+- Root `pnpm qa:dev` runs the default non-destructive QA environment command.
+- Docker Compose/Postgres/migration smoke validation requires explicit `--with-docker` opt-in and includes cleanup.
+- `docs/ops/qa-development-environment.md` documents prerequisites, setup, default validation, Docker validation, what each check proves, what it does not prove, common failures, CI relation, and the no-product boundary.
+- Control-plane validation and bootstrap tests cover the QA environment artifacts structurally.
+- No MoneyEvent schemas or transformations, ledger primitives, financial invariants, incidents, evidence ingestion or storage, causal graph behavior, replay, repair behavior, agent runtime, product UI, domain API routes, auth/authz, product database schema, Redis, queues, schedulers, connectors, deployment, real secrets, or product/domain behavior exists.
+- M03 through M21 remain `Not started`.
+- Product domain implementation has not started.
+- Required control-plane, package, QA command, Docker availability check, and diff validation pass or skipped validation is recorded with a reason.
+- Next recommended thread is `M02.07 QA - QA Development Environment`.
 
 ## M02 Planning QA Record
 
@@ -1963,6 +1999,30 @@ The current process-amendment slice supersedes older "next thread" statements th
 - `gh`, local Docker, and `make bootstrap-check` were unavailable in the current Windows shell; GitHub REST/API inspection, remote GitHub Actions Docker evidence, and direct Python validation were used where applicable.
 - GitHub Actions emitted a non-blocking warning that Node.js 20 actions internals are deprecated and forced to Node.js 24 for `actions/checkout@v4`, `actions/setup-node@v4`, and `actions/setup-python@v5`.
 
+2026-06-24 M02.07 builder validation results:
+
+- `git branch --show-current` returned `m02-07-qa-development-environment` after branch creation.
+- `git status --short` was clean before M02.07 edits.
+- `git remote -v` showed `origin` as `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- `git log --oneline -20` confirmed PR #44 merged into `main` at commit `80ce206` (`chore: create M02.06 local infra baseline (#44)`).
+- `git stash list --max-count=5` returned no stashes.
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 62 tests.
+- `git diff --check` passed.
+- `node --version` returned `v22.16.0`.
+- `npm --version` returned `10.9.2`.
+- `pnpm --version` returned `10.32.1`.
+- `pnpm install --frozen-lockfile` passed across all 14 workspace projects and reported the lockfile was up to date.
+- `pnpm typecheck` passed across all 13 workspaces.
+- `pnpm lint` passed across all 13 workspaces.
+- `pnpm test` passed across all 13 workspaces.
+- `pnpm build` passed across all 13 workspaces.
+- `pnpm format:check` passed across all 13 workspaces.
+- `pnpm qa:dev` passed with 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`; Docker validation was skipped in default mode by design.
+- Local Docker validation did not run because `docker --version` and `docker compose version` both failed with `docker` not recognized in the current Windows shell. Existing M02.06 remote `infra-smoke` evidence remains the available Docker/Postgres/migration smoke record.
+- `make bootstrap-check` was skipped because `Get-Command make -ErrorAction SilentlyContinue` found no `make` command in the current Windows shell. Equivalent direct Python validation commands passed.
+- `pnpm install --frozen-lockfile` emitted the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning; validation still passed.
+
 ## Idempotence and Recovery
 
 If validation fails, do not widen scope. Fix only planning/control-plane defects introduced by this thread, rerun validation, and record results. If an unexpected dirty worktree appears, inspect it, preserve user changes, and report any conflict before proceeding.
@@ -2039,6 +2099,15 @@ Created M02.06 local infrastructure artifacts:
 - updated `scripts/validate-control-plane.py`
 - updated `tests/test_control_plane_bootstrap.py`
 
+Created M02.07 QA development environment artifacts:
+
+- `scripts/qa-dev-environment.py`
+- `docs/ops/qa-development-environment.md`
+- root `package.json` updated with `qa:dev`
+- updated `scripts/validate-control-plane.py`
+- updated `tests/test_control_plane_bootstrap.py`
+- updated active docs, roadmap, M02 milestone docs, registry, status docs, ADR-0006, changelog, and active plan tracking
+
 ## Interfaces and Dependencies
 
 Future M02 implementation dependencies:
@@ -2046,7 +2115,7 @@ Future M02 implementation dependencies:
 - app layout: `apps/api`, `apps/web`, and `apps/worker`; `apps/agent-runtime` remains deferred to the M10 era.
 - package layout: `packages/core`, `packages/events`, `packages/ledger`, `packages/invariants`, `packages/incidents`, `packages/graph`, `packages/replay`, `packages/repair`, `packages/evidence`, and `packages/evals`.
 - local services: M02.06 adds local-only Postgres, Docker Compose, migration tooling, and a process readiness stub; Redis remains deferred until needed.
-- validation: local checks, M02.05 baseline CI workflow, M02.06 local infrastructure structural validation, and a remote `infra-smoke` job for Compose/Postgres/migration evidence.
+- validation: local checks, M02.05 baseline CI workflow, M02.06 local infrastructure structural validation, a remote `infra-smoke` job for Compose/Postgres/migration evidence, and the M02.07 `pnpm qa:dev` orchestration command with explicit Docker opt-in.
 
 Deterministic truth layers must stay separate from agent proposal layers. Evidence handling remains append-only by design. Repair proposal work must not become repair application work.
 
@@ -2079,6 +2148,8 @@ M02 process amendment QA passed for PR #42 after replacing brittle live-status v
 
 M02.05 builder work created scaffold-only package boundaries, introduced real flat ESLint, added baseline validation-only CI, and updated control-plane validation for those boundaries. M02.05 QA found and fixed missing clean-runner pytest installation and missing test typecheck coverage, then passed local and remote validation. M02.05 PR #43 merged into `main` at commit `6e76045`.
 
-M02.06 builder work created local-only Docker Compose/Postgres, `node-pg-migrate` root commands, empty env placeholders, migration boundary documentation, and `/infra/ready` as an infrastructure readiness stub. M02.06 QA corrected the readiness stub to process-only semantics, removed the fixed Compose container name, and added remote infrastructure smoke validation. M02.06 is `QA passed, awaiting merge`. Product domain implementation has not started. M02.07 remains `Not started`; former M02.08 through M02.20 rows are deferred or absorbed; M03 through M21 remain `Not started`.
+M02.06 builder work created local-only Docker Compose/Postgres, `node-pg-migrate` root commands, empty env placeholders, migration boundary documentation, and `/infra/ready` as an infrastructure readiness stub. M02.06 QA corrected the readiness stub to process-only semantics, removed the fixed Compose container name, and added remote infrastructure smoke validation. M02.06 is `Completed and merged` after PR #44 merged into `main` at commit `80ce206`.
 
-Exact next recommended thread after this M02.06 QA is complete: `Merge M02.06 PR - Local Infrastructure Baseline`.
+M02.07 builder work created a repeatable QA development environment with `scripts/qa-dev-environment.py`, root `pnpm qa:dev`, explicit Docker opt-in, documentation, validator coverage, and bootstrap tests. Product domain implementation has not started. M02.07 is `Builder complete, awaiting QA`; former M02.08 through M02.20 rows are deferred or absorbed; M03 through M21 remain `Not started`.
+
+Exact next recommended thread after this M02.07 builder is complete: `M02.07 QA - QA Development Environment`.

@@ -57,6 +57,7 @@ Roadmap and submilestones:
 - `docs/ops/builder-qa-prompt-protocol.md`
 - `docs/ops/validation-and-handoff-workflow.md`
 - `docs/ops/github-pr-and-issue-workflow.md`
+- `docs/ops/qa-development-environment.md`
 - `docs/ops/github-labels-and-milestones.md`
 - `docs/ops/branch-protection.md`
 - `docs/ops/milestone-closeout-workflow.md`
@@ -92,7 +93,7 @@ Completed execution:
 
 Active execution:
 
-- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md` - active M02 plan. M02.01 through M02.05 are `Completed and merged`; the process amendment is merged; M02.06 is `QA passed, awaiting merge`; remaining active M02 work is M02.07 QA dev environment after M02.06 merges.
+- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md` - active M02 plan. M02.01 through M02.06 are `Completed and merged`; the process amendment is merged; M02.07 is `Builder complete, awaiting QA`.
 
 Plan state:
 
