@@ -96,6 +96,7 @@ REQUIRED_FILES = [
     "docs/status/M00_CLOSEOUT.md",
     "docs/status/M01_DOMAIN_CONSISTENCY.md",
     "docs/status/M01_CLOSEOUT.md",
+    "docs/status/M02_CLOSEOUT.md",
     "docs/milestones/SUBMILESTONE_REGISTRY.md",
     "docs/milestones/M02.md",
     "docs/decisions/ADR-0005-m02-stack-and-monorepo-direction.md",
@@ -104,9 +105,9 @@ REQUIRED_FILES = [
     "docs/decisions/ADR-0008-identity-money-and-storage.md",
     "docs/ops/qa-development-environment.md",
     "plans/ROADMAP.md",
-    "plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md",
     "plans/completed/CLP-0001-m00-repo-operating-system.md",
     "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
+    "plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md",
     "scripts/qa-dev-environment.py",
     "tests/test_control_plane_bootstrap.py",
     "eslint.config.js",
@@ -463,10 +464,82 @@ def active_plan_files() -> list[Path]:
     return sorted((ROOT / "plans" / "active").glob("CLP-*.md"))
 
 
-def validate_active_plan_count() -> list[str]:
-    if len(active_plan_files()) != 1:
-        return ["plans/active must contain exactly one CLP-*.md active plan"]
-    return []
+def is_between_milestones(current_state: str, next_thread: str) -> bool:
+    current_lower = current_state.lower()
+    thread_name = labeled_value(next_thread, "Thread name") or ""
+    return (
+        "no active milestone plan exists" in current_lower
+        and "completed" in current_lower
+        and re.match(r"^M\d{2} Planning - ", thread_name) is not None
+        and labeled_value(next_thread, "Scope") is not None
+    )
+
+
+def current_state_identifies_active_milestone(current_state: str) -> bool:
+    current_lower = current_state.lower()
+    if "no active milestone plan exists" in current_lower:
+        return False
+    return (
+        "active milestone plan" in current_lower
+        or "under active plan" in current_lower
+        or "active plan `" in current_lower
+    )
+
+
+def validate_active_plan_count(
+    current_state: str | None = None, next_thread: str | None = None
+) -> list[str]:
+    active_plans = active_plan_files()
+    if len(active_plans) > 1:
+        return ["plans/active must not contain more than one CLP-*.md active plan"]
+
+    if len(active_plans) == 1:
+        if current_state is not None and not current_state_identifies_active_milestone(
+            current_state
+        ):
+            return [
+                "plans/active contains one CLP-*.md plan but CURRENT_STATE.md does not identify an active milestone"
+            ]
+        return []
+
+    if current_state is not None and next_thread is not None and is_between_milestones(
+        current_state, next_thread
+    ):
+        return []
+
+    return [
+        "plans/active contains zero CLP-*.md plans but status docs do not describe a valid between-milestone state"
+    ]
+
+
+def validate_m02_plan_location() -> list[str]:
+    errors: list[str] = []
+    active_m02 = ROOT / "plans" / "active" / "CLP-0003-m02-monorepo-and-local-development-environment.md"
+    completed_m02 = (
+        ROOT
+        / "plans"
+        / "completed"
+        / "CLP-0003-m02-monorepo-and-local-development-environment.md"
+    )
+    if active_m02.exists():
+        errors.append("completed M02 plan must not remain in plans/active")
+    if not completed_m02.is_file():
+        errors.append("completed M02 plan is missing from plans/completed")
+    return errors
+
+
+def optional_text(rel: str) -> str | None:
+    path = ROOT / rel
+    if not path.is_file():
+        return None
+    return path.read_text(encoding="utf-8")
+
+
+def validate_active_plan_state() -> list[str]:
+    return validate_active_plan_count(
+        optional_text("docs/status/CURRENT_STATE.md"),
+        optional_text("docs/status/NEXT_RECOMMENDED_THREAD.md"),
+    )
 
 
 def validate_required_structure() -> list[str]:
@@ -475,7 +548,8 @@ def validate_required_structure() -> list[str]:
         errors.append(f"missing required file: {rel}")
     for rel in missing_paths(REQUIRED_DIRS, "dir"):
         errors.append(f"missing required directory: {rel}")
-    errors.extend(validate_active_plan_count())
+    errors.extend(validate_active_plan_state())
+    errors.extend(validate_m02_plan_location())
     return errors
 
 
@@ -545,6 +619,10 @@ def milestone_id_from_roadmap(row: RoadmapRow) -> str:
 
 def expected_roadmap_status(statuses: list[str]) -> str:
     if statuses and all(status == "Completed and merged" for status in statuses):
+        return "Completed"
+    if statuses and all(
+        status in {"Completed and merged", "Deferred"} for status in statuses
+    ):
         return "Completed"
     if statuses and all(status == "Not started" for status in statuses):
         return "Not started"
@@ -633,7 +711,7 @@ def validate_current_state_structure(current: str) -> list[str]:
 
 def validate_next_thread_structure(next_thread: str) -> list[str]:
     errors: list[str] = []
-    for label in ["Thread name", "Precondition", "Next after merge"]:
+    for label in ["Thread name", "Precondition", "Scope"]:
         if not labeled_value(next_thread, label):
             errors.append(f"NEXT_RECOMMENDED_THREAD.md missing labeled {label.lower()}")
     return errors
@@ -677,6 +755,7 @@ def validate_docs() -> list[str]:
         "Completed and merged M02.06 local-only Docker Compose/Postgres, migration tooling, env placeholders, infrastructure readiness stubs, and remote infrastructure smoke validation",
         "M02.07 Builder created a repeatable QA development environment",
         "M02.07 QA corrected truthful dirty-worktree",
+        "Closed M02 with `docs/status/M02_CLOSEOUT.md`",
         "ADR-0008 identity, money, and storage direction",
     ]:
         if phrase not in changelog:

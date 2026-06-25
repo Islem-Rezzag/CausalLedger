@@ -1,5 +1,24 @@
 # Weekly Log
 
+## 2026-06-25
+
+- Synced `main` after PR #45 merged and confirmed `main` fast-forwarded to `4a4f381adb7ed263fb26d0373f00043f2fe6a6bc` (`chore: create M02.07 QA development environment (#45)`).
+- Configured repository-local Git identity as `Mohamed Islem Rezzag Baara <Islem-Rezzag@users.noreply.github.com>` and verified it comes from `.git/config`; no `@qmul.ac.uk` address is configured locally.
+- Created closeout branch `m02-closeout-monorepo-and-local-development-environment` from synchronized `main`.
+- GitHub CLI is unavailable in the current Windows shell; GitHub PR and check metadata were verified with Git plus the public GitHub API instead.
+- GitHub API confirmed PRs #37 through #45 are merged. PR #45 merged on 2026-06-25 at `4a4f381adb7ed263fb26d0373f00043f2fe6a6bc`; remote `validate` and `infra-smoke` checks completed successfully on that merge commit.
+- Finalized M02.07 as `Completed and merged` in durable tracking. M02.01 through M02.07 are `Completed and merged`; former M02.08 through M02.20 are deferred as absorbed or intentionally deferred by the process amendment.
+- Created `docs/status/M02_CLOSEOUT.md` and updated entry docs, roadmap, M02 milestone docs, registry, current state, next-thread recommendation, changelog, capability matrix, tech debt, and open questions for M02 closeout.
+- Moved the M02 plan to `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`; no active milestone plan remains.
+- Updated control-plane validation and bootstrap tests to support both valid active-milestone state and valid between-milestone state.
+- Confirmed no MoneyEvent schema, ledger behavior, financial invariants, incidents, evidence ingestion or storage, causal graph behavior, replay, repair behavior, agent runtime, product UI, domain API route, auth/authz, product database schema, Redis, queue, scheduler, connector, deployment, real secret, or product/domain behavior was added.
+- Closeout validation passed before commit: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 80 tests, `git diff --check`, Node/npm/pnpm version checks, `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, `pnpm format:check`, and `pnpm qa:dev -- --allow-dirty`.
+- `pnpm qa:dev -- --allow-dirty` reported 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`; the clean-worktree requirement was skipped only because closeout edits were uncommitted, and Docker validation was skipped in default mode by design.
+- `pnpm install --frozen-lockfile` emitted the non-blocking pnpm update notice and the known ignored build scripts warning for `esbuild@0.28.0`.
+- Local Docker validation was skipped because `docker` is not recognized in this Windows shell. The accepted Docker/Postgres/migration proof remains GitHub Actions `infra-smoke` on merge commit `4a4f381adb7ed263fb26d0373f00043f2fe6a6bc`.
+- `make bootstrap-check` was skipped because `make` is unavailable in this Windows shell; direct Python validation and pytest passed.
+- Recommended next thread after the M02 closeout PR merges: `M03 Planning - Canonical MoneyEvent Engine`.
+
 ## 2026-06-24
 
 - Completed formal QA for PR #45 on branch `m02-07-qa-development-environment`.

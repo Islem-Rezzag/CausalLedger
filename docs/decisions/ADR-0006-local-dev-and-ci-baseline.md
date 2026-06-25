@@ -122,4 +122,4 @@ This QA environment does not implement or validate product/domain behavior.
 
 ## Next Step
 
-Use this ADR as the local-development constraint set for M02 closeout and future milestone setup. Do not start M02 closeout until M02.07 QA passes, the M02.07 PR merges, and post-merge tracking is finalized.
+Use this ADR as the local-development constraint set for future milestone setup. M02 closeout records this ADR as implemented for the development foundation only; product/domain behavior remains future work.

@@ -138,11 +138,73 @@ def test_04_m02_milestone_status_mismatch_is_rejected_from_fixtures():
     ]
 
 
-def test_05_missing_active_plan_is_rejected(tmp_path, monkeypatch):
+def active_current_state() -> str:
+    return """# Current State
+
+## Current phase
+
+M03 is in progress under active plan `plans/active/CLP-0004-m03.md`.
+
+## Current submilestone and branch
+
+Current slice: `M03 Planning`.
+
+Current branch: `m03-planning`.
+
+## Next action
+
+Continue M03 planning.
+
+## Product implementation status
+
+Product implementation has not started.
+"""
+
+
+def between_milestone_current_state() -> str:
+    return """# Current State
+
+## Current phase
+
+M02 is completed. No active milestone plan exists.
+
+## Current submilestone and branch
+
+Current slice: `None - between milestones`.
+
+Current branch: `m02-closeout`.
+
+## Next action
+
+Start M03 planning after closeout merge.
+
+## Product implementation status
+
+Product implementation has not started.
+"""
+
+
+def m03_next_thread() -> str:
+    return """# Next Recommended Thread
+
+Thread name:
+M03 Planning - Canonical MoneyEvent Engine
+
+Precondition:
+M02 closeout passed.
+
+Scope:
+Create the M03 planning branch and active M03 plan.
+"""
+
+
+def test_05_zero_active_plan_is_rejected_when_current_state_claims_active_milestone(
+    tmp_path, monkeypatch
+):
     (tmp_path / "plans" / "active").mkdir(parents=True)
     monkeypatch.setattr(validator, "ROOT", tmp_path)
-    assert validator.validate_active_plan_count() == [
-        "plans/active must contain exactly one CLP-*.md active plan"
+    assert validator.validate_active_plan_count(active_current_state(), m03_next_thread()) == [
+        "plans/active contains zero CLP-*.md plans but status docs do not describe a valid between-milestone state"
     ]
 
 
@@ -152,8 +214,8 @@ def test_06_more_than_one_active_plan_is_rejected(tmp_path, monkeypatch):
     (active / "CLP-0003-one.md").write_text("", encoding="utf-8")
     (active / "CLP-0004-two.md").write_text("", encoding="utf-8")
     monkeypatch.setattr(validator, "ROOT", tmp_path)
-    assert validator.validate_active_plan_count() == [
-        "plans/active must contain exactly one CLP-*.md active plan"
+    assert validator.validate_active_plan_count(active_current_state(), m03_next_thread()) == [
+        "plans/active must not contain more than one CLP-*.md active plan"
     ]
 
 
@@ -230,8 +292,8 @@ Merge M02 process amendment PR
 Precondition:
 QA passed and the branch is still scoped to the amendment.
 
-Next after merge:
-M02.05 Builder - Create all remaining package scaffolds + ESLint + CI baseline
+Scope:
+Merge the process amendment PR only after QA PASS.
 """
     assert validator.validate_next_thread_structure(next_thread) == []
 
@@ -258,6 +320,21 @@ def test_13_roadmap_status_is_derived_from_registry_fixture():
     assert validator.validate_roadmap_consistency(rows, roadmap) == []
 
 
+def test_13b_roadmap_completed_allows_deferred_rows_after_closeout():
+    rows = validator.parse_registry_table(
+        registry_table(
+            [
+                ["M02.01", "Done", "M02 Monorepo", "Completed and merged", "", "", "", "", "", ""],
+                ["M02.08", "Deferred", "M02 Monorepo", "Deferred", "", "", "", "", "", ""],
+            ]
+        )
+    )
+    roadmap = roadmap_table(
+        [["M02 Monorepo and local development", "Goal", "Focus", "Exit", "2", "Completed"]]
+    )
+    assert validator.validate_roadmap_consistency(rows, roadmap) == []
+
+
 def test_14_roadmap_count_mismatch_is_rejected_from_fixture():
     rows = validator.parse_registry_table(valid_registry_text())
     roadmap = roadmap_table(
@@ -275,10 +352,42 @@ def test_16_required_directories_exist():
     assert not validator.missing_paths(validator.REQUIRED_DIRS, "dir")
 
 
-def test_17_exactly_one_active_plan_exists():
-    assert [path.name for path in validator.active_plan_files()] == [
-        "CLP-0003-m02-monorepo-and-local-development-environment.md"
-    ]
+def test_17_no_active_plan_exists_after_m02_closeout():
+    assert validator.active_plan_files() == []
+
+
+def test_17b_one_active_plan_is_valid_during_active_milestone(tmp_path, monkeypatch):
+    active = tmp_path / "plans" / "active"
+    active.mkdir(parents=True)
+    (active / "CLP-0004-m03.md").write_text("# M03\n", encoding="utf-8")
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert validator.validate_active_plan_count(active_current_state(), m03_next_thread()) == []
+
+
+def test_17c_zero_active_plan_is_valid_between_milestones(tmp_path, monkeypatch):
+    (tmp_path / "plans" / "active").mkdir(parents=True)
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert (
+        validator.validate_active_plan_count(
+            between_milestone_current_state(), m03_next_thread()
+        )
+        == []
+    )
+
+
+def test_17d_completed_m02_plan_exists_and_active_m02_plan_is_absent():
+    assert (
+        ROOT
+        / "plans"
+        / "completed"
+        / "CLP-0003-m02-monorepo-and-local-development-environment.md"
+    ).is_file()
+    assert not (
+        ROOT
+        / "plans"
+        / "active"
+        / "CLP-0003-m02-monorepo-and-local-development-environment.md"
+    ).exists()
 
 
 def test_18_live_registry_table_parses():
@@ -445,7 +554,7 @@ def test_38_workspace_manifests_include_eslint_baseline():
 
 
 def test_39_no_product_implementation_claims_in_live_status():
-    for rel in ["README.md", "docs/status/CURRENT_STATE.md", "docs/status/NEXT_RECOMMENDED_THREAD.md"]:
+    for rel in ["README.md", "docs/status/CURRENT_STATE.md"]:
         content = text(rel).lower()
         assert (
             "product implementation has not started" in content
