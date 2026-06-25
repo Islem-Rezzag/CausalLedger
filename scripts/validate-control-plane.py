@@ -102,10 +102,12 @@ REQUIRED_FILES = [
     "docs/decisions/ADR-0006-local-dev-and-ci-baseline.md",
     "docs/decisions/ADR-0007-logging-error-handling-and-observability-direction.md",
     "docs/decisions/ADR-0008-identity-money-and-storage.md",
+    "docs/ops/qa-development-environment.md",
     "plans/ROADMAP.md",
     "plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md",
     "plans/completed/CLP-0001-m00-repo-operating-system.md",
     "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
+    "scripts/qa-dev-environment.py",
     "tests/test_control_plane_bootstrap.py",
     "eslint.config.js",
     ".github/workflows/ci.yml",
@@ -672,7 +674,9 @@ def validate_docs() -> list[str]:
         "Completed M02.03 minimal non-domain `apps/web`",
         "Completed M02.04 minimal non-domain `apps/worker`",
         "Completed and merged M02.05 package scaffolds, ESLint baseline, CI baseline, test typecheck coverage, and explicit Python CI dependencies",
-        "M02.06 QA passed, awaiting merge for local-only Docker Compose/Postgres, migration tooling, env placeholders, infrastructure readiness stubs, and remote infrastructure smoke validation",
+        "Completed and merged M02.06 local-only Docker Compose/Postgres, migration tooling, env placeholders, infrastructure readiness stubs, and remote infrastructure smoke validation",
+        "M02.07 Builder created a repeatable QA development environment",
+        "M02.07 QA corrected truthful dirty-worktree",
         "ADR-0008 identity, money, and storage direction",
     ]:
         if phrase not in changelog:
@@ -747,6 +751,14 @@ def validate_github_workflows() -> list[str]:
     workflow = read_text(".github/workflows/ci.yml") if (workflow_dir / "ci.yml").exists() else None
     if workflow is not None and "python -m pip install -r requirements-dev.txt" not in workflow:
         errors.append(".github/workflows/ci.yml must install Python dev dependencies")
+    if workflow is not None:
+        for phrase in [
+            "git config user.name",
+            "git config user.email",
+            "pnpm qa:dev",
+        ]:
+            if phrase not in workflow:
+                errors.append(f".github/workflows/ci.yml missing QA dev proof: {phrase}")
     if workflow is not None:
         for phrase in [
             "infra-smoke:",
@@ -860,6 +872,69 @@ def validate_root_infra_scripts() -> list[str]:
     dev_dependencies = manifest.get("devDependencies", {})
     if "node-pg-migrate" not in dev_dependencies:
         errors.append("package.json must include node-pg-migrate as a dev dependency")
+    return errors
+
+
+def validate_qa_development_environment() -> list[str]:
+    errors: list[str] = []
+    manifest = json.loads(read_text("package.json"))
+    scripts = manifest.get("scripts", {})
+    if scripts.get("qa:dev") != "python scripts/qa-dev-environment.py":
+        errors.append("package.json qa:dev script must run scripts/qa-dev-environment.py")
+
+    script = read_text("scripts/qa-dev-environment.py")
+    for phrase in [
+        "PASS",
+        "FAIL",
+        "SKIPPED",
+        "--with-docker",
+        "--allow-dirty",
+        "Git clean worktree requirement",
+        "git\", \"config\", \"--local\", \"--get\", \"user.name",
+        "pnpm",
+        "install",
+        "--frozen-lockfile",
+        "typecheck",
+        "lint",
+        "test",
+        "build",
+        "format:check",
+        "validate-control-plane.py",
+        "test_control_plane_bootstrap.py",
+        "git",
+        "diff",
+        "--check",
+        "docker",
+        "compose",
+        "CAUSALLEDGER_POSTGRES_DB",
+        "CAUSALLEDGER_POSTGRES_USER",
+        "CAUSALLEDGER_POSTGRES_PASSWORD",
+        "CAUSALLEDGER_POSTGRES_HOST",
+        "DATABASE_URL",
+        "down",
+        "-v",
+        "finally:",
+        "not requested; run with --with-docker",
+    ]:
+        if phrase not in script:
+            errors.append(f"scripts/qa-dev-environment.py missing QA coverage: {phrase}")
+
+    guide = read_text("docs/ops/qa-development-environment.md")
+    for phrase in [
+        "pnpm qa:dev",
+        "--with-docker",
+        "PASS",
+        "FAIL",
+        "SKIPPED",
+        "does not validate CausalLedger product behavior",
+        "No product/domain behavior is implemented or validated",
+        "--allow-dirty",
+        "repository-local",
+        "clean worktree",
+        "GitHub Actions `infra-smoke`",
+    ]:
+        if phrase not in guide:
+            errors.append(f"docs/ops/qa-development-environment.md missing guidance: {phrase}")
     return errors
 
 
@@ -992,6 +1067,7 @@ def validate() -> list[str]:
     errors.extend(validate_docs())
     errors.extend(validate_no_secrets())
     errors.extend(validate_local_infrastructure())
+    errors.extend(validate_qa_development_environment())
     errors.extend(validate_python_dev_requirements())
     errors.extend(validate_forbidden_paths())
     errors.extend(validate_app_scaffolds())

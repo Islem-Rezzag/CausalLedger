@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted for M02 local development direction. Package scaffolds, real ESLint enforcement, and the baseline GitHub Actions CI workflow were implemented in M02.05. Local-only Postgres, Docker Compose, migration tooling, a process readiness stub, and remote infrastructure smoke validation were implemented in M02.06 without product storage behavior.
+Accepted for M02 local development direction. Package scaffolds, real ESLint enforcement, and the baseline GitHub Actions CI workflow were implemented in M02.05. Local-only Postgres, Docker Compose, migration tooling, a process readiness stub, and remote infrastructure smoke validation were implemented in M02.06 without product storage behavior. M02.07 adds a repeatable QA development environment command and guide for validating the M02 foundation without product/domain behavior.
 
 Legacy validation marker retained from the original M02 planning placeholder: Planning placeholder.
 
@@ -91,6 +91,25 @@ The Compose service intentionally avoids a fixed `container_name` so Docker Comp
 
 This baseline does not create product database schema, domain tables, storage behavior, production deployment, Redis, queues, schedulers, external connectors, real secrets, or product health behavior.
 
+## M02.07 QA Development Environment
+
+M02.07 creates `scripts/qa-dev-environment.py`, root `pnpm qa:dev`, and `docs/ops/qa-development-environment.md`.
+
+The default QA command is non-destructive and runs the existing standard checks:
+
+- tool availability and versions for Python, Node, npm, and pnpm;
+- Git branch, worktree state, remote, and repository-local identity reporting;
+- Python dev dependency availability;
+- `pnpm install --frozen-lockfile`;
+- `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check`;
+- `python scripts/validate-control-plane.py`;
+- `python -m pytest tests/test_control_plane_bootstrap.py`;
+- `git diff --check`.
+
+Docker/Postgres/migration smoke validation requires explicit `--with-docker` opt-in and uses cleanup with `docker compose down -v` for the resources it creates.
+
+This QA environment does not implement or validate product/domain behavior.
+
 ## Deferred Work
 
 - `apps/api`, `apps/web`, and `apps/worker` manifests were created in M02.02 through M02.04 as minimal non-domain scaffolds.
@@ -98,8 +117,9 @@ This baseline does not create product database schema, domain tables, storage be
 - Shared package manifests were created in redefined M02.05 as scaffold-only package boundaries.
 - ESLint baseline and the baseline GitHub Actions workflow were created in redefined M02.05.
 - Postgres local development, Docker Compose, migrations, and health-check stubs were created in redefined M02.06 as local infrastructure only.
+- QA development environment orchestration was created in redefined M02.07.
 - Redis local development is deferred until a queue or scheduler design proves the need.
 
 ## Next Step
 
-Use this ADR as the local-development constraint set for the remaining M02 work. Do not start M02.07 until M02.06 QA passes, the M02.06 PR merges, and post-merge tracking is finalized.
+Use this ADR as the local-development constraint set for M02 closeout and future milestone setup. Do not start M02 closeout until M02.07 QA passes, the M02.07 PR merges, and post-merge tracking is finalized.
