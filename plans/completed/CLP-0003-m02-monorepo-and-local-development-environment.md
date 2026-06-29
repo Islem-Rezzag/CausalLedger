@@ -10,7 +10,7 @@ M02 planning also aligns CausalLedger's product direction with the continuous pa
 
 The original M02 planning thread did not start M02.01 implementation and did not create product behavior.
 
-M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`). M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`). M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c` (`chore: create M02.03 web scaffold (#40)`). M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f` (`chore: create M02.04 worker scaffold (#41)`). The M02 process amendment PR #42 merged into `main` at commit `d5c27c4` (`docs: amend M02 process tracking and validation (#42)`). M02.05 is `Completed and merged` after PR #43 merged into `main` at commit `6e76045` (`chore: create M02.05 package ESLint and CI baseline (#43)`). M02.06 is `Completed and merged` after PR #44 merged into `main` at commit `80ce206` (`chore: create M02.06 local infra baseline (#44)`). The current slice is `M02.07 QA - QA Development Environment` on branch `m02-07-qa-development-environment`.
+M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901` (`docs: M02.01 choose backend and frontend stack (#38)`). M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da` (`chore: create M02.02 api scaffold (#39)`). M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c` (`chore: create M02.03 web scaffold (#40)`). M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f` (`chore: create M02.04 worker scaffold (#41)`). The M02 process amendment PR #42 merged into `main` at commit `d5c27c4` (`docs: amend M02 process tracking and validation (#42)`). M02.05 is `Completed and merged` after PR #43 merged into `main` at commit `6e76045` (`chore: create M02.05 package ESLint and CI baseline (#43)`). M02.06 is `Completed and merged` after PR #44 merged into `main` at commit `80ce206` (`chore: create M02.06 local infra baseline (#44)`). M02.07 is `Completed and merged` after PR #45 merged into `main` at commit `4a4f381adb7ed263fb26d0373f00043f2fe6a6bc` (`chore: create M02.07 QA development environment (#45)`). This closeout slice audits M02 and moves this plan to `plans/completed/` only if closeout passes.
 
 ## Progress
 
@@ -136,6 +136,11 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 - [x] 2026-06-24: M02.07 QA added default dirty-worktree failure with explicit `--allow-dirty`, enforced `git config --local`, isolated QA Docker database/user/password/host/port and `DATABASE_URL`, tightened Docker flow control and diagnostics, added Linux CI proof for `pnpm qa:dev`, and added behavioral QA-orchestrator tests.
 - [x] 2026-06-24: M02.07 QA uses existing remote `infra-smoke` as the real Docker/Postgres/migration proof and adds behavioral tests proving the QA script delegates equivalent isolated Docker actions; local Docker remains unavailable in this Windows shell.
 - [x] 2026-06-24: M02.07 QA passed; M02.07 is `QA passed, awaiting merge`; M03 through M21 remain `Not started`; product implementation has not started.
+- [x] 2026-06-25: Confirmed PR #45 merged into `main` at commit `4a4f381adb7ed263fb26d0373f00043f2fe6a6bc` after M02.07 QA.
+- [x] 2026-06-25: Created closeout branch `m02-closeout-monorepo-and-local-development-environment` from synchronized `main`.
+- [x] 2026-06-25: GitHub API confirmed PRs #37 through #45 are merged; `validate` and `infra-smoke` checks passed on merge commit `4a4f381adb7ed263fb26d0373f00043f2fe6a6bc`.
+- [x] 2026-06-25: M02.07 finalized as `Completed and merged`; M02.01 through M02.07 are completed and merged, and M02.08 through M02.20 remain deferred or absorbed.
+- [x] 2026-06-25: Created M02 closeout packet at `docs/status/M02_CLOSEOUT.md` and prepared this plan for movement to `plans/completed/`.
 
 ## Surprises & Discoveries
 
@@ -205,9 +210,9 @@ M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b
 
 M00 Repo Operating System is completed and tagged as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed. M01.01 through M01.13 are `Completed and merged`, and the completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M02 planning PR #37 has merged into `main` at commit `18148f7`. M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901`. M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da`. M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c`. M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f`. The M02 process amendment PR #42 merged into `main` at commit `d5c27c4`. M02.05 PR #43 merged into `main` at commit `6e76045`.
+M02 planning PR #37 has merged into `main` at commit `18148f7`. M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901`. M02.02 Create apps/api is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da`. M02.03 Create apps/web is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c`. M02.04 Create apps/worker is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f`. The M02 process amendment PR #42 merged into `main` at commit `d5c27c4`. M02.05 PR #43 merged into `main` at commit `6e76045`. M02.06 PR #44 merged into `main` at commit `80ce206`. M02.07 PR #45 merged into `main` at commit `4a4f381adb7ed263fb26d0373f00043f2fe6a6bc`.
 
-The current branch is `m02-07-qa-development-environment`. The current slice is `M02.07 QA - QA Development Environment`.
+The current branch is `m02-closeout-monorepo-and-local-development-environment`. The current slice is `M02 Closeout - Monorepo and Local Development Environment`.
 
 Historical planning marker before M02.01 started: M02.01 through M02.20 remain `Not started`.
 
@@ -384,7 +389,7 @@ Out of scope for M02.05:
 | M02.04 | Create apps/worker | Completed and merged | `m02-04-create-apps-worker` |
 | M02.05 | Create all remaining package scaffolds + ESLint + CI baseline | Completed and merged | `m02-05-package-scaffolds-eslint-ci` |
 | M02.06 | Local infrastructure: Docker Compose + Postgres + migration tool + health-check stubs | Completed and merged | `m02-06-local-infra-postgres-migrations-health` |
-| M02.07 | QA dev environment | QA passed, awaiting merge | `m02-07-qa-development-environment` |
+| M02.07 | QA dev environment | Completed and merged | `m02-07-qa-development-environment` |
 
 Former M02.08 through M02.20 rows are deferred or absorbed in `docs/milestones/SUBMILESTONE_REGISTRY.md`. `apps/agent-runtime` creation is deferred to the M10 era. Redis is deferred until needed.
 
@@ -549,7 +554,7 @@ Detailed schemas belong to future scoped milestones, especially M03, M04, M07, M
 - Do not claim live ingestion, streaming, replay, timeline updates, incident creation, repair proposal generation, logging, auth/authz, CI/CD, deployment, or databases exist.
 - Do not use LLM output as financial truth.
 - Do not mutate money, ledger state, raw events, evidence, deterministic invariant results, repair approval, or external communications.
-- Do not start M02 closeout until M02.07 QA passes, the M02.07 PR merges, and post-merge tracking is finalized.
+- Do not start M03 planning until the M02 closeout PR merges and no active milestone plan exists.
 
 Historical planning gate now satisfied: Do not start M02.01 Builder until M02 planning QA passes and the planning PR merges.
 
@@ -2197,6 +2202,12 @@ M02.05 builder work created scaffold-only package boundaries, introduced real fl
 
 M02.06 builder work created local-only Docker Compose/Postgres, `node-pg-migrate` root commands, empty env placeholders, migration boundary documentation, and `/infra/ready` as an infrastructure readiness stub. M02.06 QA corrected the readiness stub to process-only semantics, removed the fixed Compose container name, and added remote infrastructure smoke validation. M02.06 is `Completed and merged` after PR #44 merged into `main` at commit `80ce206`.
 
-M02.07 builder work created a repeatable QA development environment with `scripts/qa-dev-environment.py`, root `pnpm qa:dev`, explicit Docker opt-in, documentation, validator coverage, and bootstrap tests. M02.07 QA corrected truthful dirty-worktree behavior, repository-local identity enforcement, Docker environment isolation, Docker flow control, Linux QA-command proof, and behavioral tests. Product domain implementation has not started. M02.07 is `QA passed, awaiting merge`; former M02.08 through M02.20 rows are deferred or absorbed; M03 through M21 remain `Not started`.
+M02.07 builder work created a repeatable QA development environment with `scripts/qa-dev-environment.py`, root `pnpm qa:dev`, explicit Docker opt-in, documentation, validator coverage, and bootstrap tests. M02.07 QA corrected truthful dirty-worktree behavior, repository-local identity enforcement, Docker environment isolation, Docker flow control, Linux QA-command proof, and behavioral tests. Product domain implementation has not started. M02.07 reached `QA passed, awaiting merge` before PR #45 merged; former M02.08 through M02.20 rows are deferred or absorbed; M03 through M21 remain `Not started`.
 
-Exact next recommended thread after this M02.07 QA is complete: `Merge M02.07 PR - QA Development Environment`.
+M02.07 PR #45 merged into `main` at commit `4a4f381adb7ed263fb26d0373f00043f2fe6a6bc`. M02.07 is `Completed and merged`.
+
+M02 closeout passed in this branch as control-plane work only. M02 established the development foundation: TypeScript-first pnpm/Turborepo workspace, minimal non-domain API/web/worker scaffolds, scaffold-only package boundaries, ESLint, CI, local-only Postgres/Docker/migration infrastructure, process readiness stub, remote infra smoke validation, and repeatable `pnpm qa:dev`. M02 did not implement product/domain behavior.
+
+The M02 plan moved to `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md` after the closeout packet and validation completed. No active milestone plan remains after the move. M03 remains `Not started`.
+
+Exact next recommended thread after the M02 closeout PR merges: `M03 Planning - Canonical MoneyEvent Engine`.

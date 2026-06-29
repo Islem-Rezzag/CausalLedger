@@ -85,15 +85,17 @@ Current status:
 - `docs/status/M00_CLOSEOUT.md`
 - `docs/status/M01_DOMAIN_CONSISTENCY.md`
 - `docs/status/M01_CLOSEOUT.md`
+- `docs/status/M02_CLOSEOUT.md`
 
 Completed execution:
 
 - `plans/completed/CLP-0001-m00-repo-operating-system.md`
 - `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`
+- `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`
 
 Active execution:
 
-- `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md` - active M02 plan. M02.01 through M02.06 are `Completed and merged`; the process amendment is merged; M02.07 is `QA passed, awaiting merge`.
+- No active milestone plan exists after M02 closeout. M03 remains `Not started`.
 
 Plan state:
 

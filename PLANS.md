@@ -32,11 +32,11 @@ Use `CLP-0001-short-name.md`. Increment the number monotonically and keep the sh
 - Completed plans move to `plans/completed/`.
 - Archived or stale plans move to `plans/archived/`.
 
-Current active milestone planning plan: `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`.
+Current active milestone planning plan: none after M02 closeout.
 
 The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M02 is active under `plans/active/CLP-0003-m02-monorepo-and-local-development-environment.md`. M02 planning PR #37 merged into `main` at commit `18148f7`; M02.01 is `Completed and merged` after PR #38 merged into `main` at commit `fb2b901`; M02.02 is `Completed and merged` after PR #39 merged into `main` at commit `8ddf5da`; M02.03 is `Completed and merged` after PR #40 merged into `main` at commit `6ad4b0c`; M02.04 is `Completed and merged` after PR #41 merged into `main` at commit `f52396558e127e33e02c6e992d8a5f91cfe4dc0f`; M02 process amendment PR #42 merged into `main` at commit `d5c27c4`; M02.05 is `Completed and merged` after PR #43 merged into `main` at commit `6e76045`; M02.06 is `Completed and merged` after PR #44 merged into `main` at commit `80ce206`; M02.07 is `QA passed, awaiting merge`; former M02.08 through M02.20 rows are deferred or absorbed.
+M02 is completed after closeout. The completed M02 plan lives at `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`. M02 planning PR #37 and PRs #38 through #45 are merged into `main`; PR #45 merged at commit `4a4f381adb7ed263fb26d0373f00043f2fe6a6bc`. M02.01 through M02.07 are `Completed and merged`; former M02.08 through M02.20 rows are deferred or absorbed. M03 remains `Not started`.
 
 Progress is recorded in the active plan during the slice. Submilestone status is recorded in `docs/milestones/SUBMILESTONE_REGISTRY.md`, reflected in the relevant milestone doc, and summarized in `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md`.
 
