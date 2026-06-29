@@ -32,11 +32,11 @@ Use `CLP-0001-short-name.md`. Increment the number monotonically and keep the sh
 - Completed plans move to `plans/completed/`.
 - Archived or stale plans move to `plans/archived/`.
 
-Current active milestone planning plan: none after M02 closeout.
+Current active milestone planning plan: `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`.
 
 The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M02 is completed after closeout. The completed M02 plan lives at `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`. M02 planning PR #37 and PRs #38 through #45 are merged into `main`; PR #45 merged at commit `4a4f381adb7ed263fb26d0373f00043f2fe6a6bc`. M02.01 through M02.07 are `Completed and merged`; former M02.08 through M02.20 rows are deferred or absorbed. M03 remains `Not started`.
+M02 is completed after closeout. The completed M02 plan lives at `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`. M02 planning PR #37 and PRs #38 through #45 are merged into `main`; PR #45 merged at commit `4a4f381adb7ed263fb26d0373f00043f2fe6a6bc`, and M02 closeout PR #46 merged at commit `24228fd`. M02.01 through M02.07 are `Completed and merged`; former M02.08 through M02.20 rows are deferred or absorbed. M03 planning is active, and M03.01 through M03.06 remain `Not started`.
 
 Progress is recorded in the active plan during the slice. Submilestone status is recorded in `docs/milestones/SUBMILESTONE_REGISTRY.md`, reflected in the relevant milestone doc, and summarized in `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md`.
 

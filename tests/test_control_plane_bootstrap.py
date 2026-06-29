@@ -56,6 +56,13 @@ def m02_table(rows: list[list[str]]) -> str:
     return "\n".join(["# M02", "", "## Detailed submilestones", "", header, divider, *body])
 
 
+def m03_table(rows: list[list[str]]) -> str:
+    header = "| ID | Name | Status | Notes |"
+    divider = "| --- | --- | --- | --- |"
+    body = ["| " + " | ".join(row) + " |" for row in rows]
+    return "\n".join(["# M03", "", "## Detailed submilestones", "", header, divider, *body])
+
+
 def valid_registry_text() -> str:
     return registry_table(
         [
@@ -136,6 +143,50 @@ def test_04_m02_milestone_status_mismatch_is_rejected_from_fixtures():
     assert errors == [
         "docs/milestones/M02.md M02.97 status is Not started, registry says Builder in progress"
     ]
+
+
+def test_04b_m03_requires_lean_planning_rows_from_fixtures():
+    registry_rows = validator.parse_registry_table(
+        registry_table(
+            [
+                [
+                    "M03.01",
+                    "Canonical MoneyEvent concept and contract planning",
+                    "M03 Canonical MoneyEvent engine",
+                    "Not started",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.02",
+                    "MoneyEvent TypeScript types and schema boundary",
+                    "M03 Canonical MoneyEvent engine",
+                    "Not started",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+            ]
+        )
+    )
+    errors = validator.validate_m03_milestone_consistency(
+        registry_rows,
+        m03_table(
+            [
+                ["M03.01", "Canonical MoneyEvent concept and contract planning", "Not started", "Pending."],
+                ["M03.02", "MoneyEvent TypeScript types and schema boundary", "Not started", "Pending."],
+            ]
+        ),
+    )
+    assert "docs/milestones/M03.md must contain exactly M03.01 through M03.06" in errors
+    assert "registry must contain exactly M03.01 through M03.06" in errors
 
 
 def active_current_state() -> str:
@@ -298,7 +349,9 @@ Merge the process amendment PR only after QA PASS.
     assert validator.validate_next_thread_structure(next_thread) == []
 
 
-def test_13_roadmap_status_is_derived_from_registry_fixture():
+def test_13_roadmap_status_is_derived_from_registry_fixture(tmp_path, monkeypatch):
+    (tmp_path / "plans" / "active").mkdir(parents=True)
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
     rows = validator.parse_registry_table(
         registry_table(
             [
@@ -316,6 +369,27 @@ def test_13_roadmap_status_is_derived_from_registry_fixture():
             ["M02 Monorepo and local development", "Goal", "Focus", "Exit", "2", "In progress"],
             ["M03 Canonical MoneyEvent engine", "Goal", "Focus", "Exit", "1", "Not started"],
         ]
+    )
+    assert validator.validate_roadmap_consistency(rows, roadmap) == []
+
+
+def test_13a_roadmap_allows_planning_active_when_active_plan_exists(tmp_path, monkeypatch):
+    active = tmp_path / "plans" / "active"
+    active.mkdir(parents=True)
+    (active / "CLP-0004-m03-canonical-moneyevent-engine.md").write_text(
+        "# M03\n", encoding="utf-8"
+    )
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    rows = validator.parse_registry_table(
+        registry_table(
+            [
+                ["M03.01", "Future", "M03 MoneyEvent", "Not started", "", "", "", "", "", ""],
+                ["M03.02", "Future", "M03 MoneyEvent", "Not started", "", "", "", "", "", ""],
+            ]
+        )
+    )
+    roadmap = roadmap_table(
+        [["M03 Canonical MoneyEvent engine", "Goal", "Focus", "Exit", "2", "Planning active"]]
     )
     assert validator.validate_roadmap_consistency(rows, roadmap) == []
 
@@ -352,8 +426,8 @@ def test_16_required_directories_exist():
     assert not validator.missing_paths(validator.REQUIRED_DIRS, "dir")
 
 
-def test_17_no_active_plan_exists_after_m02_closeout():
-    assert validator.active_plan_files() == []
+def test_17_active_m03_plan_exists_during_m03_planning():
+    assert validator.active_plan_files() == [ROOT / validator.M03_ACTIVE_PLAN]
 
 
 def test_17b_one_active_plan_is_valid_during_active_milestone(tmp_path, monkeypatch):
@@ -390,6 +464,10 @@ def test_17d_completed_m02_plan_exists_and_active_m02_plan_is_absent():
     ).exists()
 
 
+def test_17e_m03_plan_location_is_active_only():
+    assert validator.validate_m03_plan_location() == []
+
+
 def test_18_live_registry_table_parses():
     assert len(validator.parse_registry()) > 300
 
@@ -401,6 +479,11 @@ def test_19_live_registry_statuses_are_allowed():
 def test_20_live_m02_doc_matches_registry_statuses():
     rows = validator.parse_registry()
     assert validator.validate_m02_milestone_consistency(rows, text("docs/milestones/M02.md")) == []
+
+
+def test_20b_live_m03_doc_matches_registry_statuses():
+    rows = validator.parse_registry()
+    assert validator.validate_m03_milestone_consistency(rows, text("docs/milestones/M03.md")) == []
 
 
 def test_21_live_roadmap_matches_registry_statuses_and_counts():
@@ -560,6 +643,10 @@ def test_39_no_product_implementation_claims_in_live_status():
             "product implementation has not started" in content
             or "product domain implementation has not started" in content
         )
+
+
+def test_39b_no_moneyevent_runtime_files_exist():
+    assert validator.validate_no_moneyevent_runtime_files() == []
 
 
 def test_40_validator_main_checks_pass():

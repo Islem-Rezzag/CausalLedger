@@ -47,25 +47,12 @@ Status values: Not started, Builder in progress, Builder complete, awaiting QA, 
 | M02.18 | Former health checks slice | M02 Monorepo and local development | Deferred | plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md |  |  | Deferred by 2026-06-11 process amendment | 2026-06-11 | Absorbed into redefined M02.06 as health-check stubs only. |
 | M02.19 | Former CI baseline slice | M02 Monorepo and local development | Deferred | plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md |  |  | Deferred by 2026-06-11 process amendment | 2026-06-11 | Absorbed into redefined M02.05. |
 | M02.20 | Former QA dev environment slice | M02 Monorepo and local development | Deferred | plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md |  |  | Deferred by 2026-06-11 process amendment | 2026-06-11 | Replaced by redefined M02.07. |
-| M03.01 | Define MoneyEvent schema | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
-| M03.02 | Define amount model | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
-| M03.03 | Define actor model | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
-| M03.04 | Define references model | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
-| M03.05 | Define provenance model | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
-| M03.06 | Define lifecycle stage enum | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
-| M03.07 | Define event type enum | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
-| M03.08 | Store raw payload hash | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
-| M03.09 | Add database migration | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
-| M03.10 | Add event validation | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
-| M03.11 | Add POST /events/ingest | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
-| M03.12 | Add idempotency handling | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
-| M03.13 | Add duplicate event behavior | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
-| M03.14 | Add GET /events/{id} | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
-| M03.15 | Add timeline query | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
-| M03.16 | Add fixtures | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
-| M03.17 | Add tests | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
-| M03.18 | Update specs | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
-| M03.19 | QA MoneyEvent engine | M03 Canonical MoneyEvent engine | Not started |  |  |  |  |  |  |
+| M03.01 | Canonical MoneyEvent concept and contract planning | M03 Canonical MoneyEvent engine | Not started | plans/active/CLP-0004-m03-canonical-moneyevent-engine.md |  |  | 2026-06-29: M03 planning builder validation passed; control-plane, 85 bootstrap tests, diff, pnpm checks, and qa:dev -- --allow-dirty passed | 2026-06-29 | Planned scope only; define conceptual fields, lifecycle meaning, provenance, idempotency, uncertainty, and non-goals without TypeScript types, runtime schemas, parsers, validators, storage, routes, or UI. |
+| M03.02 | MoneyEvent TypeScript types and schema boundary | M03 Canonical MoneyEvent engine | Not started | plans/active/CLP-0004-m03-canonical-moneyevent-engine.md |  |  | 2026-06-29: M03 planning builder validation passed; control-plane, 85 bootstrap tests, diff, pnpm checks, and qa:dev -- --allow-dirty passed | 2026-06-29 | Planned scope only; future `packages/events/` type and schema boundary work after planning QA, with no database tables, API routes, ingestion, storage, ledger posting, repair behavior, or agent tools. |
+| M03.03 | Evidence-to-MoneyEvent mapping fixtures and simulator planning | M03 Canonical MoneyEvent engine | Not started | plans/active/CLP-0004-m03-canonical-moneyevent-engine.md |  |  | 2026-06-29: M03 planning builder validation passed; control-plane, 85 bootstrap tests, diff, pnpm checks, and qa:dev -- --allow-dirty passed | 2026-06-29 | Planned scope only; controlled mapping fixtures from provider-like events, settlement rows, bank lines, refunds, chargebacks, and synthetic simulator outputs, with no real connectors, evidence storage, live ingestion, or external integrations. |
+| M03.04 | MoneyEvent validation and normalization rules | M03 Canonical MoneyEvent engine | Not started | plans/active/CLP-0004-m03-canonical-moneyevent-engine.md |  |  | 2026-06-29: M03 planning builder validation passed; control-plane, 85 bootstrap tests, diff, pnpm checks, and qa:dev -- --allow-dirty passed | 2026-06-29 | Planned scope only; deterministic validation and normalization rules for identity, idempotency, money, currency, timestamps, source references, provenance, duplicates, missing evidence, and conflicts; no LLM judgment as validation. |
+| M03.05 | MoneyEvent test fixtures and benchmark seed cases | M03 Canonical MoneyEvent engine | Not started | plans/active/CLP-0004-m03-canonical-moneyevent-engine.md |  |  | 2026-06-29: M03 planning builder validation passed; control-plane, 85 bootstrap tests, diff, pnpm checks, and qa:dev -- --allow-dirty passed | 2026-06-29 | Planned scope only; deterministic fixtures and early seed cases for later MoneyFlowBench reuse without benchmark scoring, product readiness, incident detection, replay correctness, or repair safety claims. |
+| M03.06 | MoneyEvent QA and closeout | M03 Canonical MoneyEvent engine | Not started | plans/active/CLP-0004-m03-canonical-moneyevent-engine.md |  |  | 2026-06-29: M03 planning builder validation passed; control-plane, 85 bootstrap tests, diff, pnpm checks, and qa:dev -- --allow-dirty passed | 2026-06-29 | Planned scope only; QA and closeout must verify forbidden scope, deterministic tests, docs alignment, and merge readiness before M03 can complete. |
 | M04.01 | Define Account schema | M04 Double-entry ledger core | Not started |  |  |  |  |  |  |
 | M04.02 | Define LedgerTransaction schema | M04 Double-entry ledger core | Not started |  |  |  |  |  |  |
 | M04.03 | Define LedgerEntry schema | M04 Double-entry ledger core | Not started |  |  |  |  |  |  |

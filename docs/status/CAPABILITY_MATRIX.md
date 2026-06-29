@@ -12,7 +12,7 @@
 | Local infrastructure baseline | Completed and merged | M02.06 adds local-only Docker Compose/Postgres, empty env example placeholders, `node-pg-migrate` commands, an empty migration boundary, remote infrastructure smoke validation, and `/infra/ready` process readiness only; PR #44 merged at `80ce206`; no product schema, storage behavior, Redis, queues, schedulers, or production deployment |
 | QA development environment | Completed and merged | M02.07 adds `pnpm qa:dev`, `scripts/qa-dev-environment.py`, and `docs/ops/qa-development-environment.md` for repeatable standard validation and explicit Docker opt-in; QA corrected truthful dirty-worktree, repository-local identity, deterministic Docker environment, flow-control, CI proof, and behavioral-test coverage; PR #45 merged at `4a4f381`; no product/domain behavior |
 | Continuous lifecycle observer alignment | Planned direction | Documentation-only language for living causal timeline, live/replay input timing, and progressive incident certainty; no runtime implementation |
-| MoneyEvent engine | Not started | No product logic |
+| MoneyEvent engine | Planning active | Active plan `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`; M03.01 through M03.06 are not started; no MoneyEvent runtime, schema, storage, API, UI, or product behavior |
 | Ledger core | Not started | No product logic |
 | Invariant engine | Not started | No product logic |
 | Incident engine | Not started | No product logic |

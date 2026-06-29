@@ -1,10 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-M03 Planning - Canonical MoneyEvent Engine
+M03 Planning QA - Canonical MoneyEvent Engine
 
 Precondition:
-M02 closeout passed and the M02 closeout PR merged into main. No active milestone plan exists.
+M03 planning builder work is complete on branch `m03-planning-canonical-moneyevent-engine`, with active plan `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md` and validation recorded.
 
 Scope:
-Create the M03 planning branch and active M03 plan. Do not implement MoneyEvent behavior during planning.
+Review the M03 planning branch and active M03 plan. Verify scope, tracking, validation, and forbidden-scope boundaries. Do not implement MoneyEvent behavior or start M03.01.

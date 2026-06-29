@@ -2,6 +2,19 @@
 
 ## 2026-06-29
 
+- Synced `main` after M02 closeout merged and confirmed `main` fast-forwarded to `24228fd` (`M02 closeout monorepo and local development environment (#46)`).
+- Configured repository-local Git identity as `Mohamed Islem Rezzag Baara <Islem-Rezzag@users.noreply.github.com>`.
+- Confirmed no active `CLP-*.md` plan existed, `CLP-0004` was unused, `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md` exists, M03 was not started, and product/domain implementation had not started.
+- Created M03 planning branch `m03-planning-canonical-moneyevent-engine`.
+- Created active M03 plan `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`.
+- Reshaped M03 from the old broad 19-row outline into six planned submilestones: concept and contract planning, TypeScript types and schema boundary, evidence-to-MoneyEvent mapping fixtures and simulator planning, validation and normalization rules, test fixtures and benchmark seed cases, and QA/closeout.
+- Updated roadmap, registry, M03 milestone doc, entry docs, status docs, capability matrix, validator, and bootstrap tests for M03 planning active state.
+- M03 planning remains documentation/control-plane work only. No MoneyEvent behavior, runtime schema, database table, product/domain package implementation, API route, UI, storage, parser, validator, connector, ledger, invariant, incident, replay, repair, agent runtime, raw evidence mutation, ledger posting, repair approval, or money mutation was added.
+- M03 planning builder validation passed: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 85 tests, `git diff --check`, Node/npm/pnpm version checks, `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, `pnpm format:check`, and `pnpm qa:dev -- --allow-dirty`.
+- `pnpm qa:dev -- --allow-dirty` reported 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`; the clean-worktree requirement was skipped only because planning edits were intentionally uncommitted, and Docker validation was skipped because Docker mode was not requested.
+- Docker is unavailable in this Windows shell; `docker --version` and `docker compose version` failed with `docker` not recognized. `make bootstrap-check` and GitHub CLI are unavailable.
+- Recommended next thread after builder validation and PR creation: `M03 Planning QA - Canonical MoneyEvent Engine`.
+
 - Recovered the existing closeout branch `m02-closeout-monorepo-and-local-development-environment` instead of creating a new branch; local and remote refs matched at closeout commit `3758304be7156c28c1405b44c0b1cfa50c40a21f`.
 - Confirmed repository-local Git identity is `Mohamed Islem Rezzag Baara <Islem-Rezzag@users.noreply.github.com>` and the branch-only closeout commit has no `@qmul.ac.uk` author, committer, or co-author trailer.
 - Confirmed `main` contains PR #45 at `4a4f381adb7ed263fb26d0373f00043f2fe6a6bc`, M02.01 through M02.07 are completed and merged, former M02.08 through M02.20 are deferred or absorbed, no active `CLP-*.md` milestone plan exists, and no M03 active plan exists.
