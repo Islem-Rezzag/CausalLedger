@@ -94,7 +94,7 @@ Closeout branch validation results before commit:
 - `pnpm format:check` passed across all 13 workspaces.
 - `pnpm qa:dev -- --allow-dirty` passed with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
 
-Final clean-worktree `pnpm qa:dev` is required after commit because the QA command fails dirty worktrees by design.
+This validation was the original closeout pre-commit pass. Any recovery commit on this branch must rerun clean-worktree `pnpm qa:dev` before push because the QA command fails dirty worktrees by design.
 
 ## Changed docs
 
@@ -113,7 +113,7 @@ No product code changed.
 ## Skipped validation and why
 
 - `gh run list --commit 4a4f381...` could not run because GitHub CLI is unavailable. GitHub API checks were used instead.
-- `pnpm qa:dev -- --allow-dirty` skipped the clean-worktree requirement because closeout edits were intentionally uncommitted during intermediate validation. Final clean-worktree `pnpm qa:dev` must run after commit.
+- `pnpm qa:dev -- --allow-dirty` skipped the clean-worktree requirement because closeout edits were intentionally uncommitted during the original intermediate validation. This skip does not apply to a recovery commit; clean-worktree `pnpm qa:dev` must run before pushing any follow-up fix.
 - Local Docker mode was skipped because `docker --version` and `docker compose version` both failed with `docker` not recognized in the current Windows shell. Remote GitHub Actions `infra-smoke` passed on merge commit `4a4f381adb7ed263fb26d0373f00043f2fe6a6bc`.
 - `make bootstrap-check` was skipped because `make` is unavailable in the current Windows shell. Direct Python validation and pytest passed.
 
@@ -191,4 +191,4 @@ After the move, `plans/active/` contains zero active milestone plans.
 
 ## Closeout decision
 
-M02 closeout passed locally in this branch pending commit, push, remote validation for the closeout branch, and human PR review. M02 is complete as a development-foundation milestone after this closeout PR merges. M03 planning may begin only after that merge.
+M02 closeout passed locally in this branch. The closeout branch and closeout commit exist, the branch is ready for closeout PR creation and review, and remote closeout-branch checks remain pending until a PR is opened and CI runs. M02 is complete as a development-foundation milestone after this closeout PR merges. M03 planning may begin only after that merge.

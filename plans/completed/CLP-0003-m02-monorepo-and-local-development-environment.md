@@ -2208,6 +2208,6 @@ M02.07 PR #45 merged into `main` at commit `4a4f381adb7ed263fb26d0373f00043f2fe6
 
 M02 closeout passed in this branch as control-plane work only. M02 established the development foundation: TypeScript-first pnpm/Turborepo workspace, minimal non-domain API/web/worker scaffolds, scaffold-only package boundaries, ESLint, CI, local-only Postgres/Docker/migration infrastructure, process readiness stub, remote infra smoke validation, and repeatable `pnpm qa:dev`. M02 did not implement product/domain behavior.
 
-The M02 plan can move to `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md` after this closeout packet and validation are complete. No active milestone plan should remain after the move. M03 remains `Not started`.
+The M02 plan moved to `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md` after the closeout packet and validation completed. No active milestone plan remains after the move. M03 remains `Not started`.
 
 Exact next recommended thread after the M02 closeout PR merges: `M03 Planning - Canonical MoneyEvent Engine`.
