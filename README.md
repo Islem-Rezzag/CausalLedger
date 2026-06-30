@@ -12,7 +12,7 @@ CausalLedger helps fintech teams prove, replay, and safely repair money-movement
 
 ## Current status
 
-CausalLedger has completed M00 Repo Operating System and tagged it as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed after M01.01 through M01.13 completed and merged. M02 Monorepo and Local Development Environment is completed after M02.01 through M02.07 completed and merged; the M02 closeout PR #46 merged into `main` at commit `24228fd`. The completed M02 plan is `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`, and the closeout packet is `docs/status/M02_CLOSEOUT.md`. M03 Canonical MoneyEvent Engine planning is active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`; M03.01 through M03.06 remain `Not started`, and product domain implementation has not started.
+CausalLedger has completed M00 Repo Operating System and tagged it as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed after M01.01 through M01.13 completed and merged. M02 Monorepo and Local Development Environment is completed after M02.01 through M02.07 completed and merged; the M02 closeout PR #46 merged into `main` at commit `24228fd`. M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`. The completed M02 plan is `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`, and the closeout packet is `docs/status/M02_CLOSEOUT.md`. M03 Canonical MoneyEvent Engine is active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`; M03.01 QA has passed and the PR is awaiting human merge, M03.02 through M03.06 remain `Not started`, and product domain implementation has not started.
 
 This repository currently contains architecture, planning, prompt, skill, milestone, status, GitHub templates, versioning, validation scaffolding, workspace manifests, a minimal non-domain `apps/api` TypeScript/Fastify scaffold with an infrastructure-only process readiness stub, a minimal non-domain `apps/web` React/Vite scaffold, a minimal non-domain `apps/worker` TypeScript scaffold, scaffold-only package boundaries for the ten M02.05 packages, a real ESLint baseline, a minimal GitHub Actions CI baseline with infrastructure smoke validation, local-only Docker Compose/Postgres plus migration tooling scaffolding, and a repeatable M02.07 QA development environment command and guide. No product functionality, evidence ingestion runtime, evidence storage layer, MoneyEvent logic, ledger logic, invariants, incident engine, causal graph, replay engine, agent runtime, repair planner runtime, repair execution, product UI features, CausalLedger domain API routes, product database schema, queues, schedulers, deployment, auth/authz runtime, structured logging, monitoring, runtime security controls, real secrets, or external connectors exist yet.
 
@@ -97,7 +97,7 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `plans/completed/CLP-0001-m00-repo-operating-system.md` - completed M00 plan.
 - `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md` - completed M01 plan.
 - `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md` - completed M02 plan.
-- `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md` - active M03 planning plan.
+- `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md` - active M03 plan.
 - `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
 - `prompts/template_qa_submilestone.md` - reusable QA thread prompt template.
 - `prompts/template_handoff_packet.md` - reusable handoff packet template.
@@ -107,6 +107,7 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `docs/PRODUCT_VISION.md` - wedge, value proposition, demo narrative, open-source moat, and MoneyFlowBench role.
 - `docs/ARCHITECTURE.md` - planned architecture and safety boundaries.
 - `docs/DOMAIN_MODEL.md` - canonical M01 domain model summary.
+- `docs/MONEYEVENT_CONTRACT.md` - M03.01 conceptual MoneyEvent contract; documentation only, with no runtime schema or product behavior.
 - `docs/RELIABILITY.md` - canonical CausalLedger reliability model for deterministic checks, evidence, replay, repair safety, human review, AI boundaries, auditability, metrics, and future dependencies.
 - `docs/THREAT_MODEL.md` - canonical CausalLedger threat model for evidence, deterministic truth, repair/review, agent/tool, prompt injection, privacy, secrets, supply-chain, cost, ablation, and governance risks.
 - `docs/TOKEN_COST_STRATEGY.md` - future model-cost strategy.

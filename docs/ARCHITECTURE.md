@@ -50,7 +50,7 @@ Human review and evidence bundles
 ## Core layers
 
 - Evidence capture: future append-only raw evidence, provenance, source identity, and checksums.
-- Canonical events: future MoneyEvent schemas and transformations.
+- Canonical events: future MoneyEvent schemas and transformations. The current conceptual boundary is documented in `docs/MONEYEVENT_CONTRACT.md`; no runtime MoneyEvent behavior exists yet.
 - Ledger primitives: future deterministic double-entry checks, immutable transactions, balances, and reversals.
 - Invariants: future deterministic financial correctness checks.
 - Incidents: future incident records created from failed deterministic checks.

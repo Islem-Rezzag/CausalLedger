@@ -54,7 +54,7 @@ Use `docs/ops/repo-operating-system-freeze.md` and `docs/status/M00_FREEZE_READI
 
 Use `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md` for release versioning, release-scope, and overclaim-prevention guidance.
 
-Current active milestone plan: `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. The completed M02 plan lives at `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`; M02 planning, M02.01 through M02.07, and M02 closeout are merged. M03 planning is active, and M03.01 must wait until the M03 planning PR passes QA and merges.
+Current active milestone plan: `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. The completed M02 plan lives at `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`; M02 planning, M02.01 through M02.07, and M02 closeout are merged. M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`. M03.01 QA has passed and the PR is awaiting human merge; M03.02 must wait until the M03.01 PR merges.
 
 ## Sandbox assumptions
 

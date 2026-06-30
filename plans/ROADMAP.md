@@ -1,7 +1,7 @@
 # CausalLedger Roadmap
 
-Current milestone marker: M03 Canonical MoneyEvent engine planning is active. The active M03 plan lives at `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M02 Monorepo and local development is completed; the completed M02 plan lives at `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`, and the closeout packet lives at `docs/status/M02_CLOSEOUT.md`.
-Current submilestone status: M00.01 through M00.08 are completed and merged. M01.01 through M01.13 are `Completed and merged`. M02.01 through M02.07 are `Completed and merged`; former M02.08 through M02.20 rows are deferred or absorbed. M03 planning is active, M03.01 through M03.06 are `Not started`, and M04 through M21 remain `Not started`.
+Current milestone marker: M03 Canonical MoneyEvent engine is active. The active M03 plan lives at `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M02 Monorepo and local development is completed; the completed M02 plan lives at `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`, and the closeout packet lives at `docs/status/M02_CLOSEOUT.md`. M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`.
+Current submilestone status: M00.01 through M00.08 are completed and merged. M01.01 through M01.13 are `Completed and merged`. M02.01 through M02.07 are `Completed and merged`; former M02.08 through M02.20 rows are deferred or absorbed. M03.01 QA has passed and the PR is awaiting human merge; M03.02 through M03.06 are `Not started`, and M04 through M21 remain `Not started`.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 
@@ -10,7 +10,7 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 | M00 Repo operating system | Establish the durable repository operating system for CausalLedger. | Control-plane docs, workflow, planning, validation | Codex can continue from repo state without chat memory | 8 | Completed |
 | M01 Domain model and scope freeze | Freeze CausalLedger domain language, scope, and non-goals. | Concepts, non-goals, glossary | Domain model and scope are approved | 13 | Completed |
 | M02 Monorepo and local development | Create the runnable local development foundation. | Tooling, packages, CI shape, planning ADRs | Local checks run consistently | 20 | Completed |
-| M03 Canonical MoneyEvent engine | Define and implement the canonical event representation. | Event contracts, source mapping, validation, fixtures, and QA | MoneyEvent behavior is specified and validated | 6 | Planning active |
+| M03 Canonical MoneyEvent engine | Define and implement the canonical event representation. | Event contracts, source mapping, validation, fixtures, and QA | MoneyEvent behavior is specified and validated | 6 | In progress |
 | M04 Double-entry ledger core | Implement deterministic double-entry ledger primitives. | Transactions, entries, balances | Ledger checks pass deterministic tests | 18 | Not started |
 | M05 Provider and bank simulator | Build controlled synthetic providers and bank sources. | Providers, banks, webhooks, failures, live event stream simulation | Scenarios can generate source evidence | 19 | Not started |
 | M06 Invariant engine | Implement deterministic financial invariant checks. | Deterministic correctness rules | Invariants detect defined breaks | 18 | Not started |
@@ -48,9 +48,9 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 - M02.07 is now `QA dev environment`.
 - `apps/agent-runtime` creation is deferred to the M10 era because agent runtime should not exist before deterministic evidence, MoneyEvent, invariant, incident, graph, replay, and repair boundaries exist.
 - Redis is deferred until needed because no queue or scheduler should be added before the worker or orchestration design proves the need.
-- M03 planning is active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`; M03.01 through M03.06 remain `Not started`.
+- M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`; M03.01 QA has passed and the PR is awaiting human merge under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`, and M03.02 through M03.06 remain `Not started`.
 - M04-M21 remain `Not started`.
 - Product implementation has not started.
-- The next recommended thread after this planning builder completes is `M03 Planning QA - Canonical MoneyEvent Engine`.
+- The next recommended thread is `Merge M03.01 PR - Canonical MoneyEvent concept and contract planning`.
 - Versioning strategy is documented in `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed registry.

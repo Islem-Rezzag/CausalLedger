@@ -27,6 +27,7 @@ Project direction:
 - `docs/PRODUCT_VISION.md`
 - `docs/ARCHITECTURE.md`
 - `docs/DOMAIN_MODEL.md`
+- `docs/MONEYEVENT_CONTRACT.md`
 - `docs/domain/README.md`
 - `docs/domain/payment-lifecycle.md`
 - `docs/domain/ledger-vocabulary.md`
@@ -96,7 +97,7 @@ Completed execution:
 
 Active execution:
 
-- M03 Canonical MoneyEvent Engine planning is active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M03.01 through M03.06 remain `Not started`.
+- M03 Canonical MoneyEvent Engine is active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`. M03.01 QA has passed and the PR is awaiting human merge; M03.02 through M03.06 remain `Not started`.
 
 Plan state:
 

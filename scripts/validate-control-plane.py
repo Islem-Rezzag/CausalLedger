@@ -62,6 +62,7 @@ REQUIRED_INFRA_SCRIPTS = {
 }
 
 M03_ACTIVE_PLAN = "plans/active/CLP-0004-m03-canonical-moneyevent-engine.md"
+MONEYEVENT_CONTRACT_DOC = "docs/MONEYEVENT_CONTRACT.md"
 
 EXPECTED_M03_SUBMILESTONES = {
     "M03.01",
@@ -82,6 +83,43 @@ MONEYEVENT_RUNTIME_SCAN_ROOTS = [
 
 MONEYEVENT_RUNTIME_PATH_TERMS = ["moneyevent", "money-event", "money_events"]
 
+M03_01_ALLOWED_STATUSES = {
+    "Builder in progress",
+    "Builder complete, awaiting QA",
+    "QA passed, awaiting merge",
+    "Completed and merged",
+}
+
+DOC_ONLY_RUNTIME_CODE_FENCE_PATTERN = re.compile(
+    r"```(?:typescript|ts|javascript|js|json|tsx|jsx)\b", re.IGNORECASE
+)
+
+MONEYEVENT_CONTRACT_REQUIRED_PHRASES = [
+    "conceptual contract",
+    "not runtime implementation",
+    "not a ledger entry",
+    "not a payment provider event",
+    "not a bank statement line",
+    "not a settlement row",
+    "not an incident",
+    "not a repair",
+    "not an LLM explanation",
+    "event identity",
+    "source identity",
+    "source type",
+    "evidence references",
+    "provenance",
+    "integer minor units",
+    "ISO 4217",
+    "idempotency key",
+    "source event time",
+    "observed time",
+    "raw evidence remains the source material",
+    "LLM-generated text cannot create financial truth",
+    "duplicate webhook",
+    "conflicting provider and bank evidence",
+]
+
 REQUIRED_FILES = [
     "README.md",
     "START_HERE.md",
@@ -100,6 +138,7 @@ REQUIRED_FILES = [
     "docs/PRODUCT_VISION.md",
     "docs/ARCHITECTURE.md",
     "docs/DOMAIN_MODEL.md",
+    MONEYEVENT_CONTRACT_DOC,
     "docs/RELIABILITY.md",
     "docs/THREAT_MODEL.md",
     "docs/TOKEN_COST_STRATEGY.md",
@@ -699,8 +738,13 @@ def validate_m03_milestone_consistency(
                 f"docs/milestones/M03.md {row.submilestone_id} status is {row.status}, "
                 f"registry says {registry_row.status}"
             )
-        if registry_row.status != "Not started":
-            errors.append(f"{row.submilestone_id} must remain Not started during M03 planning")
+        if row.submilestone_id == "M03.01":
+            if registry_row.status not in M03_01_ALLOWED_STATUSES:
+                errors.append(
+                    "M03.01 must be active or completed after M03 planning merge finalization"
+                )
+        elif registry_row.status != "Not started":
+            errors.append(f"{row.submilestone_id} must remain Not started during M03.01")
         if registry_row.active_plan != M03_ACTIVE_PLAN:
             errors.append(f"{row.submilestone_id} must reference active M03 plan")
     return errors
@@ -862,10 +906,11 @@ def validate_docs() -> list[str]:
         "M02.07 QA corrected truthful dirty-worktree",
         "Closed M02 with `docs/status/M02_CLOSEOUT.md`",
         "Started M03 planning with active plan",
+        "M03.01 Builder created `docs/MONEYEVENT_CONTRACT.md`",
         "ADR-0008 identity, money, and storage direction",
     ]:
         if phrase not in changelog:
-            errors.append(f"CHANGELOG.md missing M02 entry: {phrase}")
+            errors.append(f"CHANGELOG.md missing expected entry: {phrase}")
 
     gitignore = read_text(".gitignore")
     for phrase in ["reports/*.pdf", "reports/*.xlsx"]:
@@ -877,6 +922,8 @@ def validate_docs() -> list[str]:
             errors.append(f"{rel} does not index ADR-0008")
         if M03_ACTIVE_PLAN not in read_text(rel):
             errors.append(f"{rel} does not index the active M03 plan")
+        if MONEYEVENT_CONTRACT_DOC not in read_text(rel):
+            errors.append(f"{rel} does not index the MoneyEvent contract")
     return errors
 
 
@@ -909,6 +956,40 @@ def validate_no_moneyevent_runtime_files() -> list[str]:
                     "MoneyEvent runtime file created before implementation scope: "
                     f"{path.relative_to(ROOT).as_posix()}"
                 )
+    return errors
+
+
+def validate_no_m03_fixture_or_simulator_data() -> list[str]:
+    errors: list[str] = []
+    for rel in ["data/fixtures", "data/synthetic", "scenarios"]:
+        root = ROOT / rel
+        if not root.exists():
+            continue
+        files = sorted(
+            path.relative_to(root).as_posix()
+            for path in root.rglob("*")
+            if path.is_file()
+        )
+        extra_files = [file_name for file_name in files if file_name != "README.md"]
+        if extra_files:
+            errors.append(
+                f"{rel} may contain only README.md before fixture or simulator scope: "
+                + ", ".join(extra_files)
+            )
+    return errors
+
+
+def validate_moneyevent_contract_doc() -> list[str]:
+    errors: list[str] = []
+    contract = read_text(MONEYEVENT_CONTRACT_DOC)
+    contract_lower = contract.lower()
+    if DOC_ONLY_RUNTIME_CODE_FENCE_PATTERN.search(contract):
+        errors.append("MONEYEVENT_CONTRACT.md must not contain runtime code fences")
+    if re.search(r"\b(?:type|interface|class)\s+MoneyEvent\b", contract):
+        errors.append("MONEYEVENT_CONTRACT.md must not define a MoneyEvent type")
+    for phrase in MONEYEVENT_CONTRACT_REQUIRED_PHRASES:
+        if phrase.lower() not in contract_lower:
+            errors.append(f"MONEYEVENT_CONTRACT.md missing conceptual coverage: {phrase}")
     return errors
 
 
@@ -1272,6 +1353,8 @@ def validate() -> list[str]:
     errors.extend(validate_docs())
     errors.extend(validate_no_secrets())
     errors.extend(validate_no_moneyevent_runtime_files())
+    errors.extend(validate_no_m03_fixture_or_simulator_data())
+    errors.extend(validate_moneyevent_contract_doc())
     errors.extend(validate_local_infrastructure())
     errors.extend(validate_qa_development_environment())
     errors.extend(validate_python_dev_requirements())
