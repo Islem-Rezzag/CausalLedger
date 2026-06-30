@@ -23,6 +23,7 @@ All notable CausalLedger release changes are recorded here.
 - Completed and merged M02.07 after PR #45 merged into `main` at `4a4f381adb7ed263fb26d0373f00043f2fe6a6bc`.
 - Closed M02 with `docs/status/M02_CLOSEOUT.md`; the completed M02 plan moved to `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`, no active milestone plan remains, and M03 remains `Not started`.
 - Started M03 planning with active plan `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md` and a lean six-submilestone Canonical MoneyEvent Engine plan; no MoneyEvent behavior, runtime schema, database table, API route, UI, storage, or product/domain implementation was added.
+- M03 Planning QA passed locally for PR #47 as planning/control-plane QA only; M03.01 through M03.06 remain `Not started`, and no MoneyEvent behavior, runtime schema, parser, validator, storage, database table, API route, UI, fixture, simulator, benchmark data, or product/domain implementation was added.
 - Product functionality remains not implemented.
 
 ## v0.1.0 - Repo Operating System Foundation

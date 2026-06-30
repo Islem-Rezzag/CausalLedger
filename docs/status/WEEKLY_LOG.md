@@ -1,5 +1,24 @@
 # Weekly Log
 
+## 2026-06-30
+
+- Ran formal M03 Planning QA for PR #47 on branch `m03-planning-canonical-moneyevent-engine`.
+- Verified branch guard, clean starting worktree, remote `origin`, local head `9549ec0`, and builder commit `9549ec0`.
+- Verified Git identity as `Mohamed Islem Rezzag Baara <Islem-Rezzag@users.noreply.github.com>` from `.git/config`; no `@qmul.ac.uk` address was used.
+- Verified PR #47 is open, unmerged, draft, mergeable, targets `main`, uses head branch `m03-planning-canonical-moneyevent-engine`, and contains builder commit `9549ec0`.
+- Verified M02 closeout PR #46 merged into `main` at `24228fd19d0077fbdbe1a241fed31a4836bec6b4`, the completed M02 plan remains in `plans/completed/`, and `origin/main` contains no active CLP plan.
+- Confirmed M03 planning created exactly one active plan: `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`.
+- Confirmed the M03 active plan contains purpose, scope, forbidden scope, submilestones, acceptance criteria, validation strategy, expected files, risks, data assumptions, evaluation assumptions, open questions, and handoff protocol.
+- Confirmed M03.01 through M03.06 remain `Not started`, M04 through M21 remain `Not started`, and no M03 implementation submilestone started during planning.
+- Confirmed no MoneyEvent runtime, runtime schema, parser, validator, normalizer, storage, database table, API route, product UI, fixture data, simulator data, benchmark data, ledger runtime, invariant engine, incident engine, causal graph, replay, repair runtime, connector, queue, scheduler, auth/authz, deployment, real secret, or agent runtime implementation was added.
+- Applied scoped QA tracking updates only in the active plan, status docs, M03 milestone notes, registry validation notes, and changelog.
+- Local QA validation passed after the scoped tracking updates: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 85 tests, `git diff --check`, Node/npm/pnpm version checks, `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, `pnpm format:check`, and `pnpm qa:dev -- --allow-dirty`.
+- `pnpm qa:dev -- --allow-dirty` reported 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`; clean-worktree was skipped only because QA tracking edits were uncommitted, and Docker validation was not requested.
+- Docker is unavailable in this Windows shell; `docker --version` and `docker compose version` failed with `docker` not recognized. `make bootstrap-check` and GitHub CLI are unavailable.
+- `pnpm install --frozen-lockfile` emitted the known non-blocking pnpm update notice and ignored `esbuild@0.28.0` build-script warning.
+- Remote GitHub Actions must pass on the pushed QA head before human merge.
+- M03 Planning QA passed from the local QA perspective. Recommended next action: human merges PR #47 after green remote checks and clearing draft state if needed. Next thread after merge: `M03.01 Builder - Canonical MoneyEvent concept and contract planning`.
+
 ## 2026-06-29
 
 - Synced `main` after M02 closeout merged and confirmed `main` fast-forwarded to `24228fd` (`M02 closeout monorepo and local development environment (#46)`).

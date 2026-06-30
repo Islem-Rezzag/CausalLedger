@@ -18,8 +18,11 @@ This planning slice is control-plane and documentation work only. It does not im
 - [x] 2026-06-29: Completed the requested M03 reasoning checkpoint before editing.
 - [x] Update M03 planning, tracking, status, validator, and test files.
 - [x] Run required validation.
-- [ ] Commit, push, and open a draft PR when validation passes.
-- [ ] Hand off to `M03 Planning QA - Canonical MoneyEvent Engine`.
+- [x] 2026-06-29: Committed and pushed builder commit `9549ec0`; PR #47 opened at `https://github.com/Islem-Rezzag/CausalLedger/pull/47`.
+- [x] 2026-06-30: M03 Planning QA verified PR #47 is open, unmerged, targets `main`, uses head branch `m03-planning-canonical-moneyevent-engine`, contains builder commit `9549ec0`, and changes only scoped planning/control-plane files.
+- [x] 2026-06-30: M03 Planning QA found no MoneyEvent runtime, schema, parser, validator, storage, database table, API route, UI, fixture, simulator, benchmark data, ledger, invariant, incident, replay, repair, connector, or agent runtime implementation.
+- [x] 2026-06-30: M03 Planning QA applied scoped QA tracking updates only.
+- [ ] Human merge of PR #47 after QA PASS and green remote checks.
 
 ## Surprises & Discoveries
 
@@ -157,6 +160,28 @@ Run `make bootstrap-check` only if `make` is available. Record Docker limitation
 - `make bootstrap-check` was skipped because `make` is unavailable in this Windows shell. Direct Python validation and pytest passed.
 - GitHub CLI is unavailable in this Windows shell, so draft PR creation must use the manual PR URL unless another environment has `gh`.
 
+2026-06-30 M03 planning QA validation results:
+
+- Branch guard passed on `m03-planning-canonical-moneyevent-engine`; the starting worktree was clean, local `HEAD` matched `origin/m03-planning-canonical-moneyevent-engine`, and builder commit `9549ec0` was confirmed.
+- Git identity was set and verified as `Mohamed Islem Rezzag Baara <Islem-Rezzag@users.noreply.github.com>` from `.git/config`.
+- PR #47 was verified open, unmerged, draft, mergeable, targeting `main`, and using head branch `m03-planning-canonical-moneyevent-engine`.
+- M02 closeout PR #46 was verified merged into `main` at `24228fd19d0077fbdbe1a241fed31a4836bec6b4`; the completed M02 plan remains in `plans/completed/`, and `origin/main` has no active CLP plan.
+- M03 planning created exactly one active plan: `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`.
+- M03.01 through M03.06 remain `Not started`; M04 through M21 remain `Not started`.
+- Forbidden implementation inspection found no MoneyEvent runtime, schema, parser, validator, storage, database table, API route, UI, fixture, simulator, benchmark data, ledger, invariant, incident, replay, repair, connector, or agent runtime implementation.
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 85 tests.
+- `git diff --check` passed.
+- `node --version` returned `v22.16.0`.
+- `npm --version` returned `10.9.2`.
+- `pnpm --version` returned `10.32.1`.
+- `pnpm install --frozen-lockfile` passed across all 14 workspace projects and emitted the known non-blocking pnpm update notice plus ignored `esbuild@0.28.0` build-script warning.
+- `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check` passed across all 13 workspaces.
+- `pnpm qa:dev -- --allow-dirty` passed with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`; the clean-worktree requirement was skipped only because QA tracking edits were intentionally uncommitted, and Docker validation was skipped because Docker mode was not requested.
+- `docker --version` and `docker compose version` failed because Docker is not available in this Windows shell.
+- `make bootstrap-check` was skipped because `make` is unavailable in this Windows shell. Direct Python validation and pytest passed.
+- QA status updates are documentation/control-plane tracking only. Remote GitHub Actions must pass on the pushed QA head before human merge.
+
 Acceptance criteria:
 
 - exactly one active M03 plan exists;
@@ -279,10 +304,14 @@ Boundary notes:
 
 ## Outcomes & Retrospective
 
-M03 planning is in progress on branch `m03-planning-canonical-moneyevent-engine`.
+M03 planning QA passed locally for PR #47 on branch `m03-planning-canonical-moneyevent-engine`.
+
+M03 planning remains active and awaiting human merge. It must not be marked completed until PR #47 merges into `main` and post-merge tracking finalizes the planning slice.
 
 M03.01 through M03.06 remain `Not started`.
 
 Product/domain implementation has not started. No MoneyEvent runtime behavior, schemas, database tables, API routes, UI, storage behavior, parsers, validators, connectors, agent runtime, ledger behavior, invariant behavior, incident behavior, replay behavior, repair behavior, raw evidence mutation, ledger posting, repair approval, or money mutation exists from this planning slice.
 
-Exact next recommended thread after this planning builder is complete: `M03 Planning QA - Canonical MoneyEvent Engine`.
+Exact next action after QA PASS: human merges PR #47 after green remote checks and clearing draft state if needed.
+
+Exact next recommended thread after PR #47 merges: `M03.01 Builder - Canonical MoneyEvent concept and contract planning`.
