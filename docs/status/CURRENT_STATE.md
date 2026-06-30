@@ -8,11 +8,11 @@ M03 planning PR #47 merged into `main` at `0606d3b21c05f2cf98397c9f5b0f1eddfa104
 
 ## Current submilestone and branch
 
-Current slice: `M03.01 Builder - Canonical MoneyEvent concept and contract planning`.
+Current slice: `M03.01 QA - Canonical MoneyEvent concept and contract planning`.
 
 Current branch: `m03-01-moneyevent-concept-contract`.
 
-M03.01 is `Builder complete, awaiting QA`. M03.02 through M03.06 are `Not started`. M04 through M21 remain `Not started`.
+M03.01 is `QA passed, awaiting merge`. M03.02 through M03.06 are `Not started`. M04 through M21 remain `Not started`.
 
 ## What exists
 
@@ -28,9 +28,9 @@ Product/domain implementation has not started. No MoneyEvent runtime, TypeScript
 
 ## Next action
 
-Run `M03.01 QA - Canonical MoneyEvent concept and contract planning` on branch `m03-01-moneyevent-concept-contract`.
+Human merges `M03.01 PR - Canonical MoneyEvent concept and contract planning` after remote validation is green and normal review is complete.
 
-Do not start M03.02 until M03.01 QA passes and the PR merges into `main`.
+Do not start M03.02 until the M03.01 PR merges into `main`.
 
 ## Latest validation
 
@@ -39,6 +39,8 @@ Do not start M03.02 until M03.01 QA passes and the PR merges into `main`.
 - 2026-06-30 M03.01 builder validation passed: control-plane validation, 89 bootstrap tests, diff check, Node/npm/pnpm version checks, frozen install, typecheck, lint, tests, build, format check, and `pnpm qa:dev -- --allow-dirty`.
 - `pnpm qa:dev -- --allow-dirty` reported 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`; clean-worktree validation was skipped only because builder edits were uncommitted, and Docker validation was not requested.
 - After commit, clean `pnpm qa:dev` reported 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`; Docker validation was not requested.
+- 2026-06-30 M03.01 QA passed for PR #48 as documentation/control-plane QA only. QA verified the MoneyEvent conceptual contract, documentation alignment, forbidden implementation scope, validator/test coverage, and tracking consistency.
+- 2026-06-30 M03.01 QA validation passed: control-plane validation, 89 bootstrap tests, diff check, Node/npm/pnpm version checks, frozen install, typecheck, lint, tests, build, format check, and clean `pnpm qa:dev`.
 - Docker is unavailable in this Windows shell; `docker --version` and `docker compose version` failed with `docker` not recognized. `make bootstrap-check` and GitHub CLI are also unavailable.
 
 ## Terminology note
@@ -47,4 +49,4 @@ Do not start M03.02 until M03.01 QA passes and the PR merges into `main`.
 
 ## Product implementation status
 
-Product implementation has not started. M03.01 is documentation/control-plane work only.
+Product implementation has not started. M03.01 is documentation/control-plane work only and is awaiting PR merge after QA PASS.

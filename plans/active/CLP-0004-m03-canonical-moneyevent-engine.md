@@ -31,6 +31,11 @@ M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1e
 - [x] 2026-06-30: Created `docs/MONEYEVENT_CONTRACT.md` as documentation-only conceptual contract.
 - [x] 2026-06-30: Updated M03.01 tracking, status docs, active docs, package boundary docs, validator, and bootstrap tests.
 - [x] 2026-06-30: M03.01 builder validation passed with accepted local-environment limitations recorded.
+- [x] 2026-06-30: M03.01 QA verified PR #48 is open, unmerged, targets `main`, uses head branch `m03-01-moneyevent-concept-contract`, contains builder commit `c3acbec`, and changes only scoped documentation/control-plane files.
+- [x] 2026-06-30: M03.01 QA verified the MoneyEvent conceptual contract is documentation-only, conceptually coherent, aligned with ADR-0008 money semantics, and explicit about raw evidence, provenance, idempotency, time, uncertainty, and future-layer boundaries.
+- [x] 2026-06-30: M03.01 QA found no MoneyEvent runtime, TypeScript type, runtime schema, parser, validator, normalizer, storage, fixture, simulator data, migration, API route, UI, ledger, invariant, incident, replay, repair, connector, agent runtime, raw evidence mutation, or product/domain behavior.
+- [x] 2026-06-30: M03.01 QA applied scoped tracking and handoff updates only.
+- [x] 2026-06-30: M03.01 QA validation passed with accepted local-environment limitations recorded.
 
 ## Surprises & Discoveries
 
@@ -81,7 +86,7 @@ M03.01 specifically includes:
 - post-merge finalization for M03 planning PR #47;
 - `docs/MONEYEVENT_CONTRACT.md` as conceptual MoneyEvent contract documentation;
 - targeted links from entry, architecture, domain, and package-boundary docs;
-- tracking updates that mark M03.01 Builder complete, awaiting QA;
+- tracking updates that mark M03.01 Builder complete, awaiting QA, followed by QA status updates to `QA passed, awaiting merge`;
 - validator and bootstrap test coverage for the conceptual contract and forbidden runtime scope.
 
 ## Forbidden Scope
@@ -230,18 +235,44 @@ Run `make bootstrap-check` only if `make` is available. Record Docker limitation
 - `make bootstrap-check` was skipped because `make` is unavailable in this Windows shell. Direct Python validation and pytest passed.
 - GitHub CLI is unavailable in this Windows shell, so draft PR creation must use the manual PR URL unless another environment has `gh`.
 
+2026-06-30 M03.01 QA validation results:
+
+- Branch guard passed on `m03-01-moneyevent-concept-contract`; the starting worktree was clean, local `HEAD` matched `origin/m03-01-moneyevent-concept-contract`, and builder commit `c3acbec167f3f734a806f81d69d46e4337edbbc0` was confirmed.
+- Git identity was set and verified as `Mohamed Islem Rezzag Baara <Islem-Rezzag@users.noreply.github.com>` from `.git/config`; no `@qmul.ac.uk` address was used.
+- PR #48 was verified open, unmerged, non-draft, mergeable, targeting `main`, using head branch `m03-01-moneyevent-concept-contract`, and containing builder commit `c3acbec`.
+- M03 planning PR #47 was verified merged into `main` at `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`.
+- MoneyEvent contract QA passed: `docs/MONEYEVENT_CONTRACT.md` is documentation-only and covers purpose, non-goals, core semantic fields, identity, source identity/type, evidence references, provenance, integer minor-unit amount, ISO 4217 currency, actor/object references, event kind, source event time, observed time, idempotency, causation/correlation references, uncertainty, evidence locator, lifecycle meaning, evidence rules, time semantics, money semantics, delayed/conflicting evidence, future-layer relationships, and conceptual examples.
+- Conceptual clarity QA passed: duplicate evidence is distinct from duplicate money movement, source event time is distinct from observed time, signed-versus-directional amount is deferred, uncertainty is explicit, raw evidence remains the source material, and no runtime validation, persistence, ledger posting, incident detection, replay, or repair behavior is implied.
+- Documentation alignment QA passed: entry, active docs, roadmap, architecture, domain, package boundary, capability, milestone, registry, status, and changelog docs link or summarize the conceptual contract without claiming implementation.
+- Forbidden implementation QA passed: no MoneyEvent runtime, TypeScript type, runtime schema, parser, validator, normalizer, storage, fixture, simulator data, migration, API route, UI, ledger posting, invariant behavior, incident behavior, replay, repair behavior, connector, agent runtime, raw evidence mutation, or product/domain behavior was added.
+- Validator/test QA passed: control-plane validation and bootstrap tests enforce the conceptual contract document, documentation-only code-fence boundary, no MoneyEvent runtime files, scaffold-only `packages/events/src`, no fixture/simulator data, no migration/API scope, M03 tracking coherence, and M03.02 through M03.06 not-started state.
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 89 tests.
+- `git diff --check` passed.
+- `node --version` returned `v22.16.0`.
+- `npm --version` returned `10.9.2`.
+- `pnpm --version` returned `10.32.1`.
+- `pnpm install --frozen-lockfile` passed across all 14 workspace projects with the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
+- `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check` passed across all 13 workspaces.
+- During uncommitted QA tracking edits, `pnpm qa:dev -- --allow-dirty` passed with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`; the clean-worktree requirement was skipped only because QA tracking edits were intentionally uncommitted, and Docker validation was skipped because Docker mode was not requested.
+- After commit, clean `pnpm qa:dev` passed with 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`; Docker validation was skipped because Docker mode was not requested.
+- `docker --version` and `docker compose version` failed because Docker is not available in this Windows shell.
+- `make bootstrap-check` was skipped because `make` is unavailable in this Windows shell. Direct Python validation and pytest passed.
+- GitHub CLI is unavailable in this Windows shell; GitHub connector and public API checks were used for PR and remote validation metadata.
+- Remote validation on the latest pushed QA head must be inspected before human merge readiness is claimed.
+
 Acceptance criteria:
 
 - exactly one active M03 plan exists;
 - M02 remains completed in `plans/completed/`;
 - M03 milestone and registry rows are coherent;
 - M03 planning PR #47 is recorded as completed and merged;
-- M03.01 is `Builder complete, awaiting QA`;
+- M03.01 is `QA passed, awaiting merge`;
 - M03.02 through M03.06 remain `Not started`;
 - `docs/MONEYEVENT_CONTRACT.md` exists as documentation-only conceptual contract;
 - product/domain implementation remains not started;
 - no MoneyEvent runtime files, TypeScript types, schemas, parsers, validators, normalizers, migrations, fixtures, simulator data, routes, UI, or storage behavior are created;
-- status docs and handoff point to `M03.01 QA - Canonical MoneyEvent concept and contract planning`.
+- status docs and handoff point to `Merge M03.01 PR - Canonical MoneyEvent concept and contract planning`.
 
 ## Expected Files
 
@@ -363,12 +394,14 @@ Boundary notes:
 
 M03 planning QA passed locally for PR #47 on branch `m03-planning-canonical-moneyevent-engine`, and PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`.
 
-M03.01 Builder created `docs/MONEYEVENT_CONTRACT.md` as a documentation-only conceptual MoneyEvent contract and updated tracking, status docs, and validation guards.
+M03.01 Builder created `docs/MONEYEVENT_CONTRACT.md` as a documentation-only conceptual MoneyEvent contract and updated tracking, status docs, and validation guards. M03.01 QA verified the contract and applied scoped QA status and handoff updates only.
 
-M03.01 is `Builder complete, awaiting QA`. M03.02 through M03.06 remain `Not started`.
+M03.01 is `QA passed, awaiting merge`. M03.02 through M03.06 remain `Not started`.
 
 Product/domain implementation has not started. No MoneyEvent runtime behavior, TypeScript types, schemas, database tables, API routes, UI, storage behavior, parsers, validators, normalizers, fixtures, simulator data, connectors, agent runtime, ledger behavior, invariant behavior, incident behavior, replay behavior, repair behavior, raw evidence mutation, ledger posting, repair approval, or money mutation exists from M03.01.
 
-Exact next action: run `M03.01 QA - Canonical MoneyEvent concept and contract planning` on the same branch and PR.
+Exact next action: human merges `M03.01 PR - Canonical MoneyEvent concept and contract planning` after remote validation is green.
 
-Exact next recommended thread: `M03.01 QA - Canonical MoneyEvent concept and contract planning`.
+Exact next recommended thread: `Merge M03.01 PR - Canonical MoneyEvent concept and contract planning`.
+
+Exact next thread after merge: `M03.02 Builder - MoneyEvent TypeScript types and schema boundary`.

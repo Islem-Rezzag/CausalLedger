@@ -16,6 +16,16 @@
 - Confirmed no MoneyEvent runtime behavior, TypeScript type, runtime schema, parser, validator, normalizer, storage, fixture, simulator data, migration, API route, UI, ledger posting, repair approval, raw evidence mutation, or product behavior was added.
 - M03.01 Builder is complete and awaiting QA. M03.02 through M03.06 remain `Not started`; M04 through M21 remain `Not started`.
 - Recommended next thread: `M03.01 QA - Canonical MoneyEvent concept and contract planning`.
+- Ran formal M03.01 QA for PR #48 on branch `m03-01-moneyevent-concept-contract`.
+- Verified PR #48 is open, unmerged, targets `main`, uses head branch `m03-01-moneyevent-concept-contract`, and contains builder commit `c3acbec`.
+- Verified M03 planning PR #47 merged into `main` at `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`.
+- Verified `docs/MONEYEVENT_CONTRACT.md` is documentation-only, conceptually coherent, aligned with ADR-0008 integer minor-unit money and ISO 4217 currency, explicit about raw evidence, provenance, idempotency, time, uncertainty, and future-layer boundaries, and clear that LLM-generated text cannot create financial truth.
+- Confirmed no MoneyEvent runtime behavior, TypeScript type, runtime schema, parser, validator, normalizer, storage, fixture, simulator data, migration, API route, UI, ledger posting, invariant behavior, incident behavior, replay, repair behavior, raw evidence mutation, or product behavior was added.
+- Updated tracking/status docs so M03.01 is `QA passed, awaiting merge`; M03.02 through M03.06 remain `Not started`; M04 through M21 remain `Not started`.
+- M03.01 QA validation passed: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 89 tests, `git diff --check`, Node/npm/pnpm version checks, `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, `pnpm format:check`, and clean `pnpm qa:dev`.
+- Docker is unavailable in this Windows shell; `docker --version` and `docker compose version` failed with `docker` not recognized. `make bootstrap-check` and GitHub CLI are unavailable.
+- Recommended next thread: `Merge M03.01 PR - Canonical MoneyEvent concept and contract planning`.
+- Next after merge: `M03.02 Builder - MoneyEvent TypeScript types and schema boundary`.
 
 - Ran formal M03 Planning QA for PR #47 on branch `m03-planning-canonical-moneyevent-engine`.
 - Verified branch guard, clean starting worktree, remote `origin`, local head `9549ec0`, and builder commit `9549ec0`.
