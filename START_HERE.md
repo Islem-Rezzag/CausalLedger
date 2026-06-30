@@ -1,6 +1,6 @@
 # Start Here
 
-This repository has completed the M00 control-plane bootstrap and tagged it as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed. M02 Monorepo and Local Development Environment is completed after M02.01 through M02.07 completed and merged. M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`. The completed M02 plan lives at `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`, the M02 closeout packet lives at `docs/status/M02_CLOSEOUT.md`, and M03 Canonical MoneyEvent Engine is active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M03.01 QA has passed and the PR is awaiting human merge; M03.02 through M03.06 remain `Not started`, and product domain implementation has not started. Do not begin product domain implementation from this file.
+This repository has completed the M00 control-plane bootstrap and tagged it as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed. M02 Monorepo and Local Development Environment is completed after M02.01 through M02.07 completed and merged. M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`, and M03.01 PR #48 merged into `main` at commit `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`. The completed M02 plan lives at `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`, the M02 closeout packet lives at `docs/status/M02_CLOSEOUT.md`, and M03 Canonical MoneyEvent Engine is active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M03.02 Builder is complete and awaiting QA; M03.03 through M03.06 remain `Not started`, and product runtime behavior has not started. Do not begin product runtime behavior from this file.
 
 Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 
@@ -67,7 +67,7 @@ The handoff packet must include files created, files changed, files intentionall
 - Do not implement invariants.
 - Do not implement the agent runtime.
 - Do not implement UI features.
-- Do not start M03.02 before M03.01 QA PASS and PR merge.
+- Do not start M03.03 before M03.02 QA PASS and PR merge.
 - Do not implement product behavior during M01.01, M01.02, M01.03, or M01.04.
 
 ## Correct first success

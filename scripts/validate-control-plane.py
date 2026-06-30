@@ -40,6 +40,17 @@ APPROVED_PACKAGE_SCAFFOLD_FILES = [
     "test/bootstrap.test.ts",
 ]
 
+M03_02_EVENTS_TYPE_BOUNDARY_FILES = [
+    "README.md",
+    "package.json",
+    "tsconfig.json",
+    "tsconfig.test.json",
+    "src/index.ts",
+    "src/money-event.ts",
+    "test/bootstrap.test.ts",
+    "test/money-event-types.test.ts",
+]
+
 PACKAGE_SCRIPT_NAMES = ["build", "typecheck", "typecheck:test", "test", "lint", "format:check"]
 
 GENERATED_PACKAGE_DIR_NAMES = {"node_modules", "dist", ".turbo", "coverage"}
@@ -84,10 +95,19 @@ MONEYEVENT_RUNTIME_SCAN_ROOTS = [
 MONEYEVENT_RUNTIME_PATH_TERMS = ["moneyevent", "money-event", "money_events"]
 
 M03_01_ALLOWED_STATUSES = {
+    "Completed and merged",
+}
+
+M03_02_ALLOWED_STATUSES = {
     "Builder in progress",
     "Builder complete, awaiting QA",
     "QA passed, awaiting merge",
     "Completed and merged",
+}
+
+M03_02_ALLOWED_MONEYEVENT_TYPE_BOUNDARY_PATHS = {
+    "packages/events/src/money-event.ts",
+    "packages/events/test/money-event-types.test.ts",
 }
 
 DOC_ONLY_RUNTIME_CODE_FENCE_PATTERN = re.compile(
@@ -208,7 +228,11 @@ REQUIRED_FILES = [
     *[
         f"packages/{package_dir}/{file_name}"
         for package_dir in M02_05_PACKAGE_DIRS
-        for file_name in APPROVED_PACKAGE_SCAFFOLD_FILES
+        for file_name in (
+            M03_02_EVENTS_TYPE_BOUNDARY_FILES
+            if package_dir == "events"
+            else APPROVED_PACKAGE_SCAFFOLD_FILES
+        )
     ],
 ]
 
@@ -332,8 +356,13 @@ FORBIDDEN_APP_TERMS = [
 ]
 
 FORBIDDEN_PACKAGE_SOURCE_PATTERNS = [
-    (re.compile(r"\b(?:type|interface|class)\s+MoneyEvent\b"), "MoneyEvent schema"),
     (re.compile(r"\bMoneyEventSchema\b|\bz\.object\s*\("), "runtime schema implementation"),
+    (
+        re.compile(
+            r"\b(?:parseMoneyEvent|validateMoneyEvent|normalizeMoneyEvent|ingestMoneyEvent|storeMoneyEvent|persistMoneyEvent)\b"
+        ),
+        "MoneyEvent parser, validator, normalizer, ingestion, or storage implementation",
+    ),
     (re.compile(r"\b(?:ledgerEntry|ledgerEntries|balance|balances)\b"), "ledger entries or balances"),
     (re.compile(r"\b(?:InvariantCheck|InvariantResult|financialInvariant)\b"), "financial invariant implementation"),
     (re.compile(r"\b(?:IncidentState|IncidentStatus|incidentStateMachine)\b"), "incident lifecycle implementation"),
@@ -343,6 +372,8 @@ FORBIDDEN_PACKAGE_SOURCE_PATTERNS = [
     (re.compile(r"\b(?:EvidenceStore|EvidenceBundle|storeEvidence)\b"), "evidence storage implementation"),
     (re.compile(r"\b(?:BenchmarkScenario|benchmarkRunner|scoreBenchmark)\b"), "benchmark implementation"),
 ]
+
+MONEYEVENT_TYPE_DECLARATION_PATTERN = re.compile(r"\b(?:type|interface|class)\s+MoneyEvent\b")
 
 
 @dataclass(frozen=True)
@@ -741,10 +772,15 @@ def validate_m03_milestone_consistency(
         if row.submilestone_id == "M03.01":
             if registry_row.status not in M03_01_ALLOWED_STATUSES:
                 errors.append(
-                    "M03.01 must be active or completed after M03 planning merge finalization"
+                    "M03.01 must be Completed and merged before M03.02 tracking"
+                )
+        elif row.submilestone_id == "M03.02":
+            if registry_row.status not in M03_02_ALLOWED_STATUSES:
+                errors.append(
+                    "M03.02 must be active or completed after M03.01 merge finalization"
                 )
         elif registry_row.status != "Not started":
-            errors.append(f"{row.submilestone_id} must remain Not started during M03.01")
+            errors.append(f"{row.submilestone_id} must remain Not started during M03.02")
         if registry_row.active_plan != M03_ACTIVE_PLAN:
             errors.append(f"{row.submilestone_id} must reference active M03 plan")
     return errors
@@ -907,6 +943,7 @@ def validate_docs() -> list[str]:
         "Closed M02 with `docs/status/M02_CLOSEOUT.md`",
         "Started M03 planning with active plan",
         "M03.01 Builder created `docs/MONEYEVENT_CONTRACT.md`",
+        "M03.02 Builder added a TypeScript-only MoneyEvent type boundary",
         "ADR-0008 identity, money, and storage direction",
     ]:
         if phrase not in changelog:
@@ -950,11 +987,16 @@ def validate_no_moneyevent_runtime_files() -> list[str]:
         for path in root.rglob("*"):
             if not path.is_file():
                 continue
+            if path_has_generated_part(path, root):
+                continue
             lowered = path.name.lower()
+            relative_path = path.relative_to(ROOT).as_posix()
+            if relative_path in M03_02_ALLOWED_MONEYEVENT_TYPE_BOUNDARY_PATHS:
+                continue
             if any(term in lowered for term in MONEYEVENT_RUNTIME_PATH_TERMS):
                 errors.append(
                     "MoneyEvent runtime file created before implementation scope: "
-                    f"{path.relative_to(ROOT).as_posix()}"
+                    f"{relative_path}"
                 )
     return errors
 
@@ -1095,17 +1137,95 @@ def validate_package_tsconfig(package_dir: str) -> list[str]:
 
 def validate_package_sources(package_dir: str) -> list[str]:
     errors: list[str] = []
-    source_path = ROOT / "packages" / package_dir / "src" / "index.ts"
-    source = source_path.read_text(encoding="utf-8")
-    for pattern, description in FORBIDDEN_PACKAGE_SOURCE_PATTERNS:
-        if pattern.search(source):
-            errors.append(f"{source_path.relative_to(ROOT).as_posix()} contains {description}")
+    package_path = ROOT / "packages" / package_dir
+    for source_path in sorted((package_path / "src").glob("**/*.ts")):
+        source = source_path.read_text(encoding="utf-8")
+        relative_path = source_path.relative_to(ROOT).as_posix()
+        package_relative_path = source_path.relative_to(package_path).as_posix()
+        if MONEYEVENT_TYPE_DECLARATION_PATTERN.search(source) and not (
+            package_dir == "events" and package_relative_path == "src/money-event.ts"
+        ):
+            errors.append(f"{relative_path} contains MoneyEvent schema")
+        for pattern, description in FORBIDDEN_PACKAGE_SOURCE_PATTERNS:
+            if pattern.search(source):
+                errors.append(f"{relative_path} contains {description}")
+    return errors
+
+
+def validate_m03_02_events_type_boundary() -> list[str]:
+    errors: list[str] = []
+    source = read_text("packages/events/src/money-event.ts")
+    index = read_text("packages/events/src/index.ts")
+    readme = read_text("packages/events/README.md")
+    type_test = read_text("packages/events/test/money-event-types.test.ts")
+
+    for phrase in [
+        "export interface MoneyEvent",
+        "MoneyAmountMinorUnits = Brand<bigint",
+        "MONEY_EVENT_TYPE_BOUNDARY_VERSION",
+        "MoneyEventEvidenceReference",
+        "MoneyEventProvenance",
+        "MoneyEventIdempotencyKey",
+        "MoneyEventUncertainty",
+        "readonly eventTime",
+        "readonly observedTime",
+        "integer_minor_units",
+    ]:
+        if phrase not in source:
+            errors.append(f"packages/events/src/money-event.ts missing type boundary: {phrase}")
+
+    for phrase in [
+        "MoneyEvent",
+        "MONEY_EVENT_KINDS",
+        "eventsPackageBoundary",
+        "runtimeSchemaImplemented: false",
+        "parserImplemented: false",
+        "validatorImplemented: false",
+    ]:
+        if phrase not in index:
+            errors.append(f"packages/events/src/index.ts missing type boundary export: {phrase}")
+
+    for phrase in [
+        "TypeScript-only MoneyEvent type boundary",
+        "branded `bigint`",
+        "not JSON serializable",
+        "Runtime schemas",
+        "deferred to later M03 submilestones",
+        "does not parse, validate, normalize, ingest, store, or transform",
+    ]:
+        if phrase not in readme:
+            errors.append(f"packages/events/README.md missing M03.02 boundary note: {phrase}")
+
+    for phrase in [
+        "satisfies MoneyEvent",
+        "not.toEqualTypeOf<number>",
+        "parseMoneyEvent",
+        "validateMoneyEvent",
+        "normalizeMoneyEvent",
+        "ingestMoneyEvent",
+        "storeMoneyEvent",
+    ]:
+        if phrase not in type_test:
+            errors.append(
+                f"packages/events/test/money-event-types.test.ts missing type test coverage: {phrase}"
+            )
+
+    for forbidden in [
+        "MoneyEventSchema",
+        "z.object",
+        "function parseMoneyEvent",
+        "function validateMoneyEvent",
+        "function normalizeMoneyEvent",
+        "function ingestMoneyEvent",
+        "function storeMoneyEvent",
+    ]:
+        if forbidden in source or forbidden in index:
+            errors.append(f"packages/events contains forbidden runtime behavior: {forbidden}")
     return errors
 
 
 def validate_package_scaffolds() -> list[str]:
     errors: list[str] = []
-    expected_files = set(APPROVED_PACKAGE_SCAFFOLD_FILES)
 
     packages_root = ROOT / "packages"
     if not packages_root.exists():
@@ -1120,8 +1240,13 @@ def validate_package_scaffolds() -> list[str]:
                 errors.append(
                     f"deferred package directory contains non-README files: "
                     f"{package_dir.relative_to(ROOT).as_posix()} -> {', '.join(unexpected)}"
-                )
+            )
             continue
+        expected_files = set(
+            M03_02_EVENTS_TYPE_BOUNDARY_FILES
+            if package_dir.name == "events"
+            else APPROVED_PACKAGE_SCAFFOLD_FILES
+        )
         if files != expected_files:
             missing = sorted(expected_files - files)
             extra = sorted(files - expected_files)
@@ -1355,6 +1480,7 @@ def validate() -> list[str]:
     errors.extend(validate_no_moneyevent_runtime_files())
     errors.extend(validate_no_m03_fixture_or_simulator_data())
     errors.extend(validate_moneyevent_contract_doc())
+    errors.extend(validate_m03_02_events_type_boundary())
     errors.extend(validate_local_infrastructure())
     errors.extend(validate_qa_development_environment())
     errors.extend(validate_python_dev_requirements())

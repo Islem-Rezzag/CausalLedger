@@ -1,13 +1,16 @@
 import { describe, expect, it } from "vitest";
 
-import { packageScaffold } from "../src/index.js";
+import { eventsPackageBoundary } from "../src/index.js";
 
-describe("@causalledger/events scaffold", () => {
-  it("exposes scaffold metadata only", () => {
-    expect(packageScaffold).toEqual({
+describe("@causalledger/events package boundary", () => {
+  it("exposes type-boundary metadata without runtime behavior", () => {
+    expect(eventsPackageBoundary).toEqual({
       packageName: "@causalledger/events",
-      status: "scaffold-only",
+      status: "type-boundary-only",
       productBehaviorImplemented: false,
+      runtimeSchemaImplemented: false,
+      parserImplemented: false,
+      validatorImplemented: false,
     });
   });
 });

@@ -27,6 +27,8 @@ All notable CausalLedger release changes are recorded here.
 - Completed M03 planning after PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`.
 - M03.01 Builder created `docs/MONEYEVENT_CONTRACT.md` as a conceptual MoneyEvent contract covering purpose, non-goals, semantic fields, lifecycle meaning, evidence, idempotency, time, money, uncertainty, future-layer relationships, and explanatory examples; no MoneyEvent runtime behavior, TypeScript type, schema, parser, validator, normalizer, storage, fixture, simulator data, migration, API route, UI, or product behavior was added.
 - M03.01 QA passed for PR #48 as documentation/control-plane QA only; the MoneyEvent conceptual contract is coherent and documentation-only, M03.02 through M03.06 remain `Not started`, and no MoneyEvent runtime behavior, TypeScript type, schema, parser, validator, normalizer, storage, fixture, simulator data, migration, API route, UI, or product behavior was added.
+- M03.01 completed after PR #48 merged into `main` at `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`.
+- M03.02 Builder added a TypeScript-only MoneyEvent type boundary in `packages/events` with branded IDs, integer minor-unit `bigint` amount, ISO 4217 currency branding, evidence/provenance/idempotency/time/uncertainty/lifecycle fields, package exports, compile-time-oriented tests, and validator allowlists; no parser, validator, normalizer, runtime schema, storage, fixture, simulator data, migration, API route, UI, ledger posting, repair behavior, agent runtime, or product behavior was added.
 - Product functionality remains not implemented.
 
 ## v0.1.0 - Repo Operating System Foundation

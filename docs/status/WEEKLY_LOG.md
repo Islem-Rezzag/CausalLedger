@@ -2,6 +2,23 @@
 
 ## 2026-06-30
 
+- Confirmed M03.01 PR #48 merged into `main` at `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`.
+- Created branch `m03-02-moneyevent-types-schema-boundary` for M03.02 Builder - MoneyEvent TypeScript types and schema boundary.
+- Verified branch guard on `m03-02-moneyevent-types-schema-boundary`; the starting worktree was clean and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- Configured repository-local Git identity as `Mohamed Islem Rezzag Baara <Islem-Rezzag@users.noreply.github.com>`.
+- Completed the M03.02 Tier 2 reasoning checkpoint before editing: TypeScript types are allowed as compile-time boundary, runtime schemas/parsers/validators/storage/routes remain deferred, ADR-0008 requires prefixed IDs and integer minor-unit money, and `bigint` minor units avoid floating-point drift while leaving JSON representation for later runtime-schema work.
+- Added `packages/events/src/money-event.ts` with branded MoneyEvent, evidence receipt, source, object, party, idempotency, ISO currency, ISO time, raw locator, hash, and `bigint` minor-unit types plus readonly MoneyEvent structures for source identity, evidence references, provenance, amount, party, object, event time, observed time, relationships, lifecycle state, and uncertainty.
+- Updated `packages/events/src/index.ts`, `packages/events/test/bootstrap.test.ts`, `packages/events/test/money-event-types.test.ts`, and `packages/events/README.md` for boundary-only exports, type coverage, no parser/validator export checks, bigint JSON serialization notes, and deferred runtime schema direction.
+- Updated `scripts/validate-control-plane.py` and `tests/test_control_plane_bootstrap.py` so M03.02 permits only the scoped events type-boundary files and continues to reject parser, validator, normalizer, storage, migration, API, fixture, simulator, benchmark, and product behavior.
+- Initial full dirty-mode QA failed because `pnpm build` generated `packages/events/dist/money-event.js` and the MoneyEvent filename scanner treated generated output as authored runtime scope; fixed the validator to ignore generated package directories and added a regression test that still rejects authored forbidden MoneyEvent runtime files.
+- Updated active plan, roadmap, M03 milestone doc, registry, current state, next-thread recommendation, capability matrix, entry docs, changelog, tech debt, and open questions so M03.01 is `Completed and merged`, M03.02 is `Builder complete, awaiting QA`, M03.03 through M03.06 remain `Not started`, and M04 through M21 remain `Not started`.
+- Confirmed no MoneyEvent parser, validator, normalizer, runtime schema, ingestion, storage, fixture, simulator data, migration, API route, UI, ledger posting, invariant behavior, incident behavior, replay, repair behavior, agent runtime, raw evidence mutation, repair approval, or money mutation was added.
+- M03.02 builder validation passed: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 92 tests, `git diff --check`, Node/npm/pnpm version checks, `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, `pnpm format:check`, and `pnpm qa:dev -- --allow-dirty`.
+- Package-local M03.02 checks passed: `pnpm --filter @causalledger/events typecheck`, `pnpm --filter @causalledger/events test` with 2 files and 3 tests, and `pnpm --filter @causalledger/events format:check`.
+- `pnpm qa:dev -- --allow-dirty` reported 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`; clean-worktree validation was skipped only because builder edits were uncommitted, and Docker validation was not requested.
+- Docker is unavailable in this Windows shell; `docker --version` and `docker compose version` failed with `docker` not recognized. `make bootstrap-check` and GitHub CLI are unavailable.
+- Recommended next thread: `M03.02 QA - MoneyEvent TypeScript types and schema boundary`.
+
 - Confirmed M03 planning PR #47 merged into `main` at `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`.
 - Created branch `m03-01-moneyevent-concept-contract` for M03.01 Builder - Canonical MoneyEvent concept and contract planning.
 - Verified branch guard on `m03-01-moneyevent-concept-contract`; the starting worktree was clean and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.

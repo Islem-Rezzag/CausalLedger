@@ -1,6 +1,6 @@
 # Open Questions
 
-- What canonical schema format should define MoneyEvent contracts?
+- What runtime schema format should validate MoneyEvent JSON after the M03.02 TypeScript boundary?
 - What error taxonomy, structured logging fields, and observability IDs should future runtime work standardize on?
 - What auth/authz design assumptions should API and agent-runtime skeletons preserve for future M18 hardening?
 - Which provider simulators should be prioritized first?

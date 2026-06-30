@@ -6,7 +6,7 @@ Plan and execute M03 before MoneyEvent runtime implementation begins.
 
 M03 will define the canonical MoneyEvent engine boundary for future deterministic money-movement processing. The milestone should turn M01 domain language and M02 package scaffolding into a carefully scoped implementation path for canonical event contracts, source mapping, validation, fixtures, and QA.
 
-M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`. M03.01 is a control-plane and documentation builder slice for the conceptual MoneyEvent contract. It does not implement MoneyEvent behavior, runtime schemas, database tables, product/domain code, API routes, UI, storage, parser behavior, validators, normalizers, fixtures, simulator data, agent runtime, ledger posting, repair approval, or M03.02 work.
+M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`. M03.01 PR #48 merged into `main` at commit `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`. M03.02 is a TypeScript-only MoneyEvent type-boundary builder slice in `packages/events`; it does not implement MoneyEvent runtime schemas, database tables, product/domain runtime code, API routes, UI, storage, parser behavior, validators, normalizers, fixtures, simulator data, agent runtime, ledger posting, repair approval, or M03.03 work.
 
 ## Progress
 
@@ -36,6 +36,14 @@ M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1e
 - [x] 2026-06-30: M03.01 QA found no MoneyEvent runtime, TypeScript type, runtime schema, parser, validator, normalizer, storage, fixture, simulator data, migration, API route, UI, ledger, invariant, incident, replay, repair, connector, agent runtime, raw evidence mutation, or product/domain behavior.
 - [x] 2026-06-30: M03.01 QA applied scoped tracking and handoff updates only.
 - [x] 2026-06-30: M03.01 QA validation passed with accepted local-environment limitations recorded.
+- [x] 2026-06-30: Synced `main`, confirmed PR #48 merged into `main` at `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`, and created branch `m03-02-moneyevent-types-schema-boundary`.
+- [x] 2026-06-30: M03.02 branch guard passed on `m03-02-moneyevent-types-schema-boundary`; starting worktree was clean and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- [x] 2026-06-30: Configured repository-local Git identity as `Mohamed Islem Rezzag Baara <Islem-Rezzag@users.noreply.github.com>`.
+- [x] 2026-06-30: Read required active docs, status docs, active M03 plan, M02 closeout docs, M03 milestone docs, architecture/domain/reliability/threat docs, ADR-0008, package boundaries, validator, bootstrap tests, and ops workflow before editing.
+- [x] 2026-06-30: Completed the M03.02 Tier 2 reasoning checkpoint before editing.
+- [x] 2026-06-30: Added the scoped `packages/events` MoneyEvent TypeScript type boundary, package exports, README documentation, and compile-time-oriented package tests.
+- [x] 2026-06-30: Updated validator and bootstrap tests to allow only the scoped M03.02 type-boundary files while continuing to reject parser, validator, normalizer, storage, migration, API, fixture, simulator, benchmark, and product behavior.
+- [x] 2026-06-30: Updated durable tracking so M03.01 is completed and merged, M03.02 Builder is complete and awaiting QA, M03.03 through M03.06 remain `Not started`, and M04 through M21 remain `Not started`.
 
 ## Surprises & Discoveries
 
@@ -53,6 +61,10 @@ M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1e
 - Treat M03 planning as completed after PR #47 merged into `main`.
 - Use `docs/MONEYEVENT_CONTRACT.md` for the M03.01 conceptual MoneyEvent contract because the contract spans evidence, events, ledger, invariants, incidents, graph, replay, repair, human review, and agent investigation semantics.
 - Keep M03.01 documentation-only: no TypeScript MoneyEvent type, runtime schema, parser, validator, normalizer, storage, fixture, simulator data, migration, API route, UI, or product behavior.
+- Record PR #48 merge commit `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e` as M03.01 completion.
+- Treat M03.02 as compile-time type-boundary work only. TypeScript types and exported literal metadata are allowed; parser, validator, normalizer, runtime schema, storage, fixtures, routes, UI, ledger, repair, replay, and agent behavior remain forbidden.
+- Use branded `bigint` for MoneyEvent amount minor units. This avoids floating-point drift while leaving JSON serialization and runtime-schema representation to later M03 work.
+- Document schema boundary as future runtime-schema direction, not a runtime schema implementation.
 
 ## Context and Orientation
 
@@ -89,6 +101,15 @@ M03.01 specifically includes:
 - tracking updates that mark M03.01 Builder complete, awaiting QA, followed by QA status updates to `QA passed, awaiting merge`;
 - validator and bootstrap test coverage for the conceptual contract and forbidden runtime scope.
 
+M03.02 specifically includes:
+
+- post-merge finalization for M03.01 PR #48;
+- TypeScript-only MoneyEvent type definitions in `packages/events`;
+- package exports and boundary metadata that state runtime schemas, parsers, and validators are not implemented;
+- compile-time-oriented tests that typecheck representative MoneyEvent objects and assert no parser or validator export exists;
+- package README documentation explaining bigint minor units, JSON serialization implications, schema-boundary deferral, and future M03 dependencies;
+- validator and bootstrap test coverage that allows only M03.02 type-boundary files while continuing to block parser, validator, normalizer, storage, migration, API, fixture, simulator, benchmark, and product behavior.
+
 ## Forbidden Scope
 
 M03.01 must not:
@@ -102,6 +123,12 @@ M03.01 must not:
 - create parser, validator, normalizer, storage, connector, ledger, invariant, incident, replay, repair, or agent runtime behavior;
 - create fixtures or simulator data;
 - start M03.02 builder work;
+- mutate money, post ledger entries, approve repairs, delete evidence, modify raw events, or override deterministic invariants.
+
+M03.02 must not:
+
+- implement a MoneyEvent parser, validator, normalizer, transformer, ingester, or storage layer;
+- create runtime schemas, database tables, migrations, product/domain API routes, UI, fixtures, simulator data, benchmark data, ledger posting, invariant logic, incidents, graph behavior, replay, repair behavior, connectors, or agent runtime;
 - mutate money, post ledger entries, approve repairs, delete evidence, modify raw events, or override deterministic invariants.
 
 ## Plan of Work
@@ -123,6 +150,17 @@ M03.01 builder work:
 5. Align existing docs by linking to the contract without duplicating it.
 6. Update validator and bootstrap tests only for M03.01 documentation scope.
 7. Run validation and mark M03.01 Builder complete, awaiting QA.
+8. Commit, push, and open a draft PR if GitHub CLI is available.
+
+M03.02 builder work:
+
+1. Confirm PR #48 merged into `main` and record the actual merge commit.
+2. Create branch `m03-02-moneyevent-types-schema-boundary`.
+3. Finalize M03.01 post-merge tracking and start M03.02.
+4. Implement TypeScript-only MoneyEvent type definitions in `packages/events`.
+5. Align package README documentation with the conceptual contract and deferred runtime-schema direction.
+6. Update validator and bootstrap tests only for M03.02 type-boundary scope.
+7. Run validation and mark M03.02 Builder complete, awaiting QA.
 8. Commit, push, and open a draft PR if GitHub CLI is available.
 
 ## Concrete Steps
@@ -261,18 +299,37 @@ Run `make bootstrap-check` only if `make` is available. Record Docker limitation
 - GitHub CLI is unavailable in this Windows shell; GitHub connector and public API checks were used for PR and remote validation metadata.
 - Remote validation on the latest pushed QA head must be inspected before human merge readiness is claimed.
 
+2026-06-30 M03.02 builder validation results:
+
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 92 tests.
+- `git diff --check` passed.
+- `node --version` returned `v22.16.0`.
+- `npm --version` returned `10.9.2`.
+- `pnpm --version` returned `10.32.1`.
+- `pnpm install --frozen-lockfile` passed across all 14 workspace projects with the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
+- `pnpm --filter @causalledger/events typecheck`, `pnpm --filter @causalledger/events test`, and `pnpm --filter @causalledger/events format:check` passed; the package test run covered 2 files and 3 tests.
+- `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm format:check` passed across all 13 workspaces.
+- `pnpm qa:dev -- --allow-dirty` passed with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`; the clean-worktree requirement was skipped only because builder edits were intentionally uncommitted, and Docker validation was skipped because Docker mode was not requested.
+- The first M03.02 full dirty-mode QA run failed because generated TypeScript build output `packages/events/dist/money-event.js` matched the MoneyEvent runtime filename guard. The validator was corrected to ignore generated package directories while still rejecting authored forbidden MoneyEvent runtime files, and a regression test was added.
+- `docker --version` and `docker compose version` failed because Docker is not available in this Windows shell.
+- `make bootstrap-check` was skipped because `make` is unavailable in this Windows shell. Direct Python validation and pytest passed.
+- GitHub CLI is unavailable in this Windows shell, so draft PR creation must use the manual PR URL unless another environment has `gh`.
+
 Acceptance criteria:
 
 - exactly one active M03 plan exists;
 - M02 remains completed in `plans/completed/`;
 - M03 milestone and registry rows are coherent;
 - M03 planning PR #47 is recorded as completed and merged;
-- M03.01 is `QA passed, awaiting merge`;
-- M03.02 through M03.06 remain `Not started`;
+- M03.01 is `Completed and merged`;
+- M03.02 is `Builder complete, awaiting QA`;
+- M03.03 through M03.06 remain `Not started`;
 - `docs/MONEYEVENT_CONTRACT.md` exists as documentation-only conceptual contract;
-- product/domain implementation remains not started;
-- no MoneyEvent runtime files, TypeScript types, schemas, parsers, validators, normalizers, migrations, fixtures, simulator data, routes, UI, or storage behavior are created;
-- status docs and handoff point to `Merge M03.01 PR - Canonical MoneyEvent concept and contract planning`.
+- `packages/events` contains the M03.02 TypeScript type boundary only;
+- product/runtime behavior remains not started;
+- no MoneyEvent runtime schemas, parsers, validators, normalizers, migrations, fixtures, simulator data, routes, UI, storage behavior, ledger posting, repair behavior, or agent behavior are created;
+- status docs and handoff point to `M03.02 QA - MoneyEvent TypeScript types and schema boundary`.
 
 ## Expected Files
 
@@ -280,6 +337,8 @@ Expected created file:
 
 - `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`
 - `docs/MONEYEVENT_CONTRACT.md`
+- `packages/events/src/money-event.ts`
+- `packages/events/test/money-event-types.test.ts`
 
 Expected changed files:
 
@@ -300,13 +359,13 @@ Expected changed files:
 - `docs/status/WEEKLY_LOG.md`
 - `docs/status/CAPABILITY_MATRIX.md`
 - `packages/events/README.md`
+- `packages/events/src/index.ts`
+- `packages/events/test/bootstrap.test.ts`
 - `scripts/validate-control-plane.py`
 - `tests/test_control_plane_bootstrap.py`
 
 Expected files intentionally not touched:
 
-- `packages/events/src/index.ts`
-- `packages/events/test/bootstrap.test.ts`
 - `packages/evidence/src/index.ts`
 - `packages/ledger/src/index.ts`
 - `packages/invariants/src/index.ts`
@@ -396,12 +455,12 @@ M03 planning QA passed locally for PR #47 on branch `m03-planning-canonical-mone
 
 M03.01 Builder created `docs/MONEYEVENT_CONTRACT.md` as a documentation-only conceptual MoneyEvent contract and updated tracking, status docs, and validation guards. M03.01 QA verified the contract and applied scoped QA status and handoff updates only.
 
-M03.01 is `QA passed, awaiting merge`. M03.02 through M03.06 remain `Not started`.
+M03.01 is `Completed and merged`. M03.02 Builder is complete and awaiting QA. M03.03 through M03.06 remain `Not started`.
 
-Product/domain implementation has not started. No MoneyEvent runtime behavior, TypeScript types, schemas, database tables, API routes, UI, storage behavior, parsers, validators, normalizers, fixtures, simulator data, connectors, agent runtime, ledger behavior, invariant behavior, incident behavior, replay behavior, repair behavior, raw evidence mutation, ledger posting, repair approval, or money mutation exists from M03.01.
+M03.02 added a TypeScript-only MoneyEvent type boundary in `packages/events`. Product runtime behavior has not started. No MoneyEvent runtime schema, parser, validator, normalizer, storage behavior, database tables, API routes, UI, fixtures, simulator data, connectors, agent runtime, ledger behavior, invariant behavior, incident behavior, replay behavior, repair behavior, raw evidence mutation, ledger posting, repair approval, or money mutation exists from M03.02.
 
-Exact next action: human merges `M03.01 PR - Canonical MoneyEvent concept and contract planning` after remote validation is green.
+Exact next action: run `M03.02 QA - MoneyEvent TypeScript types and schema boundary` on branch `m03-02-moneyevent-types-schema-boundary`.
 
-Exact next recommended thread: `Merge M03.01 PR - Canonical MoneyEvent concept and contract planning`.
+Exact next recommended thread: `M03.02 QA - MoneyEvent TypeScript types and schema boundary`.
 
-Exact next thread after merge: `M03.02 Builder - MoneyEvent TypeScript types and schema boundary`.
+Exact next thread after QA PASS and PR merge: `M03.03 Builder - Evidence-to-MoneyEvent mapping fixtures and simulator planning`.

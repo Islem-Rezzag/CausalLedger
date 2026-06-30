@@ -4,7 +4,7 @@
 
 This is the M03.01 conceptual contract for canonical MoneyEvents. It is documentation only and not runtime implementation.
 
-It does not define TypeScript types, runtime schemas, parsers, validators, normalizers, storage, fixtures, simulator data, database tables, migrations, API routes, product UI, ledger posting, invariants, incidents, graph behavior, replay, repair behavior, agent tools, or money mutation.
+This document itself does not define TypeScript types, runtime schemas, parsers, validators, normalizers, storage, fixtures, simulator data, database tables, migrations, API routes, product UI, ledger posting, invariants, incidents, graph behavior, replay, repair behavior, agent tools, or money mutation. M03.02 separately adds a TypeScript-only package boundary in `packages/events`; runtime schemas and behavior remain deferred.
 
 ## Purpose
 
@@ -173,7 +173,7 @@ Conflicting provider and bank evidence: provider evidence says a payout was paid
 
 ## Deferred Decisions
 
-The exact runtime schema, TypeScript type names, field optionality, validation rules, normalizer behavior, parser behavior, fixture shape, storage model, and database representation are deferred to later M03 submilestones.
+The exact runtime schema, validation rules, normalizer behavior, parser behavior, fixture shape, storage model, and database representation are deferred to later M03 submilestones. M03.02 adds an initial TypeScript type boundary, but it does not validate JSON, parse source payloads, normalize events, store events, or decide financial truth.
 
 The signed-versus-directional amount model is deferred because it affects ledger mapping, invariants, replay, and repair semantics.
 

@@ -7,7 +7,7 @@ No product tech debt exists yet because product implementation has not started.
 - Evolve monorepo tooling and task conventions as implementation pressure appears.
 - Evolve test framework conventions for product/domain tests once product implementation starts.
 - Extend test typecheck conventions as future product packages add non-scaffold test layouts.
-- Define future MoneyEvent schema details and package internals in M03 and later scoped product milestones.
+- Define future MoneyEvent runtime schema details, JSON representation, parser, validator, normalizer, fixture, and package internals in later M03 submilestones.
 - Define professional engineering evidence for future error handling, structured logging, deployment documentation, auth/authz design, and scalable data modeling.
 
 ## Accepted local-environment limitations
