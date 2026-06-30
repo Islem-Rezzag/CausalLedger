@@ -24,6 +24,8 @@ All notable CausalLedger release changes are recorded here.
 - Closed M02 with `docs/status/M02_CLOSEOUT.md`; the completed M02 plan moved to `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`, no active milestone plan remains, and M03 remains `Not started`.
 - Started M03 planning with active plan `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md` and a lean six-submilestone Canonical MoneyEvent Engine plan; no MoneyEvent behavior, runtime schema, database table, API route, UI, storage, or product/domain implementation was added.
 - M03 Planning QA passed locally for PR #47 as planning/control-plane QA only; M03.01 through M03.06 remain `Not started`, and no MoneyEvent behavior, runtime schema, parser, validator, storage, database table, API route, UI, fixture, simulator, benchmark data, or product/domain implementation was added.
+- Completed M03 planning after PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`.
+- M03.01 Builder created `docs/MONEYEVENT_CONTRACT.md` as a conceptual MoneyEvent contract covering purpose, non-goals, semantic fields, lifecycle meaning, evidence, idempotency, time, money, uncertainty, future-layer relationships, and explanatory examples; no MoneyEvent runtime behavior, TypeScript type, schema, parser, validator, normalizer, storage, fixture, simulator data, migration, API route, UI, or product behavior was added.
 - Product functionality remains not implemented.
 
 ## v0.1.0 - Repo Operating System Foundation

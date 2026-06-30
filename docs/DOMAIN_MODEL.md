@@ -22,6 +22,8 @@ This domain model defines language and boundaries before schemas and runtime cod
 
 Future milestones should read this file first, then follow the linked source docs for detailed vocabulary. It supports future M03 MoneyEvent, M04 Ledger, M06 Invariant, M07 Incident, M08 Graph, M09 Replay, M10-M13 Agent/Repair/Human Review, and M14 MoneyFlowBench work while keeping scope constrained for a high-stakes fintech AI project.
 
+M03.01 adds `docs/MONEYEVENT_CONTRACT.md` as the conceptual MoneyEvent contract. It defines MoneyEvent purpose, non-goals, semantic fields, lifecycle meaning, evidence rules, idempotency, time, money, uncertainty, and future-layer relationships as documentation only. It does not implement a MoneyEvent runtime schema, TypeScript type, parser, validator, normalizer, storage, fixture, migration, API route, UI, or product behavior.
+
 `docs/RELIABILITY.md` now defines the reliability model for this domain: how financial truth, deterministic validation, evidence handling, replay, repair safety, human review, AI boundaries, cost controls, auditability, and ablations should stay trustworthy in future implementation milestones.
 
 `docs/THREAT_MODEL.md` now defines the threat model for this domain: how evidence, deterministic truth boundaries, repair and human review boundaries, agent/tool boundaries, prompt injection, privacy, secrets, supply chain, model cost, ablations, operations, and governance can fail and which future milestones must implement mitigations.
@@ -50,6 +52,7 @@ This is not runtime implementation. These concepts are domain language for futur
 
 | Domain area | Source doc | Defined in submilestone | Primary future milestones using it |
 | --- | --- | --- | --- |
+| MoneyEvent conceptual contract | [docs/MONEYEVENT_CONTRACT.md](MONEYEVENT_CONTRACT.md) | M03.01 | M03, M04, M06, M07, M08, M09, M12, M14 |
 | Payment lifecycle | [docs/domain/payment-lifecycle.md](domain/payment-lifecycle.md) | M01.01 | M03, M05, M06, M07, M08, M09 |
 | Ledger vocabulary | [docs/domain/ledger-vocabulary.md](domain/ledger-vocabulary.md) | M01.02 | M04, M06, M07, M08, M09, M12 |
 | Settlement vocabulary | [docs/domain/settlement-vocabulary.md](domain/settlement-vocabulary.md) | M01.03 | M05, M06, M07, M08, M09, M16 |

@@ -1,13 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-Merge M03 Planning PR - Canonical MoneyEvent Engine
+M03.01 QA - Canonical MoneyEvent concept and contract planning
 
 Precondition:
-M03 Planning QA has passed for PR #47 on branch `m03-planning-canonical-moneyevent-engine`, remote checks are green on the latest pushed head, and the PR draft state is cleared if needed.
+M03.01 Builder has completed on branch `m03-01-moneyevent-concept-contract`, the conceptual contract doc exists at `docs/MONEYEVENT_CONTRACT.md`, and builder validation passed with local Docker, `make`, and GitHub CLI limitations recorded.
 
 Scope:
-Human merges PR #47. Do not implement MoneyEvent behavior, do not start M03.01, and do not mark M03 planning complete until the merge is confirmed on `main`.
-
-After merge:
-`M03.01 Builder - Canonical MoneyEvent concept and contract planning`.
+QA reviews M03.01 documentation/control-plane changes on the same branch and PR. Do not implement MoneyEvent runtime behavior, do not start M03.02, and do not mark M03.01 completed until QA passes and the PR merges into `main`.

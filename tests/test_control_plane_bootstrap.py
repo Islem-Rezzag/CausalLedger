@@ -153,7 +153,7 @@ def test_04b_m03_requires_lean_planning_rows_from_fixtures():
                     "M03.01",
                     "Canonical MoneyEvent concept and contract planning",
                     "M03 Canonical MoneyEvent engine",
-                    "Not started",
+                    "Builder complete, awaiting QA",
                     validator.M03_ACTIVE_PLAN,
                     "",
                     "",
@@ -180,13 +180,138 @@ def test_04b_m03_requires_lean_planning_rows_from_fixtures():
         registry_rows,
         m03_table(
             [
-                ["M03.01", "Canonical MoneyEvent concept and contract planning", "Not started", "Pending."],
+                [
+                    "M03.01",
+                    "Canonical MoneyEvent concept and contract planning",
+                    "Builder complete, awaiting QA",
+                    "Pending.",
+                ],
                 ["M03.02", "MoneyEvent TypeScript types and schema boundary", "Not started", "Pending."],
             ]
         ),
     )
     assert "docs/milestones/M03.md must contain exactly M03.01 through M03.06" in errors
     assert "registry must contain exactly M03.01 through M03.06" in errors
+
+
+def test_04c_m03_later_rows_must_remain_not_started_during_m03_01():
+    registry_rows = validator.parse_registry_table(
+        registry_table(
+            [
+                [
+                    "M03.01",
+                    "Canonical MoneyEvent concept and contract planning",
+                    "M03 Canonical MoneyEvent engine",
+                    "Builder complete, awaiting QA",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.02",
+                    "MoneyEvent TypeScript types and schema boundary",
+                    "M03 Canonical MoneyEvent engine",
+                    "Builder in progress",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.03",
+                    "Evidence-to-MoneyEvent mapping fixtures and simulator planning",
+                    "M03 Canonical MoneyEvent engine",
+                    "Not started",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.04",
+                    "MoneyEvent validation and normalization rules",
+                    "M03 Canonical MoneyEvent engine",
+                    "Not started",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.05",
+                    "MoneyEvent test fixtures and benchmark seed cases",
+                    "M03 Canonical MoneyEvent engine",
+                    "Not started",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.06",
+                    "MoneyEvent QA and closeout",
+                    "M03 Canonical MoneyEvent engine",
+                    "Not started",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+            ]
+        )
+    )
+    errors = validator.validate_m03_milestone_consistency(
+        registry_rows,
+        m03_table(
+            [
+                [
+                    "M03.01",
+                    "Canonical MoneyEvent concept and contract planning",
+                    "Builder complete, awaiting QA",
+                    "Pending.",
+                ],
+                [
+                    "M03.02",
+                    "MoneyEvent TypeScript types and schema boundary",
+                    "Builder in progress",
+                    "Pending.",
+                ],
+                [
+                    "M03.03",
+                    "Evidence-to-MoneyEvent mapping fixtures and simulator planning",
+                    "Not started",
+                    "Pending.",
+                ],
+                [
+                    "M03.04",
+                    "MoneyEvent validation and normalization rules",
+                    "Not started",
+                    "Pending.",
+                ],
+                [
+                    "M03.05",
+                    "MoneyEvent test fixtures and benchmark seed cases",
+                    "Not started",
+                    "Pending.",
+                ],
+                ["M03.06", "MoneyEvent QA and closeout", "Not started", "Pending."],
+            ]
+        ),
+    )
+    assert "M03.02 must remain Not started during M03.01" in errors
 
 
 def active_current_state() -> str:
@@ -307,6 +432,59 @@ def test_10_money_event_schema_in_package_source_is_rejected(tmp_path, monkeypat
     monkeypatch.setattr(validator, "ROOT", tmp_path)
     assert validator.validate_package_sources("events") == [
         "packages/events/src/index.ts contains MoneyEvent schema"
+    ]
+
+
+def test_10a_moneyevent_contract_rejects_runtime_code_fences(tmp_path, monkeypatch):
+    contract = tmp_path / "docs" / "MONEYEVENT_CONTRACT.md"
+    contract.parent.mkdir(parents=True)
+    contract.write_text(
+        "\n".join(
+            [
+                "# MoneyEvent Contract",
+                "conceptual contract",
+                "not runtime implementation",
+                "not a ledger entry",
+                "not a payment provider event",
+                "not a bank statement line",
+                "not a settlement row",
+                "not an incident",
+                "not a repair",
+                "not an LLM explanation",
+                "event identity",
+                "source identity",
+                "source type",
+                "evidence references",
+                "provenance",
+                "integer minor units",
+                "ISO 4217",
+                "idempotency key",
+                "source event time",
+                "observed time",
+                "raw evidence remains the source material",
+                "LLM-generated text cannot create financial truth",
+                "duplicate webhook",
+                "conflicting provider and bank evidence",
+                "```ts",
+                "export type MoneyEvent = {};",
+                "```",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    errors = validator.validate_moneyevent_contract_doc()
+    assert "MONEYEVENT_CONTRACT.md must not contain runtime code fences" in errors
+    assert "MONEYEVENT_CONTRACT.md must not define a MoneyEvent type" in errors
+
+
+def test_10b_fixture_or_simulator_data_is_rejected_before_m03_03(tmp_path, monkeypatch):
+    fixture = tmp_path / "data" / "fixtures" / "duplicate_webhook.md"
+    fixture.parent.mkdir(parents=True)
+    fixture.write_text("fixture placeholder\n", encoding="utf-8")
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    assert validator.validate_no_m03_fixture_or_simulator_data() == [
+        "data/fixtures may contain only README.md before fixture or simulator scope: duplicate_webhook.md"
     ]
 
 
@@ -466,6 +644,11 @@ def test_17d_completed_m02_plan_exists_and_active_m02_plan_is_absent():
 
 def test_17e_m03_plan_location_is_active_only():
     assert validator.validate_m03_plan_location() == []
+
+
+def test_17f_moneyevent_contract_doc_exists_and_is_conceptual():
+    assert (ROOT / validator.MONEYEVENT_CONTRACT_DOC).is_file()
+    assert validator.validate_moneyevent_contract_doc() == []
 
 
 def test_18_live_registry_table_parses():

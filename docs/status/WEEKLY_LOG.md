@@ -2,6 +2,21 @@
 
 ## 2026-06-30
 
+- Confirmed M03 planning PR #47 merged into `main` at `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`.
+- Created branch `m03-01-moneyevent-concept-contract` for M03.01 Builder - Canonical MoneyEvent concept and contract planning.
+- Verified branch guard on `m03-01-moneyevent-concept-contract`; the starting worktree was clean and `origin` points to `https://github.com/Islem-Rezzag/CausalLedger.git`.
+- Configured repository-local Git identity as `Mohamed Islem Rezzag Baara <Islem-Rezzag@users.noreply.github.com>`.
+- Completed the M03.01 Tier 2 reasoning checkpoint before editing: MoneyEvent semantics are foundational, the slice is conceptual only, evidence/provenance/idempotency/time/money/uncertainty boundaries are expensive to reverse, and LLM output cannot establish financial truth.
+- Created `docs/MONEYEVENT_CONTRACT.md` as a conceptual MoneyEvent contract covering purpose, non-goals, semantic fields, lifecycle meaning, evidence rules, idempotency, time semantics, integer minor-unit money with ISO 4217 currency, uncertainty, future-layer relationships, and explanatory examples.
+- Updated active docs, roadmap, milestone docs, registry, current state, next-thread recommendation, package boundary docs, validator, and bootstrap tests for M03.01 builder state.
+- M03.01 builder validation passed: `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py` with 89 tests, `git diff --check`, Node/npm/pnpm version checks, `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build`, `pnpm format:check`, and `pnpm qa:dev -- --allow-dirty`.
+- `pnpm qa:dev -- --allow-dirty` reported 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`; clean-worktree validation was skipped only because builder edits were uncommitted, and Docker validation was not requested.
+- After commit, clean `pnpm qa:dev` reported 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`; Docker validation was not requested.
+- Docker is unavailable in this Windows shell; `docker --version` and `docker compose version` failed with `docker` not recognized. `make bootstrap-check` and GitHub CLI are unavailable.
+- Confirmed no MoneyEvent runtime behavior, TypeScript type, runtime schema, parser, validator, normalizer, storage, fixture, simulator data, migration, API route, UI, ledger posting, repair approval, raw evidence mutation, or product behavior was added.
+- M03.01 Builder is complete and awaiting QA. M03.02 through M03.06 remain `Not started`; M04 through M21 remain `Not started`.
+- Recommended next thread: `M03.01 QA - Canonical MoneyEvent concept and contract planning`.
+
 - Ran formal M03 Planning QA for PR #47 on branch `m03-planning-canonical-moneyevent-engine`.
 - Verified branch guard, clean starting worktree, remote `origin`, local head `9549ec0`, and builder commit `9549ec0`.
 - Verified Git identity as `Mohamed Islem Rezzag Baara <Islem-Rezzag@users.noreply.github.com>` from `.git/config`; no `@qmul.ac.uk` address was used.
