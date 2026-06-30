@@ -92,10 +92,11 @@ Completed execution:
 - `plans/completed/CLP-0001-m00-repo-operating-system.md`
 - `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`
 - `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`
+- `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`
 
 Active execution:
 
-- No active milestone plan exists after M02 closeout. M03 remains `Not started`.
+- M03 Canonical MoneyEvent Engine planning is active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M03.01 through M03.06 remain `Not started`.
 
 Plan state:
 

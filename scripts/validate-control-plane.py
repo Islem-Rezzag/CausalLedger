@@ -61,6 +61,27 @@ REQUIRED_INFRA_SCRIPTS = {
     "migrate:down": "node-pg-migrate down --migrations-dir infra/migrations --ignore-pattern README.md --database-url-var DATABASE_URL",
 }
 
+M03_ACTIVE_PLAN = "plans/active/CLP-0004-m03-canonical-moneyevent-engine.md"
+
+EXPECTED_M03_SUBMILESTONES = {
+    "M03.01",
+    "M03.02",
+    "M03.03",
+    "M03.04",
+    "M03.05",
+    "M03.06",
+}
+
+MONEYEVENT_RUNTIME_SCAN_ROOTS = [
+    "apps",
+    "packages",
+    "infra/migrations",
+    "data/fixtures",
+    "scenarios",
+]
+
+MONEYEVENT_RUNTIME_PATH_TERMS = ["moneyevent", "money-event", "money_events"]
+
 REQUIRED_FILES = [
     "README.md",
     "START_HERE.md",
@@ -99,6 +120,7 @@ REQUIRED_FILES = [
     "docs/status/M02_CLOSEOUT.md",
     "docs/milestones/SUBMILESTONE_REGISTRY.md",
     "docs/milestones/M02.md",
+    "docs/milestones/M03.md",
     "docs/decisions/ADR-0005-m02-stack-and-monorepo-direction.md",
     "docs/decisions/ADR-0006-local-dev-and-ci-baseline.md",
     "docs/decisions/ADR-0007-logging-error-handling-and-observability-direction.md",
@@ -108,6 +130,7 @@ REQUIRED_FILES = [
     "plans/completed/CLP-0001-m00-repo-operating-system.md",
     "plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md",
     "plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md",
+    M03_ACTIVE_PLAN,
     "scripts/qa-dev-environment.py",
     "tests/test_control_plane_bootstrap.py",
     "eslint.config.js",
@@ -528,6 +551,34 @@ def validate_m02_plan_location() -> list[str]:
     return errors
 
 
+def active_planning_milestone_id() -> str | None:
+    active_plans = active_plan_files()
+    if len(active_plans) != 1:
+        return None
+    match = re.search(r"CLP-\d+-m(\d{2})-", active_plans[0].name)
+    if match is None:
+        return None
+    return f"M{match.group(1)}"
+
+
+def validate_m03_plan_location() -> list[str]:
+    errors: list[str] = []
+    active_m03 = ROOT / M03_ACTIVE_PLAN
+    completed_m03 = (
+        ROOT
+        / "plans"
+        / "completed"
+        / "CLP-0004-m03-canonical-moneyevent-engine.md"
+    )
+    if not active_m03.is_file():
+        errors.append("active M03 plan is missing from plans/active")
+    if completed_m03.exists():
+        errors.append("M03 plan must not be in plans/completed during planning")
+    if active_plan_files() != [active_m03]:
+        errors.append("plans/active must contain exactly the active M03 plan")
+    return errors
+
+
 def optional_text(rel: str) -> str | None:
     path = ROOT / rel
     if not path.is_file():
@@ -550,6 +601,7 @@ def validate_required_structure() -> list[str]:
         errors.append(f"missing required directory: {rel}")
     errors.extend(validate_active_plan_state())
     errors.extend(validate_m02_plan_location())
+    errors.extend(validate_m03_plan_location())
     return errors
 
 
@@ -609,6 +661,51 @@ def validate_m02_milestone_consistency(
     return errors
 
 
+def validate_m03_milestone_consistency(
+    registry_rows: list[RegistryRow], m03_text: str
+) -> list[str]:
+    errors: list[str] = []
+    by_id = {row.submilestone_id: row for row in registry_rows}
+    try:
+        milestone_rows = parse_milestone_submilestone_table(m03_text)
+    except ValueError as exc:
+        return [f"docs/milestones/M03.md {exc}"]
+
+    milestone_ids = {row.submilestone_id for row in milestone_rows}
+    registry_ids = {
+        row.submilestone_id
+        for row in registry_rows
+        if row.submilestone_id.startswith("M03.")
+    }
+    if milestone_ids != EXPECTED_M03_SUBMILESTONES:
+        errors.append("docs/milestones/M03.md must contain exactly M03.01 through M03.06")
+    if registry_ids != EXPECTED_M03_SUBMILESTONES:
+        errors.append("registry must contain exactly M03.01 through M03.06")
+
+    seen: set[str] = set()
+    for row in milestone_rows:
+        if row.submilestone_id in seen:
+            errors.append(f"docs/milestones/M03.md duplicate ID: {row.submilestone_id}")
+        seen.add(row.submilestone_id)
+        if not row.submilestone_id.startswith("M03."):
+            errors.append(f"docs/milestones/M03.md contains non-M03 row: {row.submilestone_id}")
+            continue
+        registry_row = by_id.get(row.submilestone_id)
+        if registry_row is None:
+            errors.append(f"docs/milestones/M03.md row missing from registry: {row.submilestone_id}")
+            continue
+        if row.status != registry_row.status:
+            errors.append(
+                f"docs/milestones/M03.md {row.submilestone_id} status is {row.status}, "
+                f"registry says {registry_row.status}"
+            )
+        if registry_row.status != "Not started":
+            errors.append(f"{row.submilestone_id} must remain Not started during M03 planning")
+        if registry_row.active_plan != M03_ACTIVE_PLAN:
+            errors.append(f"{row.submilestone_id} must reference active M03 plan")
+    return errors
+
+
 def milestone_id_from_submilestone(submilestone_id: str) -> str:
     return submilestone_id.split(".", 1)[0]
 
@@ -617,7 +714,7 @@ def milestone_id_from_roadmap(row: RoadmapRow) -> str:
     return row.milestone.split(" ", 1)[0]
 
 
-def expected_roadmap_status(statuses: list[str]) -> str:
+def expected_roadmap_status(statuses: list[str], planning_active: bool = False) -> str:
     if statuses and all(status == "Completed and merged" for status in statuses):
         return "Completed"
     if statuses and all(
@@ -625,6 +722,8 @@ def expected_roadmap_status(statuses: list[str]) -> str:
     ):
         return "Completed"
     if statuses and all(status == "Not started" for status in statuses):
+        if planning_active:
+            return "Planning active"
         return "Not started"
     return "In progress"
 
@@ -667,7 +766,8 @@ def validate_roadmap_consistency(
                 f"registry has {len(registry_milestone_rows)}"
             )
         expected_status = expected_roadmap_status(
-            [registry_row.status for registry_row in registry_milestone_rows]
+            [registry_row.status for registry_row in registry_milestone_rows],
+            planning_active=milestone_id == active_planning_milestone_id(),
         )
         if row.status != expected_status:
             errors.append(
@@ -729,6 +829,11 @@ def validate_status_consistency() -> list[str]:
             registry_rows, read_text("docs/milestones/M02.md")
         )
     )
+    errors.extend(
+        validate_m03_milestone_consistency(
+            registry_rows, read_text("docs/milestones/M03.md")
+        )
+    )
     errors.extend(validate_roadmap_consistency(registry_rows, read_text("plans/ROADMAP.md")))
     errors.extend(validate_current_state_structure(read_text("docs/status/CURRENT_STATE.md")))
     errors.extend(
@@ -756,6 +861,7 @@ def validate_docs() -> list[str]:
         "M02.07 Builder created a repeatable QA development environment",
         "M02.07 QA corrected truthful dirty-worktree",
         "Closed M02 with `docs/status/M02_CLOSEOUT.md`",
+        "Started M03 planning with active plan",
         "ADR-0008 identity, money, and storage direction",
     ]:
         if phrase not in changelog:
@@ -769,6 +875,8 @@ def validate_docs() -> list[str]:
     for rel in ["docs/ACTIVE_DOCS.md", "docs/INDEX.md"]:
         if "docs/decisions/ADR-0008-identity-money-and-storage.md" not in read_text(rel):
             errors.append(f"{rel} does not index ADR-0008")
+        if M03_ACTIVE_PLAN not in read_text(rel):
+            errors.append(f"{rel} does not index the active M03 plan")
     return errors
 
 
@@ -784,6 +892,24 @@ def validate_no_secrets() -> list[str]:
     if populated:
         return [".env.example contains populated values before secrets handling exists"]
     return []
+
+
+def validate_no_moneyevent_runtime_files() -> list[str]:
+    errors: list[str] = []
+    for rel in MONEYEVENT_RUNTIME_SCAN_ROOTS:
+        root = ROOT / rel
+        if not root.exists():
+            continue
+        for path in root.rglob("*"):
+            if not path.is_file():
+                continue
+            lowered = path.name.lower()
+            if any(term in lowered for term in MONEYEVENT_RUNTIME_PATH_TERMS):
+                errors.append(
+                    "MoneyEvent runtime file created before implementation scope: "
+                    f"{path.relative_to(ROOT).as_posix()}"
+                )
+    return errors
 
 
 def validate_env_example_keys() -> list[str]:
@@ -1145,6 +1271,7 @@ def validate() -> list[str]:
     errors.extend(validate_status_consistency())
     errors.extend(validate_docs())
     errors.extend(validate_no_secrets())
+    errors.extend(validate_no_moneyevent_runtime_files())
     errors.extend(validate_local_infrastructure())
     errors.extend(validate_qa_development_environment())
     errors.extend(validate_python_dev_requirements())
