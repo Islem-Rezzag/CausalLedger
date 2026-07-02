@@ -2,6 +2,11 @@
 
 ## 2026-07-02
 
+- Ran M03.02 merge finalization on branch `m03-02-finalize-moneyevent-type-boundary-merge`.
+- Confirmed PR #49 merged into `main` at `f7e3b54ba6a533a70d34810564be1b8828eec952`; the old source branch is squash-merged history and must not be reused for M03.03.
+- Updated durable tracking so M03.02 is `Completed and merged`, M03.03 through M03.06 remain `Not started`, M04 through M21 remain `Not started`, and product runtime behavior remains unstarted beyond the M03.02 compile-time MoneyEvent TypeScript type boundary.
+- M03.02 merge finalization validation passed locally: control-plane validation, bootstrap pytest with 92 tests, diff check, package-local events checks, full workspace checks, and `pnpm qa:dev -- --allow-dirty`; Docker, `make`, and `gh` remain unavailable locally.
+- Recommended next thread after this finalization PR merges: `M03.03 Builder - Evidence-to-MoneyEvent mapping fixtures and simulator planning`.
 - Ran formal M03.02 QA for PR #49 on branch `m03-02-moneyevent-types-schema-boundary`.
 - Verified PR #49 is open, unmerged, non-draft, targets `main`, uses head branch `m03-02-moneyevent-types-schema-boundary`, contains builder commit `8abb7403cefb4653eacf151466f31119eef39726`, and changes only scoped type-boundary and tracking files.
 - Verified the `packages/events` MoneyEvent TypeScript boundary includes event identity, kind, source identity/type, evidence references, provenance, integer minor-unit `bigint` money, ISO 4217 currency branding, party/object references, event and observed time, idempotency, relationships, lifecycle state, uncertainty, raw evidence locators or receipt references, and contract versioning.
