@@ -6,6 +6,8 @@ This is the M03.01 conceptual contract for canonical MoneyEvents. It is document
 
 This document itself does not define TypeScript types, runtime schemas, parsers, validators, normalizers, storage, fixtures, simulator data, database tables, migrations, API routes, product UI, ledger posting, invariants, incidents, graph behavior, replay, repair behavior, agent tools, or money mutation. M03.02 separately adds a TypeScript-only package boundary in `packages/events`; runtime schemas and behavior remain deferred.
 
+M03.03 adds `docs/MONEYEVENT_MAPPING_FIXTURES.md` as documentation-only evidence-to-MoneyEvent mapping fixture and simulator planning. It does not add fixture data, simulator data, ingestion, storage, parser behavior, validator behavior, normalizer behavior, API routes, UI, or product runtime behavior.
+
 ## Purpose
 
 A canonical MoneyEvent is the future evidence-derived representation CausalLedger will use to describe a money-movement lifecycle occurrence in a source-neutral way.
@@ -173,7 +175,7 @@ Conflicting provider and bank evidence: provider evidence says a payout was paid
 
 ## Deferred Decisions
 
-The exact runtime schema, validation rules, normalizer behavior, parser behavior, fixture shape, storage model, and database representation are deferred to later M03 submilestones. M03.02 adds an initial TypeScript type boundary, but it does not validate JSON, parse source payloads, normalize events, store events, or decide financial truth.
+The exact runtime schema, validation rules, normalizer behavior, parser behavior, storage model, and database representation are deferred to later M03 submilestones. M03.02 adds an initial TypeScript type boundary, but it does not validate JSON, parse source payloads, normalize events, store events, or decide financial truth. M03.03 plans the future fixture shape conceptually, but actual fixture data remains deferred.
 
 The signed-versus-directional amount model is deferred because it affects ledger mapping, invariants, replay, and repair semantics.
 

@@ -74,6 +74,7 @@ REQUIRED_INFRA_SCRIPTS = {
 
 M03_ACTIVE_PLAN = "plans/active/CLP-0004-m03-canonical-moneyevent-engine.md"
 MONEYEVENT_CONTRACT_DOC = "docs/MONEYEVENT_CONTRACT.md"
+MONEYEVENT_MAPPING_FIXTURES_DOC = "docs/MONEYEVENT_MAPPING_FIXTURES.md"
 
 EXPECTED_M03_SUBMILESTONES = {
     "M03.01",
@@ -99,6 +100,13 @@ M03_01_ALLOWED_STATUSES = {
 }
 
 M03_02_ALLOWED_STATUSES = {
+    "Builder in progress",
+    "Builder complete, awaiting QA",
+    "QA passed, awaiting merge",
+    "Completed and merged",
+}
+
+M03_03_ALLOWED_STATUSES = {
     "Builder in progress",
     "Builder complete, awaiting QA",
     "QA passed, awaiting merge",
@@ -140,6 +148,53 @@ MONEYEVENT_CONTRACT_REQUIRED_PHRASES = [
     "conflicting provider and bank evidence",
 ]
 
+MONEYEVENT_MAPPING_FIXTURES_REQUIRED_PHRASES = [
+    "documentation and planning only",
+    "does not create fixture data",
+    "does not create simulator data",
+    "real provider connector",
+    "live evidence ingestion",
+    "runtime parser behavior",
+    "runtime validator behavior",
+    "Provider authorization events",
+    "Provider capture events",
+    "Provider refund events",
+    "Provider chargeback or dispute events",
+    "Settlement or payout rows",
+    "Bank statement lines",
+    "Duplicate webhook delivery",
+    "Delayed evidence",
+    "Conflicting provider and bank evidence",
+    "Partial evidence",
+    "Raw evidence remains the source of truth",
+    "evidence references",
+    "provenance",
+    "idempotency",
+    "event time versus observed time",
+    "must not post to a ledger",
+    "mutate money",
+    "LLM create financial truth",
+    "Fixture ID",
+    "Expected MoneyEvent fields",
+    "Expected uncertainty",
+    "Expected idempotency behavior",
+    "Simple provider capture",
+    "Provider refund",
+    "Chargeback opened",
+    "Settlement payout row",
+    "Bank deposit line",
+    "Duplicate provider webhook",
+    "Delayed settlement",
+    "Conflicting amount",
+    "Missing currency",
+    "Partial evidence chain",
+    "future simulator",
+    "deterministic",
+    "scenario IDs",
+    "M03.04",
+    "M03.05",
+]
+
 REQUIRED_FILES = [
     "README.md",
     "START_HERE.md",
@@ -159,6 +214,7 @@ REQUIRED_FILES = [
     "docs/ARCHITECTURE.md",
     "docs/DOMAIN_MODEL.md",
     MONEYEVENT_CONTRACT_DOC,
+    MONEYEVENT_MAPPING_FIXTURES_DOC,
     "docs/RELIABILITY.md",
     "docs/THREAT_MODEL.md",
     "docs/TOKEN_COST_STRATEGY.md",
@@ -736,6 +792,8 @@ def validate_m03_milestone_consistency(
 ) -> list[str]:
     errors: list[str] = []
     by_id = {row.submilestone_id: row for row in registry_rows}
+    m03_02_status = by_id.get("M03.02").status if by_id.get("M03.02") else None
+    m03_03_status = by_id.get("M03.03").status if by_id.get("M03.03") else None
     try:
         milestone_rows = parse_milestone_submilestone_table(m03_text)
     except ValueError as exc:
@@ -779,10 +837,23 @@ def validate_m03_milestone_consistency(
                 errors.append(
                     "M03.02 must be active or completed after M03.01 merge finalization"
                 )
-        elif registry_row.status != "Not started":
-            errors.append(f"{row.submilestone_id} must remain Not started during M03.02")
+        elif row.submilestone_id == "M03.03":
+            if registry_row.status == "Not started":
+                pass
+            elif m03_02_status != "Completed and merged":
+                errors.append("M03.03 must remain Not started during M03.02")
+            elif registry_row.status not in M03_03_ALLOWED_STATUSES:
+                errors.append(
+                    "M03.03 must be active or completed after M03.02 merge finalization"
+                )
+        elif row.submilestone_id in {"M03.04", "M03.05", "M03.06"}:
+            if registry_row.status != "Not started":
+                errors.append(f"{row.submilestone_id} must remain Not started during M03.03")
         if registry_row.active_plan != M03_ACTIVE_PLAN:
             errors.append(f"{row.submilestone_id} must reference active M03 plan")
+
+    if m03_03_status not in {None, "Not started"} and m03_02_status != "Completed and merged":
+        errors.append("M03.02 must be Completed and merged before M03.03 tracking")
     return errors
 
 
@@ -944,6 +1015,7 @@ def validate_docs() -> list[str]:
         "Started M03 planning with active plan",
         "M03.01 Builder created `docs/MONEYEVENT_CONTRACT.md`",
         "M03.02 Builder added a TypeScript-only MoneyEvent type boundary",
+        "M03.03 Builder created `docs/MONEYEVENT_MAPPING_FIXTURES.md`",
         "ADR-0008 identity, money, and storage direction",
     ]:
         if phrase not in changelog:
@@ -961,6 +1033,8 @@ def validate_docs() -> list[str]:
             errors.append(f"{rel} does not index the active M03 plan")
         if MONEYEVENT_CONTRACT_DOC not in read_text(rel):
             errors.append(f"{rel} does not index the MoneyEvent contract")
+        if MONEYEVENT_MAPPING_FIXTURES_DOC not in read_text(rel):
+            errors.append(f"{rel} does not index the MoneyEvent mapping fixtures plan")
     return errors
 
 
@@ -1015,7 +1089,7 @@ def validate_no_m03_fixture_or_simulator_data() -> list[str]:
         extra_files = [file_name for file_name in files if file_name != "README.md"]
         if extra_files:
             errors.append(
-                f"{rel} may contain only README.md before fixture or simulator scope: "
+                f"{rel} may contain only README.md before fixture data or simulator implementation scope: "
                 + ", ".join(extra_files)
             )
     return errors
@@ -1032,6 +1106,26 @@ def validate_moneyevent_contract_doc() -> list[str]:
     for phrase in MONEYEVENT_CONTRACT_REQUIRED_PHRASES:
         if phrase.lower() not in contract_lower:
             errors.append(f"MONEYEVENT_CONTRACT.md missing conceptual coverage: {phrase}")
+    return errors
+
+
+def validate_m03_03_mapping_fixture_planning_doc() -> list[str]:
+    errors: list[str] = []
+    planning_doc = read_text(MONEYEVENT_MAPPING_FIXTURES_DOC)
+    planning_doc_lower = planning_doc.lower()
+    if DOC_ONLY_RUNTIME_CODE_FENCE_PATTERN.search(planning_doc):
+        errors.append("MONEYEVENT_MAPPING_FIXTURES.md must not contain runtime code fences")
+    for file_extension in [".json", ".yaml", ".yml", ".csv"]:
+        if re.search(rf"\b[\w.-]+{re.escape(file_extension)}\b", planning_doc_lower):
+            errors.append(
+                "MONEYEVENT_MAPPING_FIXTURES.md must not name concrete fixture data files"
+            )
+            break
+    for phrase in MONEYEVENT_MAPPING_FIXTURES_REQUIRED_PHRASES:
+        if phrase.lower() not in planning_doc_lower:
+            errors.append(
+                f"MONEYEVENT_MAPPING_FIXTURES.md missing planning coverage: {phrase}"
+            )
     return errors
 
 
@@ -1480,6 +1574,7 @@ def validate() -> list[str]:
     errors.extend(validate_no_moneyevent_runtime_files())
     errors.extend(validate_no_m03_fixture_or_simulator_data())
     errors.extend(validate_moneyevent_contract_doc())
+    errors.extend(validate_m03_03_mapping_fixture_planning_doc())
     errors.extend(validate_m03_02_events_type_boundary())
     errors.extend(validate_local_infrastructure())
     errors.extend(validate_qa_development_environment())

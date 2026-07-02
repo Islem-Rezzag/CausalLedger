@@ -1,10 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-M03.03 Builder - Evidence-to-MoneyEvent mapping fixtures and simulator planning
+M03.03 QA - Evidence-to-MoneyEvent mapping fixtures and simulator planning
 
 Precondition:
-M03.02 has completed and merged through PR #49 at `f7e3b54ba6a533a70d34810564be1b8828eec952`. M03.03 remains Not started. Product runtime behavior remains limited to the M03.02 compile-time type boundary.
+M03.03 Builder is complete on branch `m03-03-evidence-to-moneyevent-fixtures-simulator-planning`, with `docs/MONEYEVENT_MAPPING_FIXTURES.md` added as documentation-only mapping design and no fixture data, simulator data, parser, validator, normalizer, storage, API, UI, connector, ledger, replay, repair, agent runtime, or product behavior.
 
 Scope:
-Start M03.03 only after this finalization PR merges. Do not implement real connectors, evidence storage, external ingestion, database tables, API routes, UI, ledger behavior, or agent runtime.
+Run QA on the M03.03 branch and PR. Verify mapping design coverage, status tracking, validator/test changes, forbidden-scope boundaries, and validation evidence. Do not start M03.04.

@@ -434,6 +434,246 @@ def test_04d_m03_01_must_be_completed_before_m03_02_tracking():
     assert "M03.01 must be Completed and merged before M03.02 tracking" in errors
 
 
+def test_04e_m03_03_builder_tracking_is_allowed_after_m03_02_merge():
+    registry_rows = validator.parse_registry_table(
+        registry_table(
+            [
+                [
+                    "M03.01",
+                    "Canonical MoneyEvent concept and contract planning",
+                    "M03 Canonical MoneyEvent engine",
+                    "Completed and merged",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.02",
+                    "MoneyEvent TypeScript types and schema boundary",
+                    "M03 Canonical MoneyEvent engine",
+                    "Completed and merged",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.03",
+                    "Evidence-to-MoneyEvent mapping fixtures and simulator planning",
+                    "M03 Canonical MoneyEvent engine",
+                    "Builder complete, awaiting QA",
+                    validator.M03_ACTIVE_PLAN,
+                    "m03-03-evidence-to-moneyevent-fixtures-simulator-planning",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.04",
+                    "MoneyEvent validation and normalization rules",
+                    "M03 Canonical MoneyEvent engine",
+                    "Not started",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.05",
+                    "MoneyEvent test fixtures and benchmark seed cases",
+                    "M03 Canonical MoneyEvent engine",
+                    "Not started",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.06",
+                    "MoneyEvent QA and closeout",
+                    "M03 Canonical MoneyEvent engine",
+                    "Not started",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+            ]
+        )
+    )
+    errors = validator.validate_m03_milestone_consistency(
+        registry_rows,
+        m03_table(
+            [
+                [
+                    "M03.01",
+                    "Canonical MoneyEvent concept and contract planning",
+                    "Completed and merged",
+                    "Pending.",
+                ],
+                [
+                    "M03.02",
+                    "MoneyEvent TypeScript types and schema boundary",
+                    "Completed and merged",
+                    "Pending.",
+                ],
+                [
+                    "M03.03",
+                    "Evidence-to-MoneyEvent mapping fixtures and simulator planning",
+                    "Builder complete, awaiting QA",
+                    "Pending.",
+                ],
+                [
+                    "M03.04",
+                    "MoneyEvent validation and normalization rules",
+                    "Not started",
+                    "Pending.",
+                ],
+                [
+                    "M03.05",
+                    "MoneyEvent test fixtures and benchmark seed cases",
+                    "Not started",
+                    "Pending.",
+                ],
+                ["M03.06", "MoneyEvent QA and closeout", "Not started", "Pending."],
+            ]
+        ),
+    )
+    assert errors == []
+
+
+def test_04f_m03_04_must_remain_not_started_during_m03_03():
+    registry_rows = validator.parse_registry_table(
+        registry_table(
+            [
+                [
+                    "M03.01",
+                    "Canonical MoneyEvent concept and contract planning",
+                    "M03 Canonical MoneyEvent engine",
+                    "Completed and merged",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.02",
+                    "MoneyEvent TypeScript types and schema boundary",
+                    "M03 Canonical MoneyEvent engine",
+                    "Completed and merged",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.03",
+                    "Evidence-to-MoneyEvent mapping fixtures and simulator planning",
+                    "M03 Canonical MoneyEvent engine",
+                    "Builder complete, awaiting QA",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.04",
+                    "MoneyEvent validation and normalization rules",
+                    "M03 Canonical MoneyEvent engine",
+                    "Builder in progress",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.05",
+                    "MoneyEvent test fixtures and benchmark seed cases",
+                    "M03 Canonical MoneyEvent engine",
+                    "Not started",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.06",
+                    "MoneyEvent QA and closeout",
+                    "M03 Canonical MoneyEvent engine",
+                    "Not started",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+            ]
+        )
+    )
+    errors = validator.validate_m03_milestone_consistency(
+        registry_rows,
+        m03_table(
+            [
+                [
+                    "M03.01",
+                    "Canonical MoneyEvent concept and contract planning",
+                    "Completed and merged",
+                    "Pending.",
+                ],
+                [
+                    "M03.02",
+                    "MoneyEvent TypeScript types and schema boundary",
+                    "Completed and merged",
+                    "Pending.",
+                ],
+                [
+                    "M03.03",
+                    "Evidence-to-MoneyEvent mapping fixtures and simulator planning",
+                    "Builder complete, awaiting QA",
+                    "Pending.",
+                ],
+                [
+                    "M03.04",
+                    "MoneyEvent validation and normalization rules",
+                    "Builder in progress",
+                    "Pending.",
+                ],
+                [
+                    "M03.05",
+                    "MoneyEvent test fixtures and benchmark seed cases",
+                    "Not started",
+                    "Pending.",
+                ],
+                ["M03.06", "MoneyEvent QA and closeout", "Not started", "Pending."],
+            ]
+        ),
+    )
+    assert "M03.04 must remain Not started during M03.03" in errors
+
+
 def active_current_state() -> str:
     return """# Current State
 
@@ -604,8 +844,40 @@ def test_10b_fixture_or_simulator_data_is_rejected_before_m03_03(tmp_path, monke
     fixture.write_text("fixture placeholder\n", encoding="utf-8")
     monkeypatch.setattr(validator, "ROOT", tmp_path)
     assert validator.validate_no_m03_fixture_or_simulator_data() == [
-        "data/fixtures may contain only README.md before fixture or simulator scope: duplicate_webhook.md"
+        "data/fixtures may contain only README.md before fixture data or simulator implementation scope: duplicate_webhook.md"
     ]
+
+
+def test_10c_m03_03_mapping_fixture_planning_doc_is_valid():
+    assert validator.validate_m03_03_mapping_fixture_planning_doc() == []
+
+
+def test_10d_m03_03_mapping_fixture_planning_doc_rejects_runtime_examples(
+    tmp_path, monkeypatch
+):
+    planning_doc = tmp_path / "docs" / "MONEYEVENT_MAPPING_FIXTURES.md"
+    planning_doc.parent.mkdir(parents=True)
+    planning_doc.write_text(
+        "\n".join(
+            [
+                "# Mapping",
+                "documentation and planning only",
+                "does not create fixture data",
+                "does not create simulator data",
+                "runtime parser behavior",
+                "runtime validator behavior",
+                "example.json",
+                "```json",
+                '{"source": "runtime-ish"}',
+                "```",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    errors = validator.validate_m03_03_mapping_fixture_planning_doc()
+    assert "MONEYEVENT_MAPPING_FIXTURES.md must not contain runtime code fences" in errors
+    assert "MONEYEVENT_MAPPING_FIXTURES.md must not name concrete fixture data files" in errors
 
 
 def test_11_exact_prose_changes_do_not_fail_current_state_structure():

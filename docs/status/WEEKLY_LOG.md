@@ -2,6 +2,14 @@
 
 ## 2026-07-02
 
+- Ran M03.03 Builder on branch `m03-03-evidence-to-moneyevent-fixtures-simulator-planning`.
+- Confirmed M03.02 merge finalization PR #50 merged into `main` at `052aafc`, with M03.02 `Completed and merged`, M03.03 `Not started`, M03.04 through M03.06 `Not started`, and M04 through M21 `Not started` before the slice.
+- Created `docs/MONEYEVENT_MAPPING_FIXTURES.md` as documentation-only evidence-to-MoneyEvent mapping fixture and simulator planning covering evidence families, mapping principles, planned fixture shape, fixture categories, deterministic simulator boundaries, and relationship to M03.04/M03.05.
+- Updated docs, status tracking, active plan, milestone/registry state, package boundary notes, validator, and bootstrap tests so M03.03 is `Builder complete, awaiting QA`.
+- Confirmed no fixture data, simulator data, real connectors, evidence storage, live ingestion, parser, validator, normalizer, runtime schema, migration, API route, UI, ledger posting, invariant behavior, incident behavior, graph behavior, replay, repair behavior, agent runtime, raw evidence mutation, repair approval, or money mutation was added.
+- M03.03 builder validation passed locally: control-plane validation, bootstrap pytest, diff check, package-local events checks, full workspace checks, `pnpm qa:dev -- --allow-dirty`, and clean post-commit `pnpm qa:dev` with 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`; Docker, `make`, and `gh` remain unavailable locally.
+- Recommended next thread: `M03.03 QA - Evidence-to-MoneyEvent mapping fixtures and simulator planning`.
+
 - Ran M03.02 merge finalization on branch `m03-02-finalize-moneyevent-type-boundary-merge`.
 - Confirmed PR #49 merged into `main` at `f7e3b54ba6a533a70d34810564be1b8828eec952`; the old source branch is squash-merged history and must not be reused for M03.03.
 - Updated durable tracking so M03.02 is `Completed and merged`, M03.03 through M03.06 remain `Not started`, M04 through M21 remain `Not started`, and product runtime behavior remains unstarted beyond the M03.02 compile-time MoneyEvent TypeScript type boundary.
