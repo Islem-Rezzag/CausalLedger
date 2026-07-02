@@ -194,7 +194,7 @@ def test_04b_m03_requires_lean_planning_rows_from_fixtures():
     assert "registry must contain exactly M03.01 through M03.06" in errors
 
 
-def test_04c_m03_later_rows_must_remain_not_started_during_m03_01():
+def test_04c_m03_later_rows_must_remain_not_started_during_m03_02():
     registry_rows = validator.parse_registry_table(
         registry_table(
             [
@@ -202,7 +202,127 @@ def test_04c_m03_later_rows_must_remain_not_started_during_m03_01():
                     "M03.01",
                     "Canonical MoneyEvent concept and contract planning",
                     "M03 Canonical MoneyEvent engine",
-                    "Builder complete, awaiting QA",
+                    "Completed and merged",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.02",
+                    "MoneyEvent TypeScript types and schema boundary",
+                    "M03 Canonical MoneyEvent engine",
+                    "Builder in progress",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.03",
+                    "Evidence-to-MoneyEvent mapping fixtures and simulator planning",
+                    "M03 Canonical MoneyEvent engine",
+                    "Builder in progress",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.04",
+                    "MoneyEvent validation and normalization rules",
+                    "M03 Canonical MoneyEvent engine",
+                    "Not started",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.05",
+                    "MoneyEvent test fixtures and benchmark seed cases",
+                    "M03 Canonical MoneyEvent engine",
+                    "Not started",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+                [
+                    "M03.06",
+                    "MoneyEvent QA and closeout",
+                    "M03 Canonical MoneyEvent engine",
+                    "Not started",
+                    validator.M03_ACTIVE_PLAN,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+            ]
+        )
+    )
+    errors = validator.validate_m03_milestone_consistency(
+        registry_rows,
+        m03_table(
+            [
+                [
+                    "M03.01",
+                    "Canonical MoneyEvent concept and contract planning",
+                    "Completed and merged",
+                    "Pending.",
+                ],
+                [
+                    "M03.02",
+                    "MoneyEvent TypeScript types and schema boundary",
+                    "Builder in progress",
+                    "Pending.",
+                ],
+                [
+                    "M03.03",
+                    "Evidence-to-MoneyEvent mapping fixtures and simulator planning",
+                    "Builder in progress",
+                    "Pending.",
+                ],
+                [
+                    "M03.04",
+                    "MoneyEvent validation and normalization rules",
+                    "Not started",
+                    "Pending.",
+                ],
+                [
+                    "M03.05",
+                    "MoneyEvent test fixtures and benchmark seed cases",
+                    "Not started",
+                    "Pending.",
+                ],
+                ["M03.06", "MoneyEvent QA and closeout", "Not started", "Pending."],
+            ]
+        ),
+    )
+    assert "M03.03 must remain Not started during M03.02" in errors
+
+
+def test_04d_m03_01_must_be_completed_before_m03_02_tracking():
+    registry_rows = validator.parse_registry_table(
+        registry_table(
+            [
+                [
+                    "M03.01",
+                    "Canonical MoneyEvent concept and contract planning",
+                    "M03 Canonical MoneyEvent engine",
+                    "QA passed, awaiting merge",
                     validator.M03_ACTIVE_PLAN,
                     "",
                     "",
@@ -280,7 +400,7 @@ def test_04c_m03_later_rows_must_remain_not_started_during_m03_01():
                 [
                     "M03.01",
                     "Canonical MoneyEvent concept and contract planning",
-                    "Builder complete, awaiting QA",
+                    "QA passed, awaiting merge",
                     "Pending.",
                 ],
                 [
@@ -311,7 +431,7 @@ def test_04c_m03_later_rows_must_remain_not_started_during_m03_01():
             ]
         ),
     )
-    assert "M03.02 must remain Not started during M03.01" in errors
+    assert "M03.01 must be Completed and merged before M03.02 tracking" in errors
 
 
 def active_current_state() -> str:
@@ -734,10 +854,13 @@ def test_28_github_workflows_contains_only_ci_yml():
 
 def test_29_package_scaffolds_are_exactly_allowlisted():
     expected_scaffold = set(validator.APPROVED_PACKAGE_SCAFFOLD_FILES)
+    expected_events = set(validator.M03_02_EVENTS_TYPE_BOUNDARY_FILES)
     for package_dir in (ROOT / "packages").iterdir():
         if package_dir.is_dir():
             files = validator.package_files(package_dir)
-            if package_dir.name in validator.M02_05_PACKAGE_DIRS:
+            if package_dir.name == "events":
+                assert files == expected_events
+            elif package_dir.name in validator.M02_05_PACKAGE_DIRS:
                 assert files == expected_scaffold
             else:
                 assert files == {"README.md"}
@@ -825,11 +948,33 @@ def test_39_no_product_implementation_claims_in_live_status():
         assert (
             "product implementation has not started" in content
             or "product domain implementation has not started" in content
+            or "product runtime behavior has not started" in content
         )
 
 
-def test_39b_no_moneyevent_runtime_files_exist():
+def test_39b_only_m03_02_moneyevent_type_boundary_files_exist():
     assert validator.validate_no_moneyevent_runtime_files() == []
+
+
+def test_39b_generated_moneyevent_build_outputs_are_ignored(tmp_path, monkeypatch):
+    generated = tmp_path / "packages" / "events" / "dist" / "money-event.js"
+    generated.parent.mkdir(parents=True)
+    generated.write_text("// generated by TypeScript build\n", encoding="utf-8")
+
+    forbidden = tmp_path / "packages" / "events" / "src" / "money-event-runtime.ts"
+    forbidden.parent.mkdir(parents=True)
+    forbidden.write_text("// authored runtime file\n", encoding="utf-8")
+
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+
+    assert validator.validate_no_moneyevent_runtime_files() == [
+        "MoneyEvent runtime file created before implementation scope: "
+        "packages/events/src/money-event-runtime.ts"
+    ]
+
+
+def test_39c_m03_02_events_type_boundary_is_valid():
+    assert validator.validate_m03_02_events_type_boundary() == []
 
 
 def test_40_validator_main_checks_pass():
@@ -894,7 +1039,8 @@ def test_41_missing_package_file_is_rejected_from_fixture(tmp_path, monkeypatch)
     (package_path / "README.md").write_text("# Events\n", encoding="utf-8")
     monkeypatch.setattr(validator, "ROOT", tmp_path)
     assert validator.validate_package_scaffolds() == [
-        "package scaffold missing files: packages/events -> test/bootstrap.test.ts"
+        "package scaffold missing files: packages/events -> "
+        "src/money-event.ts, test/bootstrap.test.ts, test/money-event-types.test.ts"
     ]
 
 
