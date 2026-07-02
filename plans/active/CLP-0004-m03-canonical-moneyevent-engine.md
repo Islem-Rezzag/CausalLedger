@@ -44,6 +44,11 @@ M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1e
 - [x] 2026-06-30: Added the scoped `packages/events` MoneyEvent TypeScript type boundary, package exports, README documentation, and compile-time-oriented package tests.
 - [x] 2026-06-30: Updated validator and bootstrap tests to allow only the scoped M03.02 type-boundary files while continuing to reject parser, validator, normalizer, storage, migration, API, fixture, simulator, benchmark, and product behavior.
 - [x] 2026-06-30: Updated durable tracking so M03.01 is completed and merged, M03.02 Builder is complete and awaiting QA, M03.03 through M03.06 remain `Not started`, and M04 through M21 remain `Not started`.
+- [x] 2026-07-02: M03.02 QA verified PR #49 is open, unmerged, non-draft, targets `main`, uses head branch `m03-02-moneyevent-types-schema-boundary`, contains builder commit `8abb7403cefb4653eacf151466f31119eef39726`, and changes only scoped type-boundary and tracking files.
+- [x] 2026-07-02: M03.02 QA verified the `packages/events` MoneyEvent TypeScript type boundary is coherent, follows `docs/MONEYEVENT_CONTRACT.md`, keeps ADR-0008 integer minor-unit money and ID direction, and exports no parser, validator, normalizer, ingester, or storage function.
+- [x] 2026-07-02: M03.02 QA found no MoneyEvent runtime schema, parser, validator, normalizer, storage, fixture, simulator data, migration, API route, UI, ledger posting, invariant behavior, incident behavior, replay, repair behavior, connector, agent runtime, raw evidence mutation, repair approval, or money mutation.
+- [x] 2026-07-02: M03.02 QA validation passed locally and remote GitHub Actions `validate` and `infra-smoke` passed on the QA-reviewed head with non-blocking Node.js 20 deprecation warnings from upstream actions.
+- [x] 2026-07-02: Updated durable tracking so M03.02 is QA passed and awaiting merge, M03.03 through M03.06 remain `Not started`, M04 through M21 remain `Not started`, and the exact next thread is `Merge M03.02 PR - MoneyEvent TypeScript types and schema boundary`.
 
 ## Surprises & Discoveries
 
@@ -316,6 +321,21 @@ Run `make bootstrap-check` only if `make` is available. Record Docker limitation
 - `make bootstrap-check` was skipped because `make` is unavailable in this Windows shell. Direct Python validation and pytest passed.
 - GitHub CLI is unavailable in this Windows shell, so draft PR creation must use the manual PR URL unless another environment has `gh`.
 
+2026-07-02 M03.02 QA validation results:
+
+- Validation ladder: Level 0 branch and worktree guard, Level 1 file and forbidden-scope inspection, Level 2 control-plane validation, Level 3 bootstrap and package tests, Level 4 diff and whitespace checks, Level 5 package checks for the `packages/events` type boundary only, Level 7 financial-truth and forbidden-scope checks, and Level 8 PR merge-readiness review.
+- Branch guard passed after switching from the clean local `main` checkout to `m03-02-moneyevent-types-schema-boundary` before QA edits; the expected branch started clean, local HEAD matched `origin/m03-02-moneyevent-types-schema-boundary`, and builder commit `8abb7403cefb4653eacf151466f31119eef39726` was confirmed.
+- Git identity was set and verified as `Mohamed Islem Rezzag Baara <Islem-Rezzag@users.noreply.github.com>` from `.git/config`; no `@qmul.ac.uk` address was used.
+- PR #49 was verified open, unmerged, non-draft, mergeable, targeting `main`, using head branch `m03-02-moneyevent-types-schema-boundary`, and containing builder commit `8abb740`.
+- M03.01 PR #48 was verified merged into `main` at `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`.
+- Type-boundary QA passed: `packages/events/src/money-event.ts` includes MoneyEvent identity, kind, source identity/type, evidence references, provenance, integer minor-unit `bigint` amount, ISO 4217 currency branding, party/object references, event time, observed time, idempotency key, relationships, lifecycle state, uncertainty state, raw evidence locator or receipt references, and contract versioning.
+- Schema-boundary QA passed: no Zod, Valibot, JSON Schema, parser, validator, normalizer, ingester, storage layer, runtime schema constructor, database table, migration, API route, UI, ledger posting, repair behavior, agent runtime, fixture, simulator data, or benchmark data was implemented.
+- Type tests QA passed: package tests typecheck a representative MoneyEvent shape and assert parser, validator, normalizer, ingest, and store exports do not exist.
+- Documentation alignment QA passed: docs distinguish the conceptual contract, TypeScript type boundary, and deferred runtime validation without claiming runtime schema, parser, validator, storage, fixture, API, UI, or product behavior.
+- Forbidden implementation QA passed: product runtime behavior remains not started, raw evidence was not modified, no evidence was deleted, no ledger entries were posted, no money was mutated, and no repair was approved.
+- Remote validation before QA tracking edits passed for builder head `8abb740`: GitHub Actions `validate` and `infra-smoke` completed successfully; each emitted a non-blocking Node.js 20 deprecation warning for upstream actions.
+- Local QA validation commands are recorded in this plan, status docs, weekly log, registry, and final handoff. If a QA tracking commit is pushed, remote checks must pass on that latest head before human merge.
+
 Acceptance criteria:
 
 - exactly one active M03 plan exists;
@@ -323,13 +343,13 @@ Acceptance criteria:
 - M03 milestone and registry rows are coherent;
 - M03 planning PR #47 is recorded as completed and merged;
 - M03.01 is `Completed and merged`;
-- M03.02 is `Builder complete, awaiting QA`;
+- M03.02 is `QA passed, awaiting merge`;
 - M03.03 through M03.06 remain `Not started`;
 - `docs/MONEYEVENT_CONTRACT.md` exists as documentation-only conceptual contract;
 - `packages/events` contains the M03.02 TypeScript type boundary only;
 - product/runtime behavior remains not started;
 - no MoneyEvent runtime schemas, parsers, validators, normalizers, migrations, fixtures, simulator data, routes, UI, storage behavior, ledger posting, repair behavior, or agent behavior are created;
-- status docs and handoff point to `M03.02 QA - MoneyEvent TypeScript types and schema boundary`.
+- status docs and handoff point to `Merge M03.02 PR - MoneyEvent TypeScript types and schema boundary`.
 
 ## Expected Files
 
@@ -422,7 +442,8 @@ This planning branch should leave:
 - one active M03 plan;
 - six lean M03 submilestones;
 - M03 planning PR #47 recorded as completed and merged;
-- M03.01 Builder complete, awaiting QA;
+- M03.01 completed and merged;
+- M03.02 QA passed, awaiting merge;
 - `docs/MONEYEVENT_CONTRACT.md` as documentation-only conceptual contract;
 - updated status docs;
 - validator/test coverage for active M03 planning state;
@@ -455,12 +476,12 @@ M03 planning QA passed locally for PR #47 on branch `m03-planning-canonical-mone
 
 M03.01 Builder created `docs/MONEYEVENT_CONTRACT.md` as a documentation-only conceptual MoneyEvent contract and updated tracking, status docs, and validation guards. M03.01 QA verified the contract and applied scoped QA status and handoff updates only.
 
-M03.01 is `Completed and merged`. M03.02 Builder is complete and awaiting QA. M03.03 through M03.06 remain `Not started`.
+M03.01 is `Completed and merged`. M03.02 QA passed and is awaiting merge. M03.03 through M03.06 remain `Not started`.
 
 M03.02 added a TypeScript-only MoneyEvent type boundary in `packages/events`. Product runtime behavior has not started. No MoneyEvent runtime schema, parser, validator, normalizer, storage behavior, database tables, API routes, UI, fixtures, simulator data, connectors, agent runtime, ledger behavior, invariant behavior, incident behavior, replay behavior, repair behavior, raw evidence mutation, ledger posting, repair approval, or money mutation exists from M03.02.
 
-Exact next action: run `M03.02 QA - MoneyEvent TypeScript types and schema boundary` on branch `m03-02-moneyevent-types-schema-boundary`.
+Exact next action: human merges PR #49 after normal review and green remote checks.
 
-Exact next recommended thread: `M03.02 QA - MoneyEvent TypeScript types and schema boundary`.
+Exact next recommended thread: `Merge M03.02 PR - MoneyEvent TypeScript types and schema boundary`.
 
 Exact next thread after QA PASS and PR merge: `M03.03 Builder - Evidence-to-MoneyEvent mapping fixtures and simulator planning`.

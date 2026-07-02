@@ -1,5 +1,15 @@
 # Weekly Log
 
+## 2026-07-02
+
+- Ran formal M03.02 QA for PR #49 on branch `m03-02-moneyevent-types-schema-boundary`.
+- Verified PR #49 is open, unmerged, non-draft, targets `main`, uses head branch `m03-02-moneyevent-types-schema-boundary`, contains builder commit `8abb7403cefb4653eacf151466f31119eef39726`, and changes only scoped type-boundary and tracking files.
+- Verified the `packages/events` MoneyEvent TypeScript boundary includes event identity, kind, source identity/type, evidence references, provenance, integer minor-unit `bigint` money, ISO 4217 currency branding, party/object references, event and observed time, idempotency, relationships, lifecycle state, uncertainty, raw evidence locators or receipt references, and contract versioning.
+- Confirmed no MoneyEvent parser, validator, normalizer, runtime schema, ingestion, storage, fixture, simulator data, migration, API route, UI, ledger posting, invariant behavior, incident behavior, replay, repair behavior, connector, agent runtime, raw evidence mutation, repair approval, or money mutation was added.
+- M03.02 QA validation passed locally; remote GitHub Actions `validate` and `infra-smoke` also passed on the QA-reviewed head with non-blocking Node.js 20 deprecation warnings from upstream GitHub Actions.
+- Updated tracking/status docs so M03.02 is `QA passed, awaiting merge`; M03.03 through M03.06 remain `Not started`; M04 through M21 remain `Not started`.
+- Recommended next thread: `Merge M03.02 PR - MoneyEvent TypeScript types and schema boundary`.
+
 ## 2026-06-30
 
 - Confirmed M03.01 PR #48 merged into `main` at `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`.
