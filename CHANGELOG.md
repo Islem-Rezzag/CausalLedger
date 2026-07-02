@@ -30,6 +30,7 @@ All notable CausalLedger release changes are recorded here.
 - M03.01 completed after PR #48 merged into `main` at `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`.
 - M03.02 Builder added a TypeScript-only MoneyEvent type boundary in `packages/events` with branded IDs, integer minor-unit `bigint` amount, ISO 4217 currency branding, evidence/provenance/idempotency/time/uncertainty/lifecycle fields, package exports, compile-time-oriented tests, and validator allowlists; no parser, validator, normalizer, runtime schema, storage, fixture, simulator data, migration, API route, UI, ledger posting, repair behavior, agent runtime, or product behavior was added.
 - M03.02 QA passed for PR #49; the MoneyEvent TypeScript type boundary is coherent and scoped, remote checks passed, M03.03 through M03.06 remain `Not started`, and no parser, validator, normalizer, runtime schema, storage, fixture, simulator data, migration, API route, UI, ledger posting, repair behavior, agent runtime, or product behavior was added.
+- M03.02 completed after PR #49 merged into `main` at `f7e3b54ba6a533a70d34810564be1b8828eec952`; M03.03 through M03.06 remain `Not started`, and product runtime behavior remains unstarted beyond the compile-time MoneyEvent TypeScript type boundary.
 - Product functionality remains not implemented.
 
 ## v0.1.0 - Repo Operating System Foundation

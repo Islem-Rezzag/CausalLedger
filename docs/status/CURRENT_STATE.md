@@ -4,15 +4,15 @@
 
 M00 Repo Operating System, M01 Domain Model and Scope Freeze, and M02 Monorepo and Local Development Environment are completed. M03 Canonical MoneyEvent Engine is active under active plan `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`.
 
-M03 planning PR #47 merged into `main` at `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`. M03.01 PR #48 merged into `main` at `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`.
+M03 planning PR #47 merged into `main` at `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`. M03.01 PR #48 merged into `main` at `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`. M03.02 PR #49 merged into `main` at `f7e3b54ba6a533a70d34810564be1b8828eec952`.
 
 ## Current submilestone and branch
 
-Current slice: `M03.02 QA - MoneyEvent TypeScript types and schema boundary`.
+Current slice: `M03.02 Merge Finalization - MoneyEvent TypeScript types and schema boundary`.
 
-Current branch: `m03-02-moneyevent-types-schema-boundary`.
+Current branch: `m03-02-finalize-moneyevent-type-boundary-merge`.
 
-M03.01 is `Completed and merged`. M03.02 is `QA passed, awaiting merge`. M03.03 through M03.06 are `Not started`. M04 through M21 remain `Not started`.
+M03.01 and M03.02 are `Completed and merged`. M03.03 through M03.06 are `Not started`. M04 through M21 remain `Not started`.
 
 ## What exists
 
@@ -28,9 +28,9 @@ Product runtime behavior has not started. No MoneyEvent runtime schema, parser, 
 
 ## Next action
 
-Merge M03.02 PR #49 after human review.
+Review and merge the M03.02 merge-finalization PR.
 
-Do not start M03.03 until M03.02 PR #49 merges into `main` and merge finalization records the merge commit.
+After this finalization PR merges, start `M03.03 Builder - Evidence-to-MoneyEvent mapping fixtures and simulator planning`.
 
 ## Latest validation
 
@@ -45,6 +45,8 @@ Do not start M03.03 until M03.02 PR #49 merges into `main` and merge finalizatio
 - 2026-07-02 M03.02 QA found no MoneyEvent runtime schema, parser, validator, normalizer, storage, fixture, simulator data, migration, API route, UI, ledger posting, invariant behavior, incident behavior, replay, repair behavior, connector, agent runtime, raw evidence mutation, repair approval, or money mutation.
 - 2026-07-02 local QA validation passed with control-plane validation, bootstrap pytest, diff check, package-local events checks, full workspace checks, and QA development validation; Docker, `make`, and `gh` remain unavailable locally.
 - 2026-07-02 remote GitHub Actions `validate` and `infra-smoke` passed on the QA-reviewed head; GitHub Actions emitted non-blocking Node.js 20 deprecation warnings for upstream actions.
+- 2026-07-02 M03.02 merge finalization confirmed PR #49 merged into `main` at `f7e3b54ba6a533a70d34810564be1b8828eec952`, updated durable tracking to `Completed and merged`, and kept M03.03 through M03.06 plus M04 through M21 `Not started`.
+- 2026-07-02 M03.02 merge finalization validation passed locally with control-plane validation, bootstrap pytest with 92 tests, diff check, package-local events checks, full workspace checks, and `pnpm qa:dev -- --allow-dirty`; Docker, `make`, and `gh` remain unavailable locally.
 
 ## Terminology note
 
@@ -52,4 +54,4 @@ The MoneyEvent TypeScript boundary is compile-time shape only. It does not valid
 
 ## Product implementation status
 
-Product runtime behavior has not started. M03.02 adds a type boundary only.
+Product runtime behavior has not started. M03.02 added a compile-time type boundary only.
