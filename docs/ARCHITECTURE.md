@@ -68,6 +68,40 @@ Both paths should preserve the same MoneyEvent, evidence receipt, invariant, inc
 
 This repository does not implement event streaming, historical replay, canonical event processing, or timeline updates yet.
 
+## Verifier-driven loop strategy
+
+A loop in CausalLedger is a bounded process that repeatedly compares an input, plan, mapping, validation result, replay, proposal, benchmark variant, or operational signal against an external verifier until it reaches a recorded pass, fail, uncertain, deferred, or stop result. Loops are architecture concepts for future implementation and do not create automation in M03.03.
+
+Loops require external verifiers such as deterministic validators, tests, replay outputs, evidence references, benchmark expectations, policy boundaries, or human review. A loop must not rely on the agent grading its own work to establish financial truth.
+
+Loops require persistent state so each iteration leaves durable inputs, outputs, verifier results, costs, uncertainty, and stop reasons. They require explicit stop conditions, including max iterations, max cost, timeout, unchanged result, verifier pass/fail, uncertainty threshold, or human escalation. Production money mutation must never be loop-driven; no loop may post ledger entries, apply repairs, alter raw evidence, move money, or override deterministic invariants.
+
+For the continuous payment lifecycle observer, future loops may re-check living evidence as provider, settlement, bank, replay, and human-review signals arrive. Live evidence loops should preserve progressive certainty, while historical replay loops should reproduce from stored inputs and compare deterministic outputs. Future MoneyFlowBench and ablations may run controlled offline loops to compare architecture variants, cost, hallucination rate, evidence grounding, and uncertainty handling; those results are benchmark evidence, not production truth.
+
+Allowed future loop categories:
+
+- control-plane validation loop;
+- local development and CI loop;
+- evidence-to-MoneyEvent mapping loop;
+- deterministic validation loop;
+- incident lifecycle loop;
+- replay loop;
+- read-only agent investigation loop;
+- repair proposal validation loop;
+- benchmark and ablation loop;
+- model routing and cost loop;
+- security regression loop.
+
+Forbidden loops:
+
+- autonomous production money movement;
+- autonomous repair execution;
+- LLM-only financial truth;
+- self-grading loop with no external verifier;
+- production write tools exposed to AI;
+- unsafe ablations outside offline benchmark mode;
+- unbounded loops without cost or iteration limits.
+
 ## Agent safety boundary
 
 Agents may inspect, summarize, explain, and propose. They may not mutate money, approve repairs, delete evidence, post ledger entries, modify raw events, override deterministic invariants, or release external communications.

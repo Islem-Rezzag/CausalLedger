@@ -90,6 +90,10 @@ Future deterministic reliability examples include:
 
 These examples are reliability requirements for future milestones, not implemented logic.
 
+## Loop reliability
+
+Loop reliability requires external verifiers, persistent state, explicit stop conditions, and auditability. A future loop is reliable only if each iteration records its inputs, verifier outputs, uncertainty, cost or iteration boundary, and stop reason. Self-grading AI loops cannot establish financial truth, and looped production money mutation remains out of scope.
+
 ## Evidence reliability
 
 Evidence reliability depends on preserving raw evidence and keeping provenance visible through every derived artifact. Future evidence handling should retain raw references, source identity, source system, capture method, source timestamp, observed timestamp, receipt timestamp, checksum or hash, chain-of-custody transitions, retention status, and confidentiality classification.

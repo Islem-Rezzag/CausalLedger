@@ -852,6 +852,27 @@ def test_10c_m03_03_mapping_fixture_planning_doc_is_valid():
     assert validator.validate_m03_03_mapping_fixture_planning_doc() == []
 
 
+def test_10c_architecture_verifier_driven_loop_strategy_doc_is_valid():
+    assert validator.validate_verifier_driven_loop_strategy_docs() == []
+
+
+def test_10c_architecture_loop_strategy_missing_required_phrase_is_rejected(
+    tmp_path, monkeypatch
+):
+    architecture = tmp_path / "docs" / "ARCHITECTURE.md"
+    architecture.parent.mkdir(parents=True)
+    architecture.write_text(
+        "# Architecture\n\n## Verifier-driven loop strategy\n\nexternal verifier\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    errors = validator.validate_verifier_driven_loop_strategy_docs()
+    assert (
+        "ARCHITECTURE.md missing verifier-driven loop strategy coverage: persistent state"
+        in errors
+    )
+
+
 def test_10d_m03_03_mapping_fixture_planning_doc_rejects_runtime_examples(
     tmp_path, monkeypatch
 ):
@@ -878,6 +899,10 @@ def test_10d_m03_03_mapping_fixture_planning_doc_rejects_runtime_examples(
     errors = validator.validate_m03_03_mapping_fixture_planning_doc()
     assert "MONEYEVENT_MAPPING_FIXTURES.md must not contain runtime code fences" in errors
     assert "MONEYEVENT_MAPPING_FIXTURES.md must not name concrete fixture data files" in errors
+    assert (
+        "MONEYEVENT_MAPPING_FIXTURES.md missing planning coverage: Loop engineering role in M03.03"
+        in errors
+    )
 
 
 def test_11_exact_prose_changes_do_not_fail_current_state_structure():

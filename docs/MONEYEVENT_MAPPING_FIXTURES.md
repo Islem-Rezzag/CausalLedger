@@ -70,6 +70,20 @@ Uncertainty must remain explicit for missing currency, missing amount, partial e
 
 Mapping must not post to a ledger, mutate money, approve repairs, modify raw events, delete evidence, override deterministic invariants, or let an LLM create financial truth.
 
+## Loop engineering role in M03.03
+
+M03.03 mapping fixtures are future verifier inputs, not runtime behavior. They define planned evidence cases and expected MoneyEvent mapping expectations so later deterministic implementation can compare actual mapper output against explicit expectations.
+
+Future mapping loops should compare source evidence against expected MoneyEvent mapping expectations. Those loops must preserve raw evidence references, provenance, idempotency, event time versus observed time, amount, currency, and uncertainty across every attempted mapping.
+
+Future mapping loops may reject, mark uncertain, or defer mappings when evidence is missing, delayed, duplicate, ambiguous, or conflicting. They must not let an LLM decide financial truth, and they must not ingest live evidence, store records, post ledger entries, create incidents, or approve repairs.
+
+Future simulator loops are offline and deterministic only. They may exercise controlled planned evidence sequences later, but M03.03 does not create fixture data, simulator output, simulator source code, ingestion, storage, parser, validator, normalizer, or product behavior.
+
+Conceptual loop:
+
+source evidence -> planned mapping expectation -> future mapper/validator -> deterministic check -> pass/fail/uncertain result -> recorded fixture outcome
+
 ## Planned fixture shape
 
 Future fixture files are deferred. When a later submilestone is allowed to create fixture data, each fixture should conceptually include:

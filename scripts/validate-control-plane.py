@@ -148,6 +148,37 @@ MONEYEVENT_CONTRACT_REQUIRED_PHRASES = [
     "conflicting provider and bank evidence",
 ]
 
+ARCHITECTURE_LOOP_STRATEGY_REQUIRED_PHRASES = [
+    "Verifier-driven loop strategy",
+    "external verifier",
+    "persistent state",
+    "explicit stop conditions",
+    "must not rely on the agent grading its own work",
+    "Production money mutation must never be loop-driven",
+    "continuous payment lifecycle observer",
+    "Live evidence loops",
+    "historical replay loops",
+    "MoneyFlowBench and ablations",
+    "control-plane validation loop",
+    "local development and CI loop",
+    "evidence-to-MoneyEvent mapping loop",
+    "deterministic validation loop",
+    "incident lifecycle loop",
+    "replay loop",
+    "read-only agent investigation loop",
+    "repair proposal validation loop",
+    "benchmark and ablation loop",
+    "model routing and cost loop",
+    "security regression loop",
+    "autonomous production money movement",
+    "autonomous repair execution",
+    "LLM-only financial truth",
+    "self-grading loop with no external verifier",
+    "production write tools exposed to AI",
+    "unsafe ablations outside offline benchmark mode",
+    "unbounded loops without cost or iteration limits",
+]
+
 MONEYEVENT_MAPPING_FIXTURES_REQUIRED_PHRASES = [
     "documentation and planning only",
     "does not create fixture data",
@@ -191,6 +222,18 @@ MONEYEVENT_MAPPING_FIXTURES_REQUIRED_PHRASES = [
     "future simulator",
     "deterministic",
     "scenario IDs",
+    "Loop engineering role in M03.03",
+    "future verifier inputs",
+    "source evidence against expected MoneyEvent mapping expectations",
+    "preserve raw evidence references",
+    "event time versus observed time",
+    "reject, mark uncertain, or defer mappings",
+    "must not let an LLM decide financial truth",
+    "must not ingest live evidence",
+    "post ledger entries",
+    "create incidents",
+    "Future simulator loops are offline and deterministic only",
+    "source evidence -> planned mapping expectation -> future mapper/validator -> deterministic check -> pass/fail/uncertain result -> recorded fixture outcome",
     "M03.04",
     "M03.05",
 ]
@@ -1109,6 +1152,18 @@ def validate_moneyevent_contract_doc() -> list[str]:
     return errors
 
 
+def validate_verifier_driven_loop_strategy_docs() -> list[str]:
+    errors: list[str] = []
+    architecture = read_text("docs/ARCHITECTURE.md")
+    architecture_lower = architecture.lower()
+    for phrase in ARCHITECTURE_LOOP_STRATEGY_REQUIRED_PHRASES:
+        if phrase.lower() not in architecture_lower:
+            errors.append(
+                f"ARCHITECTURE.md missing verifier-driven loop strategy coverage: {phrase}"
+            )
+    return errors
+
+
 def validate_m03_03_mapping_fixture_planning_doc() -> list[str]:
     errors: list[str] = []
     planning_doc = read_text(MONEYEVENT_MAPPING_FIXTURES_DOC)
@@ -1574,6 +1629,7 @@ def validate() -> list[str]:
     errors.extend(validate_no_moneyevent_runtime_files())
     errors.extend(validate_no_m03_fixture_or_simulator_data())
     errors.extend(validate_moneyevent_contract_doc())
+    errors.extend(validate_verifier_driven_loop_strategy_docs())
     errors.extend(validate_m03_03_mapping_fixture_planning_doc())
     errors.extend(validate_m03_02_events_type_boundary())
     errors.extend(validate_local_infrastructure())

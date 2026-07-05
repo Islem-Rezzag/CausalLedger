@@ -1,5 +1,17 @@
 # Weekly Log
 
+## 2026-07-05
+
+- Amended M03.03 on branch `m03-03-evidence-to-moneyevent-fixtures-simulator-planning` for verifier-driven loop strategy planning on the existing PR #51 branch.
+- Added `docs/ARCHITECTURE.md` loop strategy language defining loops as bounded, verifier-driven, persistent-state, stop-conditioned, auditable processes with allowed and forbidden loop categories.
+- Added `docs/MONEYEVENT_MAPPING_FIXTURES.md` loop engineering role language that treats M03.03 mapping fixtures as future verifier inputs, not runtime behavior.
+- Added concise loop reliability, loop threat, and loop domain-boundary notes while keeping product runtime behavior unstarted.
+- Updated validation coverage for the new loop strategy documentation.
+- Loop amendment validation passed: `python scripts/validate-control-plane.py`; `python -m pytest tests/test_control_plane_bootstrap.py` with 98 tests; `git diff --check`; `corepack pnpm install --frozen-lockfile`; package-local `@causalledger/events` typecheck, test, build, lint, and format checks; full workspace typecheck, lint, test, build, and format checks; and `pnpm qa:dev --allow-dirty` with pinned pnpm 10.32.1 reporting 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
+- The documented `pnpm qa:dev -- --allow-dirty` separator form failed in this shell because the literal `--` was forwarded to Python argparse. Initial pnpm 11.7.0 attempts also failed before checks on non-interactive install/build-policy behavior; all required checks passed after using the repo-pinned pnpm 10.32.1.
+- Docker, `make`, and GitHub CLI remain unavailable in this Windows shell.
+- Recommended next thread remains `M03.03 QA - Evidence-to-MoneyEvent mapping fixtures and simulator planning`.
+
 ## 2026-07-02
 
 - Ran M03.03 Builder on branch `m03-03-evidence-to-moneyevent-fixtures-simulator-planning`.

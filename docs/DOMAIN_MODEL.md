@@ -98,6 +98,10 @@ payment lifecycle event
 
 This is a conceptual model only. It does not define schemas, state machines, validators, graph edges, replay ordering, repair workflows, review permissions, storage, APIs, or product behavior.
 
+## Loop domain boundary
+
+Loops may operate over evidence, MoneyEvents, incidents, replay artifacts, repair proposals, and benchmark cases in future scoped milestones. A loop does not change domain truth by itself; truth changes require evidence, deterministic validation, replay where applicable, evidence bundles, or human approval. M03.03 loop language is planning only and does not create autonomous monitoring, ingestion, storage, ledger posting, repair execution, or incident behavior.
+
 ## Money movement object map
 
 | Object | What it is | Vocabulary owner | Likely future milestone using it |

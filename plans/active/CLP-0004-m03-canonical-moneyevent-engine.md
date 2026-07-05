@@ -56,6 +56,7 @@ M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1e
 - [x] 2026-07-02: Created `docs/MONEYEVENT_MAPPING_FIXTURES.md` as documentation-only evidence-to-MoneyEvent mapping fixture and simulator planning.
 - [x] 2026-07-02: Updated status, roadmap, milestone, package boundary docs, validator, and bootstrap tests for M03.03 planning scope.
 - [x] 2026-07-02: Updated durable tracking so M03.03 is `Builder complete, awaiting QA`, M03.04 through M03.06 remain `Not started`, M04 through M21 remain `Not started`, and the exact next thread is `M03.03 QA - Evidence-to-MoneyEvent mapping fixtures and simulator planning`.
+- [x] 2026-07-05: Amended M03.03 documentation to add verifier-driven loop strategy planning. The amendment remains documentation/control-plane only and does not implement loop automation, autonomous agents, fixtures, simulator code, ingestion, storage, ledger posting, repair execution, or product behavior.
 
 ## Surprises & Discoveries
 
@@ -80,6 +81,7 @@ M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1e
 - Record PR #49 merge commit `f7e3b54ba6a533a70d34810564be1b8828eec952` as M03.02 completion, while keeping M03.03 through M03.06 `Not started` until the finalization PR merges.
 - Use `docs/MONEYEVENT_MAPPING_FIXTURES.md` for M03.03 because evidence-to-MoneyEvent mapping crosses events, evidence, eval, simulator planning, and future validation boundaries without belonging to runtime package code yet.
 - Keep M03.03 documentation-only: no actual fixture data, simulator data, parser, validator, normalizer, storage, connector, API route, UI, ledger, replay, repair, agent runtime, or product behavior.
+- Treat verifier-driven loops as a planning-only M03.03 architecture concept. Future loops require an external verifier, persistent state, explicit stop conditions, and deterministic or human boundaries; M03.03 does not implement autonomous loops.
 
 ## Context and Orientation
 
@@ -130,6 +132,7 @@ M03.03 specifically includes:
 - post-merge finalization confirmation for M03.02 merge finalization PR #50;
 - `docs/MONEYEVENT_MAPPING_FIXTURES.md` as documentation-only mapping fixture and simulator planning;
 - controlled evidence family, mapping principle, planned fixture shape, fixture category, and simulator boundary definitions;
+- verifier-driven loop strategy documentation that treats mapping fixtures and simulator planning as future verifier inputs only, with no loop automation;
 - targeted links from entry, active, index, contract, events, evidence, and eval docs;
 - validator and bootstrap test coverage that requires the M03.03 planning artifact while continuing to block fixture data, simulator data, parser, validator, normalizer, storage, connector, API, UI, ledger, replay, repair, agent runtime, and product behavior.
 
@@ -159,6 +162,7 @@ M03.03 must not:
 - implement real connectors, live ingestion, evidence storage, parser behavior, validator behavior, normalizer behavior, runtime schemas, database tables, migrations, API routes, product UI, ledger posting, incidents, graph behavior, replay behavior, repair behavior, agent runtime, Redis, queues, schedulers, auth/authz, deployment, or real secrets;
 - create JSON, YAML, CSV, or executable fixture data;
 - create simulator source code, simulator output, provider mocks, bank mocks, connector mocks, benchmark data, or scenario data;
+- add autonomous loops, self-grading AI loops, production write loops, or loop-driven production money mutation;
 - mutate money, post ledger entries, approve repairs, delete evidence, modify raw events, or override deterministic invariants;
 - start M03.04.
 
@@ -397,6 +401,22 @@ Run `make bootstrap-check` only if `make` is available. Record Docker limitation
 - Docker is unavailable in this Windows shell; `docker --version` and `docker compose version` failed with `docker` not recognized. `make bootstrap-check` was skipped because `make` is unavailable. GitHub CLI is unavailable, so PR creation may require the manual PR URL.
 - Forbidden implementation inspection passed: no fixture data, simulator data, real connectors, evidence storage, live ingestion, parser, validator, normalizer, runtime schema, database table, migration, API route, UI, ledger posting, invariant behavior, incident behavior, graph behavior, replay, repair behavior, connector, agent runtime, raw evidence mutation, repair approval, or money mutation was added.
 
+2026-07-05 M03.03 verifier-driven loop amendment validation results:
+
+- Validation ladder: Level 0 branch, worktree, remote, log, and tag guard; Level 1 documentation and forbidden-scope inspection; Level 2 control-plane validation; Level 3 bootstrap tests; Level 4 diff and whitespace checks; Level 5 package/workspace checks for existing scaffold and `@causalledger/events`; Level 7 financial-truth, agent-tool, loop-safety, and forbidden-scope checks; Level 8 QA readiness for the existing PR #51.
+- Branch guard passed on `m03-03-evidence-to-moneyevent-fixtures-simulator-planning`; starting worktree was clean before amendment edits, remote was `origin`, latest log included M03.03 builder commit `2757c3e`, and tag list contained `v0.1.0`.
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 98 tests.
+- `git diff --check` passed.
+- `corepack pnpm install --frozen-lockfile` passed with pnpm 10.32.1 and the known non-blocking ignored-build-scripts warning for `esbuild@0.28.0`.
+- `corepack pnpm --filter @causalledger/events typecheck`, `test`, `build`, `lint`, and `format:check` passed; package tests covered 2 files and 3 tests.
+- `corepack pnpm typecheck`, `lint`, `test`, `build`, and `format:check` passed across all 13 workspaces.
+- `pnpm qa:dev --allow-dirty` passed after prepending the pnpm 10.32.1 shim to `PATH`; result was 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`. Clean-worktree validation was skipped only because amendment edits were intentionally uncommitted, and Docker validation was skipped because Docker mode was not requested.
+- `pnpm qa:dev -- --allow-dirty` failed before checks because this shell forwarded the literal `--` to Python argparse; the equivalent accepted invocation `pnpm qa:dev --allow-dirty` was used.
+- Initial package-check attempts with the Codex-bundled pnpm 11.7.0 failed before running checks because pnpm attempted a non-interactive module purge or failed on the ignored-builds policy. The checks were rerun with the repo-pinned pnpm 10.32.1 and passed.
+- Docker is unavailable in this Windows shell; `docker --version` and `docker compose version` failed with `docker` not recognized. `make --version` failed with `make` not recognized, so `make bootstrap-check` was skipped. GitHub CLI is unavailable; `gh --version` failed with `gh` not recognized.
+- Forbidden implementation inspection passed: no runtime loops, autonomous agents, production write tools, fixture data, simulator data, ingestion, storage, parser behavior, validator behavior, normalizer behavior, connectors, API routes, UI, ledger behavior, graph behavior, replay behavior, repair behavior, raw evidence mutation, ledger posting, repair approval, or money mutation was added.
+
 Acceptance criteria:
 
 - exactly one active M03 plan exists;
@@ -435,6 +455,8 @@ Expected changed files:
 - `docs/INDEX.md`
 - `docs/ARCHITECTURE.md`
 - `docs/DOMAIN_MODEL.md`
+- `docs/RELIABILITY.md`
+- `docs/THREAT_MODEL.md`
 - `plans/ROADMAP.md`
 - `docs/milestones/M03.md`
 - `docs/milestones/SUBMILESTONE_REGISTRY.md`

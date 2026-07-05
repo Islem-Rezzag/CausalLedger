@@ -14,6 +14,8 @@ Current branch: `m03-03-evidence-to-moneyevent-fixtures-simulator-planning`.
 
 M03.01 and M03.02 are `Completed and merged`. M03.03 is `Builder complete, awaiting QA`. M03.04 through M03.06 are `Not started`. M04 through M21 remain `Not started`.
 
+M03.03 now includes a verifier-driven loop strategy amendment on the same branch and PR. The amendment is documentation and planning only.
+
 ## What exists
 
 - TypeScript-first pnpm/Turborepo monorepo foundation.
@@ -22,10 +24,13 @@ M03.01 and M03.02 are `Completed and merged`. M03.03 is `Builder complete, await
 - `docs/MONEYEVENT_CONTRACT.md` as the M03.01 conceptual MoneyEvent contract.
 - `packages/events` MoneyEvent TypeScript type boundary.
 - `docs/MONEYEVENT_MAPPING_FIXTURES.md` as M03.03 documentation-only mapping fixture and simulator planning.
+- Verifier-driven loop strategy planning in architecture and mapping fixture docs.
 
 ## What does not exist
 
 Product runtime behavior has not started. No MoneyEvent runtime schema, parser, validator, normalizer, ingestion, storage behavior, fixture data, simulator data, database table, domain API route, product UI, ledger posting, invariant engine, incident engine, evidence ingestion or storage, causal graph, replay, repair runtime, agent runtime, Redis, queue, scheduler, connector, auth/authz, deployment, real secret, raw evidence mutation, repair approval, or money mutation exists.
+
+No autonomous loop automation, self-grading AI loop, production write loop, or loop-driven money mutation exists.
 
 ## Next action
 
@@ -37,6 +42,9 @@ Run `M03.03 QA - Evidence-to-MoneyEvent mapping fixtures and simulator planning`
 - 2026-07-02 M03.03 builder created `docs/MONEYEVENT_MAPPING_FIXTURES.md` as documentation-only mapping fixture and simulator planning.
 - 2026-07-02 M03.03 builder updated validator and bootstrap tests to require the mapping planning artifact while continuing to reject fixture data, simulator data, parser, validator, normalizer, storage, connector, API, UI, and product runtime scope.
 - 2026-07-02 M03.03 builder validation passed locally with control-plane validation, bootstrap pytest, diff check, package-local events checks, full workspace checks, dirty-mode `pnpm qa:dev -- --allow-dirty`, and clean post-commit `pnpm qa:dev` with 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`. Docker, `make`, and GitHub CLI remain unavailable locally.
+- 2026-07-05 M03.03 loop amendment added verifier-driven loop strategy planning to architecture, mapping fixtures, reliability, threat, and domain docs, plus documentation-only validation coverage.
+- 2026-07-05 loop amendment validation passed: `python scripts/validate-control-plane.py`; `python -m pytest tests/test_control_plane_bootstrap.py` with 98 tests; `git diff --check`; `corepack pnpm install --frozen-lockfile`; package-local `@causalledger/events` typecheck, test, build, lint, and format checks; full workspace typecheck, lint, test, build, and format checks; and `pnpm qa:dev --allow-dirty` with pinned pnpm 10.32.1 reporting 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
+- Docker, `make`, and GitHub CLI remain unavailable in this Windows shell. The documented `pnpm qa:dev -- --allow-dirty` separator form failed because the literal `--` was forwarded to Python argparse; `pnpm qa:dev --allow-dirty` was used instead.
 
 ## Terminology note
 
@@ -45,3 +53,5 @@ M03.03 "fixtures" means documentation-only planned mapping cases and categories.
 ## Product implementation status
 
 Product runtime behavior has not started. M03.03 added mapping design documentation only.
+
+The verifier-driven loop amendment adds planning language only. It does not implement runtime loops, automation, fixtures, simulator code, ingestion, storage, validation, ledger posting, incidents, replay, repair behavior, agent runtime, production write tools, or money mutation.
