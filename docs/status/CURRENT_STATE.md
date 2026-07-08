@@ -8,11 +8,11 @@ M03 planning PR #47 merged into `main` at `0606d3b21c05f2cf98397c9f5b0f1eddfa104
 
 ## Current submilestone and branch
 
-Current slice: `M03.03 Builder - Evidence-to-MoneyEvent mapping fixtures and simulator planning`.
+Current slice: `M03.03 QA - Evidence-to-MoneyEvent mapping fixtures and simulator planning`.
 
 Current branch: `m03-03-evidence-to-moneyevent-fixtures-simulator-planning`.
 
-M03.01 and M03.02 are `Completed and merged`. M03.03 is `Builder complete, awaiting QA`. M03.04 through M03.06 are `Not started`. M04 through M21 remain `Not started`.
+M03.01 and M03.02 are `Completed and merged`. M03.03 is `QA passed, awaiting merge`. M03.04 through M03.06 are `Not started`. M04 through M21 remain `Not started`.
 
 M03.03 now includes a verifier-driven loop strategy amendment on the same branch and PR. The amendment is documentation and planning only.
 
@@ -34,7 +34,7 @@ No autonomous loop automation, self-grading AI loop, production write loop, or l
 
 ## Next action
 
-Run `M03.03 QA - Evidence-to-MoneyEvent mapping fixtures and simulator planning` on the same branch and PR.
+Run `Merge M03.03 PR - Evidence-to-MoneyEvent mapping fixtures and simulator planning` for PR #51. Do not start M03.04 before the PR merges and post-merge finalization records M03.03 as completed.
 
 ## Latest validation
 
@@ -45,6 +45,10 @@ Run `M03.03 QA - Evidence-to-MoneyEvent mapping fixtures and simulator planning`
 - 2026-07-05 M03.03 loop amendment added verifier-driven loop strategy planning to architecture, mapping fixtures, reliability, threat, and domain docs, plus documentation-only validation coverage.
 - 2026-07-05 loop amendment validation passed: `python scripts/validate-control-plane.py`; `python -m pytest tests/test_control_plane_bootstrap.py` with 98 tests; `git diff --check`; `corepack pnpm install --frozen-lockfile`; package-local `@causalledger/events` typecheck, test, build, lint, and format checks; full workspace typecheck, lint, test, build, and format checks; and `pnpm qa:dev --allow-dirty` with pinned pnpm 10.32.1 reporting 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
 - Docker, `make`, and GitHub CLI remain unavailable in this Windows shell. The documented `pnpm qa:dev -- --allow-dirty` separator form failed because the literal `--` was forwarded to Python argparse; `pnpm qa:dev --allow-dirty` was used instead.
+- 2026-07-08 M03.03 QA verified PR #51 is open, non-draft, unmerged, targets `main`, uses head branch `m03-03-evidence-to-moneyevent-fixtures-simulator-planning`, and includes the mapping fixture planning commit plus the verifier-driven loop strategy amendment.
+- 2026-07-08 M03.03 QA verified `docs/MONEYEVENT_MAPPING_FIXTURES.md`, verifier-driven loop strategy docs, package boundaries, validator coverage, bootstrap tests, tracking state, and forbidden-scope boundaries. M03.03 is `QA passed, awaiting merge`; M03.04 through M03.06 remain `Not started`.
+- 2026-07-08 M03.03 QA validation passed locally with branch guard, PR metadata check through GitHub REST API because `gh` is unavailable, control-plane validation, bootstrap pytest, diff check, package-local events checks, full workspace checks, and dirty-mode `pnpm qa:dev --allow-dirty` after putting the user npm Corepack shim first in `PATH` so `pnpm` resolves to repo-pinned 10.32.1.
+- Plain `pnpm` initially resolved to the Codex-bundled pnpm 11.7.0 and failed before package checks by attempting a non-interactive module purge. The same checks passed after rerunning with `corepack pnpm` or the repo-pinned pnpm 10.32.1 shim.
 
 ## Terminology note
 

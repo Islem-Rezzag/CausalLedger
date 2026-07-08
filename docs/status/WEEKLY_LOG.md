@@ -1,5 +1,18 @@
 # Weekly Log
 
+## 2026-07-08
+
+- Completed M03.03 QA on branch `m03-03-evidence-to-moneyevent-fixtures-simulator-planning` for PR #51.
+- Verified PR #51 is open, non-draft, unmerged, targets `main`, uses the expected head branch, and includes the original mapping fixture planning commit plus the verifier-driven loop strategy amendment. GitHub CLI is unavailable, so PR metadata was checked through the GitHub REST API and local branch state.
+- Verified `docs/MONEYEVENT_MAPPING_FIXTURES.md` covers status, purpose, non-goals, evidence families, mapping principles, planned fixture shape, planned fixture categories, simulator planning, later M03 relationships, reversible and expensive decisions, and loop engineering role.
+- Verified `docs/ARCHITECTURE.md` contains the verifier-driven loop strategy, allowed future loop categories, and forbidden loop categories; reliability, threat-model, and domain-model loop notes remain planning-only.
+- Verified `packages/events` remains a compile-time TypeScript type boundary only; `packages/evidence` and `packages/evals` remain planning/scaffold packages only.
+- Confirmed no fixture data, simulator data, parser, validator, normalizer, ingestion, storage, database table, migration, API route, UI, ledger posting, invariant behavior, incident behavior, graph behavior, replay, repair behavior, agent runtime, connector, autonomous loop, production write tool, raw evidence mutation, repair approval, or money mutation was added.
+- M03.03 QA validation passed locally: branch guard, PR metadata check, control-plane validation, bootstrap pytest, diff check, package-local events checks, full workspace checks, and dirty-mode `pnpm qa:dev --allow-dirty` after putting the user npm Corepack shim first in `PATH` so `pnpm` resolves to repo-pinned 10.32.1.
+- Plain `pnpm` initially resolved to the Codex-bundled pnpm 11.7.0 and failed before package checks by attempting a non-interactive module purge. The same checks passed with `corepack pnpm` or the repo-pinned pnpm 10.32.1 shim.
+- Updated tracking/status docs so M03.03 is `QA passed, awaiting merge`; M03.04 through M03.06 remain `Not started`; M04 through M21 remain `Not started`.
+- Recommended next thread: `Merge M03.03 PR - Evidence-to-MoneyEvent mapping fixtures and simulator planning`.
+
 ## 2026-07-05
 
 - Amended M03.03 on branch `m03-03-evidence-to-moneyevent-fixtures-simulator-planning` for verifier-driven loop strategy planning on the existing PR #51 branch.
