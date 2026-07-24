@@ -157,6 +157,7 @@ High-level categories for future implementation and evaluation:
 - Repair safety threats.
 - Human review bypass threats.
 - Hallucination and unsupported conclusion threats.
+- Unsafe loop threats.
 - Data privacy threats.
 - Secrets exposure threats.
 - Out-of-scope product claim threats.
@@ -338,6 +339,10 @@ Tool and permission threats include:
 Why this matters: a tool boundary mistake can convert an advisory agent into a source of mutation. The most dangerous failure is not a bad answer alone; it is a bad answer with an overpowered tool.
 
 Planned mitigations include tool contracts, explicit permissions, read-only SQL enforcement, separation between read tools and proposal tools, denial of mutation tools, audit logs, negative permission tests, human-only approval actions, and future M10/M18 tool-permission tests. These controls do not exist yet.
+
+## Loop safety threats
+
+Unsafe loops include unbounded loops, self-grading loops, production write loops, unsafe ablation loops, and loops that allow LLM output to become financial truth. These loops can amplify a weak verifier, missing evidence, stale state, or tool-permission error into repeated unsafe action. Planned mitigations are external verifiers, persistent state, explicit stop conditions, cost or iteration limits, audit logs, deterministic validation, offline-only ablations, read-only agent tools, and human approval for any privileged financial boundary.
 
 ## Model routing and cost threats
 

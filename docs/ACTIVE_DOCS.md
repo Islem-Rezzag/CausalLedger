@@ -28,6 +28,7 @@ Project direction:
 - `docs/ARCHITECTURE.md`
 - `docs/DOMAIN_MODEL.md`
 - `docs/MONEYEVENT_CONTRACT.md`
+- `docs/MONEYEVENT_MAPPING_FIXTURES.md`
 - `docs/domain/README.md`
 - `docs/domain/payment-lifecycle.md`
 - `docs/domain/ledger-vocabulary.md`
@@ -97,7 +98,7 @@ Completed execution:
 
 Active execution:
 
-- M03 Canonical MoneyEvent Engine is active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`, M03.01 PR #48 merged into `main` at commit `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`, and M03.02 PR #49 merged into `main` at commit `f7e3b54ba6a533a70d34810564be1b8828eec952`. M03.03 through M03.06 remain `Not started`.
+- M03 Canonical MoneyEvent Engine is active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`, M03.01 PR #48 merged into `main` at commit `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`, and M03.02 PR #49 merged into `main` at commit `f7e3b54ba6a533a70d34810564be1b8828eec952`. M03.03 is `QA passed, awaiting merge`; M03.04 through M03.06 remain `Not started`.
 
 Plan state:
 

@@ -1,6 +1,39 @@
 # Weekly Log
 
+## 2026-07-08
+
+- Completed M03.03 QA on branch `m03-03-evidence-to-moneyevent-fixtures-simulator-planning` for PR #51.
+- Verified PR #51 is open, non-draft, unmerged, targets `main`, uses the expected head branch, and includes the original mapping fixture planning commit plus the verifier-driven loop strategy amendment. GitHub CLI is unavailable, so PR metadata was checked through the GitHub REST API and local branch state.
+- Verified `docs/MONEYEVENT_MAPPING_FIXTURES.md` covers status, purpose, non-goals, evidence families, mapping principles, planned fixture shape, planned fixture categories, simulator planning, later M03 relationships, reversible and expensive decisions, and loop engineering role.
+- Verified `docs/ARCHITECTURE.md` contains the verifier-driven loop strategy, allowed future loop categories, and forbidden loop categories; reliability, threat-model, and domain-model loop notes remain planning-only.
+- Verified `packages/events` remains a compile-time TypeScript type boundary only; `packages/evidence` and `packages/evals` remain planning/scaffold packages only.
+- Confirmed no fixture data, simulator data, parser, validator, normalizer, ingestion, storage, database table, migration, API route, UI, ledger posting, invariant behavior, incident behavior, graph behavior, replay, repair behavior, agent runtime, connector, autonomous loop, production write tool, raw evidence mutation, repair approval, or money mutation was added.
+- M03.03 QA validation passed locally: branch guard, PR metadata check, control-plane validation, bootstrap pytest, diff check, package-local events checks, full workspace checks, and dirty-mode `pnpm qa:dev --allow-dirty` after putting the user npm Corepack shim first in `PATH` so `pnpm` resolves to repo-pinned 10.32.1.
+- Plain `pnpm` initially resolved to the Codex-bundled pnpm 11.7.0 and failed before package checks by attempting a non-interactive module purge. The same checks passed with `corepack pnpm` or the repo-pinned pnpm 10.32.1 shim.
+- Updated tracking/status docs so M03.03 is `QA passed, awaiting merge`; M03.04 through M03.06 remain `Not started`; M04 through M21 remain `Not started`.
+- Recommended next thread: `Merge M03.03 PR - Evidence-to-MoneyEvent mapping fixtures and simulator planning`.
+
+## 2026-07-05
+
+- Amended M03.03 on branch `m03-03-evidence-to-moneyevent-fixtures-simulator-planning` for verifier-driven loop strategy planning on the existing PR #51 branch.
+- Added `docs/ARCHITECTURE.md` loop strategy language defining loops as bounded, verifier-driven, persistent-state, stop-conditioned, auditable processes with allowed and forbidden loop categories.
+- Added `docs/MONEYEVENT_MAPPING_FIXTURES.md` loop engineering role language that treats M03.03 mapping fixtures as future verifier inputs, not runtime behavior.
+- Added concise loop reliability, loop threat, and loop domain-boundary notes while keeping product runtime behavior unstarted.
+- Updated validation coverage for the new loop strategy documentation.
+- Loop amendment validation passed: `python scripts/validate-control-plane.py`; `python -m pytest tests/test_control_plane_bootstrap.py` with 98 tests; `git diff --check`; `corepack pnpm install --frozen-lockfile`; package-local `@causalledger/events` typecheck, test, build, lint, and format checks; full workspace typecheck, lint, test, build, and format checks; and `pnpm qa:dev --allow-dirty` with pinned pnpm 10.32.1 reporting 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
+- The documented `pnpm qa:dev -- --allow-dirty` separator form failed in this shell because the literal `--` was forwarded to Python argparse. Initial pnpm 11.7.0 attempts also failed before checks on non-interactive install/build-policy behavior; all required checks passed after using the repo-pinned pnpm 10.32.1.
+- Docker, `make`, and GitHub CLI remain unavailable in this Windows shell.
+- Recommended next thread remains `M03.03 QA - Evidence-to-MoneyEvent mapping fixtures and simulator planning`.
+
 ## 2026-07-02
+
+- Ran M03.03 Builder on branch `m03-03-evidence-to-moneyevent-fixtures-simulator-planning`.
+- Confirmed M03.02 merge finalization PR #50 merged into `main` at `052aafc`, with M03.02 `Completed and merged`, M03.03 `Not started`, M03.04 through M03.06 `Not started`, and M04 through M21 `Not started` before the slice.
+- Created `docs/MONEYEVENT_MAPPING_FIXTURES.md` as documentation-only evidence-to-MoneyEvent mapping fixture and simulator planning covering evidence families, mapping principles, planned fixture shape, fixture categories, deterministic simulator boundaries, and relationship to M03.04/M03.05.
+- Updated docs, status tracking, active plan, milestone/registry state, package boundary notes, validator, and bootstrap tests so M03.03 is `Builder complete, awaiting QA`.
+- Confirmed no fixture data, simulator data, real connectors, evidence storage, live ingestion, parser, validator, normalizer, runtime schema, migration, API route, UI, ledger posting, invariant behavior, incident behavior, graph behavior, replay, repair behavior, agent runtime, raw evidence mutation, repair approval, or money mutation was added.
+- M03.03 builder validation passed locally: control-plane validation, bootstrap pytest, diff check, package-local events checks, full workspace checks, `pnpm qa:dev -- --allow-dirty`, and clean post-commit `pnpm qa:dev` with 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`; Docker, `make`, and `gh` remain unavailable locally.
+- Recommended next thread: `M03.03 QA - Evidence-to-MoneyEvent mapping fixtures and simulator planning`.
 
 - Ran M03.02 merge finalization on branch `m03-02-finalize-moneyevent-type-boundary-merge`.
 - Confirmed PR #49 merged into `main` at `f7e3b54ba6a533a70d34810564be1b8828eec952`; the old source branch is squash-merged history and must not be reused for M03.03.
