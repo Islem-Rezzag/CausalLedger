@@ -4,17 +4,17 @@
 
 M00 Repo Operating System, M01 Domain Model and Scope Freeze, and M02 Monorepo and Local Development Environment are completed. M03 Canonical MoneyEvent Engine is active under active plan `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`.
 
-M03 planning PR #47 merged into `main` at `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`; M03.01 PR #48 merged at `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`; M03.02 PR #49 merged at `f7e3b54ba6a533a70d34810564be1b8828eec952`; M03.02 merge finalization PR #50 merged at `052aafc`.
+M03 planning PR #47 merged into `main` at `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`; M03.01 PR #48 merged at `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`; M03.02 PR #49 merged at `f7e3b54ba6a533a70d34810564be1b8828eec952`; M03.02 merge finalization PR #50 merged at `052aafc`; M03.03 PR #51 merged at `03b0b55d988a224a96c2bcd3c30601c6100ab091`.
 
 ## Current submilestone and branch
 
-Current slice: `M03.03 QA - Evidence-to-MoneyEvent mapping fixtures and simulator planning`.
+Current slice: `M03.03 Merge Finalization - Evidence-to-MoneyEvent Mapping Fixtures and Simulator Planning`.
 
-Current branch: `m03-03-evidence-to-moneyevent-fixtures-simulator-planning`.
+Current branch: `m03-03-finalize-mapping-fixtures-merge`.
 
-M03.01 and M03.02 are `Completed and merged`. M03.03 is `QA passed, awaiting merge`. M03.04 through M03.06 are `Not started`. M04 through M21 remain `Not started`.
+M03.01 through M03.03 are `Completed and merged`. M03.04 through M03.06 are `Not started`. M04 through M21 remain `Not started`.
 
-M03.03 now includes a verifier-driven loop strategy amendment on the same branch and PR. The amendment is documentation and planning only.
+M03.03 includes the verifier-driven loop strategy amendment merged through PR #51. The amendment remains documentation and planning only.
 
 ## What exists
 
@@ -34,7 +34,7 @@ No autonomous loop automation, self-grading AI loop, production write loop, or l
 
 ## Next action
 
-Run `Merge M03.03 PR - Evidence-to-MoneyEvent mapping fixtures and simulator planning` for PR #51. Do not start M03.04 before the PR merges and post-merge finalization records M03.03 as completed.
+After this finalization is merged into `main`, run `M03.04 Builder - MoneyEvent Validation and Normalization Rules`. Do not start M03.04 before this finalization lands on `main`.
 
 ## Latest validation
 
@@ -49,6 +49,9 @@ Run `Merge M03.03 PR - Evidence-to-MoneyEvent mapping fixtures and simulator pla
 - 2026-07-08 M03.03 QA verified `docs/MONEYEVENT_MAPPING_FIXTURES.md`, verifier-driven loop strategy docs, package boundaries, validator coverage, bootstrap tests, tracking state, and forbidden-scope boundaries. M03.03 is `QA passed, awaiting merge`; M03.04 through M03.06 remain `Not started`.
 - 2026-07-08 M03.03 QA validation passed locally with branch guard, PR metadata check through GitHub REST API because `gh` is unavailable, control-plane validation, bootstrap pytest, diff check, package-local events checks, full workspace checks, and dirty-mode `pnpm qa:dev --allow-dirty` after putting the user npm Corepack shim first in `PATH` so `pnpm` resolves to repo-pinned 10.32.1.
 - Plain `pnpm` initially resolved to the Codex-bundled pnpm 11.7.0 and failed before package checks by attempting a non-interactive module purge. The same checks passed after rerunning with `corepack pnpm` or the repo-pinned pnpm 10.32.1 shim.
+- 2026-07-26 M03.03 merge finalization confirmed local `main`, `origin/main`, the finalization branch, and `HEAD` at PR #51 squash-merge commit `03b0b55d988a224a96c2bcd3c30601c6100ab091` before tracking edits.
+- 2026-07-26 M03.03 merge finalization validation passed: control-plane validation; 98 bootstrap tests; diff check; frozen install across 14 workspace projects; package-local `@causalledger/events` typecheck, 2-file/3-test run, build, lint, and format check; full 13-package workspace typecheck, lint, test, build, and format check; and `pnpm qa:dev --allow-dirty` with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
+- Docker, GitHub CLI, and `make` are unavailable in this Windows shell. Dirty-worktree validation was intentionally skipped by `--allow-dirty`, and Docker validation was skipped because Docker mode was not requested and the Docker executable is unavailable. Frozen install emitted the known non-blocking ignored-build-scripts warning for `esbuild@0.28.0`.
 
 ## Terminology note
 

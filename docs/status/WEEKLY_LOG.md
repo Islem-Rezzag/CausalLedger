@@ -1,5 +1,15 @@
 # Weekly Log
 
+## 2026-07-26
+
+- Ran M03.03 merge finalization on branch `m03-03-finalize-mapping-fixtures-merge`.
+- Confirmed local `main`, `origin/main`, the finalization branch, and `HEAD` point to PR #51 squash-merge commit `03b0b55d988a224a96c2bcd3c30601c6100ab091` (`docs: plan M03.03 MoneyEvent mapping fixtures (#51)`).
+- Updated durable tracking so M03.03 is `Completed and merged`; M03.04 through M03.06 remain `Not started`; M04 through M21 remain `Not started`; product runtime behavior remains unstarted.
+- Preserved `docs/MONEYEVENT_MAPPING_FIXTURES.md` and verifier-driven loop strategy as documentation/planning only; no fixture data, simulator code or output, parser, validator, normalizer, ingestion, storage, database, API, UI, ledger, invariant, incident, graph, replay, repair, agent runtime, autonomous loop, production write tool, raw evidence mutation, repair approval, or money mutation was added.
+- M03.03 merge finalization validation passed: `python scripts/validate-control-plane.py`; `python -m pytest tests/test_control_plane_bootstrap.py` with 98 tests; `git diff --check`; `pnpm install --frozen-lockfile`; package-local `@causalledger/events` typecheck, test with 2 files and 3 tests, build, lint, and format check; full workspace typecheck, lint, test, build, and format check across 13 packages; and `pnpm qa:dev --allow-dirty` with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
+- Docker, GitHub CLI, and `make` are unavailable. Dirty-worktree QA was intentionally skipped under `--allow-dirty`, Docker validation was not requested and cannot run without Docker, and the frozen install emitted the known non-blocking ignored-build-scripts warning for `esbuild@0.28.0`.
+- Recommended next thread after this finalization is merged into `main`: `M03.04 Builder - MoneyEvent Validation and Normalization Rules`.
+
 ## 2026-07-08
 
 - Completed M03.03 QA on branch `m03-03-evidence-to-moneyevent-fixtures-simulator-planning` for PR #51.
