@@ -33,6 +33,7 @@ All notable CausalLedger release changes are recorded here.
 - M03.02 completed after PR #49 merged into `main` at `f7e3b54ba6a533a70d34810564be1b8828eec952`; M03.03 through M03.06 remain `Not started`, and product runtime behavior remains unstarted beyond the compile-time MoneyEvent TypeScript type boundary.
 - M03.03 Builder created `docs/MONEYEVENT_MAPPING_FIXTURES.md` as documentation-only evidence-to-MoneyEvent mapping fixture and simulator planning, updated status tracking and control-plane validation, and kept M03.04 through M03.06 `Not started`; no fixture data, simulator data, parser, validator, normalizer, storage, connector, API route, UI, ledger posting, repair behavior, agent runtime, or product behavior was added.
 - M03.03 QA passed for PR #51; mapping fixture planning and verifier-driven loop strategy remain documentation/control-plane only, M03.04 through M03.06 remain `Not started`, and no fixture data, simulator data, parser, validator, normalizer, storage, connector, API route, UI, ledger posting, repair behavior, agent runtime, autonomous loop, or product behavior was added.
+- M03.03 completed after PR #51 merged into `main` at `03b0b55d988a224a96c2bcd3c30601c6100ab091`; `docs/MONEYEVENT_MAPPING_FIXTURES.md` and the verifier-driven loop strategy remain planning/documentation only, M03.04 through M03.06 remain `Not started`, M04 through M21 remain `Not started`, and product runtime behavior has not started.
 - Product functionality remains not implemented.
 
 ## v0.1.0 - Repo Operating System Foundation
