@@ -4,9 +4,11 @@
 
 This is the M03.01 conceptual contract for canonical MoneyEvents. It is documentation only and not runtime implementation.
 
-This document itself does not define TypeScript types, runtime schemas, parsers, validators, normalizers, storage, fixtures, simulator data, database tables, migrations, API routes, product UI, ledger posting, invariants, incidents, graph behavior, replay, repair behavior, agent tools, or money mutation. M03.02 separately adds a TypeScript-only package boundary in `packages/events`; runtime schemas and behavior remain deferred.
+This document itself does not define TypeScript types, runtime schemas, parsers, validators, normalizers, storage, fixtures, simulator data, database tables, migrations, API routes, product UI, ledger posting, invariants, incidents, graph behavior, replay, repair behavior, agent tools, or money mutation. M03.02 separately adds a TypeScript package boundary in `packages/events`. M03.04 now implements the scoped source-neutral candidate validation and normalization rules specified in `docs/MONEYEVENT_VALIDATION_NORMALIZATION.md`; all broader runtime behavior remains deferred.
 
 M03.03 adds `docs/MONEYEVENT_MAPPING_FIXTURES.md` as documentation-only evidence-to-MoneyEvent mapping fixture and simulator planning. It does not add fixture data, simulator data, ingestion, storage, parser behavior, validator behavior, normalizer behavior, API routes, UI, or product runtime behavior.
+
+M03.04 does not change this conceptual meaning. Its structural success is not financial validation and does not prove that evidence is true, complete, settled, ledger-ready, or free of uncertainty.
 
 ## Purpose
 
@@ -175,7 +177,7 @@ Conflicting provider and bank evidence: provider evidence says a payout was paid
 
 ## Deferred Decisions
 
-The exact runtime schema, validation rules, normalizer behavior, parser behavior, storage model, and database representation are deferred to later M03 submilestones. M03.02 adds an initial TypeScript type boundary, but it does not validate JSON, parse source payloads, normalize events, store events, or decide financial truth. M03.03 plans the future fixture shape conceptually, but actual fixture data remains deferred.
+M03.04 defines the initial source-neutral runtime candidate, validation issue model, and deterministic normalizer. It does not use a schema framework, parse arbitrary JSON text or source payloads, ingest or store events, or decide financial truth. Source-specific parsing, storage, database representation, and actual M03.05 fixture data remain deferred.
 
 The signed-versus-directional amount model is deferred because it affects ledger mapping, invariants, replay, and repair semantics.
 

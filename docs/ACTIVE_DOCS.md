@@ -29,6 +29,7 @@ Project direction:
 - `docs/DOMAIN_MODEL.md`
 - `docs/MONEYEVENT_CONTRACT.md`
 - `docs/MONEYEVENT_MAPPING_FIXTURES.md`
+- `docs/MONEYEVENT_VALIDATION_NORMALIZATION.md`
 - `docs/domain/README.md`
 - `docs/domain/payment-lifecycle.md`
 - `docs/domain/ledger-vocabulary.md`

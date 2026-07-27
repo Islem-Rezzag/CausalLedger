@@ -132,6 +132,6 @@ Agents may inspect, summarize, explain, and propose. They may not mutate money, 
 
 ## Non-claims
 
-The repository currently does not implement ingestion, MoneyEvent logic, ledger logic, invariants, incidents, graph traversal, replay, repair planning, agent runtime, UI, or external connectors.
+The repository implements only the M03.04 source-neutral MoneyEvent candidate validator and normalizer in `packages/events`, alongside the earlier compile-time types. It does not implement source-specific parsing, ingestion, storage, database or API behavior, financial validation, ledger logic, invariants, incidents, graph traversal, replay, repair planning, agent runtime, UI, or external connectors. Structural validation is not financial truth.
 
 It also does not implement AML/KYC, sanctions screening, fraud scoring, credit decisions, legal or tax advice, investment advice, accounting close, ERP, treasury, banking, payment processing, autonomous repair execution, or autonomous money movement. See `docs/domain/out-of-scope-domains.md` for the M01.09 domain boundary.

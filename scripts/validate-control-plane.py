@@ -40,15 +40,17 @@ APPROVED_PACKAGE_SCAFFOLD_FILES = [
     "test/bootstrap.test.ts",
 ]
 
-M03_02_EVENTS_TYPE_BOUNDARY_FILES = [
+M03_04_EVENTS_RUNTIME_BOUNDARY_FILES = [
     "README.md",
     "package.json",
     "tsconfig.json",
     "tsconfig.test.json",
     "src/index.ts",
     "src/money-event.ts",
+    "src/money-event-validation.ts",
     "test/bootstrap.test.ts",
     "test/money-event-types.test.ts",
+    "test/money-event-validation.test.ts",
 ]
 
 PACKAGE_SCRIPT_NAMES = ["build", "typecheck", "typecheck:test", "test", "lint", "format:check"]
@@ -75,6 +77,7 @@ REQUIRED_INFRA_SCRIPTS = {
 M03_ACTIVE_PLAN = "plans/active/CLP-0004-m03-canonical-moneyevent-engine.md"
 MONEYEVENT_CONTRACT_DOC = "docs/MONEYEVENT_CONTRACT.md"
 MONEYEVENT_MAPPING_FIXTURES_DOC = "docs/MONEYEVENT_MAPPING_FIXTURES.md"
+MONEYEVENT_VALIDATION_NORMALIZATION_DOC = "docs/MONEYEVENT_VALIDATION_NORMALIZATION.md"
 
 EXPECTED_M03_SUBMILESTONES = {
     "M03.01",
@@ -113,10 +116,38 @@ M03_03_ALLOWED_STATUSES = {
     "Completed and merged",
 }
 
-M03_02_ALLOWED_MONEYEVENT_TYPE_BOUNDARY_PATHS = {
-    "packages/events/src/money-event.ts",
-    "packages/events/test/money-event-types.test.ts",
+M03_04_ALLOWED_STATUSES = {
+    "Builder in progress",
+    "Builder complete, awaiting QA",
+    "QA passed, awaiting merge",
+    "Completed and merged",
 }
+
+M03_04_ALLOWED_MONEYEVENT_RUNTIME_PATHS = {
+    "packages/events/src/money-event.ts",
+    "packages/events/src/money-event-validation.ts",
+    "packages/events/test/money-event-types.test.ts",
+    "packages/events/test/money-event-validation.test.ts",
+}
+
+MONEYEVENT_VALIDATION_NORMALIZATION_REQUIRED_PHRASES = [
+    "source-neutral MoneyEvent candidate",
+    "Validation result model",
+    "Validation issue taxonomy",
+    "canonical base-10 integer strings",
+    "branded `bigint`",
+    "Negative values are preserved",
+    "does not claim authoritative ISO 4217 registry membership",
+    "primary or supporting",
+    "provenance source must equal root source",
+    "UTC ISO strings",
+    "does not derive it",
+    "none_known",
+    "strict",
+    "not financial truth",
+    "does not implement provider payload parsing",
+    "M03.05",
+]
 
 DOC_ONLY_RUNTIME_CODE_FENCE_PATTERN = re.compile(
     r"```(?:typescript|ts|javascript|js|json|tsx|jsx)\b", re.IGNORECASE
@@ -258,6 +289,7 @@ REQUIRED_FILES = [
     "docs/DOMAIN_MODEL.md",
     MONEYEVENT_CONTRACT_DOC,
     MONEYEVENT_MAPPING_FIXTURES_DOC,
+    MONEYEVENT_VALIDATION_NORMALIZATION_DOC,
     "docs/RELIABILITY.md",
     "docs/THREAT_MODEL.md",
     "docs/TOKEN_COST_STRATEGY.md",
@@ -328,7 +360,7 @@ REQUIRED_FILES = [
         f"packages/{package_dir}/{file_name}"
         for package_dir in M02_05_PACKAGE_DIRS
         for file_name in (
-            M03_02_EVENTS_TYPE_BOUNDARY_FILES
+            M03_04_EVENTS_RUNTIME_BOUNDARY_FILES
             if package_dir == "events"
             else APPROVED_PACKAGE_SCAFFOLD_FILES
         )
@@ -458,9 +490,9 @@ FORBIDDEN_PACKAGE_SOURCE_PATTERNS = [
     (re.compile(r"\bMoneyEventSchema\b|\bz\.object\s*\("), "runtime schema implementation"),
     (
         re.compile(
-            r"\b(?:parseMoneyEvent|validateMoneyEvent|normalizeMoneyEvent|ingestMoneyEvent|storeMoneyEvent|persistMoneyEvent)\b"
+            r"\b(?:parseMoneyEvent|ingestMoneyEvent|storeMoneyEvent|persistMoneyEvent)\b"
         ),
-        "MoneyEvent parser, validator, normalizer, ingestion, or storage implementation",
+        "MoneyEvent parser, ingestion, or storage implementation",
     ),
     (re.compile(r"\b(?:ledgerEntry|ledgerEntries|balance|balances)\b"), "ledger entries or balances"),
     (re.compile(r"\b(?:InvariantCheck|InvariantResult|financialInvariant)\b"), "financial invariant implementation"),
@@ -472,7 +504,9 @@ FORBIDDEN_PACKAGE_SOURCE_PATTERNS = [
     (re.compile(r"\b(?:BenchmarkScenario|benchmarkRunner|scoreBenchmark)\b"), "benchmark implementation"),
 ]
 
-MONEYEVENT_TYPE_DECLARATION_PATTERN = re.compile(r"\b(?:type|interface|class)\s+MoneyEvent\b")
+MONEYEVENT_TYPE_DECLARATION_PATTERN = re.compile(
+    r"(?m)^\s*export\s+(?:type|interface|class)\s+MoneyEvent\b"
+)
 
 
 @dataclass(frozen=True)
@@ -837,6 +871,7 @@ def validate_m03_milestone_consistency(
     by_id = {row.submilestone_id: row for row in registry_rows}
     m03_02_status = by_id.get("M03.02").status if by_id.get("M03.02") else None
     m03_03_status = by_id.get("M03.03").status if by_id.get("M03.03") else None
+    m03_04_status = by_id.get("M03.04").status if by_id.get("M03.04") else None
     try:
         milestone_rows = parse_milestone_submilestone_table(m03_text)
     except ValueError as exc:
@@ -889,14 +924,25 @@ def validate_m03_milestone_consistency(
                 errors.append(
                     "M03.03 must be active or completed after M03.02 merge finalization"
                 )
-        elif row.submilestone_id in {"M03.04", "M03.05", "M03.06"}:
+        elif row.submilestone_id == "M03.04":
+            if registry_row.status == "Not started":
+                pass
+            elif m03_03_status != "Completed and merged":
+                errors.append("M03.04 must remain Not started during M03.03")
+            elif registry_row.status not in M03_04_ALLOWED_STATUSES:
+                errors.append(
+                    "M03.04 must be active or completed after M03.03 merge finalization"
+                )
+        elif row.submilestone_id in {"M03.05", "M03.06"}:
             if registry_row.status != "Not started":
-                errors.append(f"{row.submilestone_id} must remain Not started during M03.03")
+                errors.append(f"{row.submilestone_id} must remain Not started during M03.04")
         if registry_row.active_plan != M03_ACTIVE_PLAN:
             errors.append(f"{row.submilestone_id} must reference active M03 plan")
 
     if m03_03_status not in {None, "Not started"} and m03_02_status != "Completed and merged":
         errors.append("M03.02 must be Completed and merged before M03.03 tracking")
+    if m03_04_status not in {None, "Not started"} and m03_03_status != "Completed and merged":
+        errors.append("M03.03 must be Completed and merged before M03.04 tracking")
     return errors
 
 
@@ -995,8 +1041,15 @@ def validate_current_state_structure(current: str) -> list[str]:
         errors.append("CURRENT_STATE.md missing labeled current branch")
 
     product_status = sections.get("product implementation status", "").lower()
-    if "not started" not in product_status:
-        errors.append("CURRENT_STATE.md product implementation status must say not started")
+    if "source-neutral moneyevent" not in product_status and "not started" not in product_status:
+        errors.append(
+            "CURRENT_STATE.md product implementation status must describe the scoped source-neutral MoneyEvent boundary"
+        )
+    for forbidden_claim in ["ledger posting exists", "ingestion exists", "financial truth established"]:
+        if forbidden_claim in product_status:
+            errors.append(
+                f"CURRENT_STATE.md contains forbidden product status claim: {forbidden_claim}"
+            )
 
     if len(current.splitlines()) > 80:
         errors.append("CURRENT_STATE.md exceeds the 80 line cap")
@@ -1059,6 +1112,7 @@ def validate_docs() -> list[str]:
         "M03.01 Builder created `docs/MONEYEVENT_CONTRACT.md`",
         "M03.02 Builder added a TypeScript-only MoneyEvent type boundary",
         "M03.03 Builder created `docs/MONEYEVENT_MAPPING_FIXTURES.md`",
+        "M03.04 Builder implemented deterministic source-neutral MoneyEvent candidate validation and normalization",
         "ADR-0008 identity, money, and storage direction",
     ]:
         if phrase not in changelog:
@@ -1108,11 +1162,11 @@ def validate_no_moneyevent_runtime_files() -> list[str]:
                 continue
             lowered = path.name.lower()
             relative_path = path.relative_to(ROOT).as_posix()
-            if relative_path in M03_02_ALLOWED_MONEYEVENT_TYPE_BOUNDARY_PATHS:
+            if relative_path in M03_04_ALLOWED_MONEYEVENT_RUNTIME_PATHS:
                 continue
             if any(term in lowered for term in MONEYEVENT_RUNTIME_PATH_TERMS):
                 errors.append(
-                    "MoneyEvent runtime file created before implementation scope: "
+                    "MoneyEvent runtime file created outside M03.04 scope: "
                     f"{relative_path}"
                 )
     return errors
@@ -1180,6 +1234,54 @@ def validate_m03_03_mapping_fixture_planning_doc() -> list[str]:
         if phrase.lower() not in planning_doc_lower:
             errors.append(
                 f"MONEYEVENT_MAPPING_FIXTURES.md missing planning coverage: {phrase}"
+            )
+    return errors
+
+
+def validate_m03_04_validation_normalization_doc() -> list[str]:
+    errors: list[str] = []
+    spec = read_text(MONEYEVENT_VALIDATION_NORMALIZATION_DOC)
+    spec_lower = spec.lower()
+    required_headings = [
+        "Status",
+        "Purpose",
+        "Scope",
+        "Non-goals",
+        "Runtime candidate boundary",
+        "Validation result model",
+        "Validation issue taxonomy",
+        "Identifier rules",
+        "Money representation rules",
+        "Currency rules",
+        "Source identity rules",
+        "Evidence-reference rules",
+        "Provenance rules",
+        "Time rules",
+        "Idempotency rules",
+        "Party and object reference rules",
+        "Relationship rules",
+        "Lifecycle-state rules",
+        "Uncertainty rules",
+        "Normalization rules",
+        "Determinism and immutability",
+        "Unknown-field policy",
+        "Failure behavior",
+        "Relationship to M03.05",
+        "Relationship to later ledger, invariant, incident, graph, replay, repair, and agent layers",
+        "Security and financial-truth boundaries",
+        "Deferred decisions",
+    ]
+    sections = markdown_sections(spec)
+    for heading in required_headings:
+        if not sections.get(heading.lower()):
+            errors.append(
+                f"MONEYEVENT_VALIDATION_NORMALIZATION.md missing or empty section: {heading}"
+            )
+    for phrase in MONEYEVENT_VALIDATION_NORMALIZATION_REQUIRED_PHRASES:
+        if phrase.lower() not in spec_lower:
+            errors.append(
+                "MONEYEVENT_VALIDATION_NORMALIZATION.md missing runtime boundary coverage: "
+                f"{phrase}"
             )
     return errors
 
@@ -1298,20 +1400,31 @@ def validate_package_sources(package_dir: str) -> list[str]:
         for pattern, description in FORBIDDEN_PACKAGE_SOURCE_PATTERNS:
             if pattern.search(source):
                 errors.append(f"{relative_path} contains {description}")
+        if re.search(r"\b(?:validateMoneyEventCandidate|normalizeMoneyEventCandidate|validateAndNormalizeMoneyEventCandidate)\b", source) and not (
+            package_dir == "events"
+            and package_relative_path in {"src/index.ts", "src/money-event-validation.ts"}
+        ):
+            errors.append(
+                f"{relative_path} contains MoneyEvent validation or normalization outside its package owner"
+            )
     return errors
 
 
-def validate_m03_02_events_type_boundary() -> list[str]:
+def validate_m03_04_events_runtime_boundary() -> list[str]:
     errors: list[str] = []
     source = read_text("packages/events/src/money-event.ts")
+    runtime = read_text("packages/events/src/money-event-validation.ts")
     index = read_text("packages/events/src/index.ts")
     readme = read_text("packages/events/README.md")
     type_test = read_text("packages/events/test/money-event-types.test.ts")
+    runtime_test = read_text("packages/events/test/money-event-validation.test.ts")
 
     for phrase in [
         "export interface MoneyEvent",
         "MoneyAmountMinorUnits = Brand<bigint",
         "MONEY_EVENT_TYPE_BOUNDARY_VERSION",
+        "MONEY_EVENT_RUNTIME_BOUNDARY_VERSION",
+        "MONEY_EVENT_TRANSFORMATION_BOUNDARY",
         "MoneyEventEvidenceReference",
         "MoneyEventProvenance",
         "MoneyEventIdempotencyKey",
@@ -1327,23 +1440,29 @@ def validate_m03_02_events_type_boundary() -> list[str]:
         "MoneyEvent",
         "MONEY_EVENT_KINDS",
         "eventsPackageBoundary",
+        "deterministicValidationImplemented: true",
+        "deterministicNormalizationImplemented: true",
         "runtimeSchemaImplemented: false",
         "parserImplemented: false",
-        "validatorImplemented: false",
+        "sourceSpecificParserImplemented: false",
+        "financialTruthEstablishedByMetadata: false",
+        "validateMoneyEventCandidate",
+        "normalizeMoneyEventCandidate",
     ]:
         if phrase not in index:
-            errors.append(f"packages/events/src/index.ts missing type boundary export: {phrase}")
+            errors.append(f"packages/events/src/index.ts missing runtime boundary export: {phrase}")
 
     for phrase in [
-        "TypeScript-only MoneyEvent type boundary",
-        "branded `bigint`",
-        "not JSON serializable",
-        "Runtime schemas",
-        "deferred to later M03 submilestones",
-        "does not parse, validate, normalize, ingest, store, or transform",
+        "JSON-safe `MoneyEventCandidate`",
+        "validateMoneyEventCandidate",
+        "normalizeMoneyEventCandidate",
+        "canonical integer-string money input",
+        "source-specific parser",
+        "Structural success does not establish financial truth",
+        "no runtime dependency",
     ]:
         if phrase not in readme:
-            errors.append(f"packages/events/README.md missing M03.02 boundary note: {phrase}")
+            errors.append(f"packages/events/README.md missing M03.04 boundary note: {phrase}")
 
     for phrase in [
         "satisfies MoneyEvent",
@@ -1359,16 +1478,52 @@ def validate_m03_02_events_type_boundary() -> list[str]:
                 f"packages/events/test/money-event-types.test.ts missing type test coverage: {phrase}"
             )
 
+    for phrase in [
+        "export interface MoneyEventCandidate",
+        "MoneyEventValidationIssueCode",
+        "MoneyEventValidationResult",
+        "MoneyEventNormalizationResult",
+        "validateMoneyEventCandidate",
+        "normalizeMoneyEventCandidate",
+        "validateAndNormalizeMoneyEventCandidate",
+        "CANONICAL_INTEGER_PATTERN",
+        "SHA_256_PATTERN",
+        "RFC_3339_PATTERN",
+        "compareStrings",
+        "isPlainObject",
+        "BigInt(minorUnitsValue)",
+    ]:
+        if phrase not in runtime:
+            errors.append(
+                f"packages/events/src/money-event-validation.ts missing runtime boundary: {phrase}"
+            )
+
+    for phrase in [
+        "fully valid source-neutral candidate",
+        "deterministic repeated validation",
+        "deterministic across repeated normalization",
+        "does not mutate the candidate",
+        "rejects JavaScript numbers for money",
+        "preserves conflicting evidence",
+        "provenance source, evidence, and observed-time mismatches",
+        "does not generate missing IDs, timestamps, or idempotency keys",
+    ]:
+        if phrase not in runtime_test:
+            errors.append(
+                f"packages/events/test/money-event-validation.test.ts missing deterministic test coverage: {phrase}"
+            )
+
     for forbidden in [
         "MoneyEventSchema",
         "z.object",
         "function parseMoneyEvent",
-        "function validateMoneyEvent",
-        "function normalizeMoneyEvent",
         "function ingestMoneyEvent",
         "function storeMoneyEvent",
+        "Date.now",
+        "Math.random",
+        "fetch(",
     ]:
-        if forbidden in source or forbidden in index:
+        if forbidden in source or forbidden in runtime or forbidden in index:
             errors.append(f"packages/events contains forbidden runtime behavior: {forbidden}")
     return errors
 
@@ -1392,7 +1547,7 @@ def validate_package_scaffolds() -> list[str]:
             )
             continue
         expected_files = set(
-            M03_02_EVENTS_TYPE_BOUNDARY_FILES
+            M03_04_EVENTS_RUNTIME_BOUNDARY_FILES
             if package_dir.name == "events"
             else APPROVED_PACKAGE_SCAFFOLD_FILES
         )
@@ -1631,7 +1786,8 @@ def validate() -> list[str]:
     errors.extend(validate_moneyevent_contract_doc())
     errors.extend(validate_verifier_driven_loop_strategy_docs())
     errors.extend(validate_m03_03_mapping_fixture_planning_doc())
-    errors.extend(validate_m03_02_events_type_boundary())
+    errors.extend(validate_m03_04_validation_normalization_doc())
+    errors.extend(validate_m03_04_events_runtime_boundary())
     errors.extend(validate_local_infrastructure())
     errors.extend(validate_qa_development_environment())
     errors.extend(validate_python_dev_requirements())

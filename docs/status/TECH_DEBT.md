@@ -1,13 +1,15 @@
 # Tech Debt
 
-No product tech debt exists yet because product implementation has not started.
+M03.04 introduces one tightly scoped product runtime boundary. Its deferred decisions are tracked below rather than hidden in implementation.
 
 ## Placeholders to resolve later
 
 - Evolve monorepo tooling and task conventions as implementation pressure appears.
 - Evolve test framework conventions for product/domain tests once product implementation starts.
 - Extend test typecheck conventions as future product packages add non-scaffold test layouts.
-- Define future MoneyEvent runtime schema details, JSON representation, parser, validator, normalizer, actual fixture data, and package internals in later M03 submilestones. M03.03 covers mapping fixture planning only.
+- Decide whether a future runtime schema framework is warranted; M03.04 uses dependency-free strict validation over a JSON-safe candidate.
+- Add reviewed MoneyEvent fixture data and benchmark seed cases only in M03.05.
+- Define source-specific parsing and idempotency derivation, authoritative currency-registry validation, storage representation, cross-event deduplication, lifecycle transitions, and accounting direction in separately scoped future work.
 - Define professional engineering evidence for future error handling, structured logging, deployment documentation, auth/authz design, and scalable data modeling.
 
 ## Accepted local-environment limitations

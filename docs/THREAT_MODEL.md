@@ -524,3 +524,7 @@ Product implementation still must not start until M02 and later scoped milestone
 - Do not enable unsafe ablations outside offline benchmark mode.
 - Do not overclaim legal, compliance, fraud, credit, tax, or investment conclusions.
 - Do not skip Builder/QA/PR workflow.
+
+## M03.04 boundary controls
+
+The source-neutral MoneyEvent boundary treats inputs as untrusted: it accepts `unknown`, rejects class instances and unknown fields, validates evidence locators and canonical hashes, preserves conflicts and uncertainty, performs no external I/O, and returns deterministic failures. These controls reduce structural ambiguity but do not authenticate evidence or establish financial truth. Source payload parsing, ingestion, storage, access control, and runtime security remain unimplemented.

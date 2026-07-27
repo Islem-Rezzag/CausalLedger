@@ -267,3 +267,7 @@ M01.13 QA Domain Consistency has verified `docs/DOMAIN_MODEL.md`, `docs/RELIABIL
 - Do not apply repairs without human review and auditability.
 - Do not treat benchmark results as production guarantees.
 - Do not expand into out-of-scope domains without explicit scope decision.
+
+## M03.04 deterministic runtime boundary
+
+`packages/events` now validates and normalizes source-neutral MoneyEvent candidates with stable issues, exact integer money conversion, evidence/provenance consistency, explicit uncertainty, deterministic output, and input immutability. This is package-level structural reliability only. It does not validate source authenticity, financial correctness, settlement, ledger effects, or downstream product behavior.

@@ -216,3 +216,7 @@ M01.12 has merged, duplicate PR merges #32 and #33 from the same M01.12 branch a
 - Do not let agents own financial truth.
 - Do not bypass deterministic validation.
 - Do not mark future domains as complete without their scoped milestone.
+
+## M03.04 implementation relationship
+
+The domain meaning in this document remains authoritative guidance. M03.04 implements only source-neutral candidate shape validation and deterministic normalization in `packages/events`; it does not add accounting direction, ledger semantics, financial invariants, incident meaning, source-specific interpretation, or agent judgment. See `docs/MONEYEVENT_VALIDATION_NORMALIZATION.md` for the runtime boundary.

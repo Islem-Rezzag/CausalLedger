@@ -6,6 +6,8 @@ This is the M03.03 planning artifact for evidence-to-MoneyEvent mapping fixtures
 
 This document is documentation and planning only. It does not create fixture data. It does not create simulator data. It does not create parser behavior, validator behavior, normalizer behavior, evidence storage, real connectors, live ingestion, database tables, migrations, API routes, product UI, ledger posting, incidents, graph behavior, replay behavior, repair behavior, agent runtime, external integrations, or money mutation.
 
+M03.04 separately implements source-neutral candidate validation and normalization under `docs/MONEYEVENT_VALIDATION_NORMALIZATION.md`. That runtime boundary does not turn this planning document or its examples into the M03.05 fixture corpus, simulator data, production evidence, or source-specific parsing.
+
 ## Purpose
 
 Mapping fixtures are needed so future implementation can test evidence-to-MoneyEvent behavior against explicit expectations instead of inventing source semantics inside parser or validator code.

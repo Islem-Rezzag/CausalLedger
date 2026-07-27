@@ -3,8 +3,9 @@ import { describe, expect, expectTypeOf, it } from "vitest";
 import * as events from "../src/index.js";
 import {
   MONEY_EVENT_KINDS,
+  MONEY_EVENT_RUNTIME_BOUNDARY_VERSION,
   MONEY_EVENT_SOURCE_TYPES,
-  MONEY_EVENT_TYPE_BOUNDARY_VERSION,
+  MONEY_EVENT_TRANSFORMATION_BOUNDARY,
   type EvidenceReceiptId,
   type FinancialObjectReferenceId,
   type Iso4217CurrencyCode,
@@ -21,7 +22,7 @@ import {
 
 const representativeMoneyEvent = {
   id: "evt_01JTYPEBOUNDARY000000000000" as MoneyEvent["id"],
-  contractVersion: MONEY_EVENT_TYPE_BOUNDARY_VERSION,
+  contractVersion: MONEY_EVENT_RUNTIME_BOUNDARY_VERSION,
   kind: "payment.captured",
   source: {
     sourceId: "stripe-test" as SourceId,
@@ -51,7 +52,7 @@ const representativeMoneyEvent = {
       },
     ],
     observedAt: "2026-06-30T10:00:00.000Z" as IsoDateTimeString,
-    derivedBy: "m03.02-type-boundary",
+    derivedBy: MONEY_EVENT_TRANSFORMATION_BOUNDARY,
   },
   amount: {
     minorUnits: 1250n as MoneyAmountMinorUnits,
@@ -85,7 +86,7 @@ const representativeMoneyEvent = {
 describe("MoneyEvent TypeScript type boundary", () => {
   it("typechecks a representative MoneyEvent shape", () => {
     expect(representativeMoneyEvent.contractVersion).toBe(
-      MONEY_EVENT_TYPE_BOUNDARY_VERSION,
+      MONEY_EVENT_RUNTIME_BOUNDARY_VERSION,
     );
     expect(representativeMoneyEvent.amount.representation).toBe(
       "integer_minor_units",
@@ -102,12 +103,12 @@ describe("MoneyEvent TypeScript type boundary", () => {
     >().not.toEqualTypeOf<number>();
   });
 
-  it("exports only boundary constants and no parser or validator functions", () => {
+  it("exports the scoped validator and normalizer but no parser or write behavior", () => {
     expect(MONEY_EVENT_KINDS).toContain("payment.captured");
     expect(MONEY_EVENT_SOURCE_TYPES).toContain("provider.webhook");
     expect(events).not.toHaveProperty("parseMoneyEvent");
-    expect(events).not.toHaveProperty("validateMoneyEvent");
-    expect(events).not.toHaveProperty("normalizeMoneyEvent");
+    expect(events).toHaveProperty("validateMoneyEventCandidate");
+    expect(events).toHaveProperty("normalizeMoneyEventCandidate");
     expect(events).not.toHaveProperty("ingestMoneyEvent");
     expect(events).not.toHaveProperty("storeMoneyEvent");
   });

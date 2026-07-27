@@ -1,10 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-M03.04 Builder - MoneyEvent Validation and Normalization Rules
+M03.04 QA - MoneyEvent Validation and Normalization Rules
 
 Precondition:
-PR #51 merged into `main` at `03b0b55d988a224a96c2bcd3c30601c6100ab091` after M03.03 QA PASS, and M03.03 is `Completed and merged`. This post-merge finalization must be merged into `main` before M03.04 starts. `docs/MONEYEVENT_MAPPING_FIXTURES.md` remains documentation-only mapping design, and the verifier-driven loop strategy remains planning-only architecture language. No fixture data, simulator data, parser, validator, normalizer, storage, API, UI, connector, ledger, replay, repair, autonomous loop, agent runtime, or product behavior exists.
+M03.04 Builder is complete on `m03-04-moneyevent-validation-normalization-rules`, all required local Builder validation passed, and the scoped commit is pushed. QA must use the same branch and future PR, independently inspect the source-neutral candidate contract, deterministic validator/normalizer, tests, documentation, control-plane guards, and forbidden scope.
 
 Scope:
-After this finalization is merged into `main`, begin only M03.04 deterministic MoneyEvent validation and normalization rules under the active M03 plan. Keep M03.05 and M03.06 `Not started`; do not use LLM judgment as validation, and do not add ingestion, storage, database, API, UI, ledger, incident, graph, replay, repair, agent runtime, autonomous loops, production write tools, or money mutation.
+Run only M03.04 QA. Keep M03.05 and M03.06 `Not started`; do not add source-specific parsing, ingestion, storage, database, API, UI, ledger, invariant, incident, graph, replay, repair, agent, connector, fixture-corpus, benchmark, production-write, or money-mutation behavior. Do not mark M03.04 completed and merged before QA PASS and human PR merge.

@@ -1,5 +1,16 @@
 # Weekly Log
 
+## 2026-07-27
+
+- Started M03.04 Builder on branch `m03-04-moneyevent-validation-normalization-rules`; the branch guard passed with a clean worktree and local `main` contains M03.03 finalization commit `737710592544203e039ceee44a732e289c373bb6`.
+- Completed the required read set and the Tier 2 reasoning checkpoint before runtime edits. Selected a dependency-free, package-local, JSON-safe candidate boundary with strict plain-object/unknown-field handling, canonical integer-string money, preserved signed amounts without accounting interpretation, deterministic issues, canonical UTC timestamps, evidence/provenance consistency, explicit uncertainty, and immutable inputs.
+- Marked M03.04 `Builder in progress`; M03.05 and M03.06 remain `Not started`, and M04 through M21 remain `Not started`.
+- Implemented the dependency-free JSON-safe MoneyEvent candidate boundary, stable typed validation issues, strict source-neutral validator, deterministic pure normalizer, truthful package metadata, and 42 new runtime unit tests.
+- Added `docs/MONEYEVENT_VALIDATION_NORMALIZATION.md`, aligned package/project docs, and extended the control plane and bootstrap tests while preserving forbidden scope.
+- M03.04 Builder validation passed: control plane; 100 bootstrap tests; diff check; frozen install across 14 projects; events package typecheck, 3-file/45-test run, build, lint, and format; full 13-package workspace checks; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
+- Docker validation was optional and skipped because Docker is unavailable and infrastructure was unchanged. GitHub CLI and `make` are unavailable; the frozen install emitted the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
+- Marked M03.04 `Builder complete, awaiting QA`; M03.05 and M03.06 and M04 through M21 remain `Not started`. Next thread: `M03.04 QA - MoneyEvent Validation and Normalization Rules`.
+
 ## 2026-07-26
 
 - Ran M03.03 merge finalization on branch `m03-03-finalize-mapping-fixtures-merge`.
