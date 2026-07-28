@@ -4,9 +4,9 @@
 
 M01.12 has written the CausalLedger threat model as documentation only and is `Completed and merged` after PR #31 merged; duplicate PR merges #32 and #33 from the same M01.12 branch are recorded as a process deviation. M01.13 QA Domain Consistency is `Completed and merged` after verifying this threat model against `docs/DOMAIN_MODEL.md`, `docs/RELIABILITY.md`, the M01 domain docs, evaluation docs, and tracking files in `docs/status/M01_DOMAIN_CONSISTENCY.md`. M01 closeout passed after PR #35 merged at git commit `27c39b6`.
 
-Product implementation has not started. Current validation only proves documentation and control-plane coherence, not runtime security, runtime reliability, financial correctness, replay determinism, repair safety, privacy protection, access control, production readiness, or compliance.
+The first scoped product runtime behavior now exists only as M03.04 source-neutral MoneyEvent validation and normalization in `packages/events`. Its deterministic tests prove that structural boundary only; they do not prove runtime security, financial correctness, replay determinism, repair safety, privacy protection, access control, production readiness, or compliance.
 
-This file defines threats and planned mitigations for future milestones. It does not implement security controls, MoneyEvent runtime logic, ledger runtime logic, settlement runtime logic, reconciliation runtime logic, incident runtime logic, invariants, causal graph runtime logic, replay runtime logic, agent runtime, repair planning runtime logic, human-review runtime logic, UI features, external connectors, database schemas, API routes, GitHub Actions, CI workflows, or product behavior.
+This file defines threats and planned mitigations for future milestones. It does not itself implement security controls or product behavior. The only current MoneyEvent runtime is the scoped M03.04 validator and normalizer; ledger, settlement, reconciliation, incident, invariant, causal graph, replay, agent, repair, human-review, UI, connector, database, and domain-API behavior remain unimplemented.
 
 ## Purpose
 
@@ -509,9 +509,9 @@ Future implementation milestones must tie threat mitigations to code, tests, rev
 
 M01.13 QA Domain Consistency is `Completed and merged`.
 
-M01.13 QA verified `docs/DOMAIN_MODEL.md`, `docs/RELIABILITY.md`, `docs/THREAT_MODEL.md`, domain docs, eval docs, and status tracking for mutual consistency. M01 closeout has passed, and no M01 threat-model work remains. M02 remains `Not started`.
+M01.13 QA verified `docs/DOMAIN_MODEL.md`, `docs/RELIABILITY.md`, `docs/THREAT_MODEL.md`, domain docs, eval docs, and status tracking for mutual consistency. M01 closeout has passed, M02 is completed and closed, and M03 is active. No M01 threat-model work remains.
 
-Product implementation still must not start until M02 and later scoped milestones.
+New product behavior must start only inside an active, explicitly scoped milestone and must preserve these threat boundaries.
 
 ## Guardrails for future implementation milestones
 
@@ -524,3 +524,7 @@ Product implementation still must not start until M02 and later scoped milestone
 - Do not enable unsafe ablations outside offline benchmark mode.
 - Do not overclaim legal, compliance, fraud, credit, tax, or investment conclusions.
 - Do not skip Builder/QA/PR workflow.
+
+## M03.04 boundary controls
+
+The source-neutral MoneyEvent boundary treats inputs as untrusted: it accepts `unknown`, rejects class instances and unknown fields, validates evidence locators and canonical hashes, preserves conflicts and uncertainty, performs no external I/O, and returns deterministic failures. These controls reduce structural ambiguity but do not authenticate evidence or establish financial truth. Source payload parsing, ingestion, storage, access control, and runtime security remain unimplemented.

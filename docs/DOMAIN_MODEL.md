@@ -6,7 +6,7 @@ M01.01 through M01.09 are defined domain vocabulary and boundary documents. M01.
 
 M01.13 QA Domain Consistency produced `docs/status/M01_DOMAIN_CONSISTENCY.md` and merged at git commit `27c39b6` (`docs: run M01.13 domain consistency QA (#35)`). M01 closeout passed, and the completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-Product implementation has not started. This file is documentation only and does not implement MoneyEvent runtime logic, ledger runtime logic, settlement runtime logic, reconciliation runtime logic, incident runtime logic, invariants, causal graph runtime logic, replay runtime logic, agent runtime, repair planning runtime logic, human-review runtime logic, UI features, external connectors, database schemas, API routes, GitHub Actions, CI workflows, or product behavior.
+The first scoped product runtime behavior now exists only in `packages/events`: M03.04 source-neutral MoneyEvent candidate validation and deterministic normalization. This file remains documentation only and does not implement that behavior or any ledger, settlement, reconciliation, incident, invariant, causal graph, replay, agent, repair, human-review, UI, connector, database, or domain-API behavior.
 
 ## Product thesis
 
@@ -22,7 +22,7 @@ This domain model defines language and boundaries before schemas and runtime cod
 
 Future milestones should read this file first, then follow the linked source docs for detailed vocabulary. It supports future M03 MoneyEvent, M04 Ledger, M06 Invariant, M07 Incident, M08 Graph, M09 Replay, M10-M13 Agent/Repair/Human Review, and M14 MoneyFlowBench work while keeping scope constrained for a high-stakes fintech AI project.
 
-M03.01 adds `docs/MONEYEVENT_CONTRACT.md` as the conceptual MoneyEvent contract. It defines MoneyEvent purpose, non-goals, semantic fields, lifecycle meaning, evidence rules, idempotency, time, money, uncertainty, and future-layer relationships as documentation only. M03.02 adds the `packages/events` TypeScript type boundary for that contract. M03.03 adds `docs/MONEYEVENT_MAPPING_FIXTURES.md` as documentation-only mapping fixture and simulator planning. These slices do not implement a MoneyEvent runtime schema, parser, validator, normalizer, storage, fixture data, simulator data, migration, API route, UI, or product behavior.
+M03.01 adds `docs/MONEYEVENT_CONTRACT.md` as the conceptual MoneyEvent contract. It defines MoneyEvent purpose, non-goals, semantic fields, lifecycle meaning, evidence rules, idempotency, time, money, uncertainty, and future-layer relationships as documentation only. M03.02 adds the `packages/events` TypeScript type boundary for that contract. M03.03 adds `docs/MONEYEVENT_MAPPING_FIXTURES.md` as documentation-only mapping fixture and simulator planning. M03.04 adds only source-neutral deterministic candidate validation and normalization; it does not add a runtime schema framework, source-specific parser, ingestion, storage, fixture data, simulator data, migration, API route, UI, ledger behavior, or broader product behavior.
 
 `docs/RELIABILITY.md` now defines the reliability model for this domain: how financial truth, deterministic validation, evidence handling, replay, repair safety, human review, AI boundaries, cost controls, auditability, and ablations should stay trustworthy in future implementation milestones.
 
@@ -216,3 +216,7 @@ M01.12 has merged, duplicate PR merges #32 and #33 from the same M01.12 branch a
 - Do not let agents own financial truth.
 - Do not bypass deterministic validation.
 - Do not mark future domains as complete without their scoped milestone.
+
+## M03.04 implementation relationship
+
+The domain meaning in this document remains authoritative guidance. M03.04 implements only source-neutral candidate shape validation and deterministic normalization in `packages/events`; it does not add accounting direction, ledger semantics, financial invariants, incident meaning, source-specific interpretation, or agent judgment. See `docs/MONEYEVENT_VALIDATION_NORMALIZATION.md` for the runtime boundary.

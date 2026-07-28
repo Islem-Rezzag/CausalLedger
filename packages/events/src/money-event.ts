@@ -7,6 +7,12 @@ type Brand<TValue, TBrand extends string> = TValue & {
 export const MONEY_EVENT_TYPE_BOUNDARY_VERSION =
   "m03.02-type-boundary.v1" as const;
 
+export const MONEY_EVENT_RUNTIME_BOUNDARY_VERSION =
+  "m03.04-runtime-boundary.v1" as const;
+
+export const MONEY_EVENT_TRANSFORMATION_BOUNDARY =
+  "m03.04-source-neutral-normalizer.v1" as const;
+
 export const MONEY_EVENT_KINDS = [
   "payment.authorized",
   "payment.captured",
@@ -51,14 +57,62 @@ export const MONEY_EVENT_UNCERTAINTY_STATES = [
   "unresolved",
 ] as const;
 
+export const MONEY_EVENT_EVIDENCE_ROLES = [
+  "primary",
+  "supporting",
+  "conflicting",
+  "missing_expected",
+] as const;
+
+export const MONEY_EVENT_PARTY_ROLES = [
+  "merchant",
+  "customer",
+  "platform",
+  "provider",
+  "bank_account",
+  "counterparty",
+  "unknown",
+] as const;
+
+export const MONEY_EVENT_OBJECT_TYPES = [
+  "payment",
+  "authorization",
+  "capture",
+  "refund",
+  "chargeback",
+  "dispute",
+  "payout",
+  "settlement_row",
+  "bank_statement_line",
+  "ledger_reference",
+  "unknown",
+] as const;
+
+export const MONEY_EVENT_RELATIONSHIP_TYPES = [
+  "caused_by",
+  "correlates_with",
+  "supersedes",
+  "reverses",
+  "adjusts",
+  "original_object",
+] as const;
+
 export type MoneyEventContractVersion =
-  typeof MONEY_EVENT_TYPE_BOUNDARY_VERSION;
+  typeof MONEY_EVENT_RUNTIME_BOUNDARY_VERSION;
 export type MoneyEventKind = (typeof MONEY_EVENT_KINDS)[number];
 export type MoneyEventSourceType = (typeof MONEY_EVENT_SOURCE_TYPES)[number];
 export type MoneyEventLifecycleState =
   (typeof MONEY_EVENT_LIFECYCLE_STATES)[number];
 export type MoneyEventUncertaintyState =
   (typeof MONEY_EVENT_UNCERTAINTY_STATES)[number];
+export type MoneyEventEvidenceRole =
+  (typeof MONEY_EVENT_EVIDENCE_ROLES)[number];
+export type MoneyEventPartyRole = (typeof MONEY_EVENT_PARTY_ROLES)[number];
+export type MoneyEventObjectType = (typeof MONEY_EVENT_OBJECT_TYPES)[number];
+export type MoneyEventRelationshipType =
+  (typeof MONEY_EVENT_RELATIONSHIP_TYPES)[number];
+export type MoneyEventTransformationBoundary =
+  typeof MONEY_EVENT_TRANSFORMATION_BOUNDARY;
 
 export type MoneyEventId = Brand<`evt_${string}`, "MoneyEventId">;
 export type EvidenceReceiptId = Brand<`rcpt_${string}`, "EvidenceReceiptId">;
@@ -92,14 +146,14 @@ export interface MoneyEventEvidenceReference {
   readonly rawLocator?: RawEvidenceLocator;
   readonly sourceRecordId?: SourceRecordId;
   readonly contentHash?: Sha256ContentHash;
-  readonly role: "primary" | "supporting" | "conflicting" | "missing_expected";
+  readonly role: MoneyEventEvidenceRole;
 }
 
 export interface MoneyEventProvenance {
   readonly source: MoneyEventSourceIdentity;
   readonly evidence: readonly MoneyEventEvidenceReference[];
   readonly observedAt: IsoDateTimeString;
-  readonly derivedBy: "m03.02-type-boundary";
+  readonly derivedBy: MoneyEventTransformationBoundary;
 }
 
 export interface MoneyEventAmount {
@@ -110,40 +164,16 @@ export interface MoneyEventAmount {
 
 export interface MoneyEventPartyReference {
   readonly partyId: PartyReferenceId;
-  readonly role:
-    | "merchant"
-    | "customer"
-    | "platform"
-    | "provider"
-    | "bank_account"
-    | "counterparty"
-    | "unknown";
+  readonly role: MoneyEventPartyRole;
 }
 
 export interface MoneyEventObjectReference {
   readonly objectId: FinancialObjectReferenceId;
-  readonly objectType:
-    | "payment"
-    | "authorization"
-    | "capture"
-    | "refund"
-    | "chargeback"
-    | "dispute"
-    | "payout"
-    | "settlement_row"
-    | "bank_statement_line"
-    | "ledger_reference"
-    | "unknown";
+  readonly objectType: MoneyEventObjectType;
 }
 
 export interface MoneyEventRelationshipReference {
-  readonly relationship:
-    | "caused_by"
-    | "correlates_with"
-    | "supersedes"
-    | "reverses"
-    | "adjusts"
-    | "original_object";
+  readonly relationship: MoneyEventRelationshipType;
   readonly eventId?: MoneyEventId;
   readonly object?: MoneyEventObjectReference;
 }

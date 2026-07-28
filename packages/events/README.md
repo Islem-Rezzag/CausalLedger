@@ -1,19 +1,20 @@
 # Events Package
 
-`@causalledger/events` is the canonical event package boundary.
+`@causalledger/events` owns the canonical, source-neutral MoneyEvent package boundary.
 
-The M03.01 conceptual MoneyEvent contract lives in `docs/MONEYEVENT_CONTRACT.md`. It defines MoneyEvent meaning as documentation only and does not create package behavior. M03.03 mapping fixture and simulator planning lives in `docs/MONEYEVENT_MAPPING_FIXTURES.md`; it is also documentation only.
+M03.02 introduced the compile-time types in `src/money-event.ts`: branded identifiers and minor-unit `bigint`, readonly source, evidence, provenance, amount, party, object, relationship, time, lifecycle, and uncertainty fields, plus supported literal unions.
 
-M03.02 adds a TypeScript-only MoneyEvent type boundary:
+M03.04 adds a small deterministic runtime boundary:
 
-- branded identifiers for MoneyEvent, evidence receipt, source, object, party, and idempotency references;
-- readonly MoneyEvent field types for source identity, evidence references, provenance, amount, party, object, event time, observed time, lifecycle state, relationships, and uncertainty;
-- integer minor-unit money represented as branded `bigint`;
-- ISO 4217 currency represented as a branded string pending future runtime validation;
-- exported literal-union metadata for event kinds, source types, lifecycle states, and uncertainty states.
+- unbranded, JSON-safe `MoneyEventCandidate` values accepted as `unknown`;
+- `validateMoneyEventCandidate` for strict structural validation with stable codes and paths;
+- `normalizeMoneyEventCandidate` and `validateAndNormalizeMoneyEventCandidate` for pure conversion to a branded `MoneyEvent`;
+- canonical integer-string money input converted exactly to branded `bigint`;
+- currency format normalization, RFC 3339 timestamp canonicalization, evidence deduplication and ordering, provenance consistency, and explicit uncertainty rules;
+- strict unknown-field handling, deterministic issue ordering, and no input mutation.
 
-This package still does not parse, validate, normalize, ingest, store, or transform MoneyEvents. The `bigint` minor-unit representation is exact at TypeScript runtime but is not JSON serializable without a future runtime-schema decision. Runtime schemas, JSON wire representation, parser behavior, validation rules, normalization rules, fixture data, and deterministic duplicate handling remain deferred to later M03 submilestones.
+The normative rules are in `docs/MONEYEVENT_VALIDATION_NORMALIZATION.md`. The M03.01 conceptual meaning remains in `docs/MONEYEVENT_CONTRACT.md`, and M03.03 fixture planning remains in `docs/MONEYEVENT_MAPPING_FIXTURES.md`.
 
-The type boundary maps to `docs/MONEYEVENT_CONTRACT.md` by making evidence, provenance, idempotency, amount, currency, source identity, actor/object references, time, uncertainty, and lifecycle state explicit in TypeScript. It enables the M03.03 mapping plan and future M03.04 validation work by giving those slices a stable compile-time target, but it does not create financial truth, fixture data, parser behavior, validator behavior, simulator output, or product behavior.
+This is source-neutral candidate behavior, not a complete MoneyEvent engine. There is no runtime schema framework, arbitrary JSON-text parser, source-specific parser or mapper, provider connector, ingestion, storage, database, API, UI, ledger behavior, invariant engine, incident workflow, graph, replay, repair, evidence store, benchmark runner, agent runtime, external I/O, or money mutation. Structural success does not establish financial truth.
 
-No CausalLedger runtime product behavior is implemented here. There are no runtime schemas, parsers, validators, normalizers, financial schemas, ledger entries, balances, invariants, incident workflows, graph traversal, replay algorithms, repair logic, evidence storage, benchmark behavior, external connectors, agents, database behavior, API routes, UI, or money mutation.
+The package has no runtime dependency. It does not use time, randomness, LLM judgment, network, filesystem, database, environment secrets, or external services.

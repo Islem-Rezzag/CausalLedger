@@ -50,7 +50,7 @@ Human review and evidence bundles
 ## Core layers
 
 - Evidence capture: future append-only raw evidence, provenance, source identity, and checksums.
-- Canonical events: future MoneyEvent schemas and transformations. The conceptual boundary is documented in `docs/MONEYEVENT_CONTRACT.md`, `packages/events` contains the M03.02 TypeScript type boundary only, and `docs/MONEYEVENT_MAPPING_FIXTURES.md` documents M03.03 mapping fixture and simulator planning only; no runtime MoneyEvent behavior exists yet.
+- Canonical events: `packages/events` contains the M03.02 TypeScript type boundary plus M03.04 source-neutral deterministic validation and normalization. The conceptual boundary is documented in `docs/MONEYEVENT_CONTRACT.md`, and `docs/MONEYEVENT_MAPPING_FIXTURES.md` remains M03.03 planning only. Source-specific parsing, ingestion, storage, and downstream MoneyEvent-engine behavior do not exist yet.
 - Ledger primitives: future deterministic double-entry checks, immutable transactions, balances, and reversals.
 - Invariants: future deterministic financial correctness checks.
 - Incidents: future incident records created from failed deterministic checks.
@@ -132,6 +132,6 @@ Agents may inspect, summarize, explain, and propose. They may not mutate money, 
 
 ## Non-claims
 
-The repository currently does not implement ingestion, MoneyEvent logic, ledger logic, invariants, incidents, graph traversal, replay, repair planning, agent runtime, UI, or external connectors.
+The repository implements only the M03.04 source-neutral MoneyEvent candidate validator and normalizer in `packages/events`, alongside the earlier compile-time types. It does not implement source-specific parsing, ingestion, storage, database or API behavior, financial validation, ledger logic, invariants, incidents, graph traversal, replay, repair planning, agent runtime, UI, or external connectors. Structural validation is not financial truth.
 
 It also does not implement AML/KYC, sanctions screening, fraud scoring, credit decisions, legal or tax advice, investment advice, accounting close, ERP, treasury, banking, payment processing, autonomous repair execution, or autonomous money movement. See `docs/domain/out-of-scope-domains.md` for the M01.09 domain boundary.

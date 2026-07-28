@@ -1,6 +1,6 @@
 # Start Here
 
-This repository has completed the M00 control-plane bootstrap and tagged it as `v0.1.0`. M01 Domain Model and Scope Freeze is completed and closed. M02 Monorepo and Local Development Environment is completed after M02.01 through M02.07 completed and merged. M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`, M03.01 PR #48 merged into `main` at commit `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`, M03.02 PR #49 merged into `main` at commit `f7e3b54ba6a533a70d34810564be1b8828eec952`, and M03.03 PR #51 merged into `main` at commit `03b0b55d988a224a96c2bcd3c30601c6100ab091`. The completed M02 plan lives at `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`, the M02 closeout packet lives at `docs/status/M02_CLOSEOUT.md`, and M03 Canonical MoneyEvent Engine is active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M03.03 is `Completed and merged`; M03.04 through M03.06 remain `Not started`, and product runtime behavior has not started. Do not begin product runtime behavior from this file.
+This repository has completed and closed M00, M01, and M02. M03 planning and M03.01 through M03.03 are completed and merged, including M03.03 finalization at `737710592544203e039ceee44a732e289c373bb6`. M03.04 is `QA passed, awaiting merge` on PR #53 under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`; M03.05 and M03.06 remain `Not started`. The only MoneyEvent runtime behavior is the scoped source-neutral candidate validator and deterministic normalizer in `packages/events`.
 
 Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 
@@ -61,13 +61,13 @@ The handoff packet must include files created, files changed, files intentionall
 
 ## What not to do first
 
-- Do not implement product functionality.
-- Do not implement MoneyEvent logic.
+- Do not implement product functionality outside the active submilestone.
+- Do not extend MoneyEvent logic beyond the active source-neutral boundary.
 - Do not implement ledger logic.
 - Do not implement invariants.
 - Do not implement the agent runtime.
 - Do not implement UI features.
-- Do not start M03.04 before the M03.03 post-merge finalization is merged into `main`.
+- Do not start M03.05 before M03.04 QA passes and its PR merges.
 - Do not implement product behavior during M01.01, M01.02, M01.03, or M01.04.
 
 ## Correct first success
