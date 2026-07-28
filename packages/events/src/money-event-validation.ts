@@ -865,7 +865,17 @@ function normalizeTimestamp(
     );
     return undefined;
   }
-  return instant.toISOString() as IsoDateTimeString;
+  const canonicalTimestamp = instant.toISOString();
+  if (!/^\d{4}-/.test(canonicalTimestamp)) {
+    addIssue(
+      issues,
+      "invalid_timestamp",
+      path,
+      "Timestamp normalizes outside the supported four-digit RFC 3339 year range.",
+    );
+    return undefined;
+  }
+  return canonicalTimestamp as IsoDateTimeString;
 }
 
 function normalizeProvenance(

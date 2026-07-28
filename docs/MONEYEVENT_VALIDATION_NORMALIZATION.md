@@ -24,9 +24,13 @@ M03.04 does not implement provider payload parsing, connectors, live ingestion, 
 
 `MoneyEventValidationResult` and `MoneyEventNormalizationResult` are discriminated by `ok`. Success carries an empty issue tuple; normalization success also carries a new `MoneyEvent`. Ordinary invalid input returns `ok: false` and typed issues rather than throwing.
 
+`validateAndNormalizeMoneyEventCandidate` is the explicit convenience form of `normalizeMoneyEventCandidate`; for the same input, both return the same normalization result and issues.
+
 ## Validation issue taxonomy
 
 Each `MoneyEventValidationIssue` has a stable machine-readable `code`, deterministic `$`-rooted `path`, and human-readable `message`. Codes cover required and unknown fields, invalid types and objects, unsupported values or versions, identifiers, money, currency, hashes, timestamps, evidence locators and requirements, provenance mismatches, relationship targets, reasons, and uncertainty. Issues sort by path, then code, then message using code-unit comparison.
+
+The complete machine-readable code set is `currency_required`, `evidence_locator_required`, `evidence_required`, `invalid_currency`, `invalid_hash`, `invalid_identifier`, `invalid_minor_units`, `invalid_object`, `invalid_reason`, `invalid_timestamp`, `invalid_type`, `invalid_uncertainty`, `provenance_mismatch`, `relationship_target_required`, `required_field`, `uncertainty_reason_required`, `unknown_field`, `unsupported_contract_version`, `unsupported_transformation_boundary`, and `unsupported_value`. Messages are explanatory, not the machine contract, and do not copy rejected field values.
 
 ## Identifier rules
 
@@ -48,7 +52,7 @@ Currency is required with the amount. It is safely trimmed, uppercased, and must
 
 ## Evidence-reference rules
 
-A successful root event and its provenance require at least one primary or supporting evidence reference. Every reference has a supported role and at least one usable receipt ID, raw locator, source-record ID, or canonical `sha256:` plus 64 lowercase hexadecimal digits. Exact duplicate references are collapsed and all remaining references are sorted by a stable canonical key. Conflicting and `missing_expected` references are preserved; they are never resolved or dropped as contradictions.
+A successful root event and its provenance require at least one primary or supporting evidence reference. Every reference has a supported role and at least one usable receipt ID, raw locator, source-record ID, or canonical `sha256:` plus 64 lowercase hexadecimal digits. Exact normalized duplicate references are collapsed using the ordered tuple of role, receipt ID, raw locator, source-record ID, and content hash. All remaining references are sorted by that same stable canonical key. A reference that differs in any tuple field, including role, remains distinct. Conflicting and `missing_expected` references are preserved; they are never resolved or dropped as contradictions.
 
 ## Provenance rules
 
@@ -56,7 +60,7 @@ Provenance contains source, evidence, observed time, and the supported versioned
 
 ## Time rules
 
-Observed time is required. Event time may be `null`; otherwise both use RFC 3339 timestamps with `T`, seconds, and an explicit `Z` or numeric offset. Calendar and offset components must be valid. Successful normalization produces UTC ISO strings with millisecond precision. No current time is read, no missing time is generated, and delayed or out-of-order evidence is accepted structurally because arrival order does not establish event order.
+Observed time is required. Event time may be `null`; otherwise both use the supported RFC 3339 profile: a four-digit year, uppercase `T`, seconds, an explicit uppercase `Z` or numeric offset, and an optional one-to-three-digit fractional second. Calendar and offset components must be valid; leap seconds and higher-than-millisecond input precision are rejected. Offset conversion must remain inside the four-digit RFC 3339 year range. Successful normalization produces UTC ISO strings with millisecond precision. No current time is read, no missing time is generated, and delayed or out-of-order evidence is accepted structurally because arrival order does not establish event order.
 
 ## Idempotency rules
 

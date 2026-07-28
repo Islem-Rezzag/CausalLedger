@@ -1,5 +1,16 @@
 # Weekly Log
 
+## 2026-07-28
+
+- Ran independent M03.04 QA on `m03-04-moneyevent-validation-normalization-rules`; the branch and clean-worktree guard passed, builder commit `8f3e20fc9729510a5884571901c0311a361dc469` was verified in branch history, local `main` contains M03.03 finalization commit `737710592544203e039ceee44a732e289c373bb6`, and GitHub API inspection confirmed PR #53 is open, non-draft, unmerged, targets `main`, and uses the expected head branch.
+- Critically inspected the candidate boundary, validator/normalizer, public exports, package metadata, tests, MoneyEvent and evidence contracts, ADR-0008, architecture/domain/reliability/threat docs, CI and workspace configuration, control-plane guards, active plan, milestone registry, and status tracking.
+- Fixed one correctness defect: offset timestamps near year boundaries could normalize to expanded JavaScript years outside the supported four-digit RFC 3339 profile while returning success. The validator now rejects that normalization boundary deterministically.
+- Expanded the events-package suite from 45 to 66 tests, covering strict root/nested shape handling, issue stability and secrecy, identifier whitespace, unsupported transformations, date edge cases, four-digit year bounds, time precision, uncertainty states, evidence ordering/deduplication, failure atomicity, and API alias equivalence.
+- Corrected stale current-state documentation that still described M03.04 as not started or compile-time only; historical dated statements were preserved.
+- QA validation passed: control plane; 101 bootstrap tests; diff check; frozen install across 14 projects; events-package typecheck, 3-file/66-test run, build, lint, and format; full typecheck, lint, test, build, and format across 13 packages; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
+- Docker validation was optional and skipped because infrastructure was unchanged and Docker is unavailable. The dirty-worktree check was skipped only for the authorized uncommitted QA edits. GitHub CLI and `make` are unavailable; direct required validation passed. The frozen install emitted the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
+- Marked M03.04 `QA passed, awaiting merge` on PR #53; M03.05 and M03.06 and M04 through M21 remain `Not started`. Exact next thread: `Merge M03.04 PR - MoneyEvent Validation and Normalization Rules`.
+
 ## 2026-07-27
 
 - Started M03.04 Builder on branch `m03-04-moneyevent-validation-normalization-rules`; the branch guard passed with a clean worktree and local `main` contains M03.03 finalization commit `737710592544203e039ceee44a732e289c373bb6`.

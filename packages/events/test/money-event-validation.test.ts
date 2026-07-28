@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   MONEY_EVENT_RUNTIME_BOUNDARY_VERSION,
   MONEY_EVENT_TRANSFORMATION_BOUNDARY,
+  MONEY_EVENT_UNCERTAINTY_STATES,
   normalizeMoneyEventCandidate,
   validateAndNormalizeMoneyEventCandidate,
   validateMoneyEventCandidate,
@@ -84,6 +85,16 @@ function withEvidence(
   };
 }
 
+function toNullPrototypeValue(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(toNullPrototypeValue);
+  if (typeof value !== "object" || value === null) return value;
+  const result = Object.create(null) as Record<string, unknown>;
+  for (const [key, item] of Object.entries(value)) {
+    result[key] = toNullPrototypeValue(item);
+  }
+  return result;
+}
+
 describe("MoneyEvent candidate validation", () => {
   it("accepts a fully valid source-neutral candidate", () => {
     expect(validateMoneyEventCandidate(validCandidate())).toEqual({
@@ -99,14 +110,33 @@ describe("MoneyEvent candidate validation", () => {
     );
   });
 
-  it("rejects invalid root values and class instances", () => {
+  it("rejects invalid root values, arrays, dates, and class instances", () => {
     expectIssue(validateMoneyEventCandidate(null), "invalid_object", "$");
+    for (const primitive of [undefined, true, 42, "candidate"]) {
+      expectIssue(
+        validateMoneyEventCandidate(primitive),
+        "invalid_object",
+        "$",
+      );
+    }
+    expectIssue(validateMoneyEventCandidate([]), "invalid_object", "$");
+    expectIssue(
+      validateMoneyEventCandidate(new Date("2026-07-27T10:00:00Z")),
+      "invalid_object",
+      "$",
+    );
     class CandidateInstance {}
     expectIssue(
       validateMoneyEventCandidate(new CandidateInstance()),
       "invalid_object",
       "$",
     );
+  });
+
+  it("accepts null-prototype objects at every structured boundary", () => {
+    expect(
+      validateMoneyEventCandidate(toNullPrototypeValue(validCandidate())),
+    ).toEqual({ ok: true, issues: [] });
   });
 
   it("rejects unknown root fields under the strict policy", () => {
@@ -117,6 +147,30 @@ describe("MoneyEvent candidate validation", () => {
     );
   });
 
+  it("rejects nested unknown fields and nested class instances", () => {
+    expectIssue(
+      validateMoneyEventCandidate({
+        ...validCandidate(),
+        source: { ...validCandidate().source, unexpected: true },
+      }),
+      "unknown_field",
+      "$.source.unexpected",
+    );
+
+    class SourceInstance {
+      sourceId = "provider-test";
+      sourceType = "provider.webhook";
+    }
+    expectIssue(
+      validateMoneyEventCandidate({
+        ...validCandidate(),
+        source: new SourceInstance(),
+      }),
+      "invalid_object",
+      "$.source",
+    );
+  });
+
   it("rejects missing required fields", () => {
     const candidate = { ...validCandidate() } as Record<string, unknown>;
     delete candidate.kind;
@@ -124,6 +178,32 @@ describe("MoneyEvent candidate validation", () => {
       validateMoneyEventCandidate(candidate),
       "required_field",
       "$.kind",
+    );
+    const result = validateMoneyEventCandidate(candidate);
+    expect(result.issues).not.toContainEqual(
+      expect.objectContaining({
+        code: "invalid_object",
+        path: "$",
+        message: "Candidate could not be normalized.",
+      }),
+    );
+  });
+
+  it("keeps issue ordering stable across property insertion order", () => {
+    const first = {
+      ...validCandidate(),
+      zUnknown: true,
+      aUnknown: true,
+      id: "bad",
+    };
+    const second = {
+      ...validCandidate(),
+      aUnknown: true,
+      zUnknown: true,
+      id: "bad",
+    };
+    expect(validateMoneyEventCandidate(first)).toEqual(
+      validateMoneyEventCandidate(second),
     );
   });
 
@@ -145,6 +225,14 @@ describe("MoneyEvent candidate validation", () => {
   it("rejects invalid MoneyEvent IDs without generating one", () => {
     expectIssue(
       normalizeMoneyEventCandidate({ ...validCandidate(), id: "evt_" }),
+      "invalid_identifier",
+      "$.id",
+    );
+    expectIssue(
+      validateMoneyEventCandidate({
+        ...validCandidate(),
+        id: "evt_internal space",
+      }),
       "invalid_identifier",
       "$.id",
     );
@@ -232,6 +320,22 @@ describe("MoneyEvent candidate validation", () => {
       "invalid_identifier",
       "$.evidence[0].receiptId",
     );
+    const whitespaceEvidence = {
+      ...primaryEvidence,
+      receiptId: "rcpt_internal space",
+    };
+    expectIssue(
+      validateMoneyEventCandidate({
+        ...validCandidate(),
+        evidence: [whitespaceEvidence],
+        provenance: {
+          ...validCandidate().provenance,
+          evidence: [whitespaceEvidence],
+        },
+      }),
+      "invalid_identifier",
+      "$.evidence[0].receiptId",
+    );
   });
 
   it("rejects non-canonical SHA-256 references", () => {
@@ -298,6 +402,18 @@ describe("MoneyEvent candidate validation", () => {
       }),
       "provenance_mismatch",
       "$.provenance.observedAt",
+    );
+  });
+
+  it("rejects unsupported provenance transformation boundaries", () => {
+    const candidate = validCandidate();
+    expectIssue(
+      validateMoneyEventCandidate({
+        ...candidate,
+        provenance: { ...candidate.provenance, derivedBy: "unknown-boundary" },
+      }),
+      "unsupported_transformation_boundary",
+      "$.provenance.derivedBy",
     );
   });
 
@@ -369,6 +485,34 @@ describe("MoneyEvent candidate validation", () => {
     );
   });
 
+  it("rejects source, source-record, party, and object identifiers that trim empty", () => {
+    const candidate = validCandidate();
+    const cases: readonly [unknown, string][] = [
+      [
+        { ...candidate, source: { ...candidate.source, sourceRecordId: "  " } },
+        "$.source.sourceRecordId",
+      ],
+      [
+        {
+          ...candidate,
+          primaryParty: { ...candidate.primaryParty, partyId: "  " },
+        },
+        "$.primaryParty.partyId",
+      ],
+      [
+        { ...candidate, object: { ...candidate.object, objectId: "  " } },
+        "$.object.objectId",
+      ],
+    ];
+    for (const [input, path] of cases) {
+      expectIssue(
+        validateMoneyEventCandidate(input),
+        "invalid_identifier",
+        path,
+      );
+    }
+  });
+
   it("rejects empty relationships and unsupported relationship types", () => {
     expectIssue(
       validateMoneyEventCandidate({
@@ -400,6 +544,64 @@ describe("MoneyEvent candidate validation", () => {
     expect(
       validateMoneyEventCandidate({ ...validCandidate(), eventTime: null }),
     ).toEqual({ ok: true, issues: [] });
+    expectIssue(
+      validateMoneyEventCandidate({ ...validCandidate(), observedTime: null }),
+      "invalid_timestamp",
+      "$.observedTime",
+    );
+  });
+
+  it("covers leap years and rejects invalid day, hour, minute, and offset boundaries", () => {
+    expect(
+      validateMoneyEventCandidate({
+        ...validCandidate(),
+        eventTime: "2000-02-29T23:59:59Z",
+      }).ok,
+    ).toBe(true);
+    for (const eventTime of [
+      "1900-02-29T00:00:00Z",
+      "2026-04-31T00:00:00Z",
+      "2026-07-27T24:00:00Z",
+      "2026-07-27T23:60:00Z",
+      "2026-07-27T23:59:00+24:00",
+      "2026-07-27T23:59:00+00:60",
+    ]) {
+      expectIssue(
+        validateMoneyEventCandidate({ ...validCandidate(), eventTime }),
+        "invalid_timestamp",
+        "$.eventTime",
+      );
+    }
+  });
+
+  it("rejects timestamp normalization outside the four-digit RFC 3339 year range", () => {
+    for (const eventTime of [
+      "0000-01-01T00:00:00+00:01",
+      "9999-12-31T23:59:59-00:01",
+    ]) {
+      expectIssue(
+        validateMoneyEventCandidate({ ...validCandidate(), eventTime }),
+        "invalid_timestamp",
+        "$.eventTime",
+      );
+    }
+  });
+
+  it("enforces the documented millisecond-precision timestamp profile", () => {
+    expect(
+      validateMoneyEventCandidate({
+        ...validCandidate(),
+        eventTime: "2026-07-27T09:59:00.123Z",
+      }).ok,
+    ).toBe(true);
+    expectIssue(
+      validateMoneyEventCandidate({
+        ...validCandidate(),
+        eventTime: "2026-07-27T09:59:00.1234Z",
+      }),
+      "invalid_timestamp",
+      "$.eventTime",
+    );
   });
 
   it("accepts delayed and out-of-order event times", () => {
@@ -465,6 +667,69 @@ describe("MoneyEvent candidate validation", () => {
       "uncertainty_reason_required",
       "$.uncertainty.reasons",
     );
+    expectIssue(
+      validateMoneyEventCandidate({
+        ...candidate,
+        uncertainty: {
+          state: "missing_evidence",
+          reasons: ["   "],
+          evidence: [],
+        },
+      }),
+      "invalid_reason",
+      "$.uncertainty.reasons[0]",
+    );
+  });
+
+  it.each(
+    MONEY_EVENT_UNCERTAINTY_STATES.filter((state) => state !== "none_known"),
+  )("accepts explicit %s uncertainty without resolving it", (state) => {
+    const candidate = validCandidate();
+    expect(
+      validateMoneyEventCandidate({
+        ...candidate,
+        uncertainty: {
+          state,
+          reasons: [`${state} remains explicit.`],
+          evidence: [primaryEvidence],
+        },
+      }).ok,
+    ).toBe(true);
+  });
+
+  it("requires uncertainty evidence to come from root evidence", () => {
+    const candidate = validCandidate();
+    expectIssue(
+      validateMoneyEventCandidate({
+        ...candidate,
+        uncertainty: {
+          state: "conflicting_evidence",
+          reasons: ["A conflicting reference is not present at the root."],
+          evidence: [
+            {
+              receiptId: "rcpt_outside_root",
+              role: "conflicting",
+            },
+          ],
+        },
+      }),
+      "provenance_mismatch",
+      "$.uncertainty.evidence",
+    );
+  });
+
+  it("does not copy invalid secret-bearing values into issues", () => {
+    const secret = "super-secret-token-value";
+    const invalidEvidence = { ...primaryEvidence, contentHash: secret };
+    const result = validateMoneyEventCandidate({
+      ...validCandidate(),
+      evidence: [invalidEvidence],
+      provenance: {
+        ...validCandidate().provenance,
+        evidence: [invalidEvidence],
+      },
+    });
+    expect(JSON.stringify(result.issues)).not.toContain(secret);
   });
 });
 
@@ -534,6 +799,48 @@ describe("MoneyEvent candidate normalization", () => {
     if (result.ok) expect(result.value.evidence).toHaveLength(1);
   });
 
+  it("produces stable evidence ordering for equivalent input order", () => {
+    const supportingEvidence = {
+      receiptId: "rcpt_supporting",
+      sourceRecordId: "supporting-1",
+      role: "supporting",
+    } as const;
+    const candidate = validCandidate();
+    const forward = normalizeMoneyEventCandidate({
+      ...candidate,
+      evidence: [primaryEvidence, supportingEvidence],
+      provenance: {
+        ...candidate.provenance,
+        evidence: [primaryEvidence, supportingEvidence],
+      },
+    });
+    const reverse = normalizeMoneyEventCandidate({
+      ...candidate,
+      evidence: [supportingEvidence, primaryEvidence],
+      provenance: {
+        ...candidate.provenance,
+        evidence: [supportingEvidence, primaryEvidence],
+      },
+    });
+    expect(forward).toEqual(reverse);
+  });
+
+  it("does not collapse references that differ by evidence role", () => {
+    const conflictingEvidence = {
+      ...primaryEvidence,
+      role: "conflicting",
+    } as const;
+    const candidate = validCandidate();
+    const evidence = [primaryEvidence, conflictingEvidence];
+    const result = normalizeMoneyEventCandidate({
+      ...candidate,
+      evidence,
+      provenance: { ...candidate.provenance, evidence },
+    });
+    expect(result.ok).toBe(true);
+    if (result.ok) expect(result.value.evidence).toHaveLength(2);
+  });
+
   it("preserves conflicting evidence instead of resolving it", () => {
     const conflictingEvidence = {
       receiptId: "rcpt_conflict",
@@ -599,6 +906,31 @@ describe("MoneyEvent candidate normalization", () => {
         result.value.relationships.map((item) => item.relationship),
       ).toEqual(["supersedes", "reverses"]);
     }
+  });
+
+  it("does not return a partial relationship when a supplied target is invalid", () => {
+    const result = normalizeMoneyEventCandidate({
+      ...validCandidate(),
+      relationships: [
+        {
+          relationship: "caused_by",
+          object: { objectId: "  ", objectType: "payment" },
+        },
+      ],
+    });
+    expect(result.ok).toBe(false);
+    expect(result).not.toHaveProperty("value");
+  });
+
+  it("keeps the combined API behavior identical to normalization", () => {
+    const candidate = validCandidate();
+    expect(validateAndNormalizeMoneyEventCandidate(candidate)).toEqual(
+      normalizeMoneyEventCandidate(candidate),
+    );
+    const invalid = { ...candidate, id: "bad" };
+    expect(validateAndNormalizeMoneyEventCandidate(invalid)).toEqual(
+      normalizeMoneyEventCandidate(invalid),
+    );
   });
 
   it("does not generate missing IDs, timestamps, or idempotency keys", () => {

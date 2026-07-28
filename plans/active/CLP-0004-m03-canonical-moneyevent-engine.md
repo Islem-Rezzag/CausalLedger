@@ -6,7 +6,7 @@ Plan and execute M03 as a sequence of narrow, evidence-grounded MoneyEvent slice
 
 M03 will define the canonical MoneyEvent engine boundary for future deterministic money-movement processing. The milestone should turn M01 domain language and M02 package scaffolding into a carefully scoped implementation path for canonical event contracts, source mapping, validation, fixtures, and QA.
 
-M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`. M03.01 PR #48 merged into `main` at commit `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`. M03.02 PR #49 merged into `main` at commit `f7e3b54ba6a533a70d34810564be1b8828eec952`. M03.03 PR #51 merged into `main` at commit `03b0b55d988a224a96c2bcd3c30601c6100ab091`, and the merge finalization landed at `737710592544203e039ceee44a732e289c373bb6`. M03.04 is `Builder complete, awaiting QA`; M03.05 and M03.06 remain `Not started`.
+M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`. M03.01 PR #48 merged into `main` at commit `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`. M03.02 PR #49 merged into `main` at commit `f7e3b54ba6a533a70d34810564be1b8828eec952`. M03.03 PR #51 merged into `main` at commit `03b0b55d988a224a96c2bcd3c30601c6100ab091`, and the merge finalization landed at `737710592544203e039ceee44a732e289c373bb6`. M03.04 is `QA passed, awaiting merge` on PR #53; M03.05 and M03.06 remain `Not started`.
 
 ## Progress
 
@@ -70,6 +70,10 @@ M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1e
 - [x] 2026-07-27: Updated control-plane allowlists and structural checks, bootstrap tests, project/package docs, and durable tracking without adding M03.05 fixtures or downstream runtime scope.
 - [x] 2026-07-27: Required Builder validation passed: control plane, 100 bootstrap tests, diff check, frozen install, all events package checks, all workspace checks, and dirty-mode QA with 17 PASS, 0 FAIL, and 2 SKIPPED.
 - [x] 2026-07-27: Marked M03.04 `Builder complete, awaiting QA`; M03.05 and M03.06 and M04 through M21 remain `Not started`; exact next thread is `M03.04 QA - MoneyEvent Validation and Normalization Rules`.
+- [x] 2026-07-28: M03.04 QA verified the expected branch, clean starting worktree, builder commit `8f3e20fc9729510a5884571901c0311a361dc469`, M03.03-finalization ancestry, and open non-draft PR #53 targeting `main`.
+- [x] 2026-07-28: QA fixed a four-digit RFC 3339 UTC normalization boundary, expanded the events-package suite from 45 to 66 tests, clarified the specification, and corrected stale current implementation status documentation.
+- [x] 2026-07-28: Required QA validation passed: control plane, 101 bootstrap tests, diff check, frozen install, all events-package checks, all 13-package workspace checks, and dirty-mode QA with 17 PASS, 0 FAIL, and 2 SKIPPED.
+- [x] 2026-07-28: Marked M03.04 `QA passed, awaiting merge` on PR #53; M03.05 and M03.06 and M04 through M21 remain `Not started`; exact next thread is `Merge M03.04 PR - MoneyEvent Validation and Normalization Rules`.
 
 ## Surprises & Discoveries
 
@@ -482,6 +486,19 @@ Run `make bootstrap-check` only if `make` is available. Record Docker limitation
 - Docker validation was optional because infrastructure did not change and could not run because Docker is unavailable. GitHub CLI and `make` are also unavailable; all direct required validation passed.
 - Forbidden-scope inspection passed: no source-specific parser, connector, ingestion, storage, database table, migration, API route, product UI, ledger entry/posting, balance, invariant, incident, graph, replay, repair, human-review, agent-tool, loop, fixture corpus, benchmark scoring, evidence mutation/deletion, repair approval, or money mutation was added.
 
+2026-07-28 M03.04 QA validation results:
+
+- Validation ladder: Level 0 branch/worktree/remote/builder-commit/PR/history/tag/merge-ancestry guard; Level 1 critical file, contract, test, and forbidden-scope inspection; Level 2 control plane; Level 3 bootstrap and package unit tests; Level 4 diff/whitespace; Level 5 package and workspace checks; Level 6 not applicable because fixture/eval work remains M03.05 scope; Level 7 financial-truth, evidence, dependency, and agent-tool boundaries; Level 8 QA handoff and remote CI readiness.
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 101 tests.
+- `git diff --check` passed.
+- `corepack pnpm install --frozen-lockfile` passed across 14 workspace projects with pnpm 10.32.1 and the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
+- Events-package typecheck, 3-file/66-test run, build, ESLint, and format checks passed.
+- Full typecheck, lint, test, build, and format checks passed across all 13 packages.
+- `corepack pnpm qa:dev --allow-dirty` passed with 17 PASS, 0 FAIL, and 2 SKIPPED; only the expected dirty-worktree check for authorized QA edits and optional Docker validation were skipped.
+- Docker validation was optional because infrastructure did not change and could not run because Docker is unavailable. GitHub CLI and `make` are also unavailable; all direct required validation passed.
+- Forbidden-scope inspection passed: QA added only the scoped validator guard, tests, specification/tracking truth fixes, and control-plane coverage. No source-specific parser, connector, ingestion, storage, database table, migration, API route, product UI, ledger entry/posting, balance, invariant, incident, graph, replay, repair, human-review, agent-tool, loop, fixture corpus, benchmark scoring, evidence mutation/deletion, repair approval, or money mutation was added.
+
 Acceptance criteria:
 
 - exactly one active M03 plan exists;
@@ -491,13 +508,13 @@ Acceptance criteria:
 - M03.01 is `Completed and merged`;
 - M03.02 is `Completed and merged`;
 - M03.03 is `Completed and merged` through PR #51 at `03b0b55d988a224a96c2bcd3c30601c6100ab091`;
-- M03.04 is `Builder complete, awaiting QA`; M03.05 and M03.06 remain `Not started`;
+- M03.04 is `QA passed, awaiting merge` on PR #53; M03.05 and M03.06 remain `Not started`;
 - `docs/MONEYEVENT_CONTRACT.md` exists as documentation-only conceptual contract;
 - `packages/events` contains the M03.02 TypeScript types plus the M03.04 source-neutral candidate validator and deterministic normalizer;
 - `docs/MONEYEVENT_MAPPING_FIXTURES.md` exists as documentation-only mapping fixture and simulator planning;
 - the only product runtime behavior is M03.04 structural validation and normalization, which does not establish financial truth;
 - no runtime schema framework, source-specific parser, ingestion, storage, migration, fixture data, simulator data, route, UI, ledger posting, invariant, incident, graph, replay, repair, or agent behavior is created;
-- status docs and handoff point to `M03.04 QA - MoneyEvent Validation and Normalization Rules`.
+- status docs and handoff point to `Merge M03.04 PR - MoneyEvent Validation and Normalization Rules`.
 
 ## Expected Files
 
@@ -633,7 +650,7 @@ M03 planning QA passed locally for PR #47 on branch `m03-planning-canonical-mone
 
 M03.01 Builder created `docs/MONEYEVENT_CONTRACT.md` as a documentation-only conceptual MoneyEvent contract and updated tracking, status docs, and validation guards. M03.01 QA verified the contract and applied scoped QA status and handoff updates only.
 
-M03.01 through M03.03 are `Completed and merged`. M03.04 is `Builder complete, awaiting QA`; M03.05 and M03.06 remain `Not started`.
+M03.01 through M03.03 are `Completed and merged`. M03.04 is `QA passed, awaiting merge` on PR #53; M03.05 and M03.06 remain `Not started`.
 
 M03.02 added a TypeScript-only MoneyEvent type boundary in `packages/events`. Product runtime behavior has not started. No MoneyEvent runtime schema, parser, validator, normalizer, storage behavior, database tables, API routes, UI, fixtures, simulator data, connectors, agent runtime, ledger behavior, invariant behavior, incident behavior, replay behavior, repair behavior, raw evidence mutation, ledger posting, repair approval, or money mutation exists from M03.02.
 
@@ -643,4 +660,6 @@ M03.03 QA passed for PR #51 after verifying mapping fixture planning, verifier-d
 
 M03.04 implements only the dependency-free source-neutral candidate validator and deterministic normalizer in `packages/events`. It adds stable typed issues, exact integer-string-to-`bigint` conversion, strict unknown fields, evidence/provenance consistency, canonical timestamps, explicit uncertainty, and immutable output. It does not add source-specific parsing, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent, fixture corpus, benchmark, or money mutation.
 
-Exact next action after Builder validation: run `M03.04 QA - MoneyEvent Validation and Normalization Rules` on the same branch and PR. Do not start M03.05 before QA PASS and merge.
+M03.04 QA fixed the four-digit UTC normalization boundary, expanded focused events-package coverage from 45 to 66 tests, corrected stale current documentation, and passed the full local validation ladder. PR #53 is safe to merge after green remote checks and normal human review; QA did not approve or perform the merge.
+
+Exact next action: run `Merge M03.04 PR - MoneyEvent Validation and Normalization Rules`, followed by merge finalization. Do not start M03.05 before PR #53 merges and M03.04 is recorded as completed.

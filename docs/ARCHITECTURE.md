@@ -50,7 +50,7 @@ Human review and evidence bundles
 ## Core layers
 
 - Evidence capture: future append-only raw evidence, provenance, source identity, and checksums.
-- Canonical events: future MoneyEvent schemas and transformations. The conceptual boundary is documented in `docs/MONEYEVENT_CONTRACT.md`, `packages/events` contains the M03.02 TypeScript type boundary only, and `docs/MONEYEVENT_MAPPING_FIXTURES.md` documents M03.03 mapping fixture and simulator planning only; no runtime MoneyEvent behavior exists yet.
+- Canonical events: `packages/events` contains the M03.02 TypeScript type boundary plus M03.04 source-neutral deterministic validation and normalization. The conceptual boundary is documented in `docs/MONEYEVENT_CONTRACT.md`, and `docs/MONEYEVENT_MAPPING_FIXTURES.md` remains M03.03 planning only. Source-specific parsing, ingestion, storage, and downstream MoneyEvent-engine behavior do not exist yet.
 - Ledger primitives: future deterministic double-entry checks, immutable transactions, balances, and reversals.
 - Invariants: future deterministic financial correctness checks.
 - Incidents: future incident records created from failed deterministic checks.

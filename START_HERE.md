@@ -1,6 +1,6 @@
 # Start Here
 
-This repository has completed and closed M00, M01, and M02. M03 planning and M03.01 through M03.03 are completed and merged, including M03.03 finalization at `737710592544203e039ceee44a732e289c373bb6`. M03.04 is `Builder complete, awaiting QA` under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`; M03.05 and M03.06 remain `Not started`. The only MoneyEvent runtime behavior is the scoped source-neutral candidate validator and deterministic normalizer in `packages/events`.
+This repository has completed and closed M00, M01, and M02. M03 planning and M03.01 through M03.03 are completed and merged, including M03.03 finalization at `737710592544203e039ceee44a732e289c373bb6`. M03.04 is `QA passed, awaiting merge` on PR #53 under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`; M03.05 and M03.06 remain `Not started`. The only MoneyEvent runtime behavior is the scoped source-neutral candidate validator and deterministic normalizer in `packages/events`.
 
 Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 

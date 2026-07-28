@@ -71,7 +71,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/DOMAIN_MODEL.md` - canonical M01 domain model summary.
 - `docs/MONEYEVENT_CONTRACT.md` - M03.01 conceptual MoneyEvent contract; documentation only, with no runtime schema or product behavior.
 - `docs/MONEYEVENT_MAPPING_FIXTURES.md` - M03.03 evidence-to-MoneyEvent mapping fixture and simulator planning; documentation only, with no fixture data or product behavior.
-- `packages/events/README.md` - M03.02 MoneyEvent TypeScript type boundary; compile-time only, with runtime schemas and behavior deferred.
+- `packages/events/README.md` - M03.02 MoneyEvent TypeScript types plus the M03.04 source-neutral deterministic validator and normalizer; source-specific parsing, ingestion, storage, and downstream product behavior remain deferred.
 - `docs/domain/README.md` - domain vocabulary directory boundary.
 - `docs/domain/payment-lifecycle.md` - M01.01 payment lifecycle vocabulary and boundaries.
 - `docs/domain/ledger-vocabulary.md` - M01.02 ledger vocabulary and boundaries.
@@ -111,4 +111,4 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-The repository has completed M00 and tagged the repo operating system foundation as `v0.1.0`. M01 and M02 are completed and closed. M03 planning and M03.01 through M03.03 are completed and merged; M03.03 finalization merged at `737710592544203e039ceee44a732e289c373bb6`. M03.04 is `Builder complete, awaiting QA`, while M03.05 and M03.06 and M04 through M21 remain `Not started`. `packages/events` now contains compile-time MoneyEvent types plus source-neutral candidate validation and deterministic normalization. No source-specific parser, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent, connector, UI, or money-mutation behavior exists.
+The repository has completed M00 and tagged the repo operating system foundation as `v0.1.0`. M01 and M02 are completed and closed. M03 planning and M03.01 through M03.03 are completed and merged; M03.03 finalization merged at `737710592544203e039ceee44a732e289c373bb6`. M03.04 is `QA passed, awaiting merge` on PR #53, while M03.05 and M03.06 and M04 through M21 remain `Not started`. `packages/events` now contains compile-time MoneyEvent types plus source-neutral candidate validation and deterministic normalization. No source-specific parser, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent, connector, UI, or money-mutation behavior exists.

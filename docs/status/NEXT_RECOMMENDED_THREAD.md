@@ -1,10 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-M03.04 QA - MoneyEvent Validation and Normalization Rules
+Merge M03.04 PR - MoneyEvent Validation and Normalization Rules
 
 Precondition:
-M03.04 Builder is complete on `m03-04-moneyevent-validation-normalization-rules`, all required local Builder validation passed, and the scoped commit is pushed. QA must use the same branch and future PR, independently inspect the source-neutral candidate contract, deterministic validator/normalizer, tests, documentation, control-plane guards, and forbidden scope.
+M03.04 QA passed on `m03-04-moneyevent-validation-normalization-rules`, all required local QA validation passed, and PR #53 contains the independently reviewed source-neutral candidate validator and deterministic normalizer. Remote checks must be green before a human operator merges.
 
 Scope:
-Run only M03.04 QA. Keep M03.05 and M03.06 `Not started`; do not add source-specific parsing, ingestion, storage, database, API, UI, ledger, invariant, incident, graph, replay, repair, agent, connector, fixture-corpus, benchmark, production-write, or money-mutation behavior. Do not mark M03.04 completed and merged before QA PASS and human PR merge.
+Merge PR #53 into `main` only after normal human review and green remote checks, then run M03.04 merge finalization and update tracking to `Completed and merged`. Keep M03.05 and M03.06 `Not started`; do not add source-specific parsing, ingestion, storage, database, API, UI, ledger, invariant, incident, graph, replay, repair, agent, connector, fixture-corpus, benchmark, production-write, or money-mutation behavior during merge finalization.

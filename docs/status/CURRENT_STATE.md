@@ -8,11 +8,11 @@ M03 planning PR #47 merged into `main` at `0606d3b21c05f2cf98397c9f5b0f1eddfa104
 
 ## Current submilestone and branch
 
-Current slice: `M03.04 Builder - MoneyEvent Validation and Normalization Rules`.
+Current slice: `M03.04 QA - MoneyEvent Validation and Normalization Rules`.
 
 Current branch: `m03-04-moneyevent-validation-normalization-rules`.
 
-M03.01 through M03.03 are `Completed and merged`. M03.04 is `Builder complete, awaiting QA`. M03.05 and M03.06 are `Not started`. M04 through M21 remain `Not started`.
+M03.01 through M03.03 are `Completed and merged`. M03.04 is `QA passed, awaiting merge` on PR #53. M03.05 and M03.06 are `Not started`. M04 through M21 remain `Not started`.
 
 M03.03 includes the verifier-driven loop strategy amendment merged through PR #51. The amendment remains documentation and planning only.
 
@@ -35,13 +35,13 @@ No autonomous loop automation, self-grading AI loop, production write loop, or l
 
 ## Next action
 
-Run `M03.04 QA - MoneyEvent Validation and Normalization Rules` on the same branch and future PR. Do not start M03.05 before M03.04 QA PASS and PR merge.
+Run `Merge M03.04 PR - MoneyEvent Validation and Normalization Rules` after remote checks pass. A human operator must merge PR #53; do not start M03.05 before the merge and tracking finalization.
 
 ## Latest validation
 
-- 2026-07-27 M03.04 branch, clean-worktree, remote, history, tag, and M03.03-finalization ancestry guards passed before edits.
-- M03.04 package checks passed: typecheck, 3 files/45 tests, build, ESLint, and formatting.
-- Full validation passed: control plane; 100 bootstrap tests; diff check; frozen install across 14 projects; typecheck, lint, test, build, and format across 13 packages; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
+- 2026-07-28 M03.04 QA branch, clean-worktree, remote, builder-commit, PR #53, history, tag, and M03.03-finalization ancestry guards passed before edits.
+- QA fixed a four-digit RFC 3339 UTC normalization boundary and expanded the events package from 45 to 66 tests; typecheck, tests, build, ESLint, and formatting passed.
+- Full QA validation passed: control plane; 101 bootstrap tests; diff check; frozen install across 14 projects; typecheck, lint, test, build, and format across 13 packages; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
 - Docker validation was optional and skipped because Docker is unavailable and infrastructure did not change. GitHub CLI and `make` are also unavailable; direct required validation passed. The frozen install emitted the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
 
 ## Terminology note

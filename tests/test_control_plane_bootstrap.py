@@ -1258,6 +1258,22 @@ def test_39_live_status_scopes_m03_04_product_behavior_truthfully():
             assert forbidden_claim not in content
 
 
+def test_39a_current_canonical_docs_do_not_claim_m03_04_is_unstarted():
+    assert validator.validate_docs() == []
+    for rel in [
+        "docs/ACTIVE_DOCS.md",
+        "PLANS.md",
+        "WORKFLOW.md",
+        "docs/INDEX.md",
+        "docs/ARCHITECTURE.md",
+        "docs/DOMAIN_MODEL.md",
+        "docs/RELIABILITY.md",
+        "docs/THREAT_MODEL.md",
+        "docs/PROJECT_BRIEF.md",
+    ]:
+        assert "Product implementation has not started" not in text(rel)
+
+
 def test_39b_only_m03_04_moneyevent_runtime_boundary_files_exist():
     assert validator.validate_no_moneyevent_runtime_files() == []
 

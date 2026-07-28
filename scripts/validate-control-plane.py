@@ -147,6 +147,10 @@ MONEYEVENT_VALIDATION_NORMALIZATION_REQUIRED_PHRASES = [
     "not financial truth",
     "does not implement provider payload parsing",
     "M03.05",
+    "validateAndNormalizeMoneyEventCandidate",
+    "complete machine-readable code set",
+    "ordered tuple of role, receipt ID, raw locator, source-record ID, and content hash",
+    "four-digit RFC 3339 year range",
 ]
 
 DOC_ONLY_RUNTIME_CODE_FENCE_PATTERN = re.compile(
@@ -1132,6 +1136,23 @@ def validate_docs() -> list[str]:
             errors.append(f"{rel} does not index the MoneyEvent contract")
         if MONEYEVENT_MAPPING_FIXTURES_DOC not in read_text(rel):
             errors.append(f"{rel} does not index the MoneyEvent mapping fixtures plan")
+
+    stale_current_claims = {
+        "docs/ACTIVE_DOCS.md": ["M03.04 through M03.06 remain `Not started`"],
+        "PLANS.md": ["M03.04 through M03.06 remain `Not started`"],
+        "WORKFLOW.md": ["M03.04 through M03.06 remain `Not started`"],
+        "docs/INDEX.md": ["compile-time only, with runtime schemas and behavior deferred"],
+        "docs/ARCHITECTURE.md": ["no runtime MoneyEvent behavior exists yet"],
+        "docs/DOMAIN_MODEL.md": ["Product implementation has not started"],
+        "docs/RELIABILITY.md": ["Product implementation has not started"],
+        "docs/THREAT_MODEL.md": ["Product implementation has not started"],
+        "docs/PROJECT_BRIEF.md": ["Product implementation has not started"],
+    }
+    for rel, stale_phrases in stale_current_claims.items():
+        content = read_text(rel)
+        for phrase in stale_phrases:
+            if phrase in content:
+                errors.append(f"{rel} contains stale M03.04 status claim: {phrase}")
     return errors
 
 
