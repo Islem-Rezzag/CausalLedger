@@ -4,15 +4,15 @@
 
 M00 Repo Operating System, M01 Domain Model and Scope Freeze, and M02 Monorepo and Local Development Environment are completed. M03 Canonical MoneyEvent Engine is active under active plan `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`.
 
-M03 planning PR #47 merged into `main` at `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`; M03.01 PR #48 merged at `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`; M03.02 PR #49 merged at `f7e3b54ba6a533a70d34810564be1b8828eec952`; M03.02 merge finalization PR #50 merged at `052aafc`; M03.03 PR #51 merged at `03b0b55d988a224a96c2bcd3c30601c6100ab091`.
+M03 planning PR #47 merged into `main` at `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`; M03.01 PR #48 merged at `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`; M03.02 PR #49 merged at `f7e3b54ba6a533a70d34810564be1b8828eec952`; M03.02 merge finalization PR #50 merged at `052aafc`; M03.03 PR #51 merged at `03b0b55d988a224a96c2bcd3c30601c6100ab091`; M03.03 merge finalization merged at `737710592544203e039ceee44a732e289c373bb6`; and M03.04 PR #53 merged at `572dc150e38782620416350004630b690c00e687` after QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`.
 
 ## Current submilestone and branch
 
-Current slice: `M03.04 QA - MoneyEvent Validation and Normalization Rules`.
+Current slice: `M03.04 Merge Finalization - MoneyEvent Validation and Normalization Rules`.
 
-Current branch: `m03-04-moneyevent-validation-normalization-rules`.
+Current branch: `m03-04-finalize-validation-normalization-merge`.
 
-M03.01 through M03.03 are `Completed and merged`. M03.04 is `QA passed, awaiting merge` on PR #53. M03.05 and M03.06 are `Not started`. M04 through M21 remain `Not started`.
+M03.01 through M03.04 are `Completed and merged`. M03.05 and M03.06 are `Not started`. M04 through M21 remain `Not started`.
 
 M03.03 includes the verifier-driven loop strategy amendment merged through PR #51. The amendment remains documentation and planning only.
 
@@ -35,14 +35,16 @@ No autonomous loop automation, self-grading AI loop, production write loop, or l
 
 ## Next action
 
-Run `Merge M03.04 PR - MoneyEvent Validation and Normalization Rules` after remote checks pass. A human operator must merge PR #53; do not start M03.05 before the merge and tracking finalization.
+Commit and push the scoped M03.04 merge-finalization tracking changes, then open the finalization PR for human review. Do not start M03.05 until that finalization PR merges into `main`; afterward, the exact next thread is `M03.05 Builder - MoneyEvent Test Fixtures and Benchmark Seed Cases`.
 
 ## Latest validation
 
-- 2026-07-28 M03.04 QA branch, clean-worktree, remote, builder-commit, PR #53, history, tag, and M03.03-finalization ancestry guards passed before edits.
-- QA fixed a four-digit RFC 3339 UTC normalization boundary and expanded the events package from 45 to 66 tests; typecheck, tests, build, ESLint, and formatting passed.
-- Full QA validation passed: control plane; 101 bootstrap tests; diff check; frozen install across 14 projects; typecheck, lint, test, build, and format across 13 packages; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
-- Docker validation was optional and skipped because Docker is unavailable and infrastructure did not change. GitHub CLI and `make` are also unavailable; direct required validation passed. The frozen install emitted the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
+- 2026-07-28 merge-finalization branch, clean-worktree, remote, history, and tag guards passed before edits; `572dc150e38782620416350004630b690c00e687` is an ancestor of local `main`.
+- The PR #53 squash commit and QA-reviewed source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c` have the same Git tree, confirming the merged runtime is the QA-reviewed state.
+- QA fixed the four-digit RFC 3339 UTC normalization boundary and expanded the events package from 45 to 66 tests before merge.
+- Finalization validation passed: control plane; 101 bootstrap tests; diff check; frozen install across 14 projects; events-package typecheck, 3-file/66-test run, build, lint, and format; full typecheck, lint, test, build, and format across 13 packages; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
+- After commit, clean-worktree QA passed with 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`; only optional Docker validation was skipped.
+- Docker validation was optional and skipped because infrastructure did not change and Docker is unavailable. GitHub CLI and `make` are also unavailable; direct required validation passed. The frozen install emitted the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
 
 ## Terminology note
 

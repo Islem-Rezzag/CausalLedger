@@ -1,6 +1,6 @@
 # Start Here
 
-This repository has completed and closed M00, M01, and M02. M03 planning and M03.01 through M03.03 are completed and merged, including M03.03 finalization at `737710592544203e039ceee44a732e289c373bb6`. M03.04 is `QA passed, awaiting merge` on PR #53 under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`; M03.05 and M03.06 remain `Not started`. The only MoneyEvent runtime behavior is the scoped source-neutral candidate validator and deterministic normalizer in `packages/events`.
+This repository has completed and closed M00, M01, and M02. M03 planning and M03.01 through M03.04 are completed and merged. PR #53 merged M03.04 into `main` at `572dc150e38782620416350004630b690c00e687` after QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`. M03.05 and M03.06 remain `Not started` under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. The only MoneyEvent runtime behavior is the scoped source-neutral candidate validator and deterministic normalizer in `packages/events`.
 
 Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 
@@ -67,7 +67,7 @@ The handoff packet must include files created, files changed, files intentionall
 - Do not implement invariants.
 - Do not implement the agent runtime.
 - Do not implement UI features.
-- Do not start M03.05 before M03.04 QA passes and its PR merges.
+- Do not start M03.05 before the M03.04 merge-finalization PR merges into `main`.
 - Do not implement product behavior during M01.01, M01.02, M01.03, or M01.04.
 
 ## Correct first success
