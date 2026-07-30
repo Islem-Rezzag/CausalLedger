@@ -8,7 +8,7 @@ M03 planning PR #47 merged into `main` at `0606d3b21c05f2cf98397c9f5b0f1eddfa104
 
 ## Current submilestone and branch
 
-Current slice: `M03.04 Merge Finalization - MoneyEvent Validation and Normalization Rules`.
+Current slice: `M03.04 Finalization QA - MoneyEvent Validation and Normalization Rules` on PR #54 (`QA PASS`).
 
 Current branch: `m03-04-finalize-validation-normalization-merge`.
 
@@ -35,10 +35,16 @@ No autonomous loop automation, self-grading AI loop, production write loop, or l
 
 ## Next action
 
-Commit and push the scoped M03.04 merge-finalization tracking changes, then open the finalization PR for human review. Do not start M03.05 until that finalization PR merges into `main`; afterward, the exact next thread is `M03.05 Builder - MoneyEvent Test Fixtures and Benchmark Seed Cases`.
+Leave PR #54 for human merge after the scoped finalization QA fix commit is present and remote checks are green. Do not start M03.05 until PR #54 merges into `main`; afterward, the exact next thread is `M03.05 Builder - MoneyEvent Test Fixtures and Benchmark Seed Cases`.
 
 ## Latest validation
 
+- 2026-07-30 finalization QA verified exact branch, clean starting worktree, remotes, history, tag, finalization commit `af6bebb19ba6c314ca3ec20c6f27fee29cc46d87`, PR #53 merge ancestry, and identical trees for merge commit `572dc150e38782620416350004630b690c00e687` and QA source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`.
+- GitHub API inspection confirmed PR #54 is open, non-draft, cleanly mergeable, targets `main`, uses the expected finalization branch, and had successful `validate` and `infra-smoke` checks on original head `af6bebb19ba6c314ca3ec20c6f27fee29cc46d87`. Remote checks must pass again on the scoped QA fix commit before human merge.
+- Finalization QA fixed two documentation/tracking defects: the validation specification still said QA was pending, and current-state tracking still said to open the already-open PR #54.
+- Finalization QA validation passed: control plane; 101 bootstrap tests; diff check; frozen install across 14 projects; events-package typecheck, 3-file/66-test run, build, lint, and format; full typecheck, lint, test, build, and format across 13 packages; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
+- The finalization diff and QA fixes contain no runtime, package-test, manifest, lockfile, application, infrastructure, migration, workflow, M03.05 fixture, benchmark, ledger-state, raw-evidence, repair-approval, or money-state changes.
+- Docker validation was optional and skipped because infrastructure did not change and Docker is unavailable. GitHub CLI and `make` are also unavailable; direct required validation passed, and GitHub metadata was obtained through the public API. The frozen install emitted the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
 - 2026-07-28 merge-finalization branch, clean-worktree, remote, history, and tag guards passed before edits; `572dc150e38782620416350004630b690c00e687` is an ancestor of local `main`.
 - The PR #53 squash commit and QA-reviewed source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c` have the same Git tree, confirming the merged runtime is the QA-reviewed state.
 - QA fixed the four-digit RFC 3339 UTC normalization boundary and expanded the events package from 45 to 66 tests before merge.

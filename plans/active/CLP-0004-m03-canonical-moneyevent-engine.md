@@ -77,6 +77,9 @@ M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1e
 - [x] 2026-07-28: M03.04 merge finalization passed the exact branch and clean-worktree guard, confirmed PR #53 squash commit `572dc150e38782620416350004630b690c00e687` is an ancestor of local `main`, and confirmed it has the same Git tree as QA source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`.
 - [x] 2026-07-28: Read and inspected the required tracking, MoneyEvent contract, runtime, tests, control-plane, validation, and handoff files before finalization edits.
 - [x] 2026-07-28: Updated durable tracking so M03.04 is `Completed and merged`; M03.05 and M03.06 and M04 through M21 remain `Not started`; no M03.05 or runtime implementation work began.
+- [x] 2026-07-30: M03.04 Finalization QA passed the exact branch and clean-worktree guard, verified finalization commit `af6bebb19ba6c314ca3ec20c6f27fee29cc46d87`, verified PR #53 merge commit `572dc150e38782620416350004630b690c00e687` and QA source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c` have the same tree, and confirmed PR #54 is open, non-draft, cleanly mergeable, and targets `main` from the expected branch.
+- [x] 2026-07-30: Finalization QA found and fixed two documentation/tracking defects: the validation specification still said independent QA was pending, and current-state tracking still said to open a finalization PR after PR #54 was already open. No runtime, package test, manifest, lockfile, application, infrastructure, migration, or workflow file changed.
+- [x] 2026-07-30: Required finalization QA validation passed locally: control plane, 101 bootstrap tests, diff check, frozen install, all events-package checks with 66 tests, all 13-package workspace checks, and dirty-mode QA with 17 PASS, 0 FAIL, and 2 SKIPPED. Docker, GitHub CLI, and `make` remain unavailable; GitHub API metadata showed the original PR #54 head had successful `validate` and `infra-smoke` checks before the scoped QA fix commit.
 
 ## Surprises & Discoveries
 
@@ -516,6 +519,20 @@ Run `make bootstrap-check` only if `make` is available. Record Docker limitation
 - Docker, GitHub CLI, and `make` are unavailable. Docker validation was optional because infrastructure did not change; direct required validation passed.
 - Forbidden-scope inspection passed: only documentation and tracking files changed. No runtime implementation, runtime test, package manifest, lockfile, application, infrastructure, migration, workflow, M03.05 fixture, benchmark, external communication, ledger state, raw evidence, repair approval, or money state changed.
 
+2026-07-30 M03.04 finalization QA validation results:
+
+- Validation ladder: Level 0 exact branch, clean starting worktree, remote, history, tag, finalization-commit, merge-ancestry, and PR guard; Level 1 required-file, full finalization diff, tracking, status, runtime-tree, test-count, and forbidden-scope inspection; Level 2 control-plane validation; Level 3 bootstrap and existing package tests; Level 4 diff and whitespace checks; Level 5 unchanged events-package and full-workspace validation; Level 6 not applicable because M03.05 fixture, scenario, benchmark, and eval work remains unimplemented; Level 7 financial-truth, evidence, immutability, and forbidden-scope checks; Level 8 independent finalization QA and remote PR review.
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 101 tests.
+- `git diff --check` passed.
+- `corepack pnpm install --frozen-lockfile` passed across all 14 workspace projects with repo-pinned pnpm 10.32.1 and the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
+- Events-package typecheck, 3-file/66-test run, build, ESLint, and formatting passed.
+- Full typecheck, lint, test, build, and formatting passed across all 13 packages.
+- `corepack pnpm qa:dev --allow-dirty` passed with 17 PASS, 0 FAIL, and 2 SKIPPED; only the authorized dirty-worktree gate and optional Docker validation were skipped.
+- GitHub API inspection confirmed PR #54 was open, non-draft, cleanly mergeable, based on `main`, and contained only the 15 original documentation/tracking files at finalization commit `af6bebb19ba6c314ca3ec20c6f27fee29cc46d87`; remote `validate` and `infra-smoke` checks passed on that head. Remote checks must pass again on the scoped QA fix commit before human merge.
+- Docker, GitHub CLI, and `make` are unavailable. Docker validation was optional because infrastructure did not change; direct required validation passed, GitHub metadata was obtained through the public API, and no `make` equivalent beyond the direct required commands was omitted.
+- Forbidden-scope inspection passed: the original finalization diff changed only documentation/tracking, and QA fixes remain documentation/tracking only. No runtime implementation, package test, manifest, lockfile, application, infrastructure, migration, workflow, M03.05 fixture, benchmark, external communication, ledger state, raw evidence, repair approval, or money state changed.
+
 Acceptance criteria:
 
 - exactly one active M03 plan exists;
@@ -679,4 +696,4 @@ M03.04 implements only the dependency-free source-neutral candidate validator an
 
 M03.04 QA fixed the four-digit UTC normalization boundary, expanded focused events-package coverage from 45 to 66 tests, corrected stale current documentation, and passed the full local validation ladder. PR #53 then merged into `main` at `572dc150e38782620416350004630b690c00e687`; that squash commit has the same tree as QA source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`.
 
-Exact next action after this merge-finalization PR merges: `M03.05 Builder - MoneyEvent Test Fixtures and Benchmark Seed Cases`. Do not start M03.05 before the finalization PR merges into `main`.
+Exact next action after merge-finalization PR #54 merges: `M03.05 Builder - MoneyEvent Test Fixtures and Benchmark Seed Cases`. Do not start M03.05 before PR #54 merges into `main`.
