@@ -1,7 +1,24 @@
 # Weekly Log
 
+## 2026-07-30
+
+- Ran independent M03.04 Finalization QA on `m03-04-finalize-validation-normalization-merge`; the exact branch and clean-worktree guard passed, finalization commit `af6bebb19ba6c314ca3ec20c6f27fee29cc46d87` was verified, PR #53 merge ancestry passed, and its merge commit has the same tree as QA source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`.
+- GitHub API inspection confirmed finalization PR #54 is open, non-draft, cleanly mergeable, targets `main`, uses the expected head branch, and had successful `validate` and `infra-smoke` checks on original head `af6bebb19ba6c314ca3ec20c6f27fee29cc46d87`.
+- Inspected all required tracking, status, MoneyEvent contract, runtime, tests, control-plane, validation, and handoff files plus the complete finalization diff. The original diff changed only 15 documentation/tracking files and did not modify runtime, package tests, manifests, lockfile, apps, infrastructure, migrations, or workflows.
+- Fixed two finalization documentation/tracking defects: `docs/MONEYEVENT_VALIDATION_NORMALIZATION.md` still said independent QA was pending, and `docs/status/CURRENT_STATE.md` still said to open the already-open finalization PR. Recorded PR #54 explicitly in next-thread tracking.
+- Finalization QA validation passed: control plane; 101 bootstrap tests; diff check; frozen install across 14 projects; events-package typecheck, 3-file/66-test run, build, lint, and format; full typecheck, lint, test, build, and format across 13 packages; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
+- Docker validation was optional and skipped because infrastructure was unchanged and Docker is unavailable. GitHub CLI and `make` are also unavailable; direct required validation passed, and GitHub metadata was obtained through the public API. The frozen install emitted the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
+- Finalization QA result: PASS. M03.04 remains `Completed and merged`; M03.05 and M03.06 and M04 through M21 remain `Not started`. PR #54 is safe for human merge after the scoped QA fix commit is pushed and remote checks pass again.
+
 ## 2026-07-28
 
+- Started M03.04 merge finalization on `m03-04-finalize-validation-normalization-merge`; the exact branch, clean-worktree, remote, recent-history, and tag guards passed before edits.
+- Confirmed PR #53 merged into `main` at `572dc150e38782620416350004630b690c00e687`; the commit is an ancestor of local `main` and has the same Git tree as QA-reviewed source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`.
+- Confirmed M03.04's merged scope remains the QA-reviewed source-neutral structural validator and deterministic normalizer with 66 events-package tests and the four-digit RFC 3339 year-boundary fix. No runtime implementation or package test file changed during finalization.
+- Updated durable tracking so M03.04 is `Completed and merged`; M03.05 and M03.06 and M04 through M21 remain `Not started`. The exact next thread after this finalization PR merges is `M03.05 Builder - MoneyEvent Test Fixtures and Benchmark Seed Cases`.
+- Finalization validation passed: control plane; 101 bootstrap tests; diff check; frozen install across 14 projects; events-package typecheck, 3-file/66-test run, build, lint, and format; full typecheck, lint, test, build, and format across 13 packages; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
+- After commit, clean-worktree QA passed with 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`; only optional Docker validation was skipped.
+- Docker validation was optional and skipped because infrastructure was unchanged and Docker is unavailable. GitHub CLI and `make` are also unavailable; direct required validation passed. The frozen install emitted the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
 - Ran independent M03.04 QA on `m03-04-moneyevent-validation-normalization-rules`; the branch and clean-worktree guard passed, builder commit `8f3e20fc9729510a5884571901c0311a361dc469` was verified in branch history, local `main` contains M03.03 finalization commit `737710592544203e039ceee44a732e289c373bb6`, and GitHub API inspection confirmed PR #53 is open, non-draft, unmerged, targets `main`, and uses the expected head branch.
 - Critically inspected the candidate boundary, validator/normalizer, public exports, package metadata, tests, MoneyEvent and evidence contracts, ADR-0008, architecture/domain/reliability/threat docs, CI and workspace configuration, control-plane guards, active plan, milestone registry, and status tracking.
 - Fixed one correctness defect: offset timestamps near year boundaries could normalize to expanded JavaScript years outside the supported four-digit RFC 3339 profile while returning success. The validator now rejects that normalization boundary deterministically.

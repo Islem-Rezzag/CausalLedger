@@ -2,7 +2,7 @@
 
 ## Status
 
-M03.04 implements the first scoped deterministic MoneyEvent runtime boundary. It validates and normalizes each source-neutral MoneyEvent candidate inside `packages/events`. Builder completion still requires independent M03.04 QA.
+M03.04 implements the first scoped deterministic MoneyEvent runtime boundary. It validates and normalizes each source-neutral MoneyEvent candidate inside `packages/events`. Independent QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`, and PR #53 merged the reviewed tree into `main` at `572dc150e38782620416350004630b690c00e687`.
 
 ## Purpose
 

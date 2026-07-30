@@ -37,6 +37,7 @@ All notable CausalLedger release changes are recorded here.
 - M03.03 merge finalization merged at `737710592544203e039ceee44a732e289c373bb6`.
 - M03.04 Builder implemented deterministic source-neutral MoneyEvent candidate validation and normalization in `packages/events`, including stable typed issues, canonical integer-string-to-`bigint` money conversion, evidence/provenance consistency, timestamp canonicalization, explicit uncertainty, strict unknown fields, deterministic ordering, and input immutability. No dependency, source-specific parser, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent, connector, fixture corpus, benchmark, or money mutation was added.
 - M03.04 QA passed for PR #53 after fixing a four-digit RFC 3339 UTC normalization boundary, expanding events-package coverage from 45 to 66 tests, correcting current status documentation, and passing the full required local validation ladder. M03.05 and M03.06 remain `Not started`.
+- M03.04 completed after PR #53 merged into `main` at `572dc150e38782620416350004630b690c00e687`; the QA-reviewed source commit was `d8d13d588bd6471178b4d815556fe1ba7fff570c`, and both commits have the same tree. The source-neutral structural validator and deterministic normalizer remain the only MoneyEvent runtime behavior; M03.05 and M03.06 and M04 through M21 remain `Not started`.
 
 ## v0.1.0 - Repo Operating System Foundation
 
