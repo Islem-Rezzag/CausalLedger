@@ -89,7 +89,7 @@ M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1e
 - [x] 2026-07-31: Resolved focused-validation findings for missing Node test types, one invalid Unicode regular-expression escape, and two stale bootstrap assertions; then passed the complete required builder validation ladder.
 - [x] 2026-07-31: Marked M03.05 `Builder complete, awaiting QA`. M03.06 and M04 through M21 remain `Not started`; the exact next thread is `M03.05 QA - MoneyEvent Test Fixtures and Benchmark Seed Cases` on the same branch and draft PR.
 - [x] 2026-07-31: Committed builder scope at `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, passed post-commit clean QA with 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`, pushed the branch without force, and opened draft PR #55 against `main`.
-- [x] 2026-07-31: Verified draft PR #55 is open, unmerged, mergeable, based on `main` at `4afa9e94bc3938e3138ce2045afc380582b24c71`, and headed by the exact branch and builder commit. Independent QA remains required.
+- [x] 2026-07-31: Verified draft PR #55 is open, unmerged, mergeable, based on `main` at `4afa9e94bc3938e3138ce2045afc380582b24c71`, and uses the exact branch containing the builder commit. Independent QA remains required.
 
 ## Surprises & Discoveries
 
