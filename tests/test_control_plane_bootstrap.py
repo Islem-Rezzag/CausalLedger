@@ -1393,7 +1393,8 @@ def test_41_missing_package_file_is_rejected_from_fixture(tmp_path, monkeypatch)
     assert validator.validate_package_scaffolds() == [
         "package scaffold missing files: packages/events -> "
         "src/money-event-validation.ts, src/money-event.ts, test/bootstrap.test.ts, "
-        "test/money-event-fixtures.test.ts, test/money-event-types.test.ts, "
+        "test/money-event-fixture-manifest.ts, test/money-event-fixtures.test.ts, "
+        "test/money-event-types.test.ts, "
         "test/money-event-validation.test.ts"
     ]
 

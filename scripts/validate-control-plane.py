@@ -55,12 +55,14 @@ M03_04_EVENTS_RUNTIME_BOUNDARY_FILES = [
 
 M03_05_EVENTS_FIXTURE_FILES = [
     *M03_04_EVENTS_RUNTIME_BOUNDARY_FILES,
+    "test/money-event-fixture-manifest.ts",
     "test/money-event-fixtures.test.ts",
 ]
 
 M03_05_EVALS_SEED_FILES = [
     *APPROVED_PACKAGE_SCAFFOLD_FILES,
     "test/money-event-seed-cases.test.ts",
+    "test/money-event-seed-manifest.ts",
 ]
 
 PACKAGE_SCRIPT_NAMES = ["build", "typecheck", "typecheck:test", "test", "lint", "format:check"]
@@ -162,8 +164,10 @@ M03_04_ALLOWED_MONEYEVENT_RUNTIME_PATHS = {
 M03_05_ALLOWED_MONEYEVENT_PATHS = M03_04_ALLOWED_MONEYEVENT_RUNTIME_PATHS | {
     M03_05_FIXTURE_MANIFEST,
     M03_05_SEED_MANIFEST,
+    "packages/events/test/money-event-fixture-manifest.ts",
     "packages/events/test/money-event-fixtures.test.ts",
     "packages/evals/test/money-event-seed-cases.test.ts",
+    "packages/evals/test/money-event-seed-manifest.ts",
 }
 
 M03_05_FIXTURE_REQUIRED_CATEGORIES = {
@@ -173,8 +177,21 @@ M03_05_FIXTURE_REQUIRED_CATEGORIES = {
     "settlement_payout_row",
     "bank_deposit_line",
     "duplicate_provider_webhook",
+    "distinct_evidence_preserved",
     "conflicting_amount",
     "missing_currency",
+    "missing_required_field",
+    "unsupported_contract_version",
+    "invalid_identifier",
+    "missing_primary_evidence",
+    "provenance_mismatch",
+    "invalid_minor_units",
+    "invalid_timestamp",
+    "invalid_idempotency_key",
+    "missing_relationship_target",
+    "invalid_lifecycle_state",
+    "missing_uncertainty_reason",
+    "unsupported_transformation_boundary",
 }
 
 M03_05_DOC_REQUIRED_PHRASES = [
@@ -1316,6 +1333,21 @@ def validate_m03_05_fixture_and_seed_data() -> list[str]:
     except (json.JSONDecodeError, OSError) as exc:
         return [f"{M03_05_SEED_MANIFEST} is not readable JSON: {exc}"]
 
+    if not isinstance(fixtures, dict):
+        return ["M03.05 fixture manifest root must be an object"]
+    if not isinstance(seeds, dict):
+        return ["M03.05 seed manifest root must be an object"]
+
+    fixture_root_fields = {
+        "schemaVersion",
+        "status",
+        "description",
+        "deterministic",
+        "financialTruth",
+        "cases",
+    }
+    if set(fixtures) != fixture_root_fields:
+        errors.append("M03.05 fixture manifest root fields must match the reviewed schema")
     if fixtures.get("schemaVersion") != "m03.05-money-event-fixtures.v1":
         errors.append("M03.05 fixture manifest has the wrong schemaVersion")
     if fixtures.get("status") != "controlled-synthetic-fixtures":
@@ -1326,8 +1358,8 @@ def validate_m03_05_fixture_and_seed_data() -> list[str]:
         errors.append("M03.05 fixture manifest must declare financialTruth false")
 
     fixture_cases = fixtures.get("cases")
-    if not isinstance(fixture_cases, list) or len(fixture_cases) < 8:
-        errors.append("M03.05 fixture manifest must contain at least eight cases")
+    if not isinstance(fixture_cases, list) or len(fixture_cases) != 21:
+        errors.append("M03.05 fixture manifest must contain exactly 21 reviewed cases")
         fixture_cases = []
     fixture_ids = [case.get("fixtureId") for case in fixture_cases if isinstance(case, dict)]
     if len(fixture_ids) != len(set(fixture_ids)):
@@ -1345,7 +1377,7 @@ def validate_m03_05_fixture_and_seed_data() -> list[str]:
     if re.search(r"https?://", fixture_text, re.IGNORECASE):
         errors.append("M03.05 fixtures must not contain live HTTP references")
     if re.search(
-        r'"(?:password|secret|token|authorization|rawPayload)"\s*:',
+        r'"(?:password|passwd|secret|token|authorization|api.?key|private.?key|client.?secret|cookie|session|email|phone|address|full.?name|raw.?payload)"\s*:',
         fixture_text,
         re.IGNORECASE,
     ):
@@ -1354,6 +1386,30 @@ def validate_m03_05_fixture_and_seed_data() -> list[str]:
         if not isinstance(case, dict):
             errors.append("M03.05 fixture cases must be objects")
             continue
+        expected_case_fields = {
+            "fixtureId",
+            "category",
+            "coverageTags",
+            "evidenceType",
+            "sourceSystem",
+            "rawEvidenceReferences",
+            "candidate",
+            "expectation",
+        }
+        if set(case) != expected_case_fields:
+            errors.append(
+                f"M03.05 fixture {case.get('fixtureId')} fields must match the reviewed schema"
+            )
+        coverage_tags = case.get("coverageTags")
+        if (
+            not isinstance(coverage_tags, list)
+            or not coverage_tags
+            or any(not isinstance(tag, str) or not tag for tag in coverage_tags)
+            or len(coverage_tags) != len(set(coverage_tags))
+        ):
+            errors.append(
+                f"M03.05 fixture {case.get('fixtureId')} must have unique coverage tags"
+            )
         source_system = case.get("sourceSystem")
         if not isinstance(source_system, str) or not source_system.startswith(
             "controlled-"
@@ -1363,6 +1419,15 @@ def validate_m03_05_fixture_and_seed_data() -> list[str]:
             errors.append(
                 f"M03.05 fixture {case.get('fixtureId')} must cite evidence references"
             )
+        candidate = case.get("candidate")
+        if not isinstance(candidate, dict):
+            errors.append(f"M03.05 fixture {case.get('fixtureId')} candidate must be an object")
+        elif not isinstance(candidate.get("source"), dict) or candidate["source"].get(
+            "sourceId"
+        ) != source_system:
+            errors.append(
+                f"M03.05 fixture {case.get('fixtureId')} candidate source must match sourceSystem"
+            )
         expectation = case.get("expectation")
         if not isinstance(expectation, dict) or expectation.get("outcome") not in {
             "valid",
@@ -1371,7 +1436,77 @@ def validate_m03_05_fixture_and_seed_data() -> list[str]:
             errors.append(
                 f"M03.05 fixture {case.get('fixtureId')} has no valid expectation"
             )
+            continue
+        if expectation["outcome"] == "valid":
+            if set(expectation) != {"outcome", "normalized"}:
+                errors.append(
+                    f"M03.05 fixture {case.get('fixtureId')} valid expectation fields are incomplete"
+                )
+                continue
+            normalized = expectation.get("normalized")
+            expected_normalized_fields = {
+                "id",
+                "contractVersion",
+                "kind",
+                "source",
+                "evidence",
+                "provenance",
+                "amount",
+                "primaryParty",
+                "relatedParties",
+                "object",
+                "eventTime",
+                "observedTime",
+                "idempotencyKey",
+                "relationships",
+                "lifecycleState",
+                "uncertainty",
+            }
+            if not isinstance(normalized, dict) or set(normalized) != expected_normalized_fields:
+                errors.append(
+                    f"M03.05 fixture {case.get('fixtureId')} must contain a full normalized snapshot"
+                )
+            elif not isinstance(normalized.get("amount"), dict) or not isinstance(
+                normalized["amount"].get("minorUnits"), str
+            ):
+                errors.append(
+                    f"M03.05 fixture {case.get('fixtureId')} normalized minorUnits must be a string"
+                )
+        else:
+            if set(expectation) != {"outcome", "issues"}:
+                errors.append(
+                    f"M03.05 fixture {case.get('fixtureId')} invalid expectation fields are incomplete"
+                )
+                continue
+            issues = expectation.get("issues")
+            issue_keys = []
+            if not isinstance(issues, list) or not issues:
+                errors.append(
+                    f"M03.05 fixture {case.get('fixtureId')} must contain expected issues"
+                )
+                continue
+            for issue in issues:
+                if not isinstance(issue, dict) or set(issue) != {"code", "path"}:
+                    errors.append(
+                        f"M03.05 fixture {case.get('fixtureId')} has a malformed expected issue"
+                    )
+                    continue
+                issue_keys.append((issue.get("path"), issue.get("code")))
+            if len(issue_keys) != len(set(issue_keys)):
+                errors.append(
+                    f"M03.05 fixture {case.get('fixtureId')} has duplicate expected issues"
+                )
 
+    seed_root_fields = {
+        "schemaVersion",
+        "status",
+        "description",
+        "scoringImplemented",
+        "benchmarkResults",
+        "cases",
+    }
+    if set(seeds) != seed_root_fields:
+        errors.append("M03.05 seed manifest root fields must match the reviewed schema")
     if seeds.get("schemaVersion") != "m03.05-moneyflowbench-seeds.v1":
         errors.append("M03.05 seed manifest has the wrong schemaVersion")
     if seeds.get("status") != "seed-cases-only":
@@ -1382,8 +1517,8 @@ def validate_m03_05_fixture_and_seed_data() -> list[str]:
         errors.append("M03.05 seed manifest must not contain benchmark results")
 
     seed_cases = seeds.get("cases")
-    if not isinstance(seed_cases, list) or len(seed_cases) < 7:
-        errors.append("M03.05 seed manifest must contain at least seven cases")
+    if not isinstance(seed_cases, list) or len(seed_cases) != 7:
+        errors.append("M03.05 seed manifest must contain exactly seven reviewed cases")
         seed_cases = []
     seed_ids = [case.get("seedId") for case in seed_cases if isinstance(case, dict)]
     if len(seed_ids) != len(set(seed_ids)):
@@ -1393,6 +1528,23 @@ def validate_m03_05_fixture_and_seed_data() -> list[str]:
         if not isinstance(case, dict):
             errors.append("M03.05 seed cases must be objects")
             continue
+        expected_seed_fields = {
+            "seedId",
+            "fixtureIds",
+            "task",
+            "expectedOutcome",
+            "expectedEvidenceReferences",
+            "expectedUncertaintyStates",
+            "requiredFindings",
+            "prohibitedClaims",
+            "evaluationPolicy",
+        }
+        if case.get("expectedOutcome") == "deterministic_rejection":
+            expected_seed_fields.add("expectedValidationIssues")
+        if set(case) != expected_seed_fields:
+            errors.append(
+                f"M03.05 seed {case.get('seedId')} fields must match the reviewed schema"
+            )
         unknown_fixture_ids = sorted(
             set(case.get("fixtureIds", [])) - known_fixture_ids
         )
@@ -1401,7 +1553,7 @@ def validate_m03_05_fixture_and_seed_data() -> list[str]:
                 f"M03.05 seed {case.get('seedId')} references unknown fixtures: "
                 + ", ".join(unknown_fixture_ids)
             )
-        if not case.get("expectedEvidenceReceiptIds"):
+        if not case.get("expectedEvidenceReferences"):
             errors.append(
                 f"M03.05 seed {case.get('seedId')} must cite expected evidence"
             )

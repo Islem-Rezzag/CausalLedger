@@ -8,7 +8,7 @@ M03.04 introduces one tightly scoped product runtime boundary. Its deferred deci
 - Evolve test framework conventions for product/domain tests once product implementation starts.
 - Extend test typecheck conventions as future product packages add non-scaffold test layouts.
 - Decide whether a future runtime schema framework is warranted; M03.04 uses dependency-free strict validation over a JSON-safe candidate.
-- Add reviewed MoneyEvent fixture data and benchmark seed cases only in M03.05.
+- Extend the reviewed M03.05 MoneyEvent fixtures or benchmark seeds only through a separately scoped future slice that preserves strict manifest validation and evidence grounding.
 - Define source-specific parsing and idempotency derivation, authoritative currency-registry validation, storage representation, cross-event deduplication, lifecycle transitions, and accounting direction in separately scoped future work.
 - Define professional engineering evidence for future error handling, structured logging, deployment documentation, auth/authz design, and scalable data modeling.
 

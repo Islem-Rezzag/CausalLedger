@@ -2,6 +2,13 @@
 
 ## 2026-07-31
 
+- Independent M03.05 QA verified the exact branch, clean starting tree, GitHub origin, M03.04-finalization ancestry, builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, PR #55 branch/base/mergeability, and successful starting-head CI.
+- QA found and fixed five scoped contract weaknesses: manifests were type-cast instead of strictly parsed, valid expectations were partial, invalid expectations allowed extra issues, the canonical invalid corpus was too narrow, and `expectedEvidenceReceiptIds` mislabelled non-receipt references.
+- The reviewed fixture corpus now has 21 cases: eight full JSON-safe normalized snapshots and 13 exact deterministic-rejection expectations across the major contract families. The seven seed cases now use truthful `expectedEvidenceReferences` and exact fixture grounding.
+- Added strict test-only fixture and seed manifest parsers plus mutation tests for root/record/field/ID/tag/reference/outcome/snapshot/issue/policy/output/score/result failures. Production source and runtime dependencies did not change.
+- Independent QA validation passed: control plane; 102 bootstrap tests; frozen install; events typecheck/build/lint/format and 97 tests; evals typecheck/build/lint/format and 42 tests; all 13-package workspace checks; diff and data-hygiene inspection; and dirty-mode QA with 17 PASS, 0 FAIL, and 2 SKIPPED.
+- The requested `corepack pnpm format` command is not a repository script and failed as an unsupported pnpm command. The repository-defined `corepack pnpm format:check` equivalent passed across all packages. Docker remained an optional skip because infrastructure did not change.
+- M03.05 is `QA passed, awaiting merge` on PR #55. M03.06 and M04 through M21 remain `Not started`. Exact next thread: `Merge M03.05 PR - MoneyEvent Test Fixtures and Benchmark Seed Cases`.
 - Started M03.05 Builder on `m03-05-moneyevent-test-fixtures-benchmark-seeds` after repository discovery confirmed `C:/Users/moham/Desktop/CausalLedger` and the exact GitHub origin.
 - Fetched and fast-forwarded `main`, confirmed M03.04 finalization commit `4afa9e94bc3938e3138ce2045afc380582b24c71`, and safely reused the clean local M03.05 branch because it had no commits unique from `main` and pointed to the same commit.
 - Confirmed the exact branch, clean worktree, `main` ancestry, and repository-local identity `Mohamed Islem Rezzag Baara <Islem-Rezzag@users.noreply.github.com>` before edits.

@@ -50,24 +50,24 @@ A MoneyEvent is not an LLM explanation. LLM output may explain or propose, but i
 
 These are conceptual fields, not a schema:
 
-| Concept | Meaning |
-| --- | --- |
-| Event identity | A future durable identity for the canonical event, expected to follow the ADR-0008 `evt_` direction when implemented. |
-| Source identity | The source system, file, provider, internal system, or simulator context that supplied the source evidence. |
-| Source type | The category of source evidence, such as provider webhook, provider API record, settlement file, bank statement, internal record, or controlled simulator output. |
-| Evidence references | References to evidence receipts, raw payload hashes, source records, file rows, or receipt identifiers that support the event. |
-| Provenance | How the event was derived, when it was observed, what source record or receipt it came from, and what transformation boundary produced it. |
-| Amount | Money amount in integer minor units only. |
-| Currency | ISO 4217 currency code. Currency is required wherever an amount is present. |
-| Actor or account party | The merchant, customer, platform, provider, account, counterparty, or other role involved when evidence supports that relationship. |
-| Object or financial instrument reference | The payment, refund, chargeback, payout, settlement row, bank line, ledger reference, or other financial object the event concerns. |
-| Event kind | The lifecycle meaning, such as provider payment captured, refund created, chargeback opened, payout row observed, or bank deposit observed. |
-| Event time | The source event time asserted by the source, when available. |
-| Observed time | The time CausalLedger observed, ingested, received, or recorded the source evidence. |
-| Idempotency key | A future deterministic key used to prevent duplicate source deliveries or replayed evidence from creating duplicate MoneyEvents. |
-| Causation or correlation references | References that link related events, such as original payment, refund, chargeback, settlement, payout, or bank evidence. |
-| Uncertainty and confidence boundaries | Explicit representation of missing, delayed, partial, ambiguous, conflicting, or provider-only evidence. |
-| Raw evidence locator or receipt reference | A pointer to the source material or evidence receipt. The MoneyEvent does not replace raw evidence. |
+| Concept                                   | Meaning                                                                                                                                                           |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Event identity                            | A future durable identity for the canonical event, expected to follow the ADR-0008 `evt_` direction when implemented.                                             |
+| Source identity                           | The source system, file, provider, internal system, or simulator context that supplied the source evidence.                                                       |
+| Source type                               | The category of source evidence, such as provider webhook, provider API record, settlement file, bank statement, internal record, or controlled simulator output. |
+| Evidence references                       | References to evidence receipts, raw payload hashes, source records, file rows, or receipt identifiers that support the event.                                    |
+| Provenance                                | How the event was derived, when it was observed, what source record or receipt it came from, and what transformation boundary produced it.                        |
+| Amount                                    | Money amount in integer minor units only.                                                                                                                         |
+| Currency                                  | ISO 4217 currency code. Currency is required wherever an amount is present.                                                                                       |
+| Actor or account party                    | The merchant, customer, platform, provider, account, counterparty, or other role involved when evidence supports that relationship.                               |
+| Object or financial instrument reference  | The payment, refund, chargeback, payout, settlement row, bank line, ledger reference, or other financial object the event concerns.                               |
+| Event kind                                | The lifecycle meaning, such as provider payment captured, refund created, chargeback opened, payout row observed, or bank deposit observed.                       |
+| Event time                                | The source event time asserted by the source, when available.                                                                                                     |
+| Observed time                             | The time CausalLedger observed, ingested, received, or recorded the source evidence.                                                                              |
+| Idempotency key                           | A future deterministic key used to prevent duplicate source deliveries or replayed evidence from creating duplicate MoneyEvents.                                  |
+| Causation or correlation references       | References that link related events, such as original payment, refund, chargeback, settlement, payout, or bank evidence.                                          |
+| Uncertainty and confidence boundaries     | Explicit representation of missing, delayed, partial, ambiguous, conflicting, or provider-only evidence.                                                          |
+| Raw evidence locator or receipt reference | A pointer to the source material or evidence receipt. The MoneyEvent does not replace raw evidence.                                                               |
 
 ## Lifecycle Meaning
 
@@ -177,7 +177,7 @@ Conflicting provider and bank evidence: provider evidence says a payout was paid
 
 ## Deferred Decisions
 
-M03.04 defines the initial source-neutral runtime candidate, validation issue model, and deterministic normalizer. It does not use a schema framework, parse arbitrary JSON text or source payloads, ingest or store events, or decide financial truth. Source-specific parsing, storage, database representation, and actual M03.05 fixture data remain deferred.
+M03.04 defines the initial source-neutral runtime candidate, validation issue model, and deterministic normalizer. M03.05 adds controlled synthetic fixture data and test-only benchmark seed metadata against that boundary. Neither slice uses a runtime schema framework, parses arbitrary JSON text or source payloads, ingests or stores events, or decides financial truth. Source-specific parsing, storage, database representation, benchmark execution, and scoring remain deferred.
 
 The signed-versus-directional amount model is deferred because it affects ledger mapping, invariants, replay, and repair semantics.
 

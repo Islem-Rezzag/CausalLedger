@@ -100,7 +100,7 @@ Completed execution:
 
 Active execution:
 
-- M03 Canonical MoneyEvent Engine is active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M03 planning and M03.01 through M03.04 are completed and merged; M03.04 finalization merged at `4afa9e94bc3938e3138ce2045afc380582b24c71`. M03.05 is `Builder complete, awaiting QA` on `m03-05-moneyevent-test-fixtures-benchmark-seeds`; M03.06 remains `Not started`.
+- M03 Canonical MoneyEvent Engine is active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M03 planning and M03.01 through M03.04 are completed and merged; M03.04 finalization merged at `4afa9e94bc3938e3138ce2045afc380582b24c71`. M03.05 is `QA passed, awaiting merge` on `m03-05-moneyevent-test-fixtures-benchmark-seeds` and PR #55; M03.06 remains `Not started`.
 
 Plan state:
 

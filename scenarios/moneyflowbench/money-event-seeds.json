@@ -10,7 +10,7 @@
       "fixtureIds": ["provider-capture-provider-only"],
       "task": "Explain what the controlled provider capture supports and what remains unconfirmed.",
       "expectedOutcome": "evidence_grounded_summary",
-      "expectedEvidenceReceiptIds": ["rcpt_fixture_capture_primary"],
+      "expectedEvidenceReferences": ["rcpt_fixture_capture_primary"],
       "expectedUncertaintyStates": ["provider_only"],
       "requiredFindings": [
         "A controlled provider record supports a captured-payment candidate.",
@@ -39,7 +39,7 @@
       "fixtureIds": ["provider-refund-partial-chain"],
       "task": "Describe the refund evidence and retain the missing settlement boundary.",
       "expectedOutcome": "evidence_grounded_summary",
-      "expectedEvidenceReceiptIds": [
+      "expectedEvidenceReferences": [
         "rcpt_fixture_refund_primary",
         "expected-settlement-refund-1"
       ],
@@ -70,7 +70,7 @@
       "fixtureIds": ["chargeback-opened-unresolved"],
       "task": "Summarize the chargeback opening without inventing its outcome or accounting impact.",
       "expectedOutcome": "evidence_grounded_summary",
-      "expectedEvidenceReceiptIds": ["rcpt_fixture_chargeback_primary"],
+      "expectedEvidenceReferences": ["rcpt_fixture_chargeback_primary"],
       "expectedUncertaintyStates": ["unresolved"],
       "requiredFindings": [
         "The controlled evidence supports only that a chargeback was opened.",
@@ -99,7 +99,7 @@
       "fixtureIds": ["settlement-payout-delayed-bank-evidence"],
       "task": "Explain the payout row while preserving delayed bank evidence and event-time versus observed-time distinctions.",
       "expectedOutcome": "evidence_grounded_summary",
-      "expectedEvidenceReceiptIds": [
+      "expectedEvidenceReferences": [
         "rcpt_fixture_settlement_primary",
         "expected-bank-payout-1"
       ],
@@ -130,7 +130,7 @@
       "fixtureIds": ["bank-deposit-ambiguous-payout-match"],
       "task": "Report the bank posting and explain why the payout relationship remains ambiguous.",
       "expectedOutcome": "evidence_grounded_summary",
-      "expectedEvidenceReceiptIds": ["rcpt_fixture_bank_primary"],
+      "expectedEvidenceReferences": ["rcpt_fixture_bank_primary"],
       "expectedUncertaintyStates": ["ambiguous_reference"],
       "requiredFindings": [
         "A controlled bank line was observed.",
@@ -158,7 +158,7 @@
       "fixtureIds": ["provider-bank-conflicting-amount"],
       "task": "Describe the provider-bank conflict without selecting one source as final truth.",
       "expectedOutcome": "evidence_grounded_summary",
-      "expectedEvidenceReceiptIds": [
+      "expectedEvidenceReferences": [
         "rcpt_fixture_payout_provider",
         "rcpt_fixture_payout_bank_conflict"
       ],
@@ -190,7 +190,7 @@
       "fixtureIds": ["provider-capture-missing-currency"],
       "task": "State why the candidate is rejected without inventing a currency.",
       "expectedOutcome": "deterministic_rejection",
-      "expectedEvidenceReceiptIds": ["rcpt_fixture_missing_currency"],
+      "expectedEvidenceReferences": ["rcpt_fixture_missing_currency"],
       "expectedUncertaintyStates": ["missing_evidence"],
       "expectedValidationIssues": [
         { "code": "currency_required", "path": "$.amount.currency" }

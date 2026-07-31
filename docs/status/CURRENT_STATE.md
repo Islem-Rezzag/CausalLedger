@@ -8,11 +8,11 @@ M03 planning PR #47 merged into `main` at `0606d3b21c05f2cf98397c9f5b0f1eddfa104
 
 ## Current submilestone and branch
 
-Current slice: `M03.05 MoneyEvent Test Fixtures and Benchmark Seed Cases` (`Builder complete, awaiting QA`).
+Current slice: `M03.05 MoneyEvent Test Fixtures and Benchmark Seed Cases` (`QA passed, awaiting merge`).
 
 Current branch: `m03-05-moneyevent-test-fixtures-benchmark-seeds`.
 
-M03.01 through M03.04 are `Completed and merged`. M03.04 finalization merged into `main` at `4afa9e94bc3938e3138ce2045afc380582b24c71`. M03.05 is `Builder complete, awaiting QA`; M03.06 is `Not started`. M04 through M21 remain `Not started`.
+M03.01 through M03.04 are `Completed and merged`. M03.04 finalization merged into `main` at `4afa9e94bc3938e3138ce2045afc380582b24c71`. M03.05 is `QA passed, awaiting merge` on PR #55; M03.06 is `Not started`. M04 through M21 remain `Not started`.
 
 M03.03 includes the verifier-driven loop strategy amendment merged through PR #51. The amendment remains documentation and planning only.
 
@@ -37,13 +37,18 @@ No autonomous loop automation, self-grading AI loop, production write loop, or l
 
 ## Next action
 
-Run independent `M03.05 QA - MoneyEvent Test Fixtures and Benchmark Seed Cases` on branch `m03-05-moneyevent-test-fixtures-benchmark-seeds` and draft PR #55. Do not begin M03.06 until M03.05 receives QA PASS, is merged, and its tracking is finalized.
+Use `Merge M03.05 PR - MoneyEvent Test Fixtures and Benchmark Seed Cases` after final remote CI is green. Human operators merge PR #55; do not begin M03.06 until M03.05 is merged and post-merge tracking is finalized.
 
 ## Latest validation
 
+- 2026-07-31 independent M03.05 QA passed after scoped fixes. The corpus now has 21 controlled cases: eight complete JSON-safe normalized snapshots and 13 exact deterministic-rejection expectations. Strict test-only parsers reject malformed fixture and seed manifests, duplicate or unknown references, incomplete snapshots, inexact issues, ungrounded seed expectations, embedded outputs, scores, or results.
+- QA validation passed: control plane; 102 bootstrap tests; frozen install across 14 projects; events package typecheck, build, lint, format, and 4-file/97-test run; evals package typecheck, build, lint, format, and 2-file/42-test run; all typecheck, lint, test, build, and format checks across 13 packages; diff check; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
+- The requested `corepack pnpm format` invocation is not a repository script and returned pnpm's `Required parameter missing -` error. The repository-defined equivalent `corepack pnpm format:check` passed across all 13 packages. Docker validation was optional and skipped because infrastructure did not change; the dirty-worktree gate was intentionally skipped only for intermediate validation.
+- QA verified PR #55 was the only open PR for the exact branch, targeted `main`, contained builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, was mergeable, and had successful starting-head CI. Final remote CI on the QA commit remains required before human merge.
+- Forbidden-scope inspection passed: no production source, source-specific mapper, simulator execution, benchmark runner or scoring, model call, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent tool, external communication, raw-evidence mutation, repair approval, or money mutation was added.
 - 2026-07-31 post-commit clean-worktree QA passed with 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`; only optional Docker validation was skipped. Builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f` was pushed, and draft PR #55 was verified open, unmerged, mergeable, based on `main` at `4afa9e94bc3938e3138ce2045afc380582b24c71`, and using the exact M03.05 branch containing the builder commit.
 - 2026-07-31 M03.05 Builder validation passed: control plane; 102 bootstrap tests; diff check; frozen install across 14 projects; events-package typecheck, 4-file/71-test run, build, lint, and format; evals-package typecheck, 2-file/5-test run, build, lint, and format; full typecheck, lint, test, build, and format across all 13 packages; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
-- Fixture and seed inspection passed for eight controlled candidate cases and seven seed cases, unique IDs and references, required evidence and uncertainty grounding, deterministic expected outputs, invalid-input atomicity, hallucination/unsupported-certainty/unsafe-action failure policies, and explicit absence of scoring and benchmark results.
+- Builder fixture and seed inspection initially covered eight controlled candidate cases and seven seed cases; independent QA supersedes that evidence with the expanded 21-case fixture corpus, full snapshots, exact issues, strict manifest parsers, and exact seed grounding recorded above.
 - Initial focused checks exposed and resolved three local defects before the final pass: missing Node test types, an invalid Unicode regular-expression escape in the fixture test, and two stale bootstrap assertions. No known required validation failure remains.
 - Forbidden-scope inspection passed: no runtime source, source-specific mapper, simulator execution, benchmark runner or scoring, model call, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent tool, external communication, raw-evidence mutation, repair approval, or money mutation was added.
 - Docker validation was optional and skipped because infrastructure did not change and Docker is unavailable. The dirty-worktree gate was intentionally skipped during authorized builder edits. `make` and GitHub CLI are unavailable; direct required commands passed, and the connected GitHub integration is used for PR metadata. The frozen install emitted the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
