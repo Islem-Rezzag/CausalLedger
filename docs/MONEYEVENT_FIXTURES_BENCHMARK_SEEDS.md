@@ -4,7 +4,7 @@
 
 M03.05 provides a reviewed controlled MoneyEvent candidate corpus and early MoneyFlowBench seed metadata. The artifacts are deterministic synthetic test inputs. They are not raw evidence, production events, or benchmark results, and they are not financial truth.
 
-M03.05 is `Builder complete, awaiting QA` on `m03-05-moneyevent-test-fixtures-benchmark-seeds`. Independent QA and PR merge remain required before M03.05 can be called completed.
+M03.05 is `Builder complete, awaiting QA` on `m03-05-moneyevent-test-fixtures-benchmark-seeds` and draft PR #55. Independent QA and PR merge remain required before M03.05 can be called completed.
 
 ## Purpose
 

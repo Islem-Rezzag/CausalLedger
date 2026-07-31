@@ -51,6 +51,6 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 - M03 planning and M03.01 through M03.04 are completed and merged. PR #53 merged M03.04 into `main` at `572dc150e38782620416350004630b690c00e687` after QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`; finalization merged at `4afa9e94bc3938e3138ce2045afc380582b24c71`. M03.05 is `Builder complete, awaiting QA`; M03.06 remains `Not started`.
 - M04-M21 remain `Not started`.
 - The first scoped product runtime behavior is M03.04 source-neutral MoneyEvent candidate validation and deterministic normalization; no ingestion, storage, database, API, ledger, incident, graph, replay, repair, agent, or money-mutation behavior exists.
-- The exact next thread is `M03.05 QA - MoneyEvent Test Fixtures and Benchmark Seed Cases` on `m03-05-moneyevent-test-fixtures-benchmark-seeds` and its draft PR.
+- The exact next thread is `M03.05 QA - MoneyEvent Test Fixtures and Benchmark Seed Cases` on `m03-05-moneyevent-test-fixtures-benchmark-seeds` and draft PR #55.
 - Versioning strategy is documented in `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed registry.

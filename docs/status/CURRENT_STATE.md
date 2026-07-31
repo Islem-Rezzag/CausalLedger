@@ -37,10 +37,11 @@ No autonomous loop automation, self-grading AI loop, production write loop, or l
 
 ## Next action
 
-Run independent `M03.05 QA - MoneyEvent Test Fixtures and Benchmark Seed Cases` on the same branch and draft PR. Do not begin M03.06 until M03.05 receives QA PASS, is merged, and its tracking is finalized.
+Run independent `M03.05 QA - MoneyEvent Test Fixtures and Benchmark Seed Cases` on branch `m03-05-moneyevent-test-fixtures-benchmark-seeds` and draft PR #55. Do not begin M03.06 until M03.05 receives QA PASS, is merged, and its tracking is finalized.
 
 ## Latest validation
 
+- 2026-07-31 post-commit clean-worktree QA passed with 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`; only optional Docker validation was skipped. Builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f` was pushed, and draft PR #55 was verified open, unmerged, mergeable, based on `main` at `4afa9e94bc3938e3138ce2045afc380582b24c71`, and headed by the exact M03.05 branch and builder commit.
 - 2026-07-31 M03.05 Builder validation passed: control plane; 102 bootstrap tests; diff check; frozen install across 14 projects; events-package typecheck, 4-file/71-test run, build, lint, and format; evals-package typecheck, 2-file/5-test run, build, lint, and format; full typecheck, lint, test, build, and format across all 13 packages; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
 - Fixture and seed inspection passed for eight controlled candidate cases and seven seed cases, unique IDs and references, required evidence and uncertainty grounding, deterministic expected outputs, invalid-input atomicity, hallucination/unsupported-certainty/unsafe-action failure policies, and explicit absence of scoring and benchmark results.
 - Initial focused checks exposed and resolved three local defects before the final pass: missing Node test types, an invalid Unicode regular-expression escape in the fixture test, and two stale bootstrap assertions. No known required validation failure remains.
