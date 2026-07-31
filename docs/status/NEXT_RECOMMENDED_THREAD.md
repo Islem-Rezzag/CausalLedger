@@ -1,10 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-M03.05 Builder - MoneyEvent Test Fixtures and Benchmark Seed Cases
+M03.05 QA - MoneyEvent Test Fixtures and Benchmark Seed Cases
 
 Precondition:
-PR #53 merged M03.04 into `main` at `572dc150e38782620416350004630b690c00e687` after QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`. M03.04 merge-finalization PR #54 must merge into `main`, and local `main` must be updated, before M03.05 begins.
+M03.05 Builder validation must be committed and pushed on `m03-05-moneyevent-test-fixtures-benchmark-seeds`, with its draft PR open against `main`. M03.04 finalization is already merged at `4afa9e94bc3938e3138ce2045afc380582b24c71`.
 
 Scope:
-After the precondition is satisfied, build the reviewed MoneyEvent fixture corpus and benchmark seed cases scoped by M03.05. Until then, M03.05 and M03.06 remain `Not started`; this finalization thread must not add fixture data, simulator data, benchmark scoring, source-specific parsing, ingestion, storage, database, API, UI, ledger, invariant, incident, graph, replay, repair, agent, connector, production-write, or money-mutation behavior.
+Independently inspect the controlled candidate corpus, early MoneyFlowBench seed metadata, events/evals test verification, documentation, control-plane allowlists, validation evidence, and full diff. Confirm deterministic normalization and rejection expectations, evidence/provenance grounding, uncertainty preservation, hallucination and unsafe-action policies, and the absence of scoring or benchmark results. Run the full QA validation ladder on the same branch and PR. Do not add source-specific mapping, simulator execution, benchmark scoring or results, ingestion, storage, database, API, UI, ledger, invariant, incident, graph, replay, repair, agent, connector, production-write, raw-evidence mutation, repair approval, or money-mutation behavior. M03.06 remains `Not started` until QA PASS and merge.

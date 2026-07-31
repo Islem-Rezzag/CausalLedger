@@ -71,7 +71,8 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/DOMAIN_MODEL.md` - canonical M01 domain model summary.
 - `docs/MONEYEVENT_CONTRACT.md` - M03.01 conceptual MoneyEvent contract; documentation only, with no runtime schema or product behavior.
 - `docs/MONEYEVENT_MAPPING_FIXTURES.md` - M03.03 evidence-to-MoneyEvent mapping fixture and simulator planning; documentation only, with no fixture data or product behavior.
-- `packages/events/README.md` - M03.02 MoneyEvent TypeScript types plus the M03.04 source-neutral deterministic validator and normalizer; source-specific parsing, ingestion, storage, and downstream product behavior remain deferred.
+- `docs/MONEYEVENT_FIXTURES_BENCHMARK_SEEDS.md` - M03.05 controlled fixture and benchmark seed boundaries, including evidence, uncertainty, hallucination resistance, repeatability, future cost capture, and non-goals.
+- `packages/events/README.md` - M03.02 MoneyEvent TypeScript types, M03.04 source-neutral deterministic validator and normalizer, and M03.05 test-fixture boundary; source-specific parsing, ingestion, storage, and downstream product behavior remain deferred.
 - `docs/domain/README.md` - domain vocabulary directory boundary.
 - `docs/domain/payment-lifecycle.md` - M01.01 payment lifecycle vocabulary and boundaries.
 - `docs/domain/ledger-vocabulary.md` - M01.02 ledger vocabulary and boundaries.
@@ -85,6 +86,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/RELIABILITY.md` - canonical CausalLedger reliability model for deterministic checks, evidence, replay, repair safety, human review, AI boundaries, auditability, metrics, and future dependencies.
 - `docs/THREAT_MODEL.md` - canonical CausalLedger threat model for evidence, deterministic financial truth, repair and human review, agent/tool boundaries, prompt injection, privacy, secrets, supply chain, model cost, ablations, and governance risks.
 - `docs/MONEYEVENT_VALIDATION_NORMALIZATION.md` - M03.04 source-neutral candidate validation, deterministic normalization, issue, money, evidence, provenance, time, uncertainty, and safety rules.
+- `docs/MONEYEVENT_FIXTURES_BENCHMARK_SEEDS.md` - M03.05 versioned controlled data artifacts and deterministic verification boundary.
 - `docs/TOKEN_COST_STRATEGY.md` - cost and model-use strategy for future agentic work.
 - `docs/VERSIONING.md` - versioning policy and release tag discipline.
 - `docs/decisions/ADR-0008-identity-money-and-storage.md` - accepted documentation-only direction for prefixed ULIDs, integer minor-unit money, and planned storage boundaries.
@@ -111,4 +113,4 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-The repository has completed M00 and tagged the repo operating system foundation as `v0.1.0`. M01 and M02 are completed and closed. M03 planning and M03.01 through M03.04 are completed and merged. PR #53 merged M03.04 into `main` at `572dc150e38782620416350004630b690c00e687` after QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`. M03.05 and M03.06 and M04 through M21 remain `Not started`. `packages/events` contains compile-time MoneyEvent types plus source-neutral candidate validation and deterministic normalization. No source-specific parser, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent, connector, UI, or money-mutation behavior exists.
+The repository has completed M00 and tagged the repo operating system foundation as `v0.1.0`. M01 and M02 are completed and closed. M03 planning and M03.01 through M03.04 are completed and merged; M03.04 finalization merged at `4afa9e94bc3938e3138ce2045afc380582b24c71`. M03.05 is `Builder complete, awaiting QA` and M03.06 plus M04 through M21 remain `Not started`. `packages/events` contains compile-time MoneyEvent types plus source-neutral candidate validation and deterministic normalization. The M03.05 branch contains controlled synthetic fixtures, early benchmark seed metadata, and test-only verification. No source-specific parser or mapper, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent, connector, UI, benchmark scoring, or money-mutation behavior exists.

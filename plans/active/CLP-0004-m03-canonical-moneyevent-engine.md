@@ -6,7 +6,7 @@ Plan and execute M03 as a sequence of narrow, evidence-grounded MoneyEvent slice
 
 M03 will define the canonical MoneyEvent engine boundary for future deterministic money-movement processing. The milestone should turn M01 domain language and M02 package scaffolding into a carefully scoped implementation path for canonical event contracts, source mapping, validation, fixtures, and QA.
 
-M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`. M03.01 PR #48 merged into `main` at commit `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`. M03.02 PR #49 merged into `main` at commit `f7e3b54ba6a533a70d34810564be1b8828eec952`. M03.03 PR #51 merged into `main` at commit `03b0b55d988a224a96c2bcd3c30601c6100ab091`, and the merge finalization landed at `737710592544203e039ceee44a732e289c373bb6`. M03.04 PR #53 merged into `main` at commit `572dc150e38782620416350004630b690c00e687` after QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`. M03.05 and M03.06 remain `Not started`.
+M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`. M03.01 PR #48 merged into `main` at commit `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`. M03.02 PR #49 merged into `main` at commit `f7e3b54ba6a533a70d34810564be1b8828eec952`. M03.03 PR #51 merged into `main` at commit `03b0b55d988a224a96c2bcd3c30601c6100ab091`, and the merge finalization landed at `737710592544203e039ceee44a732e289c373bb6`. M03.04 PR #53 merged into `main` at commit `572dc150e38782620416350004630b690c00e687` after QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`; M03.04 finalization merged at `4afa9e94bc3938e3138ce2045afc380582b24c71`. M03.05 is `Builder complete, awaiting QA`, and M03.06 remains `Not started`.
 
 ## Progress
 
@@ -80,6 +80,14 @@ M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1e
 - [x] 2026-07-30: M03.04 Finalization QA passed the exact branch and clean-worktree guard, verified finalization commit `af6bebb19ba6c314ca3ec20c6f27fee29cc46d87`, verified PR #53 merge commit `572dc150e38782620416350004630b690c00e687` and QA source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c` have the same tree, and confirmed PR #54 is open, non-draft, cleanly mergeable, and targets `main` from the expected branch.
 - [x] 2026-07-30: Finalization QA found and fixed two documentation/tracking defects: the validation specification still said independent QA was pending, and current-state tracking still said to open a finalization PR after PR #54 was already open. No runtime, package test, manifest, lockfile, application, infrastructure, migration, or workflow file changed.
 - [x] 2026-07-30: Required finalization QA validation passed locally: control plane, 101 bootstrap tests, diff check, frozen install, all events-package checks with 66 tests, all 13-package workspace checks, and dirty-mode QA with 17 PASS, 0 FAIL, and 2 SKIPPED. Docker, GitHub CLI, and `make` remain unavailable; GitHub API metadata showed the original PR #54 head had successful `validate` and `infra-smoke` checks before the scoped QA fix commit.
+- [x] 2026-07-31: M03.05 repository discovery and branch preparation passed. Repository root is `C:/Users/moham/Desktop/CausalLedger`; origin fetch and push URLs are `https://github.com/Islem-Rezzag/CausalLedger.git`; updated `main` is `4afa9e94bc3938e3138ce2045afc380582b24c71`; M03.04 finalization ancestry passed; and the clean existing `m03-05-moneyevent-test-fixtures-benchmark-seeds` branch was safely reused because it had no commits unique from `main` and pointed to the same commit.
+- [x] 2026-07-31: Verified the active branch is exactly `m03-05-moneyevent-test-fixtures-benchmark-seeds`, the worktree is clean, `main` is an ancestor of `HEAD`, and repository-local identity is `Mohamed Islem Rezzag Baara <Islem-Rezzag@users.noreply.github.com>`.
+- [x] 2026-07-31: Read the required active docs, M03 plan and milestone tracking, MoneyEvent contract/mapping/validation specifications, package code and tests, validation/handoff workflow, and PR protocol before implementation edits.
+- [x] 2026-07-31: Classified M03.05 as Tier 2 and marked it `Builder in progress`. The slice is limited to controlled deterministic JSON fixtures, early benchmark seed metadata, fixture/seed verification tests, documentation, control-plane guards, and durable tracking. M03.06 and M04 through M21 remain `Not started`.
+- [x] 2026-07-31: Added eight controlled synthetic MoneyEvent candidate fixtures and seven early MoneyFlowBench seed cases with deterministic normalization or typed-rejection expectations, evidence and uncertainty grounding, hallucination/unsupported-certainty/unsafe-action policies, repeatability requirements, and explicit absence of scoring and results.
+- [x] 2026-07-31: Added test-only fixture and seed verification, Node test typings, package/data/scenario documentation, the canonical M03.05 boundary specification, exact control-plane allowlists, structural JSON validation, bootstrap coverage, and durable status updates without changing events or evals runtime source.
+- [x] 2026-07-31: Resolved focused-validation findings for missing Node test types, one invalid Unicode regular-expression escape, and two stale bootstrap assertions; then passed the complete required builder validation ladder.
+- [x] 2026-07-31: Marked M03.05 `Builder complete, awaiting QA`. M03.06 and M04 through M21 remain `Not started`; the exact next thread is `M03.05 QA - MoneyEvent Test Fixtures and Benchmark Seed Cases` on the same branch and draft PR.
 
 ## Surprises & Discoveries
 
@@ -168,6 +176,13 @@ M03.03 specifically includes:
 - targeted links from entry, active, index, contract, events, evidence, and eval docs;
 - validator and bootstrap test coverage that requires the M03.03 planning artifact while continuing to block fixture data, simulator data, parser, validator, normalizer, storage, connector, API, UI, ledger, replay, repair, agent runtime, and product behavior.
 
+M03.05 specifically includes:
+
+- a versioned controlled JSON MoneyEvent candidate corpus under `data/fixtures/` covering valid normalization, invalid validation, evidence grounding, duplicate evidence, delayed evidence, conflicting evidence, missing currency, and partial evidence;
+- versioned early MoneyFlowBench seed metadata under `scenarios/` that references fixture IDs and records expected evidence, uncertainty, hallucination/unsupported-claim rejection, repeatability, and future cost-capture requirements;
+- deterministic test-only verification in `packages/events/test/` and `packages/evals/test/` against the existing public source-neutral MoneyEvent boundary;
+- documentation and control-plane validation that distinguish fixture and seed readiness from benchmark scoring, benchmark results, product readiness, financial truth, incident detection, replay correctness, or repair safety.
+
 ## Forbidden Scope
 
 M03.01 must not:
@@ -197,6 +212,14 @@ M03.03 must not:
 - add autonomous loops, self-grading AI loops, production write loops, or loop-driven production money mutation;
 - mutate money, post ledger entries, approve repairs, delete evidence, modify raw events, or override deterministic invariants;
 - start M03.04.
+
+M03.05 must not:
+
+- implement source-specific parsing or mapping, live evidence ingestion, evidence storage, database tables, migrations, API routes, product UI, ledger posting, invariants, incidents, graph behavior, replay, repair behavior, human approval, agent runtime, connectors, simulator source code, simulator execution, or external I/O;
+- implement a benchmark runner, numeric scoring, leaderboards, benchmark result claims, model calls, cost measurement, or autonomous evaluation loops;
+- treat synthetic fixture content, structural validation, seed metadata, or LLM output as financial truth;
+- mutate money, post ledger entries, approve repairs, delete evidence, modify raw events, or override deterministic invariants;
+- start M03.06 or any M04 work.
 
 ## Plan of Work
 
@@ -241,6 +264,17 @@ M03.03 builder work:
 7. Run validation and mark M03.03 Builder complete, awaiting QA.
 8. Commit, push, and open a draft PR if GitHub CLI is available.
 
+M03.05 builder work:
+
+1. Confirm M03.04 finalization commit `4afa9e94bc3938e3138ce2045afc380582b24c71` is present on updated `main`.
+2. Use branch `m03-05-moneyevent-test-fixtures-benchmark-seeds` only after the branch and worktree guards pass.
+3. Finalize M03.04 post-merge tracking and mark M03.05 `Builder in progress`.
+4. Add the controlled MoneyEvent candidate corpus and early benchmark seed metadata without source payloads, secrets, benchmark scoring, or runtime mapping behavior.
+5. Add deterministic fixture and seed verification tests in the owning package test boundaries.
+6. Update package/docs boundaries, control-plane validation, bootstrap tests, and durable tracking.
+7. Run the M03.05 validation ladder and mark M03.05 `Builder complete, awaiting QA` only after required checks pass.
+8. Commit, push, and open the same-branch PR for independent M03.05 QA.
+
 ## Concrete Steps
 
 ### M03.01 Canonical MoneyEvent Concept and Contract Planning
@@ -269,16 +303,16 @@ Runs QA, verifies forbidden scope, confirms deterministic tests and documentatio
 
 ## Validation and Acceptance
 
-Applicable validation ladder for M03.04:
+Applicable validation ladder for M03.05:
 
 - Level 0: branch and worktree guard.
 - Level 1: file and forbidden-scope inspection.
 - Level 2: control-plane validation.
 - Level 3: bootstrap tests.
 - Level 4: diff and whitespace checks.
-- Level 5: package and full-workspace validation for the scoped runtime behavior.
-- Level 6: not applicable because M03.05 fixture, scenario, benchmark, and eval data remain unimplemented.
-- Level 7: safety and forbidden-scope checks for MoneyEvent, financial truth, evidence, and agent boundaries.
+- Level 5: focused events/evals package checks and full-workspace validation for fixture consumers.
+- Level 6: deterministic fixture and seed-case verification, including evidence, uncertainty, hallucination-resistance, repeatability, and deferred cost-capture metadata.
+- Level 7: safety and forbidden-scope checks for MoneyEvent, financial truth, evidence immutability, agent boundaries, benchmark incentives, and prohibited mutation.
 - Level 8: separate submilestone QA before merge.
 
 Required commands:
@@ -533,6 +567,22 @@ Run `make bootstrap-check` only if `make` is available. Record Docker limitation
 - Docker, GitHub CLI, and `make` are unavailable. Docker validation was optional because infrastructure did not change; direct required validation passed, GitHub metadata was obtained through the public API, and no `make` equivalent beyond the direct required commands was omitted.
 - Forbidden-scope inspection passed: the original finalization diff changed only documentation/tracking, and QA fixes remain documentation/tracking only. No runtime implementation, package test, manifest, lockfile, application, infrastructure, migration, workflow, M03.05 fixture, benchmark, external communication, ledger state, raw evidence, repair approval, or money state changed.
 
+2026-07-31 M03.05 Builder validation results:
+
+- Validation ladder: Level 0 exact repository, remote, clean starting worktree, branch, identity, main synchronization, M03.04-finalization ancestry, and existing-branch guard; Level 1 required-file and forbidden-scope inspection; Level 2 control-plane validation; Level 3 bootstrap plus events/evals unit tests; Level 4 diff and whitespace checks; Level 5 focused package and full-workspace checks; Level 6 deterministic fixture and seed grounding; Level 7 financial-truth, evidence, immutability, dependency, benchmark, and agent-tool boundaries; Level 8 independent QA readiness.
+- `python scripts/validate-control-plane.py` passed.
+- `python -m pytest tests/test_control_plane_bootstrap.py` passed with 102 tests.
+- `git diff --check` passed.
+- `corepack pnpm install --frozen-lockfile` passed across all 14 workspace projects with repo-pinned pnpm 10.32.1 and the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
+- Events-package typecheck, 4-file/71-test run, build, ESLint, and format checks passed.
+- Evals-package typecheck, 2-file/5-test run, build, ESLint, and format checks passed.
+- Full typecheck, lint, test, build, and format checks passed across all 13 workspace packages.
+- `corepack pnpm qa:dev --allow-dirty` passed with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`; only the authorized dirty-worktree gate and optional Docker validation were skipped.
+- Controlled-data inspection passed for eight fixture cases and seven seed cases: IDs and references are stable and unique; evidence and uncertainty expectations are grounded; repeated normalization is deterministic and immutable; invalid input returns only typed issues; hallucinated facts, unsupported certainty, and unsafe actions are future failure conditions; and `scoringImplemented` is false with no benchmark results.
+- Focused validation initially found missing Node test types, an invalid Unicode regular-expression escape, and two stale bootstrap assertions. All were corrected before the final passing ladder; no known required validation failure remains.
+- Docker validation was optional because infrastructure did not change and could not run because Docker is unavailable. `make` and GitHub CLI are also unavailable; direct required checks passed, and the connected GitHub integration is used for PR metadata.
+- Forbidden-scope inspection passed: no events/evals runtime source, source-specific mapper, simulator execution, benchmark runner or scoring, model call, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent tool, external communication, raw-evidence mutation, repair approval, or money mutation was added.
+
 Acceptance criteria:
 
 - exactly one active M03 plan exists;
@@ -542,13 +592,14 @@ Acceptance criteria:
 - M03.01 is `Completed and merged`;
 - M03.02 is `Completed and merged`;
 - M03.03 is `Completed and merged` through PR #51 at `03b0b55d988a224a96c2bcd3c30601c6100ab091`;
-- M03.04 is `Completed and merged` through PR #53 at `572dc150e38782620416350004630b690c00e687`; QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`; M03.05 and M03.06 remain `Not started`;
+- M03.04 is `Completed and merged` through PR #53 at `572dc150e38782620416350004630b690c00e687`; QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`, and finalization merged at `4afa9e94bc3938e3138ce2045afc380582b24c71`;
+- M03.05 contains only the reviewed controlled fixture corpus, early seed metadata, deterministic test verification, documentation, and control-plane/tracking updates; its builder state advances only after validation, and M03.06 remains `Not started`;
 - `docs/MONEYEVENT_CONTRACT.md` exists as documentation-only conceptual contract;
 - `packages/events` contains the M03.02 TypeScript types plus the M03.04 source-neutral candidate validator and deterministic normalizer;
 - `docs/MONEYEVENT_MAPPING_FIXTURES.md` exists as documentation-only mapping fixture and simulator planning;
 - the only product runtime behavior is M03.04 structural validation and normalization, which does not establish financial truth;
-- no runtime schema framework, source-specific parser, ingestion, storage, migration, fixture data, simulator data, route, UI, ledger posting, invariant, incident, graph, replay, repair, or agent behavior is created;
-- status docs and handoff point to `M03.05 Builder - MoneyEvent Test Fixtures and Benchmark Seed Cases`, conditional on the merge-finalization PR merging into `main`.
+- no runtime schema framework, source-specific parser or mapper, ingestion, storage, migration, simulator data or execution, benchmark runner or scoring, route, UI, ledger posting, invariant, incident, graph, replay, repair, or agent behavior is created;
+- status docs and handoff point to `M03.05 QA - MoneyEvent Test Fixtures and Benchmark Seed Cases` only after builder validation passes and the branch is pushed.
 
 ## Expected Files
 
@@ -558,10 +609,15 @@ Expected created file:
 - `docs/MONEYEVENT_CONTRACT.md`
 - `docs/MONEYEVENT_MAPPING_FIXTURES.md`
 - `docs/MONEYEVENT_VALIDATION_NORMALIZATION.md`
+- `docs/MONEYEVENT_FIXTURES_BENCHMARK_SEEDS.md`
+- `data/fixtures/money-events/candidates.json`
+- `scenarios/moneyflowbench/money-event-seeds.json`
 - `packages/events/src/money-event.ts`
 - `packages/events/src/money-event-validation.ts`
 - `packages/events/test/money-event-types.test.ts`
 - `packages/events/test/money-event-validation.test.ts`
+- `packages/events/test/money-event-fixtures.test.ts`
+- `packages/evals/test/money-event-seed-cases.test.ts`
 
 Expected changed files:
 
@@ -584,10 +640,17 @@ Expected changed files:
 - `docs/status/WEEKLY_LOG.md`
 - `docs/status/CAPABILITY_MATRIX.md`
 - `packages/events/README.md`
+- `packages/events/package.json`
+- `packages/events/tsconfig.test.json`
+- `packages/evals/package.json`
+- `packages/evals/tsconfig.test.json`
 - `packages/evidence/README.md`
 - `packages/evals/README.md`
+- `data/fixtures/README.md`
+- `scenarios/README.md`
 - `packages/events/src/index.ts`
 - `packages/events/test/bootstrap.test.ts`
+- `pnpm-lock.yaml`
 - `scripts/validate-control-plane.py`
 - `tests/test_control_plane_bootstrap.py`
 
@@ -644,7 +707,7 @@ If the branch diverges or the worktree becomes unexpectedly dirty, stop and insp
 
 ## Artifacts and Notes
 
-This planning branch should leave:
+The active M03 branch should leave:
 
 - one active M03 plan;
 - six lean M03 submilestones;
@@ -653,11 +716,14 @@ This planning branch should leave:
 - M03.02 completed and merged;
 - `docs/MONEYEVENT_CONTRACT.md` as documentation-only conceptual contract;
 - `docs/MONEYEVENT_MAPPING_FIXTURES.md` as documentation-only mapping fixture and simulator planning;
+- `docs/MONEYEVENT_FIXTURES_BENCHMARK_SEEDS.md` as the M03.05 artifact and safety boundary;
+- one controlled deterministic candidate corpus and one early seed manifest with no live evidence or benchmark results;
+- deterministic events/evals tests for fixture outcomes, seed references, evidence grounding, uncertainty, hallucination resistance, repeatability, and future cost-capture requirements;
 - updated status docs;
-- validator/test coverage for active M03 planning state;
+- validator/test coverage for the active M03.05 state and exact artifact allowlist;
 - validation evidence summarized in this plan, status docs, weekly log, registry, and final handoff.
 
-It should not leave any product/domain runtime artifacts, fixture data, simulator data, runtime parsers, runtime validators, storage behavior, connectors, API routes, UI, ledger behavior, replay behavior, repair behavior, or agent runtime.
+It should not leave any live or production evidence, source-specific mapper, simulator data or runtime, new product/domain runtime artifact, benchmark runner or scoring, storage behavior, connector, API route, UI, ledger behavior, replay behavior, repair behavior, or agent runtime.
 
 ## Interfaces and Dependencies
 
@@ -684,7 +750,7 @@ M03 planning QA passed locally for PR #47 on branch `m03-planning-canonical-mone
 
 M03.01 Builder created `docs/MONEYEVENT_CONTRACT.md` as a documentation-only conceptual MoneyEvent contract and updated tracking, status docs, and validation guards. M03.01 QA verified the contract and applied scoped QA status and handoff updates only.
 
-M03.01 through M03.04 are `Completed and merged`. PR #53 merged M03.04 into `main` at `572dc150e38782620416350004630b690c00e687` after QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`. M03.05 and M03.06 remain `Not started`.
+M03.01 through M03.04 are `Completed and merged`. PR #53 merged M03.04 into `main` at `572dc150e38782620416350004630b690c00e687` after QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`, and M03.04 finalization merged at `4afa9e94bc3938e3138ce2045afc380582b24c71`. M03.05 is `Builder complete, awaiting QA`, and M03.06 remains `Not started`.
 
 M03.02 added a TypeScript-only MoneyEvent type boundary in `packages/events`. Product runtime behavior has not started. No MoneyEvent runtime schema, parser, validator, normalizer, storage behavior, database tables, API routes, UI, fixtures, simulator data, connectors, agent runtime, ledger behavior, invariant behavior, incident behavior, replay behavior, repair behavior, raw evidence mutation, ledger posting, repair approval, or money mutation exists from M03.02.
 
@@ -696,4 +762,6 @@ M03.04 implements only the dependency-free source-neutral candidate validator an
 
 M03.04 QA fixed the four-digit UTC normalization boundary, expanded focused events-package coverage from 45 to 66 tests, corrected stale current documentation, and passed the full local validation ladder. PR #53 then merged into `main` at `572dc150e38782620416350004630b690c00e687`; that squash commit has the same tree as QA source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`.
 
-Exact next action after merge-finalization PR #54 merges: `M03.05 Builder - MoneyEvent Test Fixtures and Benchmark Seed Cases`. Do not start M03.05 before PR #54 merges into `main`.
+M03.05 Builder now contains the controlled fixture corpus, early seed metadata, deterministic fixture/seed verification, documentation, and control-plane coverage described above. Its full builder validation ladder passed, and the slice is awaiting independent QA. It adds no runtime mapper, benchmark scoring, simulator execution, downstream financial behavior, or financial-truth claim.
+
+Exact next action after commit, push, and draft PR creation: `M03.05 QA - MoneyEvent Test Fixtures and Benchmark Seed Cases` on the same branch and PR. Do not start M03.06 before M03.05 QA PASS, merge, and tracking finalization.

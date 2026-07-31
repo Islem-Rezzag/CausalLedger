@@ -15,6 +15,8 @@ M03.04 adds a small deterministic runtime boundary:
 
 The normative rules are in `docs/MONEYEVENT_VALIDATION_NORMALIZATION.md`. The M03.01 conceptual meaning remains in `docs/MONEYEVENT_CONTRACT.md`, and M03.03 fixture planning remains in `docs/MONEYEVENT_MAPPING_FIXTURES.md`.
 
-This is source-neutral candidate behavior, not a complete MoneyEvent engine. There is no runtime schema framework, arbitrary JSON-text parser, source-specific parser or mapper, provider connector, ingestion, storage, database, API, UI, ledger behavior, invariant engine, incident workflow, graph, replay, repair, evidence store, benchmark runner, agent runtime, external I/O, or money mutation. Structural success does not establish financial truth.
+M03.05 adds a controlled JSON candidate corpus under `data/fixtures/money-events/` and test-only verification in `test/money-event-fixtures.test.ts`. The corpus covers valid normalization, deterministic rejection, provider-only and partial evidence, delayed evidence, ambiguous references, exact duplicate evidence, conflicts, and missing currency. It is synthetic test data, not raw evidence or financial truth.
+
+This is source-neutral candidate behavior, not a complete MoneyEvent engine. There is no runtime schema framework, arbitrary JSON-text parser, source-specific parser or mapper, provider connector, ingestion, storage, database, API, UI, ledger behavior, invariant engine, incident workflow, graph, replay, repair, evidence store, benchmark runner or scoring, agent runtime, external I/O, or money mutation. Structural success does not establish financial truth, and fixture success does not change that boundary.
 
 The package has no runtime dependency. It does not use time, randomness, LLM judgment, network, filesystem, database, environment secrets, or external services.

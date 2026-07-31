@@ -12,9 +12,9 @@ CausalLedger helps fintech teams prove, replay, and safely repair money-movement
 
 ## Current status
 
-CausalLedger has completed and closed M00, M01, and M02. M03 planning and M03.01 through M03.04 are completed and merged. PR #53 merged M03.04 into `main` at `572dc150e38782620416350004630b690c00e687` after QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`. M03.05 and M03.06 and M04 through M21 remain `Not started` under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`.
+CausalLedger has completed and closed M00, M01, and M02. M03 planning and M03.01 through M03.04 are completed and merged; M03.04 finalization merged at `4afa9e94bc3938e3138ce2045afc380582b24c71`. M03.05 is `Builder complete, awaiting QA`, while M03.06 and M04 through M21 remain `Not started` under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`.
 
-The first scoped product runtime behavior now exists in `packages/events`: source-neutral MoneyEvent candidate validation and deterministic normalization, in addition to the M03.02 compile-time types. It has no source-specific parser, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent, connector, UI, autonomous loop, or money-mutation behavior. Structural validation does not establish financial truth.
+The scoped MoneyEvent implementation consists of compile-time types plus source-neutral MoneyEvent candidate validation and deterministic normalization in `packages/events`, and the M03.05 branch now contains controlled synthetic candidate fixtures and early MoneyFlowBench seed metadata with test-only verification. It has no source-specific parser or mapper, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent, connector, UI, simulator execution, benchmark runner or scoring, autonomous loop, or money-mutation behavior. Structural and fixture validation do not establish financial truth.
 
 ## What CausalLedger is
 
@@ -110,7 +110,8 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `docs/MONEYEVENT_CONTRACT.md` - M03.01 conceptual MoneyEvent contract; documentation only, with no runtime schema or product behavior.
 - `docs/MONEYEVENT_MAPPING_FIXTURES.md` - M03.03 evidence-to-MoneyEvent mapping fixture and simulator planning; documentation only, with no fixture data, simulator data, parser, validator, storage, ingestion, or product behavior.
 - `docs/MONEYEVENT_VALIDATION_NORMALIZATION.md` - M03.04 source-neutral runtime candidate validation and deterministic normalization specification.
-- `packages/events/README.md` - MoneyEvent compile-time and M03.04 scoped runtime package boundary.
+- `docs/MONEYEVENT_FIXTURES_BENCHMARK_SEEDS.md` - M03.05 controlled fixture corpus, benchmark seed metadata, evidence, uncertainty, hallucination-resistance, repeatability, cost, and safety boundaries.
+- `packages/events/README.md` - MoneyEvent compile-time, M03.04 scoped runtime, and M03.05 test-fixture boundary.
 - `docs/RELIABILITY.md` - canonical CausalLedger reliability model for deterministic checks, evidence, replay, repair safety, human review, AI boundaries, auditability, metrics, and future dependencies.
 - `docs/THREAT_MODEL.md` - canonical CausalLedger threat model for evidence, deterministic truth, repair/review, agent/tool, prompt injection, privacy, secrets, supply-chain, cost, ablation, and governance risks.
 - `docs/TOKEN_COST_STRATEGY.md` - future model-cost strategy.
@@ -124,8 +125,8 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `.github/`: GitHub PR and issue templates.
 - `apps/`: future deployable services; `apps/api` has a minimal non-domain TypeScript/Fastify scaffold, `apps/web` has a minimal non-domain React/Vite scaffold, `apps/worker` has a minimal non-domain TypeScript scaffold, and other app directories remain placeholders.
 - `packages/`: future package boundaries; M02.05 creates scaffold-only packages for core, events, ledger, invariants, incidents, graph, replay, repair, evidence, and evals, while deferred package directories remain README placeholders.
-- `scenarios/`: future incident scenarios and benchmark cases.
-- `tests/`: control-plane tests now; product tests later.
+- `scenarios/`: M03.05 early MoneyFlowBench seed metadata plus future incident and benchmark cases.
+- `tests/`: control-plane tests; package-local deterministic product and fixture tests live with their packages.
 - `scripts/`: validation scaffolding.
 - `infra/`: local-only Docker Compose/Postgres and migration scaffolding; no production infrastructure or product schema.
 - `reports/`, `artifacts/`, `data/`: future outputs and fixtures.
