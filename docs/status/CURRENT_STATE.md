@@ -8,11 +8,11 @@ M03 planning PR #47 merged into `main` at `0606d3b21c05f2cf98397c9f5b0f1eddfa104
 
 ## Current submilestone and branch
 
-Current slice: `M03.05 MoneyEvent Test Fixtures and Benchmark Seed Cases` (`QA passed, awaiting merge`).
+Current slice: `M03.05 MoneyEvent Test Fixtures and Benchmark Seed Cases` merge finalization (`Completed and merged`; tracking PR pending review).
 
-Current branch: `m03-05-moneyevent-test-fixtures-benchmark-seeds`.
+Current branch: `m03-05-finalize-fixtures-benchmark-seeds-merge`.
 
-M03.01 through M03.04 are `Completed and merged`. M03.04 finalization merged into `main` at `4afa9e94bc3938e3138ce2045afc380582b24c71`. M03.05 is `QA passed, awaiting merge` on PR #55; M03.06 is `Not started`. M04 through M21 remain `Not started`.
+M03.01 through M03.05 are `Completed and merged`. PR #55 merged M03.05 into `main` at `89874bca2525a423d773548c61f9655f09642575`; its merged tree matches final reviewed head `869af913b781a9706a93d561c256c4077f30361d`. M03 remains active, M03.06 is `Not started`, and M04 through M21 remain `Not started`.
 
 M03.03 includes the verifier-driven loop strategy amendment merged through PR #51. The amendment remains documentation and planning only.
 
@@ -37,14 +37,17 @@ No autonomous loop automation, self-grading AI loop, production write loop, or l
 
 ## Next action
 
-Use `Merge M03.05 PR - MoneyEvent Test Fixtures and Benchmark Seed Cases` after final remote CI is green. Human operators merge PR #55; do not begin M03.06 until M03.05 is merged and post-merge tracking is finalized.
+Human-review and merge the M03.05 tracking-only finalization PR after independent finalization QA and remote checks pass. Then use `M03.06 Builder - MoneyEvent QA and Closeout`. Do not begin M03.06 before this finalization PR merges.
 
 ## Latest validation
 
+- 2026-08-03 finalization validation passed: control plane; 102 bootstrap tests; diff check; frozen install across 14 projects; events typecheck/build/lint/format and 97 tests; evals typecheck/build/lint/format and 42 tests; all typecheck, lint, test, build, and format checks across 13 workspace packages; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
+- Finalization scope inspection found only 16 documentation, plan, milestone, and status files changed. Fixtures, seeds, test-only parsers/tests, runtime source, manifests, lockfile, apps, infrastructure, migrations, and workflows are unchanged.
+- Docker validation was optional and skipped because infrastructure did not change and Docker is unavailable. `make` and GitHub CLI are unavailable; direct required checks passed, and the connected GitHub integration is used for PR creation and metadata. The frozen install emitted the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
+- 2026-08-03 merge verification passed: local `main` and `origin/main` were synchronized at PR #55 squash merge `89874bca2525a423d773548c61f9655f09642575`; the commit is an ancestor of `main`, and its Git tree matches final reviewed head `869af913b781a9706a93d561c256c4077f30361d`.
+- M03.05 provenance is recorded as builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, independent QA commit `f7a1f3c8ae13be60ff8f8154acb81965d2237b9d`, final reviewed head `869af913b781a9706a93d561c256c4077f30361d`, and PR #55 merge commit `89874bca2525a423d773548c61f9655f09642575`.
 - 2026-07-31 independent M03.05 QA passed after scoped fixes. The corpus now has 21 controlled cases: eight complete JSON-safe normalized snapshots and 13 exact deterministic-rejection expectations. Strict test-only parsers reject malformed fixture and seed manifests, duplicate or unknown references, incomplete snapshots, inexact issues, ungrounded seed expectations, embedded outputs, scores, or results.
-- QA validation passed: control plane; 102 bootstrap tests; frozen install across 14 projects; events package typecheck, build, lint, format, and 4-file/97-test run; evals package typecheck, build, lint, format, and 2-file/42-test run; all typecheck, lint, test, build, and format checks across 13 packages; diff check; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
-- The required `corepack pnpm format:check` passed across all 13 packages. Docker validation was optional and skipped because infrastructure did not change; the dirty-worktree gate was intentionally skipped only for intermediate validation.
-- QA verified PR #55 was the only open PR for the exact branch, targeted `main`, contained builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, was mergeable, and had successful starting-head CI. Final remote CI on the QA commit remains required before human merge.
+- QA verified PR #55 was the only PR for the exact branch, targeted `main`, contained builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, was mergeable, and had successful CI; PR #55 subsequently merged at `89874bca2525a423d773548c61f9655f09642575`.
 - Forbidden-scope inspection passed: no production source, source-specific mapper, simulator execution, benchmark runner or scoring, model call, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent tool, external communication, raw-evidence mutation, repair approval, or money mutation was added.
 - 2026-07-31 post-commit clean-worktree QA passed with 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`; only optional Docker validation was skipped. Builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f` was pushed, and draft PR #55 was verified open, unmerged, mergeable, based on `main` at `4afa9e94bc3938e3138ce2045afc380582b24c71`, and using the exact M03.05 branch containing the builder commit.
 - 2026-07-31 M03.05 Builder validation passed: control plane; 102 bootstrap tests; diff check; frozen install across 14 projects; events-package typecheck, 4-file/71-test run, build, lint, and format; evals-package typecheck, 2-file/5-test run, build, lint, and format; full typecheck, lint, test, build, and format across all 13 packages; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.

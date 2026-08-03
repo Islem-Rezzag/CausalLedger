@@ -41,6 +41,7 @@ All notable CausalLedger release changes are recorded here.
 - M03.04 merge finalization completed at `4afa9e94bc3938e3138ce2045afc380582b24c71`.
 - M03.05 Builder added a versioned controlled synthetic MoneyEvent candidate corpus, early MoneyFlowBench seed metadata, deterministic events/evals test verification, and explicit evidence, uncertainty, hallucination-resistance, repeatability, future cost-capture, and safety boundaries. No source-specific mapper, simulator execution, benchmark runner or scoring, ingestion, storage, downstream financial behavior, or money mutation was added.
 - M03.05 independent QA passed for PR #55 after adding strict test-only fixture and seed manifest parsers, expanding the corpus to 21 cases, replacing partial expectations with complete JSON-safe snapshots, enforcing exact invalid issues and seed grounding, and renaming receipt-only evidence metadata truthfully. M03.06 remains `Not started` until human merge and post-merge finalization.
+- M03.05 completed after PR #55 merged into `main` at `89874bca2525a423d773548c61f9655f09642575`; builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, independent QA commit `f7a1f3c8ae13be60ff8f8154acb81965d2237b9d`, and final reviewed head `869af913b781a9706a93d561c256c4077f30361d` are recorded. M03 remains active and M03.06 remains `Not started`.
 
 ## v0.1.0 - Repo Operating System Foundation
 

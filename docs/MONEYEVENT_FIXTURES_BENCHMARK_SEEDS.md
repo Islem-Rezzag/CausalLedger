@@ -4,7 +4,7 @@
 
 M03.05 provides a reviewed controlled MoneyEvent candidate corpus and early MoneyFlowBench seed metadata. The artifacts are deterministic synthetic test inputs. They are not raw evidence, production events, or benchmark results, and they are not financial truth.
 
-M03.05 is `QA passed, awaiting merge` on `m03-05-moneyevent-test-fixtures-benchmark-seeds` and PR #55. Human PR merge and post-merge tracking finalization remain required before M03.05 can be called completed.
+M03.05 is `Completed and merged`. PR #55 merged the reviewed scope into `main` at `89874bca2525a423d773548c61f9655f09642575`; builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, independent QA commit `f7a1f3c8ae13be60ff8f8154acb81965d2237b9d`, and final reviewed head `869af913b781a9706a93d561c256c4077f30361d` are recorded. This completion claim covers the controlled artifacts and deterministic test verification only; it does not establish financial truth or broader product readiness.
 
 ## Purpose
 
