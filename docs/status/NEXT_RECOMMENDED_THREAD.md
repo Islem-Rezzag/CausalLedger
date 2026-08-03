@@ -1,10 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-Merge M03.05 PR - MoneyEvent Test Fixtures and Benchmark Seed Cases
+M03.06 Builder - MoneyEvent QA and Closeout
 
 Precondition:
-M03.05 independent QA passed on `m03-05-moneyevent-test-fixtures-benchmark-seeds`. PR #55 is the only PR for the branch, targets `main`, contains builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f` plus the scoped QA fix commit, and must have successful final CI before human merge.
+PR #55 merged M03.05 into `main` at `89874bca2525a423d773548c61f9655f09642575`, and M03.05 is `Completed and merged`. The M03.05 tracking-only finalization PR must also be independently QA-verified and human-merged before M03.06 begins.
 
 Scope:
-Human-review and merge PR #55 after confirming final CI, unresolved-conversation, and conflict status. Then run post-merge tracking finalization to mark M03.05 `Completed and merged`. Do not merge through an agent, start M03.06, add source-specific mapping, run a simulator or benchmark, add scoring or results, ingest or store evidence, post ledger entries, approve or apply repairs, modify raw events, override deterministic invariants, or mutate money.
+Run the bounded M03.06 QA and closeout builder only after the finalization precondition is satisfied. Verify M03 scope, deterministic tests, forbidden boundaries, documentation alignment, and closeout readiness. Do not close M03 without M03.06 QA PASS and merge, start M04, add source-specific mapping, run a simulator or benchmark, add scoring or results, ingest or store evidence, post ledger entries, approve or apply repairs, modify raw events, override deterministic invariants, or mutate money.

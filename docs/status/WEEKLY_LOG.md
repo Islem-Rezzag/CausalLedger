@@ -1,5 +1,16 @@
 # Weekly Log
 
+## 2026-08-03
+
+- Started M03.05 merge finalization on `m03-05-finalize-fixtures-benchmark-seeds-merge` from synchronized `main` at `89874bca2525a423d773548c61f9655f09642575`; repository root, origin, clean worktree, exact branch, main ancestry, and repository-local identity guards passed.
+- Verified PR #55 merged M03.05 into `main` at `89874bca2525a423d773548c61f9655f09642575` and that the merged tree matches final reviewed head `869af913b781a9706a93d561c256c4077f30361d`.
+- Recorded builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, independent QA commit `f7a1f3c8ae13be60ff8f8154acb81965d2237b9d`, final reviewed head `869af913b781a9706a93d561c256c4077f30361d`, and PR #55 merge commit `89874bca2525a423d773548c61f9655f09642575`.
+- Updated documentation and durable tracking only: M03.05 is `Completed and merged`, M03 remains active with its plan in `plans/active/`, M03.06 and M04 through M21 remain `Not started`, and the exact next thread after finalization merge is `M03.06 Builder - MoneyEvent QA and Closeout`.
+- Preserved the merged fixture and seed boundary: 21 controlled synthetic fixtures, seven early exact-grounded seed cases, strict test-only parsers, complete JSON-safe snapshots, exact ordered rejection issues, and no runner, scoring, model calls, benchmark results, source mapping, ingestion, storage, downstream financial behavior, evidence mutation, repair approval, ledger mutation, or money mutation.
+- Finalization validation passed: control plane; 102 bootstrap tests; diff check; frozen install; events package typecheck/build/lint/format and 97 tests; evals package typecheck/build/lint/format and 42 tests; full typecheck, lint, test, build, and format checks across all 13 workspace packages; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
+- Docker validation was optional and skipped because infrastructure did not change and Docker is unavailable. `make` and GitHub CLI are unavailable; direct checks passed, and the connected GitHub integration is used for PR creation and metadata. The frozen install emitted the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
+- Scope inspection passed: only 16 documentation, plan, milestone, and status files changed. Fixtures, seeds, test-only parsers/tests, runtime source, manifests, lockfile, apps, infrastructure, migrations, and workflows are unchanged.
+
 ## 2026-07-31
 
 - Independent M03.05 QA verified the exact branch, clean starting tree, GitHub origin, M03.04-finalization ancestry, builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, PR #55 branch/base/mergeability, and successful starting-head CI.
