@@ -838,13 +838,13 @@ def test_10a_moneyevent_contract_rejects_runtime_code_fences(tmp_path, monkeypat
     assert "MONEYEVENT_CONTRACT.md must not define a MoneyEvent type" in errors
 
 
-def test_10b_fixture_or_simulator_data_is_rejected_before_m03_03(tmp_path, monkeypatch):
+def test_10b_unapproved_fixture_or_simulator_data_is_rejected(tmp_path, monkeypatch):
     fixture = tmp_path / "data" / "fixtures" / "duplicate_webhook.md"
     fixture.parent.mkdir(parents=True)
     fixture.write_text("fixture placeholder\n", encoding="utf-8")
     monkeypatch.setattr(validator, "ROOT", tmp_path)
     assert validator.validate_no_m03_fixture_or_simulator_data() == [
-        "data/fixtures may contain only README.md before fixture data or simulator implementation scope: duplicate_webhook.md"
+        "data/fixtures contains files outside M03.05 controlled fixture/seed scope: duplicate_webhook.md"
     ]
 
 
@@ -1075,6 +1075,17 @@ def test_17g_moneyevent_validation_normalization_spec_exists_and_is_complete():
         assert "docs/MONEYEVENT_VALIDATION_NORMALIZATION.md" in text(rel)
 
 
+def test_17h_m03_05_fixture_and_seed_artifacts_are_complete():
+    assert (ROOT / validator.MONEYEVENT_FIXTURES_BENCHMARK_SEEDS_DOC).is_file()
+    assert (ROOT / validator.M03_05_FIXTURE_MANIFEST).is_file()
+    assert (ROOT / validator.M03_05_SEED_MANIFEST).is_file()
+    assert validator.validate_no_m03_fixture_or_simulator_data() == []
+    assert validator.validate_m03_05_fixture_and_seed_data() == []
+    assert validator.validate_m03_05_fixture_and_seed_doc() == []
+    for rel in ["README.md", "docs/ACTIVE_DOCS.md", "docs/INDEX.md"]:
+        assert validator.MONEYEVENT_FIXTURES_BENCHMARK_SEEDS_DOC in text(rel)
+
+
 def test_18_live_registry_table_parses():
     assert len(validator.parse_registry()) > 300
 
@@ -1158,12 +1169,15 @@ def test_28_github_workflows_contains_only_ci_yml():
 
 def test_29_package_scaffolds_are_exactly_allowlisted():
     expected_scaffold = set(validator.APPROVED_PACKAGE_SCAFFOLD_FILES)
-    expected_events = set(validator.M03_04_EVENTS_RUNTIME_BOUNDARY_FILES)
+    expected_events = set(validator.M03_05_EVENTS_FIXTURE_FILES)
+    expected_evals = set(validator.M03_05_EVALS_SEED_FILES)
     for package_dir in (ROOT / "packages").iterdir():
         if package_dir.is_dir():
             files = validator.package_files(package_dir)
             if package_dir.name == "events":
                 assert files == expected_events
+            elif package_dir.name == "evals":
+                assert files == expected_evals
             elif package_dir.name in validator.M02_05_PACKAGE_DIRS:
                 assert files == expected_scaffold
             else:
@@ -1274,7 +1288,7 @@ def test_39a_current_canonical_docs_do_not_claim_m03_04_is_unstarted():
         assert "Product implementation has not started" not in text(rel)
 
 
-def test_39b_only_m03_04_moneyevent_runtime_boundary_files_exist():
+def test_39b_only_approved_m03_moneyevent_files_exist():
     assert validator.validate_no_moneyevent_runtime_files() == []
 
 
@@ -1290,7 +1304,7 @@ def test_39b_generated_moneyevent_build_outputs_are_ignored(tmp_path, monkeypatc
     monkeypatch.setattr(validator, "ROOT", tmp_path)
 
     assert validator.validate_no_moneyevent_runtime_files() == [
-        "MoneyEvent runtime file created outside M03.04 scope: "
+        "MoneyEvent runtime file created outside approved M03 scope: "
         "packages/events/src/money-event-runtime.ts"
     ]
 
@@ -1379,7 +1393,9 @@ def test_41_missing_package_file_is_rejected_from_fixture(tmp_path, monkeypatch)
     assert validator.validate_package_scaffolds() == [
         "package scaffold missing files: packages/events -> "
         "src/money-event-validation.ts, src/money-event.ts, test/bootstrap.test.ts, "
-        "test/money-event-types.test.ts, test/money-event-validation.test.ts"
+        "test/money-event-fixture-manifest.ts, test/money-event-fixtures.test.ts, "
+        "test/money-event-types.test.ts, "
+        "test/money-event-validation.test.ts"
     ]
 
 

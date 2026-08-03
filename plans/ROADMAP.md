@@ -1,7 +1,7 @@
 # CausalLedger Roadmap
 
 Current milestone marker: M03 Canonical MoneyEvent engine is active. The active M03 plan lives at `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M02 Monorepo and local development is completed; the completed M02 plan lives at `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`, and the closeout packet lives at `docs/status/M02_CLOSEOUT.md`. M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`.
-Current submilestone status: M00.01 through M00.08 are completed and merged. M01.01 through M01.13 are `Completed and merged`. M02.01 through M02.07 are `Completed and merged`; former M02.08 through M02.20 rows are deferred or absorbed. M03.01 through M03.04 are `Completed and merged`; M03.05 and M03.06 are `Not started`; M04 through M21 remain `Not started`.
+Current submilestone status: M00.01 through M00.08 are completed and merged. M01.01 through M01.13 are `Completed and merged`. M02.01 through M02.07 are `Completed and merged`; former M02.08 through M02.20 rows are deferred or absorbed. M03.01 through M03.04 are `Completed and merged`; M03.05 is `QA passed, awaiting merge` on PR #55; M03.06 is `Not started`; M04 through M21 remain `Not started`.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 
@@ -48,9 +48,9 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 - M02.07 is now `QA dev environment`.
 - `apps/agent-runtime` creation is deferred to the M10 era because agent runtime should not exist before deterministic evidence, MoneyEvent, invariant, incident, graph, replay, and repair boundaries exist.
 - Redis is deferred until needed because no queue or scheduler should be added before the worker or orchestration design proves the need.
-- M03 planning and M03.01 through M03.04 are completed and merged. PR #53 merged M03.04 into `main` at `572dc150e38782620416350004630b690c00e687` after QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`. M03.05 and M03.06 remain `Not started`.
+- M03 planning and M03.01 through M03.04 are completed and merged. PR #53 merged M03.04 into `main` at `572dc150e38782620416350004630b690c00e687` after QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`; finalization merged at `4afa9e94bc3938e3138ce2045afc380582b24c71`. M03.05 is `QA passed, awaiting merge` on PR #55; M03.06 remains `Not started`.
 - M04-M21 remain `Not started`.
 - The first scoped product runtime behavior is M03.04 source-neutral MoneyEvent candidate validation and deterministic normalization; no ingestion, storage, database, API, ledger, incident, graph, replay, repair, agent, or money-mutation behavior exists.
-- The next thread after the M03.04 merge-finalization PR merges is `M03.05 Builder - MoneyEvent Test Fixtures and Benchmark Seed Cases`.
+- The exact next thread is `Merge M03.05 PR - MoneyEvent Test Fixtures and Benchmark Seed Cases` after final CI on PR #55 passes.
 - Versioning strategy is documented in `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed registry.

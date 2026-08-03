@@ -1,0 +1,2618 @@
+{
+  "schemaVersion": "m03.05-money-event-fixtures.v1",
+  "status": "controlled-synthetic-fixtures",
+  "description": "Deterministic source-neutral MoneyEvent candidates for validation and normalization tests. These records are synthetic test inputs, not raw evidence or financial truth.",
+  "deterministic": true,
+  "financialTruth": false,
+  "cases": [
+    {
+      "fixtureId": "provider-capture-provider-only",
+      "category": "simple_provider_capture",
+      "coverageTags": ["evidence_grounding", "provider_only", "normalization"],
+      "evidenceType": "provider.webhook",
+      "sourceSystem": "controlled-provider-fixture",
+      "rawEvidenceReferences": ["rcpt_fixture_capture_primary"],
+      "candidate": {
+        "id": "evt_fixture_capture_1",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "payment.captured",
+        "source": {
+          "sourceId": "controlled-provider-fixture",
+          "sourceType": "provider.webhook",
+          "sourceRecordId": "capture-1",
+          "sourceSystemName": "Controlled Provider Fixture"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_capture_primary",
+            "rawLocator": "fixture://provider/captures/capture-1",
+            "sourceRecordId": "capture-1",
+            "role": "primary"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "capture-1",
+            "sourceSystemName": "Controlled Provider Fixture"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ],
+          "observedAt": "2026-07-31T10:00:00+01:00",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "1250",
+          "currency": "gbp",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-1",
+          "role": "merchant"
+        },
+        "relatedParties": [
+          {
+            "partyId": "customer-fixture-1",
+            "role": "customer"
+          }
+        ],
+        "object": {
+          "objectId": "payment-fixture-1",
+          "objectType": "payment"
+        },
+        "eventTime": "2026-07-31T08:59:00Z",
+        "observedTime": "2026-07-31T09:00:00Z",
+        "idempotencyKey": "controlled-provider-fixture:capture-1",
+        "relationships": [],
+        "lifecycleState": "observed",
+        "uncertainty": {
+          "state": "provider_only",
+          "reasons": ["Settlement and bank confirmation are not represented."],
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "valid",
+        "normalized": {
+          "id": "evt_fixture_capture_1",
+          "contractVersion": "m03.04-runtime-boundary.v1",
+          "kind": "payment.captured",
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "capture-1",
+            "sourceSystemName": "Controlled Provider Fixture"
+          },
+          "evidence": [
+            {
+              "role": "primary",
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1"
+            }
+          ],
+          "provenance": {
+            "source": {
+              "sourceId": "controlled-provider-fixture",
+              "sourceType": "provider.webhook",
+              "sourceRecordId": "capture-1",
+              "sourceSystemName": "Controlled Provider Fixture"
+            },
+            "evidence": [
+              {
+                "role": "primary",
+                "receiptId": "rcpt_fixture_capture_primary",
+                "rawLocator": "fixture://provider/captures/capture-1",
+                "sourceRecordId": "capture-1"
+              }
+            ],
+            "observedAt": "2026-07-31T09:00:00.000Z",
+            "derivedBy": "m03.04-source-neutral-normalizer.v1"
+          },
+          "amount": {
+            "minorUnits": "1250",
+            "currency": "GBP",
+            "representation": "integer_minor_units"
+          },
+          "primaryParty": {
+            "partyId": "merchant-fixture-1",
+            "role": "merchant"
+          },
+          "relatedParties": [
+            {
+              "partyId": "customer-fixture-1",
+              "role": "customer"
+            }
+          ],
+          "object": {
+            "objectId": "payment-fixture-1",
+            "objectType": "payment"
+          },
+          "eventTime": "2026-07-31T08:59:00.000Z",
+          "observedTime": "2026-07-31T09:00:00.000Z",
+          "idempotencyKey": "controlled-provider-fixture:capture-1",
+          "relationships": [],
+          "lifecycleState": "observed",
+          "uncertainty": {
+            "state": "provider_only",
+            "reasons": [
+              "Settlement and bank confirmation are not represented."
+            ],
+            "evidence": [
+              {
+                "role": "primary",
+                "receiptId": "rcpt_fixture_capture_primary",
+                "rawLocator": "fixture://provider/captures/capture-1",
+                "sourceRecordId": "capture-1"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "fixtureId": "provider-refund-partial-chain",
+      "category": "provider_refund",
+      "coverageTags": [
+        "partial_evidence_chain",
+        "missing_evidence",
+        "relationship",
+        "negative_minor_units"
+      ],
+      "evidenceType": "provider.api_record",
+      "sourceSystem": "controlled-provider-fixture",
+      "rawEvidenceReferences": [
+        "rcpt_fixture_refund_primary",
+        "expected-settlement-refund-1"
+      ],
+      "candidate": {
+        "id": "evt_fixture_refund_1",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "refund.created",
+        "source": {
+          "sourceId": "controlled-provider-fixture",
+          "sourceType": "provider.api_record",
+          "sourceRecordId": "refund-1",
+          "sourceSystemName": "Controlled Provider Fixture"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_refund_primary",
+            "rawLocator": "fixture://provider/refunds/refund-1",
+            "sourceRecordId": "refund-1",
+            "role": "primary"
+          },
+          {
+            "sourceRecordId": "expected-settlement-refund-1",
+            "role": "missing_expected"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.api_record",
+            "sourceRecordId": "refund-1",
+            "sourceSystemName": "Controlled Provider Fixture"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_refund_primary",
+              "rawLocator": "fixture://provider/refunds/refund-1",
+              "sourceRecordId": "refund-1",
+              "role": "primary"
+            },
+            {
+              "sourceRecordId": "expected-settlement-refund-1",
+              "role": "missing_expected"
+            }
+          ],
+          "observedAt": "2026-07-31T10:15:00Z",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "-500",
+          "currency": "GBP",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-1",
+          "role": "merchant"
+        },
+        "relatedParties": [
+          {
+            "partyId": "customer-fixture-1",
+            "role": "customer"
+          }
+        ],
+        "object": {
+          "objectId": "refund-fixture-1",
+          "objectType": "refund"
+        },
+        "eventTime": "2026-07-31T10:10:00Z",
+        "observedTime": "2026-07-31T10:15:00Z",
+        "idempotencyKey": "controlled-provider-fixture:refund-1",
+        "relationships": [
+          {
+            "relationship": "original_object",
+            "object": {
+              "objectId": "payment-fixture-1",
+              "objectType": "payment"
+            }
+          }
+        ],
+        "lifecycleState": "observed",
+        "uncertainty": {
+          "state": "partial_evidence",
+          "reasons": [
+            "The provider refund exists but settlement confirmation is missing."
+          ],
+          "evidence": [
+            {
+              "sourceRecordId": "expected-settlement-refund-1",
+              "role": "missing_expected"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "valid",
+        "normalized": {
+          "id": "evt_fixture_refund_1",
+          "contractVersion": "m03.04-runtime-boundary.v1",
+          "kind": "refund.created",
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.api_record",
+            "sourceRecordId": "refund-1",
+            "sourceSystemName": "Controlled Provider Fixture"
+          },
+          "evidence": [
+            {
+              "role": "missing_expected",
+              "sourceRecordId": "expected-settlement-refund-1"
+            },
+            {
+              "role": "primary",
+              "receiptId": "rcpt_fixture_refund_primary",
+              "rawLocator": "fixture://provider/refunds/refund-1",
+              "sourceRecordId": "refund-1"
+            }
+          ],
+          "provenance": {
+            "source": {
+              "sourceId": "controlled-provider-fixture",
+              "sourceType": "provider.api_record",
+              "sourceRecordId": "refund-1",
+              "sourceSystemName": "Controlled Provider Fixture"
+            },
+            "evidence": [
+              {
+                "role": "missing_expected",
+                "sourceRecordId": "expected-settlement-refund-1"
+              },
+              {
+                "role": "primary",
+                "receiptId": "rcpt_fixture_refund_primary",
+                "rawLocator": "fixture://provider/refunds/refund-1",
+                "sourceRecordId": "refund-1"
+              }
+            ],
+            "observedAt": "2026-07-31T10:15:00.000Z",
+            "derivedBy": "m03.04-source-neutral-normalizer.v1"
+          },
+          "amount": {
+            "minorUnits": "-500",
+            "currency": "GBP",
+            "representation": "integer_minor_units"
+          },
+          "primaryParty": {
+            "partyId": "merchant-fixture-1",
+            "role": "merchant"
+          },
+          "relatedParties": [
+            {
+              "partyId": "customer-fixture-1",
+              "role": "customer"
+            }
+          ],
+          "object": {
+            "objectId": "refund-fixture-1",
+            "objectType": "refund"
+          },
+          "eventTime": "2026-07-31T10:10:00.000Z",
+          "observedTime": "2026-07-31T10:15:00.000Z",
+          "idempotencyKey": "controlled-provider-fixture:refund-1",
+          "relationships": [
+            {
+              "relationship": "original_object",
+              "object": {
+                "objectId": "payment-fixture-1",
+                "objectType": "payment"
+              }
+            }
+          ],
+          "lifecycleState": "observed",
+          "uncertainty": {
+            "state": "partial_evidence",
+            "reasons": [
+              "The provider refund exists but settlement confirmation is missing."
+            ],
+            "evidence": [
+              {
+                "role": "missing_expected",
+                "sourceRecordId": "expected-settlement-refund-1"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "fixtureId": "chargeback-opened-unresolved",
+      "category": "chargeback_opened",
+      "coverageTags": [
+        "unresolved",
+        "relationship",
+        "unsupported_outcome_rejection"
+      ],
+      "evidenceType": "provider.webhook",
+      "sourceSystem": "controlled-provider-fixture",
+      "rawEvidenceReferences": ["rcpt_fixture_chargeback_primary"],
+      "candidate": {
+        "id": "evt_fixture_chargeback_1",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "chargeback.opened",
+        "source": {
+          "sourceId": "controlled-provider-fixture",
+          "sourceType": "provider.webhook",
+          "sourceRecordId": "chargeback-1"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_chargeback_primary",
+            "rawLocator": "fixture://provider/chargebacks/chargeback-1",
+            "sourceRecordId": "chargeback-1",
+            "role": "primary"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "chargeback-1"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_chargeback_primary",
+              "rawLocator": "fixture://provider/chargebacks/chargeback-1",
+              "sourceRecordId": "chargeback-1",
+              "role": "primary"
+            }
+          ],
+          "observedAt": "2026-07-31T11:00:00Z",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "1250",
+          "currency": "GBP",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-1",
+          "role": "merchant"
+        },
+        "relatedParties": [],
+        "object": {
+          "objectId": "chargeback-fixture-1",
+          "objectType": "chargeback"
+        },
+        "eventTime": "2026-07-31T10:58:00Z",
+        "observedTime": "2026-07-31T11:00:00Z",
+        "idempotencyKey": "controlled-provider-fixture:chargeback-1",
+        "relationships": [
+          {
+            "relationship": "original_object",
+            "object": {
+              "objectId": "payment-fixture-1",
+              "objectType": "payment"
+            }
+          }
+        ],
+        "lifecycleState": "unresolved",
+        "uncertainty": {
+          "state": "unresolved",
+          "reasons": [
+            "Outcome, fees, settlement deduction, and bank impact are unresolved."
+          ],
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_chargeback_primary",
+              "rawLocator": "fixture://provider/chargebacks/chargeback-1",
+              "sourceRecordId": "chargeback-1",
+              "role": "primary"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "valid",
+        "normalized": {
+          "id": "evt_fixture_chargeback_1",
+          "contractVersion": "m03.04-runtime-boundary.v1",
+          "kind": "chargeback.opened",
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "chargeback-1"
+          },
+          "evidence": [
+            {
+              "role": "primary",
+              "receiptId": "rcpt_fixture_chargeback_primary",
+              "rawLocator": "fixture://provider/chargebacks/chargeback-1",
+              "sourceRecordId": "chargeback-1"
+            }
+          ],
+          "provenance": {
+            "source": {
+              "sourceId": "controlled-provider-fixture",
+              "sourceType": "provider.webhook",
+              "sourceRecordId": "chargeback-1"
+            },
+            "evidence": [
+              {
+                "role": "primary",
+                "receiptId": "rcpt_fixture_chargeback_primary",
+                "rawLocator": "fixture://provider/chargebacks/chargeback-1",
+                "sourceRecordId": "chargeback-1"
+              }
+            ],
+            "observedAt": "2026-07-31T11:00:00.000Z",
+            "derivedBy": "m03.04-source-neutral-normalizer.v1"
+          },
+          "amount": {
+            "minorUnits": "1250",
+            "currency": "GBP",
+            "representation": "integer_minor_units"
+          },
+          "primaryParty": {
+            "partyId": "merchant-fixture-1",
+            "role": "merchant"
+          },
+          "relatedParties": [],
+          "object": {
+            "objectId": "chargeback-fixture-1",
+            "objectType": "chargeback"
+          },
+          "eventTime": "2026-07-31T10:58:00.000Z",
+          "observedTime": "2026-07-31T11:00:00.000Z",
+          "idempotencyKey": "controlled-provider-fixture:chargeback-1",
+          "relationships": [
+            {
+              "relationship": "original_object",
+              "object": {
+                "objectId": "payment-fixture-1",
+                "objectType": "payment"
+              }
+            }
+          ],
+          "lifecycleState": "unresolved",
+          "uncertainty": {
+            "state": "unresolved",
+            "reasons": [
+              "Outcome, fees, settlement deduction, and bank impact are unresolved."
+            ],
+            "evidence": [
+              {
+                "role": "primary",
+                "receiptId": "rcpt_fixture_chargeback_primary",
+                "rawLocator": "fixture://provider/chargebacks/chargeback-1",
+                "sourceRecordId": "chargeback-1"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "fixtureId": "settlement-payout-delayed-bank-evidence",
+      "category": "settlement_payout_row",
+      "coverageTags": [
+        "delayed_settlement",
+        "missing_evidence",
+        "out_of_order_time"
+      ],
+      "evidenceType": "settlement.file",
+      "sourceSystem": "controlled-settlement-fixture",
+      "rawEvidenceReferences": [
+        "rcpt_fixture_settlement_primary",
+        "expected-bank-payout-1"
+      ],
+      "candidate": {
+        "id": "evt_fixture_payout_1",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "payout.observed",
+        "source": {
+          "sourceId": "controlled-settlement-fixture",
+          "sourceType": "settlement.file",
+          "sourceRecordId": "payout-row-1"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_settlement_primary",
+            "rawLocator": "fixture://settlement/files/file-1/rows/payout-row-1",
+            "sourceRecordId": "payout-row-1",
+            "role": "primary"
+          },
+          {
+            "sourceRecordId": "expected-bank-payout-1",
+            "role": "missing_expected"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-settlement-fixture",
+            "sourceType": "settlement.file",
+            "sourceRecordId": "payout-row-1"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_settlement_primary",
+              "rawLocator": "fixture://settlement/files/file-1/rows/payout-row-1",
+              "sourceRecordId": "payout-row-1",
+              "role": "primary"
+            },
+            {
+              "sourceRecordId": "expected-bank-payout-1",
+              "role": "missing_expected"
+            }
+          ],
+          "observedAt": "2026-07-31T13:00:00Z",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "100000",
+          "currency": "GBP",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-1",
+          "role": "merchant"
+        },
+        "relatedParties": [
+          {
+            "partyId": "provider-fixture-1",
+            "role": "provider"
+          }
+        ],
+        "object": {
+          "objectId": "payout-fixture-1",
+          "objectType": "payout"
+        },
+        "eventTime": "2026-07-30T18:00:00Z",
+        "observedTime": "2026-07-31T13:00:00Z",
+        "idempotencyKey": "controlled-settlement-fixture:file-1:payout-row-1",
+        "relationships": [],
+        "lifecycleState": "observed",
+        "uncertainty": {
+          "state": "delayed_evidence",
+          "reasons": [
+            "The settlement row arrived before its expected bank confirmation."
+          ],
+          "evidence": [
+            {
+              "sourceRecordId": "expected-bank-payout-1",
+              "role": "missing_expected"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "valid",
+        "normalized": {
+          "id": "evt_fixture_payout_1",
+          "contractVersion": "m03.04-runtime-boundary.v1",
+          "kind": "payout.observed",
+          "source": {
+            "sourceId": "controlled-settlement-fixture",
+            "sourceType": "settlement.file",
+            "sourceRecordId": "payout-row-1"
+          },
+          "evidence": [
+            {
+              "role": "missing_expected",
+              "sourceRecordId": "expected-bank-payout-1"
+            },
+            {
+              "role": "primary",
+              "receiptId": "rcpt_fixture_settlement_primary",
+              "rawLocator": "fixture://settlement/files/file-1/rows/payout-row-1",
+              "sourceRecordId": "payout-row-1"
+            }
+          ],
+          "provenance": {
+            "source": {
+              "sourceId": "controlled-settlement-fixture",
+              "sourceType": "settlement.file",
+              "sourceRecordId": "payout-row-1"
+            },
+            "evidence": [
+              {
+                "role": "missing_expected",
+                "sourceRecordId": "expected-bank-payout-1"
+              },
+              {
+                "role": "primary",
+                "receiptId": "rcpt_fixture_settlement_primary",
+                "rawLocator": "fixture://settlement/files/file-1/rows/payout-row-1",
+                "sourceRecordId": "payout-row-1"
+              }
+            ],
+            "observedAt": "2026-07-31T13:00:00.000Z",
+            "derivedBy": "m03.04-source-neutral-normalizer.v1"
+          },
+          "amount": {
+            "minorUnits": "100000",
+            "currency": "GBP",
+            "representation": "integer_minor_units"
+          },
+          "primaryParty": {
+            "partyId": "merchant-fixture-1",
+            "role": "merchant"
+          },
+          "relatedParties": [
+            {
+              "partyId": "provider-fixture-1",
+              "role": "provider"
+            }
+          ],
+          "object": {
+            "objectId": "payout-fixture-1",
+            "objectType": "payout"
+          },
+          "eventTime": "2026-07-30T18:00:00.000Z",
+          "observedTime": "2026-07-31T13:00:00.000Z",
+          "idempotencyKey": "controlled-settlement-fixture:file-1:payout-row-1",
+          "relationships": [],
+          "lifecycleState": "observed",
+          "uncertainty": {
+            "state": "delayed_evidence",
+            "reasons": [
+              "The settlement row arrived before its expected bank confirmation."
+            ],
+            "evidence": [
+              {
+                "role": "missing_expected",
+                "sourceRecordId": "expected-bank-payout-1"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "fixtureId": "bank-deposit-ambiguous-payout-match",
+      "category": "bank_deposit_line",
+      "coverageTags": ["ambiguous_reference", "bank_evidence", "relationship"],
+      "evidenceType": "bank.statement",
+      "sourceSystem": "controlled-bank-fixture",
+      "rawEvidenceReferences": ["rcpt_fixture_bank_primary"],
+      "candidate": {
+        "id": "evt_fixture_bank_posting_1",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "bank.posting_observed",
+        "source": {
+          "sourceId": "controlled-bank-fixture",
+          "sourceType": "bank.statement",
+          "sourceRecordId": "bank-line-1"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_bank_primary",
+            "rawLocator": "fixture://bank/statements/statement-1/lines/bank-line-1",
+            "sourceRecordId": "bank-line-1",
+            "role": "primary"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-bank-fixture",
+            "sourceType": "bank.statement",
+            "sourceRecordId": "bank-line-1"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_bank_primary",
+              "rawLocator": "fixture://bank/statements/statement-1/lines/bank-line-1",
+              "sourceRecordId": "bank-line-1",
+              "role": "primary"
+            }
+          ],
+          "observedAt": "2026-07-31T14:00:00Z",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "100000",
+          "currency": "GBP",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-bank-account-1",
+          "role": "bank_account"
+        },
+        "relatedParties": [
+          {
+            "partyId": "provider-fixture-1",
+            "role": "provider"
+          }
+        ],
+        "object": {
+          "objectId": "bank-line-fixture-1",
+          "objectType": "bank_statement_line"
+        },
+        "eventTime": "2026-07-31T12:30:00Z",
+        "observedTime": "2026-07-31T14:00:00Z",
+        "idempotencyKey": "controlled-bank-fixture:statement-1:bank-line-1",
+        "relationships": [
+          {
+            "relationship": "correlates_with",
+            "object": {
+              "objectId": "payout-fixture-1",
+              "objectType": "payout"
+            }
+          }
+        ],
+        "lifecycleState": "unresolved",
+        "uncertainty": {
+          "state": "ambiguous_reference",
+          "reasons": [
+            "The bank line could match the payout, but no deterministic match exists."
+          ],
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_bank_primary",
+              "rawLocator": "fixture://bank/statements/statement-1/lines/bank-line-1",
+              "sourceRecordId": "bank-line-1",
+              "role": "primary"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "valid",
+        "normalized": {
+          "id": "evt_fixture_bank_posting_1",
+          "contractVersion": "m03.04-runtime-boundary.v1",
+          "kind": "bank.posting_observed",
+          "source": {
+            "sourceId": "controlled-bank-fixture",
+            "sourceType": "bank.statement",
+            "sourceRecordId": "bank-line-1"
+          },
+          "evidence": [
+            {
+              "role": "primary",
+              "receiptId": "rcpt_fixture_bank_primary",
+              "rawLocator": "fixture://bank/statements/statement-1/lines/bank-line-1",
+              "sourceRecordId": "bank-line-1"
+            }
+          ],
+          "provenance": {
+            "source": {
+              "sourceId": "controlled-bank-fixture",
+              "sourceType": "bank.statement",
+              "sourceRecordId": "bank-line-1"
+            },
+            "evidence": [
+              {
+                "role": "primary",
+                "receiptId": "rcpt_fixture_bank_primary",
+                "rawLocator": "fixture://bank/statements/statement-1/lines/bank-line-1",
+                "sourceRecordId": "bank-line-1"
+              }
+            ],
+            "observedAt": "2026-07-31T14:00:00.000Z",
+            "derivedBy": "m03.04-source-neutral-normalizer.v1"
+          },
+          "amount": {
+            "minorUnits": "100000",
+            "currency": "GBP",
+            "representation": "integer_minor_units"
+          },
+          "primaryParty": {
+            "partyId": "merchant-bank-account-1",
+            "role": "bank_account"
+          },
+          "relatedParties": [
+            {
+              "partyId": "provider-fixture-1",
+              "role": "provider"
+            }
+          ],
+          "object": {
+            "objectId": "bank-line-fixture-1",
+            "objectType": "bank_statement_line"
+          },
+          "eventTime": "2026-07-31T12:30:00.000Z",
+          "observedTime": "2026-07-31T14:00:00.000Z",
+          "idempotencyKey": "controlled-bank-fixture:statement-1:bank-line-1",
+          "relationships": [
+            {
+              "relationship": "correlates_with",
+              "object": {
+                "objectId": "payout-fixture-1",
+                "objectType": "payout"
+              }
+            }
+          ],
+          "lifecycleState": "unresolved",
+          "uncertainty": {
+            "state": "ambiguous_reference",
+            "reasons": [
+              "The bank line could match the payout, but no deterministic match exists."
+            ],
+            "evidence": [
+              {
+                "role": "primary",
+                "receiptId": "rcpt_fixture_bank_primary",
+                "rawLocator": "fixture://bank/statements/statement-1/lines/bank-line-1",
+                "sourceRecordId": "bank-line-1"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "fixtureId": "duplicate-provider-webhook",
+      "category": "duplicate_provider_webhook",
+      "coverageTags": [
+        "idempotency",
+        "duplicate_evidence",
+        "stable_deduplication",
+        "exact_duplicate_evidence"
+      ],
+      "evidenceType": "provider.webhook",
+      "sourceSystem": "controlled-provider-fixture",
+      "rawEvidenceReferences": ["rcpt_fixture_duplicate_delivery"],
+      "candidate": {
+        "id": "evt_fixture_duplicate_capture_1",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "payment.captured",
+        "source": {
+          "sourceId": "controlled-provider-fixture",
+          "sourceType": "provider.webhook",
+          "sourceRecordId": "capture-duplicate-1"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_duplicate_delivery",
+            "rawLocator": "fixture://provider/deliveries/duplicate-1",
+            "sourceRecordId": "capture-duplicate-1",
+            "role": "primary"
+          },
+          {
+            "receiptId": "rcpt_fixture_duplicate_delivery",
+            "rawLocator": "fixture://provider/deliveries/duplicate-1",
+            "sourceRecordId": "capture-duplicate-1",
+            "role": "primary"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "capture-duplicate-1"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_duplicate_delivery",
+              "rawLocator": "fixture://provider/deliveries/duplicate-1",
+              "sourceRecordId": "capture-duplicate-1",
+              "role": "primary"
+            },
+            {
+              "receiptId": "rcpt_fixture_duplicate_delivery",
+              "rawLocator": "fixture://provider/deliveries/duplicate-1",
+              "sourceRecordId": "capture-duplicate-1",
+              "role": "primary"
+            }
+          ],
+          "observedAt": "2026-07-31T15:00:00Z",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "2500",
+          "currency": "GBP",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-2",
+          "role": "merchant"
+        },
+        "relatedParties": [],
+        "object": {
+          "objectId": "payment-fixture-2",
+          "objectType": "payment"
+        },
+        "eventTime": "2026-07-31T14:59:00Z",
+        "observedTime": "2026-07-31T15:00:00Z",
+        "idempotencyKey": "controlled-provider-fixture:capture-duplicate-1",
+        "relationships": [],
+        "lifecycleState": "observed",
+        "uncertainty": {
+          "state": "provider_only",
+          "reasons": [
+            "Duplicate delivery does not establish settlement or bank confirmation."
+          ],
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_duplicate_delivery",
+              "rawLocator": "fixture://provider/deliveries/duplicate-1",
+              "sourceRecordId": "capture-duplicate-1",
+              "role": "primary"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "valid",
+        "normalized": {
+          "id": "evt_fixture_duplicate_capture_1",
+          "contractVersion": "m03.04-runtime-boundary.v1",
+          "kind": "payment.captured",
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "capture-duplicate-1"
+          },
+          "evidence": [
+            {
+              "role": "primary",
+              "receiptId": "rcpt_fixture_duplicate_delivery",
+              "rawLocator": "fixture://provider/deliveries/duplicate-1",
+              "sourceRecordId": "capture-duplicate-1"
+            }
+          ],
+          "provenance": {
+            "source": {
+              "sourceId": "controlled-provider-fixture",
+              "sourceType": "provider.webhook",
+              "sourceRecordId": "capture-duplicate-1"
+            },
+            "evidence": [
+              {
+                "role": "primary",
+                "receiptId": "rcpt_fixture_duplicate_delivery",
+                "rawLocator": "fixture://provider/deliveries/duplicate-1",
+                "sourceRecordId": "capture-duplicate-1"
+              }
+            ],
+            "observedAt": "2026-07-31T15:00:00.000Z",
+            "derivedBy": "m03.04-source-neutral-normalizer.v1"
+          },
+          "amount": {
+            "minorUnits": "2500",
+            "currency": "GBP",
+            "representation": "integer_minor_units"
+          },
+          "primaryParty": {
+            "partyId": "merchant-fixture-2",
+            "role": "merchant"
+          },
+          "relatedParties": [],
+          "object": {
+            "objectId": "payment-fixture-2",
+            "objectType": "payment"
+          },
+          "eventTime": "2026-07-31T14:59:00.000Z",
+          "observedTime": "2026-07-31T15:00:00.000Z",
+          "idempotencyKey": "controlled-provider-fixture:capture-duplicate-1",
+          "relationships": [],
+          "lifecycleState": "observed",
+          "uncertainty": {
+            "state": "provider_only",
+            "reasons": [
+              "Duplicate delivery does not establish settlement or bank confirmation."
+            ],
+            "evidence": [
+              {
+                "role": "primary",
+                "receiptId": "rcpt_fixture_duplicate_delivery",
+                "rawLocator": "fixture://provider/deliveries/duplicate-1",
+                "sourceRecordId": "capture-duplicate-1"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "fixtureId": "provider-bank-conflicting-amount",
+      "category": "conflicting_amount",
+      "coverageTags": [
+        "conflicting_evidence",
+        "uncertainty",
+        "no_truth_selection"
+      ],
+      "evidenceType": "provider.api_record+bank.statement",
+      "sourceSystem": "controlled-provider-fixture",
+      "rawEvidenceReferences": [
+        "rcpt_fixture_payout_provider",
+        "rcpt_fixture_payout_bank_conflict"
+      ],
+      "candidate": {
+        "id": "evt_fixture_payout_conflict_1",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "payout.observed",
+        "source": {
+          "sourceId": "controlled-provider-fixture",
+          "sourceType": "provider.api_record",
+          "sourceRecordId": "payout-conflict-1"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_payout_provider",
+            "rawLocator": "fixture://provider/payouts/payout-conflict-1",
+            "sourceRecordId": "payout-conflict-1",
+            "role": "primary"
+          },
+          {
+            "receiptId": "rcpt_fixture_payout_bank_conflict",
+            "rawLocator": "fixture://bank/statements/statement-2/lines/bank-line-conflict-1",
+            "sourceRecordId": "bank-line-conflict-1",
+            "role": "conflicting"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.api_record",
+            "sourceRecordId": "payout-conflict-1"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_payout_provider",
+              "rawLocator": "fixture://provider/payouts/payout-conflict-1",
+              "sourceRecordId": "payout-conflict-1",
+              "role": "primary"
+            },
+            {
+              "receiptId": "rcpt_fixture_payout_bank_conflict",
+              "rawLocator": "fixture://bank/statements/statement-2/lines/bank-line-conflict-1",
+              "sourceRecordId": "bank-line-conflict-1",
+              "role": "conflicting"
+            }
+          ],
+          "observedAt": "2026-07-31T16:00:00Z",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "100000",
+          "currency": "GBP",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-1",
+          "role": "merchant"
+        },
+        "relatedParties": [
+          {
+            "partyId": "provider-fixture-1",
+            "role": "provider"
+          },
+          {
+            "partyId": "merchant-bank-account-1",
+            "role": "bank_account"
+          }
+        ],
+        "object": {
+          "objectId": "payout-conflict-1",
+          "objectType": "payout"
+        },
+        "eventTime": "2026-07-31T15:30:00Z",
+        "observedTime": "2026-07-31T16:00:00Z",
+        "idempotencyKey": "controlled-provider-fixture:payout-conflict-1",
+        "relationships": [],
+        "lifecycleState": "unresolved",
+        "uncertainty": {
+          "state": "conflicting_evidence",
+          "reasons": [
+            "The controlled provider and bank references disagree about amount."
+          ],
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_payout_provider",
+              "rawLocator": "fixture://provider/payouts/payout-conflict-1",
+              "sourceRecordId": "payout-conflict-1",
+              "role": "primary"
+            },
+            {
+              "receiptId": "rcpt_fixture_payout_bank_conflict",
+              "rawLocator": "fixture://bank/statements/statement-2/lines/bank-line-conflict-1",
+              "sourceRecordId": "bank-line-conflict-1",
+              "role": "conflicting"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "valid",
+        "normalized": {
+          "id": "evt_fixture_payout_conflict_1",
+          "contractVersion": "m03.04-runtime-boundary.v1",
+          "kind": "payout.observed",
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.api_record",
+            "sourceRecordId": "payout-conflict-1"
+          },
+          "evidence": [
+            {
+              "role": "conflicting",
+              "receiptId": "rcpt_fixture_payout_bank_conflict",
+              "rawLocator": "fixture://bank/statements/statement-2/lines/bank-line-conflict-1",
+              "sourceRecordId": "bank-line-conflict-1"
+            },
+            {
+              "role": "primary",
+              "receiptId": "rcpt_fixture_payout_provider",
+              "rawLocator": "fixture://provider/payouts/payout-conflict-1",
+              "sourceRecordId": "payout-conflict-1"
+            }
+          ],
+          "provenance": {
+            "source": {
+              "sourceId": "controlled-provider-fixture",
+              "sourceType": "provider.api_record",
+              "sourceRecordId": "payout-conflict-1"
+            },
+            "evidence": [
+              {
+                "role": "conflicting",
+                "receiptId": "rcpt_fixture_payout_bank_conflict",
+                "rawLocator": "fixture://bank/statements/statement-2/lines/bank-line-conflict-1",
+                "sourceRecordId": "bank-line-conflict-1"
+              },
+              {
+                "role": "primary",
+                "receiptId": "rcpt_fixture_payout_provider",
+                "rawLocator": "fixture://provider/payouts/payout-conflict-1",
+                "sourceRecordId": "payout-conflict-1"
+              }
+            ],
+            "observedAt": "2026-07-31T16:00:00.000Z",
+            "derivedBy": "m03.04-source-neutral-normalizer.v1"
+          },
+          "amount": {
+            "minorUnits": "100000",
+            "currency": "GBP",
+            "representation": "integer_minor_units"
+          },
+          "primaryParty": {
+            "partyId": "merchant-fixture-1",
+            "role": "merchant"
+          },
+          "relatedParties": [
+            {
+              "partyId": "provider-fixture-1",
+              "role": "provider"
+            },
+            {
+              "partyId": "merchant-bank-account-1",
+              "role": "bank_account"
+            }
+          ],
+          "object": {
+            "objectId": "payout-conflict-1",
+            "objectType": "payout"
+          },
+          "eventTime": "2026-07-31T15:30:00.000Z",
+          "observedTime": "2026-07-31T16:00:00.000Z",
+          "idempotencyKey": "controlled-provider-fixture:payout-conflict-1",
+          "relationships": [],
+          "lifecycleState": "unresolved",
+          "uncertainty": {
+            "state": "conflicting_evidence",
+            "reasons": [
+              "The controlled provider and bank references disagree about amount."
+            ],
+            "evidence": [
+              {
+                "role": "conflicting",
+                "receiptId": "rcpt_fixture_payout_bank_conflict",
+                "rawLocator": "fixture://bank/statements/statement-2/lines/bank-line-conflict-1",
+                "sourceRecordId": "bank-line-conflict-1"
+              },
+              {
+                "role": "primary",
+                "receiptId": "rcpt_fixture_payout_provider",
+                "rawLocator": "fixture://provider/payouts/payout-conflict-1",
+                "sourceRecordId": "payout-conflict-1"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "fixtureId": "distinct-evidence-and-relationships",
+      "category": "distinct_evidence_preserved",
+      "coverageTags": [
+        "distinct_evidence_preservation",
+        "nullable_event_time",
+        "relationship_event_target",
+        "relationship_object_target",
+        "relationship_combined_target",
+        "none_known_uncertainty"
+      ],
+      "evidenceType": "controlled_internal_record",
+      "sourceSystem": "controlled-internal-fixture",
+      "rawEvidenceReferences": [
+        "rcpt_fixture_adjustment_primary",
+        "rcpt_fixture_adjustment_supporting"
+      ],
+      "candidate": {
+        "id": "evt_fixture_adjustment_1",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "adjustment.observed",
+        "source": {
+          "sourceId": "controlled-internal-fixture",
+          "sourceType": "internal.record",
+          "sourceRecordId": "adjustment-1",
+          "sourceSystemName": "Controlled Internal Fixture"
+        },
+        "evidence": [
+          {
+            "role": "primary",
+            "receiptId": "rcpt_fixture_adjustment_primary",
+            "rawLocator": "fixture://internal/adjustments/adjustment-1",
+            "sourceRecordId": "adjustment-1"
+          },
+          {
+            "role": "supporting",
+            "receiptId": "rcpt_fixture_adjustment_supporting",
+            "rawLocator": "fixture://internal/adjustments/adjustment-1",
+            "sourceRecordId": "adjustment-1",
+            "contentHash": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-internal-fixture",
+            "sourceType": "internal.record",
+            "sourceRecordId": "adjustment-1",
+            "sourceSystemName": "Controlled Internal Fixture"
+          },
+          "evidence": [
+            {
+              "role": "primary",
+              "receiptId": "rcpt_fixture_adjustment_primary",
+              "rawLocator": "fixture://internal/adjustments/adjustment-1",
+              "sourceRecordId": "adjustment-1"
+            },
+            {
+              "role": "supporting",
+              "receiptId": "rcpt_fixture_adjustment_supporting",
+              "rawLocator": "fixture://internal/adjustments/adjustment-1",
+              "sourceRecordId": "adjustment-1",
+              "contentHash": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+            }
+          ],
+          "observedAt": "2026-07-31T17:00:00.000Z",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "75",
+          "currency": "GBP",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-1",
+          "role": "merchant"
+        },
+        "relatedParties": [],
+        "object": {
+          "objectId": "ledger-reference-fixture-1",
+          "objectType": "ledger_reference"
+        },
+        "eventTime": null,
+        "observedTime": "2026-07-31T17:00:00.000Z",
+        "idempotencyKey": "controlled-internal-fixture:adjustment-1",
+        "relationships": [
+          {
+            "relationship": "caused_by",
+            "eventId": "evt_fixture_capture_1"
+          },
+          {
+            "relationship": "adjusts",
+            "object": {
+              "objectId": "payment-fixture-1",
+              "objectType": "payment"
+            }
+          },
+          {
+            "relationship": "correlates_with",
+            "eventId": "evt_fixture_capture_1",
+            "object": {
+              "objectId": "payment-fixture-1",
+              "objectType": "payment"
+            }
+          }
+        ],
+        "lifecycleState": "adjusted",
+        "uncertainty": {
+          "state": "none_known",
+          "reasons": [],
+          "evidence": []
+        }
+      },
+      "expectation": {
+        "outcome": "valid",
+        "normalized": {
+          "id": "evt_fixture_adjustment_1",
+          "contractVersion": "m03.04-runtime-boundary.v1",
+          "kind": "adjustment.observed",
+          "source": {
+            "sourceId": "controlled-internal-fixture",
+            "sourceType": "internal.record",
+            "sourceRecordId": "adjustment-1",
+            "sourceSystemName": "Controlled Internal Fixture"
+          },
+          "evidence": [
+            {
+              "role": "primary",
+              "receiptId": "rcpt_fixture_adjustment_primary",
+              "rawLocator": "fixture://internal/adjustments/adjustment-1",
+              "sourceRecordId": "adjustment-1"
+            },
+            {
+              "role": "supporting",
+              "receiptId": "rcpt_fixture_adjustment_supporting",
+              "rawLocator": "fixture://internal/adjustments/adjustment-1",
+              "sourceRecordId": "adjustment-1",
+              "contentHash": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+            }
+          ],
+          "provenance": {
+            "source": {
+              "sourceId": "controlled-internal-fixture",
+              "sourceType": "internal.record",
+              "sourceRecordId": "adjustment-1",
+              "sourceSystemName": "Controlled Internal Fixture"
+            },
+            "evidence": [
+              {
+                "role": "primary",
+                "receiptId": "rcpt_fixture_adjustment_primary",
+                "rawLocator": "fixture://internal/adjustments/adjustment-1",
+                "sourceRecordId": "adjustment-1"
+              },
+              {
+                "role": "supporting",
+                "receiptId": "rcpt_fixture_adjustment_supporting",
+                "rawLocator": "fixture://internal/adjustments/adjustment-1",
+                "sourceRecordId": "adjustment-1",
+                "contentHash": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+              }
+            ],
+            "observedAt": "2026-07-31T17:00:00.000Z",
+            "derivedBy": "m03.04-source-neutral-normalizer.v1"
+          },
+          "amount": {
+            "minorUnits": "75",
+            "currency": "GBP",
+            "representation": "integer_minor_units"
+          },
+          "primaryParty": {
+            "partyId": "merchant-fixture-1",
+            "role": "merchant"
+          },
+          "relatedParties": [],
+          "object": {
+            "objectId": "ledger-reference-fixture-1",
+            "objectType": "ledger_reference"
+          },
+          "eventTime": null,
+          "observedTime": "2026-07-31T17:00:00.000Z",
+          "idempotencyKey": "controlled-internal-fixture:adjustment-1",
+          "relationships": [
+            {
+              "relationship": "caused_by",
+              "eventId": "evt_fixture_capture_1"
+            },
+            {
+              "relationship": "adjusts",
+              "object": {
+                "objectId": "payment-fixture-1",
+                "objectType": "payment"
+              }
+            },
+            {
+              "relationship": "correlates_with",
+              "eventId": "evt_fixture_capture_1",
+              "object": {
+                "objectId": "payment-fixture-1",
+                "objectType": "payment"
+              }
+            }
+          ],
+          "lifecycleState": "adjusted",
+          "uncertainty": {
+            "state": "none_known",
+            "reasons": [],
+            "evidence": []
+          }
+        }
+      }
+    },
+    {
+      "fixtureId": "provider-capture-missing-currency",
+      "category": "missing_currency",
+      "coverageTags": [
+        "invalid_candidate",
+        "no_default_currency",
+        "validation_issue"
+      ],
+      "evidenceType": "provider.webhook",
+      "sourceSystem": "controlled-provider-fixture",
+      "rawEvidenceReferences": ["rcpt_fixture_missing_currency"],
+      "candidate": {
+        "id": "evt_fixture_missing_currency_1",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "payment.captured",
+        "source": {
+          "sourceId": "controlled-provider-fixture",
+          "sourceType": "provider.webhook",
+          "sourceRecordId": "capture-missing-currency-1"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_missing_currency",
+            "rawLocator": "fixture://provider/captures/capture-missing-currency-1",
+            "sourceRecordId": "capture-missing-currency-1",
+            "role": "primary"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "capture-missing-currency-1"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_missing_currency",
+              "rawLocator": "fixture://provider/captures/capture-missing-currency-1",
+              "sourceRecordId": "capture-missing-currency-1",
+              "role": "primary"
+            }
+          ],
+          "observedAt": "2026-07-31T17:00:00Z",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "750",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-3",
+          "role": "merchant"
+        },
+        "relatedParties": [],
+        "object": {
+          "objectId": "payment-fixture-3",
+          "objectType": "payment"
+        },
+        "eventTime": "2026-07-31T16:59:00Z",
+        "observedTime": "2026-07-31T17:00:00Z",
+        "idempotencyKey": "controlled-provider-fixture:capture-missing-currency-1",
+        "relationships": [],
+        "lifecycleState": "observed",
+        "uncertainty": {
+          "state": "missing_evidence",
+          "reasons": [
+            "The source candidate does not provide a usable currency."
+          ],
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_missing_currency",
+              "rawLocator": "fixture://provider/captures/capture-missing-currency-1",
+              "sourceRecordId": "capture-missing-currency-1",
+              "role": "primary"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "invalid",
+        "issues": [
+          {
+            "code": "currency_required",
+            "path": "$.amount.currency"
+          }
+        ]
+      }
+    },
+    {
+      "fixtureId": "missing-required-kind",
+      "category": "missing_required_field",
+      "coverageTags": ["root_required_field"],
+      "evidenceType": "provider.webhook",
+      "sourceSystem": "controlled-provider-fixture",
+      "rawEvidenceReferences": ["rcpt_fixture_capture_primary"],
+      "candidate": {
+        "id": "evt_fixture_missing_required_kind",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "source": {
+          "sourceId": "controlled-provider-fixture",
+          "sourceType": "provider.webhook",
+          "sourceRecordId": "capture-1",
+          "sourceSystemName": "Controlled Provider Fixture"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_capture_primary",
+            "rawLocator": "fixture://provider/captures/capture-1",
+            "sourceRecordId": "capture-1",
+            "role": "primary"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "capture-1",
+            "sourceSystemName": "Controlled Provider Fixture"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ],
+          "observedAt": "2026-07-31T10:00:00+01:00",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "1250",
+          "currency": "gbp",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-1",
+          "role": "merchant"
+        },
+        "relatedParties": [
+          {
+            "partyId": "customer-fixture-1",
+            "role": "customer"
+          }
+        ],
+        "object": {
+          "objectId": "payment-fixture-1",
+          "objectType": "payment"
+        },
+        "eventTime": "2026-07-31T08:59:00Z",
+        "observedTime": "2026-07-31T09:00:00Z",
+        "idempotencyKey": "controlled-provider-fixture:missing-required-kind",
+        "relationships": [],
+        "lifecycleState": "observed",
+        "uncertainty": {
+          "state": "provider_only",
+          "reasons": ["Settlement and bank confirmation are not represented."],
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "invalid",
+        "issues": [
+          {
+            "code": "required_field",
+            "path": "$.kind"
+          }
+        ]
+      }
+    },
+    {
+      "fixtureId": "unsupported-contract-version",
+      "category": "unsupported_contract_version",
+      "coverageTags": ["contract_version"],
+      "evidenceType": "provider.webhook",
+      "sourceSystem": "controlled-provider-fixture",
+      "rawEvidenceReferences": ["rcpt_fixture_capture_primary"],
+      "candidate": {
+        "id": "evt_fixture_unsupported_contract_version",
+        "contractVersion": "m03.03-runtime-boundary.v1",
+        "kind": "payment.captured",
+        "source": {
+          "sourceId": "controlled-provider-fixture",
+          "sourceType": "provider.webhook",
+          "sourceRecordId": "capture-1",
+          "sourceSystemName": "Controlled Provider Fixture"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_capture_primary",
+            "rawLocator": "fixture://provider/captures/capture-1",
+            "sourceRecordId": "capture-1",
+            "role": "primary"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "capture-1",
+            "sourceSystemName": "Controlled Provider Fixture"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ],
+          "observedAt": "2026-07-31T10:00:00+01:00",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "1250",
+          "currency": "gbp",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-1",
+          "role": "merchant"
+        },
+        "relatedParties": [
+          {
+            "partyId": "customer-fixture-1",
+            "role": "customer"
+          }
+        ],
+        "object": {
+          "objectId": "payment-fixture-1",
+          "objectType": "payment"
+        },
+        "eventTime": "2026-07-31T08:59:00Z",
+        "observedTime": "2026-07-31T09:00:00Z",
+        "idempotencyKey": "controlled-provider-fixture:unsupported-contract-version",
+        "relationships": [],
+        "lifecycleState": "observed",
+        "uncertainty": {
+          "state": "provider_only",
+          "reasons": ["Settlement and bank confirmation are not represented."],
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "invalid",
+        "issues": [
+          {
+            "code": "unsupported_contract_version",
+            "path": "$.contractVersion"
+          }
+        ]
+      }
+    },
+    {
+      "fixtureId": "invalid-event-identifier",
+      "category": "invalid_identifier",
+      "coverageTags": ["identifier_validation"],
+      "evidenceType": "provider.webhook",
+      "sourceSystem": "controlled-provider-fixture",
+      "rawEvidenceReferences": ["rcpt_fixture_capture_primary"],
+      "candidate": {
+        "id": "invalid-event-id",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "payment.captured",
+        "source": {
+          "sourceId": "controlled-provider-fixture",
+          "sourceType": "provider.webhook",
+          "sourceRecordId": "capture-1",
+          "sourceSystemName": "Controlled Provider Fixture"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_capture_primary",
+            "rawLocator": "fixture://provider/captures/capture-1",
+            "sourceRecordId": "capture-1",
+            "role": "primary"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "capture-1",
+            "sourceSystemName": "Controlled Provider Fixture"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ],
+          "observedAt": "2026-07-31T10:00:00+01:00",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "1250",
+          "currency": "gbp",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-1",
+          "role": "merchant"
+        },
+        "relatedParties": [
+          {
+            "partyId": "customer-fixture-1",
+            "role": "customer"
+          }
+        ],
+        "object": {
+          "objectId": "payment-fixture-1",
+          "objectType": "payment"
+        },
+        "eventTime": "2026-07-31T08:59:00Z",
+        "observedTime": "2026-07-31T09:00:00Z",
+        "idempotencyKey": "controlled-provider-fixture:invalid-event-identifier",
+        "relationships": [],
+        "lifecycleState": "observed",
+        "uncertainty": {
+          "state": "provider_only",
+          "reasons": ["Settlement and bank confirmation are not represented."],
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "invalid",
+        "issues": [
+          {
+            "code": "invalid_identifier",
+            "path": "$.id"
+          }
+        ]
+      }
+    },
+    {
+      "fixtureId": "missing-primary-evidence",
+      "category": "missing_primary_evidence",
+      "coverageTags": ["evidence_requirement"],
+      "evidenceType": "provider.webhook",
+      "sourceSystem": "controlled-provider-fixture",
+      "rawEvidenceReferences": ["rcpt_fixture_capture_primary"],
+      "candidate": {
+        "id": "evt_fixture_missing_primary_evidence",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "payment.captured",
+        "source": {
+          "sourceId": "controlled-provider-fixture",
+          "sourceType": "provider.webhook",
+          "sourceRecordId": "capture-1",
+          "sourceSystemName": "Controlled Provider Fixture"
+        },
+        "evidence": [],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "capture-1",
+            "sourceSystemName": "Controlled Provider Fixture"
+          },
+          "evidence": [],
+          "observedAt": "2026-07-31T10:00:00+01:00",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "1250",
+          "currency": "gbp",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-1",
+          "role": "merchant"
+        },
+        "relatedParties": [
+          {
+            "partyId": "customer-fixture-1",
+            "role": "customer"
+          }
+        ],
+        "object": {
+          "objectId": "payment-fixture-1",
+          "objectType": "payment"
+        },
+        "eventTime": "2026-07-31T08:59:00Z",
+        "observedTime": "2026-07-31T09:00:00Z",
+        "idempotencyKey": "controlled-provider-fixture:missing-primary-evidence",
+        "relationships": [],
+        "lifecycleState": "observed",
+        "uncertainty": {
+          "state": "provider_only",
+          "reasons": ["Settlement and bank confirmation are not represented."],
+          "evidence": []
+        }
+      },
+      "expectation": {
+        "outcome": "invalid",
+        "issues": [
+          {
+            "code": "evidence_required",
+            "path": "$.evidence"
+          },
+          {
+            "code": "evidence_required",
+            "path": "$.provenance.evidence"
+          }
+        ]
+      }
+    },
+    {
+      "fixtureId": "mismatched-provenance-source",
+      "category": "provenance_mismatch",
+      "coverageTags": ["provenance_consistency"],
+      "evidenceType": "provider.webhook",
+      "sourceSystem": "controlled-provider-fixture",
+      "rawEvidenceReferences": ["rcpt_fixture_capture_primary"],
+      "candidate": {
+        "id": "evt_fixture_mismatched_provenance_source",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "payment.captured",
+        "source": {
+          "sourceId": "controlled-provider-fixture",
+          "sourceType": "provider.webhook",
+          "sourceRecordId": "capture-1",
+          "sourceSystemName": "Controlled Provider Fixture"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_capture_primary",
+            "rawLocator": "fixture://provider/captures/capture-1",
+            "sourceRecordId": "capture-1",
+            "role": "primary"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "different-record",
+            "sourceSystemName": "Controlled Provider Fixture"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ],
+          "observedAt": "2026-07-31T10:00:00+01:00",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "1250",
+          "currency": "gbp",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-1",
+          "role": "merchant"
+        },
+        "relatedParties": [
+          {
+            "partyId": "customer-fixture-1",
+            "role": "customer"
+          }
+        ],
+        "object": {
+          "objectId": "payment-fixture-1",
+          "objectType": "payment"
+        },
+        "eventTime": "2026-07-31T08:59:00Z",
+        "observedTime": "2026-07-31T09:00:00Z",
+        "idempotencyKey": "controlled-provider-fixture:mismatched-provenance-source",
+        "relationships": [],
+        "lifecycleState": "observed",
+        "uncertainty": {
+          "state": "provider_only",
+          "reasons": ["Settlement and bank confirmation are not represented."],
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "invalid",
+        "issues": [
+          {
+            "code": "provenance_mismatch",
+            "path": "$.provenance.source"
+          }
+        ]
+      }
+    },
+    {
+      "fixtureId": "invalid-minor-units",
+      "category": "invalid_minor_units",
+      "coverageTags": ["minor_units_validation"],
+      "evidenceType": "provider.webhook",
+      "sourceSystem": "controlled-provider-fixture",
+      "rawEvidenceReferences": ["rcpt_fixture_capture_primary"],
+      "candidate": {
+        "id": "evt_fixture_invalid_minor_units",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "payment.captured",
+        "source": {
+          "sourceId": "controlled-provider-fixture",
+          "sourceType": "provider.webhook",
+          "sourceRecordId": "capture-1",
+          "sourceSystemName": "Controlled Provider Fixture"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_capture_primary",
+            "rawLocator": "fixture://provider/captures/capture-1",
+            "sourceRecordId": "capture-1",
+            "role": "primary"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "capture-1",
+            "sourceSystemName": "Controlled Provider Fixture"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ],
+          "observedAt": "2026-07-31T10:00:00+01:00",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "12.50",
+          "currency": "gbp",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-1",
+          "role": "merchant"
+        },
+        "relatedParties": [
+          {
+            "partyId": "customer-fixture-1",
+            "role": "customer"
+          }
+        ],
+        "object": {
+          "objectId": "payment-fixture-1",
+          "objectType": "payment"
+        },
+        "eventTime": "2026-07-31T08:59:00Z",
+        "observedTime": "2026-07-31T09:00:00Z",
+        "idempotencyKey": "controlled-provider-fixture:invalid-minor-units",
+        "relationships": [],
+        "lifecycleState": "observed",
+        "uncertainty": {
+          "state": "provider_only",
+          "reasons": ["Settlement and bank confirmation are not represented."],
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "invalid",
+        "issues": [
+          {
+            "code": "invalid_minor_units",
+            "path": "$.amount.minorUnits"
+          }
+        ]
+      }
+    },
+    {
+      "fixtureId": "invalid-event-timestamp",
+      "category": "invalid_timestamp",
+      "coverageTags": ["timestamp_validation"],
+      "evidenceType": "provider.webhook",
+      "sourceSystem": "controlled-provider-fixture",
+      "rawEvidenceReferences": ["rcpt_fixture_capture_primary"],
+      "candidate": {
+        "id": "evt_fixture_invalid_event_timestamp",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "payment.captured",
+        "source": {
+          "sourceId": "controlled-provider-fixture",
+          "sourceType": "provider.webhook",
+          "sourceRecordId": "capture-1",
+          "sourceSystemName": "Controlled Provider Fixture"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_capture_primary",
+            "rawLocator": "fixture://provider/captures/capture-1",
+            "sourceRecordId": "capture-1",
+            "role": "primary"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "capture-1",
+            "sourceSystemName": "Controlled Provider Fixture"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ],
+          "observedAt": "2026-07-31T10:00:00+01:00",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "1250",
+          "currency": "gbp",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-1",
+          "role": "merchant"
+        },
+        "relatedParties": [
+          {
+            "partyId": "customer-fixture-1",
+            "role": "customer"
+          }
+        ],
+        "object": {
+          "objectId": "payment-fixture-1",
+          "objectType": "payment"
+        },
+        "eventTime": "not-a-timestamp",
+        "observedTime": "2026-07-31T09:00:00Z",
+        "idempotencyKey": "controlled-provider-fixture:invalid-event-timestamp",
+        "relationships": [],
+        "lifecycleState": "observed",
+        "uncertainty": {
+          "state": "provider_only",
+          "reasons": ["Settlement and bank confirmation are not represented."],
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "invalid",
+        "issues": [
+          {
+            "code": "invalid_timestamp",
+            "path": "$.eventTime"
+          }
+        ]
+      }
+    },
+    {
+      "fixtureId": "invalid-idempotency-key",
+      "category": "invalid_idempotency_key",
+      "coverageTags": ["idempotency_validation"],
+      "evidenceType": "provider.webhook",
+      "sourceSystem": "controlled-provider-fixture",
+      "rawEvidenceReferences": ["rcpt_fixture_capture_primary"],
+      "candidate": {
+        "id": "evt_fixture_invalid_idempotency_key",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "payment.captured",
+        "source": {
+          "sourceId": "controlled-provider-fixture",
+          "sourceType": "provider.webhook",
+          "sourceRecordId": "capture-1",
+          "sourceSystemName": "Controlled Provider Fixture"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_capture_primary",
+            "rawLocator": "fixture://provider/captures/capture-1",
+            "sourceRecordId": "capture-1",
+            "role": "primary"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "capture-1",
+            "sourceSystemName": "Controlled Provider Fixture"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ],
+          "observedAt": "2026-07-31T10:00:00+01:00",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "1250",
+          "currency": "gbp",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-1",
+          "role": "merchant"
+        },
+        "relatedParties": [
+          {
+            "partyId": "customer-fixture-1",
+            "role": "customer"
+          }
+        ],
+        "object": {
+          "objectId": "payment-fixture-1",
+          "objectType": "payment"
+        },
+        "eventTime": "2026-07-31T08:59:00Z",
+        "observedTime": "2026-07-31T09:00:00Z",
+        "idempotencyKey": "",
+        "relationships": [],
+        "lifecycleState": "observed",
+        "uncertainty": {
+          "state": "provider_only",
+          "reasons": ["Settlement and bank confirmation are not represented."],
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "invalid",
+        "issues": [
+          {
+            "code": "invalid_identifier",
+            "path": "$.idempotencyKey"
+          }
+        ]
+      }
+    },
+    {
+      "fixtureId": "missing-relationship-target",
+      "category": "missing_relationship_target",
+      "coverageTags": ["relationship_target_required"],
+      "evidenceType": "provider.webhook",
+      "sourceSystem": "controlled-provider-fixture",
+      "rawEvidenceReferences": ["rcpt_fixture_capture_primary"],
+      "candidate": {
+        "id": "evt_fixture_missing_relationship_target",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "payment.captured",
+        "source": {
+          "sourceId": "controlled-provider-fixture",
+          "sourceType": "provider.webhook",
+          "sourceRecordId": "capture-1",
+          "sourceSystemName": "Controlled Provider Fixture"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_capture_primary",
+            "rawLocator": "fixture://provider/captures/capture-1",
+            "sourceRecordId": "capture-1",
+            "role": "primary"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "capture-1",
+            "sourceSystemName": "Controlled Provider Fixture"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ],
+          "observedAt": "2026-07-31T10:00:00+01:00",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "1250",
+          "currency": "gbp",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-1",
+          "role": "merchant"
+        },
+        "relatedParties": [
+          {
+            "partyId": "customer-fixture-1",
+            "role": "customer"
+          }
+        ],
+        "object": {
+          "objectId": "payment-fixture-1",
+          "objectType": "payment"
+        },
+        "eventTime": "2026-07-31T08:59:00Z",
+        "observedTime": "2026-07-31T09:00:00Z",
+        "idempotencyKey": "controlled-provider-fixture:missing-relationship-target",
+        "relationships": [
+          {
+            "relationship": "correlates_with"
+          }
+        ],
+        "lifecycleState": "observed",
+        "uncertainty": {
+          "state": "provider_only",
+          "reasons": ["Settlement and bank confirmation are not represented."],
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "invalid",
+        "issues": [
+          {
+            "code": "relationship_target_required",
+            "path": "$.relationships[0]"
+          }
+        ]
+      }
+    },
+    {
+      "fixtureId": "invalid-lifecycle-state",
+      "category": "invalid_lifecycle_state",
+      "coverageTags": ["lifecycle_validation"],
+      "evidenceType": "provider.webhook",
+      "sourceSystem": "controlled-provider-fixture",
+      "rawEvidenceReferences": ["rcpt_fixture_capture_primary"],
+      "candidate": {
+        "id": "evt_fixture_invalid_lifecycle_state",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "payment.captured",
+        "source": {
+          "sourceId": "controlled-provider-fixture",
+          "sourceType": "provider.webhook",
+          "sourceRecordId": "capture-1",
+          "sourceSystemName": "Controlled Provider Fixture"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_capture_primary",
+            "rawLocator": "fixture://provider/captures/capture-1",
+            "sourceRecordId": "capture-1",
+            "role": "primary"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "capture-1",
+            "sourceSystemName": "Controlled Provider Fixture"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ],
+          "observedAt": "2026-07-31T10:00:00+01:00",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "1250",
+          "currency": "gbp",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-1",
+          "role": "merchant"
+        },
+        "relatedParties": [
+          {
+            "partyId": "customer-fixture-1",
+            "role": "customer"
+          }
+        ],
+        "object": {
+          "objectId": "payment-fixture-1",
+          "objectType": "payment"
+        },
+        "eventTime": "2026-07-31T08:59:00Z",
+        "observedTime": "2026-07-31T09:00:00Z",
+        "idempotencyKey": "controlled-provider-fixture:invalid-lifecycle-state",
+        "relationships": [],
+        "lifecycleState": "posted",
+        "uncertainty": {
+          "state": "provider_only",
+          "reasons": ["Settlement and bank confirmation are not represented."],
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "invalid",
+        "issues": [
+          {
+            "code": "unsupported_value",
+            "path": "$.lifecycleState"
+          }
+        ]
+      }
+    },
+    {
+      "fixtureId": "missing-uncertainty-reason",
+      "category": "missing_uncertainty_reason",
+      "coverageTags": ["uncertainty_reason_required"],
+      "evidenceType": "provider.webhook",
+      "sourceSystem": "controlled-provider-fixture",
+      "rawEvidenceReferences": ["rcpt_fixture_capture_primary"],
+      "candidate": {
+        "id": "evt_fixture_missing_uncertainty_reason",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "payment.captured",
+        "source": {
+          "sourceId": "controlled-provider-fixture",
+          "sourceType": "provider.webhook",
+          "sourceRecordId": "capture-1",
+          "sourceSystemName": "Controlled Provider Fixture"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_capture_primary",
+            "rawLocator": "fixture://provider/captures/capture-1",
+            "sourceRecordId": "capture-1",
+            "role": "primary"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "capture-1",
+            "sourceSystemName": "Controlled Provider Fixture"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ],
+          "observedAt": "2026-07-31T10:00:00+01:00",
+          "derivedBy": "m03.04-source-neutral-normalizer.v1"
+        },
+        "amount": {
+          "minorUnits": "1250",
+          "currency": "gbp",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-1",
+          "role": "merchant"
+        },
+        "relatedParties": [
+          {
+            "partyId": "customer-fixture-1",
+            "role": "customer"
+          }
+        ],
+        "object": {
+          "objectId": "payment-fixture-1",
+          "objectType": "payment"
+        },
+        "eventTime": "2026-07-31T08:59:00Z",
+        "observedTime": "2026-07-31T09:00:00Z",
+        "idempotencyKey": "controlled-provider-fixture:missing-uncertainty-reason",
+        "relationships": [],
+        "lifecycleState": "observed",
+        "uncertainty": {
+          "state": "provider_only",
+          "reasons": [],
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "invalid",
+        "issues": [
+          {
+            "code": "uncertainty_reason_required",
+            "path": "$.uncertainty.reasons"
+          }
+        ]
+      }
+    },
+    {
+      "fixtureId": "unsupported-transformation-boundary",
+      "category": "unsupported_transformation_boundary",
+      "coverageTags": ["transformation_boundary"],
+      "evidenceType": "provider.webhook",
+      "sourceSystem": "controlled-provider-fixture",
+      "rawEvidenceReferences": ["rcpt_fixture_capture_primary"],
+      "candidate": {
+        "id": "evt_fixture_unsupported_transformation_boundary",
+        "contractVersion": "m03.04-runtime-boundary.v1",
+        "kind": "payment.captured",
+        "source": {
+          "sourceId": "controlled-provider-fixture",
+          "sourceType": "provider.webhook",
+          "sourceRecordId": "capture-1",
+          "sourceSystemName": "Controlled Provider Fixture"
+        },
+        "evidence": [
+          {
+            "receiptId": "rcpt_fixture_capture_primary",
+            "rawLocator": "fixture://provider/captures/capture-1",
+            "sourceRecordId": "capture-1",
+            "role": "primary"
+          }
+        ],
+        "provenance": {
+          "source": {
+            "sourceId": "controlled-provider-fixture",
+            "sourceType": "provider.webhook",
+            "sourceRecordId": "capture-1",
+            "sourceSystemName": "Controlled Provider Fixture"
+          },
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ],
+          "observedAt": "2026-07-31T10:00:00+01:00",
+          "derivedBy": "unknown-normalizer"
+        },
+        "amount": {
+          "minorUnits": "1250",
+          "currency": "gbp",
+          "representation": "integer_minor_units"
+        },
+        "primaryParty": {
+          "partyId": "merchant-fixture-1",
+          "role": "merchant"
+        },
+        "relatedParties": [
+          {
+            "partyId": "customer-fixture-1",
+            "role": "customer"
+          }
+        ],
+        "object": {
+          "objectId": "payment-fixture-1",
+          "objectType": "payment"
+        },
+        "eventTime": "2026-07-31T08:59:00Z",
+        "observedTime": "2026-07-31T09:00:00Z",
+        "idempotencyKey": "controlled-provider-fixture:unsupported-transformation-boundary",
+        "relationships": [],
+        "lifecycleState": "observed",
+        "uncertainty": {
+          "state": "provider_only",
+          "reasons": ["Settlement and bank confirmation are not represented."],
+          "evidence": [
+            {
+              "receiptId": "rcpt_fixture_capture_primary",
+              "rawLocator": "fixture://provider/captures/capture-1",
+              "sourceRecordId": "capture-1",
+              "role": "primary"
+            }
+          ]
+        }
+      },
+      "expectation": {
+        "outcome": "invalid",
+        "issues": [
+          {
+            "code": "unsupported_transformation_boundary",
+            "path": "$.provenance.derivedBy"
+          }
+        ]
+      }
+    }
+  ]
+}

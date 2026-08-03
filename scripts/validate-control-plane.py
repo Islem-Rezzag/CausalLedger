@@ -53,6 +53,18 @@ M03_04_EVENTS_RUNTIME_BOUNDARY_FILES = [
     "test/money-event-validation.test.ts",
 ]
 
+M03_05_EVENTS_FIXTURE_FILES = [
+    *M03_04_EVENTS_RUNTIME_BOUNDARY_FILES,
+    "test/money-event-fixture-manifest.ts",
+    "test/money-event-fixtures.test.ts",
+]
+
+M03_05_EVALS_SEED_FILES = [
+    *APPROVED_PACKAGE_SCAFFOLD_FILES,
+    "test/money-event-seed-cases.test.ts",
+    "test/money-event-seed-manifest.ts",
+]
+
 PACKAGE_SCRIPT_NAMES = ["build", "typecheck", "typecheck:test", "test", "lint", "format:check"]
 
 GENERATED_PACKAGE_DIR_NAMES = {"node_modules", "dist", ".turbo", "coverage"}
@@ -78,6 +90,11 @@ M03_ACTIVE_PLAN = "plans/active/CLP-0004-m03-canonical-moneyevent-engine.md"
 MONEYEVENT_CONTRACT_DOC = "docs/MONEYEVENT_CONTRACT.md"
 MONEYEVENT_MAPPING_FIXTURES_DOC = "docs/MONEYEVENT_MAPPING_FIXTURES.md"
 MONEYEVENT_VALIDATION_NORMALIZATION_DOC = "docs/MONEYEVENT_VALIDATION_NORMALIZATION.md"
+MONEYEVENT_FIXTURES_BENCHMARK_SEEDS_DOC = (
+    "docs/MONEYEVENT_FIXTURES_BENCHMARK_SEEDS.md"
+)
+M03_05_FIXTURE_MANIFEST = "data/fixtures/money-events/candidates.json"
+M03_05_SEED_MANIFEST = "scenarios/moneyflowbench/money-event-seeds.json"
 
 EXPECTED_M03_SUBMILESTONES = {
     "M03.01",
@@ -123,12 +140,78 @@ M03_04_ALLOWED_STATUSES = {
     "Completed and merged",
 }
 
+M03_05_ALLOWED_STATUSES = {
+    "Builder in progress",
+    "Builder complete, awaiting QA",
+    "QA passed, awaiting merge",
+    "Completed and merged",
+}
+
+M03_06_ALLOWED_STATUSES = {
+    "Builder in progress",
+    "Builder complete, awaiting QA",
+    "QA passed, awaiting merge",
+    "Completed and merged",
+}
+
 M03_04_ALLOWED_MONEYEVENT_RUNTIME_PATHS = {
     "packages/events/src/money-event.ts",
     "packages/events/src/money-event-validation.ts",
     "packages/events/test/money-event-types.test.ts",
     "packages/events/test/money-event-validation.test.ts",
 }
+
+M03_05_ALLOWED_MONEYEVENT_PATHS = M03_04_ALLOWED_MONEYEVENT_RUNTIME_PATHS | {
+    M03_05_FIXTURE_MANIFEST,
+    M03_05_SEED_MANIFEST,
+    "packages/events/test/money-event-fixture-manifest.ts",
+    "packages/events/test/money-event-fixtures.test.ts",
+    "packages/evals/test/money-event-seed-cases.test.ts",
+    "packages/evals/test/money-event-seed-manifest.ts",
+}
+
+M03_05_FIXTURE_REQUIRED_CATEGORIES = {
+    "simple_provider_capture",
+    "provider_refund",
+    "chargeback_opened",
+    "settlement_payout_row",
+    "bank_deposit_line",
+    "duplicate_provider_webhook",
+    "distinct_evidence_preserved",
+    "conflicting_amount",
+    "missing_currency",
+    "missing_required_field",
+    "unsupported_contract_version",
+    "invalid_identifier",
+    "missing_primary_evidence",
+    "provenance_mismatch",
+    "invalid_minor_units",
+    "invalid_timestamp",
+    "invalid_idempotency_key",
+    "missing_relationship_target",
+    "invalid_lifecycle_state",
+    "missing_uncertainty_reason",
+    "unsupported_transformation_boundary",
+}
+
+M03_05_DOC_REQUIRED_PHRASES = [
+    "controlled MoneyEvent candidate corpus",
+    "m03.05-money-event-fixtures.v1",
+    "m03.05-moneyflowbench-seeds.v1",
+    "not raw evidence",
+    "not financial truth",
+    "evidence-citation requirements",
+    "hallucinated-fact",
+    "unsupported-certainty",
+    "unsafe-action",
+    "deterministic repeatability",
+    "cost capture",
+    "scoringImplemented: false",
+    "no runner, scorer, model integration",
+    "does not implement source-specific mapping",
+    "M03.06",
+    "M14",
+]
 
 MONEYEVENT_VALIDATION_NORMALIZATION_REQUIRED_PHRASES = [
     "source-neutral MoneyEvent candidate",
@@ -876,6 +959,7 @@ def validate_m03_milestone_consistency(
     m03_02_status = by_id.get("M03.02").status if by_id.get("M03.02") else None
     m03_03_status = by_id.get("M03.03").status if by_id.get("M03.03") else None
     m03_04_status = by_id.get("M03.04").status if by_id.get("M03.04") else None
+    m03_05_status = by_id.get("M03.05").status if by_id.get("M03.05") else None
     try:
         milestone_rows = parse_milestone_submilestone_table(m03_text)
     except ValueError as exc:
@@ -937,9 +1021,24 @@ def validate_m03_milestone_consistency(
                 errors.append(
                     "M03.04 must be active or completed after M03.03 merge finalization"
                 )
-        elif row.submilestone_id in {"M03.05", "M03.06"}:
-            if registry_row.status != "Not started":
-                errors.append(f"{row.submilestone_id} must remain Not started during M03.04")
+        elif row.submilestone_id == "M03.05":
+            if registry_row.status == "Not started":
+                pass
+            elif m03_04_status != "Completed and merged":
+                errors.append("M03.05 must remain Not started during M03.04")
+            elif registry_row.status not in M03_05_ALLOWED_STATUSES:
+                errors.append(
+                    "M03.05 must be active or completed after M03.04 finalization"
+                )
+        elif row.submilestone_id == "M03.06":
+            if registry_row.status == "Not started":
+                pass
+            elif m03_05_status != "Completed and merged":
+                errors.append("M03.06 must remain Not started during M03.05")
+            elif registry_row.status not in M03_06_ALLOWED_STATUSES:
+                errors.append(
+                    "M03.06 must be active or completed after M03.05 finalization"
+                )
         if registry_row.active_plan != M03_ACTIVE_PLAN:
             errors.append(f"{row.submilestone_id} must reference active M03 plan")
 
@@ -947,6 +1046,8 @@ def validate_m03_milestone_consistency(
         errors.append("M03.02 must be Completed and merged before M03.03 tracking")
     if m03_04_status not in {None, "Not started"} and m03_03_status != "Completed and merged":
         errors.append("M03.03 must be Completed and merged before M03.04 tracking")
+    if m03_05_status not in {None, "Not started"} and m03_04_status != "Completed and merged":
+        errors.append("M03.04 must be Completed and merged before M03.05 tracking")
     return errors
 
 
@@ -1117,6 +1218,7 @@ def validate_docs() -> list[str]:
         "M03.02 Builder added a TypeScript-only MoneyEvent type boundary",
         "M03.03 Builder created `docs/MONEYEVENT_MAPPING_FIXTURES.md`",
         "M03.04 Builder implemented deterministic source-neutral MoneyEvent candidate validation and normalization",
+        "M03.05 Builder added a versioned controlled synthetic MoneyEvent candidate corpus",
         "ADR-0008 identity, money, and storage direction",
     ]:
         if phrase not in changelog:
@@ -1136,6 +1238,8 @@ def validate_docs() -> list[str]:
             errors.append(f"{rel} does not index the MoneyEvent contract")
         if MONEYEVENT_MAPPING_FIXTURES_DOC not in read_text(rel):
             errors.append(f"{rel} does not index the MoneyEvent mapping fixtures plan")
+        if MONEYEVENT_FIXTURES_BENCHMARK_SEEDS_DOC not in read_text(rel):
+            errors.append(f"{rel} does not index the M03.05 fixture and seed boundary")
 
     stale_current_claims = {
         "docs/ACTIVE_DOCS.md": ["M03.04 through M03.06 remain `Not started`"],
@@ -1183,11 +1287,11 @@ def validate_no_moneyevent_runtime_files() -> list[str]:
                 continue
             lowered = path.name.lower()
             relative_path = path.relative_to(ROOT).as_posix()
-            if relative_path in M03_04_ALLOWED_MONEYEVENT_RUNTIME_PATHS:
+            if relative_path in M03_05_ALLOWED_MONEYEVENT_PATHS:
                 continue
             if any(term in lowered for term in MONEYEVENT_RUNTIME_PATH_TERMS):
                 errors.append(
-                    "MoneyEvent runtime file created outside M03.04 scope: "
+                    "MoneyEvent runtime file created outside approved M03 scope: "
                     f"{relative_path}"
                 )
     return errors
@@ -1195,7 +1299,12 @@ def validate_no_moneyevent_runtime_files() -> list[str]:
 
 def validate_no_m03_fixture_or_simulator_data() -> list[str]:
     errors: list[str] = []
-    for rel in ["data/fixtures", "data/synthetic", "scenarios"]:
+    allowed_files = {
+        "data/fixtures": {"README.md", "money-events/candidates.json"},
+        "data/synthetic": {"README.md"},
+        "scenarios": {"README.md", "moneyflowbench/money-event-seeds.json"},
+    }
+    for rel, allowed in allowed_files.items():
         root = ROOT / rel
         if not root.exists():
             continue
@@ -1204,11 +1313,286 @@ def validate_no_m03_fixture_or_simulator_data() -> list[str]:
             for path in root.rglob("*")
             if path.is_file()
         )
-        extra_files = [file_name for file_name in files if file_name != "README.md"]
+        extra_files = [file_name for file_name in files if file_name not in allowed]
         if extra_files:
             errors.append(
-                f"{rel} may contain only README.md before fixture data or simulator implementation scope: "
+                f"{rel} contains files outside M03.05 controlled fixture/seed scope: "
                 + ", ".join(extra_files)
+            )
+    return errors
+
+
+def validate_m03_05_fixture_and_seed_data() -> list[str]:
+    errors: list[str] = []
+    try:
+        fixtures = json.loads(read_text(M03_05_FIXTURE_MANIFEST))
+    except (json.JSONDecodeError, OSError) as exc:
+        return [f"{M03_05_FIXTURE_MANIFEST} is not readable JSON: {exc}"]
+    try:
+        seeds = json.loads(read_text(M03_05_SEED_MANIFEST))
+    except (json.JSONDecodeError, OSError) as exc:
+        return [f"{M03_05_SEED_MANIFEST} is not readable JSON: {exc}"]
+
+    if not isinstance(fixtures, dict):
+        return ["M03.05 fixture manifest root must be an object"]
+    if not isinstance(seeds, dict):
+        return ["M03.05 seed manifest root must be an object"]
+
+    fixture_root_fields = {
+        "schemaVersion",
+        "status",
+        "description",
+        "deterministic",
+        "financialTruth",
+        "cases",
+    }
+    if set(fixtures) != fixture_root_fields:
+        errors.append("M03.05 fixture manifest root fields must match the reviewed schema")
+    if fixtures.get("schemaVersion") != "m03.05-money-event-fixtures.v1":
+        errors.append("M03.05 fixture manifest has the wrong schemaVersion")
+    if fixtures.get("status") != "controlled-synthetic-fixtures":
+        errors.append("M03.05 fixture manifest must be controlled synthetic fixtures")
+    if fixtures.get("deterministic") is not True:
+        errors.append("M03.05 fixture manifest must declare deterministic true")
+    if fixtures.get("financialTruth") is not False:
+        errors.append("M03.05 fixture manifest must declare financialTruth false")
+
+    fixture_cases = fixtures.get("cases")
+    if not isinstance(fixture_cases, list) or len(fixture_cases) != 21:
+        errors.append("M03.05 fixture manifest must contain exactly 21 reviewed cases")
+        fixture_cases = []
+    fixture_ids = [case.get("fixtureId") for case in fixture_cases if isinstance(case, dict)]
+    if len(fixture_ids) != len(set(fixture_ids)):
+        errors.append("M03.05 fixture IDs must be unique")
+    categories = {
+        case.get("category") for case in fixture_cases if isinstance(case, dict)
+    }
+    missing_categories = sorted(M03_05_FIXTURE_REQUIRED_CATEGORIES - categories)
+    if missing_categories:
+        errors.append(
+            "M03.05 fixture manifest missing categories: "
+            + ", ".join(missing_categories)
+        )
+    fixture_text = json.dumps(fixtures, sort_keys=True)
+    if re.search(r"https?://", fixture_text, re.IGNORECASE):
+        errors.append("M03.05 fixtures must not contain live HTTP references")
+    if re.search(
+        r'"(?:password|passwd|secret|token|authorization|api.?key|private.?key|client.?secret|cookie|session|email|phone|address|full.?name|raw.?payload)"\s*:',
+        fixture_text,
+        re.IGNORECASE,
+    ):
+        errors.append("M03.05 fixtures contain a forbidden secret-bearing field")
+    for case in fixture_cases:
+        if not isinstance(case, dict):
+            errors.append("M03.05 fixture cases must be objects")
+            continue
+        expected_case_fields = {
+            "fixtureId",
+            "category",
+            "coverageTags",
+            "evidenceType",
+            "sourceSystem",
+            "rawEvidenceReferences",
+            "candidate",
+            "expectation",
+        }
+        if set(case) != expected_case_fields:
+            errors.append(
+                f"M03.05 fixture {case.get('fixtureId')} fields must match the reviewed schema"
+            )
+        coverage_tags = case.get("coverageTags")
+        if (
+            not isinstance(coverage_tags, list)
+            or not coverage_tags
+            or any(not isinstance(tag, str) or not tag for tag in coverage_tags)
+            or len(coverage_tags) != len(set(coverage_tags))
+        ):
+            errors.append(
+                f"M03.05 fixture {case.get('fixtureId')} must have unique coverage tags"
+            )
+        source_system = case.get("sourceSystem")
+        if not isinstance(source_system, str) or not source_system.startswith(
+            "controlled-"
+        ):
+            errors.append("M03.05 fixture source systems must be controlled identities")
+        if not case.get("rawEvidenceReferences"):
+            errors.append(
+                f"M03.05 fixture {case.get('fixtureId')} must cite evidence references"
+            )
+        candidate = case.get("candidate")
+        if not isinstance(candidate, dict):
+            errors.append(f"M03.05 fixture {case.get('fixtureId')} candidate must be an object")
+        elif not isinstance(candidate.get("source"), dict) or candidate["source"].get(
+            "sourceId"
+        ) != source_system:
+            errors.append(
+                f"M03.05 fixture {case.get('fixtureId')} candidate source must match sourceSystem"
+            )
+        expectation = case.get("expectation")
+        if not isinstance(expectation, dict) or expectation.get("outcome") not in {
+            "valid",
+            "invalid",
+        }:
+            errors.append(
+                f"M03.05 fixture {case.get('fixtureId')} has no valid expectation"
+            )
+            continue
+        if expectation["outcome"] == "valid":
+            if set(expectation) != {"outcome", "normalized"}:
+                errors.append(
+                    f"M03.05 fixture {case.get('fixtureId')} valid expectation fields are incomplete"
+                )
+                continue
+            normalized = expectation.get("normalized")
+            expected_normalized_fields = {
+                "id",
+                "contractVersion",
+                "kind",
+                "source",
+                "evidence",
+                "provenance",
+                "amount",
+                "primaryParty",
+                "relatedParties",
+                "object",
+                "eventTime",
+                "observedTime",
+                "idempotencyKey",
+                "relationships",
+                "lifecycleState",
+                "uncertainty",
+            }
+            if not isinstance(normalized, dict) or set(normalized) != expected_normalized_fields:
+                errors.append(
+                    f"M03.05 fixture {case.get('fixtureId')} must contain a full normalized snapshot"
+                )
+            elif not isinstance(normalized.get("amount"), dict) or not isinstance(
+                normalized["amount"].get("minorUnits"), str
+            ):
+                errors.append(
+                    f"M03.05 fixture {case.get('fixtureId')} normalized minorUnits must be a string"
+                )
+        else:
+            if set(expectation) != {"outcome", "issues"}:
+                errors.append(
+                    f"M03.05 fixture {case.get('fixtureId')} invalid expectation fields are incomplete"
+                )
+                continue
+            issues = expectation.get("issues")
+            issue_keys = []
+            if not isinstance(issues, list) or not issues:
+                errors.append(
+                    f"M03.05 fixture {case.get('fixtureId')} must contain expected issues"
+                )
+                continue
+            for issue in issues:
+                if not isinstance(issue, dict) or set(issue) != {"code", "path"}:
+                    errors.append(
+                        f"M03.05 fixture {case.get('fixtureId')} has a malformed expected issue"
+                    )
+                    continue
+                issue_keys.append((issue.get("path"), issue.get("code")))
+            if len(issue_keys) != len(set(issue_keys)):
+                errors.append(
+                    f"M03.05 fixture {case.get('fixtureId')} has duplicate expected issues"
+                )
+
+    seed_root_fields = {
+        "schemaVersion",
+        "status",
+        "description",
+        "scoringImplemented",
+        "benchmarkResults",
+        "cases",
+    }
+    if set(seeds) != seed_root_fields:
+        errors.append("M03.05 seed manifest root fields must match the reviewed schema")
+    if seeds.get("schemaVersion") != "m03.05-moneyflowbench-seeds.v1":
+        errors.append("M03.05 seed manifest has the wrong schemaVersion")
+    if seeds.get("status") != "seed-cases-only":
+        errors.append("M03.05 seed manifest must remain seed-cases-only")
+    if seeds.get("scoringImplemented") is not False:
+        errors.append("M03.05 seed manifest must not implement scoring")
+    if seeds.get("benchmarkResults") != []:
+        errors.append("M03.05 seed manifest must not contain benchmark results")
+
+    seed_cases = seeds.get("cases")
+    if not isinstance(seed_cases, list) or len(seed_cases) != 7:
+        errors.append("M03.05 seed manifest must contain exactly seven reviewed cases")
+        seed_cases = []
+    seed_ids = [case.get("seedId") for case in seed_cases if isinstance(case, dict)]
+    if len(seed_ids) != len(set(seed_ids)):
+        errors.append("M03.05 seed IDs must be unique")
+    known_fixture_ids = set(fixture_ids)
+    for case in seed_cases:
+        if not isinstance(case, dict):
+            errors.append("M03.05 seed cases must be objects")
+            continue
+        expected_seed_fields = {
+            "seedId",
+            "fixtureIds",
+            "task",
+            "expectedOutcome",
+            "expectedEvidenceReferences",
+            "expectedUncertaintyStates",
+            "requiredFindings",
+            "prohibitedClaims",
+            "evaluationPolicy",
+        }
+        if case.get("expectedOutcome") == "deterministic_rejection":
+            expected_seed_fields.add("expectedValidationIssues")
+        if set(case) != expected_seed_fields:
+            errors.append(
+                f"M03.05 seed {case.get('seedId')} fields must match the reviewed schema"
+            )
+        unknown_fixture_ids = sorted(
+            set(case.get("fixtureIds", [])) - known_fixture_ids
+        )
+        if unknown_fixture_ids:
+            errors.append(
+                f"M03.05 seed {case.get('seedId')} references unknown fixtures: "
+                + ", ".join(unknown_fixture_ids)
+            )
+        if not case.get("expectedEvidenceReferences"):
+            errors.append(
+                f"M03.05 seed {case.get('seedId')} must cite expected evidence"
+            )
+        if not case.get("expectedUncertaintyStates"):
+            errors.append(
+                f"M03.05 seed {case.get('seedId')} must state uncertainty"
+            )
+        if not case.get("prohibitedClaims"):
+            errors.append(
+                f"M03.05 seed {case.get('seedId')} must penalize unsupported claims"
+            )
+        policy = case.get("evaluationPolicy")
+        expected_policy = {
+            "evidenceCitationRequired": True,
+            "hallucinatedFactOutcome": "fail",
+            "unsupportedCertaintyOutcome": "fail",
+            "unsafeActionOutcome": "fail",
+            "repeatability": "deterministic_fixture",
+            "costCapture": {
+                "requiredWhenRunnerExists": True,
+                "status": "deferred_until_m14_runner",
+            },
+        }
+        if policy != expected_policy:
+            errors.append(
+                f"M03.05 seed {case.get('seedId')} has incomplete evaluation policy"
+            )
+    return errors
+
+
+def validate_m03_05_fixture_and_seed_doc() -> list[str]:
+    errors: list[str] = []
+    content = read_text(MONEYEVENT_FIXTURES_BENCHMARK_SEEDS_DOC)
+    content_lower = content.lower()
+    for phrase in M03_05_DOC_REQUIRED_PHRASES:
+        if phrase.lower() not in content_lower:
+            errors.append(
+                "MONEYEVENT_FIXTURES_BENCHMARK_SEEDS.md missing boundary coverage: "
+                f"{phrase}"
             )
     return errors
 
@@ -1568,8 +1952,10 @@ def validate_package_scaffolds() -> list[str]:
             )
             continue
         expected_files = set(
-            M03_04_EVENTS_RUNTIME_BOUNDARY_FILES
+            M03_05_EVENTS_FIXTURE_FILES
             if package_dir.name == "events"
+            else M03_05_EVALS_SEED_FILES
+            if package_dir.name == "evals"
             else APPROVED_PACKAGE_SCAFFOLD_FILES
         )
         if files != expected_files:
@@ -1804,10 +2190,12 @@ def validate() -> list[str]:
     errors.extend(validate_no_secrets())
     errors.extend(validate_no_moneyevent_runtime_files())
     errors.extend(validate_no_m03_fixture_or_simulator_data())
+    errors.extend(validate_m03_05_fixture_and_seed_data())
     errors.extend(validate_moneyevent_contract_doc())
     errors.extend(validate_verifier_driven_loop_strategy_docs())
     errors.extend(validate_m03_03_mapping_fixture_planning_doc())
     errors.extend(validate_m03_04_validation_normalization_doc())
+    errors.extend(validate_m03_05_fixture_and_seed_doc())
     errors.extend(validate_m03_04_events_runtime_boundary())
     errors.extend(validate_local_infrastructure())
     errors.extend(validate_qa_development_environment())

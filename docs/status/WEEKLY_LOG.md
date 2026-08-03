@@ -1,5 +1,29 @@
 # Weekly Log
 
+## 2026-07-31
+
+- Independent M03.05 QA verified the exact branch, clean starting tree, GitHub origin, M03.04-finalization ancestry, builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, PR #55 branch/base/mergeability, and successful starting-head CI.
+- QA found and fixed five scoped contract weaknesses: manifests were type-cast instead of strictly parsed, valid expectations were partial, invalid expectations allowed extra issues, the canonical invalid corpus was too narrow, and `expectedEvidenceReceiptIds` mislabelled non-receipt references.
+- The reviewed fixture corpus now has 21 cases: eight full JSON-safe normalized snapshots and 13 exact deterministic-rejection expectations across the major contract families. The seven seed cases now use truthful `expectedEvidenceReferences` and exact fixture grounding.
+- Added strict test-only fixture and seed manifest parsers plus mutation tests for root/record/field/ID/tag/reference/outcome/snapshot/issue/policy/output/score/result failures. Production source and runtime dependencies did not change.
+- Independent QA validation passed: control plane; 102 bootstrap tests; frozen install; events typecheck/build/lint/format and 97 tests; evals typecheck/build/lint/format and 42 tests; all 13-package workspace checks; diff and data-hygiene inspection; and dirty-mode QA with 17 PASS, 0 FAIL, and 2 SKIPPED.
+- The required `corepack pnpm format:check` passed across all packages. Docker remained an optional skip because infrastructure did not change.
+- M03.05 is `QA passed, awaiting merge` on PR #55. M03.06 and M04 through M21 remain `Not started`. Exact next thread: `Merge M03.05 PR - MoneyEvent Test Fixtures and Benchmark Seed Cases`.
+- Started M03.05 Builder on `m03-05-moneyevent-test-fixtures-benchmark-seeds` after repository discovery confirmed `C:/Users/moham/Desktop/CausalLedger` and the exact GitHub origin.
+- Fetched and fast-forwarded `main`, confirmed M03.04 finalization commit `4afa9e94bc3938e3138ce2045afc380582b24c71`, and safely reused the clean local M03.05 branch because it had no commits unique from `main` and pointed to the same commit.
+- Confirmed the exact branch, clean worktree, `main` ancestry, and repository-local identity `Mohamed Islem Rezzag Baara <Islem-Rezzag@users.noreply.github.com>` before edits.
+- Read the required active docs, active M03 plan, M03 tracking, MoneyEvent specifications, package boundaries, code/tests, validation/handoff workflow, and PR protocol.
+- Marked M03.05 `Builder in progress`; scope is controlled deterministic candidate fixtures, early benchmark seed metadata, test-only verification, documentation, control-plane guards, and durable tracking. M03.06 and M04 through M21 remain `Not started`.
+- Added eight versioned controlled MoneyEvent candidate fixtures and seven early MoneyFlowBench seed cases with stable IDs, controlled `fixture://` evidence references, explicit uncertainty, deterministic normalization or rejection expectations, hallucination/unsupported-certainty/unsafe-action failure policies, and no scoring or results.
+- Added deterministic fixture and seed verification in `packages/events` and `packages/evals`, plus the M03.05 boundary specification, package/data/scenario documentation, exact control-plane allowlists, structural JSON checks, bootstrap coverage, and durable status updates.
+- Resolved three issues found by focused validation: added repository-pinned Node test types, corrected an invalid Unicode regular-expression escape, and updated two stale bootstrap assertions. Final required checks have no known failures.
+- M03.05 Builder validation passed: control plane; 102 bootstrap tests; diff check; frozen install; events-package typecheck, 4-file/71-test run, build, lint, and format; evals-package typecheck, 2-file/5-test run, build, lint, and format; all full-workspace checks; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`.
+- Forbidden-scope inspection passed. No runtime source, source-specific mapper, simulator execution, benchmark runner or scoring, model call, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent tool, external communication, raw-evidence mutation, repair approval, or money mutation was added.
+- Docker validation was optional and skipped because infrastructure was unchanged and Docker is unavailable; the dirty-worktree gate was intentionally skipped during authorized edits. `make` and GitHub CLI are unavailable; direct required checks passed and the GitHub connector is used for PR metadata. The frozen install emitted the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
+- Marked M03.05 `Builder complete, awaiting QA`. Exact next thread: `M03.05 QA - MoneyEvent Test Fixtures and Benchmark Seed Cases` on the same branch and draft PR. M03.06 and M04 through M21 remain `Not started`.
+- Committed builder scope as `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, passed post-commit clean QA with 18 `PASS`, 0 `FAIL`, and 1 `SKIPPED`, pushed the exact M03.05 branch without force, and opened draft PR #55 against `main`.
+- Verified PR #55 is open, unmerged, mergeable, draft, based on `main` at `4afa9e94bc3938e3138ce2045afc380582b24c71`, uses the exact branch containing the builder commit, and carries the complete validation, safety, forbidden-scope, and QA handoff metadata.
+
 ## 2026-07-30
 
 - Ran independent M03.04 Finalization QA on `m03-04-finalize-validation-normalization-merge`; the exact branch and clean-worktree guard passed, finalization commit `af6bebb19ba6c314ca3ec20c6f27fee29cc46d87` was verified, PR #53 merge ancestry passed, and its merge commit has the same tree as QA source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`.

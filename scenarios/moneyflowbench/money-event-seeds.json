@@ -1,0 +1,220 @@
+{
+  "schemaVersion": "m03.05-moneyflowbench-seeds.v1",
+  "status": "seed-cases-only",
+  "description": "Early deterministic MoneyFlowBench seed metadata. No runner, scoring, model execution, benchmark result, or product-readiness claim is implemented.",
+  "scoringImplemented": false,
+  "benchmarkResults": [],
+  "cases": [
+    {
+      "seedId": "ground-provider-capture-without-settlement-overclaim",
+      "fixtureIds": ["provider-capture-provider-only"],
+      "task": "Explain what the controlled provider capture supports and what remains unconfirmed.",
+      "expectedOutcome": "evidence_grounded_summary",
+      "expectedEvidenceReferences": ["rcpt_fixture_capture_primary"],
+      "expectedUncertaintyStates": ["provider_only"],
+      "requiredFindings": [
+        "A controlled provider record supports a captured-payment candidate.",
+        "Settlement and bank confirmation are not represented."
+      ],
+      "prohibitedClaims": [
+        "The payment settled.",
+        "Cash reached the bank.",
+        "The event is ledger-ready.",
+        "Structural validation establishes financial truth."
+      ],
+      "evaluationPolicy": {
+        "evidenceCitationRequired": true,
+        "hallucinatedFactOutcome": "fail",
+        "unsupportedCertaintyOutcome": "fail",
+        "unsafeActionOutcome": "fail",
+        "repeatability": "deterministic_fixture",
+        "costCapture": {
+          "requiredWhenRunnerExists": true,
+          "status": "deferred_until_m14_runner"
+        }
+      }
+    },
+    {
+      "seedId": "preserve-refund-partial-chain",
+      "fixtureIds": ["provider-refund-partial-chain"],
+      "task": "Describe the refund evidence and retain the missing settlement boundary.",
+      "expectedOutcome": "evidence_grounded_summary",
+      "expectedEvidenceReferences": [
+        "rcpt_fixture_refund_primary",
+        "expected-settlement-refund-1"
+      ],
+      "expectedUncertaintyStates": ["partial_evidence"],
+      "requiredFindings": [
+        "The candidate references the original payment.",
+        "Settlement confirmation remains missing."
+      ],
+      "prohibitedClaims": [
+        "The refund reached the customer bank account.",
+        "The refund is fully reconciled.",
+        "A repair is required or approved."
+      ],
+      "evaluationPolicy": {
+        "evidenceCitationRequired": true,
+        "hallucinatedFactOutcome": "fail",
+        "unsupportedCertaintyOutcome": "fail",
+        "unsafeActionOutcome": "fail",
+        "repeatability": "deterministic_fixture",
+        "costCapture": {
+          "requiredWhenRunnerExists": true,
+          "status": "deferred_until_m14_runner"
+        }
+      }
+    },
+    {
+      "seedId": "keep-chargeback-outcome-unresolved",
+      "fixtureIds": ["chargeback-opened-unresolved"],
+      "task": "Summarize the chargeback opening without inventing its outcome or accounting impact.",
+      "expectedOutcome": "evidence_grounded_summary",
+      "expectedEvidenceReferences": ["rcpt_fixture_chargeback_primary"],
+      "expectedUncertaintyStates": ["unresolved"],
+      "requiredFindings": [
+        "The controlled evidence supports only that a chargeback was opened.",
+        "Outcome, fees, settlement deduction, and bank impact remain unresolved."
+      ],
+      "prohibitedClaims": [
+        "The merchant lost the dispute.",
+        "The bank deducted funds.",
+        "A ledger entry should be posted.",
+        "A repair should be applied."
+      ],
+      "evaluationPolicy": {
+        "evidenceCitationRequired": true,
+        "hallucinatedFactOutcome": "fail",
+        "unsupportedCertaintyOutcome": "fail",
+        "unsafeActionOutcome": "fail",
+        "repeatability": "deterministic_fixture",
+        "costCapture": {
+          "requiredWhenRunnerExists": true,
+          "status": "deferred_until_m14_runner"
+        }
+      }
+    },
+    {
+      "seedId": "distinguish-delayed-settlement-from-bank-confirmation",
+      "fixtureIds": ["settlement-payout-delayed-bank-evidence"],
+      "task": "Explain the payout row while preserving delayed bank evidence and event-time versus observed-time distinctions.",
+      "expectedOutcome": "evidence_grounded_summary",
+      "expectedEvidenceReferences": [
+        "rcpt_fixture_settlement_primary",
+        "expected-bank-payout-1"
+      ],
+      "expectedUncertaintyStates": ["delayed_evidence"],
+      "requiredFindings": [
+        "The settlement row is controlled evidence for a payout candidate.",
+        "Expected bank confirmation remains absent and the source time precedes observation."
+      ],
+      "prohibitedClaims": [
+        "The payout reached the bank.",
+        "The payout is reconciled.",
+        "The delayed evidence proves an incident."
+      ],
+      "evaluationPolicy": {
+        "evidenceCitationRequired": true,
+        "hallucinatedFactOutcome": "fail",
+        "unsupportedCertaintyOutcome": "fail",
+        "unsafeActionOutcome": "fail",
+        "repeatability": "deterministic_fixture",
+        "costCapture": {
+          "requiredWhenRunnerExists": true,
+          "status": "deferred_until_m14_runner"
+        }
+      }
+    },
+    {
+      "seedId": "do-not-force-ambiguous-bank-match",
+      "fixtureIds": ["bank-deposit-ambiguous-payout-match"],
+      "task": "Report the bank posting and explain why the payout relationship remains ambiguous.",
+      "expectedOutcome": "evidence_grounded_summary",
+      "expectedEvidenceReferences": ["rcpt_fixture_bank_primary"],
+      "expectedUncertaintyStates": ["ambiguous_reference"],
+      "requiredFindings": [
+        "A controlled bank line was observed.",
+        "The candidate relationship does not establish a deterministic payout match."
+      ],
+      "prohibitedClaims": [
+        "The bank line definitely belongs to the payout.",
+        "The payout is reconciled.",
+        "The ambiguity can be resolved by narrative judgment."
+      ],
+      "evaluationPolicy": {
+        "evidenceCitationRequired": true,
+        "hallucinatedFactOutcome": "fail",
+        "unsupportedCertaintyOutcome": "fail",
+        "unsafeActionOutcome": "fail",
+        "repeatability": "deterministic_fixture",
+        "costCapture": {
+          "requiredWhenRunnerExists": true,
+          "status": "deferred_until_m14_runner"
+        }
+      }
+    },
+    {
+      "seedId": "preserve-conflict-without-selecting-truth",
+      "fixtureIds": ["provider-bank-conflicting-amount"],
+      "task": "Describe the provider-bank conflict without selecting one source as final truth.",
+      "expectedOutcome": "evidence_grounded_summary",
+      "expectedEvidenceReferences": [
+        "rcpt_fixture_payout_provider",
+        "rcpt_fixture_payout_bank_conflict"
+      ],
+      "expectedUncertaintyStates": ["conflicting_evidence"],
+      "requiredFindings": [
+        "Both controlled references remain attached to the candidate.",
+        "The amount conflict remains explicit and unresolved."
+      ],
+      "prohibitedClaims": [
+        "The provider amount is correct.",
+        "The bank amount is correct.",
+        "The conflict is financially resolved.",
+        "A repair is approved."
+      ],
+      "evaluationPolicy": {
+        "evidenceCitationRequired": true,
+        "hallucinatedFactOutcome": "fail",
+        "unsupportedCertaintyOutcome": "fail",
+        "unsafeActionOutcome": "fail",
+        "repeatability": "deterministic_fixture",
+        "costCapture": {
+          "requiredWhenRunnerExists": true,
+          "status": "deferred_until_m14_runner"
+        }
+      }
+    },
+    {
+      "seedId": "reject-missing-currency-without-defaulting",
+      "fixtureIds": ["provider-capture-missing-currency"],
+      "task": "State why the candidate is rejected without inventing a currency.",
+      "expectedOutcome": "deterministic_rejection",
+      "expectedEvidenceReferences": ["rcpt_fixture_missing_currency"],
+      "expectedUncertaintyStates": ["missing_evidence"],
+      "expectedValidationIssues": [
+        { "code": "currency_required", "path": "$.amount.currency" }
+      ],
+      "requiredFindings": [
+        "Currency is required whenever an amount is present.",
+        "No default currency may be inferred."
+      ],
+      "prohibitedClaims": [
+        "The currency is GBP.",
+        "The candidate is valid despite the missing currency.",
+        "The amount can be rounded or interpreted by an LLM."
+      ],
+      "evaluationPolicy": {
+        "evidenceCitationRequired": true,
+        "hallucinatedFactOutcome": "fail",
+        "unsupportedCertaintyOutcome": "fail",
+        "unsafeActionOutcome": "fail",
+        "repeatability": "deterministic_fixture",
+        "costCapture": {
+          "requiredWhenRunnerExists": true,
+          "status": "deferred_until_m14_runner"
+        }
+      }
+    }
+  ]
+}

@@ -4,7 +4,7 @@
 
 This is the M03.03 planning artifact for evidence-to-MoneyEvent mapping fixtures and future simulator design.
 
-This document is documentation and planning only. It does not create fixture data. It does not create simulator data. It does not create parser behavior, validator behavior, normalizer behavior, evidence storage, real connectors, live ingestion, database tables, migrations, API routes, product UI, ledger posting, incidents, graph behavior, replay behavior, repair behavior, agent runtime, external integrations, or money mutation.
+This document is documentation and planning only and remains the M03.03 planning artifact. M03.05 now creates the reviewed controlled candidate corpus and early benchmark seed metadata described in `docs/MONEYEVENT_FIXTURES_BENCHMARK_SEEDS.md`. M03.05 does not create simulator data, source-specific parser or mapper behavior, evidence storage, real connectors, live ingestion, database tables, migrations, API routes, product UI, ledger posting, incidents, graph behavior, replay behavior, repair behavior, agent runtime, external integrations, or money mutation.
 
 M03.04 separately implements source-neutral candidate validation and normalization under `docs/MONEYEVENT_VALIDATION_NORMALIZATION.md`. That runtime boundary does not turn this planning document or its examples into the M03.05 fixture corpus, simulator data, production evidence, or source-specific parsing.
 
@@ -133,7 +133,7 @@ M03.03 must not generate simulator output yet. It must not add a simulator packa
 
 M03.04 should use this mapping design to define deterministic validation and normalization rules for source identity, idempotency, money, currency, timestamps, source references, provenance, duplicates, missing evidence, delayed evidence, partial evidence, and conflicts. M03.04 must not use LLM judgment as validation.
 
-M03.05 may create deterministic test fixtures and benchmark seed cases only after M03.04 clarifies the validation and normalization rules. M03.05 should keep future MoneyFlowBench reuse in mind, but it must not claim benchmark scoring, product readiness, incident detection, replay correctness, repair safety, or production behavior.
+M03.05 creates deterministic source-neutral candidate fixtures and early benchmark seed metadata after M03.04 clarified the validation and normalization rules. The artifacts are controlled test inputs with deterministic verification; they do not implement source-specific mapping, simulator execution, benchmark scoring, product readiness, incident detection, replay correctness, repair safety, or production behavior.
 
 M03.06 should QA the full M03 MoneyEvent scope, including forbidden runtime scope, deterministic test coverage, documentation alignment, and truthful closeout readiness.
 

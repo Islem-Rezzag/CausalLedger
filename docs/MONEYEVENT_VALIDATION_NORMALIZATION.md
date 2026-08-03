@@ -100,7 +100,7 @@ All detected ordinary data failures are accumulated, sorted deterministically, a
 
 ## Relationship to M03.05
 
-M03.05 may add reviewed fixture datasets and benchmark seed cases against this boundary. Inline M03.04 unit-test objects are not the M03.05 fixture corpus, simulator data, production evidence, or benchmark cases.
+M03.05 adds the reviewed controlled candidate corpus and early benchmark seed metadata described in `docs/MONEYEVENT_FIXTURES_BENCHMARK_SEEDS.md`. Deterministic tests exercise this boundary using those synthetic inputs. The corpus is not simulator output, production evidence, source-specific mapping, benchmark scoring, or financial truth.
 
 ## Relationship to later ledger, invariant, incident, graph, replay, repair, and agent layers
 

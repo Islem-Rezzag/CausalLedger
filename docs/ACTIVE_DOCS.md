@@ -30,6 +30,7 @@ Project direction:
 - `docs/MONEYEVENT_CONTRACT.md`
 - `docs/MONEYEVENT_MAPPING_FIXTURES.md`
 - `docs/MONEYEVENT_VALIDATION_NORMALIZATION.md`
+- `docs/MONEYEVENT_FIXTURES_BENCHMARK_SEEDS.md`
 - `docs/domain/README.md`
 - `docs/domain/payment-lifecycle.md`
 - `docs/domain/ledger-vocabulary.md`
@@ -99,7 +100,7 @@ Completed execution:
 
 Active execution:
 
-- M03 Canonical MoneyEvent Engine is active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M03 planning PR #47 and M03.01 through M03.04 are completed and merged. PR #53 merged M03.04 into `main` at `572dc150e38782620416350004630b690c00e687` after QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`. M03.05 and M03.06 remain `Not started`.
+- M03 Canonical MoneyEvent Engine is active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M03 planning and M03.01 through M03.04 are completed and merged; M03.04 finalization merged at `4afa9e94bc3938e3138ce2045afc380582b24c71`. M03.05 is `QA passed, awaiting merge` on `m03-05-moneyevent-test-fixtures-benchmark-seeds` and PR #55; M03.06 remains `Not started`.
 
 Plan state:
 
