@@ -1,6 +1,6 @@
 # Start Here
 
-This repository has completed and closed M00, M01, and M02. M03 planning and M03.01 through M03.05 are completed and merged; PR #55 merged M03.05 into `main` at `89874bca2525a423d773548c61f9655f09642575`. M03 remains active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`, and M03.06 remains `Not started`. MoneyEvent runtime behavior remains limited to the source-neutral validator and deterministic normalizer in `packages/events`; M03.05 adds controlled synthetic fixture and seed data plus tests, not new runtime mapping or financial behavior.
+This repository has completed and closed M00, M01, and M02. M03 planning and M03.01 through M03.05 are completed and merged; PR #58 recovery QA squash-merged at `721bd60eba04cdf71765660727132d0d6aed97bc`. M03.06 Builder is complete and awaiting independent QA under active plan `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M03 is not closed, M04 through M21 remain `Not started`, and `docs/status/M03_CLOSEOUT_READINESS.md` is not the final closeout packet. MoneyEvent runtime behavior remains limited to the source-neutral validator and deterministic normalizer in `packages/events`; M03.05 adds controlled synthetic fixture and seed data plus tests, not new runtime mapping or financial behavior.
 
 Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 
@@ -67,7 +67,7 @@ The handoff packet must include files created, files changed, files intentionall
 - Do not implement invariants.
 - Do not implement the agent runtime.
 - Do not implement UI features.
-- Do not start M03.06 before M03.05 QA PASS, PR merge, and tracking finalization.
+- Do not close M03 or start M04 before M03.06 independent QA PASS, PR merge, and formal M03 milestone closeout.
 - Do not implement product behavior during M01.01, M01.02, M01.03, or M01.04.
 
 ## Correct first success

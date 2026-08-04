@@ -1086,6 +1086,43 @@ def test_17h_m03_05_fixture_and_seed_artifacts_are_complete():
         assert validator.MONEYEVENT_FIXTURES_BENCHMARK_SEEDS_DOC in text(rel)
 
 
+def test_17i_m03_06_closeout_readiness_packet_is_complete():
+    assert (ROOT / validator.M03_CLOSEOUT_READINESS_DOC).is_file()
+    assert validator.validate_m03_06_closeout_readiness() == []
+
+
+def test_17j_m03_06_closeout_readiness_rejects_missing_sections():
+    readiness = text(validator.M03_CLOSEOUT_READINESS_DOC).replace(
+        "## Risks", "### Risks", 1
+    )
+    assert (
+        "M03_CLOSEOUT_READINESS.md missing or empty section: Risks"
+        in validator.validate_m03_06_closeout_readiness_text(readiness)
+    )
+
+
+def test_17k_m03_06_readiness_keeps_final_closeout_absent_and_plan_active():
+    assert not (ROOT / validator.M03_FINAL_CLOSEOUT_DOC).exists()
+    assert (ROOT / validator.M03_ACTIVE_PLAN).is_file()
+    assert not (
+        ROOT
+        / "plans"
+        / "completed"
+        / "CLP-0004-m03-canonical-moneyevent-engine.md"
+    ).exists()
+
+
+def test_17l_m04_through_m21_remain_not_started_during_m03_06():
+    rows = validator.registry_by_id()
+    for milestone_number in range(4, 22):
+        prefix = f"M{milestone_number:02d}."
+        milestone_rows = [
+            row for row in rows.values() if row.submilestone_id.startswith(prefix)
+        ]
+        assert milestone_rows
+        assert all(row.status == "Not started" for row in milestone_rows)
+
+
 def test_18_live_registry_table_parses():
     assert len(validator.parse_registry()) > 300
 
