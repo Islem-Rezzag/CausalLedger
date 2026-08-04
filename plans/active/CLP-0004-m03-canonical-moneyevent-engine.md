@@ -6,7 +6,7 @@ Plan and execute M03 as a sequence of narrow, evidence-grounded MoneyEvent slice
 
 M03 will define the canonical MoneyEvent engine boundary for future deterministic money-movement processing. The milestone should turn M01 domain language and M02 package scaffolding into a carefully scoped implementation path for canonical event contracts, source mapping, validation, fixtures, and QA.
 
-M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`. M03.01 PR #48 merged into `main` at commit `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`. M03.02 PR #49 merged into `main` at commit `f7e3b54ba6a533a70d34810564be1b8828eec952`. M03.03 PR #51 merged into `main` at commit `03b0b55d988a224a96c2bcd3c30601c6100ab091`, and the merge finalization landed at `737710592544203e039ceee44a732e289c373bb6`. M03.04 PR #53 merged into `main` at commit `572dc150e38782620416350004630b690c00e687` after QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`; M03.04 finalization merged at `4afa9e94bc3938e3138ce2045afc380582b24c71`. M03.05 PR #55 merged into `main` at `89874bca2525a423d773548c61f9655f09642575`, and M03.06 remains `Not started`.
+M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`. M03.01 PR #48 merged into `main` at commit `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`. M03.02 PR #49 merged into `main` at commit `f7e3b54ba6a533a70d34810564be1b8828eec952`. M03.03 PR #51 merged into `main` at commit `03b0b55d988a224a96c2bcd3c30601c6100ab091`, and the merge finalization landed at `737710592544203e039ceee44a732e289c373bb6`. M03.04 PR #53 merged into `main` at commit `572dc150e38782620416350004630b690c00e687` after QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`; M03.04 finalization merged at `4afa9e94bc3938e3138ce2045afc380582b24c71`. M03.05 PR #55 merged into `main` at `89874bca2525a423d773548c61f9655f09642575`. PR #56 merged the substantive M03.05 finalization at `b4ce3a106e61746f892f1aeb0665b12cd85bdaeb`; PR #57 accidentally merged the same finalization branch again at `1744e90b0da80480dd3d4c33e6a1827789830003`. The two finalization commits have no file differences and share tree `e7a985be616b116ff73a028018304c2b776857b2`, so PR #57 is a no-op history entry. This recovery slice supplies the independent finalization QA that was not durably recorded before those merges. M03 remains active and M03.06 remains `Not started`.
 
 ## Progress
 
@@ -97,6 +97,11 @@ M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1e
 - [x] 2026-08-03: Synced `main`, verified PR #55 merged at `89874bca2525a423d773548c61f9655f09642575`, confirmed the merge commit is an ancestor of `main`, and confirmed its tree matches final reviewed head `869af913b781a9706a93d561c256c4077f30361d`.
 - [x] 2026-08-03: Recorded builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, independent QA commit `f7a1f3c8ae13be60ff8f8154acb81965d2237b9d`, final reviewed head `869af913b781a9706a93d561c256c4077f30361d`, and PR #55 merge commit `89874bca2525a423d773548c61f9655f09642575`.
 - [x] 2026-08-03: Updated durable tracking so M03.05 is `Completed and merged`, M03.06 and M04 through M21 remain `Not started`, M03 remains active, and the exact next thread after this finalization PR merges is `M03.06 Builder - MoneyEvent QA and Closeout`.
+- [x] 2026-08-04: Synchronized `main` at `1744e90b0da80480dd3d4c33e6a1827789830003`, verified PR #55, PR #56, and PR #57 merge ancestry, and created recovery branch `m03-05-finalization-qa-recovery-duplicate-merge-audit` from that exact state.
+- [x] 2026-08-04: Proved PR #57 is an empty duplicate merge: `git diff --name-status`, `git diff --stat`, and `git diff --check` between the PR #56 and PR #57 merge commits produced no output, and both commits resolve to tree `e7a985be616b116ff73a028018304c2b776857b2`.
+- [x] 2026-08-04: Independently confirmed the M03.05 fixture, seed, parser, test, runtime-source, manifest, lockfile, and CI blobs are identical to the PR #55 merge state; the reviewed corpus remains 21 fixtures with eight valid and 13 invalid cases plus seven seed cases, with no score or benchmark result.
+- [x] 2026-08-04: Recorded the duplicate merge and missing pre-merge finalization QA as a process deviation. No revert, reset, history rewrite, implementation repair, data repair, or product technical-debt entry is required because the duplicate merge changed no files and `TECH_DEBT.md` tracks product/runtime debt.
+- [x] 2026-08-04: Recovery validation passed: control plane, 102 bootstrap tests, frozen install across 14 workspace projects, 97 events tests, 42 evals tests, focused package checks, all five checks across 13 workspace packages, and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 expected `SKIPPED`.
 
 ## Surprises & Discoveries
 
@@ -104,6 +109,7 @@ M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1e
 - M02 closeout is merged on `main`, and `plans/active/` contained no active CLP plan before this branch.
 - The package layer remains scaffold-only; no MoneyEvent runtime files exist at planning start.
 - No suitable conceptual MoneyEvent contract document existed before M03.01, so `docs/MONEYEVENT_CONTRACT.md` is the canonical location for the contract. It is under `docs/` because this slice defines cross-layer semantics, not package runtime behavior.
+- PR #57 reused the already-merged M03.05 finalization branch. Git history contains the extra merge record, but its tree is identical to PR #56 and it introduced no implementation, fixture, seed, test, manifest, lockfile, or tracking-tree change.
 
 ## Decision Log
 
@@ -131,6 +137,8 @@ M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1e
 - Require at least one root evidence reference, exact normalized provenance/root source and evidence consistency, canonical equality between provenance and root observed time, a versioned transformation boundary, and explicit uncertainty reasons for every state other than `none_known`.
 - Preserve delayed and out-of-order event times, conflicting evidence references, relationship order, and uncertainty. Do not generate IDs, timestamps, evidence, currency, parties, objects, relationships, or idempotency keys.
 - Keep the implementation dependency-free and package-local. No runtime dependency is justified because deterministic structural checks, timestamp canonicalization, sorting, cloning, and `bigint` conversion are available in the language runtime.
+- Treat PR #56 as the substantive M03.05 finalization merge and PR #57 as a harmless duplicate no-op merge. Preserve history: do not revert either PR, reset `main`, rewrite commits, or force-push.
+- Track the duplicate merge and missing finalization-QA record as a process deviation in the active plan, weekly log, current state, milestone tracking, and recovery PR. Do not add it to `TECH_DEBT.md`, whose current scope is product/runtime debt and local-environment limitations.
 
 ## Context and Orientation
 
@@ -594,6 +602,16 @@ Run `make bootstrap-check` only if `make` is available. Record Docker limitation
 - Docker validation was optional because infrastructure did not change and could not run because Docker is unavailable. `make` and GitHub CLI are also unavailable; direct required checks passed, and the connected GitHub integration is used for PR metadata.
 - Forbidden-scope inspection passed: no events/evals runtime source, source-specific mapper, simulator execution, benchmark runner or scoring, model call, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent tool, external communication, raw-evidence mutation, repair approval, or money mutation was added.
 
+2026-08-04 M03.05 Finalization QA Recovery validation results:
+
+- Validation ladder: Level 0 repository, remote, synchronized-main, clean starting worktree, exact branch, ancestry, and identity guards; Level 1 required-record, milestone-truth, duplicate-merge, functional-blob, and forbidden-scope inspection; Level 2 control-plane validation; Level 3 bootstrap and focused package tests; Level 4 duplicate/diff/whitespace checks; Level 5 package and workspace static/build validation; Level 6 deterministic fixture/seed inspection; Level 7 financial-truth and immutability boundaries; Level 8 independent recovery QA passed, while human review and recovery-PR merge remain pending.
+- `python scripts/validate-control-plane.py`, `python -m pytest tests/test_control_plane_bootstrap.py`, and `git diff --check` passed; pytest reported 102 tests.
+- `corepack pnpm install --frozen-lockfile` passed across all 14 workspace projects with repo-pinned pnpm 10.32.1 and the known non-blocking `esbuild@0.28.0` ignored-build-scripts warning.
+- Events-package typecheck, 4-file/97-test run, build, ESLint, and format checks passed. Evals-package typecheck, 2-file/42-test run, build, ESLint, and format checks passed.
+- Full typecheck, lint, test, build, and format checks passed across all 13 workspace packages.
+- `corepack pnpm qa:dev --allow-dirty` passed with 17 `PASS`, 0 `FAIL`, and 2 `SKIPPED`; only the authorized dirty-worktree gate and optional Docker validation were skipped.
+- Duplicate-merge, functional-blob, milestone-truth, and forbidden-scope inspections passed. No implementation, fixture, seed, raw evidence, ledger, repair approval, external communication, or money state changed.
+
 2026-08-03 M03.05 Merge Finalization validation results:
 
 - Validation ladder: Level 0 exact repository, remote, clean starting worktree, branch, identity, synchronized `main`, PR #55 merge ancestry, and merged-tree guard; Level 1 required-file, current-state, historical-record, and forbidden-scope inspection; Level 2 control-plane validation; Level 3 bootstrap plus events/evals unit tests; Level 4 diff and whitespace checks; Level 5 focused package and full-workspace checks; Level 6 unchanged deterministic fixture and seed grounding; Level 7 financial-truth, evidence, immutability, benchmark, and agent-tool boundaries; Level 8 independent finalization QA and remote PR review remain required.
@@ -621,7 +639,7 @@ Acceptance criteria:
 - `docs/MONEYEVENT_MAPPING_FIXTURES.md` exists as documentation-only mapping fixture and simulator planning;
 - the only product runtime behavior is M03.04 structural validation and normalization, which does not establish financial truth;
 - no runtime schema framework, source-specific parser or mapper, ingestion, storage, migration, simulator data or execution, benchmark runner or scoring, route, UI, ledger posting, invariant, incident, graph, replay, repair, or agent behavior is created;
-- status docs and handoff point to `M03.06 Builder - MoneyEvent QA and Closeout` only after the M03.05 finalization PR merges.
+- status docs and handoff point to `M03.06 Builder - MoneyEvent QA and Closeout` only after the M03.05 finalization QA recovery PR merges.
 
 ## Expected Files
 
@@ -772,7 +790,7 @@ M03 planning QA passed locally for PR #47 on branch `m03-planning-canonical-mone
 
 M03.01 Builder created `docs/MONEYEVENT_CONTRACT.md` as a documentation-only conceptual MoneyEvent contract and updated tracking, status docs, and validation guards. M03.01 QA verified the contract and applied scoped QA status and handoff updates only.
 
-M03.01 through M03.05 are `Completed and merged`. PR #55 merged M03.05 into `main` at `89874bca2525a423d773548c61f9655f09642575`; builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, independent QA commit `f7a1f3c8ae13be60ff8f8154acb81965d2237b9d`, and final reviewed head `869af913b781a9706a93d561c256c4077f30361d` are recorded. M03.06 remains `Not started`.
+M03.01 through M03.05 are `Completed and merged`. PR #55 merged M03.05 into `main` at `89874bca2525a423d773548c61f9655f09642575`; builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, independent QA commit `f7a1f3c8ae13be60ff8f8154acb81965d2237b9d`, and final reviewed head `869af913b781a9706a93d561c256c4077f30361d` are recorded. PR #56 is the substantive finalization merge at `b4ce3a106e61746f892f1aeb0665b12cd85bdaeb`; PR #57 is an accidental no-op duplicate merge at `1744e90b0da80480dd3d4c33e6a1827789830003`. Recovery QA found no file-tree difference, implementation conflict, or data corruption. M03.06 remains `Not started`.
 
 M03.02 added a TypeScript-only MoneyEvent type boundary in `packages/events`. Product runtime behavior has not started. No MoneyEvent runtime schema, parser, validator, normalizer, storage behavior, database tables, API routes, UI, fixtures, simulator data, connectors, agent runtime, ledger behavior, invariant behavior, incident behavior, replay behavior, repair behavior, raw evidence mutation, ledger posting, repair approval, or money mutation exists from M03.02.
 
@@ -786,4 +804,4 @@ M03.04 QA fixed the four-digit UTC normalization boundary, expanded focused even
 
 M03.05 contains the merged controlled fixture corpus, early seed metadata, deterministic fixture/seed verification, documentation, and control-plane coverage described above. Builder and independent QA validation passed before merge. It adds no runtime mapper, benchmark scoring, simulator execution, downstream financial behavior, or financial-truth claim.
 
-Builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, independent QA commit `f7a1f3c8ae13be60ff8f8154acb81965d2237b9d`, and final reviewed head `869af913b781a9706a93d561c256c4077f30361d` were merged through PR #55 at `89874bca2525a423d773548c61f9655f09642575`. Exact next thread after this finalization PR merges: `M03.06 Builder - MoneyEvent QA and Closeout`. Do not start M03.06 before human merge of this tracking-only finalization PR.
+Builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, independent QA commit `f7a1f3c8ae13be60ff8f8154acb81965d2237b9d`, and final reviewed head `869af913b781a9706a93d561c256c4077f30361d` were merged through PR #55 at `89874bca2525a423d773548c61f9655f09642575`. PR #56 then merged the substantive finalization, and PR #57 merged the same branch again without changing the tree. Exact next thread after the recovery PR merges: `M03.06 Builder - MoneyEvent QA and Closeout`. Do not start M03.06 before human merge of the finalization QA recovery PR.

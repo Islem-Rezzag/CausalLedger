@@ -1,5 +1,16 @@
 # Weekly Log
 
+## 2026-08-04
+
+- Started `M03.05 Finalization QA Recovery - Duplicate Merge Audit and Tracking Repair` on branch `m03-05-finalization-qa-recovery-duplicate-merge-audit` from synchronized `main` at `1744e90b0da80480dd3d4c33e6a1827789830003`; repository, origin, clean-worktree, exact-branch, main-ancestry, and repository-local identity guards passed.
+- Verified PR #55 merged M03.05 at `89874bca2525a423d773548c61f9655f09642575`, PR #56 merged the substantive finalization at `b4ce3a106e61746f892f1aeb0665b12cd85bdaeb`, and PR #57 accidentally merged the same finalization branch again at `1744e90b0da80480dd3d4c33e6a1827789830003`.
+- Proved PR #57 is a no-op history entry: the PR #56-to-PR #57 name-status, stat, and whitespace diffs are empty, and both commits have tree `e7a985be616b116ff73a028018304c2b776857b2`. No revert, reset, history rewrite, or implementation repair is required.
+- Confirmed the missing durable independent finalization QA is a process deviation. This recovery supplies that QA and tracking repair; `TECH_DEBT.md` remains unchanged because it tracks product/runtime debt rather than harmless Git-history process deviations.
+- Independently verified that fixture and seed data, strict test-only parsers, fixture and seed tests, events/evals runtime source, package manifests, lockfile, and CI match the PR #55 merge state exactly. The corpus remains 21 controlled fixtures (eight valid and 13 invalid), seven exact-grounded seeds, no scoring, and no benchmark result.
+- Confirmed M00, M01, and M02 remain completed and closed; M03 remains active; M03.01 through M03.05 remain `Completed and merged`; M03.06 and M04 through M21 remain `Not started`; exactly one active plan exists; and no PR was open before this recovery branch.
+- Updated durable tracking only. No fixture, seed, parser, package test, runtime source, manifest, lockfile, application, infrastructure, migration, workflow, raw evidence, ledger state, repair approval, external communication, or money state changed.
+- Recovery validation passed: control plane; 102 bootstrap tests; frozen install across 14 workspace projects; events checks with 97 tests; evals checks with 42 tests; full typecheck, lint, test, build, and format across 13 workspace packages; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 expected `SKIPPED`.
+
 ## 2026-08-03
 
 - Started M03.05 merge finalization on `m03-05-finalize-fixtures-benchmark-seeds-merge` from synchronized `main` at `89874bca2525a423d773548c61f9655f09642575`; repository root, origin, clean worktree, exact branch, main ancestry, and repository-local identity guards passed.
