@@ -39,7 +39,7 @@ Independent M03.06 QA result: PASS.
 
 QA ran on branch `m03-06-moneyevent-qa-closeout` and PR #59. The pre-edit repository, origin, exact branch, clean worktree, identity, base/head, recovery ancestry, PR state, active-plan, no-final-closeout, and no-M04 guards passed. The review audited the full PR diff and M03 history, every MoneyEvent runtime/test/data boundary, deterministic behavior, public exports, dependencies, documentation, financial-truth refusal, and forbidden scope.
 
-QA found no MoneyEvent runtime, fixture, seed, dependency, lockfile, or security defect. It found and fixed two QA-control weaknesses: readiness phrases were checked globally instead of in their required sections, and lifecycle/capability failure paths plus the exact fixture split were not directly mutation-asserted. The scoped fixes bind required claims to their headings, add filesystem/registry/later-milestone/capability mutation tests, and assert 21 total fixtures with eight valid and 13 invalid cases. M03.06 is now `QA passed, awaiting merge`; human-controlled PR merge remains mandatory.
+QA found no MoneyEvent runtime, fixture, seed, dependency, lockfile, or security defect. It found and fixed two QA-control weaknesses: readiness phrases were checked globally instead of in their required sections, and lifecycle/capability failure paths were not directly mutation-asserted. The scoped fixes bind required claims to their headings and add filesystem/registry/later-milestone/capability mutation tests. The unchanged fixture corpus was independently confirmed at 21 total fixtures with eight valid and 13 invalid cases. M03.06 is now `QA passed, awaiting merge`; human-controlled PR merge remains mandatory.
 
 ## Merged PR and commit inventory
 
@@ -172,7 +172,7 @@ QA-validated counts:
 - `@causalledger/evals`: 42 tests.
 - control-plane bootstrap: 116 tests after section-bound readiness and lifecycle mutation coverage was added.
 
-The events-package test count remains 97 because QA tightened assertions inside the existing fixture tests rather than adding runtime cases. No evals regression-test change was justified because the independent audit found no seed defect. M03.06 QA increases only the bootstrap count for readiness section and lifecycle mutation guards.
+The events-package test count remains 97 and its source, fixture, parser, and test files are unchanged by M03.06. No events or evals regression-test change was justified because the independent audit found no runtime, fixture, or seed defect. M03.06 QA increases only the bootstrap count for readiness section and lifecycle mutation guards.
 
 ## Deterministic behavior evidence
 

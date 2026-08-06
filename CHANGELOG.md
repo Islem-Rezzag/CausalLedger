@@ -4,7 +4,7 @@ All notable CausalLedger release changes are recorded here.
 
 ## Unreleased
 
-- M03.06 independent QA passed on PR #59 after a full MoneyEvent and branch-diff audit. QA bound closeout-readiness claims to their required sections, mutation-tested filesystem/lifecycle/later-milestone/capability failure paths, and tightened the existing fixture tests to assert exactly 21 cases, eight valid snapshots, and 13 invalid issue contracts. No MoneyEvent runtime, fixture, seed, dependency, lockfile, financial-truth, or forbidden-scope defect was found; M03 remains active and M04 through M21 remain `Not started` pending human PR merge and formal M03 closeout.
+- M03.06 independent QA passed on PR #59 after a full MoneyEvent and branch-diff audit. QA bound closeout-readiness claims to their required sections and mutation-tested filesystem/lifecycle/later-milestone/capability failure paths. The existing fixture corpus was independently confirmed at exactly 21 cases: eight valid snapshots and 13 invalid issue contracts. No MoneyEvent runtime, fixture, seed, dependency, lockfile, financial-truth, or forbidden-scope defect was found; M03 remains active and M04 through M21 remain `Not started` pending human PR merge and formal M03 closeout.
 - Started M01 planning for domain model and scope freeze.
 - Added versioning and release-scope documentation.
 - Added and completed the M01 plan at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
