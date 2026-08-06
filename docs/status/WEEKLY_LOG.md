@@ -1,5 +1,15 @@
 # Weekly Log
 
+## 2026-08-06
+
+- Started independent M03.06 QA on the exact branch `m03-06-moneyevent-qa-closeout` and draft PR #59 from clean head `37de57d01886538119b0f1a31d5e414f9cb848cc`; repository, origin, branch, identity, base/head, recovery ancestry, PR state, active-plan, no-final-closeout, and no-M04 guards passed.
+- Audited the full PR diff, PRs #47-#58 history, all required M03 artifacts, MoneyEvent types/validator/normalizer/public exports, 21 controlled fixtures, seven grounded seeds, strict test-only parsers, deterministic tests, dependencies, lockfile, security/data hygiene, tracking, financial-truth refusal, and forbidden scope.
+- Found no MoneyEvent runtime, fixture, seed, dependency, lockfile, security, financial-truth, or forbidden-scope defect. Found two QA-control weaknesses: readiness phrases were globally searchable rather than heading-bound, and lifecycle/capability failure paths plus the exact 21/8/13 fixture split lacked direct assertions.
+- Applied scoped QA fixes only: required readiness claims are validated in their owning sections; filesystem, registry, later-milestone, and capability mutations are rejected; the exact QA branch/PR lifecycle is enforced; and existing events fixture tests assert 21 total, eight valid, and 13 invalid cases.
+- Early QA control-plane validation and all 116 bootstrap tests passed before the slower package/workspace ladder.
+- Full dirty-state QA validation passed: whitespace diff check; frozen install across 14 projects; events typecheck/test/build/lint/format with 97 tests; evals equivalents with 42 tests; all five checks across 13 workspace packages; and `qa:dev --allow-dirty` with 17 `PASS`, 0 `FAIL`, and 2 expected `SKIPPED`.
+- M03.06 is `QA passed, awaiting merge` on PR #59. M03 remains active, the plan remains in `plans/active/`, `docs/status/M03_CLOSEOUT.md` remains absent, and M04 through M21 remain `Not started`. Exact next thread: `Merge M03.06 PR - MoneyEvent QA and Closeout`.
+
 ## 2026-08-04
 
 - Started M03.06 Builder on `m03-06-moneyevent-qa-closeout` from synchronized `main` at PR #58 squash-merge commit `721bd60eba04cdf71765660727132d0d6aed97bc`; repository, origin, clean-worktree, branch, ancestry, active-plan, identity, and no-M04 guards passed.

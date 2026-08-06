@@ -12,7 +12,7 @@ CausalLedger helps fintech teams prove, replay, and safely repair money-movement
 
 ## Current status
 
-CausalLedger has completed and closed M00, M01, and M02. M03 planning and M03.01 through M03.05 are completed and merged; PR #58 recovery QA squash-merged at `721bd60eba04cdf71765660727132d0d6aed97bc`. M03.06 Builder is complete and awaiting independent QA under active plan `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`; M03 remains active, and M04 through M21 remain `Not started`. `docs/status/M03_CLOSEOUT_READINESS.md` is readiness evidence, not final milestone closeout.
+CausalLedger has completed and closed M00, M01, and M02. M03 planning and M03.01 through M03.05 are completed and merged; PR #58 recovery QA squash-merged at `721bd60eba04cdf71765660727132d0d6aed97bc`. M03.06 independent QA passed on PR #59 and is awaiting merge under active plan `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`; M03 remains active, and M04 through M21 remain `Not started`. `docs/status/M03_CLOSEOUT_READINESS.md` is QA-reviewed readiness evidence, not final milestone closeout.
 
 The scoped MoneyEvent implementation consists of compile-time types plus source-neutral MoneyEvent candidate validation and deterministic normalization in `packages/events`; merged M03.05 scope adds controlled synthetic candidate fixtures and early MoneyFlowBench seed metadata with test-only verification. It has no source-specific parser or mapper, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent, connector, UI, simulator execution, benchmark runner or scoring, autonomous loop, or money-mutation behavior. Structural and fixture validation do not establish financial truth.
 
@@ -93,7 +93,7 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `docs/status/M01_DOMAIN_CONSISTENCY.md` - M01 domain consistency QA report.
 - `docs/status/M01_CLOSEOUT.md` - M01 closeout packet.
 - `docs/status/M02_CLOSEOUT.md` - M02 closeout packet.
-- `docs/status/M03_CLOSEOUT_READINESS.md` - M03.06 Builder closeout-readiness candidate; not final M03 closeout.
+- `docs/status/M03_CLOSEOUT_READINESS.md` - M03.06 independent-QA closeout-readiness packet; not final M03 closeout.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` - canonical M00-M21 submilestone registry.
 - `plans/completed/CLP-0001-m00-repo-operating-system.md` - completed M00 plan.
 - `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md` - completed M01 plan.

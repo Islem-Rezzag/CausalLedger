@@ -220,7 +220,7 @@ M03_CLOSEOUT_READINESS_REQUIRED_SECTIONS = [
     "Readiness purpose",
     "Current status",
     "Completed submilestones M03.01 through M03.05",
-    "M03.06 current Builder status",
+    "M03.06 independent QA status",
     "Merged PR and commit inventory",
     "Process deviations",
     "Artifact inventory",
@@ -246,21 +246,38 @@ M03_CLOSEOUT_READINESS_REQUIRED_SECTIONS = [
     "Exact next thread",
 ]
 
-M03_CLOSEOUT_READINESS_REQUIRED_PHRASES = [
-    "M03.06 Builder closeout-readiness candidate, awaiting independent QA and PR merge.",
-    "M03 is not yet closed",
-    "M03.06 is not yet completed and merged",
-    "plans/active/CLP-0004-m03-canonical-moneyevent-engine.md",
-    "docs/status/M03_CLOSEOUT.md",
-    "M04 cannot start",
-    "M03 Milestone Closeout - Canonical MoneyEvent Engine",
-    "M03.06 QA - MoneyEvent QA and Closeout",
-    "721bd60eba04cdf71765660727132d0d6aed97bc",
-    "266c357b2973d4b64dffc1523c700ce05e1f595d",
-    "financial truth",
-    "scoringImplemented",
-    "benchmarkResults",
-]
+M03_CLOSEOUT_READINESS_REQUIRED_SECTION_PHRASES = {
+    "Readiness purpose": [
+        "This is not the final M03 closeout packet.",
+        "M03 is not yet closed.",
+    ],
+    "Current status": [
+        "M03.06 is `QA passed, awaiting merge`",
+        "plans/active/CLP-0004-m03-canonical-moneyevent-engine.md",
+        "docs/status/M03_CLOSEOUT.md",
+        "M04 through M21 remain `Not started`",
+    ],
+    "M03.06 independent QA status": [
+        "Independent M03.06 QA result: PASS.",
+        "PR #59",
+        "QA passed, awaiting merge",
+    ],
+    "Merged PR and commit inventory": [
+        "721bd60eba04cdf71765660727132d0d6aed97bc",
+        "266c357b2973d4b64dffc1523c700ce05e1f595d",
+    ],
+    "Implemented test data": ["scoringImplemented", "benchmarkResults"],
+    "Safety and financial-truth boundaries": ["financial truth"],
+    "M04 readiness assessment": ["M04 cannot start"],
+    "Whether final M03 closeout may begin": [
+        "M03.06 is not yet completed and merged",
+        "M03 Milestone Closeout - Canonical MoneyEvent Engine",
+    ],
+    "Active-plan movement status": [
+        "plans/active/CLP-0004-m03-canonical-moneyevent-engine.md"
+    ],
+    "Exact next thread": ["Merge M03.06 PR - MoneyEvent QA and Closeout"],
+}
 
 MONEYEVENT_VALIDATION_NORMALIZATION_REQUIRED_PHRASES = [
     "source-neutral MoneyEvent candidate",
@@ -1655,13 +1672,14 @@ def validate_m03_06_closeout_readiness_text(content: str) -> list[str]:
             errors.append(
                 f"M03_CLOSEOUT_READINESS.md missing or empty section: {heading}"
             )
-    content_lower = content.lower()
-    for phrase in M03_CLOSEOUT_READINESS_REQUIRED_PHRASES:
-        if phrase.lower() not in content_lower:
-            errors.append(
-                "M03_CLOSEOUT_READINESS.md missing required readiness coverage: "
-                f"{phrase}"
-            )
+    for heading, phrases in M03_CLOSEOUT_READINESS_REQUIRED_SECTION_PHRASES.items():
+        section = sections.get(heading.lower(), "").lower()
+        for phrase in phrases:
+            if phrase.lower() not in section:
+                errors.append(
+                    "M03_CLOSEOUT_READINESS.md missing required coverage in "
+                    f"section {heading}: {phrase}"
+                )
     return errors
 
 
@@ -1687,14 +1705,12 @@ def validate_m03_06_closeout_readiness() -> list[str]:
 
     rows = registry_by_id()
     m03_06 = rows.get("M03.06")
-    if m03_06 is None or m03_06.status not in {
-        "Builder in progress",
-        "Builder complete, awaiting QA",
-        "QA passed, awaiting merge",
-    }:
-        errors.append(
-            "M03.06 readiness requires an active Builder or QA lifecycle status"
-        )
+    if m03_06 is None or m03_06.status != "QA passed, awaiting merge":
+        errors.append("M03.06 readiness requires status QA passed, awaiting merge")
+    elif m03_06.branch != "m03-06-moneyevent-qa-closeout":
+        errors.append("M03.06 readiness requires the exact M03.06 branch")
+    elif m03_06.pr != "#59":
+        errors.append("M03.06 readiness requires PR #59")
     for milestone_number in range(4, 22):
         prefix = f"M{milestone_number:02d}."
         non_not_started = sorted(
@@ -1711,7 +1727,7 @@ def validate_m03_06_closeout_readiness() -> list[str]:
 
     capability = read_text("docs/status/CAPABILITY_MATRIX.md")
     for phrase in [
-        "M03.06 Builder",
+        "MoneyEvent engine | M03.06 QA passed, awaiting merge",
         "closeout-readiness",
         "structural and fixture success is not financial truth",
         "Ledger core | Not started",

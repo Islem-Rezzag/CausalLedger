@@ -1,6 +1,6 @@
 # M03 Closeout Readiness - Canonical MoneyEvent Engine
 
-Status: **M03.06 Builder closeout-readiness candidate, awaiting independent QA and PR merge.**
+Status: **M03.06 independent QA passed on PR #59; awaiting PR merge.**
 
 ## Milestone ID and name
 
@@ -8,7 +8,7 @@ M03 Canonical MoneyEvent Engine.
 
 ## Readiness purpose
 
-This packet records the M03.06 milestone-wide Builder audit of the conceptual contract, TypeScript boundary, deterministic source-neutral validation and normalization, controlled fixture corpus, benchmark seed metadata, merged history, safety boundaries, and tracking state. It gives independent M03.06 QA a durable review target.
+This packet records the M03.06 milestone-wide Builder audit and independent QA of the conceptual contract, TypeScript boundary, deterministic source-neutral validation and normalization, controlled fixture corpus, benchmark seed metadata, merged history, safety boundaries, and tracking state.
 
 This is not the final M03 closeout packet. It does not close M03, move the active plan, complete M03.06, or authorize M04.
 
@@ -19,7 +19,7 @@ M03 is not yet closed.
 - M00, M01, and M02 are completed and closed.
 - M03 remains active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`.
 - M03.01 through M03.05 are `Completed and merged`.
-- M03.06 is `Builder complete, awaiting QA` after the required local Builder validation passed.
+- M03.06 is `QA passed, awaiting merge` on PR #59 after the required independent local QA passed.
 - M04 through M21 remain `Not started`.
 - `docs/status/M03_CLOSEOUT.md` does not exist.
 
@@ -33,11 +33,13 @@ M03 is not yet closed.
 | M03.04 | Completed and merged through PR #53, with finalization PR #54 | Dependency-free source-neutral candidate validation and deterministic normalization. |
 | M03.05 | Completed and merged through PR #55, substantive finalization PR #56, no-op duplicate PR #57, and recovery QA PR #58 | Controlled fixtures, early seed metadata, strict test-only parsers, deterministic verification, and durable recovery evidence. |
 
-## M03.06 current Builder status
+## M03.06 independent QA status
 
-The branch is `m03-06-moneyevent-qa-closeout`. The pre-edit branch, identity, merge-history, worktree, active-plan, no-final-closeout, and no-M04 guards passed. The slice is Tier 2 because false closeout evidence could make ledger, invariant, incident, graph, replay, repair, and agent work rely on an overstated MoneyEvent contract. The complete local Builder ladder passed and the slice is ready for independent QA after commit, push, draft-PR creation, and remote hash verification.
+Independent M03.06 QA result: PASS.
 
-Independent M03.06 QA and PR merge remain mandatory. Builder completion changed the registry state only to `Builder complete, awaiting QA`.
+QA ran on branch `m03-06-moneyevent-qa-closeout` and PR #59. The pre-edit repository, origin, exact branch, clean worktree, identity, base/head, recovery ancestry, PR state, active-plan, no-final-closeout, and no-M04 guards passed. The review audited the full PR diff and M03 history, every MoneyEvent runtime/test/data boundary, deterministic behavior, public exports, dependencies, documentation, financial-truth refusal, and forbidden scope.
+
+QA found no MoneyEvent runtime, fixture, seed, dependency, lockfile, or security defect. It found and fixed two QA-control weaknesses: readiness phrases were checked globally instead of in their required sections, and lifecycle/capability failure paths plus the exact fixture split were not directly mutation-asserted. The scoped fixes bind required claims to their headings, add filesystem/registry/later-milestone/capability mutation tests, and assert 21 total fixtures with eight valid and 13 invalid cases. M03.06 is now `QA passed, awaiting merge`; human-controlled PR merge remains mandatory.
 
 ## Merged PR and commit inventory
 
@@ -149,17 +151,28 @@ Builder validation passed:
 - PR/merge, fixture/seed, deterministic-behavior, test-quality, security/data-hygiene, financial-truth, adversarial, and forbidden-scope inspections passed.
 - The first completed-state control-plane rerun found one status-wording mismatch: `CURRENT_STATE.md` did not use the validator-recognized phrase "under active plan." The wording was corrected and the affected control-plane validation was rerun; no product or readiness behavior changed.
 
+Independent QA validation passed:
+
+- The full branch diff and all required M03 artifacts, implementation, tests, fixture/seed manifests, dependency files, tracking files, PR history, and forbidden boundaries were independently audited.
+- Scoped control-plane and test fixes were applied only to readiness verification, bootstrap mutation coverage, exact fixture-count assertions, and durable QA tracking.
+- `python scripts/validate-control-plane.py`, all 116 bootstrap tests, and `git diff --check` passed.
+- `corepack pnpm install --frozen-lockfile` passed across all 14 workspace projects; package manifests and `pnpm-lock.yaml` are unchanged.
+- Events typecheck, 4-file/97-test run, build, lint, and format checks passed. Evals typecheck, 2-file/42-test run, build, lint, and format checks passed.
+- Full typecheck, lint, test, build, and format checks passed across all 13 workspace packages.
+- Dirty-mode `corepack pnpm qa:dev --allow-dirty` passed with 17 `PASS`, 0 `FAIL`, and 2 expected `SKIPPED`; the authorized dirty-worktree gate and optional Docker validation were skipped.
+- Exact-head remote CI is an external PR gate and must be successful before PR #59 is marked ready for review.
+
 Control-plane checks do not replace the events/evals package tests.
 
 ## Current test counts
 
-Validated counts:
+QA-validated counts:
 
 - `@causalledger/events`: 97 tests.
 - `@causalledger/evals`: 42 tests.
-- control-plane bootstrap: 106 tests after four scoped M03.06 readiness/lifecycle tests were added.
+- control-plane bootstrap: 116 tests after section-bound readiness and lifecycle mutation coverage was added.
 
-No events or evals regression test change was justified because the independent audit found no runtime, fixture, or seed defect. M03.06 increased only the bootstrap count for readiness packet and lifecycle guards.
+The events-package test count remains 97 because QA tightened assertions inside the existing fixture tests rather than adding runtime cases. No evals regression-test change was justified because the independent audit found no seed defect. M03.06 QA increases only the bootstrap count for readiness section and lifecycle mutation guards.
 
 ## Deterministic behavior evidence
 
@@ -178,11 +191,11 @@ M03 code validates and normalizes structure; it does not move money, post a ledg
 
 ## Changed documentation
 
-M03.06 adds this readiness packet and synchronizes the active plan, milestone/registry, roadmap, entry docs, current state, next thread, weekly log, capability matrix, index, and changelog. Any change is tracking/readiness evidence, not a new MoneyEvent capability.
+M03.06 Builder added this readiness packet. Independent QA synchronizes the active plan, milestone/registry, roadmap, entry docs, current state, next thread, weekly log, capability matrix, index, and changelog. Any change is tracking/readiness evidence, not a new MoneyEvent capability.
 
 ## Changed code
 
-No MoneyEvent runtime code, fixture data, seed data, package manifest, dependency, lockfile, app, infrastructure, migration, or workflow changed. The only code changes are control-plane validation and four bootstrap tests for the readiness artifact and lifecycle boundary.
+No MoneyEvent runtime code, fixture data, seed data, package manifest, dependency, lockfile, app, infrastructure, migration, or workflow changed. QA code changes bind required readiness claims to their sections, enforce the exact QA/branch/PR lifecycle, mutation-test failure paths, and tighten existing fixture assertions to the exact 21/8/13 split.
 
 ## Skipped validation
 
@@ -193,8 +206,8 @@ No MoneyEvent runtime code, fixture data, seed data, package manifest, dependenc
 ## Warnings
 
 - The frozen install may emit the known non-blocking ignored-build-script warning for `esbuild@0.28.0`; it must still complete successfully.
-- Remote CI cannot be known until the M03.06 branch is pushed and the draft PR exists.
-- Local Builder readiness is established; independent QA, remote CI, and PR merge remain outstanding.
+- Exact-head remote CI remains an external PR gate until the QA commit is pushed and its workflow completes.
+- Independent QA passed locally; remote CI and human-controlled PR merge remain outstanding at the time this packet is committed.
 
 ## Risks
 
@@ -208,7 +221,7 @@ No new product technical debt was found. Runtime schemas, source-specific mappin
 
 ## Open questions
 
-No M03.06 Builder-blocking open question is confirmed. M04 must separately design account, debit/credit, balancing, posting, reversal, and idempotency semantics without inferring them from the sign of MoneyEvent amounts.
+No M03.06 QA-blocking open question is confirmed. M04 must separately design account, debit/credit, balancing, posting, reversal, and idempotency semantics without inferring them from the sign of MoneyEvent amounts.
 
 ## Deferred work
 
@@ -222,9 +235,7 @@ This does not mean ledger entries, accounts, debit/credit semantics, balances, p
 
 ## Blockers to final closeout
 
-- Commit and push the M03.06 branch with matching local/remote hashes.
-- Open exactly one draft M03.06 PR and allow remote CI to run.
-- Independent M03.06 QA must record PASS on the same branch and PR.
+- Push the scoped QA commit and require successful exact-head remote CI on PR #59.
 - A human must merge the M03.06 PR.
 
 ## Whether final M03 closeout may begin
@@ -237,4 +248,4 @@ The active plan remains at `plans/active/CLP-0004-m03-canonical-moneyevent-engin
 
 ## Exact next thread
 
-`M03.06 QA - MoneyEvent QA and Closeout`
+`Merge M03.06 PR - MoneyEvent QA and Closeout`

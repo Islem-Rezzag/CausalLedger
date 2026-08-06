@@ -4,7 +4,10 @@ import importlib.util
 import json
 import subprocess
 import sys
+from dataclasses import replace
 from pathlib import Path
+
+import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -1091,17 +1094,134 @@ def test_17i_m03_06_closeout_readiness_packet_is_complete():
     assert validator.validate_m03_06_closeout_readiness() == []
 
 
-def test_17j_m03_06_closeout_readiness_rejects_missing_sections():
+@pytest.mark.parametrize(
+    "heading",
+    [
+        "Risks",
+        "M04 readiness assessment",
+        "Whether final M03 closeout may begin",
+        "Exact next thread",
+    ],
+)
+def test_17j_m03_06_closeout_readiness_rejects_missing_sections(heading: str):
     readiness = text(validator.M03_CLOSEOUT_READINESS_DOC).replace(
-        "## Risks", "### Risks", 1
+        f"## {heading}", f"### {heading}", 1
     )
     assert (
-        "M03_CLOSEOUT_READINESS.md missing or empty section: Risks"
+        f"M03_CLOSEOUT_READINESS.md missing or empty section: {heading}"
         in validator.validate_m03_06_closeout_readiness_text(readiness)
     )
 
 
-def test_17k_m03_06_readiness_keeps_final_closeout_absent_and_plan_active():
+def test_17k_m03_06_closeout_readiness_rejects_relocated_lifecycle_coverage():
+    phrase = "Merge M03.06 PR - MoneyEvent QA and Closeout"
+    readiness = text(validator.M03_CLOSEOUT_READINESS_DOC).replace(
+        f"`{phrase}`", "`M03.06 QA - MoneyEvent QA and Closeout`", 1
+    )
+    readiness = readiness.replace("## Warnings", f"## Warnings\n\n{phrase}\n", 1)
+    assert (
+        "M03_CLOSEOUT_READINESS.md missing required coverage in section "
+        f"Exact next thread: {phrase}"
+        in validator.validate_m03_06_closeout_readiness_text(readiness)
+    )
+
+
+def _prepare_m03_06_validation_tree(tmp_path: Path, monkeypatch) -> dict[str, object]:
+    rows = validator.registry_by_id()
+    status_dir = tmp_path / "docs" / "status"
+    active_dir = tmp_path / "plans" / "active"
+    status_dir.mkdir(parents=True)
+    active_dir.mkdir(parents=True)
+    (status_dir / "M03_CLOSEOUT_READINESS.md").write_text(
+        text(validator.M03_CLOSEOUT_READINESS_DOC), encoding="utf-8"
+    )
+    (status_dir / "CAPABILITY_MATRIX.md").write_text(
+        text("docs/status/CAPABILITY_MATRIX.md"), encoding="utf-8"
+    )
+    (active_dir / "CLP-0004-m03-canonical-moneyevent-engine.md").write_text(
+        "active M03 plan\n", encoding="utf-8"
+    )
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+    monkeypatch.setattr(validator, "registry_by_id", lambda: rows)
+    return rows
+
+
+@pytest.mark.parametrize(
+    ("mutation", "expected"),
+    [
+        ("final_closeout", "final docs/status/M03_CLOSEOUT.md must not exist"),
+        ("missing_active_plan", "M03 plan must remain in plans/active"),
+        ("completed_plan", "M03 plan must not move to plans/completed"),
+    ],
+)
+def test_17l_m03_06_readiness_rejects_invalid_filesystem_lifecycle(
+    tmp_path: Path, monkeypatch, mutation: str, expected: str
+):
+    _prepare_m03_06_validation_tree(tmp_path, monkeypatch)
+    active_plan = tmp_path / validator.M03_ACTIVE_PLAN
+    if mutation == "final_closeout":
+        (tmp_path / validator.M03_FINAL_CLOSEOUT_DOC).write_text(
+            "premature closeout\n", encoding="utf-8"
+        )
+    elif mutation == "missing_active_plan":
+        active_plan.unlink()
+    else:
+        completed_plan = (
+            tmp_path
+            / "plans"
+            / "completed"
+            / "CLP-0004-m03-canonical-moneyevent-engine.md"
+        )
+        completed_plan.parent.mkdir(parents=True)
+        completed_plan.write_text("premature completed plan\n", encoding="utf-8")
+    assert any(
+        expected in error for error in validator.validate_m03_06_closeout_readiness()
+    )
+
+
+def test_17m_m03_06_readiness_rejects_pre_qa_registry_state(
+    tmp_path: Path, monkeypatch
+):
+    rows = _prepare_m03_06_validation_tree(tmp_path, monkeypatch)
+    rows["M03.06"] = replace(
+        rows["M03.06"], status="Builder complete, awaiting QA"
+    )
+    assert (
+        "M03.06 readiness requires status QA passed, awaiting merge"
+        in validator.validate_m03_06_closeout_readiness()
+    )
+
+
+def test_17n_m03_06_readiness_rejects_started_later_milestone(
+    tmp_path: Path, monkeypatch
+):
+    rows = _prepare_m03_06_validation_tree(tmp_path, monkeypatch)
+    m04_id = next(key for key in rows if key.startswith("M04."))
+    rows[m04_id] = replace(rows[m04_id], status="Builder in progress")
+    assert any(
+        error.startswith("M04 must remain Not started")
+        for error in validator.validate_m03_06_closeout_readiness()
+    )
+
+
+def test_17o_m03_06_readiness_rejects_overstated_capability(
+    tmp_path: Path, monkeypatch
+):
+    _prepare_m03_06_validation_tree(tmp_path, monkeypatch)
+    capability_path = tmp_path / "docs" / "status" / "CAPABILITY_MATRIX.md"
+    capability = capability_path.read_text(encoding="utf-8").replace(
+        "structural and fixture success is not financial truth",
+        "structural and fixture success establishes financial truth",
+        1,
+    )
+    capability_path.write_text(capability, encoding="utf-8")
+    assert any(
+        "structural and fixture success is not financial truth" in error
+        for error in validator.validate_m03_06_closeout_readiness()
+    )
+
+
+def test_17p_m03_06_readiness_keeps_final_closeout_absent_and_plan_active():
     assert not (ROOT / validator.M03_FINAL_CLOSEOUT_DOC).exists()
     assert (ROOT / validator.M03_ACTIVE_PLAN).is_file()
     assert not (
@@ -1112,7 +1232,7 @@ def test_17k_m03_06_readiness_keeps_final_closeout_absent_and_plan_active():
     ).exists()
 
 
-def test_17l_m04_through_m21_remain_not_started_during_m03_06():
+def test_17q_m04_through_m21_remain_not_started_during_m03_06():
     rows = validator.registry_by_id()
     for milestone_number in range(4, 22):
         prefix = f"M{milestone_number:02d}."
