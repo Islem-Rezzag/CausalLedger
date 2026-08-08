@@ -1,7 +1,7 @@
 # CausalLedger Roadmap
 
 Current milestone marker: M03 Canonical MoneyEvent engine is active. The active M03 plan lives at `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M02 Monorepo and local development is completed; the completed M02 plan lives at `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`, and the closeout packet lives at `docs/status/M02_CLOSEOUT.md`. M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`.
-Current submilestone status: M00.01 through M00.08 are completed and merged. M01.01 through M01.13 are `Completed and merged`. M02.01 through M02.07 are `Completed and merged`; former M02.08 through M02.20 rows are deferred or absorbed. M03.01 through M03.05 are `Completed and merged`; M03.06 is `Not started`; M04 through M21 remain `Not started`.
+Current submilestone status: M00.01 through M00.08 are completed and merged. M01.01 through M01.13 are `Completed and merged`. M02.01 through M02.07 are `Completed and merged`; former M02.08 through M02.20 rows are deferred or absorbed. M03.01 through M03.05 are `Completed and merged`; M03.06 is `QA passed, awaiting merge` on PR #59; M04 through M21 remain `Not started`.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 
@@ -48,9 +48,9 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 - M02.07 is now `QA dev environment`.
 - `apps/agent-runtime` creation is deferred to the M10 era because agent runtime should not exist before deterministic evidence, MoneyEvent, invariant, incident, graph, replay, and repair boundaries exist.
 - Redis is deferred until needed because no queue or scheduler should be added before the worker or orchestration design proves the need.
-- M03 planning and M03.01 through M03.05 are completed and merged. PR #55 merged M03.05 into `main` at `89874bca2525a423d773548c61f9655f09642575` after builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, independent QA commit `f7a1f3c8ae13be60ff8f8154acb81965d2237b9d`, and final reviewed head `869af913b781a9706a93d561c256c4077f30361d`. PR #56 merged the substantive finalization at `b4ce3a106e61746f892f1aeb0665b12cd85bdaeb`; PR #57 accidentally merged the same branch again at `1744e90b0da80480dd3d4c33e6a1827789830003`, with zero file differences and the same tree as PR #56. Recovery QA records the process deviation and supplies the missing durable finalization QA; no revert or implementation repair is required. M03 remains active and M03.06 remains `Not started`.
+- M03 planning and M03.01 through M03.05 are completed and merged. PR #55 merged M03.05 into `main` at `89874bca2525a423d773548c61f9655f09642575` after builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, independent QA commit `f7a1f3c8ae13be60ff8f8154acb81965d2237b9d`, and final reviewed head `869af913b781a9706a93d561c256c4077f30361d`. PR #56 merged the substantive finalization; PR #57 is an identical-tree no-op duplicate. PR #58 recovery QA squash-merged at `721bd60eba04cdf71765660727132d0d6aed97bc`; its reviewed source and merge trees equal `266c357b2973d4b64dffc1523c700ce05e1f595d` with zero file differences. M03.06 independent QA passed on PR #59 and is awaiting merge; M03 remains active.
 - M04-M21 remain `Not started`.
 - The first scoped product runtime behavior is M03.04 source-neutral MoneyEvent candidate validation and deterministic normalization; no ingestion, storage, database, API, ledger, incident, graph, replay, repair, agent, or money-mutation behavior exists.
-- The exact next thread after the M03.05 finalization QA recovery PR merges is `M03.06 Builder - MoneyEvent QA and Closeout`.
+- `docs/status/M03_CLOSEOUT_READINESS.md` is QA-reviewed readiness evidence, not final closeout. Exact next thread: `Merge M03.06 PR - MoneyEvent QA and Closeout`.
 - Versioning strategy is documented in `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed registry.
