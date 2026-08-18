@@ -1024,8 +1024,9 @@ def test_16_required_directories_exist():
     assert not validator.missing_paths(validator.REQUIRED_DIRS, "dir")
 
 
-def test_17_active_m03_plan_exists_during_m03_planning():
-    assert validator.active_plan_files() == [ROOT / validator.M03_ACTIVE_PLAN]
+def test_17_m03_plan_is_completed_and_no_active_plan_exists():
+    assert validator.active_plan_files() == []
+    assert (ROOT / validator.M03_ACTIVE_PLAN).is_file()
 
 
 def test_17b_one_active_plan_is_valid_during_active_milestone(tmp_path, monkeypatch):
@@ -1062,7 +1063,7 @@ def test_17d_completed_m02_plan_exists_and_active_m02_plan_is_absent():
     ).exists()
 
 
-def test_17e_m03_plan_location_is_active_only():
+def test_17e_m03_plan_location_is_completed_only():
     assert validator.validate_m03_plan_location() == []
 
 
@@ -1089,8 +1090,9 @@ def test_17h_m03_05_fixture_and_seed_artifacts_are_complete():
         assert validator.MONEYEVENT_FIXTURES_BENCHMARK_SEEDS_DOC in text(rel)
 
 
-def test_17i_m03_06_closeout_readiness_packet_is_complete():
+def test_17i_m03_readiness_history_and_final_closeout_are_complete():
     assert (ROOT / validator.M03_CLOSEOUT_READINESS_DOC).is_file()
+    assert (ROOT / validator.M03_FINAL_CLOSEOUT_DOC).is_file()
     assert validator.validate_m03_06_closeout_readiness() == []
 
 
@@ -1129,17 +1131,23 @@ def test_17k_m03_06_closeout_readiness_rejects_relocated_lifecycle_coverage():
 def _prepare_m03_06_validation_tree(tmp_path: Path, monkeypatch) -> dict[str, object]:
     rows = validator.registry_by_id()
     status_dir = tmp_path / "docs" / "status"
-    active_dir = tmp_path / "plans" / "active"
+    completed_dir = tmp_path / "plans" / "completed"
     status_dir.mkdir(parents=True)
-    active_dir.mkdir(parents=True)
+    completed_dir.mkdir(parents=True)
     (status_dir / "M03_CLOSEOUT_READINESS.md").write_text(
         text(validator.M03_CLOSEOUT_READINESS_DOC), encoding="utf-8"
+    )
+    (status_dir / "M03_CLOSEOUT.md").write_text(
+        text(validator.M03_FINAL_CLOSEOUT_DOC), encoding="utf-8"
+    )
+    (status_dir / "PROJECT_COMPLETION_GOAL.json").write_text(
+        text(validator.PROJECT_COMPLETION_GOAL_STATE), encoding="utf-8"
     )
     (status_dir / "CAPABILITY_MATRIX.md").write_text(
         text("docs/status/CAPABILITY_MATRIX.md"), encoding="utf-8"
     )
-    (active_dir / "CLP-0004-m03-canonical-moneyevent-engine.md").write_text(
-        "active M03 plan\n", encoding="utf-8"
+    (completed_dir / "CLP-0004-m03-canonical-moneyevent-engine.md").write_text(
+        "completed M03 plan\n", encoding="utf-8"
     )
     monkeypatch.setattr(validator, "ROOT", tmp_path)
     monkeypatch.setattr(validator, "registry_by_id", lambda: rows)
@@ -1149,31 +1157,29 @@ def _prepare_m03_06_validation_tree(tmp_path: Path, monkeypatch) -> dict[str, ob
 @pytest.mark.parametrize(
     ("mutation", "expected"),
     [
-        ("final_closeout", "final docs/status/M03_CLOSEOUT.md must not exist"),
-        ("missing_active_plan", "M03 plan must remain in plans/active"),
-        ("completed_plan", "M03 plan must not move to plans/completed"),
+        ("missing_final_closeout", "final docs/status/M03_CLOSEOUT.md is required"),
+        ("active_plan", "completed M03 plan must not remain in plans/active"),
+        ("missing_completed_plan", "M03 plan must exist in plans/completed"),
     ],
 )
 def test_17l_m03_06_readiness_rejects_invalid_filesystem_lifecycle(
     tmp_path: Path, monkeypatch, mutation: str, expected: str
 ):
     _prepare_m03_06_validation_tree(tmp_path, monkeypatch)
-    active_plan = tmp_path / validator.M03_ACTIVE_PLAN
-    if mutation == "final_closeout":
-        (tmp_path / validator.M03_FINAL_CLOSEOUT_DOC).write_text(
-            "premature closeout\n", encoding="utf-8"
-        )
-    elif mutation == "missing_active_plan":
-        active_plan.unlink()
-    else:
-        completed_plan = (
+    completed_plan = tmp_path / validator.M03_ACTIVE_PLAN
+    if mutation == "missing_final_closeout":
+        (tmp_path / validator.M03_FINAL_CLOSEOUT_DOC).unlink()
+    elif mutation == "active_plan":
+        active_plan = (
             tmp_path
             / "plans"
-            / "completed"
+            / "active"
             / "CLP-0004-m03-canonical-moneyevent-engine.md"
         )
-        completed_plan.parent.mkdir(parents=True)
-        completed_plan.write_text("premature completed plan\n", encoding="utf-8")
+        active_plan.parent.mkdir(parents=True)
+        active_plan.write_text("stale active M03 plan\n", encoding="utf-8")
+    else:
+        completed_plan.unlink()
     assert any(
         expected in error for error in validator.validate_m03_06_closeout_readiness()
     )
@@ -1187,7 +1193,7 @@ def test_17m_m03_06_readiness_rejects_pre_qa_registry_state(
         rows["M03.06"], status="Builder complete, awaiting QA"
     )
     assert (
-        "M03.06 readiness requires status QA passed, awaiting merge"
+        "M03 closeout requires M03.06 status Completed and merged"
         in validator.validate_m03_06_closeout_readiness()
     )
 
@@ -1210,8 +1216,8 @@ def test_17o_m03_06_readiness_rejects_overstated_capability(
     _prepare_m03_06_validation_tree(tmp_path, monkeypatch)
     capability_path = tmp_path / "docs" / "status" / "CAPABILITY_MATRIX.md"
     capability = capability_path.read_text(encoding="utf-8").replace(
-        "structural and fixture success is not financial truth",
-        "structural and fixture success establishes financial truth",
+        "Structural and fixture success is not financial truth",
+        "Structural and fixture success establishes financial truth",
         1,
     )
     capability_path.write_text(capability, encoding="utf-8")
@@ -1221,15 +1227,29 @@ def test_17o_m03_06_readiness_rejects_overstated_capability(
     )
 
 
-def test_17p_m03_06_readiness_keeps_final_closeout_absent_and_plan_active():
-    assert not (ROOT / validator.M03_FINAL_CLOSEOUT_DOC).exists()
+def test_17p_m03_closeout_keeps_final_packet_and_completed_plan():
+    assert (ROOT / validator.M03_FINAL_CLOSEOUT_DOC).is_file()
     assert (ROOT / validator.M03_ACTIVE_PLAN).is_file()
     assert not (
         ROOT
         / "plans"
-        / "completed"
+        / "active"
         / "CLP-0004-m03-canonical-moneyevent-engine.md"
     ).exists()
+
+
+def test_17pa_m03_closeout_rejects_target_selected_without_human_approval(
+    tmp_path: Path, monkeypatch
+):
+    _prepare_m03_06_validation_tree(tmp_path, monkeypatch)
+    state_path = tmp_path / validator.PROJECT_COMPLETION_GOAL_STATE
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    state["approvedReleaseTarget"] = "V0_6_BENCHMARK_DEMO"
+    state_path.write_text(json.dumps(state), encoding="utf-8")
+    assert (
+        "PROJECT_COMPLETION_GOAL.json target must await human approval"
+        in validator.validate_m03_06_closeout_readiness()
+    )
 
 
 def test_17q_m04_through_m21_remain_not_started_during_m03_06():

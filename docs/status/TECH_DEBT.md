@@ -1,6 +1,10 @@
 # Tech Debt
 
-M03.04 introduces one tightly scoped product runtime boundary. Its deferred decisions are tracked below rather than hidden in implementation.
+M03 is formally closed with one tightly scoped product runtime boundary. Its deferred decisions are tracked below rather than hidden in implementation.
+
+- Local Docker and Docker Compose validation remain unavailable on the audited machine; remote `infra-smoke` is green, but future storage/migration work needs approved local Docker setup or an equivalent deterministic environment.
+- Browser-level automation is not installed and should be selected only when a usable M15-era product flow requires it.
+- The completion roadmap overlay is a proposal, not an active rewrite; milestone acceptance criteria and one-branch/one-PR traceability remain authoritative.
 
 ## Placeholders to resolve later
 

@@ -91,17 +91,24 @@ Current status:
 - `docs/status/M01_CLOSEOUT.md`
 - `docs/status/M02_CLOSEOUT.md`
 - `docs/status/M03_CLOSEOUT_READINESS.md`
+- `docs/status/M03_CLOSEOUT.md`
+- `docs/status/PROJECT_COMPLETION_GOAL.md`
+- `docs/status/PROJECT_COMPLETION_GOAL.json`
+- `docs/status/LOCAL_ENVIRONMENT_READINESS.md`
+- `docs/status/PROJECT_COMPLETION_AUDIT.md`
+- `docs/public/PUBLIC_RELEASE_EVIDENCE_PLAN.md`
 
 Completed execution:
 
 - `plans/completed/CLP-0001-m00-repo-operating-system.md`
 - `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`
 - `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md`
-- `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`
+- `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md`
+- `plans/proposals/CLP-PROJECT-COMPLETION-GOAL.md`
 
 Active execution:
 
-- M03 Canonical MoneyEvent Engine is active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M03 planning and M03.01 through M03.05 are completed and merged; PR #58 recovery QA squash-merged at `721bd60eba04cdf71765660727132d0d6aed97bc`. M03.06 independent QA passed on PR #59 and is awaiting merge. `docs/status/M03_CLOSEOUT_READINESS.md` is QA-reviewed readiness evidence, not final closeout; M04 through M21 remain `Not started`.
+- M03 Canonical MoneyEvent Engine is formally closed after PR #59 merged at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`. Its completed plan and final packet are `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md` and `docs/status/M03_CLOSEOUT.md`. No active milestone plan exists; M04 through M21 remain `Not started` while `approvedReleaseTarget` is `PENDING_HUMAN_APPROVAL`.
 
 Plan state:
 

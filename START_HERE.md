@@ -1,6 +1,6 @@
 # Start Here
 
-This repository has completed and closed M00, M01, and M02. M03 planning and M03.01 through M03.05 are completed and merged; PR #58 recovery QA squash-merged at `721bd60eba04cdf71765660727132d0d6aed97bc`. M03.06 independent QA passed on PR #59 and is awaiting merge under active plan `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M03 is not closed, M04 through M21 remain `Not started`, and `docs/status/M03_CLOSEOUT_READINESS.md` is not the final closeout packet. MoneyEvent runtime behavior remains limited to the source-neutral validator and deterministic normalizer in `packages/events`; M03.05 adds controlled synthetic fixture and seed data plus tests, not new runtime mapping or financial behavior.
+This repository has completed and closed M00 through M03. PR #59 merged at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`; formal closeout and the completed plan are in `docs/status/M03_CLOSEOUT.md` and `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md`. No active milestone plan exists while the release target is `PENDING_HUMAN_APPROVAL`; M04 through M21 remain `Not started`. MoneyEvent runtime behavior remains limited to source-neutral structural validation and deterministic normalization, supported by controlled synthetic tests. It is not financial truth or a finished product.
 
 Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 

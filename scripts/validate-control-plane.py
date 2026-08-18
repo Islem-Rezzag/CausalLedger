@@ -86,7 +86,7 @@ REQUIRED_INFRA_SCRIPTS = {
     "migrate:down": "node-pg-migrate down --migrations-dir infra/migrations --ignore-pattern README.md --database-url-var DATABASE_URL",
 }
 
-M03_ACTIVE_PLAN = "plans/active/CLP-0004-m03-canonical-moneyevent-engine.md"
+M03_ACTIVE_PLAN = "plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md"
 MONEYEVENT_CONTRACT_DOC = "docs/MONEYEVENT_CONTRACT.md"
 MONEYEVENT_MAPPING_FIXTURES_DOC = "docs/MONEYEVENT_MAPPING_FIXTURES.md"
 MONEYEVENT_VALIDATION_NORMALIZATION_DOC = "docs/MONEYEVENT_VALIDATION_NORMALIZATION.md"
@@ -95,6 +95,21 @@ MONEYEVENT_FIXTURES_BENCHMARK_SEEDS_DOC = (
 )
 M03_CLOSEOUT_READINESS_DOC = "docs/status/M03_CLOSEOUT_READINESS.md"
 M03_FINAL_CLOSEOUT_DOC = "docs/status/M03_CLOSEOUT.md"
+PROJECT_COMPLETION_GOAL_DOC = "docs/status/PROJECT_COMPLETION_GOAL.md"
+PROJECT_COMPLETION_GOAL_STATE = "docs/status/PROJECT_COMPLETION_GOAL.json"
+LOCAL_ENVIRONMENT_READINESS_DOC = "docs/status/LOCAL_ENVIRONMENT_READINESS.md"
+PROJECT_COMPLETION_AUDIT_DOC = "docs/status/PROJECT_COMPLETION_AUDIT.md"
+PROJECT_COMPLETION_PROPOSAL = "plans/proposals/CLP-PROJECT-COMPLETION-GOAL.md"
+PUBLIC_RELEASE_EVIDENCE_PLAN = "docs/public/PUBLIC_RELEASE_EVIDENCE_PLAN.md"
+
+PERMITTED_RELEASE_TARGETS = [
+    "M03_TECHNICAL_PREVIEW",
+    "V0_3_FINANCIAL_TRUTH_CORE",
+    "V0_4_INCIDENT_DIGITAL_TWIN",
+    "V0_5_SAFE_AGENTIC_LAYER",
+    "V0_6_BENCHMARK_DEMO",
+    "V1_PUBLIC_PRODUCT",
+]
 M03_05_FIXTURE_MANIFEST = "data/fixtures/money-events/candidates.json"
 M03_05_SEED_MANIFEST = "scenarios/moneyflowbench/money-event-seeds.json"
 
@@ -462,6 +477,13 @@ REQUIRED_FILES = [
     "docs/status/M01_CLOSEOUT.md",
     "docs/status/M02_CLOSEOUT.md",
     M03_CLOSEOUT_READINESS_DOC,
+    M03_FINAL_CLOSEOUT_DOC,
+    PROJECT_COMPLETION_GOAL_DOC,
+    PROJECT_COMPLETION_GOAL_STATE,
+    LOCAL_ENVIRONMENT_READINESS_DOC,
+    PROJECT_COMPLETION_AUDIT_DOC,
+    PROJECT_COMPLETION_PROPOSAL,
+    PUBLIC_RELEASE_EVIDENCE_PLAN,
     "docs/milestones/SUBMILESTONE_REGISTRY.md",
     "docs/milestones/M02.md",
     "docs/milestones/M03.md",
@@ -847,10 +869,15 @@ def active_plan_files() -> list[Path]:
 def is_between_milestones(current_state: str, next_thread: str) -> bool:
     current_lower = current_state.lower()
     thread_name = labeled_value(next_thread, "Thread name") or ""
+    valid_thread = (
+        re.match(r"^M\d{2} Planning - ", thread_name) is not None
+        or thread_name
+        == "Human Review and Target Approval - CausalLedger Completion Goal"
+    )
     return (
         "no active milestone plan exists" in current_lower
         and "completed" in current_lower
-        and re.match(r"^M\d{2} Planning - ", thread_name) is not None
+        and valid_thread
         and labeled_value(next_thread, "Scope") is not None
     )
 
@@ -920,19 +947,16 @@ def active_planning_milestone_id() -> str | None:
 
 def validate_m03_plan_location() -> list[str]:
     errors: list[str] = []
-    active_m03 = ROOT / M03_ACTIVE_PLAN
-    completed_m03 = (
-        ROOT
-        / "plans"
-        / "completed"
-        / "CLP-0004-m03-canonical-moneyevent-engine.md"
+    active_m03 = (
+        ROOT / "plans" / "active" / "CLP-0004-m03-canonical-moneyevent-engine.md"
     )
-    if not active_m03.is_file():
-        errors.append("active M03 plan is missing from plans/active")
-    if completed_m03.exists():
-        errors.append("M03 plan must not be in plans/completed during planning")
-    if active_plan_files() != [active_m03]:
-        errors.append("plans/active must contain exactly the active M03 plan")
+    completed_m03 = ROOT / M03_ACTIVE_PLAN
+    if active_m03.exists():
+        errors.append("completed M03 plan must not remain in plans/active")
+    if not completed_m03.is_file():
+        errors.append("completed M03 plan is missing from plans/completed")
+    if active_plan_files():
+        errors.append("plans/active must remain empty while target approval is pending")
     return errors
 
 
@@ -1107,7 +1131,7 @@ def validate_m03_milestone_consistency(
                     "M03.06 must be active or completed after M03.05 finalization"
                 )
         if registry_row.active_plan != M03_ACTIVE_PLAN:
-            errors.append(f"{row.submilestone_id} must reference active M03 plan")
+            errors.append(f"{row.submilestone_id} must reference completed M03 plan")
 
     if m03_03_status not in {None, "Not started"} and m03_02_status != "Completed and merged":
         errors.append("M03.02 must be Completed and merged before M03.03 tracking")
@@ -1300,7 +1324,7 @@ def validate_docs() -> list[str]:
         if "docs/decisions/ADR-0008-identity-money-and-storage.md" not in read_text(rel):
             errors.append(f"{rel} does not index ADR-0008")
         if M03_ACTIVE_PLAN not in read_text(rel):
-            errors.append(f"{rel} does not index the active M03 plan")
+            errors.append(f"{rel} does not index the completed M03 plan")
         if MONEYEVENT_CONTRACT_DOC not in read_text(rel):
             errors.append(f"{rel} does not index the MoneyEvent contract")
         if MONEYEVENT_MAPPING_FIXTURES_DOC not in read_text(rel):
@@ -1684,33 +1708,52 @@ def validate_m03_06_closeout_readiness_text(content: str) -> list[str]:
 
 
 def validate_m03_06_closeout_readiness() -> list[str]:
+    """Validate the preserved pre-merge readiness packet and final closeout lifecycle."""
     errors = validate_m03_06_closeout_readiness_text(
         read_text(M03_CLOSEOUT_READINESS_DOC)
     )
 
-    if (ROOT / M03_FINAL_CLOSEOUT_DOC).exists():
-        errors.append(
-            "final docs/status/M03_CLOSEOUT.md must not exist during M03.06 readiness"
-        )
-    if not (ROOT / M03_ACTIVE_PLAN).is_file():
-        errors.append("M03 plan must remain in plans/active during M03.06 readiness")
-    completed_plan = (
-        ROOT
-        / "plans"
-        / "completed"
-        / "CLP-0004-m03-canonical-moneyevent-engine.md"
+    final_closeout = ROOT / M03_FINAL_CLOSEOUT_DOC
+    if not final_closeout.is_file():
+        errors.append("final docs/status/M03_CLOSEOUT.md is required after M03 closeout")
+    else:
+        closeout_lower = final_closeout.read_text(encoding="utf-8").lower()
+        for phrase in [
+            "closeout result",
+            "pass",
+            "9c2df34fd1da1a4f893a5b16cb05fa1177f23cce",
+            "a5f52604955f8a8925728a2cb7b5c8900aefd87a",
+            "implemented product boundary",
+            "unimplemented product boundary",
+            "m04 planning readiness",
+            "technical-preview assessment",
+            "human review and target approval",
+        ]:
+            if phrase not in closeout_lower:
+                errors.append(f"M03_CLOSEOUT.md missing required coverage: {phrase}")
+
+    active_plan = (
+        ROOT / "plans" / "active" / "CLP-0004-m03-canonical-moneyevent-engine.md"
     )
-    if completed_plan.exists():
-        errors.append("M03 plan must not move to plans/completed during M03.06 readiness")
+    if active_plan.exists():
+        errors.append("completed M03 plan must not remain in plans/active")
+    if not (ROOT / M03_ACTIVE_PLAN).is_file():
+        errors.append("M03 plan must exist in plans/completed after closeout")
 
     rows = registry_by_id()
     m03_06 = rows.get("M03.06")
-    if m03_06 is None or m03_06.status != "QA passed, awaiting merge":
-        errors.append("M03.06 readiness requires status QA passed, awaiting merge")
+    if m03_06 is None or m03_06.status != "Completed and merged":
+        errors.append("M03 closeout requires M03.06 status Completed and merged")
     elif m03_06.branch != "m03-06-moneyevent-qa-closeout":
-        errors.append("M03.06 readiness requires the exact M03.06 branch")
+        errors.append("M03 closeout requires the exact M03.06 branch")
     elif m03_06.pr != "#59":
-        errors.append("M03.06 readiness requires PR #59")
+        errors.append("M03 closeout requires PR #59")
+    for submilestone_id in sorted(EXPECTED_M03_SUBMILESTONES):
+        row = rows.get(submilestone_id)
+        if row is None or row.status != "Completed and merged":
+            errors.append(f"M03 closeout requires {submilestone_id} Completed and merged")
+        elif row.active_plan != M03_ACTIVE_PLAN:
+            errors.append(f"M03 closeout requires {submilestone_id} completed-plan reference")
     for milestone_number in range(4, 22):
         prefix = f"M{milestone_number:02d}."
         non_not_started = sorted(
@@ -1721,21 +1764,66 @@ def validate_m03_06_closeout_readiness() -> list[str]:
         )
         if non_not_started:
             errors.append(
-                f"{prefix[:-1]} must remain Not started during M03.06 readiness: "
+                f"{prefix[:-1]} must remain Not started after M03 closeout: "
                 + ", ".join(non_not_started)
             )
 
     capability = read_text("docs/status/CAPABILITY_MATRIX.md")
     for phrase in [
-        "MoneyEvent engine | M03.06 QA passed, awaiting merge",
-        "closeout-readiness",
+        "MoneyEvent engine | Completed",
         "structural and fixture success is not financial truth",
         "Ledger core | Not started",
     ]:
         if phrase.lower() not in capability.lower():
             errors.append(
-                f"CAPABILITY_MATRIX.md missing M03.06 readiness boundary: {phrase}"
+                f"CAPABILITY_MATRIX.md missing M03 closeout boundary: {phrase}"
             )
+
+    try:
+        goal_state = json.loads(read_text(PROJECT_COMPLETION_GOAL_STATE))
+    except (json.JSONDecodeError, OSError) as exc:
+        errors.append(f"PROJECT_COMPLETION_GOAL.json is not valid JSON: {exc}")
+    else:
+        required_keys = {
+            "goalId",
+            "goalTitle",
+            "approvedReleaseTarget",
+            "currentPhase",
+            "currentWorkstream",
+            "currentMilestone",
+            "currentBranch",
+            "currentPr",
+            "latestMergedPr",
+            "latestMergeCommit",
+            "environmentReadiness",
+            "localTestStatus",
+            "remoteCiStatus",
+            "dockerStatus",
+            "liveModelAccessStatus",
+            "implementationCapabilities",
+            "explicitlyUnimplementedCapabilities",
+            "openBlockers",
+            "risks",
+            "humanDecisionsRequired",
+            "exactNextAction",
+            "stopReason",
+            "lastUpdatedTimestamp",
+        }
+        missing = sorted(required_keys - set(goal_state))
+        if missing:
+            errors.append(
+                "PROJECT_COMPLETION_GOAL.json missing required keys: " + ", ".join(missing)
+            )
+        if goal_state.get("approvedReleaseTarget") != "PENDING_HUMAN_APPROVAL":
+            errors.append("PROJECT_COMPLETION_GOAL.json target must await human approval")
+        if goal_state.get("permittedReleaseTargets") != PERMITTED_RELEASE_TARGETS:
+            errors.append("PROJECT_COMPLETION_GOAL.json permitted target list is invalid")
+        if goal_state.get("latestMergedPr") != 59:
+            errors.append("PROJECT_COMPLETION_GOAL.json latest merged PR must be 59")
+        if goal_state.get("latestMergeCommit") != (
+            "9c2df34fd1da1a4f893a5b16cb05fa1177f23cce"
+        ):
+            errors.append("PROJECT_COMPLETION_GOAL.json latest merge commit is invalid")
     return errors
 
 

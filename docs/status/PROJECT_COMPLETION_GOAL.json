@@ -1,0 +1,79 @@
+{
+  "goalId": "CLG-COMPLETION-001",
+  "goalTitle": "CausalLedger honest portfolio release completion",
+  "approvedReleaseTarget": "PENDING_HUMAN_APPROVAL",
+  "permittedReleaseTargets": [
+    "M03_TECHNICAL_PREVIEW",
+    "V0_3_FINANCIAL_TRUTH_CORE",
+    "V0_4_INCIDENT_DIGITAL_TWIN",
+    "V0_5_SAFE_AGENTIC_LAYER",
+    "V0_6_BENCHMARK_DEMO",
+    "V1_PUBLIC_PRODUCT"
+  ],
+  "recommendedImmediateTarget": "V0_6_BENCHMARK_DEMO",
+  "recommendedLongTermTarget": "V1_PUBLIC_PRODUCT",
+  "currentPhase": "PHASE_A_CLOSEOUT_AND_AUDIT",
+  "currentWorkstream": "M03_CLOSEOUT_AND_COMPLETION_GOAL",
+  "currentMilestone": "M03_FORMAL_CLOSEOUT_PENDING_PHASE_A_PR",
+  "currentBranch": "m03-closeout-canonical-moneyevent-engine",
+  "currentPr": "PENDING_DRAFT_PR_CREATION",
+  "latestMergedPr": 59,
+  "latestMergeCommit": "9c2df34fd1da1a4f893a5b16cb05fa1177f23cce",
+  "environmentReadiness": "READY_WITH_LIMITATIONS",
+  "localTestStatus": "FINAL_DIRTY_PASS_117_CONTROL_150_WORKSPACE_17_PASS_0_FAIL_2_EXPECTED_SKIPPED_CLEAN_PENDING",
+  "remoteCiStatus": "PR_59_EXACT_HEAD_PASS_PHASE_A_PENDING",
+  "dockerStatus": "UNAVAILABLE_LOCALLY_REMOTE_INFRA_SMOKE_AVAILABLE",
+  "liveModelAccessStatus": "NO_SUPPORTED_PROVIDER_KEY_PRESENT_NO_LIVE_CALL_MADE",
+  "implementationCapabilities": [
+    "M00 repository operating system",
+    "M01 domain and safety vocabulary",
+    "M02 monorepo, app and package scaffolds, CI, and local QA baseline",
+    "MoneyEvent TypeScript contract boundary",
+    "source-neutral strict MoneyEvent candidate validation",
+    "deterministic MoneyEvent normalization",
+    "21 controlled synthetic MoneyEvent fixtures",
+    "seven grounded MoneyFlowBench seed metadata records",
+    "deterministic package and control-plane tests"
+  ],
+  "explicitlyUnimplementedCapabilities": [
+    "source-specific parsing or mapping",
+    "ingestion or persistence",
+    "product database schema",
+    "ledger runtime",
+    "financial invariant engine",
+    "provider and bank simulator execution",
+    "incident lifecycle",
+    "causal graph",
+    "replay or digital twin",
+    "repair planner or repair application",
+    "agent tool contracts or agent runtime",
+    "human review runtime",
+    "benchmark runner, scoring, results, or ablations",
+    "product UI",
+    "external connectors",
+    "production deployment"
+  ],
+  "openBlockers": [
+    "Phase A draft PR must be opened, reviewed, and human-merged",
+    "release target requires explicit human approval",
+    "local Docker and Docker Compose are unavailable for future storage and migration validation",
+    "no live-model API key or budget is approved",
+    "M04 through M21 remain not started"
+  ],
+  "risks": [
+    "portfolio claims could outrun implemented behavior",
+    "roadmap compression could weaken milestone traceability if treated as a rewrite",
+    "future ledger and invariant correctness must remain deterministic",
+    "future agent tools must remain read-only or proposal-only",
+    "local memory headroom was low during the audit and may constrain Docker plus development services"
+  ],
+  "humanDecisionsRequired": [
+    "review and merge the Phase A closeout and audit PR",
+    "approve one permitted release target",
+    "authorize any later live-model provider, model, call count, and cost cap",
+    "authorize the eventual release tag and public claims"
+  ],
+  "exactNextAction": "VALIDATE_COMMIT_PUSH_OPEN_DRAFT_PHASE_A_PR_THEN_STOP",
+  "stopReason": "PHASE_A_PR_AND_EXPLICIT_RELEASE_TARGET_APPROVAL_REQUIRED_BEFORE_M04",
+  "lastUpdatedTimestamp": "2026-08-18T16:24:35Z"
+}
