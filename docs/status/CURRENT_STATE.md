@@ -16,7 +16,7 @@ The branch adds final M03 closeout, environment readiness, completion state/audi
 
 ## Next action
 
-Draft PR [#60](https://github.com/Islem-Rezzag/CausalLedger/pull/60) is open. Verify its final exact-head CI and local/remote hash, then stop. A human must review and merge PR #60 and approve one permitted target before any M04 plan or implementation begins.
+Draft PR [#60](https://github.com/Islem-Rezzag/CausalLedger/pull/60) is open. CI run `32160745683` passed `validate` and `infra-smoke` on head `68bc7d735baea7ded5ef1e8825e0965fb384d7c4`. Push this final status-only record, verify its exact-head CI and local/remote hash, then stop. A human must review and merge PR #60 and approve one permitted target before any M04 plan or implementation begins.
 
 Exact resume command after human merge:
 
