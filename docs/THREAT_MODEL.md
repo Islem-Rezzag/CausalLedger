@@ -509,7 +509,7 @@ Future implementation milestones must tie threat mitigations to code, tests, rev
 
 M01.13 QA Domain Consistency is `Completed and merged`.
 
-M01.13 QA verified `docs/DOMAIN_MODEL.md`, `docs/RELIABILITY.md`, `docs/THREAT_MODEL.md`, domain docs, eval docs, and status tracking for mutual consistency. M01 closeout has passed, M02 is completed and closed, and M03 is active. No M01 threat-model work remains.
+M01.13 QA verified `docs/DOMAIN_MODEL.md`, `docs/RELIABILITY.md`, `docs/THREAT_MODEL.md`, domain docs, eval docs, and status tracking for mutual consistency. M01 through M03 are completed and closed. No M01 threat-model work remains; future runtime controls remain unimplemented.
 
 New product behavior must start only inside an active, explicitly scoped milestone and must preserve these threat boundaries.
 

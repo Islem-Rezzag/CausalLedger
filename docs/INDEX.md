@@ -49,12 +49,18 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/status/M00_CLOSEOUT.md` - M00 closeout packet.
 - `docs/status/M01_DOMAIN_CONSISTENCY.md` - M01 domain consistency QA report.
 - `docs/status/M01_CLOSEOUT.md` - M01 closeout packet.
-- `docs/status/M03_CLOSEOUT_READINESS.md` - M03.06 independent-QA closeout-readiness packet; not the final M03 closeout packet.
+- `docs/status/M03_CLOSEOUT_READINESS.md` - historical M03.06 independent-QA readiness packet created before PR #59 merged.
+- `docs/status/M03_CLOSEOUT.md` - formal M03 closeout packet.
+- `docs/status/PROJECT_COMPLETION_GOAL.md` and `docs/status/PROJECT_COMPLETION_GOAL.json` - persistent human-gated completion goal and machine-readable state.
+- `docs/status/LOCAL_ENVIRONMENT_READINESS.md` - audited local tool, test, reproducibility, Docker, and smoke-readiness evidence.
+- `docs/status/PROJECT_COMPLETION_AUDIT.md` - implementation-to-release-ladder gap analysis and target recommendation.
+- `docs/public/PUBLIC_RELEASE_EVIDENCE_PLAN.md` - evidence requirements and prohibited public claims; no fabricated results.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` - canonical M00-M21 submilestone registry.
 - `plans/completed/CLP-0001-m00-repo-operating-system.md` - completed M00 execution plan.
 - `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md` - completed M01 plan.
 - `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md` - completed M02 plan.
-- `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md` - active M03 plan.
+- `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md` - completed M03 plan.
+- `plans/proposals/CLP-PROJECT-COMPLETION-GOAL.md` - proposed completion workstream overlay pending human target approval; not an active plan.
 - `docs/status/M02_CLOSEOUT.md` - M02 closeout packet.
 - `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
 - `prompts/template_qa_submilestone.md` - reusable QA thread prompt template.
@@ -114,4 +120,4 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-The repository has completed M00 and tagged the repo operating system foundation as `v0.1.0`. M01 and M02 are completed and closed. M03 planning and M03.01 through M03.05 are completed and merged; PR #58 recovery QA squash-merged at `721bd60eba04cdf71765660727132d0d6aed97bc`. M03.06 independent QA passed on PR #59 and is awaiting merge. M03 remains active, its plan remains under `plans/active/`, and M04 through M21 remain `Not started`. `packages/events` contains compile-time MoneyEvent types plus source-neutral candidate validation and deterministic normalization. M03.05 contains 21 controlled synthetic fixtures, seven early benchmark seed cases, and strict test-only verification. `docs/status/M03_CLOSEOUT_READINESS.md` is not final closeout. No source-specific parser or mapper, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent, connector, UI, benchmark scoring, or money-mutation behavior exists.
+The repository has completed M00 through M03. PR #59 merged at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`; `docs/status/M03_CLOSEOUT.md` records formal closeout and the M03 plan lives under `plans/completed/`. No active milestone plan exists while the completion target awaits human approval, and M04 through M21 remain `Not started`. `packages/events` contains compile-time MoneyEvent types plus source-neutral structural validation and deterministic normalization. M03.05 contains 21 controlled synthetic fixtures, seven early benchmark seed metadata records, and strict test-only verification. No source-specific parser or mapper, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent, connector, UI, benchmark scoring, or money-mutation behavior exists; structural success is not financial truth.

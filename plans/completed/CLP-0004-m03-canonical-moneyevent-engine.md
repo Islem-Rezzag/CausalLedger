@@ -6,7 +6,7 @@ Plan and execute M03 as a sequence of narrow, evidence-grounded MoneyEvent slice
 
 M03 will define the canonical MoneyEvent engine boundary for future deterministic money-movement processing. The milestone should turn M01 domain language and M02 package scaffolding into a carefully scoped implementation path for canonical event contracts, source mapping, validation, fixtures, and QA.
 
-M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`. M03.01 PR #48 merged into `main` at commit `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`. M03.02 PR #49 merged into `main` at commit `f7e3b54ba6a533a70d34810564be1b8828eec952`. M03.03 PR #51 merged into `main` at commit `03b0b55d988a224a96c2bcd3c30601c6100ab091`, and the merge finalization landed at `737710592544203e039ceee44a732e289c373bb6`. M03.04 PR #53 merged into `main` at commit `572dc150e38782620416350004630b690c00e687` after QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`; M03.04 finalization merged at `4afa9e94bc3938e3138ce2045afc380582b24c71`. M03.05 PR #55 merged into `main` at `89874bca2525a423d773548c61f9655f09642575`. PR #56 merged the substantive M03.05 finalization at `b4ce3a106e61746f892f1aeb0665b12cd85bdaeb`; PR #57 accidentally merged the same finalization branch again at `1744e90b0da80480dd3d4c33e6a1827789830003`. The two finalization commits have no file differences and share tree `e7a985be616b116ff73a028018304c2b776857b2`, so PR #57 is a no-op history entry. PR #58 recovery QA squash-merged at `721bd60eba04cdf71765660727132d0d6aed97bc`; reviewed source and merge share tree `266c357b2973d4b64dffc1523c700ce05e1f595d` with zero file differences. M03.06 independent QA passed on PR #59 and is awaiting merge. M03 remains active.
+M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1eddfa104a74`. M03.01 PR #48 merged into `main` at commit `babadf52762c407fc4d49c6e1d1b0b6cc0542b8e`. M03.02 PR #49 merged into `main` at commit `f7e3b54ba6a533a70d34810564be1b8828eec952`. M03.03 PR #51 merged into `main` at commit `03b0b55d988a224a96c2bcd3c30601c6100ab091`, and the merge finalization landed at `737710592544203e039ceee44a732e289c373bb6`. M03.04 PR #53 merged into `main` at commit `572dc150e38782620416350004630b690c00e687` after QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`; M03.04 finalization merged at `4afa9e94bc3938e3138ce2045afc380582b24c71`. M03.05 PR #55 merged into `main` at `89874bca2525a423d773548c61f9655f09642575`. PR #56 merged the substantive M03.05 finalization at `b4ce3a106e61746f892f1aeb0665b12cd85bdaeb`; PR #57 accidentally merged the same finalization branch again at `1744e90b0da80480dd3d4c33e6a1827789830003`. The two finalization commits have no file differences and share tree `e7a985be616b116ff73a028018304c2b776857b2`, so PR #57 is a no-op history entry. PR #58 recovery QA squash-merged at `721bd60eba04cdf71765660727132d0d6aed97bc`; reviewed source and merge share tree `266c357b2973d4b64dffc1523c700ce05e1f595d` with zero file differences. M03.06 independent QA passed before PR #59 squash-merged at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`; reviewed source and merge share tree `a5f52604955f8a8925728a2cb7b5c8900aefd87a` with empty diffs. Formal M03 closeout passed on the Phase A branch.
 
 ## Progress
 
@@ -109,6 +109,12 @@ M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1e
 - [x] 2026-08-04: Required M03.06 Builder validation passed: control plane; 106 bootstrap tests; diff check; frozen install across 14 workspace projects; 97 events tests; 42 evals tests; focused and all 13-package workspace checks; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 expected `SKIPPED`.
 - [x] 2026-08-04: The first completed-state control-plane rerun rejected `CURRENT_STATE.md` because it said M03 was "active under" the plan path instead of the validator-recognized phrase "under active plan." The status wording was corrected without changing scope or behavior, then the affected validation set was rerun.
 - [x] 2026-08-04: Marked M03.06 `Builder complete, awaiting QA`. M03 remains active, the plan stays under `plans/active/`, final M03 closeout has not occurred, M04 through M21 remain `Not started`, and the exact next thread is `M03.06 QA - MoneyEvent QA and Closeout`.
+- [x] 2026-08-18: Synchronized `main` to `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce` and proved PR #59 closed/merged, merge ancestry, source/merge tree equality at `a5f52604955f8a8925728a2cb7b5c8900aefd87a`, empty source-to-merge name-status/stat diffs, QA PASS before merge, and exact-head CI run `31262860836` with successful `validate` and `infra-smoke` jobs.
+- [x] 2026-08-18: Audited the actual Windows environment, dependency install, all workspace checks, app scaffolds, secret presence without values, Docker limitation, relevant ports/resources, and a detached clean-worktree reproduction.
+- [x] 2026-08-18: Created the M03 closeout packet, completion goal/state, environment readiness, release-gap audit, proposed roadmap overlay, and public evidence plan without starting M04 or changing product runtime behavior.
+- [x] 2026-08-18: Marked M03.01 through M03.06 `Completed and merged`, moved this plan to `plans/completed/`, and left `plans/active/` empty while target approval is pending.
+- [x] 2026-08-18: Final dirty Phase A validation passed: control plane, 117 bootstrap tests, whitespace, frozen install, all 13-package typecheck/lint/test/build/format checks, 150 workspace tests, and dirty-mode QA with 17 PASS, 0 FAIL, and two expected skips.
+- [x] 2026-08-18: Committed the prescribed Phase A closeout at `c5876c4d3e7f91b036d4ee3ae9eb538460a3de11`, passed clean QA with 18 PASS, 0 FAIL, and one optional Docker skip, pushed the single branch with matching hashes, and opened draft PR #60.
 
 ## M03.06 Tier 2 reasoning checkpoint
 
@@ -675,7 +681,7 @@ Run `make bootstrap-check` only if `make` is available. Record Docker limitation
 
 Acceptance criteria:
 
-- exactly one active M03 plan exists;
+- the completed M03 plan exists under `plans/completed/` and no active milestone plan exists while target approval is pending;
 - M02 remains completed in `plans/completed/`;
 - M03 milestone and registry rows are coherent;
 - M03 planning PR #47 is recorded as completed and merged;
@@ -683,19 +689,19 @@ Acceptance criteria:
 - M03.02 is `Completed and merged`;
 - M03.03 is `Completed and merged` through PR #51 at `03b0b55d988a224a96c2bcd3c30601c6100ab091`;
 - M03.04 is `Completed and merged` through PR #53 at `572dc150e38782620416350004630b690c00e687`; QA passed at source commit `d8d13d588bd6471178b4d815556fe1ba7fff570c`, and finalization merged at `4afa9e94bc3938e3138ce2045afc380582b24c71`;
-- M03.05 is `Completed and merged` through PR #55 at `89874bca2525a423d773548c61f9655f09642575`; PR #58 recovery QA squash-merged at `721bd60eba04cdf71765660727132d0d6aed97bc`; M03.06 is `QA passed, awaiting merge` on PR #59 with a readiness packet, while M03 remains active;
+- M03.05 is `Completed and merged` through PR #55 at `89874bca2525a423d773548c61f9655f09642575`; PR #58 recovery QA squash-merged at `721bd60eba04cdf71765660727132d0d6aed97bc`; M03.06 is `Completed and merged` through PR #59 at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce` with readiness and final closeout packets;
 - `docs/MONEYEVENT_CONTRACT.md` exists as documentation-only conceptual contract;
 - `packages/events` contains the M03.02 TypeScript types plus the M03.04 source-neutral candidate validator and deterministic normalizer;
 - `docs/MONEYEVENT_MAPPING_FIXTURES.md` exists as documentation-only mapping fixture and simulator planning;
 - the only product runtime behavior is M03.04 structural validation and normalization, which does not establish financial truth;
 - no runtime schema framework, source-specific parser or mapper, ingestion, storage, migration, simulator data or execution, benchmark runner or scoring, route, UI, ledger posting, invariant, incident, graph, replay, repair, or agent behavior is created;
-- status docs and handoff point to `Merge M03.06 PR - MoneyEvent QA and Closeout`; final M03 closeout and M04 remain blocked on PR merge and formal milestone closeout.
+- status docs and handoff point to human review of the Phase A closeout/audit PR and explicit target approval; M04 remains blocked and not started.
 
 ## Expected Files
 
 Expected created file:
 
-- `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`
+- `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md`
 - `docs/MONEYEVENT_CONTRACT.md`
 - `docs/MONEYEVENT_MAPPING_FIXTURES.md`
 - `docs/MONEYEVENT_VALIDATION_NORMALIZATION.md`
@@ -800,7 +806,7 @@ If the branch diverges or the worktree becomes unexpectedly dirty, stop and insp
 
 The active M03 branch should leave:
 
-- one active M03 plan;
+- one completed M03 plan and no active milestone plan while target approval is pending;
 - six lean M03 submilestones;
 - M03 planning PR #47 recorded as completed and merged;
 - M03.01 completed and merged;
@@ -841,7 +847,7 @@ M03 planning QA passed locally for PR #47 on branch `m03-planning-canonical-mone
 
 M03.01 Builder created `docs/MONEYEVENT_CONTRACT.md` as a documentation-only conceptual MoneyEvent contract and updated tracking, status docs, and validation guards. M03.01 QA verified the contract and applied scoped QA status and handoff updates only.
 
-M03.01 through M03.05 are `Completed and merged`. PR #55 merged M03.05 into `main` at `89874bca2525a423d773548c61f9655f09642575`; builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, independent QA commit `f7a1f3c8ae13be60ff8f8154acb81965d2237b9d`, and final reviewed head `869af913b781a9706a93d561c256c4077f30361d` are recorded. PR #56 is the substantive finalization merge at `b4ce3a106e61746f892f1aeb0665b12cd85bdaeb`; PR #57 is an accidental no-op duplicate merge at `1744e90b0da80480dd3d4c33e6a1827789830003`. PR #58 recovery QA squash-merged at `721bd60eba04cdf71765660727132d0d6aed97bc`; its reviewed source and merge tree both equal `266c357b2973d4b64dffc1523c700ce05e1f595d`. M03.06 is `QA passed, awaiting merge` on PR #59.
+M03.01 through M03.06 are `Completed and merged`. PR #55 merged M03.05 into `main` at `89874bca2525a423d773548c61f9655f09642575`; builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, independent QA commit `f7a1f3c8ae13be60ff8f8154acb81965d2237b9d`, and final reviewed head `869af913b781a9706a93d561c256c4077f30361d` are recorded. PR #56 is the substantive finalization merge at `b4ce3a106e61746f892f1aeb0665b12cd85bdaeb`; PR #57 is an accidental no-op duplicate merge at `1744e90b0da80480dd3d4c33e6a1827789830003`. PR #58 recovery QA squash-merged at `721bd60eba04cdf71765660727132d0d6aed97bc`; its reviewed source and merge tree both equal `266c357b2973d4b64dffc1523c700ce05e1f595d`. PR #59 squash-merged after independent QA at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce` with reviewed/merged tree `a5f52604955f8a8925728a2cb7b5c8900aefd87a`.
 
 M03.02 added a TypeScript-only MoneyEvent type boundary in `packages/events`. Product runtime behavior has not started. No MoneyEvent runtime schema, parser, validator, normalizer, storage behavior, database tables, API routes, UI, fixtures, simulator data, connectors, agent runtime, ledger behavior, invariant behavior, incident behavior, replay behavior, repair behavior, raw evidence mutation, ledger posting, repair approval, or money mutation exists from M03.02.
 
@@ -857,4 +863,6 @@ M03.05 contains the merged controlled fixture corpus, early seed metadata, deter
 
 Builder commit `397ac47756f6cb25f919a1cee7b58adbabe29d4f`, independent QA commit `f7a1f3c8ae13be60ff8f8154acb81965d2237b9d`, and final reviewed head `869af913b781a9706a93d561c256c4077f30361d` were merged through PR #55 at `89874bca2525a423d773548c61f9655f09642575`. PR #56 then merged the substantive finalization, PR #57 merged the same branch again without changing the tree, and PR #58 durably recovered the missing finalization QA record.
 
-M03.06 Builder completed the milestone-wide audit and created `docs/status/M03_CLOSEOUT_READINESS.md`. Independent QA on PR #59 audited the complete diff and all required M03 artifacts, found no MoneyEvent runtime, fixture, seed, dependency, lockfile, financial-truth, or forbidden-scope defect, and applied only scoped readiness/test/tracking fixes. M03 is not closed, the active plan stays under `plans/active/`, and M04 through M21 remain `Not started`. Exact next thread: `Merge M03.06 PR - MoneyEvent QA and Closeout`.
+M03.06 Builder completed the milestone-wide audit and created `docs/status/M03_CLOSEOUT_READINESS.md`. Independent QA on PR #59 audited the complete diff and all required M03 artifacts, found no MoneyEvent runtime, fixture, seed, dependency, lockfile, financial-truth, or forbidden-scope defect, and applied only scoped readiness/test/tracking fixes. PR #59 then squash-merged at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`; its reviewed source and merge share tree `a5f52604955f8a8925728a2cb7b5c8900aefd87a` with empty diffs.
+
+Formal M03 closeout passed on 2026-08-18. `docs/status/M03_CLOSEOUT.md` records implemented and unimplemented boundaries, artifacts, tests, validation, risks, debt, questions, deferrals, branch inventory, release implications, and technical-preview readiness. The completed plan now lives under `plans/completed/`; M04 through M21 remain `Not started`. The exact next thread after Phase A human merge is `Human Review and Target Approval - CausalLedger Completion Goal`.

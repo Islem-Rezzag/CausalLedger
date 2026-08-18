@@ -42,4 +42,4 @@ Traditional reconciliation focuses on matching records and explaining difference
 
 ## Current status
 
-CausalLedger has completed and closed M00, M01, and M02. M03 is active, and the first scoped product runtime behavior now exists only in `packages/events`: source-neutral MoneyEvent candidate validation and deterministic normalization. The repository still has no source-specific parsing, ingestion, storage, database, domain API, ledger, invariant, incident, graph, replay, repair, agent, connector, product UI, or money-mutation behavior.
+CausalLedger has completed and closed M00 through M03. The first scoped product runtime behavior exists only in `packages/events`: source-neutral MoneyEvent candidate validation and deterministic normalization. No active milestone plan exists while the completion target awaits human approval. The repository still has no source-specific parsing, ingestion, storage, database, domain API, ledger, invariant, incident, graph, replay, repair, agent, connector, product UI, or money-mutation behavior.

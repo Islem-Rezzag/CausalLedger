@@ -1,10 +1,13 @@
 # Next Recommended Thread
 
 Thread name:
-Merge M03.06 PR - MoneyEvent QA and Closeout
+Human Review and Target Approval - CausalLedger Completion Goal
 
 Precondition:
-M03.01 through M03.05 are `Completed and merged`. PR #58 recovery QA squash-merged at `721bd60eba04cdf71765660727132d0d6aed97bc` with reviewed source and merge tree `266c357b2973d4b64dffc1523c700ce05e1f595d` and zero file differences. M03.06 independent QA passed on branch `m03-06-moneyevent-qa-closeout` and PR #59 after the required local ladder. Exact-head remote CI must be successful before a human merges the PR.
+The Phase A branch `m03-closeout-canonical-moneyevent-engine` has passed final local validation, been pushed, opened as one draft PR, passed exact-head remote CI, and then been reviewed and human-merged. The merge commit and reviewed source tree must be equivalent.
 
 Scope:
-Human-controlled merge of PR #59 after confirming it remains approved, mergeable, and green at the exact reviewed head. Codex must not merge the PR or enable auto-merge. After merge, begin `M03 Milestone Closeout - Canonical MoneyEvent Engine`; do not close M03, move the active plan, create `docs/status/M03_CLOSEOUT.md`, or start M04 in the merge thread.
+Approve exactly one permitted release target and resume from `docs/status/PROJECT_COMPLETION_GOAL.json`. Do not start M04 until the Phase A PR merge is proved and the approval command is supplied. The resumed thread activates only the first approved workstream, creates its plan and branch, uses deterministic verification and independent QA, opens one PR, and stops for human merge.
+
+Exact resume command:
+`APPROVE_TARGET=<PERMITTED_TARGET> MERGED_CLOSEOUT_PR=<PR_NUMBER> MERGE_SHA=<ACTUAL_SHA> CONTINUE_COMPLETION_GOAL`
