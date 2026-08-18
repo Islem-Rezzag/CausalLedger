@@ -90,6 +90,7 @@ Current status:
 - `docs/status/M01_DOMAIN_CONSISTENCY.md`
 - `docs/status/M01_CLOSEOUT.md`
 - `docs/status/M02_CLOSEOUT.md`
+- `docs/status/M03_CLOSEOUT_READINESS.md`
 
 Completed execution:
 
@@ -100,7 +101,7 @@ Completed execution:
 
 Active execution:
 
-- M03 Canonical MoneyEvent Engine is active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M03 planning and M03.01 through M03.05 are completed and merged; PR #55 merged M03.05 into `main` at `89874bca2525a423d773548c61f9655f09642575`. M03.06 remains `Not started`.
+- M03 Canonical MoneyEvent Engine is active under `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`. M03 planning and M03.01 through M03.05 are completed and merged; PR #58 recovery QA squash-merged at `721bd60eba04cdf71765660727132d0d6aed97bc`. M03.06 independent QA passed on PR #59 and is awaiting merge. `docs/status/M03_CLOSEOUT_READINESS.md` is QA-reviewed readiness evidence, not final closeout; M04 through M21 remain `Not started`.
 
 Plan state:
 

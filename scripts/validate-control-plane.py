@@ -93,6 +93,8 @@ MONEYEVENT_VALIDATION_NORMALIZATION_DOC = "docs/MONEYEVENT_VALIDATION_NORMALIZAT
 MONEYEVENT_FIXTURES_BENCHMARK_SEEDS_DOC = (
     "docs/MONEYEVENT_FIXTURES_BENCHMARK_SEEDS.md"
 )
+M03_CLOSEOUT_READINESS_DOC = "docs/status/M03_CLOSEOUT_READINESS.md"
+M03_FINAL_CLOSEOUT_DOC = "docs/status/M03_CLOSEOUT.md"
 M03_05_FIXTURE_MANIFEST = "data/fixtures/money-events/candidates.json"
 M03_05_SEED_MANIFEST = "scenarios/moneyflowbench/money-event-seeds.json"
 
@@ -212,6 +214,70 @@ M03_05_DOC_REQUIRED_PHRASES = [
     "M03.06",
     "M14",
 ]
+
+M03_CLOSEOUT_READINESS_REQUIRED_SECTIONS = [
+    "Milestone ID and name",
+    "Readiness purpose",
+    "Current status",
+    "Completed submilestones M03.01 through M03.05",
+    "M03.06 independent QA status",
+    "Merged PR and commit inventory",
+    "Process deviations",
+    "Artifact inventory",
+    "Implemented code",
+    "Implemented test data",
+    "Acceptance-criteria traceability",
+    "Validation traceability",
+    "Current test counts",
+    "Deterministic behavior evidence",
+    "Safety and financial-truth boundaries",
+    "Changed documentation",
+    "Changed code",
+    "Skipped validation",
+    "Warnings",
+    "Risks",
+    "Tech debt",
+    "Open questions",
+    "Deferred work",
+    "M04 readiness assessment",
+    "Blockers to final closeout",
+    "Whether final M03 closeout may begin",
+    "Active-plan movement status",
+    "Exact next thread",
+]
+
+M03_CLOSEOUT_READINESS_REQUIRED_SECTION_PHRASES = {
+    "Readiness purpose": [
+        "This is not the final M03 closeout packet.",
+        "M03 is not yet closed.",
+    ],
+    "Current status": [
+        "M03.06 is `QA passed, awaiting merge`",
+        "plans/active/CLP-0004-m03-canonical-moneyevent-engine.md",
+        "docs/status/M03_CLOSEOUT.md",
+        "M04 through M21 remain `Not started`",
+    ],
+    "M03.06 independent QA status": [
+        "Independent M03.06 QA result: PASS.",
+        "PR #59",
+        "QA passed, awaiting merge",
+    ],
+    "Merged PR and commit inventory": [
+        "721bd60eba04cdf71765660727132d0d6aed97bc",
+        "266c357b2973d4b64dffc1523c700ce05e1f595d",
+    ],
+    "Implemented test data": ["scoringImplemented", "benchmarkResults"],
+    "Safety and financial-truth boundaries": ["financial truth"],
+    "M04 readiness assessment": ["M04 cannot start"],
+    "Whether final M03 closeout may begin": [
+        "M03.06 is not yet completed and merged",
+        "M03 Milestone Closeout - Canonical MoneyEvent Engine",
+    ],
+    "Active-plan movement status": [
+        "plans/active/CLP-0004-m03-canonical-moneyevent-engine.md"
+    ],
+    "Exact next thread": ["Merge M03.06 PR - MoneyEvent QA and Closeout"],
+}
 
 MONEYEVENT_VALIDATION_NORMALIZATION_REQUIRED_PHRASES = [
     "source-neutral MoneyEvent candidate",
@@ -395,6 +461,7 @@ REQUIRED_FILES = [
     "docs/status/M01_DOMAIN_CONSISTENCY.md",
     "docs/status/M01_CLOSEOUT.md",
     "docs/status/M02_CLOSEOUT.md",
+    M03_CLOSEOUT_READINESS_DOC,
     "docs/milestones/SUBMILESTONE_REGISTRY.md",
     "docs/milestones/M02.md",
     "docs/milestones/M03.md",
@@ -1597,6 +1664,81 @@ def validate_m03_05_fixture_and_seed_doc() -> list[str]:
     return errors
 
 
+def validate_m03_06_closeout_readiness_text(content: str) -> list[str]:
+    errors: list[str] = []
+    sections = markdown_sections(content)
+    for heading in M03_CLOSEOUT_READINESS_REQUIRED_SECTIONS:
+        if not sections.get(heading.lower()):
+            errors.append(
+                f"M03_CLOSEOUT_READINESS.md missing or empty section: {heading}"
+            )
+    for heading, phrases in M03_CLOSEOUT_READINESS_REQUIRED_SECTION_PHRASES.items():
+        section = sections.get(heading.lower(), "").lower()
+        for phrase in phrases:
+            if phrase.lower() not in section:
+                errors.append(
+                    "M03_CLOSEOUT_READINESS.md missing required coverage in "
+                    f"section {heading}: {phrase}"
+                )
+    return errors
+
+
+def validate_m03_06_closeout_readiness() -> list[str]:
+    errors = validate_m03_06_closeout_readiness_text(
+        read_text(M03_CLOSEOUT_READINESS_DOC)
+    )
+
+    if (ROOT / M03_FINAL_CLOSEOUT_DOC).exists():
+        errors.append(
+            "final docs/status/M03_CLOSEOUT.md must not exist during M03.06 readiness"
+        )
+    if not (ROOT / M03_ACTIVE_PLAN).is_file():
+        errors.append("M03 plan must remain in plans/active during M03.06 readiness")
+    completed_plan = (
+        ROOT
+        / "plans"
+        / "completed"
+        / "CLP-0004-m03-canonical-moneyevent-engine.md"
+    )
+    if completed_plan.exists():
+        errors.append("M03 plan must not move to plans/completed during M03.06 readiness")
+
+    rows = registry_by_id()
+    m03_06 = rows.get("M03.06")
+    if m03_06 is None or m03_06.status != "QA passed, awaiting merge":
+        errors.append("M03.06 readiness requires status QA passed, awaiting merge")
+    elif m03_06.branch != "m03-06-moneyevent-qa-closeout":
+        errors.append("M03.06 readiness requires the exact M03.06 branch")
+    elif m03_06.pr != "#59":
+        errors.append("M03.06 readiness requires PR #59")
+    for milestone_number in range(4, 22):
+        prefix = f"M{milestone_number:02d}."
+        non_not_started = sorted(
+            row.submilestone_id
+            for row in rows.values()
+            if row.submilestone_id.startswith(prefix)
+            and row.status != "Not started"
+        )
+        if non_not_started:
+            errors.append(
+                f"{prefix[:-1]} must remain Not started during M03.06 readiness: "
+                + ", ".join(non_not_started)
+            )
+
+    capability = read_text("docs/status/CAPABILITY_MATRIX.md")
+    for phrase in [
+        "MoneyEvent engine | M03.06 QA passed, awaiting merge",
+        "closeout-readiness",
+        "structural and fixture success is not financial truth",
+        "Ledger core | Not started",
+    ]:
+        if phrase.lower() not in capability.lower():
+            errors.append(
+                f"CAPABILITY_MATRIX.md missing M03.06 readiness boundary: {phrase}"
+            )
+    return errors
+
+
 def validate_moneyevent_contract_doc() -> list[str]:
     errors: list[str] = []
     contract = read_text(MONEYEVENT_CONTRACT_DOC)
@@ -2196,6 +2338,7 @@ def validate() -> list[str]:
     errors.extend(validate_m03_03_mapping_fixture_planning_doc())
     errors.extend(validate_m03_04_validation_normalization_doc())
     errors.extend(validate_m03_05_fixture_and_seed_doc())
+    errors.extend(validate_m03_06_closeout_readiness())
     errors.extend(validate_m03_04_events_runtime_boundary())
     errors.extend(validate_local_infrastructure())
     errors.extend(validate_qa_development_environment())

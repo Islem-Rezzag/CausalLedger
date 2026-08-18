@@ -1,7 +1,24 @@
 # Weekly Log
 
+## 2026-08-06
+
+- Started independent M03.06 QA on the exact branch `m03-06-moneyevent-qa-closeout` and draft PR #59 from clean head `37de57d01886538119b0f1a31d5e414f9cb848cc`; repository, origin, branch, identity, base/head, recovery ancestry, PR state, active-plan, no-final-closeout, and no-M04 guards passed.
+- Audited the full PR diff, PRs #47-#58 history, all required M03 artifacts, MoneyEvent types/validator/normalizer/public exports, 21 controlled fixtures, seven grounded seeds, strict test-only parsers, deterministic tests, dependencies, lockfile, security/data hygiene, tracking, financial-truth refusal, and forbidden scope.
+- Found no MoneyEvent runtime, fixture, seed, dependency, lockfile, security, financial-truth, or forbidden-scope defect. Found two QA-control weaknesses: readiness phrases were globally searchable rather than heading-bound, and lifecycle/capability failure paths lacked direct mutation assertions.
+- Applied scoped QA fixes only: required readiness claims are validated in their owning sections; filesystem, registry, later-milestone, and capability mutations are rejected; and the exact QA branch/PR lifecycle is enforced. Independently confirmed the unchanged corpus at 21 fixtures: eight valid and 13 invalid.
+- Early QA control-plane validation and all 116 bootstrap tests passed before the slower package/workspace ladder.
+- Full dirty-state QA validation passed: whitespace diff check; frozen install across 14 projects; events typecheck/test/build/lint/format with 97 tests; evals equivalents with 42 tests; all five checks across 13 workspace packages; and `qa:dev --allow-dirty` with 17 `PASS`, 0 `FAIL`, and 2 expected `SKIPPED`.
+- M03.06 is `QA passed, awaiting merge` on PR #59. M03 remains active, the plan remains in `plans/active/`, `docs/status/M03_CLOSEOUT.md` remains absent, and M04 through M21 remain `Not started`. Exact next thread: `Merge M03.06 PR - MoneyEvent QA and Closeout`.
+
 ## 2026-08-04
 
+- Started M03.06 Builder on `m03-06-moneyevent-qa-closeout` from synchronized `main` at PR #58 squash-merge commit `721bd60eba04cdf71765660727132d0d6aed97bc`; repository, origin, clean-worktree, branch, ancestry, active-plan, identity, and no-M04 guards passed.
+- Corrected the earlier false-negative PR #58 proof: source ancestry is not applicable to a squash merge. The merge commit is an ancestor of `main`; source `0b71c214e6463a7bc462fc37a2071e7f578a0799` and merge share tree `266c357b2973d4b64dffc1523c700ce05e1f595d`; source-to-merge file/stat diffs are empty; whitespace passes; and GitHub confirms PR #58 closed and merged.
+- Audited PRs #47-#58, all M03 artifacts and acceptance criteria, implementation, fixtures, seeds, tests, determinism, immutability, public API, package/dependency boundaries, data hygiene, financial-truth refusal, forbidden scope, and M04 readiness. No MoneyEvent runtime, fixture, seed, dependency, or lockfile defect was found.
+- Created `docs/status/M03_CLOSEOUT_READINESS.md` as the M03.06 Builder candidate and added control-plane/bootstrap coverage for its required sections, active-plan location, absence of final `M03_CLOSEOUT.md`, and M04-M21 not-started state.
+- M03.06 Builder validation passed: control plane; 106 bootstrap tests; diff check; frozen install across 14 projects; events typecheck/build/lint/format and 97 tests; evals typecheck/build/lint/format and 42 tests; all five checks across 13 packages; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 expected `SKIPPED`.
+- The first completed-state control-plane rerun found and rejected one status wording mismatch: `CURRENT_STATE.md` said M03 was "active under" the plan path instead of "under active plan." The wording was corrected and the affected validation set rerun; no product behavior changed.
+- M03.06 is `Builder complete, awaiting QA`. M03 remains active, its plan remains in `plans/active/`, final milestone closeout has not occurred, and M04 through M21 remain `Not started`. Exact next thread: `M03.06 QA - MoneyEvent QA and Closeout`.
 - Started `M03.05 Finalization QA Recovery - Duplicate Merge Audit and Tracking Repair` on branch `m03-05-finalization-qa-recovery-duplicate-merge-audit` from synchronized `main` at `1744e90b0da80480dd3d4c33e6a1827789830003`; repository, origin, clean-worktree, exact-branch, main-ancestry, and repository-local identity guards passed.
 - Verified PR #55 merged M03.05 at `89874bca2525a423d773548c61f9655f09642575`, PR #56 merged the substantive finalization at `b4ce3a106e61746f892f1aeb0665b12cd85bdaeb`, and PR #57 accidentally merged the same finalization branch again at `1744e90b0da80480dd3d4c33e6a1827789830003`.
 - Proved PR #57 is a no-op history entry: the PR #56-to-PR #57 name-status, stat, and whitespace diffs are empty, and both commits have tree `e7a985be616b116ff73a028018304c2b776857b2`. No revert, reset, history rewrite, or implementation repair is required.

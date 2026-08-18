@@ -49,6 +49,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/status/M00_CLOSEOUT.md` - M00 closeout packet.
 - `docs/status/M01_DOMAIN_CONSISTENCY.md` - M01 domain consistency QA report.
 - `docs/status/M01_CLOSEOUT.md` - M01 closeout packet.
+- `docs/status/M03_CLOSEOUT_READINESS.md` - M03.06 independent-QA closeout-readiness packet; not the final M03 closeout packet.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` - canonical M00-M21 submilestone registry.
 - `plans/completed/CLP-0001-m00-repo-operating-system.md` - completed M00 execution plan.
 - `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md` - completed M01 plan.
@@ -113,4 +114,4 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-The repository has completed M00 and tagged the repo operating system foundation as `v0.1.0`. M01 and M02 are completed and closed. M03 planning and M03.01 through M03.05 are completed and merged; PR #55 merged M03.05 into `main` at `89874bca2525a423d773548c61f9655f09642575`. M03 remains active, while M03.06 plus M04 through M21 remain `Not started`. `packages/events` contains compile-time MoneyEvent types plus source-neutral candidate validation and deterministic normalization. M03.05 contains 21 controlled synthetic fixtures, seven early benchmark seed cases, and strict test-only verification. No source-specific parser or mapper, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent, connector, UI, benchmark scoring, or money-mutation behavior exists.
+The repository has completed M00 and tagged the repo operating system foundation as `v0.1.0`. M01 and M02 are completed and closed. M03 planning and M03.01 through M03.05 are completed and merged; PR #58 recovery QA squash-merged at `721bd60eba04cdf71765660727132d0d6aed97bc`. M03.06 independent QA passed on PR #59 and is awaiting merge. M03 remains active, its plan remains under `plans/active/`, and M04 through M21 remain `Not started`. `packages/events` contains compile-time MoneyEvent types plus source-neutral candidate validation and deterministic normalization. M03.05 contains 21 controlled synthetic fixtures, seven early benchmark seed cases, and strict test-only verification. `docs/status/M03_CLOSEOUT_READINESS.md` is not final closeout. No source-specific parser or mapper, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent, connector, UI, benchmark scoring, or money-mutation behavior exists.
