@@ -6,7 +6,7 @@ M03 Canonical MoneyEvent Engine.
 
 ## Closeout result
 
-PASS on branch `m03-closeout-canonical-moneyevent-engine`, pending human review and merge of the Phase A closeout/audit PR. M03.01 through M03.06 are `Completed and merged` in synchronized `main`; the milestone plan may move to `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md` in this closeout branch.
+PASS on branch `m03-closeout-canonical-moneyevent-engine`, with Phase A draft PR [#60](https://github.com/Islem-Rezzag/CausalLedger/pull/60) pending exact-head CI, human review, and merge. M03.01 through M03.06 are `Completed and merged` in synchronized `main`; the milestone plan moved to `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md` in this closeout branch.
 
 M04 through M21 remain `Not started`. This closeout does not create an M04 plan or implement future work.
 
@@ -106,7 +106,7 @@ Pre-edit Phase A baseline passed:
 - API, web, and worker scaffold smoke checks;
 - forbidden-scope and financial-truth audit.
 
-Final dirty-state Phase A validation passed: control plane; 117 bootstrap tests; whitespace; frozen install; typecheck, lint, test, build, and format across 13 packages; and `qa:dev --allow-dirty` with 17 PASS, 0 FAIL, and two expected skips. Clean committed-state validation remains required before push.
+Final dirty-state Phase A validation passed: control plane; 117 bootstrap tests; whitespace; frozen install; typecheck, lint, test, build, and format across 13 packages; and `qa:dev --allow-dirty` with 17 PASS, 0 FAIL, and two expected skips. After the prescribed commit, clean `qa:dev` passed with 18 PASS, 0 FAIL, and one optional Docker skip before the branch was pushed and draft PR #60 opened.
 
 ## Risks
 

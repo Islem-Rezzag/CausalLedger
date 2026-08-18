@@ -16,12 +16,12 @@
   "currentWorkstream": "M03_CLOSEOUT_AND_COMPLETION_GOAL",
   "currentMilestone": "M03_FORMAL_CLOSEOUT_PENDING_PHASE_A_PR",
   "currentBranch": "m03-closeout-canonical-moneyevent-engine",
-  "currentPr": "PENDING_DRAFT_PR_CREATION",
+  "currentPr": 60,
   "latestMergedPr": 59,
   "latestMergeCommit": "9c2df34fd1da1a4f893a5b16cb05fa1177f23cce",
   "environmentReadiness": "READY_WITH_LIMITATIONS",
-  "localTestStatus": "FINAL_DIRTY_PASS_117_CONTROL_150_WORKSPACE_17_PASS_0_FAIL_2_EXPECTED_SKIPPED_CLEAN_PENDING",
-  "remoteCiStatus": "PR_59_EXACT_HEAD_PASS_PHASE_A_PENDING",
+  "localTestStatus": "FINAL_CLEAN_PASS_117_CONTROL_150_WORKSPACE_18_PASS_0_FAIL_1_DOCKER_SKIPPED",
+  "remoteCiStatus": "PR_59_EXACT_HEAD_PASS_PR_60_EXACT_HEAD_PENDING",
   "dockerStatus": "UNAVAILABLE_LOCALLY_REMOTE_INFRA_SMOKE_AVAILABLE",
   "liveModelAccessStatus": "NO_SUPPORTED_PROVIDER_KEY_PRESENT_NO_LIVE_CALL_MADE",
   "implementationCapabilities": [
@@ -54,7 +54,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "Phase A draft PR must be opened, reviewed, and human-merged",
+    "Phase A draft PR #60 must pass exact-head CI, be reviewed, and be human-merged",
     "release target requires explicit human approval",
     "local Docker and Docker Compose are unavailable for future storage and migration validation",
     "no live-model API key or budget is approved",
@@ -73,7 +73,7 @@
     "authorize any later live-model provider, model, call count, and cost cap",
     "authorize the eventual release tag and public claims"
   ],
-  "exactNextAction": "VALIDATE_COMMIT_PUSH_OPEN_DRAFT_PHASE_A_PR_THEN_STOP",
-  "stopReason": "PHASE_A_PR_AND_EXPLICIT_RELEASE_TARGET_APPROVAL_REQUIRED_BEFORE_M04",
-  "lastUpdatedTimestamp": "2026-08-18T16:24:35Z"
+  "exactNextAction": "WAIT_FOR_PR_60_EXACT_HEAD_CI_THEN_HUMAN_REVIEW_MERGE_AND_TARGET_APPROVAL",
+  "stopReason": "DRAFT_PR_60_AND_EXPLICIT_RELEASE_TARGET_APPROVAL_REQUIRED_BEFORE_M04",
+  "lastUpdatedTimestamp": "2026-08-18T16:29:55Z"
 }

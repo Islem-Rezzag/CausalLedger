@@ -16,7 +16,7 @@ The branch adds final M03 closeout, environment readiness, completion state/audi
 
 ## Next action
 
-Complete validation, commit and push the Phase A branch, open exactly one draft PR, verify exact-head CI, and stop. A human must review and merge that PR and approve one permitted target before any M04 plan or implementation begins.
+Draft PR [#60](https://github.com/Islem-Rezzag/CausalLedger/pull/60) is open. Verify its final exact-head CI and local/remote hash, then stop. A human must review and merge PR #60 and approve one permitted target before any M04 plan or implementation begins.
 
 Exact resume command after human merge:
 
@@ -29,7 +29,8 @@ Exact resume command after human merge:
 - Pre-edit local baseline: control plane PASS; 116 bootstrap tests PASS; frozen install PASS across 14 projects; typecheck/lint/test/build/format PASS across 13 packages; 150 workspace tests PASS; `qa:dev` 18 PASS / 0 FAIL / 1 optional Docker SKIPPED.
 - Detached clean-worktree reproduction at exact synchronized `main`: frozen install PASS, `qa:dev` 18/0/1, Git clean, temporary location removed.
 - Scaffold smoke: API process-only readiness PASS, web HTTP shell PASS, worker bootstrap exit PASS.
-- Final dirty Phase A ladder: PASS; 117 bootstrap tests, frozen install, all 13-package typecheck/lint/test/build/format checks, 150 workspace tests, and `qa:dev --allow-dirty` with 17 PASS / 0 FAIL / 2 expected SKIPPED. Clean committed validation remains required before push.
+- Final dirty Phase A ladder: PASS; 117 bootstrap tests, frozen install, all 13-package typecheck/lint/test/build/format checks, 150 workspace tests, and `qa:dev --allow-dirty` with 17 PASS / 0 FAIL / 2 expected SKIPPED.
+- Committed clean validation at `c5876c4d3e7f91b036d4ee3ae9eb538460a3de11`: `qa:dev` PASS with 18 PASS / 0 FAIL / 1 optional Docker SKIPPED. Initial local/remote branch hashes matched before PR #60 opened.
 
 ## Environment status
 

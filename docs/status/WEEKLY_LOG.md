@@ -8,6 +8,7 @@
 - Audited the Windows environment, tools, provider-key presence without values, relevant ports/resources, dependency install, complete local validation, API/web/worker scaffolds, and a clean detached-worktree reproduction. Docker, Compose, GitHub CLI, and Make are unavailable; remote infrastructure smoke passed.
 - Created the persistent completion goal, release-ladder gap audit, proposed five-workstream roadmap overlay, and public evidence plan. Recommended immediate target: `V0_6_BENCHMARK_DEMO`; long-term target: `V1_PUBLIC_PRODUCT`. `approvedReleaseTarget` remains `PENDING_HUMAN_APPROVAL`.
 - This Phase A slice changes documentation and control-plane validation only. No M04, ledger, simulator, invariant, agent, benchmark, UI, connector, live-model, release-tag, money, evidence, or raw-event mutation work began.
+- Committed the prescribed closeout at `c5876c4d3e7f91b036d4ee3ae9eb538460a3de11`, passed clean `qa:dev` with 18 PASS / 0 FAIL / 1 optional Docker skip, pushed the one authorized branch with matching local/remote hashes, and opened draft PR #60. The GitHub connector's PR-create permission was unavailable, so the already-authorized draft was created through the signed-in GitHub browser session without creating a duplicate.
 
 ## 2026-08-06
 

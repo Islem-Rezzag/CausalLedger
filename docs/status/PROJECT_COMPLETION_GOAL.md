@@ -21,7 +21,7 @@ Approved release target: `PENDING_HUMAN_APPROVAL`
 - Clean-worktree reproducibility: PASS.
 - Local Docker: unavailable.
 - Live model access: no supported provider key detected; no live call was made.
-- Phase A draft PR: pending creation after final validation and push.
+- Phase A draft PR: [#60](https://github.com/Islem-Rezzag/CausalLedger/pull/60), open as a draft after clean local validation and initial push.
 
 ## Recommendation awaiting approval
 
@@ -61,4 +61,4 @@ The resumed thread must verify closeout-PR ancestry and tree equivalence, load `
 
 ## Exact next action
 
-Complete Phase A validation, push the single closeout branch, open one draft PR, wait for exact-head CI evidence, and stop for human PR review and target approval. No M04 plan or implementation may be created in this phase.
+Wait for exact-head CI on draft PR #60, verify the final local/remote hash and checks, and stop for human PR review, merge, and target approval. No M04 plan or implementation may be created in this phase.

@@ -114,6 +114,7 @@ M03 planning PR #47 merged into `main` at commit `0606d3b21c05f2cf98397c9f5b0f1e
 - [x] 2026-08-18: Created the M03 closeout packet, completion goal/state, environment readiness, release-gap audit, proposed roadmap overlay, and public evidence plan without starting M04 or changing product runtime behavior.
 - [x] 2026-08-18: Marked M03.01 through M03.06 `Completed and merged`, moved this plan to `plans/completed/`, and left `plans/active/` empty while target approval is pending.
 - [x] 2026-08-18: Final dirty Phase A validation passed: control plane, 117 bootstrap tests, whitespace, frozen install, all 13-package typecheck/lint/test/build/format checks, 150 workspace tests, and dirty-mode QA with 17 PASS, 0 FAIL, and two expected skips.
+- [x] 2026-08-18: Committed the prescribed Phase A closeout at `c5876c4d3e7f91b036d4ee3ae9eb538460a3de11`, passed clean QA with 18 PASS, 0 FAIL, and one optional Docker skip, pushed the single branch with matching hashes, and opened draft PR #60.
 
 ## M03.06 Tier 2 reasoning checkpoint
 
