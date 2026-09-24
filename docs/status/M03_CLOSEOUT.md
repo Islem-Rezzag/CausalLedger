@@ -199,7 +199,7 @@ After independent QA and exact-head CI pass, a human reviews and merges PR #60 a
 
 “Merged #60. I approve V1_PUBLIC_PRODUCT. Continue.”
 
-The coordinator verifies GitHub merge metadata and reviewed-content provenance without asking the human to copy a hash. M04 planning is the next task only after both gates clear.
+The coordinator verifies GitHub merge metadata and reviewed-content provenance without asking the human to copy a hash. M04 planning is next after both gates clear for v0.3 or later; `M03_TECHNICAL_PREVIEW` instead permits only technical-preview preparation.
 
 ## Independent QA correction record (2026-09-24)
 
@@ -218,3 +218,5 @@ Verified unchanged: PR #59 reviewed/merged tree equality; all 300 M04-M21 regist
 Correction validation: `python scripts/validate-control-plane.py` PASS; `python -m pytest tests/test_control_plane_bootstrap.py -q` 132 PASS; `git diff --check` PASS. Applicable ladder: 0-4, existing package/fixture regression coverage at 5-6, forbidden-scope/approval checks at 7, independent review and human gate at 8. No new benchmark, integration product flow or security runtime is claimed.
 
 Re-review and final-state evidence: recorded in PR #60 against the final candidate SHA before readiness is declared. Safe to commit/push scoped corrections after local checks; safe to update the existing PR; safe to merge only after independent QA PASS and required exact-head CI. Only a human may merge. No new file is needed for this handoff; the completed M03 plan and existing goal/status records carry the work.
+
+Re-review of correction commit `e13843ce60a1a521243e4b0a37eb193db5b8eb2f` independently passed the validator and all 132 bootstrap tests. The reviewer requested two final documentation fixes: qualify every continuation route by the approved target, and restore the registry heading encoding. Both are corrected; the final SHA verdict remains in the PR review record.

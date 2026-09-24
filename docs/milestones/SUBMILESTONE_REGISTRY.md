@@ -1,4 +1,4 @@
-ï»¿# Submilestone Registry
+# Submilestone Registry
 
 This is the canonical M00-M21 submilestone registry for CausalLedger.
 
