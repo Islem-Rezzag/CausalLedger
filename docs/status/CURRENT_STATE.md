@@ -4,7 +4,7 @@
 
 M00-M03 are closed; V1_PUBLIC_PRODUCT remains explicitly approved. M04 planning PR #61 human-merged at `17a6e85e81cdddc36381defbffc80a7636cee151`, matching reviewed tree `edde0f85a215bb7c664f47bb29eb961f7a76d02b`. Independent QA and source CI `36016966738` passed before merge.
 
-M04.01 Define Account schema is Builder complete, awaiting QA under active plan `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. M04.02-M04.18 and M05-M21 remain Not started. M03's completed plan remains in `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md`.
+M04.01 Define Account schema is QA passed, awaiting merge under active plan `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. M04.02-M04.18 and M05-M21 remain Not started. M03's completed plan remains in `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md`.
 
 ## Current submilestone and branch
 
@@ -14,12 +14,13 @@ Scope: explicit Account metadata contract, deterministic validation, supplied-ca
 
 ## Next action
 
-Complete validation, independent review and exact-head CI for one M04.01 PR; stop for human merge. After verified merge the coordinator generates and executes M04.02 Define LedgerTransaction schema. No extra prompt or manual hash is required.
+Human review/merge of PR #62 after its final-SHA record confirms independent PASS, clean QA and required CI. After verified merge the coordinator generates and executes M04.02 Define LedgerTransaction schema. No extra prompt or manual hash is required.
 
 ## Latest validation
 
 - PR #61 reviewed/merged tree equality and main ancestry: PASS. Prior final QA: 169 bootstrap and 150 workspace tests PASS, clean detached QA 18/0/1, remote validate/infra-smoke PASS.
-- M04.01 Builder: ledger typecheck/test/lint/build/format PASS (117 ledger tests); control-plane validator and 191 bootstrap tests PASS; diff/scope checks PASS. Full `corepack pnpm qa:dev --allow-dirty`: 17 PASS / 0 FAIL / 2 expected skips (dirty-worktree gate, optional local Docker). Workspace regression total: 266 tests. Final clean-state, independent review and exact-head CI remain pending.
+- M04.01 independent QA PASS on `29113462eb7c709acff2efc020c1c9b2f95f3408`, no findings. Reviewer independently passed ledger typecheck/117 tests/lint/build/format, control-plane validation/191 tests and scope/whitespace checks, plus 64 Account and 54 lifecycle adversarial probes.
+- Same candidate clean QA: 18 PASS / 0 FAIL / 1 optional Docker skip; 266 workspace tests, warm dependency store. CI `36020455110` validate/infra-smoke PASS. Final handoff revision re-review, clean QA and CI must be bound to its final SHA in PR #62; no tracking-commit chain is needed to copy those external results.
 
 ## Environment status
 

@@ -1116,3 +1116,9 @@
 - Implemented pure Account metadata validation with explicit IDs, ownership, category/sign, supported currency and lifecycle boundaries; no creation, posting or storage. Validation/review in progress. All later submilestones remain unstarted.
 
 - M04.01 Builder complete: ledger 117 tests, control-plane 191 tests, whitespace/scope and full workspace QA 17/0/2 PASS (266 workspace tests). Test-only TypeScript compatibility and historical lifecycle fixtures corrected; no dependencies changed. Independent QA, clean-state check, exact-head CI and human merge remain required.
+
+## 2026-09-24 - M04.01 independent QA and PR #62 handoff
+
+- Independent reviewer `m04_01_qa` PASS on `29113462eb7c709acff2efc020c1c9b2f95f3408`, no findings. Independently passed 191 control-plane/117 ledger tests and package/static/scope checks, plus supplemental malformed-input/lifecycle probes.
+- Same candidate clean detached QA passed 18/0/1 (266 workspace tests); CI `36020455110` passed both jobs. Final handoff revision re-review, clean QA and CI belong in the exact-SHA PR #62 record.
+- M04.01 marked QA passed, awaiting merge; human merge gate remains. No product code changed during QA handoff; M04.02 and all later rows remain Not started.

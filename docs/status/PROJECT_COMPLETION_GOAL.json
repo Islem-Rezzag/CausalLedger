@@ -16,12 +16,12 @@
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
   "currentMilestone": "M04.01",
   "currentBranch": "m04-01-account-schema",
-  "currentPr": null,
+  "currentPr": 62,
   "latestMergedPr": 61,
   "latestMergeCommit": "17a6e85e81cdddc36381defbffc80a7636cee151",
   "environmentReadiness": "READY_WITH_LIMITATIONS",
-  "localTestStatus": "BUILDER_PASS_191_CONTROL_117_LEDGER_266_WORKSPACE_QA_17_PASS_0_FAIL_2_EXPECTED_SKIPS",
-  "remoteCiStatus": "PR_61_REVIEWED_HEAD_A2FF0EA_RUN_36016966738_SUCCESS_M04_01_PENDING",
+  "localTestStatus": "INDEPENDENT_QA_PASS_191_CONTROL_117_LEDGER_266_WORKSPACE_CLEAN_QA_18_PASS_0_FAIL_1_DOCKER_SKIP_FINAL_SHA_RECORD_IN_PR_62",
+  "remoteCiStatus": "M04_01_HEAD_2911346_RUN_36020455110_SUCCESS_FINAL_SHA_RECORD_IN_PR_62",
   "dockerStatus": "UNAVAILABLE_LOCALLY_REMOTE_INFRA_SMOKE_AVAILABLE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -34,7 +34,7 @@
     "21 controlled synthetic MoneyEvent fixtures",
     "seven grounded MoneyFlowBench seed metadata records",
     "deterministic package and control-plane tests",
-    "M04.01 Account metadata contract and pure validation (current branch; awaiting QA/merge)"
+    "M04.01 Account metadata contract and pure validation (PR #62; QA passed, awaiting merge)"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -55,7 +55,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "M04.01 requires deterministic validation, independent QA, exact-head CI and human merge before M04.02",
+    "M04.01 PR #62 requires final-SHA QA/CI record and human merge before M04.02",
     "local Docker/Compose or approved equivalent Postgres environment required before storage-dependent slices can close",
     "no live-model provider/model/call-count/budget approved"
   ],
@@ -72,9 +72,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "INDEPENDENTLY_REVIEW_M04_01_ACCOUNT_SCHEMA_THEN_HUMAN_MERGE",
-  "stopReason": "M04_01_REQUIRES_QA_CI_AND_HUMAN_MERGE_BEFORE_M04_02",
-  "lastUpdatedTimestamp": "2026-09-24T15:23:54Z",
+  "exactNextAction": "HUMAN_MERGE_PR_62_AFTER_FINAL_SHA_QA_AND_CI_PASS",
+  "stopReason": "HUMAN_M04_01_PR_MERGE_REQUIRED_BEFORE_M04_02",
+  "lastUpdatedTimestamp": "2026-09-24T15:32:14Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",

@@ -30,4 +30,4 @@ Current-slice validation and QA status live in the active plan and current state
 
 ## Next gate
 
-Independent M04.01 QA and final-SHA CI, then human review/merge of its PR. Do not start M04.02 until that PR has merged. On “Merged. Continue.” recover GitHub metadata and durable state, verify the merge, and execute the next authorized brief.
+M04.01 independent QA PASS is recorded; human review/merge of PR #62 follows its final-SHA re-review, clean QA and required CI record. Do not start M04.02 until that PR has merged. On “Merged. Continue.” recover GitHub metadata and durable state, verify the merge, and execute the next authorized brief.

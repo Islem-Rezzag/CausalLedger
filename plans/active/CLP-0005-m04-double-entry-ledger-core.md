@@ -4,7 +4,7 @@
 
 Plan M04's deterministic ledger primitives using the approved MoneyEvent boundary, M01 ledger vocabulary, and ADR-0008. The human explicitly approved `V1_PUBLIC_PRODUCT` on 2026-09-24: “Merged #60. I approve V1_PUBLIC_PRODUCT. Continue.” v0.6 is an intermediate checkpoint, not a replacement target. This approval authorizes the existing roadmap and routine delivery; it does not authorize live financial writes, repair approval, paid calls, system installation, material architecture changes, release tags, deployment, or publication.
 
-Current slice: M04.01 Define Account schema, on `m04-01-account-schema`. Planning PR #61 is verified merged at `17a6e85e81cdddc36381defbffc80a7636cee151`; its tree equals reviewed head `a2ff0ea9176c9ee37b5f851968b7f79fa8017be9` (`edde0f85a215bb7c664f47bb29eb961f7a76d02b`). Independent review and CI run `36016966738` passed before human merge. M04.01 is Builder complete, awaiting QA; M04.02-M04.18 and M05-M21 remain Not started. Earlier planning records below are dated history.
+Current slice: M04.01 Define Account schema, on `m04-01-account-schema`. Planning PR #61 is verified merged at `17a6e85e81cdddc36381defbffc80a7636cee151`; its tree equals reviewed head `a2ff0ea9176c9ee37b5f851968b7f79fa8017be9` (`edde0f85a215bb7c664f47bb29eb961f7a76d02b`). Independent review and CI run `36016966738` passed before human merge. M04.01 is QA passed, awaiting merge in PR #62; M04.02-M04.18 and M05-M21 remain Not started. Earlier planning records below are dated history.
 
 ## Progress
 
@@ -17,7 +17,8 @@ Current slice: M04.01 Define Account schema, on `m04-01-account-schema`. Plannin
 - [x] Open one planning PR: #61. Initial clean QA and both CI jobs pass.
 - [x] PR #61 final-SHA independent QA PASS, clean QA 18/0/1 and both CI jobs PASS; human merge verified on 2026-09-24.
 - [x] M04.01 branch guard passed on clean `m04-01-account-schema`, based on the verified merge; expected origin confirmed.
-- [ ] Implement and validate M04.01, obtain independent QA on its own PR, then stop for human merge.
+- [x] Implement and validate M04.01; separate-context QA PASS on candidate `29113462eb7c709acff2efc020c1c9b2f95f3408`, no findings.
+- [ ] Final handoff revision re-review/clean QA/CI in PR #62, then human merge. M04.02 remains Not started.
 
 ## Surprises & Discoveries
 
@@ -113,7 +114,7 @@ Handoff must record branch, PR, reviewed SHA, changes, commands/results, skipped
 
 ## Outcomes & Retrospective
 
-Planning PR #61 is reviewed and merged. M04.01 Account metadata types and pure validation are implemented on this branch, with required Builder validation passing; independent review is next. Posting, balances, storage and later ledger slices remain unimplemented. The next human gate is M04.01 PR merge after final review and CI; M04.02 stays unstarted.
+Planning PR #61 is reviewed and merged. M04.01 Account metadata types and pure validation are implemented on this branch, with required Builder and independent QA validation passing, no findings. The final handoff revision must be checked and recorded in PR #62 before merge readiness. Posting, balances, storage and later ledger slices remain unimplemented. The next human gate is M04.01 PR merge after final review and CI; M04.02 stays unstarted.
 
 ## Planning builder validation and handoff (2026-09-24)
 
@@ -156,3 +157,13 @@ Validation: ledger `typecheck`, `test` (117), `lint`, `build`, `format:check` PA
 During Builder validation, a test-only `structuredClone` type error was corrected without dependencies, and historical planning-state fixtures/package allowlists were updated for the new authorized lifecycle. All affected checks now pass. No warnings or unresolved implementation findings. Residual limits: only three currencies and five normal-side categories supported; owner/lifecycle/durable uniqueness are metadata boundaries, not enforced external facts. The merge-provenance record checks consistency, not authenticity of arbitrary repository edits.
 
 Safe to commit: yes. Safe to push: yes. Safe to open one draft PR: yes. Safe to merge: not yet; independent QA and final CI required, and only the human merges. Exact next thread: **M04.01 QA - Define Account schema**. M04.02 remains Not started.
+
+## M04.01 independent QA and merge handoff (2026-09-24)
+
+Status: **QA passed, awaiting merge**. PR [#62](https://github.com/Islem-Rezzag/CausalLedger/pull/62), branch `m04-01-account-schema`. Independent read-only reviewer `m04_01_qa` reviewed base `17a6e85e81cdddc36381defbffc80a7636cee151` through candidate `29113462eb7c709acff2efc020c1c9b2f95f3408` (tree `40e70f2914793c1068eec03a774b38910548ab63`): **PASS, no actionable findings**. Reviewer checked the full 31-file diff and preserved all 18 M04 requirements; no later slice started.
+
+Independent commands: control-plane validation/191 bootstrap tests, ledger typecheck/117 tests/lint/build/format, full-diff whitespace and forbidden-scope checks all PASS. Supplemental in-memory probes: 64 Account/catalog and 54 malformed lifecycle cases passed with no getter execution or validator exception. These probes supplement, and are not added to, the committed test counts. Coordinator clean detached QA on the same SHA: 18 PASS / 0 FAIL / 1 optional local Docker skip, frozen install plus workspace typecheck/lint/266 tests/build/format; warm dependency store, initially clean task outputs. Reviewer independently verified both CI jobs succeeded in run `36020455110` on that SHA.
+
+Changes after the reviewed Builder candidate are QA/PR/current/next/goal/milestone/registry/capability/weekly tracking only; no Account runtime or test correction was needed. Full files-created/changed/untouched list, command details and residual boundaries remain in the Builder handoff above and PR diff. The final handoff commit itself requires reviewer recheck, clean QA and CI, bound to the exact final SHA in PR #62; previous results do not substitute for that final record.
+
+Limitations: local Docker/make unavailable; direct Python substitutes passed. No database, cold-install, live model, posting, money mutation, identity/authentication, lifecycle authorization or durable uniqueness claim. Schema accepts only its documented currencies/categories. No system installation, dependency, raw evidence, MoneyEvent or release-scope changes. Remaining implementation findings: none. Safe to commit/push/update PR: yes. Safe for human merge only after the final-SHA review/QA/CI record passes; agents do not merge. Exact next thread: **Merge M04.01 PR - Define Account schema**. After verified human merge: **M04.02 Builder - Define LedgerTransaction schema**.

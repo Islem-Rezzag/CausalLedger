@@ -1,10 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-M04.01 QA - Define Account schema
+Merge M04.01 PR - Define Account schema
 
 Precondition:
-Builder checks pass on `m04-01-account-schema`, one same-branch PR exists, and a separate-context read-only reviewer receives exact base/candidate revisions and the active plan's M04.01 brief.
+PR #62 on `m04-01-account-schema` must have independent QA PASS, clean-worktree validation and required CI on the same final reviewed SHA, as recorded in the PR. The Account implementation review passed with no findings; the final handoff revision requires recheck. Only the human may merge.
 
 Scope:
-Audit Account contract/validator/type tests, duplicate/conflicting IDs, category/side/currency policies, input and output immutability, ownership/lifecycle boundaries, and authorized control-plane tracking. Coordinator fixes confirmed defects; reviewer rechecks the final revision. Verify clean QA and CI, then stop for human merge. M04.02 begins only after verified merge.
+Human review and merge of PR #62. On “Merged #62. Continue.” the coordinator verifies GitHub merge metadata, reviewed/merged content and clean main, finalizes M04.01 as Completed and merged, then generates and executes M04.02 Define LedgerTransaction schema on `m04-02-ledger-transaction-schema`. Follow the active M04 plan; keep later rows unstarted. V1 approval remains valid; no user-supplied prompt or hash is required.
