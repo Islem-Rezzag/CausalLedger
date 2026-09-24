@@ -256,7 +256,7 @@ These are future metrics. They are not currently implemented, measured, or valid
 
 M01.12 `docs/THREAT_MODEL.md` defines the threat model for the domain and has merged before M01.13 starts.
 
-M01.13 QA Domain Consistency verified `docs/DOMAIN_MODEL.md`, `docs/RELIABILITY.md`, `docs/THREAT_MODEL.md`, and all M01 domain docs. M01 through M03 are completed and closed. No M01 reliability work remains; future runtime reliability remains unimplemented.
+M01.13 QA Domain Consistency verified `docs/DOMAIN_MODEL.md`, `docs/RELIABILITY.md`, `docs/THREAT_MODEL.md`, and all M01 domain docs. M01 and M02 are closed; all M03 submilestones are merged, with formal M03 closeout awaiting human merge of PR #60. No M01 reliability work remains; future runtime reliability remains unimplemented.
 
 ## Guardrails for future implementation milestones
 

@@ -12,7 +12,7 @@ CausalLedger helps fintech teams prove, replay, and safely repair money-movement
 
 ## Current status
 
-CausalLedger has completed and closed M00 through M03. PR #59 merged at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`, formal closeout is recorded in `docs/status/M03_CLOSEOUT.md`, and the completed plan lives at `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md`. No active milestone plan exists while the release target is `PENDING_HUMAN_APPROVAL`; M04 through M21 remain `Not started`.
+CausalLedger has completed and closed M00 through M02. M03.01 through M03.06 are completed and merged; formal M03 closeout is proposed in PR #60 and awaits human merge. PR #59 merged at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`, the proposed closeout is recorded in `docs/status/M03_CLOSEOUT.md`, and the completed plan lives at `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md`. No active milestone plan exists while the release target is `PENDING_HUMAN_APPROVAL`; M04 through M21 remain `Not started`.
 
 The scoped MoneyEvent implementation consists of compile-time types plus source-neutral MoneyEvent candidate validation and deterministic normalization in `packages/events`; M03.05 adds controlled synthetic fixtures and early MoneyFlowBench seed metadata with test-only verification. It has no source-specific parser or mapper, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent, connector, UI, simulator execution, benchmark runner or scoring, autonomous loop, or money-mutation behavior. Structural and fixture validation do not establish financial truth or make this a finished product.
 

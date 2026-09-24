@@ -1088,3 +1088,10 @@
 - Ran `python scripts/validate-control-plane.py` successfully.
 - Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 7 tests.
 - Confirmed `make bootstrap-check` is unavailable in the current Windows shell.
+
+## 2026-09-24 - PR #60 independent QA and scoped corrections
+
+- Recovered clean expected branch at `941fe1984eb418db19cda9a4e2be861dacbf79e2`; verified PR #59 merge/source tree equality and PR #60 open draft with successful initial-head CI.
+- Separate-context read-only reviewer `pr60_independent_qa` returned FAIL on premature closeout claims, global packet phrase checks and exact-command continuation. Coordinator corrected these, refreshed current gh/CI evidence and distinguished future scope from debt; no runtime or roadmap acceptance change.
+- Initial clean QA ladder: 18 PASS / 0 FAIL / 1 Docker SKIPPED. Corrected control plane PASS, 132 bootstrap tests PASS, diff check PASS. Final reviewed-SHA local/clean-worktree/CI evidence belongs in PR #60.
+- Target stays pending; M04-M21 stay unstarted. Next: final independent QA and CI, then human review/merge and explicit target selection. Recommend V1 destination with v0.6 intermediate.

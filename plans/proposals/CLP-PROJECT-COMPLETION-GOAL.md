@@ -6,11 +6,11 @@ Proposed only. No active M04 plan exists, no future milestone has started, and `
 
 ## Recommended target
 
-Immediate portfolio target: `V0_6_BENCHMARK_DEMO`.
+Recommended destination: `V1_PUBLIC_PRODUCT`.
 
-Long-term target: `V1_PUBLIC_PRODUCT`.
+Intermediate checkpoint: `V0_6_BENCHMARK_DEMO`. Neither recommendation constitutes target approval.
 
-Publishable interim output: M03 technical-preview article after the Phase A closeout PR merges, explicitly labeled as a deterministic technical foundation.
+Publishable interim output: M03 technical-preview article after the Phase A closeout PR merges and publication is separately approved, explicitly labeled as a deterministic technical foundation.
 
 ## Alternative targets
 
@@ -71,7 +71,7 @@ Deterministic verifiers: scenario schema and malformed-input tests, scorer golde
 
 ### Workstream 5: Minimum v1 operations, security, and launch
 
-Entry criteria: Workstream 4 merged and the human confirms continuing from v0.6.0 to `V1_PUBLIC_PRODUCT`.
+Entry criteria: Workstream 4 merged and explicit human approval of `V1_PUBLIC_PRODUCT` is recorded. If only v0.6 was selected, obtain target expansion approval first.
 
 Exit criteria:
 

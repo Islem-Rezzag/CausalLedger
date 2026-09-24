@@ -1707,6 +1707,55 @@ def validate_m03_06_closeout_readiness_text(content: str) -> list[str]:
     return errors
 
 
+def validate_m03_final_closeout_text(content: str) -> list[str]:
+    """Check the proposed closeout contract; external QA/merge proof stays separate."""
+    errors: list[str] = []
+    sections = markdown_sections(content)
+    required_coverage = {
+        "Closeout result": [
+            "not yet merged on `main`",
+            "Independent QA and exact-head CI must pass before human merge",
+        ],
+        "Merged PRs and merge references": [
+            "9c2df34fd1da1a4f893a5b16cb05fa1177f23cce",
+            "a5f52604955f8a8925728a2cb7b5c8900aefd87a",
+        ],
+        "Implemented product boundary": [
+            "source-neutral MoneyEvent validator and deterministic normalizer",
+            "Structural and fixture success is not financial truth",
+        ],
+        "Unimplemented product boundary": [
+            "No source-specific parser/mapper",
+            "money mutation, raw-evidence mutation, repair approval, or ledger posting exists",
+        ],
+        "M04 planning readiness": [
+            "M04 must not start before PR #60 human merge and explicit release-target approval",
+            "No M04 active plan exists",
+        ],
+        "Technical-preview assessment": [
+            "after the closeout PR is reviewed, CI passes, and a human merges it",
+            "It must not claim an end-to-end CausalLedger product",
+        ],
+        "Exact next recommended thread": [
+            "Human Review and Target Approval - CausalLedger Completion Goal",
+        ],
+    }
+    for heading, phrases in required_coverage.items():
+        section = sections.get(heading.lower(), "")
+        if not section:
+            errors.append(f"M03_CLOSEOUT.md missing or empty section: {heading}")
+        for phrase in phrases:
+            if phrase.lower() not in section.lower():
+                errors.append(
+                    f"M03_CLOSEOUT.md missing required coverage in section {heading}: {phrase}"
+                )
+    result = sections.get("closeout result", "")
+    dispositions = re.findall(r"^Closeout disposition: (.+)$", result, re.MULTILINE)
+    if dispositions != ["PROPOSED_PENDING_HUMAN_MERGE"]:
+        errors.append("M03_CLOSEOUT.md disposition must be PROPOSED_PENDING_HUMAN_MERGE")
+    return errors
+
+
 def validate_m03_06_closeout_readiness() -> list[str]:
     """Validate the preserved pre-merge readiness packet and final closeout lifecycle."""
     errors = validate_m03_06_closeout_readiness_text(
@@ -1717,20 +1766,9 @@ def validate_m03_06_closeout_readiness() -> list[str]:
     if not final_closeout.is_file():
         errors.append("final docs/status/M03_CLOSEOUT.md is required after M03 closeout")
     else:
-        closeout_lower = final_closeout.read_text(encoding="utf-8").lower()
-        for phrase in [
-            "closeout result",
-            "pass",
-            "9c2df34fd1da1a4f893a5b16cb05fa1177f23cce",
-            "a5f52604955f8a8925728a2cb7b5c8900aefd87a",
-            "implemented product boundary",
-            "unimplemented product boundary",
-            "m04 planning readiness",
-            "technical-preview assessment",
-            "human review and target approval",
-        ]:
-            if phrase not in closeout_lower:
-                errors.append(f"M03_CLOSEOUT.md missing required coverage: {phrase}")
+        errors.extend(
+            validate_m03_final_closeout_text(final_closeout.read_text(encoding="utf-8"))
+        )
 
     active_plan = (
         ROOT / "plans" / "active" / "CLP-0004-m03-canonical-moneyevent-engine.md"

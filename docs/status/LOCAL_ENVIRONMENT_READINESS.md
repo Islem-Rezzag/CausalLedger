@@ -8,7 +8,7 @@ Repository root: `C:/Users/moham/Desktop/CausalLedger`
 
 Audited synchronized commit: `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`
 
-## Tool inventory
+## Historical tool inventory (2026-08-18)
 
 | Area | Detected | Verdict |
 | --- | --- | --- |
@@ -41,7 +41,7 @@ Presence-only inspection found no value for `OPENAI_API_KEY`, `AZURE_OPENAI_API_
 - A future agent runtime does not exist yet. Its default tests must use mocks or recorded synthetic responses and must run without a paid key.
 - Live-model evaluation remains blocked until a human approves the provider, model, expected call count, and maximum budget.
 
-## Clean installation and local validation
+## Frozen-lockfile installation and local validation (2026-08-18)
 
 The active checkout was clean before the audit. `corepack pnpm install --frozen-lockfile` passed across all 14 workspace projects. pnpm emitted one non-blocking warning: the `esbuild@0.28.0` dependency build script was ignored under the pinned package-manager policy. No approval or lockfile change was made.
 
@@ -97,7 +97,7 @@ Existing exact-head remote evidence remains valid for PR #59: GitHub Actions CI 
 
 Local Docker is not required to publish the M03 technical foundation. It is required before the user can fully operate and locally validate future storage, database, migration, ledger, incident, replay, or demo work. Later human remediation is to install a supported Docker Desktop/Engine plus Compose plugin, allocate sufficient memory, and rerun `corepack pnpm qa:dev -- --with-docker`.
 
-## Environment verdict
+## Historical environment verdict (2026-08-18)
 
 | Area | Verdict | Limitation or remediation |
 | --- | --- | --- |
@@ -113,3 +113,18 @@ Local Docker is not required to publish the M03 technical foundation. It is requ
 | User-operated portfolio demo | Not applicable yet | No meaningful product flow exists before later milestones |
 
 Overall verdict: **Ready with limitations** for deterministic M03 work and documentation; **blocked** for full local infrastructure and live-model validation; **not applicable yet** for a genuine end-to-end product demo.
+
+## Current QA recheck (2026-09-24)
+
+This dated addendum supersedes current interpretations of the earlier tool inventory without rewriting its historical observations.
+
+- Authenticated GitHub CLI `2.97.0` is available at `C:/Program Files/GitHub CLI/gh.exe`; `gh pr view 59`, `gh pr view 60`, and `gh run view 32160971074` succeeded. The earlier unavailable-CLI observation is not a current blocker.
+- Installed Codex is `0.155.0-alpha.9.2`. Native Goals are callable and the current goal is active; a separate-context read-only reviewer subagent was successfully launched. GitHub CLI availability was checked independently from those Codex capabilities.
+- Node `22.16.0`, pinned pnpm `10.32.1`, Python `3.13.1`, and Git remain available. Docker/Compose and `make` were not found. No software was installed. Python CI still uses 3.12.
+- Free memory was approximately 0.87 GiB of 15.7 GiB at this recheck, so checks run sequentially with one coordinator and one reviewer.
+- Clean initial PR #60 candidate `941fe1984eb418db19cda9a4e2be861dacbf79e2` passed `corepack pnpm qa:dev`: 18 PASS, 0 FAIL, 1 optional Docker SKIPPED. Its exact-head remote run `32160971074` passed both jobs.
+- The earlier detached worktree used starting `main` at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce` and a warm pnpm store. It was not a cold installation of PR #60. Final corrected-head clean-worktree evidence is recorded separately in the PR review record with its SHA and cache limitation.
+- Docker was not tested locally. Remote `infra-smoke` is evidence only for the CI environment. Future Postgres-dependent work retains its local remediation gate; pure planning/deterministic work may proceed after the human gates where infrastructure is not required.
+- No live-model key was read during this QA recheck and no live-model request was made. Key-presence observations above remain dated 2026-08-18; budget/provider/model/call-count approval is still absent.
+
+Current verdict: ready with limitations for this documentation/control-plane review. Scaffold startup is not a usable product or end-to-end demonstration.

@@ -108,7 +108,7 @@ Completed execution:
 
 Active execution:
 
-- M03 Canonical MoneyEvent Engine is formally closed after PR #59 merged at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`. Its completed plan and final packet are `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md` and `docs/status/M03_CLOSEOUT.md`. No active milestone plan exists; M04 through M21 remain `Not started` while `approvedReleaseTarget` is `PENDING_HUMAN_APPROVAL`.
+- M03 Canonical MoneyEvent Engine has all submilestones merged after PR #59 merged at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`. Formal closeout awaits human merge of PR #60. Its branch-local completed plan and proposed closeout packet are `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md` and `docs/status/M03_CLOSEOUT.md`. No active milestone plan exists; M04 through M21 remain `Not started` while `approvedReleaseTarget` is `PENDING_HUMAN_APPROVAL`.
 
 Plan state:
 

@@ -4,9 +4,9 @@
 
 CausalLedger has an unusually strong operating system and a credible deterministic MoneyEvent foundation, but it is not yet an incident product, agentic demo, production-ready system, or company-grade system. M03 can support a factual technical-preview article after formal closeout. The smallest existing release target that satisfies a meaningful AI/fintech portfolio story is `v0.6.0`, not M03, v0.3.0, or v0.4.0.
 
-Recommended immediate target: `V0_6_BENCHMARK_DEMO`.
+Recommended destination: `V1_PUBLIC_PRODUCT`.
 
-Recommended long-term target: `V1_PUBLIC_PRODUCT`.
+Intermediate checkpoint: `V0_6_BENCHMARK_DEMO`. The user requested the full public-product destination; selection still requires explicit human approval.
 
 Approval state: `PENDING_HUMAN_APPROVAL`.
 
@@ -22,7 +22,7 @@ Implemented and deterministically tested:
 - Deterministic normalization, exact base-10 minor-unit conversion to `bigint`, stable issues, timestamp normalization, evidence/provenance checks, uncertainty preservation, and input non-mutation.
 - 21 controlled synthetic fixtures: eight valid full snapshots and 13 invalid exact issue contracts.
 - Seven exact-grounded MoneyFlowBench seed metadata records with `scoringImplemented: false` and empty results.
-- 97 events tests, 42 evals tests, 11 other workspace bootstrap tests, and 117 final Phase A control-plane tests (116 at pre-edit baseline).
+- 97 events tests, 42 evals tests, 11 other workspace bootstrap tests, and 117 Builder Phase A control-plane tests (116 at its pre-edit baseline). The 2026-09-24 QA corrections expand control-plane coverage to 132 tests.
 
 ## Explicitly unimplemented boundary
 
@@ -105,7 +105,7 @@ Additional remaining work: 39 not-started submilestones; cumulative M04-M15 gap:
 
 Required evidence: deterministic scorer goldens, malformed scenario tests, repeatability, named ablation variants, unsafe offline-negative-control isolation, browser and accessibility tests, one repeatable demo command, clean-clone reproducibility, exact-head CI, independent QA, and honest screenshots/results from the real system.
 
-Demo capability: a coherent AI/fintech interview story with deterministic truth, digital-twin reconstruction, bounded advisory agents, safety proof, measured benchmark behavior, and a usable command surface. This is the recommended immediate portfolio target.
+Demo capability: a coherent AI/fintech interview story with deterministic truth, digital-twin reconstruction, bounded advisory agents, safety proof, measured benchmark behavior, and a usable command surface. This is the recommended intermediate portfolio checkpoint.
 
 ## Target 6: v1.0.0 serious public product
 
@@ -125,7 +125,7 @@ Required gap beyond v0.6.0:
 
 ## Release recommendation
 
-### Immediate: V0_6_BENCHMARK_DEMO
+### Intermediate checkpoint: V0_6_BENCHMARK_DEMO
 
 Why:
 
@@ -136,7 +136,7 @@ Why:
 - The work is on the path to v1 and minimizes throwaway implementation.
 - It supports a credible blog and LinkedIn post without production claims.
 
-### Long term: V1_PUBLIC_PRODUCT
+### Recommended destination: V1_PUBLIC_PRODUCT
 
 Why:
 

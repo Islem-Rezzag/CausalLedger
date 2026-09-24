@@ -54,7 +54,7 @@ Use `docs/ops/repo-operating-system-freeze.md` and `docs/status/M00_FREEZE_READI
 
 Use `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md` for release versioning, release-scope, and overclaim-prevention guidance.
 
-No active milestone plan exists while the completion target awaits human approval. M02 and M03 are formally closed; the M03 plan lives at `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md`, and `docs/status/M03_CLOSEOUT.md` records the closeout. M04 through M21 remain `Not started`.
+No active milestone plan exists while the completion target awaits human approval. M02 is formally closed; M03 submilestones are merged, while formal M03 closeout awaits human merge of PR #60; the M03 plan lives at `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md`, and `docs/status/M03_CLOSEOUT.md` records the closeout. M04 through M21 remain `Not started`.
 
 ## Sandbox assumptions
 

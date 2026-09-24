@@ -36,7 +36,7 @@ Current active milestone planning plan: none. Target approval is pending.
 
 The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M02 and M03 are completed after closeout. Their completed plans live in `plans/completed/`. PR #59 merged M03.06 at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`; `docs/status/M03_CLOSEOUT.md` records formal closeout. No active milestone plan exists while the completion target awaits human approval, and M04 through M21 remain `Not started`.
+M02 is closed. All M03 submilestones are merged; formal M03 closeout and its plan movement are proposed in PR #60, pending human merge. This branch stores their plans in `plans/completed/`. PR #59 merged M03.06 at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`; `docs/status/M03_CLOSEOUT.md` records the proposed formal closeout. No active milestone plan exists while the completion target awaits human approval, and M04 through M21 remain `Not started`.
 
 Progress is recorded in the active plan during the slice. Submilestone status is recorded in `docs/milestones/SUBMILESTONE_REGISTRY.md`, reflected in the relevant milestone doc, and summarized in `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md`.
 

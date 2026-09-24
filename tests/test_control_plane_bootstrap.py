@@ -1238,16 +1238,69 @@ def test_17p_m03_closeout_keeps_final_packet_and_completed_plan():
     ).exists()
 
 
+@pytest.mark.parametrize("target", validator.PERMITTED_RELEASE_TARGETS)
 def test_17pa_m03_closeout_rejects_target_selected_without_human_approval(
-    tmp_path: Path, monkeypatch
+    tmp_path: Path, monkeypatch, target: str
 ):
     _prepare_m03_06_validation_tree(tmp_path, monkeypatch)
     state_path = tmp_path / validator.PROJECT_COMPLETION_GOAL_STATE
     state = json.loads(state_path.read_text(encoding="utf-8"))
-    state["approvedReleaseTarget"] = "V0_6_BENCHMARK_DEMO"
+    state["approvedReleaseTarget"] = target
     state_path.write_text(json.dumps(state), encoding="utf-8")
     assert (
         "PROJECT_COMPLETION_GOAL.json target must await human approval"
+        in validator.validate_m03_06_closeout_readiness()
+    )
+
+
+@pytest.mark.parametrize(
+    "heading",
+    [
+        "Closeout result",
+        "Merged PRs and merge references",
+        "Implemented product boundary",
+        "Unimplemented product boundary",
+        "M04 planning readiness",
+        "Technical-preview assessment",
+        "Exact next recommended thread",
+    ],
+)
+def test_17pb_final_closeout_rejects_empty_or_relocated_sections(
+    tmp_path: Path, monkeypatch, heading: str
+):
+    _prepare_m03_06_validation_tree(tmp_path, monkeypatch)
+    packet_path = tmp_path / validator.M03_FINAL_CLOSEOUT_DOC
+    packet = packet_path.read_text(encoding="utf-8")
+    original_body = validator.markdown_sections(packet)[heading.lower()]
+    packet = packet.replace(f"## {heading}\n\n{original_body}", f"## {heading}\n", 1)
+    # Keep every original phrase elsewhere: only the owning section may satisfy it.
+    packet += f"\n## Unrelated historical material\n\n{original_body}\n"
+    packet_path.write_text(packet, encoding="utf-8")
+    assert (
+        f"M03_CLOSEOUT.md missing or empty section: {heading}"
+        in validator.validate_m03_06_closeout_readiness()
+    )
+
+
+@pytest.mark.parametrize(
+    "result",
+    [
+        "FAIL: required closeout acceptance has not passed.",
+        "Closeout disposition: MERGED",
+        "Closeout disposition: PROPOSED_PENDING_HUMAN_MERGE\nCloseout disposition: FAIL",
+    ],
+)
+def test_17pc_final_closeout_rejects_failed_merged_or_conflicting_result(
+    tmp_path: Path, monkeypatch, result: str
+):
+    _prepare_m03_06_validation_tree(tmp_path, monkeypatch)
+    packet_path = tmp_path / validator.M03_FINAL_CLOSEOUT_DOC
+    packet = packet_path.read_text(encoding="utf-8").replace(
+        "Closeout disposition: PROPOSED_PENDING_HUMAN_MERGE", result, 1
+    )
+    packet_path.write_text(packet, encoding="utf-8")
+    assert (
+        "M03_CLOSEOUT.md disposition must be PROPOSED_PENDING_HUMAN_MERGE"
         in validator.validate_m03_06_closeout_readiness()
     )
 

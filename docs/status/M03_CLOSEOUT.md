@@ -6,7 +6,9 @@ M03 Canonical MoneyEvent Engine.
 
 ## Closeout result
 
-PASS on branch `m03-closeout-canonical-moneyevent-engine`, with Phase A draft PR [#60](https://github.com/Islem-Rezzag/CausalLedger/pull/60) pending exact-head CI, human review, and merge. M03.01 through M03.06 are `Completed and merged` in synchronized `main`; the milestone plan moved to `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md` in this closeout branch.
+Closeout disposition: PROPOSED_PENDING_HUMAN_MERGE
+
+M03.01 through M03.06 are `Completed and merged` in synchronized `main`. Formal M03 closeout is proposed on branch `m03-closeout-canonical-moneyevent-engine` in PR [#60](https://github.com/Islem-Rezzag/CausalLedger/pull/60), not yet merged on `main`. The milestone plan moves to `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md` in this closeout proposal. Independent QA and exact-head CI must pass before human merge; the PR review record binds their final verdict to the exact reviewed SHA.
 
 M04 through M21 remain `Not started`. This closeout does not create an M04 plan or implement future work.
 
@@ -90,7 +92,7 @@ No dependency, database, ingestion, API route, UI, connector, financial ledger, 
 
 The final dirty Phase A ladder passed with 117 control-plane tests and the unchanged 150 workspace tests.
 
-## Validation evidence
+## Historical Builder validation evidence (2026-08-18)
 
 Pre-edit Phase A baseline passed:
 
@@ -117,10 +119,13 @@ Final dirty-state Phase A validation passed: control plane; 117 bootstrap tests;
 
 ## Technical debt
 
+No product implementation defect is confirmed. The following unimplemented capabilities are future roadmap scope, not technical debt merely because they are unbuilt:
+
 - Source-specific parsing and mapping remain undefined.
 - Storage, deduplication state, authoritative currency membership, accounting direction, and lifecycle transition engines are deferred.
 - Error taxonomy, structured runtime logging, auth/authz, deployment, retention, and production operations are unimplemented.
-- The ignored `esbuild@0.28.0` install-script warning remains a documented package-manager policy limitation.
+
+The ignored `esbuild@0.28.0` install-script warning remains an accepted package-manager policy limitation.
 
 ## Open questions
 
@@ -133,7 +138,7 @@ Final dirty-state Phase A validation passed: control plane; 117 bootstrap tests;
 
 M04-M21 remain `Not started`. All ledger, simulator, invariant, incident, graph, replay, repair, agent, benchmark, UI, connector, observability, security, production, launch, and company-version work remains deferred to separately planned, validated, QA-reviewed, human-merged workstreams.
 
-## Branch inventory
+## Branch inventory (historical 2026-08-18 pre-push inspection)
 
 - Current closeout branch: `m03-closeout-canonical-moneyevent-engine`, created from synchronized `main` at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`.
 - The local `m03-06-moneyevent-qa-closeout` branch was removed only after PR #59 merge and tree-equivalence proof; its remote branch was already absent after prune.
@@ -142,7 +147,7 @@ M04-M21 remain `Not started`. All ledger, simulator, invariant, incident, graph,
 
 ## Release implications
 
-M03 is suitable for a technical-preview article once this Phase A PR is merged and CI is green. It is a publishable technical foundation, not a portfolio demo, final product, production-ready system, or company-grade system. v0.3.0 still requires all M04-M06 work. The recommended immediate portfolio target is v0.6.0 because that is the first existing ladder target with deterministic truth, digital twin, bounded AI, benchmark evidence, and UI.
+M03 is suitable for a technical-preview article once this Phase A PR is merged and CI is green. It is a publishable technical foundation, not a portfolio demo, final product, production-ready system, or company-grade system. v0.3.0 still requires all M04-M06 work. The recommended destination is `V1_PUBLIC_PRODUCT`, with v0.6.0 as an intermediate checkpoint. Publication requires separate human approval.
 
 ## Implemented product boundary
 
@@ -154,11 +159,11 @@ No source-specific parser/mapper, live or stored evidence ingestion, product sch
 
 ## M04 planning readiness
 
-Technically, M03 provides a stable enough canonical boundary for M04 planning. Procedurally, M04 is not safe to start until this Phase A PR is human-merged and the human supplies the exact release-target approval command. No M04 active plan exists.
+Technically, M03 provides a stable enough canonical boundary for M04 planning. M04 must not start before PR #60 human merge and explicit release-target approval. Natural-language approval is sufficient; the coordinator discovers and verifies the actual merge SHA and reviewed-content provenance. No M04 active plan exists.
 
 ## Active plan movement
 
-All M03 closeout preconditions pass. The plan moves from `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md` to `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md` in this branch. `plans/active/` contains no active milestone plan while target approval is pending.
+All M03 submilestone completion preconditions pass. The plan moves from `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md` to `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md` in this closeout proposal, subject to independent QA and human merge. `plans/active/` contains no active milestone plan while target approval is pending. Plan location is not evidence that PR #60 has merged.
 
 ## Technical-preview assessment
 
@@ -184,12 +189,32 @@ Only control-plane validation and its bootstrap tests may change. No product run
 - pnpm reported the known ignored `esbuild@0.28.0` build script.
 - Python 3.13 is newer than CI's Python 3.12.
 - Only 1.6 GiB of approximately 15.7 GiB memory was free during inventory.
-- GitHub CLI is unavailable, so the connected GitHub integration supplies PR metadata and PR creation.
+- The 2026-08-18 inventory reported GitHub CLI unavailable. The 2026-09-24 QA recheck found authenticated `gh` 2.97.0 available; see the dated environment addendum.
 
 ## Exact next recommended thread
 
 `Human Review and Target Approval - CausalLedger Completion Goal`
 
-After the Phase A PR is human-merged, resume only with:
+After independent QA and exact-head CI pass, a human reviews and merges PR #60 and selects a release target. For example:
 
-`APPROVE_TARGET=<PERMITTED_TARGET> MERGED_CLOSEOUT_PR=<PR_NUMBER> MERGE_SHA=<ACTUAL_SHA> CONTINUE_COMPLETION_GOAL`
+“Merged #60. I approve V1_PUBLIC_PRODUCT. Continue.”
+
+The coordinator verifies GitHub merge metadata and reviewed-content provenance without asking the human to copy a hash. M04 planning is the next task only after both gates clear.
+
+## Independent QA correction record (2026-09-24)
+
+Initial separate-context read-only reviewer: `pr60_independent_qa`. Reviewed base `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce` to candidate `941fe1984eb418db19cda9a4e2be861dacbf79e2`. Initial verdict: FAIL. Coordinator fixes remain on the same branch and PR.
+
+| Finding | Evidence and disposition |
+| --- | --- |
+| Premature formal-closeout claims | GitHub reports PR #60 unmerged. Current docs now distinguish merged M03.01-M03.06 from the proposed closeout and branch-local plan movement. |
+| Global phrase-only closeout guard | Reviewer reproduced acceptance of a FAIL result and empty safety/readiness bodies. Validation now checks owning sections and the explicit proposed disposition; regression tests relocate section bodies and reject failed, merged, or conflicting dispositions. |
+| Exact-command approval requirement | Current instructions now accept explicit natural-language selection and require the coordinator to discover/verify merge provenance. Editing a target string still fails validation for all six permitted selections. |
+| Stale CI and GitHub CLI state | Initial SHA CI success is recorded with its run ID; authenticated gh availability is in a dated addendum. Final-head review/CI evidence belongs in the PR record, not a chain of status commits. |
+| Claim precision | Future scope is distinguished from confirmed debt; V1 is the recommended destination with v0.6 intermediate; warm-cache starting-main evidence, Docker skips and scaffold limits remain explicit. |
+
+Verified unchanged: PR #59 reviewed/merged tree equality; all 300 M04-M21 registry rows unstarted; V1 requirements and milestone acceptance criteria; proposal-only five-workstream overlay; no product/runtime, fixture, seed, dependency, infrastructure, workflow or financial authority change.
+
+Correction validation: `python scripts/validate-control-plane.py` PASS; `python -m pytest tests/test_control_plane_bootstrap.py -q` 132 PASS; `git diff --check` PASS. Applicable ladder: 0-4, existing package/fixture regression coverage at 5-6, forbidden-scope/approval checks at 7, independent review and human gate at 8. No new benchmark, integration product flow or security runtime is claimed.
+
+Re-review and final-state evidence: recorded in PR #60 against the final candidate SHA before readiness is declared. Safe to commit/push scoped corrections after local checks; safe to update the existing PR; safe to merge only after independent QA PASS and required exact-head CI. Only a human may merge. No new file is needed for this handoff; the completed M03 plan and existing goal/status records carry the work.

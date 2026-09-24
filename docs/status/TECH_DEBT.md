@@ -1,12 +1,12 @@
 # Tech Debt
 
-M03 is formally closed with one tightly scoped product runtime boundary. Its deferred decisions are tracked below rather than hidden in implementation.
+All M03 submilestones are merged, with formal closeout pending PR #60 human merge. No product implementation defect is confirmed. The future decisions below are unimplemented roadmap scope, not technical debt merely because they remain unbuilt.
 
 - Local Docker and Docker Compose validation remain unavailable on the audited machine; remote `infra-smoke` is green, but future storage/migration work needs approved local Docker setup or an equivalent deterministic environment.
 - Browser-level automation is not installed and should be selected only when a usable M15-era product flow requires it.
 - The completion roadmap overlay is a proposal, not an active rewrite; milestone acceptance criteria and one-branch/one-PR traceability remain authoritative.
 
-## Placeholders to resolve later
+## Future scope and decisions (not confirmed technical debt)
 
 - Evolve monorepo tooling and task conventions as implementation pressure appears.
 - Evolve test framework conventions for product/domain tests once product implementation starts.
