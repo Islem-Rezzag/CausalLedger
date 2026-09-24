@@ -1,15 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-Human Review and Target Approval - CausalLedger Completion Goal
+M04 Planning QA - Double-entry Ledger Core
 
 Precondition:
-PR #60 on `m03-closeout-canonical-moneyevent-engine` must have independent QA PASS and required final-head CI before human merge. The PR review record identifies the reviewed SHA, local results, clean-worktree evidence and CI run. No M04 work starts while either merge or explicit target selection is missing.
+Builder validation passes on `m04-planning-double-entry-ledger-core`; the same planning PR and exact candidate are supplied to a separate-context read-only reviewer. The existing M04 plan is authoritative; target V1 and PR #60 merge are verified.
 
 Scope:
-Review and human-merge PR #60, then explicitly select a permitted release target. Recommend `V1_PUBLIC_PRODUCT` with v0.6 as an intermediate checkpoint. Resume from the existing goal MD/JSON; the coordinator discovers and verifies the actual merge SHA and reviewed-content provenance (including squash-merge semantics), generates and executes the next brief within that target: M04 planning for v0.3 or later, or technical-preview preparation only for `M03_TECHNICAL_PREVIEW`. Preserve all milestone dependencies and human merge gates.
-
-Example response:
-“Merged #60. I approve V1_PUBLIC_PRODUCT. Continue.”
-
-No exact command syntax or manually copied hash is required. This example is not an approval.
+Review the full planning/control-plane diff, approval and merge guards, all 18 preserved submilestones, deterministic edge cases, environment gates and forbidden runtime scope. Coordinator fixes confirmed findings; reviewer checks the final revision. After PASS and exact-head CI, stop for human merge. M04.01 Account schema starts only after verified planning merge, with a coordinator-generated brief and its own branch/PR.

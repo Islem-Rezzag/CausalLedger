@@ -1,7 +1,7 @@
 {
   "goalId": "CLG-COMPLETION-001",
   "goalTitle": "CausalLedger honest portfolio release completion",
-  "approvedReleaseTarget": "PENDING_HUMAN_APPROVAL",
+  "approvedReleaseTarget": "V1_PUBLIC_PRODUCT",
   "permittedReleaseTargets": [
     "M03_TECHNICAL_PREVIEW",
     "V0_3_FINANCIAL_TRUTH_CORE",
@@ -12,16 +12,16 @@
   ],
   "recommendedImmediateTarget": "V0_6_BENCHMARK_DEMO",
   "recommendedLongTermTarget": "V1_PUBLIC_PRODUCT",
-  "currentPhase": "PHASE_A_CLOSEOUT_REVIEW_AND_HUMAN_GATE",
-  "currentWorkstream": "M03_CLOSEOUT_AND_COMPLETION_GOAL",
-  "currentMilestone": "M03_FORMAL_CLOSEOUT_PENDING_PHASE_A_PR",
-  "currentBranch": "m03-closeout-canonical-moneyevent-engine",
-  "currentPr": 60,
-  "latestMergedPr": 59,
-  "latestMergeCommit": "9c2df34fd1da1a4f893a5b16cb05fa1177f23cce",
+  "currentPhase": "M04_PLANNING",
+  "currentWorkstream": "FINANCIAL_TRUTH_CORE",
+  "currentMilestone": "M04_PLANNING",
+  "currentBranch": "m04-planning-double-entry-ledger-core",
+  "currentPr": null,
+  "latestMergedPr": 60,
+  "latestMergeCommit": "3df6f88b1b64b5456554654b7e27adcfa99c3ff6",
   "environmentReadiness": "READY_WITH_LIMITATIONS",
-  "localTestStatus": "CORRECTION_CONTROL_PASS_132_BOOTSTRAP_PASS_FINAL_REVIEWED_STATE_IN_PR_60_RECORD",
-  "remoteCiStatus": "INITIAL_HEAD_941FE198_RUN_32160971074_SUCCESS_FINAL_REVIEWED_SHA_AND_CI_IN_PR_60_RECORD",
+  "localTestStatus": "BUILDER_CONTROL_AND_167_BOOTSTRAP_PASS_WORKSPACE_QA_17_PASS_0_FAIL_2_EXPECTED_SKIPS",
+  "remoteCiStatus": "PR_60_FINAL_REVIEWED_HEAD_F160A7D2_RUN_36011283395_SUCCESS_M04_CI_PENDING",
   "dockerStatus": "UNAVAILABLE_LOCALLY_REMOTE_INFRA_SMOKE_AVAILABLE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -54,10 +54,9 @@
     "production deployment"
   ],
   "openBlockers": [
-    "PR #60 requires independent QA, exact-head CI evidence and human merge",
-    "release target requires explicit human approval",
-    "local Docker and Docker Compose are unavailable for future storage and migration validation",
-    "no live-model API key or budget is approved"
+    "M04 planning requires independent QA, exact-head CI and human merge before M04.01",
+    "local Docker/Compose or approved equivalent Postgres environment required before storage-dependent slices can close",
+    "no live-model provider/model/call-count/budget approved"
   ],
   "risks": [
     "portfolio claims could outrun implemented behavior",
@@ -67,12 +66,28 @@
     "local memory headroom was low during the audit and may constrain Docker plus development services"
   ],
   "humanDecisionsRequired": [
-    "review and merge the Phase A closeout and audit PR",
-    "approve one permitted release target",
-    "authorize any later live-model provider, model, call count, and cost cap",
-    "authorize the eventual release tag and public claims"
+    "review and merge each independently reviewed PR",
+    "approve material scope or architecture changes and any system-level installation",
+    "authorize later live-model provider, model, call count and cost cap",
+    "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "VERIFY_PR_60_FINAL_REVIEW_RECORD_THEN_HUMAN_MERGE_AND_EXPLICIT_TARGET_SELECTION",
-  "stopReason": "PR_60_HUMAN_MERGE_AND_EXPLICIT_RELEASE_TARGET_APPROVAL_REQUIRED_BEFORE_M04",
-  "lastUpdatedTimestamp": "2026-09-24T14:11:02Z"
+  "exactNextAction": "VALIDATE_AND_INDEPENDENTLY_REVIEW_M04_PLANNING_THEN_HUMAN_MERGE",
+  "stopReason": "M04_PLANNING_PR_MUST_PASS_QA_CI_AND_HUMAN_MERGE_BEFORE_M04_01",
+  "lastUpdatedTimestamp": "2026-09-24T14:53:40Z",
+  "releaseTargetApproval": {
+    "target": "V1_PUBLIC_PRODUCT",
+    "approvedOn": "2026-09-24",
+    "source": "explicit_user_message",
+    "sourceReference": "codex-task:01a0d3ba-f6d3-7322-92b5-8109df0f82d7",
+    "statement": "Merged #60. I approve V1_PUBLIC_PRODUCT. Continue."
+  },
+  "closeoutMergeEvidence": {
+    "pr": 60,
+    "mergeCommit": "3df6f88b1b64b5456554654b7e27adcfa99c3ff6",
+    "reviewedHead": "f160a7d2bc0d6163ee73b36c1546419134f11ca3",
+    "reviewedTree": "0c14f73280c8b15ab93e0f697edc33738946c7ef",
+    "mergedTree": "0c14f73280c8b15ab93e0f697edc33738946c7ef",
+    "ciRun": 36011283395,
+    "independentQa": "PASS"
+  }
 }

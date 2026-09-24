@@ -6,9 +6,9 @@ CausalLedger has an unusually strong operating system and a credible determinist
 
 Recommended destination: `V1_PUBLIC_PRODUCT`.
 
-Intermediate checkpoint: `V0_6_BENCHMARK_DEMO`. The user requested the full public-product destination; selection still requires explicit human approval.
+Intermediate checkpoint: `V0_6_BENCHMARK_DEMO`. The user requested the full public-product destination; explicit human selection was received on 2026-09-24.
 
-Approval state: `PENDING_HUMAN_APPROVAL`.
+Current approval state: `V1_PUBLIC_PRODUCT`, explicitly selected by the human on 2026-09-24 after PR #60 merge. The gap inventory below describes the pre-implementation boundary; M04 planning has since started without adding product capability.
 
 ## Current implemented boundary
 
@@ -161,7 +161,7 @@ Recommend five vertical goal groups as a planning overlay, not a roadmap rewrite
 4. Benchmark and command surface: M14-M15.
 5. Minimum v1 operations and launch: selected M17, M18, and M20 requirements without silently marking whole milestones complete.
 
-Compression may reduce coordination overhead by grouping dependencies and demos, but it must preserve every milestone acceptance criterion, registry row, one-branch/one-PR lifecycle, independent QA, exact-head CI, human merge gates, and durable status. The proposal in `plans/proposals/CLP-PROJECT-COMPLETION-GOAL.md` does not activate M04 or change any milestone status.
+Compression may reduce coordination overhead by grouping dependencies and demos, but it must preserve every milestone acceptance criterion, registry row, one-branch/one-PR lifecycle, independent QA, exact-head CI, human merge gates, and durable status. The proposal in `plans/proposals/CLP-PROJECT-COMPLETION-GOAL.md` does not authorize a roadmap rewrite; M04 planning was separately activated after PR #60 merge and explicit V1 selection.
 
 ## Environment fit
 

@@ -32,11 +32,11 @@ Use `CLP-0001-short-name.md`. Increment the number monotonically and keep the sh
 - Completed plans move to `plans/completed/`.
 - Archived or stale plans move to `plans/archived/`.
 
-Current active milestone planning plan: none. Target approval is pending.
+Current active milestone planning plan: `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. V1 target approved; M04 planning only.
 
 The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M02 is closed. All M03 submilestones are merged; formal M03 closeout and its plan movement are proposed in PR #60, pending human merge. This branch stores their plans in `plans/completed/`. PR #59 merged M03.06 at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`; `docs/status/M03_CLOSEOUT.md` records the proposed formal closeout. No active milestone plan exists while the completion target awaits human approval, and M04 through M21 remain `Not started`.
+M00-M03 are closed; M03 closeout PR #60 merged at `3df6f88b1b64b5456554654b7e27adcfa99c3ff6`. The human approved `V1_PUBLIC_PRODUCT` on 2026-09-24. M04 planning is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; all M04 implementation rows and M05-M21 remain `Not started`. M04.01 waits for independent planning QA and human PR merge. The completed M03 plan remains in `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md`.
 
 Progress is recorded in the active plan during the slice. Submilestone status is recorded in `docs/milestones/SUBMILESTONE_REGISTRY.md`, reflected in the relevant milestone doc, and summarized in `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md`.
 

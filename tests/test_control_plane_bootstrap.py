@@ -1024,8 +1024,8 @@ def test_16_required_directories_exist():
     assert not validator.missing_paths(validator.REQUIRED_DIRS, "dir")
 
 
-def test_17_m03_plan_is_completed_and_no_active_plan_exists():
-    assert validator.active_plan_files() == []
+def test_17_m03_plan_is_completed_and_only_approved_m04_plan_is_active():
+    assert validator.active_plan_files() == [ROOT / validator.M04_ACTIVE_PLAN]
     assert (ROOT / validator.M03_ACTIVE_PLAN).is_file()
 
 
@@ -1128,6 +1128,22 @@ def test_17k_m03_06_closeout_readiness_rejects_relocated_lifecycle_coverage():
     )
 
 
+def _pending_completion_goal() -> dict:
+    """Preserve the pre-approval lifecycle as a regression fixture."""
+    state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
+    state.update(
+        approvedReleaseTarget="PENDING_HUMAN_APPROVAL",
+        currentPhase="PHASE_A_CLOSEOUT_REVIEW_AND_HUMAN_GATE",
+        currentMilestone="M03_FORMAL_CLOSEOUT_PENDING_PHASE_A_PR",
+        currentBranch="m03-closeout-canonical-moneyevent-engine",
+        latestMergedPr=59,
+        latestMergeCommit="9c2df34fd1da1a4f893a5b16cb05fa1177f23cce",
+    )
+    state.pop("releaseTargetApproval", None)
+    state.pop("closeoutMergeEvidence", None)
+    return state
+
+
 def _prepare_m03_06_validation_tree(tmp_path: Path, monkeypatch) -> dict[str, object]:
     rows = validator.registry_by_id()
     status_dir = tmp_path / "docs" / "status"
@@ -1141,7 +1157,7 @@ def _prepare_m03_06_validation_tree(tmp_path: Path, monkeypatch) -> dict[str, ob
         text(validator.M03_FINAL_CLOSEOUT_DOC), encoding="utf-8"
     )
     (status_dir / "PROJECT_COMPLETION_GOAL.json").write_text(
-        text(validator.PROJECT_COMPLETION_GOAL_STATE), encoding="utf-8"
+        json.dumps(_pending_completion_goal()), encoding="utf-8"
     )
     (status_dir / "CAPABILITY_MATRIX.md").write_text(
         text("docs/status/CAPABILITY_MATRIX.md"), encoding="utf-8"
@@ -1314,6 +1330,127 @@ def test_17q_m04_through_m21_remain_not_started_during_m03_06():
         ]
         assert milestone_rows
         assert all(row.status == "Not started" for row in milestone_rows)
+
+
+def test_17r_pending_and_explicitly_approved_goal_lifecycles_are_valid():
+    assert validator.validate_project_completion_goal(_pending_completion_goal()) == []
+    approved = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
+    assert validator.validate_project_completion_goal(approved) == []
+    assert validator.validate_m04_planning() == []
+
+
+@pytest.mark.parametrize(
+    ("field", "value", "expected"),
+    [
+        ("approvedReleaseTarget", "V0_6_BENCHMARK_DEMO", "recorded V1_PUBLIC_PRODUCT approval"),
+        ("releaseTargetApproval", None, "explicit human approval record"),
+        ("releaseTargetApproval", {"target": "V1_PUBLIC_PRODUCT"}, "explicit human approval record"),
+        ("closeoutMergeEvidence", None, "verified PR #60 closeout merge evidence"),
+        ("currentBranch", "m04-01-account-schema", "expected planning branch"),
+        ("currentMilestone", "M04.01", "must not claim an implementation submilestone"),
+        ("latestMergedPr", 59, "latest merged PR must be 60"),
+        ("latestMergeCommit", "f160a7d2bc0d6163ee73b36c1546419134f11ca3", "latest merge commit is invalid"),
+        ("currentPhase", "M04_IMPLEMENTATION", "unsupported lifecycle phase"),
+    ],
+)
+def test_17s_m04_activation_rejects_incomplete_or_contradictory_authority(field, value, expected):
+    state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
+    state[field] = value
+    assert any(expected in error for error in validator.validate_project_completion_goal(state))
+
+
+def test_17t_changing_phase_and_target_does_not_create_approval_or_merge_evidence():
+    state = _pending_completion_goal()
+    state.update(currentPhase="M04_PLANNING", approvedReleaseTarget="V1_PUBLIC_PRODUCT")
+    errors = validator.validate_project_completion_goal(state)
+    assert any("explicit human approval record" in error for error in errors)
+    assert any("verified PR #60 closeout merge evidence" in error for error in errors)
+
+
+@pytest.mark.parametrize("field", ["target", "source", "sourceReference", "statement", "approvedOn"])
+def test_17u_approval_provenance_cannot_be_replaced_by_generated_instructions(field):
+    state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
+    state["releaseTargetApproval"][field] = "generated task brief"
+    assert any("explicit human approval record" in error for error in validator.validate_project_completion_goal(state))
+
+
+@pytest.mark.parametrize("field", ["mergeCommit", "reviewedHead", "reviewedTree", "mergedTree", "independentQa", "ciRun"])
+def test_17v_merge_provenance_must_match_the_verified_closeout(field):
+    state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
+    state["closeoutMergeEvidence"][field] = "unverified"
+    assert any("verified PR #60 closeout merge evidence" in error for error in validator.validate_project_completion_goal(state))
+
+
+@pytest.mark.parametrize("state", [None, [], "V1_PUBLIC_PRODUCT", 60])
+def test_17w_goal_validation_refuses_non_object_state(state):
+    assert validator.validate_project_completion_goal(state) == ["PROJECT_COMPLETION_GOAL.json root must be an object"]
+
+
+def _prepare_m04_planning_tree(tmp_path, monkeypatch):
+    for rel in [
+        validator.PROJECT_COMPLETION_GOAL_STATE, validator.M04_ACTIVE_PLAN,
+        "docs/milestones/SUBMILESTONE_REGISTRY.md", "docs/milestones/M04.md",
+        "docs/ACTIVE_DOCS.md", "docs/INDEX.md", "docs/status/CURRENT_STATE.md",
+    ]:
+        destination = tmp_path / rel
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(text(rel), encoding="utf-8")
+    monkeypatch.setattr(validator, "ROOT", tmp_path)
+
+
+def test_17wa_pending_approval_cannot_keep_an_active_m04_plan(tmp_path, monkeypatch):
+    pending = _pending_completion_goal()
+    _prepare_m04_planning_tree(tmp_path, monkeypatch)
+    (tmp_path / validator.PROJECT_COMPLETION_GOAL_STATE).write_text(
+        json.dumps(pending), encoding="utf-8"
+    )
+    assert (
+        "plans/active must remain empty while target approval is pending"
+        in validator.validate_m03_plan_location()
+    )
+
+
+@pytest.mark.parametrize("mutation", ["missing", "wrong", "extra"])
+def test_17x_m04_planning_requires_the_single_expected_plan(tmp_path, monkeypatch, mutation):
+    _prepare_m04_planning_tree(tmp_path, monkeypatch)
+    plan = tmp_path / validator.M04_ACTIVE_PLAN
+    if mutation == "missing":
+        plan.unlink()
+    elif mutation == "wrong":
+        plan.rename(plan.with_name("CLP-0006-m05-unauthorized.md"))
+    else:
+        plan.with_name("CLP-0006-m05-unauthorized.md").write_text("# Extra plan\n")
+    assert "M04 planning requires exactly the active CLP-0005 M04 plan" in validator.validate_m04_planning()
+
+
+@pytest.mark.parametrize("mutation", ["missing_row", "renamed_row", "started_row", "wrong_plan", "empty_acceptance"])
+def test_17y_m04_planning_preserves_scope_and_unstarted_rows(tmp_path, monkeypatch, mutation):
+    _prepare_m04_planning_tree(tmp_path, monkeypatch)
+    if mutation == "empty_acceptance":
+        path = tmp_path / validator.M04_ACTIVE_PLAN
+        content = path.read_text(encoding="utf-8")
+        row = next(line for line in content.splitlines() if line.startswith("| M04.01 |"))
+        cells = row.split("|")
+        cells[-2] = " "
+        content = content.replace(row, "|".join(cells))
+        expected = "dependencies and acceptance evidence"
+    else:
+        path = tmp_path / "docs/milestones/SUBMILESTONE_REGISTRY.md"
+        content = path.read_text(encoding="utf-8")
+        row = next(line for line in content.splitlines() if line.startswith("| M04.01 |"))
+        replacement = row
+        if mutation == "missing_row":
+            replacement = ""
+        elif mutation == "renamed_row":
+            replacement = row.replace("Define Account schema", "Skip account schema")
+        elif mutation == "started_row":
+            replacement = row.replace("Not started", "Builder in progress")
+        else:
+            replacement = row.replace(validator.M04_ACTIVE_PLAN, "plans/active/CLP-0006-m05.md")
+        content = content.replace(row, replacement)
+        expected = {"missing_row": "18 original IDs", "renamed_row": "18 original IDs", "started_row": "remain Not started", "wrong_plan": "reference its plan"}[mutation]
+    path.write_text(content, encoding="utf-8")
+    assert any(expected in error for error in validator.validate_m04_planning())
 
 
 def test_18_live_registry_table_parses():

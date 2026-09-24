@@ -42,4 +42,4 @@ Traditional reconciliation focuses on matching records and explaining difference
 
 ## Current status
 
-CausalLedger has closed M00 through M02 and merged all M03 submilestones. Formal M03 closeout awaits human merge of PR #60. The first scoped product runtime behavior exists only in `packages/events`: source-neutral MoneyEvent candidate validation and deterministic normalization. No active milestone plan exists while the completion target awaits human approval. The repository still has no source-specific parsing, ingestion, storage, database, domain API, ledger, invariant, incident, graph, replay, repair, agent, connector, product UI, or money-mutation behavior.
+M00-M03 are closed; M03 closeout PR #60 merged at `3df6f88b1b64b5456554654b7e27adcfa99c3ff6`. The human approved `V1_PUBLIC_PRODUCT` on 2026-09-24. M04 planning is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; all M04 implementation rows and M05-M21 remain `Not started`. M04.01 waits for independent planning QA and human PR merge. Runtime remains the source-neutral MoneyEvent validator/normalizer only; no ledger or downstream product behavior exists.

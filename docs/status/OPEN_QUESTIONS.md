@@ -1,6 +1,6 @@
 # Open Questions
 
-- Which permitted completion target will the human approve: `M03_TECHNICAL_PREVIEW`, `V0_3_FINANCIAL_TRUTH_CORE`, `V0_4_INCIDENT_DIGITAL_TWIN`, `V0_5_SAFE_AGENTIC_LAYER`, `V0_6_BENCHMARK_DEMO`, or `V1_PUBLIC_PRODUCT`?
+- Resolved 2026-09-24: the human explicitly approved `V1_PUBLIC_PRODUCT`, with v0.6 as an intermediate checkpoint.
 - When storage work is approved, will the operator install Docker Desktop/Compose or provide an equivalent deterministic Postgres validation environment?
 - If live-model evaluation is later approved, which provider/model, maximum call count, and cost cap should govern it? Default and CI validation must remain mock-only.
 - Should a later version replace or complement the dependency-free M03.04 validator with a runtime schema framework, and what migration/versioning proof would justify that dependency?

@@ -87,6 +87,35 @@ REQUIRED_INFRA_SCRIPTS = {
 }
 
 M03_ACTIVE_PLAN = "plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md"
+M04_ACTIVE_PLAN = "plans/active/CLP-0005-m04-double-entry-ledger-core.md"
+M04_PLANNING_BRANCH = "m04-planning-double-entry-ledger-core"
+# These records describe the actual human decision and independently verified merge.
+# They validate repository consistency, not the authenticity of arbitrary file edits.
+RELEASE_TARGET_APPROVAL = {
+    "target": "V1_PUBLIC_PRODUCT",
+    "approvedOn": "2026-09-24",
+    "source": "explicit_user_message",
+    "sourceReference": "codex-task:01a0d3ba-f6d3-7322-92b5-8109df0f82d7",
+    "statement": "Merged #60. I approve V1_PUBLIC_PRODUCT. Continue.",
+}
+M03_CLOSEOUT_MERGE_EVIDENCE = {
+    "pr": 60,
+    "mergeCommit": "3df6f88b1b64b5456554654b7e27adcfa99c3ff6",
+    "reviewedHead": "f160a7d2bc0d6163ee73b36c1546419134f11ca3",
+    "reviewedTree": "0c14f73280c8b15ab93e0f697edc33738946c7ef",
+    "mergedTree": "0c14f73280c8b15ab93e0f697edc33738946c7ef",
+    "ciRun": 36011283395,
+    "independentQa": "PASS",
+}
+M04_SUBMILESTONE_NAMES = [
+    "Define Account schema", "Define LedgerTransaction schema", "Define LedgerEntry schema",
+    "Enforce debit equals credit", "Add immutable transaction storage",
+    "Add account balance query", "Add transaction query", "Add idempotency keys",
+    "Add reversal transaction type", "Add cash clearing account", "Add provider clearing account",
+    "Add customer liability account", "Add fee expense account", "Add revenue account",
+    "Add tests for balanced posting", "Add tests for invalid posting", "Add reversal tests",
+    "QA ledger core",
+]
 MONEYEVENT_CONTRACT_DOC = "docs/MONEYEVENT_CONTRACT.md"
 MONEYEVENT_MAPPING_FIXTURES_DOC = "docs/MONEYEVENT_MAPPING_FIXTURES.md"
 MONEYEVENT_VALIDATION_NORMALIZATION_DOC = "docs/MONEYEVENT_VALIDATION_NORMALIZATION.md"
@@ -955,7 +984,7 @@ def validate_m03_plan_location() -> list[str]:
         errors.append("completed M03 plan must not remain in plans/active")
     if not completed_m03.is_file():
         errors.append("completed M03 plan is missing from plans/completed")
-    if active_plan_files():
+    if active_plan_files() and not m04_planning_is_authorized():
         errors.append("plans/active must remain empty while target approval is pending")
     return errors
 
@@ -1756,6 +1785,134 @@ def validate_m03_final_closeout_text(content: str) -> list[str]:
     return errors
 
 
+def read_project_completion_goal() -> tuple[dict | None, list[str]]:
+    try:
+        state = json.loads(read_text(PROJECT_COMPLETION_GOAL_STATE))
+    except (json.JSONDecodeError, OSError) as exc:
+        return None, [f"PROJECT_COMPLETION_GOAL.json is not valid JSON: {exc}"]
+    if not isinstance(state, dict):
+        return None, ["PROJECT_COMPLETION_GOAL.json root must be an object"]
+    return state, []
+
+
+def validate_project_completion_goal(goal_state: object) -> list[str]:
+    if not isinstance(goal_state, dict):
+        return ["PROJECT_COMPLETION_GOAL.json root must be an object"]
+    errors: list[str] = []
+    required_keys = {
+        "goalId",
+        "goalTitle",
+        "approvedReleaseTarget",
+        "currentPhase",
+        "currentWorkstream",
+        "currentMilestone",
+        "currentBranch",
+        "currentPr",
+        "latestMergedPr",
+        "latestMergeCommit",
+        "environmentReadiness",
+        "localTestStatus",
+        "remoteCiStatus",
+        "dockerStatus",
+        "liveModelAccessStatus",
+        "implementationCapabilities",
+        "explicitlyUnimplementedCapabilities",
+        "openBlockers",
+        "risks",
+        "humanDecisionsRequired",
+        "exactNextAction",
+        "stopReason",
+        "lastUpdatedTimestamp",
+    }
+    missing = sorted(required_keys - set(goal_state))
+    if missing:
+        errors.append(
+            "PROJECT_COMPLETION_GOAL.json missing required keys: " + ", ".join(missing)
+        )
+    if goal_state.get("permittedReleaseTargets") != PERMITTED_RELEASE_TARGETS:
+        errors.append("PROJECT_COMPLETION_GOAL.json permitted target list is invalid")
+    phase = goal_state.get("currentPhase")
+    target = goal_state.get("approvedReleaseTarget")
+    if phase == "M04_PLANNING":
+        if target != RELEASE_TARGET_APPROVAL["target"]:
+            errors.append("M04 planning requires the recorded V1_PUBLIC_PRODUCT approval")
+        if goal_state.get("releaseTargetApproval") != RELEASE_TARGET_APPROVAL:
+            errors.append("M04 planning requires the explicit human approval record")
+        if goal_state.get("closeoutMergeEvidence") != M03_CLOSEOUT_MERGE_EVIDENCE:
+            errors.append("M04 planning requires verified PR #60 closeout merge evidence")
+        if goal_state.get("currentBranch") != M04_PLANNING_BRANCH:
+            errors.append("M04 planning requires the expected planning branch")
+        if goal_state.get("currentMilestone") != "M04_PLANNING":
+            errors.append("M04 planning must not claim an implementation submilestone")
+        expected_pr = 60
+        expected_merge = M03_CLOSEOUT_MERGE_EVIDENCE["mergeCommit"]
+    else:
+        if phase not in {"PHASE_A_CLOSEOUT_AND_AUDIT", "PHASE_A_CLOSEOUT_REVIEW_AND_HUMAN_GATE"}:
+            errors.append("PROJECT_COMPLETION_GOAL.json unsupported lifecycle phase")
+        if target != "PENDING_HUMAN_APPROVAL":
+            errors.append("PROJECT_COMPLETION_GOAL.json target must await human approval")
+        if goal_state.get("releaseTargetApproval") is not None:
+            errors.append("pending Phase A cannot carry an activated approval record")
+        expected_pr = 59
+        expected_merge = "9c2df34fd1da1a4f893a5b16cb05fa1177f23cce"
+    if goal_state.get("latestMergedPr") != expected_pr:
+        errors.append(f"PROJECT_COMPLETION_GOAL.json latest merged PR must be {expected_pr}")
+    if goal_state.get("latestMergeCommit") != expected_merge:
+        errors.append("PROJECT_COMPLETION_GOAL.json latest merge commit is invalid")
+    return errors
+
+
+def m04_planning_is_authorized() -> bool:
+    state, errors = read_project_completion_goal()
+    return (
+        not errors and state is not None and state.get("currentPhase") == "M04_PLANNING"
+        and not validate_project_completion_goal(state)
+    )
+
+
+def validate_m04_planning() -> list[str]:
+    state, _ = read_project_completion_goal()
+    if not (state and state.get("currentPhase") == "M04_PLANNING"):
+        return []
+    errors = validate_project_completion_goal(state)
+    if active_plan_files() != [ROOT / M04_ACTIVE_PLAN]:
+        errors.append("M04 planning requires exactly the active CLP-0005 M04 plan")
+    if not (ROOT / M04_ACTIVE_PLAN).is_file():
+        return errors
+    plan = read_text(M04_ACTIVE_PLAN)
+    sections = markdown_sections(plan)
+    for heading in [
+        "Purpose / Big Picture", "Progress", "Surprises & Discoveries", "Decision Log",
+        "Context and Orientation", "Scope", "Plan of Work", "Concrete Steps",
+        "Validation and Acceptance", "Idempotence and Recovery", "Artifacts and Notes",
+        "Interfaces and Dependencies", "Outcomes & Retrospective",
+    ]:
+        if not sections.get(heading.lower()):
+            errors.append(f"M04 plan missing or empty section: {heading}")
+    expected = {f"M04.{number:02d}": name for number, name in enumerate(M04_SUBMILESTONE_NAMES, 1)}
+    try:
+        registry_rows = [row for row in parse_registry() if row.submilestone_id.startswith("M04.")]
+        milestone_rows = parse_milestone_submilestone_table(read_text("docs/milestones/M04.md"))
+        plan_rows = parse_markdown_table(plan, ["ID", "Existing submilestone", "Dependencies", "Acceptance and deterministic evidence"])
+    except (ValueError, OSError) as exc:
+        return errors + [f"M04 planning tables are invalid: {exc}"]
+    for label, rows in [("registry", registry_rows), ("milestone", milestone_rows)]:
+        if len(rows) != 18 or {row.submilestone_id: row.name for row in rows} != expected:
+            errors.append(f"M04 {label} must retain all 18 original IDs and names")
+        if any(row.status != "Not started" for row in rows):
+            errors.append(f"M04 {label} implementation rows must remain Not started during planning")
+    if any(row.active_plan != M04_ACTIVE_PLAN or row.branch or row.pr for row in registry_rows):
+        errors.append("M04 registry must reference its plan without premature implementation branches/PRs")
+    if len(plan_rows) != 18 or {row["ID"]: row["Existing submilestone"] for row in plan_rows} != expected:
+        errors.append("M04 plan must cover all 18 original submilestones")
+    if any(not row["Dependencies"] or not row["Acceptance and deterministic evidence"] for row in plan_rows):
+        errors.append("M04 plan rows require dependencies and acceptance evidence")
+    for rel in ["docs/ACTIVE_DOCS.md", "docs/INDEX.md", "docs/status/CURRENT_STATE.md"]:
+        if M04_ACTIVE_PLAN not in read_text(rel):
+            errors.append(f"{rel} must identify the active M04 plan")
+    return errors
+
+
 def validate_m03_06_closeout_readiness() -> list[str]:
     """Validate the preserved pre-merge readiness packet and final closeout lifecycle."""
     errors = validate_m03_06_closeout_readiness_text(
@@ -1817,51 +1974,10 @@ def validate_m03_06_closeout_readiness() -> list[str]:
                 f"CAPABILITY_MATRIX.md missing M03 closeout boundary: {phrase}"
             )
 
-    try:
-        goal_state = json.loads(read_text(PROJECT_COMPLETION_GOAL_STATE))
-    except (json.JSONDecodeError, OSError) as exc:
-        errors.append(f"PROJECT_COMPLETION_GOAL.json is not valid JSON: {exc}")
-    else:
-        required_keys = {
-            "goalId",
-            "goalTitle",
-            "approvedReleaseTarget",
-            "currentPhase",
-            "currentWorkstream",
-            "currentMilestone",
-            "currentBranch",
-            "currentPr",
-            "latestMergedPr",
-            "latestMergeCommit",
-            "environmentReadiness",
-            "localTestStatus",
-            "remoteCiStatus",
-            "dockerStatus",
-            "liveModelAccessStatus",
-            "implementationCapabilities",
-            "explicitlyUnimplementedCapabilities",
-            "openBlockers",
-            "risks",
-            "humanDecisionsRequired",
-            "exactNextAction",
-            "stopReason",
-            "lastUpdatedTimestamp",
-        }
-        missing = sorted(required_keys - set(goal_state))
-        if missing:
-            errors.append(
-                "PROJECT_COMPLETION_GOAL.json missing required keys: " + ", ".join(missing)
-            )
-        if goal_state.get("approvedReleaseTarget") != "PENDING_HUMAN_APPROVAL":
-            errors.append("PROJECT_COMPLETION_GOAL.json target must await human approval")
-        if goal_state.get("permittedReleaseTargets") != PERMITTED_RELEASE_TARGETS:
-            errors.append("PROJECT_COMPLETION_GOAL.json permitted target list is invalid")
-        if goal_state.get("latestMergedPr") != 59:
-            errors.append("PROJECT_COMPLETION_GOAL.json latest merged PR must be 59")
-        if goal_state.get("latestMergeCommit") != (
-            "9c2df34fd1da1a4f893a5b16cb05fa1177f23cce"
-        ):
-            errors.append("PROJECT_COMPLETION_GOAL.json latest merge commit is invalid")
+    goal_state, goal_errors = read_project_completion_goal()
+    errors.extend(goal_errors)
+    if goal_state is not None:
+        errors.extend(validate_project_completion_goal(goal_state))
     return errors
 
 
@@ -2465,6 +2581,7 @@ def validate() -> list[str]:
     errors.extend(validate_m03_04_validation_normalization_doc())
     errors.extend(validate_m03_05_fixture_and_seed_doc())
     errors.extend(validate_m03_06_closeout_readiness())
+    errors.extend(validate_m04_planning())
     errors.extend(validate_m03_04_events_runtime_boundary())
     errors.extend(validate_local_infrastructure())
     errors.extend(validate_qa_development_environment())

@@ -1095,3 +1095,11 @@
 - Separate-context read-only reviewer `pr60_independent_qa` returned FAIL on premature closeout claims, global packet phrase checks and exact-command continuation. Coordinator corrected these, refreshed current gh/CI evidence and distinguished future scope from debt; no runtime or roadmap acceptance change.
 - Initial clean QA ladder: 18 PASS / 0 FAIL / 1 Docker SKIPPED. Corrected control plane PASS, 132 bootstrap tests PASS, diff check PASS. Final reviewed-SHA local/clean-worktree/CI evidence belongs in PR #60.
 - Target stays pending; M04-M21 stay unstarted. Next: final independent QA and CI, then human review/merge and explicit target selection. Recommend V1 destination with v0.6 intermediate.
+
+## 2026-09-24 - Verified M03 closeout merge, V1 approval and M04 planning
+
+- Verified PR #60 merge `3df6f88b1b64b5456554654b7e27adcfa99c3ff6` equals reviewed tree `0c14f73280c8b15ab93e0f697edc33738946c7ef`, independent QA PASS and CI `36011283395` PASS. Recorded previously blocked external-review publication honestly; no duplicate recovery PR.
+- User explicitly approved V1_PUBLIC_PRODUCT. Existing goal JSON gains two provenance records, with tests rejecting missing/mismatched approval or merge proof and preserving the earlier pending lifecycle.
+- Created CLP-0005 M04 planning on `m04-planning-double-entry-ledger-core`; all 18 IDs/names and acceptance criteria retained, all implementation rows unstarted. No runtime/data/dependency/infra/workflow changes.
+- Builder validation: control-plane and bootstrap PASS (167 cases), whitespace PASS, full workspace qa:dev --allow-dirty 17/0/2 expected skips. Independent review and final clean-state/CI still required. Docker/make unavailable; no install or paid calls.
+- Next: separate-context M04 Planning QA, then human planning-PR merge before M04.01.

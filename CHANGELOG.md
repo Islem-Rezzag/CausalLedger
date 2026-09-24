@@ -4,6 +4,8 @@ All notable CausalLedger release changes are recorded here.
 
 ## Unreleased
 
+- Verified PR #60 formal M03 closeout merge and explicit V1_PUBLIC_PRODUCT approval; started M04 planning with `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, all 18 implementation rows unstarted, and tested approval/merge/lifecycle guards. No ledger runtime added.
+
 - Proposed formal M03 closeout in PR #60, pending human merge, after proving PR #59 squash-merged at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`, with reviewed and merged tree `a5f52604955f8a8925728a2cb7b5c8900aefd87a`, empty source-to-merge diffs, prior independent QA PASS, and successful exact-head `validate` and `infra-smoke` jobs.
 - Moved the M03 plan to `plans/completed/`, created the closeout, environment-readiness, completion-audit, persistent-goal, proposed-roadmap, and public-evidence records, and left M04 through M21 `Not started` pending explicit human target approval.
 - M03.06 independent QA passed on PR #59 after a full MoneyEvent and branch-diff audit. QA bound closeout-readiness claims to their required sections and mutation-tested filesystem/lifecycle/later-milestone/capability failure paths. The existing fixture corpus was independently confirmed at exactly 21 cases: eight valid snapshots and 13 invalid issue contracts. No MoneyEvent runtime, fixture, seed, dependency, lockfile, financial-truth, or forbidden-scope defect was found; M03 remains active and M04 through M21 remain `Not started` pending human PR merge and formal M03 closeout.
