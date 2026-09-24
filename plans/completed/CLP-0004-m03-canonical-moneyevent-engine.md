@@ -1,5 +1,11 @@
 # CLP-0004 M03 Canonical MoneyEvent Engine
 
+## Post-merge verification (2026-09-24)
+
+PR #60 is human-merged at `3df6f88b1b64b5456554654b7e27adcfa99c3ff6`. Reviewed source `f160a7d2bc0d6163ee73b36c1546419134f11ca3` and merge share tree `0c14f73280c8b15ab93e0f697edc33738946c7ef`, with empty diff; merge ancestry on origin/main is verified. Separate-context reviewer `pr60_independent_qa` returned PASS on that exact source after finding and rechecking the scoped corrections. It independently ran the control-plane validator and 132 bootstrap tests; 150 workspace tests and detached clean-worktree QA 18/0/1 also passed. CI run `36011283395` passed validate and infra-smoke on the reviewed source. Local Docker was not tested, caches were warm, and no product change occurred. The prior external-operation rejection prevented publishing the final review/body on GitHub; the old PR body is stale, not the reviewed contents.
+
+M03 is formally closed. The human explicitly selected V1_PUBLIC_PRODUCT on 2026-09-24; current work is `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. All prior proposal/pending-M04 statements below are preserved historical evidence of the PR #60 branch, not current instructions. No M03 work is reopened.
+
 ## Purpose / Big Picture
 
 Plan and execute M03 as a sequence of narrow, evidence-grounded MoneyEvent slices.

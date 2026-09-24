@@ -60,7 +60,8 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md` - completed M01 plan.
 - `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md` - completed M02 plan.
 - `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md` - completed M03 plan.
-- `plans/proposals/CLP-PROJECT-COMPLETION-GOAL.md` - proposed completion workstream overlay pending human target approval; not an active plan.
+- `plans/active/CLP-0005-m04-double-entry-ledger-core.md` - active M04 planning; implementation has not started.
+- `plans/proposals/CLP-PROJECT-COMPLETION-GOAL.md` - proposed grouping overlay; milestone acceptance and per-PR gates remain authoritative.
 - `docs/status/M02_CLOSEOUT.md` - M02 closeout packet.
 - `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
 - `prompts/template_qa_submilestone.md` - reusable QA thread prompt template.
@@ -120,4 +121,4 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-The repository has closed M00 through M02 and completed all M03 submilestones. Formal M03 closeout is proposed in PR #60, pending human merge. PR #59 merged at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`; `docs/status/M03_CLOSEOUT.md` records the proposed closeout and the M03 plan lives on this branch under `plans/completed/`. No active milestone plan exists while the completion target awaits human approval, and M04 through M21 remain `Not started`. `packages/events` contains compile-time MoneyEvent types plus source-neutral structural validation and deterministic normalization. M03.05 contains 21 controlled synthetic fixtures, seven early benchmark seed metadata records, and strict test-only verification. No source-specific parser or mapper, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent, connector, UI, benchmark scoring, or money-mutation behavior exists; structural success is not financial truth.
+M00-M03 are closed; M03 closeout PR #60 merged at `3df6f88b1b64b5456554654b7e27adcfa99c3ff6`. The human approved `V1_PUBLIC_PRODUCT` on 2026-09-24. M04 planning is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; all M04 implementation rows and M05-M21 remain `Not started`. M04.01 waits for independent planning QA and human PR merge. The implemented boundary remains source-neutral MoneyEvent validation/normalization and controlled fixtures/seeds; structural success is not financial truth. No ledger or downstream runtime exists.

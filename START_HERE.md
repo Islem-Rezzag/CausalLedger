@@ -1,6 +1,6 @@
 # Start Here
 
-This repository has completed and closed M00 through M02. M03.01 through M03.06 are completed and merged; formal M03 closeout is proposed in PR #60 and awaits human merge. PR #59 merged at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`; the proposed closeout and branch-local completed plan are in `docs/status/M03_CLOSEOUT.md` and `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md`. No active milestone plan exists while the release target is `PENDING_HUMAN_APPROVAL`; M04 through M21 remain `Not started`. MoneyEvent runtime behavior remains limited to source-neutral structural validation and deterministic normalization, supported by controlled synthetic tests. It is not financial truth or a finished product.
+M00-M03 are closed; M03 closeout PR #60 merged at `3df6f88b1b64b5456554654b7e27adcfa99c3ff6`. The human approved `V1_PUBLIC_PRODUCT` on 2026-09-24. M04 planning is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; all M04 implementation rows and M05-M21 remain `Not started`. M04.01 waits for independent planning QA and human PR merge.
 
 Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 

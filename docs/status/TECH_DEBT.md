@@ -1,6 +1,6 @@
 # Tech Debt
 
-All M03 submilestones are merged, with formal closeout pending PR #60 human merge. No product implementation defect is confirmed. The future decisions below are unimplemented roadmap scope, not technical debt merely because they remain unbuilt.
+M03 is closed after PR #60 merged. No product implementation defect is confirmed. The future decisions below are unimplemented roadmap scope, not technical debt merely because they remain unbuilt.
 
 - Local Docker and Docker Compose validation remain unavailable on the audited machine; remote `infra-smoke` is green, but future storage/migration work needs approved local Docker setup or an equivalent deterministic environment.
 - Browser-level automation is not installed and should be selected only when a usable M15-era product flow requires it.

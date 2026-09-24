@@ -1,68 +1,33 @@
 # CausalLedger Project Completion Goal
 
-## Goal
+## Goal and approved destination
 
-Take CausalLedger from its QA-reviewed M03 foundation to an honest, reproducible, publicly presentable portfolio release without allowing an LLM to become financial truth or bypass deterministic checks, independent QA, remote CI, or human merge gates.
+Goal ID: `CLG-COMPLETION-001`. Deliver the repository-defined public product, then prepare evidence-backed blog and LinkedIn drafts. Approved release target: **V1_PUBLIC_PRODUCT**. v0.6 remains an intermediate checkpoint; `docs/releases/V1_SCOPE.md` and `RELEASE_LADDER.md` remain authoritative.
 
-Goal ID: `CLG-COMPLETION-001`
+Human approval received on 2026-09-24 in Codex task `01a0d3ba-f6d3-7322-92b5-8109df0f82d7`: “Merged #60. I approve V1_PUBLIC_PRODUCT. Continue.” This explicit user message, not a generated brief or changed target string, authorizes the selection. The existing JSON now records `releaseTargetApproval` and `closeoutMergeEvidence`; these two additive provenance objects are validated against the observed decision/merge. Local validation checks consistency, not authenticity of arbitrary repository edits or financial truth.
 
-Approved release target: `PENDING_HUMAN_APPROVAL`
+## Verified checkpoint
 
-## Current task brief: PR #60 independent QA
+PR #60 merged at `3df6f88b1b64b5456554654b7e27adcfa99c3ff6` on 2026-09-24. Its reviewed source `f160a7d2bc0d6163ee73b36c1546419134f11ca3` and merge share tree `0c14f73280c8b15ab93e0f697edc33738946c7ef`; source-to-merge diff is empty and merge is on main. Separate-context reviewer `pr60_independent_qa` returned PASS before the human merge. Final source CI run `36011283395` passed both jobs; 132 control-plane and 150 workspace tests passed and detached final-head QA passed 18/0/1 with a warm cache. Local Docker was not tested. The earlier automatic approval rejection prevented posting the final PR body/review; its stale body does not supersede verified source, review and merge evidence. The M03 closeout addendum preserves this record.
 
-Objective: review the proposed M03 closeout against base `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce` and initial candidate `941fe1984eb418db19cda9a4e2be861dacbf79e2`, correct confirmed findings on the existing branch, and stop for human merge and target approval. PR #59 merge and reviewed-tree provenance are prerequisites. The coordinator edits; a separate-context read-only reviewer finds defects and rechecks the final candidate.
+## Current task brief
 
-Allowed scope: closeout, goal, environment and current-state documentation, plus necessary control-plane regression checks. Forbidden scope: product runtime, fixtures, seeds, dependencies, lockfile, infrastructure, workflows, M04 implementation, financial writes, repair approval, paid calls, installation, merge, tags, deployment, or publication.
+M04 planning only, under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, branch `m04-planning-double-entry-ledger-core`. The plan contains objective/dependencies, allowed and forbidden scope, all 18 existing submilestones, acceptance, behavioral and negative tests, demonstration requirements, reviewer focus and stop conditions. No M04 implementation row has started. M05-M21 remain unstarted.
 
-Acceptance: truthful branch-versus-main lifecycle; valid completed-plan movement with no active milestone plan; rejection of target-string edits as approval; all later milestones unstarted; unchanged release requirements; verified PR #59 provenance; independent QA and final-state CI. Verify with control-plane validation, bootstrap negative tests, frozen installation, workspace typecheck/lint/test/build/format, and clean-worktree QA. Demonstration remains the executable MoneyEvent fixture tests; scaffold startup is not a product demonstration. Review the full diff and the affected lifecycle/safety contracts. Stop for unexpected divergence, unexplained local changes, three failed repairs of one defect, missing authority, or the human merge/target gate.
+Execute the planning brief, run deterministic and workspace checks, obtain separate-context read-only independent review, fix confirmed findings, commit/push scoped paths and prepare one PR. Verify required CI on the final reviewed SHA, then stop for human merge. After confirmed merge, discover the SHA and generate/execute M04.01 Account schema; the user need not fetch prompts or hashes from another chat.
 
-## Current durable state
+## Authority and safety
 
-- Current phase: PR #60 independent QA and correction of the proposed M03 closeout.
-- Current workstream: M03 closeout and completion-goal definition; no M04 plan exists.
-- Starting synchronized `main` and latest merge: PR #59 at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`.
-- Closeout PR: [#60](https://github.com/Islem-Rezzag/CausalLedger/pull/60), not yet human-merged. Its completed-plan movement is proposed on this branch.
-- Environment: Ready with limitations; authenticated GitHub CLI and native Codex Goals/reviewer subagents are available. Local Docker/Compose and `make` are unavailable.
-- Initial candidate `941fe1984eb418db19cda9a4e2be861dacbf79e2`: clean local `qa:dev` PASS (18/0/1 optional Docker skip), remote run `32160971074` PASS for `validate` and `infra-smoke`.
-- Historical clean-worktree evidence used starting `main` and cached package bytes. It does not establish cold installation of the final PR revision.
-- Final corrected-state local validation, reviewer verdict, clean-worktree commit and exact-head CI belong in the PR review record, each bound to its SHA. Do not create a status-only commit just to record the preceding CI pass.
-- No live-model call, system installation, financial write, release or publication is authorized by this QA task.
+Agents inspect, explain and propose; deterministic code owns financial correctness. Agents cannot approve repairs, post ledger entries, mutate money, delete evidence, modify raw events or override deterministic invariants. Future controlled synthetic tests of deterministic ledger code are distinct from giving an LLM financial write authority.
 
-## Recommendation awaiting approval
+V1 selection does not approve paid calls/budgets, system installs, material scope/architecture changes, deployment, tags or publication. Use one coordinator/editor and one separate reviewer at a time. Preserve milestone IDs, dependencies, acceptance, small branches and human merges; the five workstreams remain only a grouping proposal. Stop after three unsuccessful repairs of a specific defect, on unexplained local changes/divergence, missing authority or the human merge gate.
 
-Recommend `V1_PUBLIC_PRODUCT` as the destination requested by the user, with `V0_6_BENCHMARK_DEMO` as an intermediate checkpoint. Both retain the existing release ladder and V1 scope. The recommendation is not approval and does not activate M04. An M03 technical-preview article remains an optional foundation-only artifact requiring separate publication approval.
+## Environment and validation
 
-## Permitted target values
+Use pinned tools and documented commands. Docker/Compose and make remain locally unavailable at the last recheck; direct Python checks substitute for make. Planning and pure schema work can proceed without Docker; storage-dependent acceptance requires approved Postgres setup, migration/atomicity/concurrency tests and local remediation. No database substitution or installation is authorized. Tests use controlled synthetic data; no paid model is needed. Public claims must distinguish mocked/live, synthetic/production and implemented/planned behavior.
 
-- `M03_TECHNICAL_PREVIEW`
-- `V0_3_FINANCIAL_TRUTH_CORE`
-- `V0_4_INCIDENT_DIGITAL_TWIN`
-- `V0_5_SAFE_AGENTIC_LAYER`
-- `V0_6_BENCHMARK_DEMO`
-- `V1_PUBLIC_PRODUCT`
+Current-slice validation and QA status live in the active plan and current state. Final-head CI belongs in the PR review record, bound to its SHA, rather than a chain of commits recording preceding CI passes.
 
-## Stop condition and continuation
+## Next gate
 
-Stop for human review and merge after independent QA and exact-head CI pass. Do not start M04 while PR #60 is unmerged or target approval is pending. An ordinary-language response is sufficient, for example:
-
-“Merged #60. I approve V1_PUBLIC_PRODUCT. Continue.”
-
-The coordinator discovers the actual merge SHA, verifies GitHub merge metadata and reviewed-content provenance, and records the user's explicit target selection in these existing goal files. For squash merges, compare reviewed changes/trees; the source commit need not be an ancestor of `main`. Never infer approval from an edited target string or a generated task brief. This Phase A validator deliberately rejects all selected targets; a later authorized activation must record real approval evidence and test the lifecycle transition.
-
-After both gates clear, select the first incomplete item within the approved target. For v0.3 or later, this is M04 Double-entry Ledger Core planning, unless live evidence proves a later checkpoint. A selection of `M03_TECHNICAL_PREVIEW` authorizes only technical-preview preparation and does not start M04. Generate a compact brief in the existing goal or active plan, execute it, verify it, obtain separate-context read-only QA, fix confirmed findings, commit/push scoped work, prepare one PR and stop for human merge. The user need not fetch prompts or hashes from another chat.
-
-## Safety and execution rules
-
-- Agents investigate, summarize, explain, and propose only; deterministic code owns financial correctness.
-- Agents do not mutate money, post ledger entries, approve repairs, delete evidence, modify raw events, override invariants, or merge PRs.
-- One implementation branch and one PR per slice, with one coordinator/editor and one separate reviewer at a time.
-- Every slice preserves milestone IDs, dependencies and acceptance criteria; an overlay does not authorize dropping registry rows or combining the project into one PR.
-- Deterministic verification, independent QA, remote CI and human merge gates remain required. Reviewer output is not deterministic evidence or human approval.
-- Repair loops stop after at most three attempts at one unresolved defect.
-- Default tests use controlled synthetic data and no paid model. Live calls require explicit provider/model/call-count/budget approval.
-- Scope/architecture changes, system installation, deployment, tags and publication remain human decisions.
-- Public claims distinguish planned, scaffolded, implemented, demonstrated, mocked/live, synthetic/production, and production readiness.
-
-## Exact next action
-
-Read the final review record on PR #60 and verify its SHA. Complete any outstanding scoped correction, re-review or final-state check; mark the same PR ready only after QA and CI pass. Stop for human merge and target selection. Next after verified approval of v0.3 or later: M04 planning.
+Human review/merge of PR #61 after its final-SHA record confirms independent QA PASS, clean-worktree QA and required CI. Do not start M04.01 until that planning PR has merged. On “Merged. Continue.” recover GitHub metadata and durable state, verify the merge, and execute the next authorized brief.

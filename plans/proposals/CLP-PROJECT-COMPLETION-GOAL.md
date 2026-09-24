@@ -2,7 +2,7 @@
 
 ## Proposal status
 
-Proposed only. No active M04 plan exists, no future milestone has started, and `approvedReleaseTarget` remains `PENDING_HUMAN_APPROVAL`.
+The workstream grouping remains a proposal and does not rewrite the roadmap. The human approved `V1_PUBLIC_PRODUCT` on 2026-09-24 after PR #60 merged. M04 planning is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; no M04 implementation row or M05+ milestone has started.
 
 ## Recommended target
 
@@ -32,7 +32,7 @@ Entry criteria:
 - Phase A PR merged and tree-equivalent to its reviewed head.
 - Human approved target includes v0.3.0 or later.
 - M03 plan is completed and no active implementation PR exists.
-- Local Docker/Compose is available for full storage/migration validation, or a human accepts a temporary remote-only infrastructure limitation with an explicit local remediation gate before workstream exit.
+- Planning and pure deterministic schema work may proceed after the merge/target gates. Storage-dependent acceptance requires approved Docker/Compose or an equivalent Postgres environment; a temporary remote-only limitation requires human acceptance and an explicit local remediation gate before workstream exit.
 
 Exit criteria:
 

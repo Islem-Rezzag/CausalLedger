@@ -12,9 +12,9 @@ CausalLedger helps fintech teams prove, replay, and safely repair money-movement
 
 ## Current status
 
-CausalLedger has completed and closed M00 through M02. M03.01 through M03.06 are completed and merged; formal M03 closeout is proposed in PR #60 and awaits human merge. PR #59 merged at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`, the proposed closeout is recorded in `docs/status/M03_CLOSEOUT.md`, and the completed plan lives at `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md`. No active milestone plan exists while the release target is `PENDING_HUMAN_APPROVAL`; M04 through M21 remain `Not started`.
+M00-M03 are closed; M03 closeout PR #60 merged at `3df6f88b1b64b5456554654b7e27adcfa99c3ff6`. The human approved `V1_PUBLIC_PRODUCT` on 2026-09-24. M04 planning is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; all M04 implementation rows and M05-M21 remain `Not started`. M04.01 waits for independent planning QA and human PR merge.
 
-The scoped MoneyEvent implementation consists of compile-time types plus source-neutral MoneyEvent candidate validation and deterministic normalization in `packages/events`; M03.05 adds controlled synthetic fixtures and early MoneyFlowBench seed metadata with test-only verification. It has no source-specific parser or mapper, ingestion, storage, database, API, ledger, invariant, incident, graph, replay, repair, agent, connector, UI, simulator execution, benchmark runner or scoring, autonomous loop, or money-mutation behavior. Structural and fixture validation do not establish financial truth or make this a finished product.
+The implemented runtime remains source-neutral MoneyEvent validation and deterministic normalization in `packages/events`, supported by compile-time types, 21 controlled synthetic fixtures and seven benchmark seed metadata records. No ledger runtime, persistence, invariant engine, incident/replay/repair/agent workflow, benchmark runner or product UI exists. Structural validity is not financial truth.
 
 ## What CausalLedger is
 
