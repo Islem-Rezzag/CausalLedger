@@ -1,10 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-Merge M04 Planning PR - Double-entry Ledger Core
+Merge M04.01 PR - Define Account schema
 
 Precondition:
-PR #61 on `m04-planning-double-entry-ledger-core` must have independent QA PASS, clean-worktree validation and required CI on the same final reviewed SHA, as recorded in the PR. Initial planning review passed; the confirmed malformed-phase diagnostic correction has list/object regression coverage. Only the human may merge.
+PR #62 on `m04-01-account-schema` must have independent QA PASS, clean-worktree validation and required CI on the same final reviewed SHA, as recorded in the PR. The Account implementation review passed with no findings; the final handoff revision requires recheck. Only the human may merge.
 
 Scope:
-Human review and merge of PR #61. On “Merged #61. Continue.” the coordinator verifies GitHub merge metadata, reviewed/merged content and clean main, then generates and executes M04.01 Account schema on `m04-01-account-schema`. Keep all later rows unstarted and follow the active M04 plan. V1 is already approved; no new target selection or user-supplied brief/hash is required.
+Human review and merge of PR #62. On “Merged #62. Continue.” the coordinator verifies GitHub merge metadata, reviewed/merged content and clean main, finalizes M04.01 as Completed and merged, then generates and executes M04.02 Define LedgerTransaction schema on `m04-02-ledger-transaction-schema`. Follow the active M04 plan; keep later rows unstarted. V1 approval remains valid; no user-supplied prompt or hash is required.

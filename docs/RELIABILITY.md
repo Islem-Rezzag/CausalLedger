@@ -271,3 +271,7 @@ M01.13 QA Domain Consistency verified `docs/DOMAIN_MODEL.md`, `docs/RELIABILITY.
 ## M03.04 deterministic runtime boundary
 
 `packages/events` now validates and normalizes source-neutral MoneyEvent candidates with stable issues, exact integer money conversion, evidence/provenance consistency, explicit uncertainty, deterministic output, and input immutability. This is package-level structural reliability only. It does not validate source authenticity, financial correctness, settlement, ledger effects, or downstream product behavior.
+
+## M04.01 Account metadata boundary
+
+`packages/ledger` validates explicit Account metadata and duplicate/conflicting IDs within a supplied catalog. Validated snapshots are detached and frozen; failures are deterministic and return no partial catalog. Category/normal-side and supported-currency checks reduce structural contradictions only. Account validation does not prove identity, ownership, zero balance, eligibility to close/post, durable uniqueness, or immutable storage. These later controls remain unimplemented. See `docs/specs/account-schema.md`.

@@ -1109,3 +1109,16 @@
 - Separate-context reviewer `m04_planning_qa` completed planning/safety review on `045191cf77e40ba169c3659c970e0b7bb4628f97`; no scope, requirement, provenance or financial-boundary defects. Confirmed one malformed-phase diagnostic issue, corrected with list/object regressions; validation now passes 169 bootstrap cases and whitespace/control-plane checks.
 - Initial clean detached QA passed 18/0/1, including 150 workspace tests; initial CI `36016230003` passed both jobs. Final revision re-review, clean QA and exact-head CI are required in the SHA-bound PR #61 record before readiness.
 - Updated handoff/goal tracking to PR #61. Human merge is the next gate; M04.01 remains unstarted. Product files, dependencies and all release criteria remain unchanged.
+
+## 2026-09-24 - M04.01 Account schema builder
+
+- Verified planning PR #61 merge `17a6e85e81cdddc36381defbffc80a7636cee151` equals reviewed tree `edde0f85a215bb7c664f47bb29eb961f7a76d02b`, with independent QA PASS and exact-head CI `36016966738` PASS. Created clean `m04-01-account-schema` from updated main and generated the bounded builder brief in CLP-0005.
+- Implemented pure Account metadata validation with explicit IDs, ownership, category/sign, supported currency and lifecycle boundaries; no creation, posting or storage. Validation/review in progress. All later submilestones remain unstarted.
+
+- M04.01 Builder complete: ledger 117 tests, control-plane 191 tests, whitespace/scope and full workspace QA 17/0/2 PASS (266 workspace tests). Test-only TypeScript compatibility and historical lifecycle fixtures corrected; no dependencies changed. Independent QA, clean-state check, exact-head CI and human merge remain required.
+
+## 2026-09-24 - M04.01 independent QA and PR #62 handoff
+
+- Independent reviewer `m04_01_qa` PASS on `29113462eb7c709acff2efc020c1c9b2f95f3408`, no findings. Independently passed 191 control-plane/117 ledger tests and package/static/scope checks, plus supplemental malformed-input/lifecycle probes.
+- Same candidate clean detached QA passed 18/0/1 (266 workspace tests); CI `36020455110` passed both jobs. Final handoff revision re-review, clean QA and CI belong in the exact-SHA PR #62 record.
+- M04.01 marked QA passed, awaiting merge; human merge gate remains. No product code changed during QA handoff; M04.02 and all later rows remain Not started.

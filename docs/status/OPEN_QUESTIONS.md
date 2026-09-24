@@ -22,3 +22,7 @@
 - The first source-neutral candidate uses ordinary JSON-safe values, including a canonical base-10 integer string for minor units, and successful normalization converts money exactly to branded `bigint`.
 - M03.04 uses a strict dependency-free validator with stable issues; it does not claim full JSON parsing or source-specific mapping.
 - Negative amount signs are preserved without accounting interpretation, and three-letter uppercase currency validation does not claim authoritative ISO 4217 registry membership.
+
+## M04.01 contract decisions
+
+- Account categories and normal sides, namespaced opaque owners, active/closed metadata and the USD/EUR/GBP support subset are specified in `docs/specs/account-schema.md`. Future currency expansion, contra accounts, durable uniqueness, authorization and lifecycle transitions require their own reviewed scope; metadata validation does not implement them.

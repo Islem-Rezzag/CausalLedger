@@ -1141,11 +1141,13 @@ def _pending_completion_goal() -> dict:
     )
     state.pop("releaseTargetApproval", None)
     state.pop("closeoutMergeEvidence", None)
+    state.pop("planningMergeEvidence", None)
     return state
 
 
 def _prepare_m03_06_validation_tree(tmp_path: Path, monkeypatch) -> dict[str, object]:
     rows = validator.registry_by_id()
+    rows["M04.01"] = replace(rows["M04.01"], status="Not started", branch="", pr="")
     status_dir = tmp_path / "docs" / "status"
     completed_dir = tmp_path / "plans" / "completed"
     status_dir.mkdir(parents=True)
@@ -1160,7 +1162,7 @@ def _prepare_m03_06_validation_tree(tmp_path: Path, monkeypatch) -> dict[str, ob
         json.dumps(_pending_completion_goal()), encoding="utf-8"
     )
     (status_dir / "CAPABILITY_MATRIX.md").write_text(
-        text("docs/status/CAPABILITY_MATRIX.md"), encoding="utf-8"
+        text("docs/status/CAPABILITY_MATRIX.md").replace("Ledger core | Partial - account schema only", "Ledger core | Not started"), encoding="utf-8"
     )
     (completed_dir / "CLP-0004-m03-canonical-moneyevent-engine.md").write_text(
         "completed M03 plan\n", encoding="utf-8"
@@ -1321,12 +1323,13 @@ def test_17pc_final_closeout_rejects_failed_merged_or_conflicting_result(
     )
 
 
-def test_17q_m04_through_m21_remain_not_started_during_m03_06():
+def test_17q_later_m04_rows_and_m05_through_m21_remain_not_started():
     rows = validator.registry_by_id()
     for milestone_number in range(4, 22):
         prefix = f"M{milestone_number:02d}."
         milestone_rows = [
             row for row in rows.values() if row.submilestone_id.startswith(prefix)
+            and row.submilestone_id != "M04.01"
         ]
         assert milestone_rows
         assert all(row.status == "Not started" for row in milestone_rows)
@@ -1356,7 +1359,7 @@ def test_17r_pending_and_explicitly_approved_goal_lifecycles_are_valid():
     ],
 )
 def test_17s_m04_activation_rejects_incomplete_or_contradictory_authority(field, value, expected):
-    state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
+    state = _planning_completion_goal()
     state[field] = value
     assert any(expected in error for error in validator.validate_project_completion_goal(state))
 
@@ -1388,7 +1391,16 @@ def test_17w_goal_validation_refuses_non_object_state(state):
     assert validator.validate_project_completion_goal(state) == ["PROJECT_COMPLETION_GOAL.json root must be an object"]
 
 
-def _prepare_m04_planning_tree(tmp_path, monkeypatch):
+def _planning_completion_goal():
+    state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
+    state.update(currentPhase="M04_PLANNING", currentMilestone="M04_PLANNING",
+                 currentBranch=validator.M04_PLANNING_BRANCH, currentPr=61,
+                 latestMergedPr=60, latestMergeCommit=validator.M03_CLOSEOUT_MERGE_EVIDENCE["mergeCommit"])
+    state.pop("planningMergeEvidence", None)
+    return state
+
+
+def _prepare_m04_planning_tree(tmp_path, monkeypatch, *, account_slice=False):
     for rel in [
         validator.PROJECT_COMPLETION_GOAL_STATE, validator.M04_ACTIVE_PLAN,
         "docs/milestones/SUBMILESTONE_REGISTRY.md", "docs/milestones/M04.md",
@@ -1396,7 +1408,22 @@ def _prepare_m04_planning_tree(tmp_path, monkeypatch):
     ]:
         destination = tmp_path / rel
         destination.parent.mkdir(parents=True, exist_ok=True)
-        destination.write_text(text(rel), encoding="utf-8")
+        content = text(rel)
+        if not account_slice:
+            if rel == validator.PROJECT_COMPLETION_GOAL_STATE:
+                content = json.dumps(_planning_completion_goal())
+            elif rel in {"docs/milestones/SUBMILESTONE_REGISTRY.md", "docs/milestones/M04.md"}:
+                lines = content.splitlines()
+                for index, line in enumerate(lines):
+                    if line.startswith("| M04.01 |"):
+                        cells = [cell.strip() for cell in line.split("|")[1:-1]]
+                        if rel.endswith("SUBMILESTONE_REGISTRY.md"):
+                            cells[3], cells[5], cells[6] = "Not started", "", ""
+                        else:
+                            cells[2] = "Not started"
+                        lines[index] = "| " + " | ".join(cells) + " |"
+                content = "\n".join(lines) + "\n"
+        destination.write_text(content, encoding="utf-8")
     monkeypatch.setattr(validator, "ROOT", tmp_path)
 
 
@@ -1547,6 +1574,8 @@ def test_29_package_scaffolds_are_exactly_allowlisted():
                 assert files == expected_events
             elif package_dir.name == "evals":
                 assert files == expected_evals
+            elif package_dir.name == "ledger":
+                assert files == expected_scaffold | validator.M04_ACCOUNT_FILES
             elif package_dir.name in validator.M02_05_PACKAGE_DIRS:
                 assert files == expected_scaffold
             else:
@@ -2270,3 +2299,73 @@ def test_76_docker_schema_inspection_waits_for_successful_migration(monkeypatch)
     assert "Migration smoke" in called
     assert inspected["value"] is False
     assert "Docker cleanup" in called
+
+
+@pytest.mark.parametrize("field,value,expected", [
+    ("planningMergeEvidence", None, "verified PR #61"),
+    ("planningMergeEvidence", {"pr": 61}, "verified PR #61"),
+    ("currentBranch", "m04-02-ledger-transaction-schema", "expected account schema branch"),
+    ("currentMilestone", "M04.02", "must not activate a later submilestone"),
+    ("latestMergedPr", 60, "latest merged PR must be 61"),
+    ("latestMergeCommit", "unverified", "latest merge commit is invalid"),
+])
+def test_m04_01_activation_requires_its_merged_planning_pr(field, value, expected):
+    state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
+    state[field] = value
+    assert any(expected in error for error in validator.validate_project_completion_goal(state))
+
+
+@pytest.mark.parametrize("field", ["pr", "mergeCommit", "reviewedHead", "reviewedTree", "mergedTree", "ciRun", "independentQa"])
+def test_m04_01_rejects_unverified_planning_merge_provenance(field):
+    state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
+    state["planningMergeEvidence"][field] = "unverified"
+    assert any("verified PR #61" in error for error in validator.validate_project_completion_goal(state))
+
+
+def test_m04_planning_cannot_claim_planning_merge_evidence():
+    state = _planning_completion_goal()
+    assert validator.validate_project_completion_goal(state) == []
+    state["planningMergeEvidence"] = validator.M04_PLANNING_MERGE_EVIDENCE
+    assert any("unmerged planning" in error for error in validator.validate_project_completion_goal(state))
+
+
+@pytest.mark.parametrize("mutation,expected", [
+    ("later_row", "remain Not started"),
+    ("merged_claim", "must not claim merged completion"),
+    ("mismatched_status", "status must agree"),
+    ("wrong_branch", "expected account schema branch"),
+    ("wrong_pr", "PR tracking must match"),
+    ("qa_without_pr", "QA requires its own PR"),
+])
+def test_m04_01_tracking_refuses_premature_or_conflicting_state(tmp_path, monkeypatch, mutation, expected):
+    _prepare_m04_planning_tree(tmp_path, monkeypatch, account_slice=True)
+    path = tmp_path / "docs/milestones/SUBMILESTONE_REGISTRY.md"
+    content = path.read_text(encoding="utf-8")
+    target = "M04.02" if mutation == "later_row" else "M04.01"
+    row = next(line for line in content.splitlines() if line.startswith(f"| {target} |"))
+    cells = [cell.strip() for cell in row.split("|")[1:-1]]
+    if mutation == "later_row": cells[3] = "Builder in progress"
+    elif mutation == "merged_claim": cells[3] = "Completed and merged"
+    elif mutation == "mismatched_status": cells[3] = "Blocked"
+    elif mutation == "wrong_branch": cells[5] = "m04-02-ledger-transaction-schema"
+    elif mutation == "wrong_pr": cells[6] = "#99999"
+    else:
+        cells[3], cells[6] = "QA in progress", ""
+        state_path = tmp_path / validator.PROJECT_COMPLETION_GOAL_STATE
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+        state["currentPr"] = None
+        state_path.write_text(json.dumps(state), encoding="utf-8")
+    path.write_text(content.replace(row, "| " + " | ".join(cells) + " |"), encoding="utf-8")
+    assert any(expected in error for error in validator.validate_m04_planning())
+
+
+def test_m04_account_files_require_authorized_slice(monkeypatch):
+    monkeypatch.setattr(validator, "m04_account_schema_is_authorized", lambda: False)
+    errors = validator.validate_package_scaffolds()
+    assert any("packages/ledger" in error and "unexpected files" in error for error in errors)
+
+
+def test_m04_account_allowlist_does_not_admit_future_entry_schema(monkeypatch):
+    original = validator.package_files
+    monkeypatch.setattr(validator, "package_files", lambda path: original(path) | ({"src/ledger-entry.ts"} if path.name == "ledger" else set()))
+    assert any("src/ledger-entry.ts" in error for error in validator.validate_package_scaffolds())

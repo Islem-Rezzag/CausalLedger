@@ -528,3 +528,7 @@ New product behavior must start only inside an active, explicitly scoped milesto
 ## M03.04 boundary controls
 
 The source-neutral MoneyEvent boundary treats inputs as untrusted: it accepts `unknown`, rejects class instances and unknown fields, validates evidence locators and canonical hashes, preserves conflicts and uncertainty, performs no external I/O, and returns deterministic failures. These controls reduce structural ambiguity but do not authenticate evidence or establish financial truth. Source payload parsing, ingestion, storage, access control, and runtime security remain unimplemented.
+
+## M04.01 Account metadata controls
+
+Account candidates reject unknown fields, invalid IDs, unsupported values, category/normal-side contradictions and non-data properties; supplied catalogs reject every duplicate account ID. Detached frozen outputs prevent callers from mutating the returned metadata accidentally. This pure validation boundary exposes no posting or storage API and establishes no authorization, lifecycle approval, evidence authenticity or financial truth. It is not a sandbox for hostile JavaScript/Proxy traps; untrusted serialized bytes must be parsed before validation. Durable uniqueness and access controls remain later work.

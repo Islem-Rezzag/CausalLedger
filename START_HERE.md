@@ -1,6 +1,6 @@
 # Start Here
 
-M00-M03 are closed; M03 closeout PR #60 merged at `3df6f88b1b64b5456554654b7e27adcfa99c3ff6`. The human approved `V1_PUBLIC_PRODUCT` on 2026-09-24. M04 planning is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; all M04 implementation rows and M05-M21 remain `Not started`. M04.01 waits for independent planning QA and human PR merge.
+M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04 planning PR #61 is reviewed and human-merged at `17a6e85e81cdddc36381defbffc80a7636cee151`. M04.01 Define Account schema is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.02-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
 
 Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 
@@ -63,7 +63,7 @@ The handoff packet must include files created, files changed, files intentionall
 
 - Do not implement product functionality outside the active submilestone.
 - Do not extend MoneyEvent logic beyond the active source-neutral boundary.
-- Do not implement ledger logic.
+- Do not implement ledger logic outside the active M04.01 Account schema slice.
 - Do not implement invariants.
 - Do not implement the agent runtime.
 - Do not implement UI features.

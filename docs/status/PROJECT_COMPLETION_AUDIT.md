@@ -1,5 +1,7 @@
 # Project Completion Audit
 
+Current update (2026-09-24): planning PR #61 is merged; M04.01 Account schema is in progress. `docs/status/CURRENT_STATE.md` and the active M04 plan carry current capability and validation. The audit below preserves the dated M03 checkpoint; its counts and missing-capability list are historical, not a current execution instruction.
+
 ## Audit verdict
 
 CausalLedger has an unusually strong operating system and a credible deterministic MoneyEvent foundation, but it is not yet an incident product, agentic demo, production-ready system, or company-grade system. M03 can support a factual technical-preview article after formal closeout. The smallest existing release target that satisfies a meaningful AI/fintech portfolio story is `v0.6.0`, not M03, v0.3.0, or v0.4.0.
