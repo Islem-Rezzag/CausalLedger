@@ -4,6 +4,8 @@ All notable CausalLedger release changes are recorded here.
 
 ## Unreleased
 
+- M04.01 Account metadata types and deterministic candidate/catalog validation after verified planning PR #61 merge. Explicit identity, category/normal side, currency, ownership and lifecycle checks; no account creation, posting, balances or storage.
+
 - Verified PR #60 formal M03 closeout merge and explicit V1_PUBLIC_PRODUCT approval; started M04 planning with `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, all 18 implementation rows unstarted, and tested approval/merge/lifecycle guards. No ledger runtime added.
 
 - Proposed formal M03 closeout in PR #60, pending human merge, after proving PR #59 squash-merged at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`, with reviewed and merged tree `a5f52604955f8a8925728a2cb7b5c8900aefd87a`, empty source-to-merge diffs, prior independent QA PASS, and successful exact-head `validate` and `infra-smoke` jobs.

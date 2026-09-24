@@ -12,16 +12,16 @@
   ],
   "recommendedImmediateTarget": "V0_6_BENCHMARK_DEMO",
   "recommendedLongTermTarget": "V1_PUBLIC_PRODUCT",
-  "currentPhase": "M04_PLANNING",
+  "currentPhase": "M04_ACCOUNT_SCHEMA",
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
-  "currentMilestone": "M04_PLANNING",
-  "currentBranch": "m04-planning-double-entry-ledger-core",
-  "currentPr": 61,
-  "latestMergedPr": 60,
-  "latestMergeCommit": "3df6f88b1b64b5456554654b7e27adcfa99c3ff6",
+  "currentMilestone": "M04.01",
+  "currentBranch": "m04-01-account-schema",
+  "currentPr": null,
+  "latestMergedPr": 61,
+  "latestMergeCommit": "17a6e85e81cdddc36381defbffc80a7636cee151",
   "environmentReadiness": "READY_WITH_LIMITATIONS",
-  "localTestStatus": "CONTROL_AND_169_BOOTSTRAP_PASS_INITIAL_CLEAN_QA_18_PASS_0_FAIL_1_DOCKER_SKIP_FINAL_SHA_RECORD_IN_PR_61",
-  "remoteCiStatus": "INITIAL_M04_HEAD_045191C_RUN_36016230003_SUCCESS_FINAL_SHA_RECORD_IN_PR_61",
+  "localTestStatus": "BUILDER_PASS_191_CONTROL_117_LEDGER_266_WORKSPACE_QA_17_PASS_0_FAIL_2_EXPECTED_SKIPS",
+  "remoteCiStatus": "PR_61_REVIEWED_HEAD_A2FF0EA_RUN_36016966738_SUCCESS_M04_01_PENDING",
   "dockerStatus": "UNAVAILABLE_LOCALLY_REMOTE_INFRA_SMOKE_AVAILABLE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -33,13 +33,14 @@
     "deterministic MoneyEvent normalization",
     "21 controlled synthetic MoneyEvent fixtures",
     "seven grounded MoneyFlowBench seed metadata records",
-    "deterministic package and control-plane tests"
+    "deterministic package and control-plane tests",
+    "M04.01 Account metadata contract and pure validation (current branch; awaiting QA/merge)"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
     "ingestion or persistence",
     "product database schema",
-    "ledger runtime",
+    "ledger transaction/entry schemas, posting, balances, reversals and storage",
     "financial invariant engine",
     "provider and bank simulator execution",
     "incident lifecycle",
@@ -54,7 +55,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "M04 planning PR #61 requires final-SHA independent QA/CI record and human merge before M04.01",
+    "M04.01 requires deterministic validation, independent QA, exact-head CI and human merge before M04.02",
     "local Docker/Compose or approved equivalent Postgres environment required before storage-dependent slices can close",
     "no live-model provider/model/call-count/budget approved"
   ],
@@ -71,9 +72,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "HUMAN_MERGE_PR_61_AFTER_FINAL_SHA_QA_AND_CI_PASS",
-  "stopReason": "HUMAN_PLANNING_PR_MERGE_REQUIRED_BEFORE_M04_01",
-  "lastUpdatedTimestamp": "2026-09-24T14:59:48Z",
+  "exactNextAction": "INDEPENDENTLY_REVIEW_M04_01_ACCOUNT_SCHEMA_THEN_HUMAN_MERGE",
+  "stopReason": "M04_01_REQUIRES_QA_CI_AND_HUMAN_MERGE_BEFORE_M04_02",
+  "lastUpdatedTimestamp": "2026-09-24T15:23:54Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -88,6 +89,15 @@
     "reviewedTree": "0c14f73280c8b15ab93e0f697edc33738946c7ef",
     "mergedTree": "0c14f73280c8b15ab93e0f697edc33738946c7ef",
     "ciRun": 36011283395,
+    "independentQa": "PASS"
+  },
+  "planningMergeEvidence": {
+    "pr": 61,
+    "mergeCommit": "17a6e85e81cdddc36381defbffc80a7636cee151",
+    "reviewedHead": "a2ff0ea9176c9ee37b5f851968b7f79fa8017be9",
+    "reviewedTree": "edde0f85a215bb7c664f47bb29eb961f7a76d02b",
+    "mergedTree": "edde0f85a215bb7c664f47bb29eb961f7a76d02b",
+    "ciRun": 36016966738,
     "independentQa": "PASS"
   }
 }
