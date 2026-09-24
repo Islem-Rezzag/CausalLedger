@@ -1,5 +1,16 @@
 # Weekly Log
 
+## 2026-08-18
+
+- Synchronized `main` at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce` and proved PR #59 merged after independent QA: merge ancestry passed, reviewed and merged trees equal `a5f52604955f8a8925728a2cb7b5c8900aefd87a`, source-to-merge file/stat diffs are empty, and exact-reviewed-head `validate` and `infra-smoke` jobs passed.
+- Safely removed the merged local M03.06 branch after unique-work and tree-equivalence proof; the remote was already absent after prune. Created `m03-closeout-canonical-moneyevent-engine` from synchronized `main`.
+- Formally closed M03, moved its plan to `plans/completed/`, and recorded the exact implemented/unimplemented boundaries, artifacts, tests, validation, process deviations, risks, debt, questions, branch inventory, and technical-preview assessment. M04 through M21 remain `Not started`.
+- Audited the Windows environment, tools, provider-key presence without values, relevant ports/resources, dependency install, complete local validation, API/web/worker scaffolds, and a clean detached-worktree reproduction. Docker, Compose, GitHub CLI, and Make are unavailable; remote infrastructure smoke passed.
+- Created the persistent completion goal, release-ladder gap audit, proposed five-workstream roadmap overlay, and public evidence plan. Recommended immediate target: `V0_6_BENCHMARK_DEMO`; long-term target: `V1_PUBLIC_PRODUCT`. `approvedReleaseTarget` remains `PENDING_HUMAN_APPROVAL`.
+- This Phase A slice changes documentation and control-plane validation only. No M04, ledger, simulator, invariant, agent, benchmark, UI, connector, live-model, release-tag, money, evidence, or raw-event mutation work began.
+- Committed the prescribed closeout at `c5876c4d3e7f91b036d4ee3ae9eb538460a3de11`, passed clean `qa:dev` with 18 PASS / 0 FAIL / 1 optional Docker skip, pushed the one authorized branch with matching local/remote hashes, and opened draft PR #60. The GitHub connector's PR-create permission was unavailable, so the already-authorized draft was created through the signed-in GitHub browser session without creating a duplicate.
+- PR #60 CI run `32160745683` passed both `validate` and `infra-smoke` on head `68bc7d735baea7ded5ef1e8825e0965fb384d7c4`. This evidence is recorded in a final status-only commit, which must itself receive exact-head CI before Phase A handoff.
+
 ## 2026-08-06
 
 - Started independent M03.06 QA on the exact branch `m03-06-moneyevent-qa-closeout` and draft PR #59 from clean head `37de57d01886538119b0f1a31d5e414f9cb848cc`; repository, origin, branch, identity, base/head, recovery ancestry, PR state, active-plan, no-final-closeout, and no-M04 guards passed.
@@ -1077,3 +1088,10 @@
 - Ran `python scripts/validate-control-plane.py` successfully.
 - Ran `python -m pytest tests/test_control_plane_bootstrap.py` successfully with 7 tests.
 - Confirmed `make bootstrap-check` is unavailable in the current Windows shell.
+
+## 2026-09-24 - PR #60 independent QA and scoped corrections
+
+- Recovered clean expected branch at `941fe1984eb418db19cda9a4e2be861dacbf79e2`; verified PR #59 merge/source tree equality and PR #60 open draft with successful initial-head CI.
+- Separate-context read-only reviewer `pr60_independent_qa` returned FAIL on premature closeout claims, global packet phrase checks and exact-command continuation. Coordinator corrected these, refreshed current gh/CI evidence and distinguished future scope from debt; no runtime or roadmap acceptance change.
+- Initial clean QA ladder: 18 PASS / 0 FAIL / 1 Docker SKIPPED. Corrected control plane PASS, 132 bootstrap tests PASS, diff check PASS. Final reviewed-SHA local/clean-worktree/CI evidence belongs in PR #60.
+- Target stays pending; M04-M21 stay unstarted. Next: final independent QA and CI, then human review/merge and explicit target selection. Recommend V1 destination with v0.6 intermediate.

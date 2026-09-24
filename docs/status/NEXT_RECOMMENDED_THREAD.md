@@ -1,10 +1,15 @@
 # Next Recommended Thread
 
 Thread name:
-Merge M03.06 PR - MoneyEvent QA and Closeout
+Human Review and Target Approval - CausalLedger Completion Goal
 
 Precondition:
-M03.01 through M03.05 are `Completed and merged`. PR #58 recovery QA squash-merged at `721bd60eba04cdf71765660727132d0d6aed97bc` with reviewed source and merge tree `266c357b2973d4b64dffc1523c700ce05e1f595d` and zero file differences. M03.06 independent QA passed on branch `m03-06-moneyevent-qa-closeout` and PR #59 after the required local ladder. Exact-head remote CI must be successful before a human merges the PR.
+PR #60 on `m03-closeout-canonical-moneyevent-engine` must have independent QA PASS and required final-head CI before human merge. The PR review record identifies the reviewed SHA, local results, clean-worktree evidence and CI run. No M04 work starts while either merge or explicit target selection is missing.
 
 Scope:
-Human-controlled merge of PR #59 after confirming it remains approved, mergeable, and green at the exact reviewed head. Codex must not merge the PR or enable auto-merge. After merge, begin `M03 Milestone Closeout - Canonical MoneyEvent Engine`; do not close M03, move the active plan, create `docs/status/M03_CLOSEOUT.md`, or start M04 in the merge thread.
+Review and human-merge PR #60, then explicitly select a permitted release target. Recommend `V1_PUBLIC_PRODUCT` with v0.6 as an intermediate checkpoint. Resume from the existing goal MD/JSON; the coordinator discovers and verifies the actual merge SHA and reviewed-content provenance (including squash-merge semantics), generates and executes the next brief within that target: M04 planning for v0.3 or later, or technical-preview preparation only for `M03_TECHNICAL_PREVIEW`. Preserve all milestone dependencies and human merge gates.
+
+Example response:
+“Merged #60. I approve V1_PUBLIC_PRODUCT. Continue.”
+
+No exact command syntax or manually copied hash is required. This example is not an approval.

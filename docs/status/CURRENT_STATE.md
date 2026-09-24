@@ -2,52 +2,48 @@
 
 ## Current phase
 
-M00 Repo Operating System, M01 Domain Model and Scope Freeze, and M02 Monorepo and Local Development Environment are completed and closed. M03 Canonical MoneyEvent Engine remains active under active plan `plans/active/CLP-0004-m03-canonical-moneyevent-engine.md`.
+M00, M01 and M02 are completed and closed. Formal M03 closeout is proposed in PR #60, pending human merge. M03.01 through M03.06 are `Completed and merged`; PR #59 merged at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce` after independent QA PASS and exact-head CI. The reviewed and merged PR #59 trees both equal `a5f52604955f8a8925728a2cb7b5c8900aefd87a` with empty source-to-merge diffs.
 
-M03 planning and M03.01 through M03.05 are `Completed and merged`. PR #58 recovery QA squash-merged at `721bd60eba04cdf71765660727132d0d6aed97bc`; reviewed source `0b71c214e6463a7bc462fc37a2071e7f578a0799` and the merge commit share tree `266c357b2973d4b64dffc1523c700ce05e1f595d` and have zero file differences. M03.06 independent QA passed on PR #59 and is awaiting merge. M04 through M21 remain `Not started`.
+No active milestone plan exists. The completed M03 plan is `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md`. M04 through M21 remain `Not started`, and the completion target is pending explicit human approval.
 
 ## Current submilestone and branch
 
-Current slice: `M03.06 QA - MoneyEvent QA and Closeout`.
+Current slice: `Phase A - M03 closeout and project completion audit`.
 
-Current branch: `m03-06-moneyevent-qa-closeout`.
+Current branch: `m03-closeout-canonical-moneyevent-engine`.
 
-`docs/status/M03_CLOSEOUT_READINESS.md` records the independent M03.06 QA PASS. M03 is not closed, M03.06 is not completed and merged, `docs/status/M03_CLOSEOUT.md` does not exist, and the active plan remains under `plans/active/`.
-
-## What exists
-
-- The M03.01 conceptual MoneyEvent contract.
-- The M03.02 TypeScript types, branded identifiers, exact `bigint` money, supported literals, and truthful package metadata.
-- Documentation-only M03.03 mapping, simulator, and verifier-loop planning.
-- The M03.04 dependency-free source-neutral MoneyEvent candidate validator and deterministic normalizer.
-- The M03.05 controlled corpus: 21 fixtures with eight valid full snapshots and 13 invalid exact issue contracts, plus seven exact-grounded seed records and strict test-only parsers.
-- M03.06 milestone-wide acceptance traceability, merge proof, validation evidence, and closeout-readiness controls.
-
-## What does not exist
-
-No general runtime schema framework, arbitrary JSON or source-specific parser/mapper, ingestion, evidence storage, product database schema, domain API/UI, simulator execution, benchmark runner/scoring/model output, ledger entry, balance, invariant engine, incident engine, causal graph runtime, replay runtime, repair behavior, human approval runtime, agent runtime/tool, connector, queue, scheduler, Redis, auth/authz, deployment, monitoring, production write, raw-evidence mutation, repair approval, ledger mutation, or money mutation exists.
+The branch adds final M03 closeout, environment readiness, completion state/audit/proposal, public evidence planning, and narrowly required control-plane validation. It does not start M04 or change product runtime behavior.
 
 ## Next action
 
-After successful exact-head CI, merge PR #59 through the human-controlled thread `Merge M03.06 PR - MoneyEvent QA and Closeout`. Codex must not merge it. After the PR merges, the next thread is `M03 Milestone Closeout - Canonical MoneyEvent Engine`; do not move the active plan, create final closeout, or start M04 before that formal closeout.
+Complete PR [#60](https://github.com/Islem-Rezzag/CausalLedger/pull/60) independent QA and scoped corrections, verify final reviewed-state CI, then stop for human review, merge and explicit target selection. The final verdict and exact SHA/CI evidence live in the PR review record. No M04 plan or implementation begins before both gates clear.
 
-## Latest validation
+Natural-language continuation is sufficient: “Merged #60. I approve V1_PUBLIC_PRODUCT. Continue.” The coordinator discovers and verifies the actual merge SHA and reviewed changes. The example and recommendation are not approval.
 
-- 2026-08-04 M03.06 Builder validation passed: control plane; 106 bootstrap tests; `git diff --check`; frozen install across 14 workspace projects; events typecheck/build/lint/format and 97 tests; evals typecheck/build/lint/format and 42 tests; full typecheck, lint, test, build, and format across all 13 packages; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 expected `SKIPPED`.
-- 2026-08-06 independent M03.06 QA passed after a complete diff and MoneyEvent audit. Scoped fixes bind readiness phrases to their required sections, add lifecycle/filesystem/later-milestone/capability mutation failures, and raise bootstrap coverage from 106 to 116 tests. The unchanged fixture corpus was independently confirmed at exactly 21/8/13. No runtime, fixture, seed, dependency, lockfile, financial-truth, or forbidden-scope defect was found.
-- M03.06 QA validation passed: control plane; 116 bootstrap tests; whitespace diff check; frozen install across 14 projects; events checks with 97 tests; evals checks with 42 tests; all five checks across 13 workspace packages; and dirty-mode QA with 17 `PASS`, 0 `FAIL`, and 2 expected `SKIPPED`.
-- Git/GitHub metadata confirms PRs #47 through #58 are closed and merged with expected merge commits. PR #56/#57 have identical tree `e7a985be616b116ff73a028018304c2b776857b2` and zero file differences.
-- PR #58 merge proof passed through squash-merge commit ancestry, exact source/merge tree equality, zero-file diff, clean whitespace, and GitHub metadata. Source ancestry is not applicable to the squash merge.
-- Artifact, acceptance, implementation, fixture/seed, test-quality, determinism, immutability, public API, package/dependency, security/data-hygiene, financial-truth, adversarial, and forbidden-scope audits passed. No runtime, fixture, seed, dependency, or lockfile defect was found.
-- Docker validation was optional and skipped because infrastructure is unchanged and Docker is unavailable. `make` and GitHub CLI are unavailable; required direct checks passed, and the connected GitHub integration supplied PR metadata.
-- The frozen install emitted only the known non-blocking pnpm update notice and ignored-build-script warning for `esbuild@0.28.0`.
+## Historical Phase A validation (2026-08-18)
 
-## Terminology note
+- PR #59 merge proof: PASS; merge ancestor, exact reviewed-tree equality, empty source-to-merge name-status/stat diffs, and GitHub closed/merged metadata.
+- PR #59 exact-head CI run `31262860836`: PASS; `validate` and `infra-smoke` successful.
+- Pre-edit local baseline: control plane PASS; 116 bootstrap tests PASS; frozen install PASS across 14 projects; typecheck/lint/test/build/format PASS across 13 packages; 150 workspace tests PASS; `qa:dev` 18 PASS / 0 FAIL / 1 optional Docker SKIPPED.
+- Detached clean-worktree reproduction at exact synchronized `main`: frozen install PASS, `qa:dev` 18/0/1, Git clean, temporary location removed.
+- Scaffold smoke: API process-only readiness PASS, web HTTP shell PASS, worker bootstrap exit PASS.
+- Final dirty Phase A ladder: PASS; 117 bootstrap tests, frozen install, all 13-package typecheck/lint/test/build/format checks, 150 workspace tests, and `qa:dev --allow-dirty` with 17 PASS / 0 FAIL / 2 expected SKIPPED.
+- Committed clean validation at `c5876c4d3e7f91b036d4ee3ae9eb538460a3de11`: `qa:dev` PASS with 18 PASS / 0 FAIL / 1 optional Docker SKIPPED. Initial local/remote branch hashes matched before PR #60 opened.
 
-M03.03 mapping fixtures and verifier-driven loop strategy remain planning only. M03.05 fixtures are controlled synthetic test candidates, not raw or production evidence. MoneyFlowBench records are seed metadata, not benchmark execution or results.
+## Current QA validation (2026-09-24)
+
+Initial candidate `941fe1984eb418db19cda9a4e2be861dacbf79e2` passed clean `qa:dev` (18 PASS, 0 FAIL, one optional Docker skip) and remote CI run `32160971074`. Independent review found premature closeout claims, a final-closeout validation gap, and stale continuation/environment instructions. The coordinator corrected these within PR #60. Corrected control-plane validation and whitespace checks pass; 132 bootstrap tests pass, including failed/relocated closeout and all six unauthorized-target mutations. The corrected workspace ladder also passed frozen install, typecheck, lint, test, build and formatting: `qa:dev --allow-dirty` reported 17 PASS, 0 FAIL, two expected skips (dirty-worktree gate and Docker). Final reviewer verdict and exact-head local/CI evidence must be verified in PR #60 before merge. Product runtime is unchanged.
+
+## Environment status
+
+Overall: Ready with limitations. Node 22.16.0, pnpm 10.32.1, Git 2.49.0, Python 3.13.1, dependency install, tests, builds, and current scaffold starts pass. The 2026-09-24 recheck confirms authenticated GitHub CLI 2.97.0 and Codex 0.155.0-alpha.9.2, with native Goals and separate reviewer subagents available. Docker/Compose and `make` remain unavailable locally. Free memory was approximately 0.87 GiB at recheck. No live-model calls or budget are approved; historical key-presence evidence is dated 2026-08-18. Remote infrastructure evidence does not prove local Docker operation.
 
 ## Product implementation status
 
-Scoped product runtime behavior consists only of source-neutral MoneyEvent candidate validation and deterministic normalization in `packages/events`. Structural or fixture success does not establish evidence authenticity, settlement, accounting direction, financial correctness, ledger eligibility, benchmark performance, or financial truth.
+Scoped product runtime behavior consists only of source-neutral MoneyEvent candidate validation and deterministic normalization in `packages/events`, supported by compile-time types, 21 controlled synthetic fixtures, seven seed metadata records, and deterministic tests.
 
-LLM output remains advisory. It cannot mutate money, raw evidence, ledger state, deterministic invariant results, or repair approval.
+No source-specific mapping, ingestion, storage, product database, ledger, invariant, simulator execution, incident, graph, replay, repair, agent, human-review runtime, benchmark scoring/result, product UI, connector, production deployment, raw-evidence mutation, repair approval, ledger posting, or money mutation exists. Structural or fixture success is not financial truth.
+
+## Goal state
+
+`docs/status/PROJECT_COMPLETION_GOAL.json` is authoritative machine-readable state. `approvedReleaseTarget` is `PENDING_HUMAN_APPROVAL`. Recommend `V1_PUBLIC_PRODUCT` as the full destination, with `V0_6_BENCHMARK_DEMO` as an intermediate checkpoint. Existing JSON recommendation fields retain those intermediate and destination meanings. M03 is publishable only as a technical foundation after the Phase A PR merges.
