@@ -30,4 +30,4 @@ Current-slice validation and QA status live in the active plan and current state
 
 ## Next gate
 
-Independent M04 planning QA, required final-head CI, then human PR review/merge. Do not start M04.01 until that planning PR has merged. On “Merged. Continue.” recover GitHub metadata and durable state, verify the merge, and execute the next authorized brief.
+Human review/merge of PR #61 after its final-SHA record confirms independent QA PASS, clean-worktree QA and required CI. Do not start M04.01 until that planning PR has merged. On “Merged. Continue.” recover GitHub metadata and durable state, verify the merge, and execute the next authorized brief.

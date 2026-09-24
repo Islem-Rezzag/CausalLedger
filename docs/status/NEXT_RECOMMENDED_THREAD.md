@@ -1,10 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-M04 Planning QA - Double-entry Ledger Core
+Merge M04 Planning PR - Double-entry Ledger Core
 
 Precondition:
-Builder validation passes on `m04-planning-double-entry-ledger-core`; the same planning PR and exact candidate are supplied to a separate-context read-only reviewer. The existing M04 plan is authoritative; target V1 and PR #60 merge are verified.
+PR #61 on `m04-planning-double-entry-ledger-core` must have independent QA PASS, clean-worktree validation and required CI on the same final reviewed SHA, as recorded in the PR. Initial planning review passed; the confirmed malformed-phase diagnostic correction has list/object regression coverage. Only the human may merge.
 
 Scope:
-Review the full planning/control-plane diff, approval and merge guards, all 18 preserved submilestones, deterministic edge cases, environment gates and forbidden runtime scope. Coordinator fixes confirmed findings; reviewer checks the final revision. After PASS and exact-head CI, stop for human merge. M04.01 Account schema starts only after verified planning merge, with a coordinator-generated brief and its own branch/PR.
+Human review and merge of PR #61. On “Merged #61. Continue.” the coordinator verifies GitHub merge metadata, reviewed/merged content and clean main, then generates and executes M04.01 Account schema on `m04-01-account-schema`. Keep all later rows unstarted and follow the active M04 plan. V1 is already approved; no new target selection or user-supplied brief/hash is required.

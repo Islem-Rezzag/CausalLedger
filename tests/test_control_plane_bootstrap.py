@@ -1351,6 +1351,8 @@ def test_17r_pending_and_explicitly_approved_goal_lifecycles_are_valid():
         ("latestMergedPr", 59, "latest merged PR must be 60"),
         ("latestMergeCommit", "f160a7d2bc0d6163ee73b36c1546419134f11ca3", "latest merge commit is invalid"),
         ("currentPhase", "M04_IMPLEMENTATION", "unsupported lifecycle phase"),
+        ("currentPhase", [], "unsupported lifecycle phase"),
+        ("currentPhase", {}, "unsupported lifecycle phase"),
     ],
 )
 def test_17s_m04_activation_rejects_incomplete_or_contradictory_authority(field, value, expected):

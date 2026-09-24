@@ -13,8 +13,9 @@ Current slice: M04 planning only, on `m04-planning-double-entry-ledger-core`. Al
 - [x] 2026-09-24: Recorded the user's explicit V1 selection and its provenance in the existing goal state; no generated instruction is treated as approval.
 - [x] 2026-09-24: Fast-forwarded clean main to the verified merge, created the planning branch, and passed branch/status/origin guard before editing. Existing user branches and temporary files were preserved.
 - [x] 2026-09-24: Defined the 18-row sequence, dependencies, acceptance, tests, safety boundaries, and environment gates below.
-- [ ] Run planning validation and independent review; fix only confirmed findings.
-- [ ] Open one planning PR, verify final-head CI, and stop for human merge.
+- [x] Run planning validation and initial independent review; fix the confirmed malformed-phase diagnostic finding with list/object regression tests.
+- [x] Open one planning PR: #61. Initial clean QA and both CI jobs pass.
+- [ ] Confirm the final revision review/clean QA/CI in the SHA-bound PR #61 record, then human review and merge. No new tracking commit is needed solely to copy that external result.
 
 ## Surprises & Discoveries
 
@@ -110,10 +111,18 @@ Handoff must record branch, PR, reviewed SHA, changes, commands/results, skipped
 
 ## Outcomes & Retrospective
 
-Builder planning is complete and awaiting independent QA. M03 closeout and explicit V1 approval have been verified. Ledger functionality remains unimplemented. The next gate is independent QA and human merge of this planning PR, followed by M04.01; no user-supplied builder or QA prompt is required.
+Planning and initial independent review are complete. M03 closeout and explicit V1 approval have been verified. Ledger functionality remains unimplemented. The next gate is human merge of PR #61 after the final-SHA review/QA/CI record confirms readiness, followed by M04.01; no user-supplied builder or QA prompt is required.
 
 ## Builder validation and handoff (2026-09-24)
 
 Builder status: **Builder complete, awaiting QA**. Control-plane validation PASS; bootstrap suite passes with 167 collected cases after the pending-active-plan regression; whitespace PASS. Full `corepack pnpm qa:dev --allow-dirty` PASS with 17 PASS / 0 FAIL / 2 expected skips (dirty-worktree requirement, optional local Docker). Frozen install and all workspace typecheck/lint/test/build/format checks pass; product sources are unchanged. The final clean-worktree and exact-head CI checks remain required after independent review.
 
 New file: this plan. Other changed files are the goal, current/next/weekly status, registry/milestone/roadmap/navigation, merged-M03 historical addenda, approval transition validator and bootstrap tests. No app/package, fixture/seed, dependency/lockfile, infrastructure/migration or workflow file changes. No new product functionality. Local Docker and make remain unavailable; direct Python substitutes for make; no live-model evaluation is applicable. Safe to commit, push and open a draft planning PR; not safe to merge before independent PASS and final CI. Next: M04 Planning QA - Double-entry Ledger Core.
+
+## Independent review and corrected handoff (2026-09-24)
+
+PR: [#61](https://github.com/Islem-Rezzag/CausalLedger/pull/61). Separate-context read-only reviewer `m04_planning_qa` reviewed builder `045191cf77e40ba169c3659c970e0b7bb4628f97`: planning/safety PASS, with one confirmed diagnostic correction. A malformed list/object `currentPhase` failed closed by raising an exception; membership now returns an explicit unsupported-phase error. Both inputs have regression coverage. No approval bypass or ledger behavior was involved.
+
+Corrected validation: `python scripts/validate-control-plane.py` PASS; `python -m pytest tests/test_control_plane_bootstrap.py -q` 169 PASS; `git diff --check` PASS. Initial builder clean detached `corepack pnpm qa:dev` passed 18/0/1 (optional local Docker skipped), including frozen install, 150 workspace tests and typecheck/lint/build/format; warm dependency store, initially clean task outputs. Initial exact-head CI `36016230003` passed validate and infra-smoke. Final revision re-review, clean QA and CI must be recorded together with its SHA in PR #61 before readiness; those results are not inferred from the initial candidate.
+
+Changed since builder: validator membership handling, two regression cases, and this handoff plus goal/current/next/milestone/weekly tracking. Full slice file list is the PR diff. Unchanged: product packages/apps, fixtures/seeds, dependencies, infrastructure, migrations, CI and release acceptance. Outstanding limitations: local Docker/make unavailable; no ledger implementation or live-model evaluation. Scoped correction is safe to commit/push; merge readiness depends on the final external review record, and only the human merges. Exact next thread: Merge M04 Planning PR - Double-entry Ledger Core; after verified merge, M04.01 Account schema.

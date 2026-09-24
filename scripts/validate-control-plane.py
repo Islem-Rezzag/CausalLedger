@@ -1847,7 +1847,7 @@ def validate_project_completion_goal(goal_state: object) -> list[str]:
         expected_pr = 60
         expected_merge = M03_CLOSEOUT_MERGE_EVIDENCE["mergeCommit"]
     else:
-        if phase not in {"PHASE_A_CLOSEOUT_AND_AUDIT", "PHASE_A_CLOSEOUT_REVIEW_AND_HUMAN_GATE"}:
+        if phase not in ("PHASE_A_CLOSEOUT_AND_AUDIT", "PHASE_A_CLOSEOUT_REVIEW_AND_HUMAN_GATE"):
             errors.append("PROJECT_COMPLETION_GOAL.json unsupported lifecycle phase")
         if target != "PENDING_HUMAN_APPROVAL":
             errors.append("PROJECT_COMPLETION_GOAL.json target must await human approval")

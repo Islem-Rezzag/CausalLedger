@@ -1103,3 +1103,9 @@
 - Created CLP-0005 M04 planning on `m04-planning-double-entry-ledger-core`; all 18 IDs/names and acceptance criteria retained, all implementation rows unstarted. No runtime/data/dependency/infra/workflow changes.
 - Builder validation: control-plane and bootstrap PASS (167 cases), whitespace PASS, full workspace qa:dev --allow-dirty 17/0/2 expected skips. Independent review and final clean-state/CI still required. Docker/make unavailable; no install or paid calls.
 - Next: separate-context M04 Planning QA, then human planning-PR merge before M04.01.
+
+## 2026-09-24 - M04 planning independent review and PR #61 handoff
+
+- Separate-context reviewer `m04_planning_qa` completed planning/safety review on `045191cf77e40ba169c3659c970e0b7bb4628f97`; no scope, requirement, provenance or financial-boundary defects. Confirmed one malformed-phase diagnostic issue, corrected with list/object regressions; validation now passes 169 bootstrap cases and whitespace/control-plane checks.
+- Initial clean detached QA passed 18/0/1, including 150 workspace tests; initial CI `36016230003` passed both jobs. Final revision re-review, clean QA and exact-head CI are required in the SHA-bound PR #61 record before readiness.
+- Updated handoff/goal tracking to PR #61. Human merge is the next gate; M04.01 remains unstarted. Product files, dependencies and all release criteria remain unchanged.

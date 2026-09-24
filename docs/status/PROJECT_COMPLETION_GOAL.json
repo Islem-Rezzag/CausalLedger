@@ -16,12 +16,12 @@
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
   "currentMilestone": "M04_PLANNING",
   "currentBranch": "m04-planning-double-entry-ledger-core",
-  "currentPr": null,
+  "currentPr": 61,
   "latestMergedPr": 60,
   "latestMergeCommit": "3df6f88b1b64b5456554654b7e27adcfa99c3ff6",
   "environmentReadiness": "READY_WITH_LIMITATIONS",
-  "localTestStatus": "BUILDER_CONTROL_AND_167_BOOTSTRAP_PASS_WORKSPACE_QA_17_PASS_0_FAIL_2_EXPECTED_SKIPS",
-  "remoteCiStatus": "PR_60_FINAL_REVIEWED_HEAD_F160A7D2_RUN_36011283395_SUCCESS_M04_CI_PENDING",
+  "localTestStatus": "CONTROL_AND_169_BOOTSTRAP_PASS_INITIAL_CLEAN_QA_18_PASS_0_FAIL_1_DOCKER_SKIP_FINAL_SHA_RECORD_IN_PR_61",
+  "remoteCiStatus": "INITIAL_M04_HEAD_045191C_RUN_36016230003_SUCCESS_FINAL_SHA_RECORD_IN_PR_61",
   "dockerStatus": "UNAVAILABLE_LOCALLY_REMOTE_INFRA_SMOKE_AVAILABLE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -54,7 +54,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "M04 planning requires independent QA, exact-head CI and human merge before M04.01",
+    "M04 planning PR #61 requires final-SHA independent QA/CI record and human merge before M04.01",
     "local Docker/Compose or approved equivalent Postgres environment required before storage-dependent slices can close",
     "no live-model provider/model/call-count/budget approved"
   ],
@@ -71,9 +71,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "VALIDATE_AND_INDEPENDENTLY_REVIEW_M04_PLANNING_THEN_HUMAN_MERGE",
-  "stopReason": "M04_PLANNING_PR_MUST_PASS_QA_CI_AND_HUMAN_MERGE_BEFORE_M04_01",
-  "lastUpdatedTimestamp": "2026-09-24T14:53:40Z",
+  "exactNextAction": "HUMAN_MERGE_PR_61_AFTER_FINAL_SHA_QA_AND_CI_PASS",
+  "stopReason": "HUMAN_PLANNING_PR_MERGE_REQUIRED_BEFORE_M04_01",
+  "lastUpdatedTimestamp": "2026-09-24T14:59:48Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
