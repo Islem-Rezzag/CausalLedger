@@ -1142,3 +1142,7 @@ Verified PR #63 human merge `1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d`, exact re
 
 
 M04.03 Builder complete, awaiting QA: new entry source/runtime/type tests/spec; positive bounded decimal wire amounts become exact bigint, explicit side and supplied Account/header references checked. Fresh ledger354/control301/events97 PASS; workspace503 (12 unchanged package tasks cached), intermediate QA17/0/2 PASS. Strict test typing/BigInt labels/default helper and status wording corrected; no assertions weakened. Account/transaction implementation preserved, own Entry reference checks reject terminal-newline IDs. Independent review/final clean QA/CI/human merge remain; M04.04 unstarted.
+
+## 2026-09-30 - M04.03 independent QA correction
+
+PR #64 candidate `dd5f5fc1b2aa8c0688236a34bc939aa4dcd60a7e`: separate-context reviewer `m04_02_qa` returned QA FAIL for one P3 spec parsing-order overstatement; runtime/control/scope PASS, no other findings. Corrected the sentence to distinguish lexical/length checks before exact parsing from the maximum comparison after parsing; no code/tests/policy change. Fresh independent ledger 354/control 301 and supplemental runtime 159/lifecycle 81 PASS. Coordinator clean QA 18/0/1 and exact Builder CI `36788382000` both jobs PASS. Corrected-state review/final handoff gates pending; current slice stays Builder complete, awaiting QA, PR draft, M04.04 unstarted.

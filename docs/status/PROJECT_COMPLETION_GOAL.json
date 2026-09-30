@@ -16,12 +16,12 @@
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
   "currentMilestone": "M04.03",
   "currentBranch": "m04-03-ledger-entry-schema",
-  "currentPr": null,
+  "currentPr": 64,
   "latestMergedPr": 63,
   "latestMergeCommit": "1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d",
   "environmentReadiness": "READY_WITH_LIMITATIONS",
-  "localTestStatus": "BUILDER_PASS_354_LEDGER_301_CONTROL_503_WORKSPACE_QA_17_PASS_0_FAIL_2_EXPECTED_SKIPS",
-  "remoteCiStatus": "M04_03_FINAL_CI_PENDING",
+  "localTestStatus": "QA_DOC_CORRECTION_REQUIRED_RUNTIME_CONTROL_SCOPE_PASS",
+  "remoteCiStatus": "M04_03_BUILDER_CI_PASS_FINAL_CI_PENDING",
   "dockerStatus": "UNAVAILABLE_LOCALLY_REMOTE_INFRA_SMOKE_AVAILABLE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -73,9 +73,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "INDEPENDENT_QA_M04_03_LEDGER_ENTRY_SCHEMA",
-  "stopReason": "M04_03_INDEPENDENT_REVIEW_AND_FINAL_CI_REQUIRED",
-  "lastUpdatedTimestamp": "2026-09-30T22:52:19Z",
+  "exactNextAction": "INDEPENDENT_QA_RETRY_M04_03_LEDGER_ENTRY_SCHEMA",
+  "stopReason": "M04_03_DOCUMENTATION_CORRECTION_REREVIEW_REQUIRED",
+  "lastUpdatedTimestamp": "2026-09-30T23:02:26Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",

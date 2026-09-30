@@ -12,7 +12,7 @@ Scope: pure entry amount/reference validation against supplied Account/transacti
 
 ## Next action
 
-Commit/push scoped Builder and one draft PR, then independent same-branch QA; final reviewed-head clean QA and CI, then human merge before M04.04.
+PR #64 exists on the expected branch. Independent QA requires one documentation wording correction, now applied; re-review the corrected candidate, then final handoff/clean QA/CI and human merge before M04.04.
 
 ## Latest validation
 
@@ -25,3 +25,5 @@ Pinned tools; optional Docker/make unavailable at prior inventory, direct Python
 ## Product implementation status
 
 Source-neutral MoneyEvent validation/normalization and Account/transaction header metadata validation exist. M04.03 entry wire/amount/reference validation is implemented on this branch, Builder complete, awaiting QA and human merge. No balancing/posting/balances/storage/reversals/evidence authentication/durable idempotency or agent financial authority. Structural metadata is not financial truth.
+
+Independent candidate review of `dd5f5fc1b2aa8c0688236a34bc939aa4dcd60a7e`: runtime/control/scope PASS, overall QA FAIL only for inaccurate parsing-order wording in the entry spec. Corrected lexical/length-before-parse and exact-maximum-after-parse description; implementation/tests unchanged. Fresh reviewer ledger 354/control 301 and supplemental runtime 159/lifecycle 81 PASS. Coordinator candidate clean QA 18/0/1 and CI `36788382000` validate/infra-smoke PASS. Corrected-state review remains required; PR stays draft.
