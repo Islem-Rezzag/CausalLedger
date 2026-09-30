@@ -1122,3 +1122,9 @@
 - Independent reviewer `m04_01_qa` PASS on `29113462eb7c709acff2efc020c1c9b2f95f3408`, no findings. Independently passed 191 control-plane/117 ledger tests and package/static/scope checks, plus supplemental malformed-input/lifecycle probes.
 - Same candidate clean detached QA passed 18/0/1 (266 workspace tests); CI `36020455110` passed both jobs. Final handoff revision re-review, clean QA and CI belong in the exact-SHA PR #62 record.
 - M04.01 marked QA passed, awaiting merge; human merge gate remains. No product code changed during QA handoff; M04.02 and all later rows remain Not started.
+
+## 2026-09-30 - M04.01 merge and M04.02 start
+
+Verified PR #62 human merge `44f6a833692326d00ed5a9b7479a52dd761af814`, fetched-main reachability and exact reviewed/merged tree `0c37706283fa90e3455fab4541a0eeb5209fb973`. Final review/CI evidence covers `9d0db74c1349596b579aab510c6f9e7ff00642b0`. Finalized M04.01; safely advanced clean main and created `m04-02-ledger-transaction-schema`. M04.02 generated brief and Builder in progress records added; validation pending. M04.03 and later remain Not started; V1/safety/installation/budget/publication gates preserved.
+
+M04.02 Builder complete, awaiting QA: transaction header/provenance contract and strict pure validator/tests implemented; fresh ledger 230, control-plane 237 and events 97 PASS; workspace 379 (12 unchanged tasks cached). Intermediate QA 17/0/2 PASS; final independent/clean/CI gates pending. No entry/posting/storage or financial authority.

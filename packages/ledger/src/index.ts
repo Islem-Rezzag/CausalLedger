@@ -7,6 +7,24 @@ export {
   validateAccountCandidate,
   validateAccountCatalog,
 } from "./account.js";
+
+export {
+  LEDGER_TRANSACTION_CONTRACT_VERSION,
+  LEDGER_TRANSACTION_STATUSES,
+  validateLedgerTransactionCandidate,
+} from "./ledger-transaction.js";
+export type {
+  LedgerTransaction,
+  LedgerTransactionCandidate,
+  LedgerTransactionId,
+  LedgerTransactionStatus,
+  LedgerTransactionSourceReference,
+  LedgerTransactionEvidenceReference,
+  LedgerTransactionProvenance,
+  LedgerTransactionIssueCode,
+  LedgerTransactionValidationIssue,
+  LedgerTransactionValidationResult,
+} from "./ledger-transaction.js";
 export type {
   Account,
   AccountCandidate,
@@ -24,10 +42,11 @@ export type {
 
 export const ledgerPackageBoundary = Object.freeze({
   packageName: "@causalledger/ledger",
-  status: "account-schema-boundary",
+  status: "ledger-schema-boundary",
   accountSchemaImplemented: true,
   deterministicAccountValidationImplemented: true,
-  transactionSchemaImplemented: false,
+  transactionSchemaImplemented: true,
+  deterministicTransactionValidationImplemented: true,
   entrySchemaImplemented: false,
   postingImplemented: false,
   balanceQueriesImplemented: false,

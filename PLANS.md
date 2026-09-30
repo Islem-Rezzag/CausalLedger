@@ -32,11 +32,11 @@ Use `CLP-0001-short-name.md`. Increment the number monotonically and keep the sh
 - Completed plans move to `plans/completed/`.
 - Archived or stale plans move to `plans/archived/`.
 
-Current active milestone plan: `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. V1 target approved; M04.01 Account schema only.
+Current active milestone plan: `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. V1 target approved; M04.02 LedgerTransaction schema only.
 
 The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04 planning PR #61 is reviewed and human-merged at `17a6e85e81cdddc36381defbffc80a7636cee151`. M04.01 Define Account schema is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.02-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`. The completed M03 plan remains in `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md`.
+M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01 Account schema PR #62 human-merged at `44f6a833692326d00ed5a9b7479a52dd761af814`, matching its reviewed tree. M04.02 Define LedgerTransaction schema is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.03-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`. The completed M03 plan remains in `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md`.
 
 Progress is recorded in the active plan during the slice. Submilestone status is recorded in `docs/milestones/SUBMILESTONE_REGISTRY.md`, reflected in the relevant milestone doc, and summarized in `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md`.
 

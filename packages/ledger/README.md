@@ -1,6 +1,6 @@
 # Ledger Package
 
-`@causalledger/ledger` owns the M04.01 Account schema and deterministic metadata validation.
+`@causalledger/ledger` owns M04.01 Account and M04.02 LedgerTransaction metadata schemas and deterministic validation.
 
 The original M02.05 scaffold supplied:
 
@@ -16,4 +16,6 @@ The contract requires explicit `acct_`/`ldg_` ULIDs, owner namespace/reference, 
 
 See [the account contract](../../docs/specs/account-schema.md) for exact fields, identity, sign, lifecycle and input limits. Run `corepack pnpm --filter @causalledger/ledger test` for the executable synthetic demonstration and `corepack pnpm --filter @causalledger/ledger typecheck` for compile-time boundaries.
 
-Account validation is structural metadata consistency, not financial truth, authorization, durable uniqueness or lifecycle approval. There are no LedgerTransaction/Entry schemas, ledger postings, balances, reversals, storage, database behavior, business account factories, agents or money mutation. Other packages retain their declared boundaries. Later M04 slices remain unimplemented.
+`validateLedgerTransactionCandidate(unknown)` validates supplied header identity, ledger namespace, status, two UTC clocks, retry key and explicit source/event/receipt/hash references. It returns a detached frozen snapshot or stable issues, with no partial output. Repeated receipt identities with conflicting hashes reject. See [the transaction contract](../../docs/specs/ledger-transaction-schema.md) and the executable synthetic demonstration in ledger tests.
+
+Account and transaction validation establish structural metadata consistency, not financial truth, evidence authenticity, authorization, durable uniqueness, exactly-once occurrences or lifecycle approval. A caller-supplied `posted` header does not post or verify a journal. There are no LedgerEntry schemas, ledger postings, balances, reversals, storage, database behavior, business account factories, agents or money mutation. Other packages retain their boundaries. M04.03 and later remain unimplemented. No dependency was added.
