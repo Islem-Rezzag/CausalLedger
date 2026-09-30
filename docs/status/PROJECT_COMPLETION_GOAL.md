@@ -14,7 +14,7 @@ PR #60 merged at `3df6f88b1b64b5456554654b7e27adcfa99c3ff6` on 2026-09-24. Its r
 
 M04.01 human-merged in PR #62 at `44f6a833692326d00ed5a9b7479a52dd761af814`, equal to reviewed head `9d0db74c1349596b579aab510c6f9e7ff00642b0` tree `0c37706283fa90e3455fab4541a0eeb5209fb973` and reachable from fetched main. Final independent QA and CI `36020971358` PASS. Post-merge tracking is finalized within the next legitimate slice.
 
-M04.02 Define LedgerTransaction schema under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, branch `m04-02-ledger-transaction-schema`. Execute its generated brief: strict supplied transaction metadata/provenance/references, deterministic validation and tests; no entries, postings, balances, storage or financial authority. Commit/push scoped paths, independent QA and one PR, exact-head CI, then stop for human merge. M04.03 and later stay unstarted.
+M04.02 Define LedgerTransaction schema under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, branch `m04-02-ledger-transaction-schema`. Execute its generated brief: strict supplied transaction metadata/provenance/references, deterministic validation and tests; no entries, postings, balances, storage or financial authority. Independent implementation QA PASS and one PR [#63](https://github.com/Islem-Rezzag/CausalLedger/pull/63) exist; only documentation handoff records change after the reviewed Builder. Finish final-head re-review, clean QA and CI in its SHA-bound PR record, then stop for human review/squash merge. M04.03 and later stay unstarted.
 
 ## Authority and safety
 
@@ -30,4 +30,4 @@ Current-slice validation and QA status live in the active plan and current state
 
 ## Next gate
 
-M04.02 behavioral/control-plane/workspace validation, independent review and exact-head CI, followed by human merge. Preserve V1 scope and all later permission gates. On a natural-language merge confirmation recover actual GitHub metadata and execute the next legitimate brief.
+Human review and merge PR #63 after exact-final-head review, clean QA and CI PASS. Initial independent review and clean QA passed on `6e2cba186a8b7fcc98c83f253ff28d3625c4aa5a`; CI `36784155944` passed both jobs. Final handoff revision results belong in the actual-SHA PR record. Preserve V1 scope and all later permission gates. On a natural-language merge confirmation recover actual GitHub metadata and execute the next legitimate brief.

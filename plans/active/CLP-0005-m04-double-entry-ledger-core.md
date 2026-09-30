@@ -4,7 +4,7 @@
 
 Plan M04's deterministic ledger primitives using the approved MoneyEvent boundary, M01 ledger vocabulary, and ADR-0008. The human explicitly approved `V1_PUBLIC_PRODUCT` on 2026-09-24: “Merged #60. I approve V1_PUBLIC_PRODUCT. Continue.” v0.6 is an intermediate checkpoint, not a replacement target. This approval authorizes the existing roadmap and routine delivery; it does not authorize live financial writes, repair approval, paid calls, system installation, material architecture changes, release tags, deployment, or publication.
 
-Current slice: M04.02 Define LedgerTransaction schema, on `m04-02-ledger-transaction-schema`. PR #62 human-merged at `44f6a833692326d00ed5a9b7479a52dd761af814` on 2026-09-30, reachable from fetched main and sharing exact tree `0c37706283fa90e3455fab4541a0eeb5209fb973` with reviewed head `9d0db74c1349596b579aab510c6f9e7ff00642b0`. Final independent QA and CI `36020971358` passed before merge. M04.01 is Completed and merged; M04.02 is Builder complete, awaiting QA; M04.03-M04.18 and M05-M21 remain Not started. Earlier dated records below are historical.
+Current slice: M04.02 Define LedgerTransaction schema, on `m04-02-ledger-transaction-schema`. PR #62 human-merged at `44f6a833692326d00ed5a9b7479a52dd761af814` on 2026-09-30, reachable from fetched main and sharing exact tree `0c37706283fa90e3455fab4541a0eeb5209fb973` with reviewed head `9d0db74c1349596b579aab510c6f9e7ff00642b0`. Final independent QA and CI `36020971358` passed before merge. M04.01 is Completed and merged; M04.02 is QA passed, awaiting merge in PR #63, subject to final-head re-review/clean QA/CI; M04.03-M04.18 and M05-M21 remain Not started. Earlier dated records below are historical.
 
 ## Progress
 
@@ -20,7 +20,8 @@ Current slice: M04.02 Define LedgerTransaction schema, on `m04-02-ledger-transac
 - [x] Implement and validate M04.01; separate-context QA PASS on candidate `29113462eb7c709acff2efc020c1c9b2f95f3408`, no findings.
 - [x] 2026-09-30: PR #62 final-head QA/CI verified and human merge recovered; exact reviewed/merged tree equality and main reachability PASS. M04.01 finalized as Completed and merged.
 - [x] 2026-09-30: Safe main fast-forward and new M04.02 branch; branch/status/origin guard passed clean before edits.
-- [ ] Implement, validate and independently review M04.02; one PR, final-head CI and human merge before M04.03.
+- [x] Implement and validate M04.02; independent implementation QA PASS with no findings, one PR #63.
+- [ ] Final handoff revision re-review, clean QA and exact-head CI in PR #63, then human merge before M04.03.
 
 ## Surprises & Discoveries
 
@@ -116,7 +117,7 @@ Handoff must record branch, PR, reviewed SHA, changes, commands/results, skipped
 
 ## Outcomes & Retrospective
 
-Planning PR #61 and Account PR #62 are reviewed and human-merged. M04.02 transaction header metadata implementation is in progress with deterministic tests; no entries, posting, balances, storage, lifecycle execution or financial authority. Current validation/review evidence will be appended below; M04.03 remains unstarted.
+Planning PR #61 and Account PR #62 are reviewed and human-merged. M04.02 transaction header metadata implementation has independent QA PASS, awaiting final-head gates and human merge in PR #63; no entries, posting, balances, storage, lifecycle execution or financial authority. Current validation/review evidence will be appended below; M04.03 remains unstarted.
 
 ## Planning builder validation and handoff (2026-09-24)
 
@@ -200,3 +201,15 @@ Fresh ledger `typecheck`, `test` (230), `lint`, `build`, `format:check` PASS; Py
 Routine Builder corrections: UTF-8 file reading, compile-time negative-test annotation placement and canonical status-document labels; no runtime acceptance assertion was weakened. CRLF warnings were resolved to repository LF for inspected scoped files; final whitespace check has no warning. Residual limits: parsed-data boundary does not sandbox arbitrary Proxy code, authenticate evidence, enforce ownership/durable uniqueness or infer accounting eligibility; posted status is supplied metadata only. Future money/storage/idempotency/reversal and evidence-ownership decisions remain pending in the brief, without scope amendment.
 
 Safe to commit/push/open one draft PR: yes. Safe to merge: not yet; independent QA, final clean candidate checks/CI and human review/merge required. Exact next thread: **M04.02 QA - Define LedgerTransaction schema**. M04.03 remains Not started.
+
+## M04.02 independent QA and PR #63 merge handoff (2026-09-30)
+
+Status: **QA passed, awaiting merge**. PR [#63](https://github.com/Islem-Rezzag/CausalLedger/pull/63), branch `m04-02-ledger-transaction-schema`. Separate-context read-only reviewer `m04_02_qa` returned **PASS, no actionable findings** on base `44f6a833692326d00ed5a9b7479a52dd761af814` through Builder candidate `6e2cba186a8b7fcc98c83f253ff28d3625c4aa5a`. Reviewer independently inspected all 28 changed files, complete runtime/type/behavior tests and control-plane transitions against the approved brief, Account/domain/evidence/MoneyEvent boundaries and all 18 M04 requirements.
+
+Independent commands: `python scripts/validate-control-plane.py`; `python -m pytest tests/test_control_plane_bootstrap.py` (237); ledger `typecheck`, `test` (230 across 5 files), `lint`, `build`, `format:check`; full-range whitespace and forbidden-path checks all PASS. Supplemental in-memory Node probes 111/111 PASS with zero getter calls; lifecycle probes 57/57 PASS with authorization helpers failing closed. These probes are separate from committed test counts. PR #62 merge/tree/main verification independently corroborated. Reviewer independently verified CI run `36784155944` passed `validate` and `infra-smoke` on the exact Builder SHA.
+
+Coordinator clean-worktree `corepack pnpm qa:dev` on that SHA passed 18 PASS / 0 FAIL / 1 optional Docker skip, with frozen install and workspace typecheck/lint/379 tests/build/format. Dependency store and task caches were warm; unchanged task outputs were reused, not cold-install proof. Fresh Builder/reviewer ledger and control suites plus fresh events regression are recorded above. Node 22.16.0, pinned pnpm 10.32.1, package TypeScript 6.0.3 and Python 3.13.1 confirmed; CI Python 3.12. Docker/make unavailable locally; direct Python equivalents passed. No Postgres, live-model or financial-write validation claim.
+
+Only QA/PR/status/registry/milestone/roadmap/capability/weekly/goal records change after the reviewed Builder candidate; no implementation or test correction was needed. Files-created/changed/untouched, commands and residual boundaries remain in the Builder handoff above and full PR diff. This documentation revision itself still requires exact-SHA reviewer recheck, clean QA and required CI; final results belong in PR #63 bound to its actual final SHA. Initial evidence never substitutes for that final record, and no extra tracking commit is required merely to copy preceding CI results.
+
+Remaining implementation findings: none. Limits remain structural metadata only: no posting, entries, balance, storage, lifecycle execution, evidence authentication, ownership/approval, durable idempotency or exactly-once guarantee. No Account/MoneyEvent change, dependencies, raw evidence or V1 scope amendment. Safe to commit/push/update the existing PR: yes. QA safe for human merge only after final-head review/clean QA/CI PASS; agents cannot merge or enable auto-merge. Exact next thread: **Merge M04.02 PR - Define LedgerTransaction schema**. After verified human merge and post-merge tracking: **M04.03 Builder - Define LedgerEntry schema**; it remains Not started now.

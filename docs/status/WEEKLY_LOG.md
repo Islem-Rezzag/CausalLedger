@@ -1128,3 +1128,9 @@
 Verified PR #62 human merge `44f6a833692326d00ed5a9b7479a52dd761af814`, fetched-main reachability and exact reviewed/merged tree `0c37706283fa90e3455fab4541a0eeb5209fb973`. Final review/CI evidence covers `9d0db74c1349596b579aab510c6f9e7ff00642b0`. Finalized M04.01; safely advanced clean main and created `m04-02-ledger-transaction-schema`. M04.02 generated brief and Builder in progress records added; validation pending. M04.03 and later remain Not started; V1/safety/installation/budget/publication gates preserved.
 
 M04.02 Builder complete, awaiting QA: transaction header/provenance contract and strict pure validator/tests implemented; fresh ledger 230, control-plane 237 and events 97 PASS; workspace 379 (12 unchanged tasks cached). Intermediate QA 17/0/2 PASS; final independent/clean/CI gates pending. No entry/posting/storage or financial authority.
+
+## 2026-09-30 - M04.02 independent QA and PR #63 handoff
+
+- Separate-context reviewer `m04_02_qa` PASS, no actionable findings, on `6e2cba186a8b7fcc98c83f253ff28d3625c4aa5a` against base `44f6a833692326d00ed5a9b7479a52dd761af814`; all 28 scoped files and approved boundaries inspected. Independent control 237/ledger 230 and static/scope checks PASS; supplemental runtime 111/lifecycle 57 probes PASS, not added to committed test counts.
+- Same candidate coordinator clean-worktree QA 18/0/1 and CI `36784155944` validate/infra-smoke PASS; workspace 379, warm dependency/task caches, not cold-install proof. Docker/make unavailable, Python substitutes passed; no database claim.
+- One PR #63 exists. This QA handoff changes documentation/tracking only; no implementation repair needed. Final handoff-head re-review, clean QA and CI must be bound to the actual SHA in PR #63 before human review/merge. M04.02 QA passed, awaiting merge; M04.03 and later unstarted. Exact next thread: Merge M04.02 PR - Define LedgerTransaction schema.
