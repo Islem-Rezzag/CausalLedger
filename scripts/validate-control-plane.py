@@ -89,6 +89,20 @@ REQUIRED_INFRA_SCRIPTS = {
 M03_ACTIVE_PLAN = "plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md"
 M04_ACTIVE_PLAN = "plans/active/CLP-0005-m04-double-entry-ledger-core.md"
 M04_PLANNING_BRANCH = "m04-planning-double-entry-ledger-core"
+M04_ACCOUNT_BRANCH = "m04-01-account-schema"
+M04_ACCOUNT_PHASE = "M04_ACCOUNT_SCHEMA"
+M04_ACCOUNT_FILES = {
+    "src/account.ts", "test/account.test.ts", "test/account-types.test.ts",
+}
+M04_PLANNING_MERGE_EVIDENCE = {
+    "pr": 61,
+    "mergeCommit": "17a6e85e81cdddc36381defbffc80a7636cee151",
+    "reviewedHead": "a2ff0ea9176c9ee37b5f851968b7f79fa8017be9",
+    "reviewedTree": "edde0f85a215bb7c664f47bb29eb961f7a76d02b",
+    "mergedTree": "edde0f85a215bb7c664f47bb29eb961f7a76d02b",
+    "ciRun": 36016966738,
+    "independentQa": "PASS",
+}
 # These records describe the actual human decision and independently verified merge.
 # They validate repository consistency, not the authenticity of arbitrary file edits.
 RELEASE_TARGET_APPROVAL = {
@@ -984,7 +998,7 @@ def validate_m03_plan_location() -> list[str]:
         errors.append("completed M03 plan must not remain in plans/active")
     if not completed_m03.is_file():
         errors.append("completed M03 plan is missing from plans/completed")
-    if active_plan_files() and not m04_planning_is_authorized():
+    if active_plan_files() and not m04_active_plan_is_authorized():
         errors.append("plans/active must remain empty while target approval is pending")
     return errors
 
@@ -1833,19 +1847,31 @@ def validate_project_completion_goal(goal_state: object) -> list[str]:
         errors.append("PROJECT_COMPLETION_GOAL.json permitted target list is invalid")
     phase = goal_state.get("currentPhase")
     target = goal_state.get("approvedReleaseTarget")
-    if phase == "M04_PLANNING":
+    if phase in ("M04_PLANNING", M04_ACCOUNT_PHASE):
         if target != RELEASE_TARGET_APPROVAL["target"]:
             errors.append("M04 planning requires the recorded V1_PUBLIC_PRODUCT approval")
         if goal_state.get("releaseTargetApproval") != RELEASE_TARGET_APPROVAL:
             errors.append("M04 planning requires the explicit human approval record")
         if goal_state.get("closeoutMergeEvidence") != M03_CLOSEOUT_MERGE_EVIDENCE:
             errors.append("M04 planning requires verified PR #60 closeout merge evidence")
-        if goal_state.get("currentBranch") != M04_PLANNING_BRANCH:
-            errors.append("M04 planning requires the expected planning branch")
-        if goal_state.get("currentMilestone") != "M04_PLANNING":
-            errors.append("M04 planning must not claim an implementation submilestone")
-        expected_pr = 60
-        expected_merge = M03_CLOSEOUT_MERGE_EVIDENCE["mergeCommit"]
+        if phase == M04_ACCOUNT_PHASE:
+            if goal_state.get("planningMergeEvidence") != M04_PLANNING_MERGE_EVIDENCE:
+                errors.append("M04.01 requires verified PR #61 planning merge evidence")
+            if goal_state.get("currentBranch") != M04_ACCOUNT_BRANCH:
+                errors.append("M04.01 requires the expected account schema branch")
+            if goal_state.get("currentMilestone") != "M04.01":
+                errors.append("M04.01 must not activate a later submilestone")
+            expected_pr = 61
+            expected_merge = M04_PLANNING_MERGE_EVIDENCE["mergeCommit"]
+        else:
+            if goal_state.get("currentBranch") != M04_PLANNING_BRANCH:
+                errors.append("M04 planning requires the expected planning branch")
+            if goal_state.get("currentMilestone") != "M04_PLANNING":
+                errors.append("M04 planning must not claim an implementation submilestone")
+            if goal_state.get("planningMergeEvidence") is not None:
+                errors.append("unmerged planning must not carry planning merge evidence")
+            expected_pr = 60
+            expected_merge = M03_CLOSEOUT_MERGE_EVIDENCE["mergeCommit"]
     else:
         if phase not in ("PHASE_A_CLOSEOUT_AND_AUDIT", "PHASE_A_CLOSEOUT_REVIEW_AND_HUMAN_GATE"):
             errors.append("PROJECT_COMPLETION_GOAL.json unsupported lifecycle phase")
@@ -1853,6 +1879,8 @@ def validate_project_completion_goal(goal_state: object) -> list[str]:
             errors.append("PROJECT_COMPLETION_GOAL.json target must await human approval")
         if goal_state.get("releaseTargetApproval") is not None:
             errors.append("pending Phase A cannot carry an activated approval record")
+        if goal_state.get("planningMergeEvidence") is not None:
+            errors.append("pending Phase A cannot carry planning merge evidence")
         expected_pr = 59
         expected_merge = "9c2df34fd1da1a4f893a5b16cb05fa1177f23cce"
     if goal_state.get("latestMergedPr") != expected_pr:
@@ -1862,18 +1890,28 @@ def validate_project_completion_goal(goal_state: object) -> list[str]:
     return errors
 
 
-def m04_planning_is_authorized() -> bool:
+def m04_active_plan_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") == "M04_PLANNING"
+        not errors and state is not None and state.get("currentPhase") in ("M04_PLANNING", M04_ACCOUNT_PHASE)
+        and not validate_project_completion_goal(state)
+    )
+
+
+def m04_account_schema_is_authorized() -> bool:
+    state, errors = read_project_completion_goal()
+    return (
+        not errors and state is not None and state.get("currentPhase") == M04_ACCOUNT_PHASE
         and not validate_project_completion_goal(state)
     )
 
 
 def validate_m04_planning() -> list[str]:
+    """Keep the milestone plan intact while permitting only the verified current slice."""
     state, _ = read_project_completion_goal()
-    if not (state and state.get("currentPhase") == "M04_PLANNING"):
+    if not (state and state.get("currentPhase") in ("M04_PLANNING", M04_ACCOUNT_PHASE)):
         return []
+    account_slice = state.get("currentPhase") == M04_ACCOUNT_PHASE
     errors = validate_project_completion_goal(state)
     if active_plan_files() != [ROOT / M04_ACTIVE_PLAN]:
         errors.append("M04 planning requires exactly the active CLP-0005 M04 plan")
@@ -1899,10 +1937,25 @@ def validate_m04_planning() -> list[str]:
     for label, rows in [("registry", registry_rows), ("milestone", milestone_rows)]:
         if len(rows) != 18 or {row.submilestone_id: row.name for row in rows} != expected:
             errors.append(f"M04 {label} must retain all 18 original IDs and names")
-        if any(row.status != "Not started" for row in rows):
-            errors.append(f"M04 {label} implementation rows must remain Not started during planning")
-    if any(row.active_plan != M04_ACTIVE_PLAN or row.branch or row.pr for row in registry_rows):
+        future_rows = [row for row in rows if not (account_slice and row.submilestone_id == "M04.01")]
+        if any(row.status != "Not started" for row in future_rows):
+            errors.append(f"M04 {label} later implementation rows must remain Not started")
+    if any(row.active_plan != M04_ACTIVE_PLAN or ((row.branch or row.pr) and not (account_slice and row.submilestone_id == "M04.01")) for row in registry_rows):
         errors.append("M04 registry must reference its plan without premature implementation branches/PRs")
+    if account_slice:
+        registry_account = next((row for row in registry_rows if row.submilestone_id == "M04.01"), None)
+        milestone_account = next((row for row in milestone_rows if row.submilestone_id == "M04.01"), None)
+        allowed_states = {"Builder in progress", "Builder complete, awaiting QA", "QA in progress", "QA passed, awaiting merge", "Blocked"}
+        if registry_account and milestone_account:
+            if registry_account.status not in allowed_states or registry_account.status != milestone_account.status:
+                errors.append("M04.01 status must agree across tracking and must not claim merged completion")
+            if registry_account.branch != M04_ACCOUNT_BRANCH:
+                errors.append("M04.01 registry requires the expected account schema branch")
+            pr = state.get("currentPr")
+            if (pr is not None and (type(pr) is not int or pr <= 61)) or registry_account.pr != (f"#{pr}" if pr is not None else ""):
+                errors.append("M04.01 PR tracking must match its own current PR")
+            if registry_account.status in {"QA in progress", "QA passed, awaiting merge"} and pr is None:
+                errors.append("M04.01 QA requires its own PR")
     if len(plan_rows) != 18 or {row["ID"]: row["Existing submilestone"] for row in plan_rows} != expected:
         errors.append("M04 plan must cover all 18 original submilestones")
     if any(not row["Dependencies"] or not row["Acceptance and deterministic evidence"] for row in plan_rows):
@@ -1956,6 +2009,7 @@ def validate_m03_06_closeout_readiness() -> list[str]:
             for row in rows.values()
             if row.submilestone_id.startswith(prefix)
             and row.status != "Not started"
+            and not (row.submilestone_id == "M04.01" and m04_account_schema_is_authorized())
         )
         if non_not_started:
             errors.append(
@@ -1967,7 +2021,7 @@ def validate_m03_06_closeout_readiness() -> list[str]:
     for phrase in [
         "MoneyEvent engine | Completed",
         "structural and fixture success is not financial truth",
-        "Ledger core | Not started",
+        "Ledger core | Partial - account schema only" if m04_account_schema_is_authorized() else "Ledger core | Not started",
     ]:
         if phrase.lower() not in capability.lower():
             errors.append(
@@ -2342,6 +2396,8 @@ def validate_package_scaffolds() -> list[str]:
             if package_dir.name == "evals"
             else APPROVED_PACKAGE_SCAFFOLD_FILES
         )
+        if package_dir.name == "ledger" and m04_account_schema_is_authorized():
+            expected_files.update(M04_ACCOUNT_FILES)
         if files != expected_files:
             missing = sorted(expected_files - files)
             extra = sorted(files - expected_files)

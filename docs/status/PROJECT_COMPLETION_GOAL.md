@@ -12,9 +12,9 @@ PR #60 merged at `3df6f88b1b64b5456554654b7e27adcfa99c3ff6` on 2026-09-24. Its r
 
 ## Current task brief
 
-M04 planning only, under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, branch `m04-planning-double-entry-ledger-core`. The plan contains objective/dependencies, allowed and forbidden scope, all 18 existing submilestones, acceptance, behavioral and negative tests, demonstration requirements, reviewer focus and stop conditions. No M04 implementation row has started. M05-M21 remain unstarted.
+M04.01 Define Account schema, under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, branch `m04-01-account-schema`. Planning PR #61 merged at `17a6e85e81cdddc36381defbffc80a7636cee151`; reviewed head `a2ff0ea9176c9ee37b5f851968b7f79fa8017be9` and merge share tree `edde0f85a215bb7c664f47bb29eb961f7a76d02b`. Independent QA PASS, 169 control-plane/150 workspace tests, clean QA 18/0/1 and CI `36016966738` PASS are recorded in PR #61. The JSON's additive `planningMergeEvidence` captures this actual prerequisite and is covered by negative lifecycle tests.
 
-Execute the planning brief, run deterministic and workspace checks, obtain separate-context read-only independent review, fix confirmed findings, commit/push scoped paths and prepare one PR. Verify required CI on the final reviewed SHA, then stop for human merge. After confirmed merge, discover the SHA and generate/execute M04.01 Account schema; the user need not fetch prompts or hashes from another chat.
+Execute the generated M04.01 brief in the active plan: strict Account metadata types and pure deterministic validation, duplicate-ID checks on a supplied catalog, and negative/type tests. No posting, balances, storage, business account factories or agent authority. Keep M04.02-M04.18 and M05-M21 unstarted. Commit/push scoped changes, use one PR and independent read-only review, verify final-SHA CI, then stop for human merge.
 
 ## Authority and safety
 
@@ -30,4 +30,4 @@ Current-slice validation and QA status live in the active plan and current state
 
 ## Next gate
 
-Human review/merge of PR #61 after its final-SHA record confirms independent QA PASS, clean-worktree QA and required CI. Do not start M04.01 until that planning PR has merged. On “Merged. Continue.” recover GitHub metadata and durable state, verify the merge, and execute the next authorized brief.
+M04.01 independent QA PASS is recorded; human review/merge of PR #62 follows its final-SHA re-review, clean QA and required CI record. Do not start M04.02 until that PR has merged. On “Merged. Continue.” recover GitHub metadata and durable state, verify the merge, and execute the next authorized brief.

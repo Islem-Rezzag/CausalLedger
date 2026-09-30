@@ -1,9 +1,9 @@
 # CausalLedger Roadmap
 
-Current milestone marker: M00-M03 are closed; M03 closeout PR #60 merged at `3df6f88b1b64b5456554654b7e27adcfa99c3ff6`. The human approved `V1_PUBLIC_PRODUCT` on 2026-09-24. M04 planning is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; all M04 implementation rows and M05-M21 remain `Not started`. M04.01 waits for independent planning QA and human PR merge.
-Current submilestone status: M00.01 through M00.08, M01.01 through M01.13, and M03.01 through M03.06 are `Completed and merged`. M02.01 through M02.07 are `Completed and merged`; former M02.08 through M02.20 rows are deferred or absorbed. M04 implementation rows and M05-M21 remain `Not started`.
+Current milestone marker: M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04 planning PR #61 is reviewed and human-merged at `17a6e85e81cdddc36381defbffc80a7636cee151`. M04.01 Define Account schema is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.02-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
+Current submilestone status: M00.01 through M00.08, M01.01 through M01.13, and M03.01 through M03.06 are `Completed and merged`. M02.01 through M02.07 are `Completed and merged`; former M02.08 through M02.20 rows are deferred or absorbed. M04.01 is active; M04.02-M04.18 and M05-M21 remain `Not started`.
 
-The table status is aggregated from submilestone rows and active planning. M03 formal closeout has merged; M04 Planning active does not mean an implementation row has started.
+The table status is aggregated from submilestone rows and active planning. M03 formal closeout has merged; M04 is in progress for Account schema only; later implementation rows remain unstarted.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 
@@ -13,7 +13,7 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 | M01 Domain model and scope freeze | Freeze CausalLedger domain language, scope, and non-goals. | Concepts, non-goals, glossary | Domain model and scope are approved | 13 | Completed |
 | M02 Monorepo and local development | Create the runnable local development foundation. | Tooling, packages, CI shape, planning ADRs | Local checks run consistently | 20 | Completed |
 | M03 Canonical MoneyEvent engine | Define and implement the canonical event representation. | Event contracts, source mapping, validation, fixtures, and QA | MoneyEvent behavior is specified and validated | 6 | Completed |
-| M04 Double-entry ledger core | Implement deterministic double-entry ledger primitives. | Transactions, entries, balances | Ledger checks pass deterministic tests | 18 | Planning active |
+| M04 Double-entry ledger core | Implement deterministic double-entry ledger primitives. | Transactions, entries, balances | Ledger checks pass deterministic tests | 18 | In progress |
 | M05 Provider and bank simulator | Build controlled synthetic providers and bank sources. | Providers, banks, webhooks, failures, live event stream simulation | Scenarios can generate source evidence | 19 | Not started |
 | M06 Invariant engine | Implement deterministic financial invariant checks. | Deterministic correctness rules | Invariants detect defined breaks | 18 | Not started |
 | M07 Incident engine | Create the incident lifecycle from deterministic failures. | Severity, evidence, ownership | Incidents are created from failed checks | 16 | Not started |
@@ -51,8 +51,8 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 - `apps/agent-runtime` creation is deferred to the M10 era because agent runtime should not exist before deterministic evidence, MoneyEvent, invariant, incident, graph, replay, and repair boundaries exist.
 - Redis is deferred until needed because no queue or scheduler should be added before the worker or orchestration design proves the need.
 - M03 planning and M03.01 through M03.06 are completed and merged. PR #55 merged M03.05 at `89874bca2525a423d773548c61f9655f09642575`; PR #56/#57 are the documented identical-tree finalization deviation; PR #58 merged recovery QA at `721bd60eba04cdf71765660727132d0d6aed97bc`. PR #59 merged M03.06 after independent QA at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`, sharing reviewed tree `a5f52604955f8a8925728a2cb7b5c8900aefd87a`. Formal M03 closeout merged through PR #60 at `3df6f88b1b64b5456554654b7e27adcfa99c3ff6`.
-- M04 planning is active; its implementation rows and M05-M21 remain `Not started`.
-- The first scoped product runtime behavior is M03.04 source-neutral MoneyEvent candidate validation and deterministic normalization; no ingestion, storage, database, API, ledger, incident, graph, replay, repair, agent, or money-mutation behavior exists.
-- `docs/status/M03_CLOSEOUT_READINESS.md` preserves pre-merge readiness evidence; `docs/status/M03_CLOSEOUT.md` records the now-merged formal closeout. A proposed five-workstream roadmap overlay lives at `plans/proposals/CLP-PROJECT-COMPLETION-GOAL.md` and does not alter milestone meanings; M04 planning is separately active after explicit V1 approval. Next gate: M04 planning independent QA and human merge.
+- M04.01 Account schema is active; M04.02-M04.18 and M05-M21 remain `Not started`.
+- The first scoped product runtime behavior is M03.04 source-neutral MoneyEvent candidate validation and deterministic normalization; M04.01 adds pure Account metadata validation; no ingestion, storage, database, API, ledger posting, incident, graph, replay, repair, agent, or money-mutation behavior exists.
+- `docs/status/M03_CLOSEOUT_READINESS.md` preserves pre-merge readiness evidence; `docs/status/M03_CLOSEOUT.md` records the now-merged formal closeout. A proposed five-workstream roadmap overlay lives at `plans/proposals/CLP-PROJECT-COMPLETION-GOAL.md` and does not alter milestone meanings; M04 planning PR #61 is merged after independent QA. Next gate: M04.01 independent QA and human merge.
 - Versioning strategy is documented in `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed registry.
