@@ -20,8 +20,8 @@
   "latestMergedPr": 63,
   "latestMergeCommit": "1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d",
   "environmentReadiness": "READY_WITH_LIMITATIONS",
-  "localTestStatus": "QA_DOC_CORRECTION_REQUIRED_RUNTIME_CONTROL_SCOPE_PASS",
-  "remoteCiStatus": "M04_03_BUILDER_CI_PASS_FINAL_CI_PENDING",
+  "localTestStatus": "QA_PASS_354_LEDGER_301_CONTROL_BUILDER_CLEAN_QA_18_0_1_FINAL_HEAD_RECORD_IN_PR_64",
+  "remoteCiStatus": "FINAL_HEAD_CI_AND_REVIEW_EVIDENCE_IN_PR_64",
   "dockerStatus": "UNAVAILABLE_LOCALLY_REMOTE_INFRA_SMOKE_AVAILABLE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -36,7 +36,7 @@
     "deterministic package and control-plane tests",
     "M04.01 Account metadata contract and pure validation (PR #62; completed and merged)",
     "M04.02 LedgerTransaction header metadata and pure validation (PR #63; completed and merged)",
-    "M04.03 LedgerEntry wire/amount/reference validation (Builder complete, awaiting QA/merge)"
+    "M04.03 LedgerEntry wire/amount/reference validation (QA passed, awaiting merge; PR #64)"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -57,6 +57,7 @@
     "production deployment"
   ],
   "openBlockers": [
+    "human review/squash merge of PR #64 after final-SHA review/clean QA/CI required before M04.04",
     "local Docker/Compose or approved equivalent Postgres environment required before storage-dependent slices can close",
     "no live-model provider/model/call-count/budget approved"
   ],
@@ -73,9 +74,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "INDEPENDENT_QA_RETRY_M04_03_LEDGER_ENTRY_SCHEMA",
-  "stopReason": "M04_03_DOCUMENTATION_CORRECTION_REREVIEW_REQUIRED",
-  "lastUpdatedTimestamp": "2026-09-30T23:02:26Z",
+  "exactNextAction": "WAIT_FOR_HUMAN_MERGE_PR_64_AFTER_FINAL_HEAD_GATES",
+  "stopReason": "HUMAN_MERGE_REQUIRED_BEFORE_M04_04",
+  "lastUpdatedTimestamp": "2026-09-30T23:05:50Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",

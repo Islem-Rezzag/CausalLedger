@@ -4,7 +4,7 @@
 
 Plan M04's deterministic ledger primitives using the approved MoneyEvent boundary, M01 ledger vocabulary, and ADR-0008. The human explicitly approved `V1_PUBLIC_PRODUCT` on 2026-09-24: “Merged #60. I approve V1_PUBLIC_PRODUCT. Continue.” v0.6 is an intermediate checkpoint, not a replacement target. This approval authorizes the existing roadmap and routine delivery; it does not authorize live financial writes, repair approval, paid calls, system installation, material architecture changes, release tags, deployment, or publication.
 
-Current slice: M04.03 Define LedgerEntry schema, on `m04-03-ledger-entry-schema`. PR #63 human-merged at `1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d` on 2026-09-30, reachable from fetched main and sharing exact tree `6528851abfe1b8e9642b5ddfc225b50d034da50e` with reviewed head `511ce291eb18538e0a07076287ca0f7c4a24656a`. Final independent QA and CI `36785054245` passed before merge. M04.01-M04.02 are Completed and merged; M04.03 is Builder complete, awaiting QA; M04.04-M04.18 and M05-M21 remain Not started. Earlier dated records below are historical.
+Current slice: M04.03 Define LedgerEntry schema, on `m04-03-ledger-entry-schema`. PR #63 human-merged at `1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d` on 2026-09-30, reachable from fetched main and sharing exact tree `6528851abfe1b8e9642b5ddfc225b50d034da50e` with reviewed head `511ce291eb18538e0a07076287ca0f7c4a24656a`. Final independent QA and CI `36785054245` passed before merge. M04.01-M04.02 are Completed and merged; M04.03 is QA passed, awaiting merge in PR #64; M04.04-M04.18 and M05-M21 remain Not started. Earlier dated records below are historical.
 
 ## Progress
 
@@ -24,7 +24,8 @@ Current slice: M04.03 Define LedgerEntry schema, on `m04-03-ledger-entry-schema`
 - [x] Final PR #63 head independently reviewed, clean QA 18/0/1 and CI 36785054245 PASS; human merge/tree/main verification PASS on 2026-09-30.
 - [x] Safe clean main fast-forward and M04.03 branch guard passed before edits.
 - [x] Implement/validate M04.03; ledger 354/control 301/workspace 503 and intermediate QA 17/0/2 PASS.
-- [ ] Independent M04.03 QA, one PR and final-head clean checks/CI, then human merge before M04.04.
+- [x] One PR #64; independent review found one P3 spec wording issue, corrected without code changes; corrected-state QA PASS on `1a2bb7d4f8cac2d1f4afad29ff61d4528f8cc7de`.
+- [ ] Final handoff-head review/clean QA/CI recorded against the actual SHA in PR #64, then human review/squash merge before M04.04.
 
 ## Surprises & Discoveries
 
@@ -263,3 +264,17 @@ Independent fresh commands PASS: control validator and 301 bootstrap tests; ledg
 Coordinator clean `corepack pnpm qa:dev` on the Builder SHA: 18 PASS / 0 FAIL / 1 optional Docker skip, warm dependency/task caches; no cold-install/database claim. Exact Builder CI `36788382000` validate/infra-smoke PASS. Existing nonblocking action-runtime Node 20 deprecation/forced Node 24 and upcoming ubuntu-latest image annotations remain outside this slice. Make/Docker unavailable on recheck, direct Python substitutes PASS.
 
 Changed correction files: entry spec and scoped plan/current/goal/registry/weekly records. All implementation/tests/validator and forbidden paths remain unchanged. Safe to commit/push/update this same PR: yes. Safe for human merge: not yet, corrected-state QA and final-head clean QA/CI required. Exact next thread: **M04.03 QA - Define LedgerEntry schema** (corrected-state retry). M04.04 remains Not started.
+
+## M04.03 corrected-state QA and PR #64 handoff (2026-09-30)
+
+Status: **QA passed, awaiting merge**. PR [#64](https://github.com/Islem-Rezzag/CausalLedger/pull/64), branch `m04-03-ledger-entry-schema`, active CLP-0005. Separate-context read-only overall reviewer `m04_02_qa` (reused for M04.03) returned **corrected-state PASS, no remaining findings** on `1a2bb7d4f8cac2d1f4afad29ff61d4528f8cc7de` against base `1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d`. One P3 parsing-order wording defect on Builder `dd5f5fc1b2aa8c0688236a34bc939aa4dcd60a7e` was corrected on attempt one; no runtime, test, amount policy or acceptance assertion changed. Earlier FAIL and correction are preserved above.
+
+Reviewer independently inspected all 28 scoped files, entry source/runtime/type tests and contracts, supplied Account/header references, cumulative lifecycle/owner/future-file guards, tracking and all 18 approved M04 requirements. Fresh implementation checks PASS: ledger typecheck, 354 tests across 7 files (123 entry runtime plus 1 entry type), lint zero warnings, build, format; control validator/301 bootstrap; whitespace and forbidden paths; #63 squash/tree/main proof. Supplemental inline runtime 159/159 and lifecycle 81/81 probes PASS, zero getters/coercions, separate from committed counts. Corrected-state fresh control validator/301 bootstrap/whitespace/forbidden checks PASS; verified implementation/tests/validator byte-identity permits reuse of targeted code results. No helpers, edits, Git mutations, external posts or installations by reviewer.
+
+Coordinator clean `corepack pnpm qa:dev` on Builder: 18 PASS / 0 FAIL / 1 optional Docker skip; measured workspace 503 tests, warm dependency/task caches. Fresh Builder events regression 97 PASS. Builder CI `36788382000` and corrected-candidate CI `36789039080` succeeded. These are intermediate evidence, not final-head substitutes. Node 22.16.0, pinned pnpm 10.32.1, package TypeScript 6.0.3, Python 3.13.1 locally/3.12 CI. Make/Docker unavailable, direct Python substitutes passed; no cold-install or product Postgres guarantee. Nonblocking existing action-runtime/image annotations are recorded above.
+
+This final handoff revision changes exactly ten tracking/handoff documents; entry spec correction already passed re-review. No further implementation repair. Created/changed/untouched files are listed in the Builder handoff and complete 28-file PR diff. Final actual SHA still requires independent re-review, clean QA and required validate/infra-smoke CI; publish those results in PR #64 bound to its actual head. Do not create another commit solely to copy CI results.
+
+Input/output demonstration: a supplied versioned USD debit entry with wire minorUnits `"1250"`, supplied header and USD asset account returns frozen exact `1250n`; EUR on that account rejects `currency_mismatch` at `$.amount.currency` with no partial output. Run `corepack pnpm --filter @causalledger/ledger test` in VS Code. The validator checks one line's structure and supplied references, not balancing, posting, financial truth, ownership, evidence authenticity, durable idempotency or exactly-once occurrence. No source mapping, persistence, balance query, reversal or agent financial-write/approval authority. M04.04 and later remain unstarted; V1/all 18 rows are preserved.
+
+Safe to commit/push/update this existing PR: yes. Safe for human merge only after final-head review/clean QA/CI PASS and normal human review. Agents cannot merge or enable auto-merge. Exact next thread: **Merge M04.03 PR - Define LedgerEntry schema**. After verified human merge and post-merge finalization: **M04.04 Builder - Enforce debit equals credit**.

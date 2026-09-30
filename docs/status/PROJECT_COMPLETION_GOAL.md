@@ -16,7 +16,7 @@ M04.01 human-merged in PR #62 at `44f6a833692326d00ed5a9b7479a52dd761af814`, equ
 
 M04.02 human-merged in PR #63 at `1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d`; reviewed head `511ce291eb18538e0a07076287ca0f7c4a24656a` shares tree `6528851abfe1b8e9642b5ddfc225b50d034da50e`, reachable from fetched main. Exact-head independent QA, clean QA 18/0/1 and CI `36785054245` PASS; final advisory record published. No duplicate QA or recovery work needed.
 
-M04.03 Define LedgerEntry schema under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, branch `m04-03-ledger-entry-schema`. Generated brief freezes positive canonical decimal wire amounts to exact bigint, a signed-64-bit-compatible per-line range, explicit debit/credit side and consistency with supplied Account/header snapshots. Implement/validate, independent review, one PR and exact-head clean QA/CI, then stop for human merge. No balancing, posting, balances, storage or financial authority. M04.04 and later stay unstarted.
+M04.03 Define LedgerEntry schema under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, branch `m04-03-ledger-entry-schema`. Generated brief freezes positive canonical decimal wire amounts to exact bigint, a signed-64-bit-compatible per-line range, explicit debit/credit side and consistency with supplied Account/header snapshots. Implementation and corrected-state independent QA PASS on `1a2bb7d4f8cac2d1f4afad29ff61d4528f8cc7de`; PR #64 is the sole review container. One spec wording correction was re-reviewed; code/tests remain unchanged. Final actual-head review/clean QA/CI evidence belongs in PR #64, then human review/squash merge. No balancing, posting, balances, storage or financial authority. M04.04 and later stay unstarted.
 
 ## Authority and safety
 
@@ -32,4 +32,4 @@ Current-slice validation and QA status live in the active plan and current state
 
 ## Next gate
 
-M04.03 independent QA and final-head clean QA/CI, then human review/squash merge before M04.04. Preserve V1/all 18 rows and later permission/environment gates. Natural-language merge confirmation triggers actual GitHub verification and the next legitimate brief; no copied prompt or renewed V1 selection required.
+M04.03 QA passed, awaiting merge in PR #64. Final-head review/clean QA/CI must pass and be recorded against its SHA before human review/squash merge. Reply “Merged #64. Continue.” after actual merge; M04.04 remains unstarted until verified merge and tracking finalization. Preserve V1/all 18 rows and later permission/environment gates. Natural-language merge confirmation triggers actual GitHub verification and the next legitimate brief; no copied prompt or renewed V1 selection required.
