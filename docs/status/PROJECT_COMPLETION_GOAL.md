@@ -12,9 +12,9 @@ PR #60 merged at `3df6f88b1b64b5456554654b7e27adcfa99c3ff6` on 2026-09-24. Its r
 
 ## Current task brief
 
-M04.01 Define Account schema, under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, branch `m04-01-account-schema`. Planning PR #61 merged at `17a6e85e81cdddc36381defbffc80a7636cee151`; reviewed head `a2ff0ea9176c9ee37b5f851968b7f79fa8017be9` and merge share tree `edde0f85a215bb7c664f47bb29eb961f7a76d02b`. Independent QA PASS, 169 control-plane/150 workspace tests, clean QA 18/0/1 and CI `36016966738` PASS are recorded in PR #61. The JSON's additive `planningMergeEvidence` captures this actual prerequisite and is covered by negative lifecycle tests.
+M04.01 human-merged in PR #62 at `44f6a833692326d00ed5a9b7479a52dd761af814`, equal to reviewed head `9d0db74c1349596b579aab510c6f9e7ff00642b0` tree `0c37706283fa90e3455fab4541a0eeb5209fb973` and reachable from fetched main. Final independent QA and CI `36020971358` PASS. Post-merge tracking is finalized within the next legitimate slice.
 
-Execute the generated M04.01 brief in the active plan: strict Account metadata types and pure deterministic validation, duplicate-ID checks on a supplied catalog, and negative/type tests. No posting, balances, storage, business account factories or agent authority. Keep M04.02-M04.18 and M05-M21 unstarted. Commit/push scoped changes, use one PR and independent read-only review, verify final-SHA CI, then stop for human merge.
+M04.02 Define LedgerTransaction schema under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, branch `m04-02-ledger-transaction-schema`. Execute its generated brief: strict supplied transaction metadata/provenance/references, deterministic validation and tests; no entries, postings, balances, storage or financial authority. Independent implementation QA PASS and one PR [#63](https://github.com/Islem-Rezzag/CausalLedger/pull/63) exist; only documentation handoff records change after the reviewed Builder. Finish final-head re-review, clean QA and CI in its SHA-bound PR record, then stop for human review/squash merge. M04.03 and later stay unstarted.
 
 ## Authority and safety
 
@@ -30,4 +30,4 @@ Current-slice validation and QA status live in the active plan and current state
 
 ## Next gate
 
-M04.01 independent QA PASS is recorded; human review/merge of PR #62 follows its final-SHA re-review, clean QA and required CI record. Do not start M04.02 until that PR has merged. On “Merged. Continue.” recover GitHub metadata and durable state, verify the merge, and execute the next authorized brief.
+Human review and merge PR #63 after exact-final-head review, clean QA and CI PASS. Initial independent review and clean QA passed on `6e2cba186a8b7fcc98c83f253ff28d3625c4aa5a`; CI `36784155944` passed both jobs. Final handoff revision results belong in the actual-SHA PR record. Preserve V1 scope and all later permission gates. On a natural-language merge confirmation recover actual GitHub metadata and execute the next legitimate brief.

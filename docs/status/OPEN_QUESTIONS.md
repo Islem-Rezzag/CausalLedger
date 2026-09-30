@@ -26,3 +26,7 @@
 ## M04.01 contract decisions
 
 - Account categories and normal sides, namespaced opaque owners, active/closed metadata and the USD/EUR/GBP support subset are specified in `docs/specs/account-schema.md`. Future currency expansion, contra accounts, durable uniqueness, authorization and lifecycle transitions require their own reviewed scope; metadata validation does not implement them.
+
+## M04.02 contract decisions
+
+- Transaction header identity/status/provenance/clocks/retry-key semantics are specified in `docs/specs/ledger-transaction-schema.md`. Money representations/ranges, durable payload identity, lifecycle enforcement and receipt verification remain with their explicitly authorized owning slices; metadata alone cannot establish them.

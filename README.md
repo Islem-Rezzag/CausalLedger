@@ -12,9 +12,9 @@ CausalLedger helps fintech teams prove, replay, and safely repair money-movement
 
 ## Current status
 
-M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04 planning PR #61 is reviewed and human-merged at `17a6e85e81cdddc36381defbffc80a7636cee151`. M04.01 Define Account schema is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.02-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
+M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01 Account schema PR #62 human-merged at `44f6a833692326d00ed5a9b7479a52dd761af814`, matching its reviewed tree. M04.02 Define LedgerTransaction schema is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.03-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
 
-The implemented runtime remains source-neutral MoneyEvent validation and deterministic normalization in `packages/events`, supported by compile-time types, 21 controlled synthetic fixtures and seven benchmark seed metadata records. M04.01 adds strict Account metadata validation in `packages/ledger`. No ledger posting, balance calculation, persistence, invariant engine, incident/replay/repair/agent workflow, benchmark runner or product UI exists. Structural validity is not financial truth.
+The implemented runtime remains source-neutral MoneyEvent validation and deterministic normalization in `packages/events`, supported by compile-time types, 21 controlled synthetic fixtures and seven benchmark seed metadata records. M04.01 Account metadata and M04.02 transaction header validation live in `packages/ledger`. No ledger posting, balance calculation, persistence, invariant engine, incident/replay/repair/agent workflow, benchmark runner or product UI exists. Structural validity is not financial truth.
 
 ## What CausalLedger is
 

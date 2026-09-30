@@ -2,34 +2,29 @@
 
 ## Current phase
 
-M00-M03 are closed; V1_PUBLIC_PRODUCT remains explicitly approved. M04 planning PR #61 human-merged at `17a6e85e81cdddc36381defbffc80a7636cee151`, matching reviewed tree `edde0f85a215bb7c664f47bb29eb961f7a76d02b`. Independent QA and source CI `36016966738` passed before merge.
+M00-M03 are closed; V1_PUBLIC_PRODUCT remains explicitly approved. M04.01 PR #62 human-merged at `44f6a833692326d00ed5a9b7479a52dd761af814`; main reachability and exact reviewed/merged tree equality PASS. Independent final-head QA and CI `36020971358` PASS.
 
-M04.01 Define Account schema is QA passed, awaiting merge under active plan `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. M04.02-M04.18 and M05-M21 remain Not started. M03's completed plan remains in `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md`.
+M04 is in progress under active plan `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. M04.01 is Completed and merged. M04.02 Define LedgerTransaction schema is QA passed, awaiting merge in PR #63. M04.03-M04.18 and M05-M21 remain Not started.
 
 ## Current submilestone and branch
 
-Current slice: M04.01 Define Account schema.
-Current branch: `m04-01-account-schema`.
-Scope: explicit Account metadata contract, deterministic validation, supplied-catalog ID conflicts, tests, docs and narrowly authorized control-plane transition. No ledger transaction/entry, posting, balance or storage behavior.
+Current slice: M04.02 Define LedgerTransaction schema.
+Current branch: `m04-02-ledger-transaction-schema`.
+Current PR: [#63](https://github.com/Islem-Rezzag/CausalLedger/pull/63).
+Scope: pure transaction metadata/provenance validation, tests and necessary lifecycle tracking; no entries, posting or storage.
 
 ## Next action
 
-Human review/merge of PR #62 after its final-SHA record confirms independent PASS, clean QA and required CI. After verified merge the coordinator generates and executes M04.02 Define LedgerTransaction schema. No extra prompt or manual hash is required.
+Finish exact-head re-review, clean-worktree QA and validate/infra-smoke CI for the documentation handoff revision, recording results against the actual final SHA in PR #63. Then human review and squash merge. Only humans merge; M04.03 remains unstarted. No additional V1 approval or Builder prompt is required.
 
 ## Latest validation
 
-- PR #61 reviewed/merged tree equality and main ancestry: PASS. Prior final QA: 169 bootstrap and 150 workspace tests PASS, clean detached QA 18/0/1, remote validate/infra-smoke PASS.
-- M04.01 independent QA PASS on `29113462eb7c709acff2efc020c1c9b2f95f3408`, no findings. Reviewer independently passed ledger typecheck/117 tests/lint/build/format, control-plane validation/191 tests and scope/whitespace checks, plus 64 Account and 54 lifecycle adversarial probes.
-- Same candidate clean QA: 18 PASS / 0 FAIL / 1 optional Docker skip; 266 workspace tests, warm dependency store. CI `36020455110` validate/infra-smoke PASS. Final handoff revision re-review, clean QA and CI must be bound to its final SHA in PR #62; no tracking-commit chain is needed to copy those external results.
+Separate-context reviewer `m04_02_qa` PASS with no findings on `6e2cba186a8b7fcc98c83f253ff28d3625c4aa5a`, base `44f6a833692326d00ed5a9b7479a52dd761af814`: all 28 files inspected; fresh control validation/237 bootstrap and ledger typecheck/230 tests/lint/build/format PASS; full-diff whitespace/forbidden-scope PASS; supplemental 111 runtime and 57 lifecycle probes PASS, separate from committed test counts. CI `36784155944` on that exact SHA passed both jobs. Coordinator clean QA on that SHA: 18 PASS / 0 FAIL / 1 optional Docker skip, frozen install and workspace typecheck/lint/379 tests/build/format. Fresh events regression 97 PASS in Builder; measured workspace run used 12 unchanged package cache hits plus fresh ledger. Warm dependency store/task caches are not cold-install proof. Final documentation revision re-review, clean QA and CI remain required in the SHA-bound PR record. Node 22.16.0, pnpm 10.32.1, package-local TypeScript 6.0.3, Python 3.13.1 (CI 3.12).
 
-## Environment status
+## Environment and safety
 
-Pinned Node/pnpm, Python, Git, authenticated gh and separate-context review are available. Local Docker/Compose and make remain unavailable; direct Python checks substitute for make. Python 3.13.1 differs from CI 3.12. Pure schema work needs no database; storage-dependent slices retain the approved Postgres environment gate. No system installation or paid calls.
+Use repository-pinned tools. Local Docker/make were unavailable at the last recheck; direct Python substitutes for make. Pure schema work needs no Postgres; storage-dependent work retains the approved disposable Postgres gate. No installation or paid calls. MoneyEvent and Account/transaction validation remain structural metadata checks; no authenticity, authorization, durable uniqueness or financial truth is established.
 
 ## Product implementation status
 
-Source-neutral MoneyEvent validation/normalization, 21 controlled fixtures and seven seed metadata records remain unchanged. Current M04.01 code adds Account metadata types and pure candidate/catalog validation, with explicit USD/EUR/GBP support and category/normal-side checks. Validation is not financial truth, identity verification, account creation/closure, durable uniqueness or authorization. Transactions, entries, postings, balances, storage and later product/agent/UI capabilities remain unimplemented.
-
-## Goal state
-
-Existing goal MD/JSON and active plan remain authoritative. PR #61 merge provenance is recorded; V1 approval is unchanged. Human merge, scope, budget, installation and publication gates remain intact.
+Source-neutral MoneyEvent validation/normalization and controlled fixtures/seeds, plus merged Account metadata validation, exist. LedgerTransaction header validation has independent QA PASS on this branch, awaiting final-head gates and human merge. Entries, postings, balances, storage, lifecycle actions and later product/agent/UI capabilities remain unimplemented. Existing goal MD/JSON and active plan are authoritative.

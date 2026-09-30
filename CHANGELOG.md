@@ -1,5 +1,7 @@
 # Changelog
 
+M04.02 adds pure LedgerTransaction header validation and explicit identity, provenance, timestamp and retry-key boundaries; no posting, entries or storage.
+
 All notable CausalLedger release changes are recorded here.
 
 ## Unreleased
