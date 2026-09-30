@@ -12,9 +12,9 @@ CausalLedger helps fintech teams prove, replay, and safely repair money-movement
 
 ## Current status
 
-M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01 Account schema PR #62 human-merged at `44f6a833692326d00ed5a9b7479a52dd761af814`, matching its reviewed tree. M04.02 Define LedgerTransaction schema is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.03-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
+M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01-M04.02 are Completed and merged; transaction PR #63 human-merged at `1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d`, matching its reviewed tree. M04.03 Define LedgerEntry schema is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.04-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
 
-The implemented runtime remains source-neutral MoneyEvent validation and deterministic normalization in `packages/events`, supported by compile-time types, 21 controlled synthetic fixtures and seven benchmark seed metadata records. M04.01 Account metadata and M04.02 transaction header validation live in `packages/ledger`. No ledger posting, balance calculation, persistence, invariant engine, incident/replay/repair/agent workflow, benchmark runner or product UI exists. Structural validity is not financial truth.
+The implemented runtime remains source-neutral MoneyEvent validation and deterministic normalization in `packages/events`, supported by compile-time types, 21 controlled synthetic fixtures and seven benchmark seed metadata records. M04.01 Account metadata, M04.02 transaction header and M04.03 entry wire/reference validation live in `packages/ledger`. No ledger posting, balance calculation, persistence, invariant engine, incident/replay/repair/agent workflow, benchmark runner or product UI exists. Structural validity is not financial truth.
 
 ## What CausalLedger is
 
@@ -69,6 +69,7 @@ Financial truth comes from raw evidence, canonical money events, deterministic i
 - `docs/domain/README.md` - M01 domain vocabulary directory boundary.
 - `docs/domain/payment-lifecycle.md` - M01.01 payment lifecycle vocabulary and boundaries.
 - `docs/domain/ledger-vocabulary.md` - M01.02 ledger vocabulary and boundaries.
+- `docs/specs/ledger-entry-schema.md` - M04.03 exact entry money and reference validation, without posting.
 - `docs/domain/settlement-vocabulary.md` - M01.03 settlement vocabulary and boundaries.
 - `docs/domain/reconciliation-vocabulary.md` - M01.04 reconciliation vocabulary and boundaries.
 - `docs/domain/incident-vocabulary.md` - M01.05 incident vocabulary and boundaries.

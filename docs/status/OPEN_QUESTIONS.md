@@ -30,3 +30,8 @@
 ## M04.02 contract decisions
 
 - Transaction header identity/status/provenance/clocks/retry-key semantics are specified in `docs/specs/ledger-transaction-schema.md`. Money representations/ranges, durable payload identity, lifecycle enforcement and receipt verification remain with their explicitly authorized owning slices; metadata alone cannot establish them.
+
+
+## M04.03 money and reference decisions
+
+The versioned entry wire amount is a canonical positive decimal string, parsed exactly to bigint; 1 through 9223372036854775807 per line, zero/negative/Number/bigint input rejected. USD/EUR/GBP match supplied Account metadata. This settles the schema slice's wire/range/side policy; it does not implement storage or posting. M04.04 must sum exact bigint above per-line range where needed. M04.05 must specify/test its durable encoding, range, atomicity, rollback and immutable Postgres guards. Serializers, durable reference uniqueness, closed-account eligibility, authorization and economic-occurrence identity remain future owning work; no material scope amendment applied.

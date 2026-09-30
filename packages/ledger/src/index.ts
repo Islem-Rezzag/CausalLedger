@@ -40,6 +40,26 @@ export type {
   AccountCatalogValidationResult,
 } from "./account.js";
 
+export {
+  LEDGER_ENTRY_CONTRACT_VERSION,
+  LEDGER_ENTRY_SIDES,
+  LEDGER_ENTRY_MAX_MINOR_UNITS,
+  validateLedgerEntryCandidate,
+} from "./ledger-entry.js";
+export type {
+  LedgerEntry,
+  LedgerEntryCandidate,
+  LedgerEntryContextCandidate,
+  LedgerEntryId,
+  LedgerEntryMinorUnits,
+  LedgerEntrySide,
+  LedgerEntryWireAmount,
+  LedgerEntryAmount,
+  LedgerEntryIssueCode,
+  LedgerEntryValidationIssue,
+  LedgerEntryValidationResult,
+} from "./ledger-entry.js";
+
 export const ledgerPackageBoundary = Object.freeze({
   packageName: "@causalledger/ledger",
   status: "ledger-schema-boundary",
@@ -47,7 +67,8 @@ export const ledgerPackageBoundary = Object.freeze({
   deterministicAccountValidationImplemented: true,
   transactionSchemaImplemented: true,
   deterministicTransactionValidationImplemented: true,
-  entrySchemaImplemented: false,
+  entrySchemaImplemented: true,
+  deterministicEntryValidationImplemented: true,
   postingImplemented: false,
   balanceQueriesImplemented: false,
   storageImplemented: false,

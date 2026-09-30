@@ -2,29 +2,26 @@
 
 ## Current phase
 
-M00-M03 are closed; V1_PUBLIC_PRODUCT remains explicitly approved. M04.01 PR #62 human-merged at `44f6a833692326d00ed5a9b7479a52dd761af814`; main reachability and exact reviewed/merged tree equality PASS. Independent final-head QA and CI `36020971358` PASS.
-
-M04 is in progress under active plan `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. M04.01 is Completed and merged. M04.02 Define LedgerTransaction schema is QA passed, awaiting merge in PR #63. M04.03-M04.18 and M05-M21 remain Not started.
+M00-M03 closed; V1_PUBLIC_PRODUCT approved. M04 under active plan `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.01-M04.02 Completed and merged. PR #63 human-merged at `1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d`; reviewed/merged tree 6528851abfe1b8e9642b5ddfc225b50d034da50e equality and fetched-main reachability PASS. Final-head independent QA, clean QA 18/0/1 and CI 36785054245 PASS. M04.03 Builder complete, awaiting QA; M04.04-M04.18 and M05-M21 Not started.
 
 ## Current submilestone and branch
 
-Current slice: M04.02 Define LedgerTransaction schema.
-Current branch: `m04-02-ledger-transaction-schema`.
-Current PR: [#63](https://github.com/Islem-Rezzag/CausalLedger/pull/63).
-Scope: pure transaction metadata/provenance validation, tests and necessary lifecycle tracking; no entries, posting or storage.
+Current slice: M04.03 Define LedgerEntry schema.
+Current branch: `m04-03-ledger-entry-schema`.
+Scope: pure entry amount/reference validation against supplied Account/transaction context; no balancing/posting/storage.
 
 ## Next action
 
-Finish exact-head re-review, clean-worktree QA and validate/infra-smoke CI for the documentation handoff revision, recording results against the actual final SHA in PR #63. Then human review and squash merge. Only humans merge; M04.03 remains unstarted. No additional V1 approval or Builder prompt is required.
+Commit/push scoped Builder and one draft PR, then independent same-branch QA; final reviewed-head clean QA and CI, then human merge before M04.04.
 
 ## Latest validation
 
-Separate-context reviewer `m04_02_qa` PASS with no findings on `6e2cba186a8b7fcc98c83f253ff28d3625c4aa5a`, base `44f6a833692326d00ed5a9b7479a52dd761af814`: all 28 files inspected; fresh control validation/237 bootstrap and ledger typecheck/230 tests/lint/build/format PASS; full-diff whitespace/forbidden-scope PASS; supplemental 111 runtime and 57 lifecycle probes PASS, separate from committed test counts. CI `36784155944` on that exact SHA passed both jobs. Coordinator clean QA on that SHA: 18 PASS / 0 FAIL / 1 optional Docker skip, frozen install and workspace typecheck/lint/379 tests/build/format. Fresh events regression 97 PASS in Builder; measured workspace run used 12 unchanged package cache hits plus fresh ledger. Warm dependency store/task caches are not cold-install proof. Final documentation revision re-review, clean QA and CI remain required in the SHA-bound PR record. Node 22.16.0, pnpm 10.32.1, package-local TypeScript 6.0.3, Python 3.13.1 (CI 3.12).
+Fresh ledger typecheck/354 tests/lint/build/format PASS, control validation/301 bootstrap PASS, events regression97 PASS. Workspace503 tests, 13 tasks successful, 12 unchanged tasks cached and ledger fresh. Full `corepack pnpm qa:dev --allow-dirty`: 17 PASS / 0 FAIL / 2 expected skips, frozen install and workspace checks. Warm dependency/task caches, not cold-install proof. Node22.16.0/pnpm10.32.1/TypeScript6.0.3/Python3.13.1 (CI3.12). Independent review, final clean QA and exact-head CI pending.
 
 ## Environment and safety
 
-Use repository-pinned tools. Local Docker/make were unavailable at the last recheck; direct Python substitutes for make. Pure schema work needs no Postgres; storage-dependent work retains the approved disposable Postgres gate. No installation or paid calls. MoneyEvent and Account/transaction validation remain structural metadata checks; no authenticity, authorization, durable uniqueness or financial truth is established.
+Pinned tools; optional Docker/make unavailable at prior inventory, direct Python substitutes. Pure schema work requires no Postgres. Future durable storage requires approved disposable Postgres tests. No installations/paid calls/financial mutation.
 
 ## Product implementation status
 
-Source-neutral MoneyEvent validation/normalization and controlled fixtures/seeds, plus merged Account metadata validation, exist. LedgerTransaction header validation has independent QA PASS on this branch, awaiting final-head gates and human merge. Entries, postings, balances, storage, lifecycle actions and later product/agent/UI capabilities remain unimplemented. Existing goal MD/JSON and active plan are authoritative.
+Source-neutral MoneyEvent validation/normalization and Account/transaction header metadata validation exist. M04.03 entry wire/amount/reference validation is implemented on this branch, Builder complete, awaiting QA and human merge. No balancing/posting/balances/storage/reversals/evidence authentication/durable idempotency or agent financial authority. Structural metadata is not financial truth.

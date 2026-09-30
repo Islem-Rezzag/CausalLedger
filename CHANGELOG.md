@@ -1,5 +1,7 @@
 # Changelog
 
+M04.03 adds exact positive LedgerEntry wire amounts and supplied Account/transaction reference checks; no balancing, posting or storage.
+
 M04.02 adds pure LedgerTransaction header validation and explicit identity, provenance, timestamp and retry-key boundaries; no posting, entries or storage.
 
 All notable CausalLedger release changes are recorded here.

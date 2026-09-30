@@ -1,10 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-Merge M04.02 PR - Define LedgerTransaction schema
+M04.03 QA - Define LedgerEntry schema
 
 Precondition:
-Independent implementation QA PASS, no actionable findings, on Builder `6e2cba186a8b7fcc98c83f253ff28d3625c4aa5a`. PR [#63](https://github.com/Islem-Rezzag/CausalLedger/pull/63), branch `m04-02-ledger-transaction-schema`, base `44f6a833692326d00ed5a9b7479a52dd761af814`. Final handoff revision requires exact-SHA reviewer recheck, clean-worktree QA and required CI in the PR review record before readiness. Do not accept earlier SHA evidence for a changed head.
+Builder validation PASS; one same-branch PR on `m04-03-ledger-entry-schema`, base `1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d`. Starting branch/status/origin guard passed clean. Reviewer must rerun guard and remain read-only; coordinator owns scoped fixes.
 
 Scope:
-Human reviews and squash-merges PR #63 only after final gates PASS; agents never merge or enable auto-merge. On “Merged #63. Continue.” recover actual GitHub merge metadata, verify reviewed contents reached fetched main with squash-aware checks, safely synchronize, finalize M04.02 tracking within the next legitimate slice and generate/execute **M04.03 Builder - Define LedgerEntry schema** under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. M04.03 remains Not started until those conditions hold. Preserve V1 approval, all 18 M04 rows and safety/environment gates; no extra prompt is required.
+Independently review full diff and generated M04.03 brief in `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, Account/header/domain/ADR contracts, exact wire-to-bigint range/side policy, supplied-reference/currency checks, behavioral/type tests and cumulative lifecycle/owner/future-file guards. Run targeted ledger/control checks and verify forbidden scope. Final exact-head clean QA/CI and human merge precede M04.04. No extra prompt or V1 approval required.

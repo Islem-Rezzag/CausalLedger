@@ -1134,3 +1134,11 @@ M04.02 Builder complete, awaiting QA: transaction header/provenance contract and
 - Separate-context reviewer `m04_02_qa` PASS, no actionable findings, on `6e2cba186a8b7fcc98c83f253ff28d3625c4aa5a` against base `44f6a833692326d00ed5a9b7479a52dd761af814`; all 28 scoped files and approved boundaries inspected. Independent control 237/ledger 230 and static/scope checks PASS; supplemental runtime 111/lifecycle 57 probes PASS, not added to committed test counts.
 - Same candidate coordinator clean-worktree QA 18/0/1 and CI `36784155944` validate/infra-smoke PASS; workspace 379, warm dependency/task caches, not cold-install proof. Docker/make unavailable, Python substitutes passed; no database claim.
 - One PR #63 exists. This QA handoff changes documentation/tracking only; no implementation repair needed. Final handoff-head re-review, clean QA and CI must be bound to the actual SHA in PR #63 before human review/merge. M04.02 QA passed, awaiting merge; M04.03 and later unstarted. Exact next thread: Merge M04.02 PR - Define LedgerTransaction schema.
+
+
+## 2026-09-30 - M04.02 merge and M04.03 start
+
+Verified PR #63 human merge `1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d`, exact reviewed/merged tree `6528851abfe1b8e9642b5ddfc225b50d034da50e` and fetched-main reachability; final QA/clean QA/CI36785054245PASS on511ce291eb18538e0a07076287ca0f7c4a24656a. Finalized M04.02 within next legitimate slice, safely fast-forwarded clean main and created `m04-03-ledger-entry-schema`. M04.03 brief freezes positive canonical decimal wire amount to exact bigint, per-line signed64-compatible range and supplied Account/header reference checks; implementation/validation pending. M04.04 onward unstarted, all18/V1/safety gates preserved.
+
+
+M04.03 Builder complete, awaiting QA: new entry source/runtime/type tests/spec; positive bounded decimal wire amounts become exact bigint, explicit side and supplied Account/header references checked. Fresh ledger354/control301/events97 PASS; workspace503 (12 unchanged package tasks cached), intermediate QA17/0/2 PASS. Strict test typing/BigInt labels/default helper and status wording corrected; no assertions weakened. Account/transaction implementation preserved, own Entry reference checks reject terminal-newline IDs. Independent review/final clean QA/CI/human merge remain; M04.04 unstarted.
