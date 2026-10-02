@@ -18,7 +18,9 @@ M04.02 human-merged in PR #63 at `1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d`; rev
 
 M04.03 human-merged in PR #64 at `4a5637c8eab842b368e046b0994a620ecb08e90b`; reviewed head `7ee673869e48a61f19fd3b8d0d61b1e7a1199a87` shares tree `73632a81652423e9713e808976b1a922dbd71ad5`, reachable from fetched main. Exact-head independent QA, clean QA 18/0/1 and CI `36789436774` PASS.
 
-M04.04 Enforce debit equals credit under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, branch `m04-04-enforce-debit-equals-credit`. The generated brief and implementation provide exact bigint totals independently per currency, strict contextual validation, duplicate refusal and detached frozen success or issues without partial output. No posting, account balance queries, storage or financial authority; M04.05 and later stay unstarted. Builder validation PASS: ledger432/control380, fresh events97, measured workspace581 and intermediate QA17/0/2 with warm caches. Separate-context overall reviewer `m04_02_qa` PASS with no findings on `b66f5fa23021f2cd4b2722402d0ac6fd1da99a61`; fresh independent ledger432/control380/static/scope and supplemental runtime192/lifecycle182 PASS. PR #65 is the sole review container; Builder clean QA18/0/1 and CI36997409686 PASS. Final handoff-head review/clean QA/CI remain required.
+M04.04 human-merged in PR #65 at `526bb66dda5d9c8b9aebd85775142e8d22c3a73a`; reviewed final head `66f679e9711a0a5f06830eb203119d1dd8e3e04e` shares tree `15c668085da628122ff5601be7d87d8da6b91b35`, with empty diff/main reachability. Exact-head independent QA, clean QA18/0/1 and CI36998201769 both jobs PASS. All prior contracts and 18 approved acceptance rows remain preserved.
+
+Current M04.05 Add immutable transaction storage under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, branch `m04-05-add-immutable-transaction-storage`: Builder in progress, no PR or overall QA/real database acceptance yet. The generated brief permits atomic immutable synthetic storage, one reviewed migration and necessary driver/CI/QA/control-plane evolution. M04.06+ unstarted.
 
 ## Authority and safety
 
@@ -28,10 +30,10 @@ V1 selection does not approve paid calls/budgets, system installs, material scop
 
 ## Environment and validation
 
-Use pinned tools and documented commands. Docker/Compose and make remain locally unavailable at the last recheck; direct Python checks substitute for make. Planning and pure schema work can proceed without Docker; storage-dependent acceptance requires approved Postgres setup, migration/atomicity/concurrency tests and local remediation. No database substitution or installation is authorized. Tests use controlled synthetic data; no paid model is needed. Public claims must distinguish mocked/live, synthetic/production and implemented/planned behavior.
+Use pinned tools and documented commands. Docker/Compose and make remain locally unavailable at the last recheck; direct Python checks substitute for make. The existing approved GitHub Actions infra-smoke route provisions disposable Postgres17 and will run mandatory storage migration/atomicity/rollback/readback/immutability tests. Local database tests remain unavailable and cannot be claimed. No database substitution or system installation is performed; CI acceptance must pass before merge readiness. Local remediation remains future setup work for operating the product. Tests use controlled synthetic data; no paid model is needed. Public claims must distinguish mocked/live, synthetic/production and implemented/planned behavior.
 
 Current-slice validation and QA status live in the active plan and current state. Final-head CI belongs in the PR review record, bound to its SHA, rather than a chain of commits recording preceding CI passes.
 
 ## Next gate
 
-M04.04 QA passed, awaiting merge in PR #65. Final actual-head re-review/clean QA/CI must PASS and be recorded against its SHA before human review/squash merge. Reply “Merged #65. Continue.” after actual merge; verify GitHub/tree/main and finalize tracking before M04.05. Preserve V1/all18 and the approved disposable Postgres requirement for storage-dependent acceptance.
+Finish M04.05, run local validation and mandatory real database CI, obtain existing independent overall QA and final-head CI, then stop for human review/squash merge of its sole PR. The coordinator runs tests; the user need not run them. Preserve V1/all18; no M04.06 before the human merge.

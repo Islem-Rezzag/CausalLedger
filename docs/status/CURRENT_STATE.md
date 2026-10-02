@@ -2,26 +2,22 @@
 
 ## Current phase
 
-M00-M03 closed; V1_PUBLIC_PRODUCT approved. M04.01-M04.03 Completed and merged; PR #64 human merge `4a5637c8eab842b368e046b0994a620ecb08e90b`, exact reviewed/merged tree `73632a81652423e9713e808976b1a922dbd71ad5` and fetched-main reachability verified. M04.04 QA passed, awaiting merge in PR #65 under active plan `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.05-M04.18 and M05-M21 Not started.
+M00-M03 closed; V1_PUBLIC_PRODUCT approved. M04.01-M04.04 Completed and merged. PR #65 human merge `526bb66dda5d9c8b9aebd85775142e8d22c3a73a` and reviewed head66f679e share tree15c668085da628122ff5601be7d87d8da6b91b35; empty diff/fetched-main reachability and exact final-head independent QA/CI36998201769 PASS verified. Final clean QA18/0/1 is prior-slice evidence.
 
 ## Current submilestone and branch
 
-Current slice: M04.04 Enforce debit equals credit.
-Current branch: `m04-04-enforce-debit-equals-credit`.
-Scope: pure exact journal equality independently per currency against supplied header/Account/wire-entry metadata; no posting/storage/account balance query.
+Current slice: M04.05 Add immutable transaction storage, Builder in progress on `m04-05-add-immutable-transaction-storage` under active plan `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Generated brief records permitted files, acceptance, safety and reviewer instructions. No storage acceptance, QA PASS or PR yet; M04.06-M04.18 and M05-M21 remain Not started.
+
+Current branch: `m04-05-add-immutable-transaction-storage`
+
+## Environment
+
+Existing Windows/Ubuntu WSL lack Postgres/Docker. The approved existing GitHub Actions infra-smoke route supplies disposable Postgres17; mandatory storage migration/rollback/readback/immutability tests will run there. Local tests cover unit/type/control/workspace behavior only. Prior empty-migration CI is not storage proof. No system installation or paid calls.
 
 ## Next action
 
-Final actual-head independent re-review, clean QA and required validate/infra-smoke CI must PASS and be recorded in PR #65; then human review/squash merge. Exact next thread: **Merge M04.04 PR - Enforce debit equals credit**. Reply “Merged #65. Continue.” after actual merge; verify merge/tree/main before M04.05 and its Postgres gate. Agents cannot merge or enable auto-merge.
-
-## Latest validation
-
-Separate-context overall reviewer `m04_02_qa` PASS, no findings, on `b66f5fa23021f2cd4b2722402d0ac6fd1da99a61`. Fresh ledger typecheck/432 tests (9 files)/lint/build/format, control validator/380 bootstrap, runtime192/lifecycle182 supplemental probes and full scope/whitespace/18-row identity checks PASS. Zero getter/coercion calls. Two supplemental harness mistakes corrected; no implementation/committed test changes. Fresh Builder events97 PASS; workspace581 measured from cached task readback. Coordinator Builder clean `corepack pnpm qa:dev` 18 PASS / 0 FAIL / 1 optional Docker skip and Builder CI36997409686 both jobs PASS. Warm caches, not cold-install proof. Final doc-only handoff still requires actual-SHA gates; record them in PR #65, no extra CI-copy commit.
-
-## Environment and safety
-
-Node22.16.0/pnpm10.32.1/TypeScript6.0.3/Python3.13.1 (CI3.12). Docker/make unavailable on fresh recheck, direct Python substitutes PASS. Pure arithmetic requires no Postgres; M04.05 requires approved disposable Postgres/durable encoding/range/atomicity/rollback/immutable guards. Remote baseline infra-smoke does not prove product storage. Existing CI action deprecation warnings are nonblocking. No installations/paid calls/financial mutation.
+Next: finish scoped storage, run local checks and real database CI, obtain existing separate-context overall QA and exact-head CI, then stop for human review/merge. The user need not run tests. Agents cannot merge, approve repairs, alter raw evidence or receive financial-write authority. Persistence tests use only controlled synthetic records in owned disposable resources; financial truth is not established by model advice or structural/arithmetic validation.
 
 ## Product implementation status
 
-Source-neutral MoneyEvent validation/normalization and merged Account/header/entry validation exist. M04.04 strict per-currency bigint journal equality is implemented and independently reviewed; duplicate/malformed/unequal groups reject without partial output, success is sorted/detached/frozen. No posting/storage/account balances/reversal/durable idempotency or agent financial-write/approval authority. Structural/arithmetic consistency is not financial truth.
+Source-neutral MoneyEvent validation/normalization and merged Account/header/entry/journal validation exist. M04.05 storage code and isolated database tests are being implemented; real acceptance and independent QA remain pending. No balance query, general lookup, semantic retry, reversal or agent financial-write/approval authority. Financial truth comes from deterministic evidence and controls, never model advice.

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import shutil
 import socket
@@ -387,7 +388,14 @@ def check_docker_environment(reporter: Reporter, *, with_docker: bool) -> None:
         )
         cleanup_required = True
         if started and wait_for_postgres_health(reporter, project, docker_env):
-            migrated = run_check(reporter, "Migration smoke", ["pnpm", "migrate:up"], env=migration_env)
+            storage_command = json.loads((ROOT / "package.json").read_text(encoding="utf-8")).get("scripts", {}).get("test:ledger-storage")
+            if storage_command == "node scripts/test-ledger-storage.mjs":
+                migration_env = {**migration_env,
+                    "LEDGER_STORAGE_TEST_ADMIN_URL": migration_env["DATABASE_URL"],
+                    "LEDGER_STORAGE_TEST_DISPOSABLE": "YES_M04_05_SYNTHETIC_ONLY"}
+                migrated = run_check(reporter, "Migration smoke", ["pnpm", "test:ledger-storage"], env=migration_env)
+            else:
+                migrated = run_check(reporter, "Migration smoke", ["pnpm", "migrate:up"], env=migration_env)
             if migrated:
                 inspect_schema(reporter, project, docker_env)
     finally:

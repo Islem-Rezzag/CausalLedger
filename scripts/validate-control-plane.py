@@ -97,6 +97,19 @@ M04_ENTRY_BRANCH = "m04-03-ledger-entry-schema"
 M04_ENTRY_PHASE = "M04_ENTRY_SCHEMA"
 M04_BALANCE_BRANCH = "m04-04-enforce-debit-equals-credit"
 M04_BALANCE_PHASE = "M04_BALANCE_VALIDATION"
+M04_STORAGE_BRANCH = "m04-05-add-immutable-transaction-storage"
+M04_STORAGE_PHASE = "M04_IMMUTABLE_STORAGE"
+M04_STORAGE_FILES = {"src/ledger-storage.ts", "test/ledger-storage.test.ts", "test/ledger-storage-types.test.ts", "test/storage-synthetic.ts", "test/ledger-storage-postgres.test.ts"}
+M04_STORAGE_MIGRATION = "1780000000000_m04_05_immutable_journal.cjs"
+M04_JOURNAL_MERGE_EVIDENCE = {
+    "pr": 65,
+    "mergeCommit": "526bb66dda5d9c8b9aebd85775142e8d22c3a73a",
+    "reviewedHead": "66f679e9711a0a5f06830eb203119d1dd8e3e04e",
+    "reviewedTree": "15c668085da628122ff5601be7d87d8da6b91b35",
+    "mergedTree": "15c668085da628122ff5601be7d87d8da6b91b35",
+    "ciRun": 36998201769,
+    "independentQa": "PASS",
+}
 M04_BALANCE_FILES = {"src/ledger-journal.ts", "test/ledger-journal.test.ts", "test/ledger-journal-types.test.ts"}
 M04_ENTRY_MERGE_EVIDENCE = {
     "pr": 64,
@@ -1887,20 +1900,22 @@ def validate_project_completion_goal(goal_state: object) -> list[str]:
         errors.append("PROJECT_COMPLETION_GOAL.json permitted target list is invalid")
     phase = goal_state.get("currentPhase")
     target = goal_state.get("approvedReleaseTarget")
-    if phase not in (M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE) and goal_state.get("accountMergeEvidence") is not None:
+    if phase not in (M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE) and goal_state.get("accountMergeEvidence") is not None:
         errors.append("earlier lifecycle phases cannot carry M04.01 account merge evidence")
-    if phase not in (M04_ENTRY_PHASE, M04_BALANCE_PHASE) and goal_state.get("transactionMergeEvidence") is not None:
+    if phase not in (M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE) and goal_state.get("transactionMergeEvidence") is not None:
         errors.append("earlier lifecycle phases cannot carry M04.02 transaction merge evidence")
-    if phase != M04_BALANCE_PHASE and goal_state.get("entryMergeEvidence") is not None:
+    if phase not in (M04_BALANCE_PHASE, M04_STORAGE_PHASE) and goal_state.get("entryMergeEvidence") is not None:
         errors.append("earlier lifecycle phases cannot carry M04.03 entry merge evidence")
-    if phase in ("M04_PLANNING", M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE):
+    if phase != M04_STORAGE_PHASE and goal_state.get("journalMergeEvidence") is not None:
+        errors.append("earlier lifecycle phases cannot carry M04.04 journal merge evidence")
+    if phase in ("M04_PLANNING", M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE):
         if target != RELEASE_TARGET_APPROVAL["target"]:
             errors.append("M04 planning requires the recorded V1_PUBLIC_PRODUCT approval")
         if goal_state.get("releaseTargetApproval") != RELEASE_TARGET_APPROVAL:
             errors.append("M04 planning requires the explicit human approval record")
         if goal_state.get("closeoutMergeEvidence") != M03_CLOSEOUT_MERGE_EVIDENCE:
             errors.append("M04 planning requires verified PR #60 closeout merge evidence")
-        if phase in (M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE):
+        if phase in (M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE):
             if goal_state.get("planningMergeEvidence") != M04_PLANNING_MERGE_EVIDENCE:
                 errors.append("M04.01 requires verified PR #61 planning merge evidence")
             if phase == M04_ACCOUNT_PHASE:
@@ -1933,12 +1948,24 @@ def validate_project_completion_goal(goal_state: object) -> list[str]:
                     else:
                         if goal_state.get("entryMergeEvidence") != M04_ENTRY_MERGE_EVIDENCE:
                             errors.append("M04.04 requires verified PR #64 entry merge evidence")
-                        if goal_state.get("currentBranch") != M04_BALANCE_BRANCH:
-                            errors.append("M04.04 requires the expected journal validation branch")
-                        if goal_state.get("currentMilestone") != "M04.04":
-                            errors.append("M04.04 must not activate a later submilestone")
-                        expected_pr = 64
-                        expected_merge = M04_ENTRY_MERGE_EVIDENCE["mergeCommit"]
+                        if phase == M04_STORAGE_PHASE:
+                            if (goal_state.get("journalMergeEvidence") != M04_JOURNAL_MERGE_EVIDENCE or
+                                not isinstance(goal_state.get("journalMergeEvidence"), dict) or
+                                any(type(goal_state["journalMergeEvidence"].get(key)) is not int for key in ("pr", "ciRun"))):
+                                errors.append("M04.05 requires verified PR #65 journal merge evidence")
+                            if goal_state.get("currentBranch") != M04_STORAGE_BRANCH:
+                                errors.append("M04.05 requires the expected immutable storage branch")
+                            if goal_state.get("currentMilestone") != "M04.05":
+                                errors.append("M04.05 must not activate a later submilestone")
+                            expected_pr = 65
+                            expected_merge = M04_JOURNAL_MERGE_EVIDENCE["mergeCommit"]
+                        else:
+                            if goal_state.get("currentBranch") != M04_BALANCE_BRANCH:
+                                errors.append("M04.04 requires the expected journal validation branch")
+                            if goal_state.get("currentMilestone") != "M04.04":
+                                errors.append("M04.04 must not activate a later submilestone")
+                            expected_pr = 64
+                            expected_merge = M04_ENTRY_MERGE_EVIDENCE["mergeCommit"]
         else:
             if goal_state.get("currentBranch") != M04_PLANNING_BRANCH:
                 errors.append("M04 planning requires the expected planning branch")
@@ -1969,7 +1996,7 @@ def validate_project_completion_goal(goal_state: object) -> list[str]:
 def m04_active_plan_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in ("M04_PLANNING", M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE)
+        not errors and state is not None and state.get("currentPhase") in ("M04_PLANNING", M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE)
         and not validate_project_completion_goal(state)
     )
 
@@ -1977,7 +2004,7 @@ def m04_active_plan_is_authorized() -> bool:
 def m04_account_schema_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE)
         and not validate_project_completion_goal(state)
     )
 
@@ -1985,7 +2012,7 @@ def m04_account_schema_is_authorized() -> bool:
 def m04_transaction_schema_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE)
         and not validate_project_completion_goal(state)
     )
 
@@ -1993,7 +2020,7 @@ def m04_transaction_schema_is_authorized() -> bool:
 def m04_entry_schema_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_ENTRY_PHASE, M04_BALANCE_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE)
         and not validate_project_completion_goal(state)
     )
 
@@ -2001,21 +2028,28 @@ def m04_entry_schema_is_authorized() -> bool:
 def m04_balance_validation_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") == M04_BALANCE_PHASE
+        not errors and state is not None and state.get("currentPhase") in (M04_BALANCE_PHASE, M04_STORAGE_PHASE)
         and not validate_project_completion_goal(state)
     )
+
+
+def m04_storage_is_authorized() -> bool:
+    state, errors = read_project_completion_goal()
+    return (not errors and state is not None and state.get("currentPhase") == M04_STORAGE_PHASE
+            and not validate_project_completion_goal(state))
 
 
 def validate_m04_planning() -> list[str]:
     """Keep the milestone plan intact while permitting only the verified current slice."""
     state, _ = read_project_completion_goal()
-    if not (state and state.get("currentPhase") in ("M04_PLANNING", M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE)):
+    if not (state and state.get("currentPhase") in ("M04_PLANNING", M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE)):
         return []
     account_slice = state.get("currentPhase") == M04_ACCOUNT_PHASE
     transaction_slice = state.get("currentPhase") == M04_TRANSACTION_PHASE
     entry_slice = state.get("currentPhase") == M04_ENTRY_PHASE
     balance_slice = state.get("currentPhase") == M04_BALANCE_PHASE
-    authorized_ids = {"M04.01", "M04.02", "M04.03", "M04.04"} if balance_slice else {"M04.01", "M04.02", "M04.03"} if entry_slice else {"M04.01", "M04.02"} if transaction_slice else {"M04.01"} if account_slice else set()
+    storage_slice = state.get("currentPhase") == M04_STORAGE_PHASE
+    authorized_ids = {"M04.01", "M04.02", "M04.03", "M04.04", "M04.05"} if storage_slice else {"M04.01", "M04.02", "M04.03", "M04.04"} if balance_slice else {"M04.01", "M04.02", "M04.03"} if entry_slice else {"M04.01", "M04.02"} if transaction_slice else {"M04.01"} if account_slice else set()
     errors = validate_project_completion_goal(state)
     if active_plan_files() != [ROOT / M04_ACTIVE_PLAN]:
         errors.append("M04 planning requires exactly the active CLP-0005 M04 plan")
@@ -2046,7 +2080,7 @@ def validate_m04_planning() -> list[str]:
             errors.append(f"M04 {label} later implementation rows must remain Not started")
     if any(row.active_plan != M04_ACTIVE_PLAN or ((row.branch or row.pr) and row.submilestone_id not in authorized_ids) for row in registry_rows):
         errors.append("M04 registry must reference its plan without premature implementation branches/PRs")
-    if transaction_slice or entry_slice or balance_slice:
+    if transaction_slice or entry_slice or balance_slice or storage_slice:
         for rows in [registry_rows, milestone_rows]:
             account = next((row for row in rows if row.submilestone_id == "M04.01"), None)
             if account is None or account.status != "Completed and merged":
@@ -2054,7 +2088,7 @@ def validate_m04_planning() -> list[str]:
         account = next((row for row in registry_rows if row.submilestone_id == "M04.01"), None)
         if account and (account.branch != M04_ACCOUNT_BRANCH or account.pr != "#62"):
             errors.append("merged M04.01 must retain its account branch and PR #62")
-    if entry_slice or balance_slice:
+    if entry_slice or balance_slice or storage_slice:
         for rows in [registry_rows, milestone_rows]:
             transaction = next((row for row in rows if row.submilestone_id == "M04.02"), None)
             if transaction is None or transaction.status != "Completed and merged":
@@ -2062,7 +2096,7 @@ def validate_m04_planning() -> list[str]:
         transaction = next((row for row in registry_rows if row.submilestone_id == "M04.02"), None)
         if transaction and (transaction.branch != M04_TRANSACTION_BRANCH or transaction.pr != "#63"):
             errors.append("merged M04.02 must retain its transaction branch and PR #63")
-    if balance_slice:
+    if balance_slice or storage_slice:
         for rows in [registry_rows, milestone_rows]:
             entry = next((row for row in rows if row.submilestone_id == "M04.03"), None)
             if entry is None or entry.status != "Completed and merged":
@@ -2070,9 +2104,17 @@ def validate_m04_planning() -> list[str]:
         entry = next((row for row in registry_rows if row.submilestone_id == "M04.03"), None)
         if entry and (entry.branch != M04_ENTRY_BRANCH or entry.pr != "#64"):
             errors.append("merged M04.03 must retain its entry branch and PR #64")
-    if account_slice or transaction_slice or entry_slice or balance_slice:
-        current_id = "M04.04" if balance_slice else "M04.03" if entry_slice else "M04.02" if transaction_slice else "M04.01"
-        current_branch = M04_BALANCE_BRANCH if balance_slice else M04_ENTRY_BRANCH if entry_slice else M04_TRANSACTION_BRANCH if transaction_slice else M04_ACCOUNT_BRANCH
+    if storage_slice:
+        for rows in [registry_rows, milestone_rows]:
+            journal = next((row for row in rows if row.submilestone_id == "M04.04"), None)
+            if journal is None or journal.status != "Completed and merged":
+                errors.append("M04.05 requires M04.04 Completed and merged across tracking")
+        journal = next((row for row in registry_rows if row.submilestone_id == "M04.04"), None)
+        if journal and (journal.branch != M04_BALANCE_BRANCH or journal.pr != "#65"):
+            errors.append("merged M04.04 must retain its journal branch and PR #65")
+    if account_slice or transaction_slice or entry_slice or balance_slice or storage_slice:
+        current_id = "M04.05" if storage_slice else "M04.04" if balance_slice else "M04.03" if entry_slice else "M04.02" if transaction_slice else "M04.01"
+        current_branch = M04_STORAGE_BRANCH if storage_slice else M04_BALANCE_BRANCH if balance_slice else M04_ENTRY_BRANCH if entry_slice else M04_TRANSACTION_BRANCH if transaction_slice else M04_ACCOUNT_BRANCH
         registry_account = next((row for row in registry_rows if row.submilestone_id == current_id), None)
         milestone_account = next((row for row in milestone_rows if row.submilestone_id == current_id), None)
         allowed_states = {"Builder in progress", "Builder complete, awaiting QA", "QA in progress", "QA passed, awaiting merge", "Blocked"}
@@ -2080,9 +2122,9 @@ def validate_m04_planning() -> list[str]:
             if registry_account.status not in allowed_states or registry_account.status != milestone_account.status:
                 errors.append(f"{current_id} status must agree across tracking and must not claim merged completion")
             if registry_account.branch != current_branch:
-                errors.append(f"{current_id} registry requires the expected {'journal validation' if balance_slice else 'entry schema' if entry_slice else 'transaction schema' if transaction_slice else 'account schema'} branch")
+                errors.append(f"{current_id} registry requires the expected {'immutable storage' if storage_slice else 'journal validation' if balance_slice else 'entry schema' if entry_slice else 'transaction schema' if transaction_slice else 'account schema'} branch")
             pr = state.get("currentPr")
-            if (pr is not None and (type(pr) is not int or pr <= (64 if balance_slice else 63 if entry_slice else 62 if transaction_slice else 61))) or registry_account.pr != (f"#{pr}" if pr is not None else ""):
+            if (pr is not None and (type(pr) is not int or pr <= (65 if storage_slice else 64 if balance_slice else 63 if entry_slice else 62 if transaction_slice else 61))) or registry_account.pr != (f"#{pr}" if pr is not None else ""):
                 errors.append(f"{current_id} PR tracking must match its own current PR")
             if registry_account.status in {"QA in progress", "QA passed, awaiting merge"} and pr is None:
                 errors.append(f"{current_id} QA requires its own PR")
@@ -2143,6 +2185,7 @@ def validate_m03_06_closeout_readiness() -> list[str]:
             and not (row.submilestone_id == "M04.02" and m04_transaction_schema_is_authorized())
             and not (row.submilestone_id == "M04.03" and m04_entry_schema_is_authorized())
             and not (row.submilestone_id == "M04.04" and m04_balance_validation_is_authorized())
+            and not (row.submilestone_id == "M04.05" and m04_storage_is_authorized())
         )
         if non_not_started:
             errors.append(
@@ -2319,9 +2362,10 @@ def validate_github_workflows() -> list[str]:
             "infra-smoke:",
             "docker compose config",
             "docker compose up -d postgres",
-            "DATABASE_URL: postgres://causalledger:causalledger_local_password@127.0.0.1:5432/causalledger_dev",
-            "pnpm migrate:up",
-            "docker compose exec -T postgres psql",
+            *( ["LEDGER_STORAGE_TEST_ADMIN_URL: postgres://causalledger:causalledger_local_password@127.0.0.1:5432/causalledger_dev",
+                "pnpm test:ledger-storage", "LEDGER_STORAGE_TEST_DISPOSABLE: YES_M04_05_SYNTHETIC_ONLY"] if m04_storage_is_authorized() else [
+                "DATABASE_URL: postgres://causalledger:causalledger_local_password@127.0.0.1:5432/causalledger_dev",
+                "pnpm migrate:up", "docker compose exec -T postgres psql"] ),
             "docker compose down -v",
             "if: always()",
         ]:
@@ -2345,6 +2389,14 @@ def validate_package_manifest(package_dir: str) -> list[str]:
             errors.append(f"{rel}/package.json missing {script_name} script")
     if scripts.get("lint") != "eslint . --max-warnings=0":
         errors.append(f"{rel}/package.json lint script must run real ESLint")
+    dependencies = manifest.get("dependencies", {})
+    if "pg" in dependencies and not (package_dir == "ledger" and m04_storage_is_authorized()):
+        errors.append(f"{rel}/package.json contains database dependency outside authorized storage")
+    if package_dir == "ledger" and m04_storage_is_authorized():
+        if dependencies != {"pg": "8.22.0"}:
+            errors.append("ledger storage requires exactly pinned pg8.22.0 runtime dependency")
+        if scripts.get("test") != 'vitest run --exclude "dist/**" --exclude "test/ledger-storage-postgres.test.ts"':
+            errors.append("ledger default tests must distinguish unit checks from mandatory database acceptance")
     return errors
 
 
@@ -2382,13 +2434,19 @@ def validate_package_sources(package_dir: str) -> list[str]:
             package_dir == "ledger" and (
                 package_relative_path in {"src/index.ts", "src/ledger-entry.ts"} and m04_entry_schema_is_authorized()
                 or package_relative_path == "src/ledger-journal.ts" and m04_balance_validation_is_authorized()
+                or package_relative_path == "src/ledger-storage.ts" and m04_storage_is_authorized()
             )
         ):
             errors.append(f"{relative_path} contains LedgerEntry validation outside its authorized package owner")
         if re.search(r"\b(?:LedgerJournal|validateLedgerJournalCandidate|LEDGER_JOURNAL_CONTRACT_VERSION)\b", source) and not (
-            package_dir == "ledger" and package_relative_path in {"src/index.ts", "src/ledger-journal.ts"} and m04_balance_validation_is_authorized()
+            package_dir == "ledger" and (package_relative_path in {"src/index.ts", "src/ledger-journal.ts"} and m04_balance_validation_is_authorized()
+                or package_relative_path == "src/ledger-storage.ts" and m04_storage_is_authorized())
         ):
             errors.append(f"{relative_path} contains journal validation outside its authorized package owner")
+        if re.search(r"\b(?:createLedgerJournalStore|LedgerJournalStore|LEDGER_STORAGE_CONTRACT_VERSION)\b", source) and not (
+            package_dir == "ledger" and package_relative_path in {"src/index.ts", "src/ledger-storage.ts"} and m04_storage_is_authorized()
+        ):
+            errors.append(f"{relative_path} contains storage outside its authorized package owner")
         if re.search(r"\b(?:validateMoneyEventCandidate|normalizeMoneyEventCandidate|validateAndNormalizeMoneyEventCandidate)\b", source) and not (
             package_dir == "events"
             and package_relative_path in {"src/index.ts", "src/money-event-validation.ts"}
@@ -2550,6 +2608,8 @@ def validate_package_scaffolds() -> list[str]:
             expected_files.update(M04_ENTRY_FILES)
         if package_dir.name == "ledger" and m04_balance_validation_is_authorized():
             expected_files.update(M04_BALANCE_FILES)
+        if package_dir.name == "ledger" and m04_storage_is_authorized():
+            expected_files.update(M04_STORAGE_FILES)
         if files != expected_files:
             missing = sorted(expected_files - files)
             extra = sorted(files - expected_files)
@@ -2649,6 +2709,12 @@ def validate_qa_development_environment() -> list[str]:
     ]:
         if phrase not in guide:
             errors.append(f"docs/ops/qa-development-environment.md missing guidance: {phrase}")
+    if m04_storage_is_authorized():
+        manifest = json.loads(read_text("package.json"))
+        if manifest.get("scripts", {}).get("test:ledger-storage") != "node scripts/test-ledger-storage.mjs":
+            errors.append("M04.05 requires the mandatory disposable storage acceptance command")
+        if not (ROOT / "scripts/test-ledger-storage.mjs").is_file():
+            errors.append("M04.05 requires its isolated storage acceptance runner")
     return errors
 
 
@@ -2685,12 +2751,15 @@ def validate_migration_directory() -> list[str]:
         for path in migration_dir.rglob("*")
         if path.is_file()
     )
-    extra_files = [file_name for file_name in files if file_name != "README.md"]
+    allowed = {"README.md", M04_STORAGE_MIGRATION} if m04_storage_is_authorized() else {"README.md"}
+    extra_files = [file_name for file_name in files if file_name not in allowed]
     if extra_files:
         return [
-            "infra/migrations may contain only README.md before product schema scope: "
+            ("infra/migrations contains files outside the authorized storage schema scope: " if m04_storage_is_authorized() else "infra/migrations may contain only README.md before product schema scope: ")
             + ", ".join(extra_files)
         ]
+    if m04_storage_is_authorized() and M04_STORAGE_MIGRATION not in files:
+        return ["M04.05 requires its reviewed immutable storage migration"]
     return []
 
 

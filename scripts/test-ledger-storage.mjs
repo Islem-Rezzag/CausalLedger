@@ -1,0 +1,259 @@
+import { randomBytes } from "node:crypto";
+import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
+import { spawnSync } from "node:child_process";
+const root = fileURLToPath(new URL("../", import.meta.url));
+const require = createRequire(
+  new URL("../packages/ledger/package.json", import.meta.url),
+);
+const { Client } = require("pg");
+const database = "causalledger_m04_05_disposable";
+const owner = "causalledger_storage_owner";
+const application = "causalledger_storage_app";
+const flag = "YES_M04_05_SYNTHETIC_ONLY";
+const connection = process.env.LEDGER_STORAGE_TEST_ADMIN_URL;
+if (!connection || process.env.LEDGER_STORAGE_TEST_DISPOSABLE !== flag) {
+  console.error(
+    "FAIL: Explicit LEDGER_STORAGE_TEST_ADMIN_URL and disposable synthetic-only acknowledgement required. No DATABASE_URL fallback.",
+  );
+  process.exit(1);
+}
+let url;
+try {
+  url = new URL(connection);
+} catch {
+  throw new Error("Invalid explicit bootstrap connection URL.");
+}
+if (
+  !["postgres:", "postgresql:"].includes(url.protocol) ||
+  url.hostname !== "127.0.0.1" ||
+  !url.port ||
+  !url.username ||
+  !url.password ||
+  !["/causalledger_dev", "/causalledger_qa"].includes(url.pathname) ||
+  url.search ||
+  url.hash
+) {
+  throw new Error(
+    "Refusing an unrecognized bootstrap target; use the isolated Compose loopback database.",
+  );
+}
+const ownerPassword = randomBytes(32).toString("hex");
+const appPassword = randomBytes(32).toString("hex");
+const sanitize = (s) =>
+  String(s)
+    .replaceAll(connection, "<bootstrap-url>")
+    .replaceAll(ownerPassword, "<owner-password>")
+    .replaceAll(appPassword, "<app-password>")
+    .replaceAll(decodeURIComponent(url.password), "<bootstrap-password>");
+const roleUrl = (role, password) => {
+  const result = new URL(connection);
+  result.username = role;
+  result.password = password;
+  result.pathname = "/" + database;
+  return result.href;
+};
+const migrationUrl = roleUrl(owner, ownerPassword);
+const appUrl = roleUrl(application, appPassword);
+const admin = new Client({
+  connectionString: connection,
+  connectionTimeoutMillis: 5000,
+});
+let ownerCreated = false,
+  appCreated = false,
+  databaseOid = null,
+  ownerOid = null,
+  appOid = null;
+const child = (args, env) => {
+  const result = spawnSync(process.execPath, args, {
+    cwd: root,
+    env,
+    encoding: "utf8",
+    timeout: 180000,
+  });
+  const output = sanitize((result.stdout ?? "") + (result.stderr ?? ""));
+  console.log(output);
+  if (result.status !== 0)
+    throw new Error(
+      "Required storage validation command failed: " +
+        (result.error?.code ?? result.status),
+    );
+};
+const migration = (direction) =>
+  child(
+    [
+      fileURLToPath(
+        new URL(
+          "../node_modules/node-pg-migrate/bin/node-pg-migrate.js",
+          import.meta.url,
+        ),
+      ),
+      direction,
+      "--migrations-dir",
+      "infra/migrations",
+      "--ignore-pattern",
+      "README.md",
+      "--database-url-var",
+      "DATABASE_URL",
+    ],
+    { ...process.env, DATABASE_URL: migrationUrl },
+  );
+try {
+  await admin.connect();
+  const identity = (
+    await admin.query(
+      "SELECT current_database() AS database, current_setting('server_version_num')::integer AS version",
+    )
+  ).rows[0];
+  if (
+    identity.database !== url.pathname.slice(1) ||
+    identity.version < 170000 ||
+    identity.version >= 180000
+  )
+    throw new Error(
+      "Disposable acceptance requires the verified bootstrap identity and PostgreSQL17.",
+    );
+  const existing = await admin.query(
+    "SELECT datname AS name FROM pg_database WHERE datname=$1 UNION ALL SELECT rolname FROM pg_roles WHERE rolname IN ($2,$3)",
+    [database, owner, application],
+  );
+  if (existing.rows.length)
+    throw new Error(
+      "Refusing existing storage test databases or roles; no existing resources will be reset.",
+    );
+  await admin.query(
+    `CREATE ROLE ${owner} LOGIN NOINHERIT NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS PASSWORD '${ownerPassword}'`,
+  );
+  ownerCreated = true;
+  ownerOid = (
+    await admin.query("SELECT oid FROM pg_roles WHERE rolname=$1", [owner])
+  ).rows[0].oid;
+  await admin.query(
+    `CREATE ROLE ${application} LOGIN NOINHERIT NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS PASSWORD '${appPassword}'`,
+  );
+  appCreated = true;
+  appOid = (
+    await admin.query("SELECT oid FROM pg_roles WHERE rolname=$1", [
+      application,
+    ])
+  ).rows[0].oid;
+  await admin.query(`CREATE DATABASE ${database} OWNER ${owner}`);
+  databaseOid = (
+    await admin.query("SELECT oid FROM pg_database WHERE datname=$1", [
+      database,
+    ])
+  ).rows[0].oid;
+  await admin.query(`REVOKE ALL ON DATABASE ${database} FROM PUBLIC`);
+  await admin.query(`GRANT CONNECT ON DATABASE ${database} TO ${application}`);
+  console.log(
+    "PASS: Own disposable Postgres17 database and restricted separate identities provisioned: " +
+      database,
+  );
+  migration("up");
+  migration("down");
+  migration("up");
+  console.log("PASS: Empty disposable migration up/down/up recovery");
+  const inspect = new Client({ connectionString: migrationUrl });
+  await inspect.connect();
+  try {
+    const tables = (
+      await inspect.query(
+        "SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename",
+      )
+    ).rows.map((row) => row.tablename);
+    if (
+      JSON.stringify(tables) !==
+      JSON.stringify([
+        "ledger_account_snapshots",
+        "ledger_entries",
+        "ledger_transactions",
+        "pgmigrations",
+      ])
+    )
+      throw new Error("Unexpected storage schema objects");
+    const functions = (
+      await inspect.query(
+        "SELECT p.proname FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='public' ORDER BY p.proname",
+      )
+    ).rows.map((row) => row.proname);
+    if (
+      JSON.stringify(functions) !==
+      JSON.stringify([
+        "append_ledger_journal",
+        "ledger_account",
+        "ledger_deny_mutation",
+        "ledger_header",
+        "ledger_instant",
+        "ledger_object",
+        "ledger_strings",
+      ])
+    )
+      throw new Error("Unexpected storage functions");
+    console.log(
+      "PASS: Exact disposable public schema tables/functions inspected: " +
+        tables.join(", "),
+    );
+  } finally {
+    await inspect.end();
+  }
+  const testEnv = {
+    ...process.env,
+    LEDGER_STORAGE_TEST_OWNER_URL: migrationUrl,
+    LEDGER_STORAGE_TEST_APP_URL: appUrl,
+    LEDGER_STORAGE_TEST_DATABASE: database,
+  };
+  delete testEnv.LEDGER_STORAGE_TEST_ADMIN_URL;
+  delete testEnv.DATABASE_URL;
+  child(
+    [
+      fileURLToPath(
+        new URL(
+          "../packages/ledger/node_modules/vitest/vitest.mjs",
+          import.meta.url,
+        ),
+      ),
+      "run",
+      "test/ledger-storage-postgres.test.ts",
+      "--root",
+      "packages/ledger",
+    ],
+    testEnv,
+  );
+  console.log("PASS: Mandatory real PostgreSQL storage acceptance completed");
+} catch (error) {
+  console.error("FAIL: " + sanitize(error.message));
+  process.exitCode = 1;
+} finally {
+  try {
+    // Verify exact identities again; never drop pre-existing or replaced resources.
+    if (databaseOid !== null) {
+      const actual = (
+        await admin.query(
+          "SELECT oid,datdba FROM pg_database WHERE datname=$1",
+          [database],
+        )
+      ).rows[0];
+      if (!actual || actual.oid !== databaseOid || actual.datdba !== ownerOid)
+        throw new Error("Cleanup refused changed database identity/owner");
+      await admin.query(`DROP DATABASE ${database} WITH (FORCE)`);
+    }
+    for (const [created, role, oid] of [
+      [appCreated, application, appOid],
+      [ownerCreated, owner, ownerOid],
+    ]) {
+      if (!created) continue;
+      const actual = (
+        await admin.query("SELECT oid FROM pg_roles WHERE rolname=$1", [role])
+      ).rows[0];
+      if (!actual || actual.oid !== oid)
+        throw new Error("Cleanup refused changed role identity");
+      await admin.query(`DROP ROLE ${role}`);
+    }
+    if (ownerCreated || appCreated || databaseOid !== null)
+      console.log("PASS: Own disposable storage database/roles cleaned");
+  } catch (error) {
+    console.error("FAIL: cleanup " + sanitize(error.message));
+    process.exitCode = 1;
+  }
+  await admin.end();
+}

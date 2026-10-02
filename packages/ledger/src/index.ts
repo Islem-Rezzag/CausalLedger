@@ -75,6 +75,17 @@ export type {
   LedgerJournalValidationResult,
 } from "./ledger-journal.js";
 
+export {
+  LEDGER_STORAGE_CONTRACT_VERSION,
+  LedgerJournalStorageError,
+  createLedgerJournalStore,
+} from "./ledger-storage.js";
+export type {
+  LedgerJournalStore,
+  LedgerJournalStorageReceipt,
+  LedgerJournalStorageResult,
+} from "./ledger-storage.js";
+
 export const ledgerPackageBoundary = Object.freeze({
   packageName: "@causalledger/ledger",
   status: "ledger-schema-boundary",
@@ -87,7 +98,7 @@ export const ledgerPackageBoundary = Object.freeze({
   deterministicJournalValidationImplemented: true,
   postingImplemented: false,
   balanceQueriesImplemented: false,
-  storageImplemented: false,
+  storageImplemented: true,
   agentWriteAuthority: false,
   financialTruthEstablishedByValidation: false,
 } as const);

@@ -53,3 +53,8 @@ pnpm migrate:up
 ```
 
 The migration directory is intentionally empty except for documentation. Running the migration tool at this stage should create only the tool metadata table if needed; it must not create CausalLedger product/domain tables.
+
+
+## M04.05 storage acceptance
+
+The existing disposable Postgres17 CI route runs `pnpm test:ledger-storage` for mandatory migrations, atomic append/rollback/readback and application-role immutability. It provisions separate restricted identities and a named synthetic test database, refuses existing resources, inspects exact public schema and cleans only verified owned resources. Default developer database credentials are bootstrap placeholders, not storage application permissions. No system installation, production provisioning or user-database mutation is authorized. See `docs/specs/ledger-immutable-storage.md` and the QA guide for explicit configuration and limits.

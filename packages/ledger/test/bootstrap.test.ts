@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import * as ledger from "../src/index.js";
 
 describe("@causalledger/ledger schema boundary", () => {
-  it("exposes schema and journal arithmetic validation without posting", () => {
+  it("exposes schema, journal arithmetic and isolated storage without posting", () => {
     expect(ledger.ledgerPackageBoundary).toEqual({
       packageName: "@causalledger/ledger",
       status: "ledger-schema-boundary",
@@ -16,7 +16,7 @@ describe("@causalledger/ledger schema boundary", () => {
       deterministicJournalValidationImplemented: true,
       postingImplemented: false,
       balanceQueriesImplemented: false,
-      storageImplemented: false,
+      storageImplemented: true,
       agentWriteAuthority: false,
       financialTruthEstablishedByValidation: false,
     });
@@ -30,8 +30,11 @@ describe("@causalledger/ledger schema boundary", () => {
       "LEDGER_ENTRY_MAX_MINOR_UNITS",
       "LEDGER_ENTRY_SIDES",
       "LEDGER_JOURNAL_CONTRACT_VERSION",
+      "LEDGER_STORAGE_CONTRACT_VERSION",
       "LEDGER_TRANSACTION_CONTRACT_VERSION",
       "LEDGER_TRANSACTION_STATUSES",
+      "LedgerJournalStorageError",
+      "createLedgerJournalStore",
       "ledgerPackageBoundary",
       "validateAccountCandidate",
       "validateAccountCatalog",

@@ -126,3 +126,5 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 ## Current implementation status
 
 M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01-M04.03 are Completed and merged; entry PR #64 human-merged at `4a5637c8eab842b368e046b0994a620ecb08e90b`, matching its reviewed tree. M04.04 Enforce debit equals credit is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.05-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`. The implemented boundary remains source-neutral MoneyEvent validation/normalization and controlled fixtures/seeds; structural success is not financial truth. M04.01 Account, M04.02 transaction header and M04.03 entry wire/reference validation and M04.04 exact per-currency journal validation exist; no ledger posting, balances, storage or downstream runtime exists.
+
+- `docs/specs/ledger-immutable-storage.md` - Current M04.05 storage contract and mandatory disposable acceptance.

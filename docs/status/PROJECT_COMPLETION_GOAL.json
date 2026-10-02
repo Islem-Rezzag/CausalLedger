@@ -12,16 +12,16 @@
   ],
   "recommendedImmediateTarget": "V0_6_BENCHMARK_DEMO",
   "recommendedLongTermTarget": "V1_PUBLIC_PRODUCT",
-  "currentPhase": "M04_BALANCE_VALIDATION",
+  "currentPhase": "M04_IMMUTABLE_STORAGE",
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
-  "currentMilestone": "M04.04",
-  "currentBranch": "m04-04-enforce-debit-equals-credit",
-  "currentPr": 65,
-  "latestMergedPr": 64,
-  "latestMergeCommit": "4a5637c8eab842b368e046b0994a620ecb08e90b",
+  "currentMilestone": "M04.05",
+  "currentBranch": "m04-05-add-immutable-transaction-storage",
+  "currentPr": null,
+  "latestMergedPr": 65,
+  "latestMergeCommit": "526bb66dda5d9c8b9aebd85775142e8d22c3a73a",
   "environmentReadiness": "READY_WITH_LIMITATIONS",
-  "localTestStatus": "QA_PASS_432_LEDGER_380_CONTROL_BUILDER_CLEAN_QA_18_0_1_FINAL_HEAD_RECORD_IN_PR_65",
-  "remoteCiStatus": "FINAL_HEAD_CI_AND_REVIEW_EVIDENCE_IN_PR_65",
+  "localTestStatus": "BUILDER_LEDGER469_CONTROL451_INTERMEDIATE_QA17_0_2_PASS_WARM_CACHE",
+  "remoteCiStatus": "M04_05_REAL_POSTGRES_ACCEPTANCE_PENDING",
   "dockerStatus": "UNAVAILABLE_LOCALLY_REMOTE_INFRA_SMOKE_AVAILABLE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -37,13 +37,14 @@
     "M04.01 Account metadata contract and pure validation (PR #62; completed and merged)",
     "M04.02 LedgerTransaction header metadata and pure validation (PR #63; completed and merged)",
     "M04.03 LedgerEntry wire/amount/reference validation (PR #64; completed and merged)",
-    "M04.04 pure journal validation: exact per-currency bigint equality, duplicate/refusal rules and frozen detached output (QA passed, awaiting merge; PR #65)"
+    "M04.04 pure journal validation: exact per-currency bigint equality, duplicate/refusal rules and frozen detached output (PR #65; completed and merged)",
+    "M04.05 atomic immutable synthetic journal storage candidate; real Postgres acceptance and independent QA pending"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
-    "ingestion or persistence",
-    "product database schema",
-    "persisted posting, account balance queries, reversals and storage",
+    "ingestion or raw evidence persistence",
+    "product database schemas outside immutable ledger storage",
+    "posting eligibility, account balance/transaction queries, semantic retry and reversals",
     "financial invariant engine",
     "provider and bank simulator execution",
     "incident lifecycle",
@@ -58,8 +59,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "human review/squash merge of PR #65 after final-SHA review/clean QA/CI required before M04.05",
-    "local Docker/Compose or approved equivalent Postgres environment required before storage-dependent slices can close",
+    "M04.05 storage acceptance awaits mandatory disposable Postgres17 CI and independent review; local database tooling unavailable",
     "no live-model provider/model/call-count/budget approved"
   ],
   "risks": [
@@ -75,9 +75,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "WAIT_FOR_HUMAN_MERGE_PR_65_AFTER_FINAL_HEAD_GATES",
-  "stopReason": "HUMAN_MERGE_REQUIRED_BEFORE_M04_05",
-  "lastUpdatedTimestamp": "2026-10-02T10:55:32Z",
+  "exactNextAction": "BUILD_VALIDATE_REVIEW_M04_05_WITH_MANDATORY_ISOLATED_POSTGRES_CI",
+  "stopReason": "NONE_BUILDER_IN_PROGRESS",
+  "lastUpdatedTimestamp": "2026-10-02T14:00:00Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -128,6 +128,15 @@
     "reviewedTree": "73632a81652423e9713e808976b1a922dbd71ad5",
     "mergedTree": "73632a81652423e9713e808976b1a922dbd71ad5",
     "ciRun": 36789436774,
+    "independentQa": "PASS"
+  },
+  "journalMergeEvidence": {
+    "pr": 65,
+    "mergeCommit": "526bb66dda5d9c8b9aebd85775142e8d22c3a73a",
+    "reviewedHead": "66f679e9711a0a5f06830eb203119d1dd8e3e04e",
+    "reviewedTree": "15c668085da628122ff5601be7d87d8da6b91b35",
+    "mergedTree": "15c668085da628122ff5601be7d87d8da6b91b35",
+    "ciRun": 36998201769,
     "independentQa": "PASS"
   }
 }

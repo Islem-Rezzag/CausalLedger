@@ -2,7 +2,7 @@
 
 ## Purpose
 
-M02.07 defines the repeatable local QA path for the completed M02 foundation. It validates repository tooling, workspace commands, control-plane coherence, and optional local infrastructure smoke checks. It does not validate CausalLedger product behavior because product behavior does not exist yet.
+M02.07 defines the repeatable local QA path for the completed M02 foundation. It validates repository tooling, workspace commands, control-plane coherence, and optional local infrastructure smoke checks. The historical M02 baseline does not validate CausalLedger product behavior. Current default workspace suites additionally cover implemented MoneyEvent and ledger contracts. M04.05 database guarantees require the dedicated real Postgres acceptance below.
 
 ## Prerequisites
 
@@ -89,8 +89,8 @@ The Docker path checks:
 - Docker Compose version;
 - Compose configuration;
 - local Postgres start and health;
-- empty migration smoke through `pnpm migrate:up`;
-- public schema inspection that allows only no tables or `pgmigrations`;
+- M04.05 mandatory isolated migration up/down/up and storage acceptance through `pnpm test:ledger-storage` (historical M02 used empty `pnpm migrate:up`);
+- explicit storage-database public schema inspection allowing exactly three reviewed ledger tables plus `pgmigrations`; the bootstrap Compose database is inspected separately and remains empty or metadata-only;
 - cleanup through `docker compose down -v`.
 
 The script uses a unique Compose project name and a temporary local host port. The cleanup path always runs for resources created by the script.
@@ -107,8 +107,8 @@ Docker mode sets its own QA database name, user, password, host, port, and `DATA
 
 ## What Checks Do Not Prove
 
-- No product/domain behavior is implemented or validated.
-- No MoneyEvent schema, ledger logic, financial invariant, incident lifecycle, evidence storage, causal graph, replay engine, repair behavior, agent runtime, product UI, auth/authz, Redis, queue, scheduler, connector, production deployment, or real secret handling is validated.
+- Historical M02 verdict: No product/domain behavior is implemented or validated. Current pure MoneyEvent/ledger suites provide scoped behavioral proof; they do not establish storage guarantees.
+- The historical scaffold-only suite did not validate MoneyEvent schema or ledger logic. Current checks still do not prove financial invariant, incident lifecycle, evidence storage, causal graph, replay engine, repair behavior, agent runtime, product UI, auth/authz, Redis, queue, scheduler, connector, production deployment, or real secret handling is validated.
 - `/infra/ready` remains process-only readiness and does not prove database readiness, migration readiness, product health, evidence availability, or financial correctness.
 
 ## Common Failures And Safe Recovery
@@ -129,3 +129,10 @@ Local QA remains useful before opening PRs because it catches environment, forma
 ## Boundary
 
 M02.07 is a QA environment slice only. It does not start M03, does not implement MoneyEvent behavior, and does not create product/domain runtime capabilities.
+
+
+## M04.05 mandatory storage route
+
+GitHub Actions `infra-smoke` already provisions disposable Postgres17. Its evolved job requires `pnpm test:ledger-storage`, not merely an empty migration smoke. The runner requires explicit `LEDGER_STORAGE_TEST_ADMIN_URL` and `LEDGER_STORAGE_TEST_DISPOSABLE=YES_M04_05_SYNTHETIC_ONLY`, verifies loopback/bootstrap/version, refuses existing test resources, creates its own named synthetic database and separate restricted identities, inspects exact public tables/functions, and runs real storage tests. Missing configuration fails, never skips; DATABASE_URL is not a fallback. Cleanup checks exact recorded identities and removes only runner-owned resources; CI always removes its own Compose resources.
+
+`--with-docker` now runs this same mandatory storage command after its isolated Postgres becomes healthy, passing its owned bootstrap target independently of shell overrides. Standard `qa:dev` still reports Docker skipped without starting a database. That skip cannot establish M04.05 acceptance. When local Docker is unavailable, mandatory final-head CI provides real Postgres evidence; local reports stay limited to unit/type/control/workspace checks. No system installation is required for this approved remote route. See `docs/specs/ledger-immutable-storage.md` for the tested scope and acknowledgement/authority limits.

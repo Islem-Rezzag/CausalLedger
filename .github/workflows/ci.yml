@@ -111,28 +111,11 @@ jobs:
           docker compose logs postgres
           exit 1
 
-      - name: Run empty migration boundary
+      - name: Run mandatory isolated PostgreSQL17 ledger storage acceptance
         env:
-          DATABASE_URL: postgres://causalledger:causalledger_local_password@127.0.0.1:5432/causalledger_dev
-        run: pnpm migrate:up
-
-      - name: Inspect public schema
-        run: |
-          tables="$(docker compose exec -T postgres psql -U causalledger -d causalledger_dev -Atc "select tablename from pg_tables where schemaname = 'public' order by tablename;")"
-          printf 'Public tables:\n%s\n' "${tables:-<none>}"
-
-          forbidden_tables='^(money_events|ledger_entries|ledger_transactions|balances|invariant_results|incidents|evidence_receipts|evidence_bundles|graph_nodes|graph_edges|replay_sessions|repair_proposals|agent_runs)$'
-          if printf '%s\n' "$tables" | grep -E "$forbidden_tables"; then
-            echo "Forbidden product/domain table found."
-            exit 1
-          fi
-
-          unexpected_tables="$(printf '%s\n' "$tables" | sed '/^$/d' | grep -Ev '^(pgmigrations)$' || true)"
-          if [ -n "$unexpected_tables" ]; then
-            echo "Unexpected public schema table(s):"
-            printf '%s\n' "$unexpected_tables"
-            exit 1
-          fi
+          LEDGER_STORAGE_TEST_ADMIN_URL: postgres://causalledger:causalledger_local_password@127.0.0.1:5432/causalledger_dev
+          LEDGER_STORAGE_TEST_DISPOSABLE: YES_M04_05_SYNTHETIC_ONLY
+        run: pnpm test:ledger-storage
 
       - name: Clean up Compose
         if: always()

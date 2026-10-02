@@ -1,9 +1,9 @@
 # CausalLedger Roadmap
 
-Current milestone marker: M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01-M04.03 are Completed and merged; entry PR #64 human-merged at `4a5637c8eab842b368e046b0994a620ecb08e90b`, matching its reviewed tree. M04.04 Enforce debit equals credit is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.05-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
-Current submilestone status: M00.01 through M00.08, M01.01 through M01.13, and M03.01 through M03.06 are `Completed and merged`. M02.01 through M02.07 are `Completed and merged`; former M02.08 through M02.20 rows are deferred or absorbed. M04.01-M04.03 are Completed and merged; M04.04 is QA passed, awaiting merge in PR #65; M04.05-M04.18 and M05-M21 remain `Not started`.
+Current milestone marker: M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01-M04.04 are Completed and merged; PR #65 human-merged at `526bb66dda5d9c8b9aebd85775142e8d22c3a73a`, matching its reviewed tree. M04.05 Add immutable transaction storage is Builder in progress under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; real disposable Postgres acceptance and independent QA remain pending. M04.06-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
+Current submilestone status: M00.01 through M00.08, M01.01 through M01.13, and M03.01 through M03.06 are `Completed and merged`. M02.01 through M02.07 are `Completed and merged`; former M02.08 through M02.20 rows are deferred or absorbed. M04.01-M04.04 are Completed and merged; M04.05 is Builder in progress; M04.06-M04.18 and M05-M21 remain `Not started`.
 
-The table status is aggregated from submilestone rows and active planning. M03 formal closeout has merged; M04 is in progress for pure exact journal validation; M04.05 and later implementation rows remain unstarted.
+The table status is aggregated from submilestone rows and active planning. M03 formal closeout has merged; M04 is in progress for immutable synthetic storage; mandatory Postgres acceptance and review remain pending; M04.06 and later implementation rows remain unstarted.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 

@@ -112,7 +112,7 @@ Completed execution:
 
 Active execution:
 
-- M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01-M04.03 are Completed and merged; entry PR #64 human-merged at `4a5637c8eab842b368e046b0994a620ecb08e90b`, matching its reviewed tree. M04.04 Enforce debit equals credit is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.05-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
+- M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01-M04.04 are Completed and merged; PR #65 human-merged at `526bb66dda5d9c8b9aebd85775142e8d22c3a73a`, matching its reviewed tree. M04.05 Add immutable transaction storage is Builder in progress under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; real disposable Postgres acceptance and independent QA remain pending. M04.06-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
 
 Plan state:
 
