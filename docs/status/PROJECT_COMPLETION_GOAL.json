@@ -12,16 +12,16 @@
   ],
   "recommendedImmediateTarget": "V0_6_BENCHMARK_DEMO",
   "recommendedLongTermTarget": "V1_PUBLIC_PRODUCT",
-  "currentPhase": "M04_ENTRY_SCHEMA",
+  "currentPhase": "M04_BALANCE_VALIDATION",
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
-  "currentMilestone": "M04.03",
-  "currentBranch": "m04-03-ledger-entry-schema",
-  "currentPr": 64,
-  "latestMergedPr": 63,
-  "latestMergeCommit": "1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d",
+  "currentMilestone": "M04.04",
+  "currentBranch": "m04-04-enforce-debit-equals-credit",
+  "currentPr": 65,
+  "latestMergedPr": 64,
+  "latestMergeCommit": "4a5637c8eab842b368e046b0994a620ecb08e90b",
   "environmentReadiness": "READY_WITH_LIMITATIONS",
-  "localTestStatus": "QA_PASS_354_LEDGER_301_CONTROL_BUILDER_CLEAN_QA_18_0_1_FINAL_HEAD_RECORD_IN_PR_64",
-  "remoteCiStatus": "FINAL_HEAD_CI_AND_REVIEW_EVIDENCE_IN_PR_64",
+  "localTestStatus": "QA_PASS_432_LEDGER_380_CONTROL_BUILDER_CLEAN_QA_18_0_1_FINAL_HEAD_RECORD_IN_PR_65",
+  "remoteCiStatus": "FINAL_HEAD_CI_AND_REVIEW_EVIDENCE_IN_PR_65",
   "dockerStatus": "UNAVAILABLE_LOCALLY_REMOTE_INFRA_SMOKE_AVAILABLE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -36,13 +36,14 @@
     "deterministic package and control-plane tests",
     "M04.01 Account metadata contract and pure validation (PR #62; completed and merged)",
     "M04.02 LedgerTransaction header metadata and pure validation (PR #63; completed and merged)",
-    "M04.03 LedgerEntry wire/amount/reference validation (QA passed, awaiting merge; PR #64)"
+    "M04.03 LedgerEntry wire/amount/reference validation (PR #64; completed and merged)",
+    "M04.04 pure journal validation: exact per-currency bigint equality, duplicate/refusal rules and frozen detached output (QA passed, awaiting merge; PR #65)"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
     "ingestion or persistence",
     "product database schema",
-    "transaction balancing, posting, balances, reversals and storage",
+    "persisted posting, account balance queries, reversals and storage",
     "financial invariant engine",
     "provider and bank simulator execution",
     "incident lifecycle",
@@ -57,7 +58,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "human review/squash merge of PR #64 after final-SHA review/clean QA/CI required before M04.04",
+    "human review/squash merge of PR #65 after final-SHA review/clean QA/CI required before M04.05",
     "local Docker/Compose or approved equivalent Postgres environment required before storage-dependent slices can close",
     "no live-model provider/model/call-count/budget approved"
   ],
@@ -74,9 +75,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "WAIT_FOR_HUMAN_MERGE_PR_64_AFTER_FINAL_HEAD_GATES",
-  "stopReason": "HUMAN_MERGE_REQUIRED_BEFORE_M04_04",
-  "lastUpdatedTimestamp": "2026-09-30T23:05:50Z",
+  "exactNextAction": "WAIT_FOR_HUMAN_MERGE_PR_65_AFTER_FINAL_HEAD_GATES",
+  "stopReason": "HUMAN_MERGE_REQUIRED_BEFORE_M04_05",
+  "lastUpdatedTimestamp": "2026-10-02T10:55:32Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -118,6 +119,15 @@
     "reviewedTree": "6528851abfe1b8e9642b5ddfc225b50d034da50e",
     "mergedTree": "6528851abfe1b8e9642b5ddfc225b50d034da50e",
     "ciRun": 36785054245,
+    "independentQa": "PASS"
+  },
+  "entryMergeEvidence": {
+    "pr": 64,
+    "mergeCommit": "4a5637c8eab842b368e046b0994a620ecb08e90b",
+    "reviewedHead": "7ee673869e48a61f19fd3b8d0d61b1e7a1199a87",
+    "reviewedTree": "73632a81652423e9713e808976b1a922dbd71ad5",
+    "mergedTree": "73632a81652423e9713e808976b1a922dbd71ad5",
+    "ciRun": 36789436774,
     "independentQa": "PASS"
   }
 }

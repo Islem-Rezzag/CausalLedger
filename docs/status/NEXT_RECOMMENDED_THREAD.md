@@ -1,10 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-Merge M04.03 PR - Define LedgerEntry schema
+Merge M04.04 PR - Enforce debit equals credit
 
 Precondition:
-PR #64 on `m04-03-ledger-entry-schema`, base `1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d`. Corrected-state independent QA PASS; final actual-head re-review/clean QA/CI must be recorded in that PR before human merge. Final coordinator handoff verifies ready state and exact head. QA passed, awaiting merge does not mean merged.
+PR #65 independent overall candidate QA PASS on `b66f5fa23021f2cd4b2722402d0ac6fd1da99a61`; final actual-head re-review, clean QA and required CI must PASS and be recorded in that PR before human review/squash merge.
 
 Scope:
-Human reviews and squash-merges [PR #64](https://github.com/Islem-Rezzag/CausalLedger/pull/64), then replies “Merged #64. Continue.” Agents do not merge or enable auto-merge. Continuation verifies actual GitHub merge/reviewed contents, fetched-main reachability and safe branch/status/origin guard; finalizes M04.03 tracking in the next legitimate slice, then generates **M04.04 Builder - Enforce debit equals credit** from the approved plan. M04.04 remains Not started until these gates pass. No copied prompt or renewed V1 selection required.
+Human review and squash merge of the sole M04.04 PR #65 on `m04-04-enforce-debit-equals-credit`, with active CLP-0005 handoff and final SHA-bound evidence. Agents cannot merge or enable auto-merge. After actual merge, reply “Merged #65. Continue.”; verify GitHub/reviewed-tree/main evidence and finalize tracking before M04.05 Builder - Add immutable transaction storage. Preserve all18/V1 and its approved disposable Postgres/environment gate; no future-row implementation yet.

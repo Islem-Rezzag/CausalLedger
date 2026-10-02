@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import * as ledger from "../src/index.js";
 
 describe("@causalledger/ledger schema boundary", () => {
-  it("exposes account, transaction and entry validation without posting", () => {
+  it("exposes schema and journal arithmetic validation without posting", () => {
     expect(ledger.ledgerPackageBoundary).toEqual({
       packageName: "@causalledger/ledger",
       status: "ledger-schema-boundary",
@@ -13,6 +13,7 @@ describe("@causalledger/ledger schema boundary", () => {
       deterministicTransactionValidationImplemented: true,
       entrySchemaImplemented: true,
       deterministicEntryValidationImplemented: true,
+      deterministicJournalValidationImplemented: true,
       postingImplemented: false,
       balanceQueriesImplemented: false,
       storageImplemented: false,
@@ -28,12 +29,14 @@ describe("@causalledger/ledger schema boundary", () => {
       "LEDGER_ENTRY_CONTRACT_VERSION",
       "LEDGER_ENTRY_MAX_MINOR_UNITS",
       "LEDGER_ENTRY_SIDES",
+      "LEDGER_JOURNAL_CONTRACT_VERSION",
       "LEDGER_TRANSACTION_CONTRACT_VERSION",
       "LEDGER_TRANSACTION_STATUSES",
       "ledgerPackageBoundary",
       "validateAccountCandidate",
       "validateAccountCatalog",
       "validateLedgerEntryCandidate",
+      "validateLedgerJournalCandidate",
       "validateLedgerTransactionCandidate",
     ]);
   });

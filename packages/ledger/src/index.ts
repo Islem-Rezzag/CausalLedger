@@ -60,6 +60,21 @@ export type {
   LedgerEntryValidationResult,
 } from "./ledger-entry.js";
 
+export {
+  LEDGER_JOURNAL_CONTRACT_VERSION,
+  validateLedgerJournalCandidate,
+} from "./ledger-journal.js";
+export type {
+  LedgerJournal,
+  LedgerJournalCandidate,
+  LedgerJournalAccountCatalogCandidate,
+  LedgerJournalMinorUnits,
+  LedgerJournalCurrencyTotals,
+  LedgerJournalIssueCode,
+  LedgerJournalValidationIssue,
+  LedgerJournalValidationResult,
+} from "./ledger-journal.js";
+
 export const ledgerPackageBoundary = Object.freeze({
   packageName: "@causalledger/ledger",
   status: "ledger-schema-boundary",
@@ -69,6 +84,7 @@ export const ledgerPackageBoundary = Object.freeze({
   deterministicTransactionValidationImplemented: true,
   entrySchemaImplemented: true,
   deterministicEntryValidationImplemented: true,
+  deterministicJournalValidationImplemented: true,
   postingImplemented: false,
   balanceQueriesImplemented: false,
   storageImplemented: false,

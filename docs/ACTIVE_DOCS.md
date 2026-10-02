@@ -36,6 +36,7 @@ Project direction:
 - `docs/specs/account-schema.md` - implemented M04.01 Account metadata contract and validation boundaries.
 - `docs/specs/ledger-transaction-schema.md` - M04.02 transaction header metadata, provenance, time and retry-key boundaries.
 - `docs/specs/ledger-entry-schema.md` - M04.03 exact wire money, side and supplied account/header references.
+- `docs/specs/ledger-journal-validation.md` - M04.04 exact per-currency journal equality and whole-group refusal, without posting.
 - `docs/domain/ledger-vocabulary.md`
 - `docs/domain/settlement-vocabulary.md`
 - `docs/domain/reconciliation-vocabulary.md`
@@ -111,7 +112,7 @@ Completed execution:
 
 Active execution:
 
-- M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01-M04.02 are Completed and merged; transaction PR #63 human-merged at `1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d`, matching its reviewed tree. M04.03 Define LedgerEntry schema is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.04-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
+- M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01-M04.03 are Completed and merged; entry PR #64 human-merged at `4a5637c8eab842b368e046b0994a620ecb08e90b`, matching its reviewed tree. M04.04 Enforce debit equals credit is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.05-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
 
 Plan state:
 
