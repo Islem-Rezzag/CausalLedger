@@ -19,10 +19,10 @@
   "currentPr": null,
   "latestMergedPr": 65,
   "latestMergeCommit": "526bb66dda5d9c8b9aebd85775142e8d22c3a73a",
-  "environmentReadiness": "READY_WITH_LIMITATIONS",
+  "environmentReadiness": "BLOCKED_GITHUB_WORKFLOW_PERMISSION",
   "localTestStatus": "BUILDER_LEDGER469_CONTROL451_INTERMEDIATE_QA17_0_2_PASS_WARM_CACHE",
-  "remoteCiStatus": "M04_05_REAL_POSTGRES_ACCEPTANCE_PENDING",
-  "dockerStatus": "UNAVAILABLE_LOCALLY_REMOTE_INFRA_SMOKE_AVAILABLE",
+  "remoteCiStatus": "M04_05_NOT_RUN_PUSH_REJECTED_MISSING_WORKFLOW_PERMISSION",
+  "dockerStatus": "UNAVAILABLE_LOCALLY_REMOTE_INFRA_SMOKE_BLOCKED_BY_PUSH_PERMISSION",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
     "M00 repository operating system",
@@ -59,7 +59,8 @@
     "production deployment"
   ],
   "openBlockers": [
-    "M04.05 storage acceptance awaits mandatory disposable Postgres17 CI and independent review; local database tooling unavailable",
+    "GitHub rejected the local M04.05 push because the existing OAuth credential lacks workflow permission; no remote branch or PR; await explicit user authorization to reauthorize that same connection and GitHub consent",
+    "M04.05 mandatory disposable Postgres17 acceptance has not run; independent review is partial/static/local only; local database tooling unavailable",
     "no live-model provider/model/call-count/budget approved"
   ],
   "risks": [
@@ -70,14 +71,15 @@
     "local memory headroom was low during the audit and may constrain Docker plus development services"
   ],
   "humanDecisionsRequired": [
+    "authorize reauthorization of the existing Git connection with workflow permission and complete GitHub consent",
     "review and merge each independently reviewed PR",
     "approve material scope or architecture changes and any system-level installation",
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "BUILD_VALIDATE_REVIEW_M04_05_WITH_MANDATORY_ISOLATED_POSTGRES_CI",
-  "stopReason": "NONE_BUILDER_IN_PROGRESS",
-  "lastUpdatedTimestamp": "2026-10-02T14:00:00Z",
+  "exactNextAction": "AUTHORIZE_EXISTING_GIT_CONNECTION_WORKFLOW_PERMISSION_THEN_RESUME_M04_05_CI",
+  "stopReason": "BLOCKED_GITHUB_OAUTH_WORKFLOW_PERMISSION",
+  "lastUpdatedTimestamp": "2026-10-02T14:31:23Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",

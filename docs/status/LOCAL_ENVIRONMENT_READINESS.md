@@ -128,3 +128,11 @@ This dated addendum supersedes current interpretations of the earlier tool inven
 - No live-model key was read during this QA recheck and no live-model request was made. Key-presence observations above remain dated 2026-08-18; budget/provider/model/call-count approval is still absent.
 
 Current verdict: ready with limitations for this documentation/control-plane review. Scaffold startup is not a usable product or end-to-end demonstration.
+
+## Current M04.05 recheck (2026-10-02)
+
+Windows and the existing Ubuntu24.04 WSL lack PostgreSQL/Docker/Podman; no listener on local5432 or configured local database target was found. Existing Node22.16.0/pnpm10.32.1/Python3.13.1 and authenticated GitHub CLI remain available. No system software installed, secrets printed, credentials/configuration changed or live-model calls made. Earlier CLI/native-goal/key-presence observations are dated history, not current permission or budget grants.
+
+The existing approved GitHub Actions isolated Postgres17 job can supply mandatory storage acceptance without local installation. However, GitHub rejected the M04.05 push because the existing Git OAuth credential lacks `workflow` permission. Both Git's existing credential manager and the available CLI lack the needed workflow authority; no alternate route was attempted. No remote M04.05 branch, PR or current CI exists. Explicit user authorization to reauthorize the existing connection and actual GitHub consent are required before resuming.
+
+Root and independent reviewer fresh ledger469/11files, control451 and local package/static checks PASS on implementation candidate8e5c05b03fc903fd09ee15d737b49f9e29314811. Root intermediate workspace QA17/0/2 PASS with warm caches; dirty-worktree and optional unavailable Docker skips. Real storage tests/migrations have NOT RUN and no storage guarantee or overall QA PASS is established. Local readiness is limited to deterministic unit/type/control/workspace checks; current delivery is Blocked on workflow permission. Root will execute database tests once the authorized CI route can run; the user need not run tests. No accepted end-to-end product or live-model capability.

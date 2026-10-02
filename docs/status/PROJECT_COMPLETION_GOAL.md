@@ -20,7 +20,7 @@ M04.03 human-merged in PR #64 at `4a5637c8eab842b368e046b0994a620ecb08e90b`; rev
 
 M04.04 human-merged in PR #65 at `526bb66dda5d9c8b9aebd85775142e8d22c3a73a`; reviewed final head `66f679e9711a0a5f06830eb203119d1dd8e3e04e` shares tree `15c668085da628122ff5601be7d87d8da6b91b35`, with empty diff/main reachability. Exact-head independent QA, clean QA18/0/1 and CI36998201769 both jobs PASS. All prior contracts and 18 approved acceptance rows remain preserved.
 
-Current M04.05 Add immutable transaction storage under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, branch `m04-05-add-immutable-transaction-storage`: Builder in progress, no PR or overall QA/real database acceptance yet. The generated brief permits atomic immutable synthetic storage, one reviewed migration and necessary driver/CI/QA/control-plane evolution. M04.06+ unstarted.
+Current M04.05 Add immutable transaction storage under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, branch `m04-05-add-immutable-transaction-storage`: Blocked: GitHub rejected the local candidate8e5c05b03fc903fd09ee15d737b49f9e29314811 push because the existing OAuth credential lacks workflow permission. No remote M04.05 branch, PR/CI, overall QA or real database acceptance exists. The generated brief permits atomic immutable synthetic storage, one reviewed migration and necessary driver/CI/QA/control-plane evolution. M04.06+ unstarted.
 
 ## Authority and safety
 
@@ -30,10 +30,10 @@ V1 selection does not approve paid calls/budgets, system installs, material scop
 
 ## Environment and validation
 
-Use pinned tools and documented commands. Docker/Compose and make remain locally unavailable at the last recheck; direct Python checks substitute for make. The existing approved GitHub Actions infra-smoke route provisions disposable Postgres17 and will run mandatory storage migration/atomicity/rollback/readback/immutability tests. Local database tests remain unavailable and cannot be claimed. No database substitution or system installation is performed; CI acceptance must pass before merge readiness. Local remediation remains future setup work for operating the product. Tests use controlled synthetic data; no paid model is needed. Public claims must distinguish mocked/live, synthetic/production and implemented/planned behavior.
+Use pinned tools and documented commands. Docker/Compose and make remain locally unavailable at the last recheck; direct Python checks substitute for make. The existing approved GitHub Actions infra-smoke route provisions disposable Postgres17 and will run mandatory storage migration/atomicity/rollback/readback/immutability tests. The approved CI route is now blocked by the rejected workflow push. Local database tests remain unavailable and cannot be claimed. No authentication/configuration change or alternate access route was attempted. No database substitution or system installation is performed; CI acceptance must pass before merge readiness. Local remediation remains future setup work for operating the product. Tests use controlled synthetic data; no paid model is needed. Public claims must distinguish mocked/live, synthetic/production and implemented/planned behavior.
 
 Current-slice validation and QA status live in the active plan and current state. Final-head CI belongs in the PR review record, bound to its SHA, rather than a chain of commits recording preceding CI passes.
 
 ## Next gate
 
-Finish M04.05, run local validation and mandatory real database CI, obtain existing independent overall QA and final-head CI, then stop for human review/squash merge of its sole PR. The coordinator runs tests; the user need not run them. Preserve V1/all18; no M04.06 before the human merge.
+Obtain explicit user authorization to reauthorize the existing Git connection with workflow permission and complete GitHub consent. Then root pushes the same branch, creates its sole PR and obtains mandatory real database acceptance, existing independent overall QA and final-head CI before human review/squash merge. Fresh root/reviewer ledger469/control451 and local static checks PASS; intermediate workspace QA17/0/2 uses warm caches. Partial review does not establish overall QA PASS. The coordinator runs tests; the user need not run them. Preserve V1/all18; no M04.06 before the human merge.

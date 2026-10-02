@@ -1,6 +1,6 @@
 # Start Here
 
-M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01-M04.04 are Completed and merged; PR #65 human-merged at `526bb66dda5d9c8b9aebd85775142e8d22c3a73a`, matching its reviewed tree. M04.05 Add immutable transaction storage is Builder in progress under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; real disposable Postgres acceptance and independent QA remain pending. M04.06-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
+M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01-M04.04 are Completed and merged; PR #65 human-merged at `526bb66dda5d9c8b9aebd85775142e8d22c3a73a`, matching its reviewed tree. M04.05 Add immutable transaction storage is Blocked under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`: GitHub rejected the push because the existing OAuth credential lacks `workflow` permission. Local code and tests are committed; real disposable Postgres acceptance, PR/CI and overall independent QA remain pending. M04.06-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
 
 Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 
@@ -63,7 +63,7 @@ The handoff packet must include files created, files changed, files intentionall
 
 - Do not implement product functionality outside the active submilestone.
 - Do not extend MoneyEvent logic beyond the active source-neutral boundary.
-- Do not implement ledger logic outside the active M04.04 pure journal validation slice.
+- Do not implement ledger logic outside the active M04.05 storage slice; its push permission and mandatory real database acceptance gates remain blocked.
 - Do not implement invariants.
 - Do not implement the agent runtime.
 - Do not implement UI features.
