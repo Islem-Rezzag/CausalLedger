@@ -1150,3 +1150,11 @@ PR #64 candidate `dd5f5fc1b2aa8c0688236a34bc939aa4dcd60a7e`: separate-context re
 ## 2026-09-30 - M04.03 corrected-state QA and PR #64 handoff
 
 Separate-context reviewer `m04_02_qa` returned corrected-state PASS, no remaining findings, on `1a2bb7d4f8cac2d1f4afad29ff61d4528f8cc7de`. Fresh control validator/301 bootstrap and full-range whitespace/forbidden checks PASS. Product/tests/validator byte-identical to Builder; independent ledger 354/static and runtime 159/lifecycle 81 results reused on that proof. One P3 spec wording repair only; no assertions/policy/code changed. Builder clean QA 18/0/1, workspace 503 with warm caches; Builder/corrected CI `36788382000`/`36789039080` succeeded, separate from final-head gates. Ten-document final QA/status handoff awaits exact-SHA re-review/clean QA/CI recorded in PR #64. Status QA passed, awaiting merge; next Merge M04.03 PR - Define LedgerEntry schema. Human-only merge; M04.04 and later unstarted, all 18 rows/V1 intact.
+
+
+## 2026-10-02 - M04.03 merge and M04.04 start
+
+Verified PR #64 human merge `4a5637c8eab842b368e046b0994a620ecb08e90b`, exact reviewed/merged tree `73632a81652423e9713e808976b1a922dbd71ad5`, empty diff and fetched-main reachability. Final review/clean QA/CI36789436774 on7ee673869e48a61f19fd3b8d0d61b1e7a1199a87 verified. Safely advanced clean main, created `m04-04-enforce-debit-equals-credit` and passed guard before edits; froze journal input/output/per-currency exactBigInt/refusal/order/safety brief in active plan. Implementation/control transition validation pending; M04.05+ unstarted, all18/V1 preserved.
+
+
+M04.04 Builder complete, awaiting QA: pure strict per-currency bigint equality, duplicate/refusal rules and frozen detached output; 4 new files, exactly28 scoped files total. Fresh ledger432/control380/events97 PASS; measured workspace581 from cached readback, intermediate QA17/0/2 PASS with warm caches. Initial missing active-plan/source-neutral status labels corrected without weakened assertions. Separate-context static journal review found no defects; committed-candidate overall review/final clean QA/CI/human merge remain. Account/header/entry implementations preserved; M04.05+ unstarted, all18/V1 intact. Exact next M04.04 QA - Enforce debit equals credit.

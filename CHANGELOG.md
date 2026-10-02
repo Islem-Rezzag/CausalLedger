@@ -1,6 +1,8 @@
 # Changelog
 
-M04.03 adds exact positive LedgerEntry wire amounts and supplied Account/transaction reference checks; no balancing, posting or storage.
+M04.04 adds pure journal validation with exact bigint debit/credit equality independently per currency, whole-group refusal and detached frozen output; no posting or storage.
+
+M04.03 LedgerEntry wire/reference validation human-merged in PR #64; reviewed/merged tree equality and main reachability verified.
 
 M04.02 adds pure LedgerTransaction header validation and explicit identity, provenance, timestamp and retry-key boundaries; no posting, entries or storage.
 

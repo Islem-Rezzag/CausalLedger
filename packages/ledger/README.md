@@ -1,12 +1,12 @@
 # Ledger Package
 
-`@causalledger/ledger` owns M04.01 Account, M04.02 LedgerTransaction header and M04.03 LedgerEntry wire/reference contracts and deterministic validation.
+`@causalledger/ledger` owns M04.01 Account, M04.02 LedgerTransaction header and M04.03 LedgerEntry wire/reference contracts and M04.04 pure exact journal validation.
 
 The original M02.05 scaffold supplied:
 
 - package manifest;
 - TypeScript source and test configs extending the root config;
-- package boundary export (now describes the three schema contracts);
+- package boundary export (now describes three schema contracts and pure journal validation);
 - bootstrap test;
 - local build, typecheck, test, lint, and format-check scripts.
 
@@ -20,4 +20,6 @@ See [the account contract](../../docs/specs/account-schema.md) for exact fields,
 
 `validateLedgerEntryCandidate(unknown, unknown)` requires versioned entry wire data and explicit `{ transaction, accounts }` snapshots. Canonical positive decimal minor-unit strings from 1 through 9223372036854775807 become exact bigint; zero, negative, Number, bigint input and ambiguous strings reject. Explicit debit/credit side and account/ledger/header references are checked; entry and supplied account currencies must match USD/EUR/GBP. See [the entry contract](../../docs/specs/ledger-entry-schema.md) for input/context/range policy and the executable synthetic debit/currency-drift demonstration.
 
-Account/header/entry validation establish structural consistency, not financial truth, evidence authenticity, authorization, durable uniqueness, exactly-once occurrences or lifecycle approval. A caller-supplied posted header does not post a journal; a valid entry line is not a balanced transaction. No debit-equals-credit enforcement, postings, balances, reversals, storage, database behavior, business account factories, agents or money mutation exist. Other packages retain their boundaries. M04.04 and later remain unimplemented; no dependency added. Internal bigint snapshots are not directly JSON serializable and no serializer exists.
+`validateLedgerJournalCandidate(unknown, suppliedAccounts)` validates a versioned group containing one full header and wire entries. It reuses the existing schema validators, refuses repeated entry IDs and requires positive debit and credit totals of equal exact bigint value separately for each currency. Totals may exceed the per-line maximum. Any error returns stable issues without partial entries or totals. Success sorts entries by ID and totals by currency, preserving header provenance order, and deeply freezes detached snapshots. See [the journal contract](../../docs/specs/ledger-journal-validation.md) and the executable 1250/1250 versus 1250/1249 synthetic demonstration in ledger tests.
+
+Account/header/entry/journal validation establish structural and arithmetic consistency, not financial truth, evidence authenticity, authorization, durable uniqueness, exactly-once occurrences or lifecycle approval. A caller-supplied posted header does not post a journal; a valid entry line is not a balanced transaction. No postings, account balance queries, reversals, storage, database behavior, business account factories, agents or money mutation exist. Account/header lifecycle metadata is not posting eligibility. Other packages retain their boundaries. M04.05 and later remain unimplemented; no dependency added. Internal bigint snapshots are not directly JSON serializable and no serializer exists.
