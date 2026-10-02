@@ -18,7 +18,7 @@ M04.02 human-merged in PR #63 at `1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d`; rev
 
 M04.03 human-merged in PR #64 at `4a5637c8eab842b368e046b0994a620ecb08e90b`; reviewed head `7ee673869e48a61f19fd3b8d0d61b1e7a1199a87` shares tree `73632a81652423e9713e808976b1a922dbd71ad5`, reachable from fetched main. Exact-head independent QA, clean QA 18/0/1 and CI `36789436774` PASS.
 
-M04.04 Enforce debit equals credit under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, branch `m04-04-enforce-debit-equals-credit`. The generated brief and implementation provide exact bigint totals independently per currency, strict contextual validation, duplicate refusal and detached frozen success or issues without partial output. No posting, account balance queries, storage or financial authority; M04.05 and later stay unstarted. Builder validation PASS: ledger432/control380, fresh events97, measured workspace581 and intermediate QA17/0/2 with warm caches. Separate-context static review found no defects; overall candidate QA pending.
+M04.04 Enforce debit equals credit under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, branch `m04-04-enforce-debit-equals-credit`. The generated brief and implementation provide exact bigint totals independently per currency, strict contextual validation, duplicate refusal and detached frozen success or issues without partial output. No posting, account balance queries, storage or financial authority; M04.05 and later stay unstarted. Builder validation PASS: ledger432/control380, fresh events97, measured workspace581 and intermediate QA17/0/2 with warm caches. Separate-context overall reviewer `m04_02_qa` PASS with no findings on `b66f5fa23021f2cd4b2722402d0ac6fd1da99a61`; fresh independent ledger432/control380/static/scope and supplemental runtime192/lifecycle182 PASS. PR #65 is the sole review container; Builder clean QA18/0/1 and CI36997409686 PASS. Final handoff-head review/clean QA/CI remain required.
 
 ## Authority and safety
 
@@ -34,4 +34,4 @@ Current-slice validation and QA status live in the active plan and current state
 
 ## Next gate
 
-M04.04 independent QA and exact-head clean QA/CI must pass before human review/squash merge of its single PR. PR details and final evidence live in the current state and PR review record. After actual merge, the merge confirmation triggers GitHub/tree/main verification before M04.05 can start. Preserve V1/all 18 rows and the approved disposable Postgres requirement for storage-dependent acceptance.
+M04.04 QA passed, awaiting merge in PR #65. Final actual-head re-review/clean QA/CI must PASS and be recorded against its SHA before human review/squash merge. Reply “Merged #65. Continue.” after actual merge; verify GitHub/tree/main and finalize tracking before M04.05. Preserve V1/all18 and the approved disposable Postgres requirement for storage-dependent acceptance.

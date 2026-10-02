@@ -1,10 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-M04.04 QA - Enforce debit equals credit
+Merge M04.04 PR - Enforce debit equals credit
 
 Precondition:
-PR #64 human merge/tree/main verified, M04.03 tracking finalized, expected `m04-04-enforce-debit-equals-credit` starting branch/status/origin guard clean at `4a5637c8eab842b368e046b0994a620ecb08e90b`.
+PR #65 independent overall candidate QA PASS on `b66f5fa23021f2cd4b2722402d0ac6fd1da99a61`; final actual-head re-review, clean QA and required CI must PASS and be recorded in that PR before human review/squash merge.
 
 Scope:
-Independently review the completed M04.04 Builder candidate and full PR diff against the generated brief in CLP-0005: exact per-currency journal equality and strict refusal, no posting/storage/account balance query. Validate real behavior/control transitions, one same-branch PR, reused separate-context read-only QA and exact-head clean QA/CI. Stop for human merge before M04.05; no new prompt or V1 approval needed.
+Human review and squash merge of the sole M04.04 PR #65 on `m04-04-enforce-debit-equals-credit`, with active CLP-0005 handoff and final SHA-bound evidence. Agents cannot merge or enable auto-merge. After actual merge, reply “Merged #65. Continue.”; verify GitHub/reviewed-tree/main evidence and finalize tracking before M04.05 Builder - Add immutable transaction storage. Preserve all18/V1 and its approved disposable Postgres/environment gate; no future-row implementation yet.

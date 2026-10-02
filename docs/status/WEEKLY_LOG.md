@@ -1158,3 +1158,8 @@ Verified PR #64 human merge `4a5637c8eab842b368e046b0994a620ecb08e90b`, exact re
 
 
 M04.04 Builder complete, awaiting QA: pure strict per-currency bigint equality, duplicate/refusal rules and frozen detached output; 4 new files, exactly28 scoped files total. Fresh ledger432/control380/events97 PASS; measured workspace581 from cached readback, intermediate QA17/0/2 PASS with warm caches. Initial missing active-plan/source-neutral status labels corrected without weakened assertions. Separate-context static journal review found no defects; committed-candidate overall review/final clean QA/CI/human merge remain. Account/header/entry implementations preserved; M04.05+ unstarted, all18/V1 intact. Exact next M04.04 QA - Enforce debit equals credit.
+
+
+## 2026-10-02 - M04.04 independent QA and PR #65 handoff
+
+Separate-context overall reviewer `m04_02_qa` PASS, no findings, on b66f5fa23021f2cd4b2722402d0ac6fd1da99a61; complete28-file diff/contracts/control/tracking reviewed. Fresh ledger432/control380/typecheck/lint/build/format, supplemental runtime192/lifecycle182 and whitespace/scope/18-row identity PASS, zero getters/coercions. Two supplemental harness mistakes corrected without production/test changes. Builder clean QA18/0/1 and exact CI36997409686 bothjobsPASS; workspace581 cached readback and warm dependencies, Docker/make unavailable, no storage guarantee. Final10-document tracking handoff records QA passed, awaiting merge/actualPR65; final actual-head re-review/clean QA/CI required in that PR. No code repair, all18/V1 and M04.05+ unstarted preserved. Exact next Merge M04.04 PR - Enforce debit equals credit; human-only merge.
