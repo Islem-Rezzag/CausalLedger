@@ -19,8 +19,8 @@
   "currentPr": null,
   "latestMergedPr": 65,
   "latestMergeCommit": "526bb66dda5d9c8b9aebd85775142e8d22c3a73a",
-  "environmentReadiness": "BLOCKED_GITHUB_WORKFLOW_PERMISSION",
-  "localTestStatus": "BUILDER_LEDGER469_CONTROL451_INTERMEDIATE_QA17_0_2_PASS_WARM_CACHE",
+  "environmentReadiness": "BLOCKED_GITHUB_IDENTITY_VERIFICATION",
+  "localTestStatus": "LOCAL_LEDGER469_CONTROL451_CLEAN_QA18_0_1_PASS_WARM_CACHE",
   "remoteCiStatus": "M04_05_NOT_RUN_PUSH_REJECTED_MISSING_WORKFLOW_PERMISSION",
   "dockerStatus": "UNAVAILABLE_LOCALLY_REMOTE_INFRA_SMOKE_BLOCKED_BY_PUSH_PERMISSION",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
@@ -59,7 +59,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "GitHub rejected the local M04.05 push because the existing OAuth credential lacks workflow permission; no remote branch or PR; await explicit user authorization to reauthorize that same connection and GitHub consent",
+    "Existing Git connection refresh explicitly authorized by the user on2026-10-02; GitHub Mobile or password identity verification is still required in the open Chrome confirmation page before workflow-capable credentials can be restored. No remote M04.05 branch or PR.",
     "M04.05 mandatory disposable Postgres17 acceptance has not run; independent review is partial/static/local only; local database tooling unavailable",
     "no live-model provider/model/call-count/budget approved"
   ],
@@ -71,15 +71,15 @@
     "local memory headroom was low during the audit and may constrain Docker plus development services"
   ],
   "humanDecisionsRequired": [
-    "authorize reauthorization of the existing Git connection with workflow permission and complete GitHub consent",
+    "complete GitHub identity verification for the explicitly authorized existing Git connection refresh; no further verbal permission needed",
     "review and merge each independently reviewed PR",
     "approve material scope or architecture changes and any system-level installation",
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "AUTHORIZE_EXISTING_GIT_CONNECTION_WORKFLOW_PERMISSION_THEN_RESUME_M04_05_CI",
-  "stopReason": "BLOCKED_GITHUB_OAUTH_WORKFLOW_PERMISSION",
-  "lastUpdatedTimestamp": "2026-10-02T14:31:23Z",
+  "exactNextAction": "COMPLETE_GITHUB_IDENTITY_VERIFICATION_THEN_RESUME_M04_05_CI",
+  "stopReason": "BLOCKED_GITHUB_IDENTITY_VERIFICATION",
+  "lastUpdatedTimestamp": "2026-10-02T14:52:01Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
