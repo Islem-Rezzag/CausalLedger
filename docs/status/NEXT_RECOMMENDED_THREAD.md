@@ -1,10 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-Merge M04.02 PR - Define LedgerTransaction schema
+Merge M04.03 PR - Define LedgerEntry schema
 
 Precondition:
-Independent implementation QA PASS, no actionable findings, on Builder `6e2cba186a8b7fcc98c83f253ff28d3625c4aa5a`. PR [#63](https://github.com/Islem-Rezzag/CausalLedger/pull/63), branch `m04-02-ledger-transaction-schema`, base `44f6a833692326d00ed5a9b7479a52dd761af814`. Final handoff revision requires exact-SHA reviewer recheck, clean-worktree QA and required CI in the PR review record before readiness. Do not accept earlier SHA evidence for a changed head.
+PR #64 on `m04-03-ledger-entry-schema`, base `1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d`. Corrected-state independent QA PASS; final actual-head re-review/clean QA/CI must be recorded in that PR before human merge. Final coordinator handoff verifies ready state and exact head. QA passed, awaiting merge does not mean merged.
 
 Scope:
-Human reviews and squash-merges PR #63 only after final gates PASS; agents never merge or enable auto-merge. On “Merged #63. Continue.” recover actual GitHub merge metadata, verify reviewed contents reached fetched main with squash-aware checks, safely synchronize, finalize M04.02 tracking within the next legitimate slice and generate/execute **M04.03 Builder - Define LedgerEntry schema** under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. M04.03 remains Not started until those conditions hold. Preserve V1 approval, all 18 M04 rows and safety/environment gates; no extra prompt is required.
+Human reviews and squash-merges [PR #64](https://github.com/Islem-Rezzag/CausalLedger/pull/64), then replies “Merged #64. Continue.” Agents do not merge or enable auto-merge. Continuation verifies actual GitHub merge/reviewed contents, fetched-main reachability and safe branch/status/origin guard; finalizes M04.03 tracking in the next legitimate slice, then generates **M04.04 Builder - Enforce debit equals credit** from the approved plan. M04.04 remains Not started until these gates pass. No copied prompt or renewed V1 selection required.

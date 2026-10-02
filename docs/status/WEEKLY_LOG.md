@@ -1134,3 +1134,19 @@ M04.02 Builder complete, awaiting QA: transaction header/provenance contract and
 - Separate-context reviewer `m04_02_qa` PASS, no actionable findings, on `6e2cba186a8b7fcc98c83f253ff28d3625c4aa5a` against base `44f6a833692326d00ed5a9b7479a52dd761af814`; all 28 scoped files and approved boundaries inspected. Independent control 237/ledger 230 and static/scope checks PASS; supplemental runtime 111/lifecycle 57 probes PASS, not added to committed test counts.
 - Same candidate coordinator clean-worktree QA 18/0/1 and CI `36784155944` validate/infra-smoke PASS; workspace 379, warm dependency/task caches, not cold-install proof. Docker/make unavailable, Python substitutes passed; no database claim.
 - One PR #63 exists. This QA handoff changes documentation/tracking only; no implementation repair needed. Final handoff-head re-review, clean QA and CI must be bound to the actual SHA in PR #63 before human review/merge. M04.02 QA passed, awaiting merge; M04.03 and later unstarted. Exact next thread: Merge M04.02 PR - Define LedgerTransaction schema.
+
+
+## 2026-09-30 - M04.02 merge and M04.03 start
+
+Verified PR #63 human merge `1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d`, exact reviewed/merged tree `6528851abfe1b8e9642b5ddfc225b50d034da50e` and fetched-main reachability; final QA/clean QA/CI36785054245PASS on511ce291eb18538e0a07076287ca0f7c4a24656a. Finalized M04.02 within next legitimate slice, safely fast-forwarded clean main and created `m04-03-ledger-entry-schema`. M04.03 brief freezes positive canonical decimal wire amount to exact bigint, per-line signed64-compatible range and supplied Account/header reference checks; implementation/validation pending. M04.04 onward unstarted, all18/V1/safety gates preserved.
+
+
+M04.03 Builder complete, awaiting QA: new entry source/runtime/type tests/spec; positive bounded decimal wire amounts become exact bigint, explicit side and supplied Account/header references checked. Fresh ledger354/control301/events97 PASS; workspace503 (12 unchanged package tasks cached), intermediate QA17/0/2 PASS. Strict test typing/BigInt labels/default helper and status wording corrected; no assertions weakened. Account/transaction implementation preserved, own Entry reference checks reject terminal-newline IDs. Independent review/final clean QA/CI/human merge remain; M04.04 unstarted.
+
+## 2026-09-30 - M04.03 independent QA correction
+
+PR #64 candidate `dd5f5fc1b2aa8c0688236a34bc939aa4dcd60a7e`: separate-context reviewer `m04_02_qa` returned QA FAIL for one P3 spec parsing-order overstatement; runtime/control/scope PASS, no other findings. Corrected the sentence to distinguish lexical/length checks before exact parsing from the maximum comparison after parsing; no code/tests/policy change. Fresh independent ledger 354/control 301 and supplemental runtime 159/lifecycle 81 PASS. Coordinator clean QA 18/0/1 and exact Builder CI `36788382000` both jobs PASS. Corrected-state review/final handoff gates pending; current slice stays Builder complete, awaiting QA, PR draft, M04.04 unstarted.
+
+## 2026-09-30 - M04.03 corrected-state QA and PR #64 handoff
+
+Separate-context reviewer `m04_02_qa` returned corrected-state PASS, no remaining findings, on `1a2bb7d4f8cac2d1f4afad29ff61d4528f8cc7de`. Fresh control validator/301 bootstrap and full-range whitespace/forbidden checks PASS. Product/tests/validator byte-identical to Builder; independent ledger 354/static and runtime 159/lifecycle 81 results reused on that proof. One P3 spec wording repair only; no assertions/policy/code changed. Builder clean QA 18/0/1, workspace 503 with warm caches; Builder/corrected CI `36788382000`/`36789039080` succeeded, separate from final-head gates. Ten-document final QA/status handoff awaits exact-SHA re-review/clean QA/CI recorded in PR #64. Status QA passed, awaiting merge; next Merge M04.03 PR - Define LedgerEntry schema. Human-only merge; M04.04 and later unstarted, all 18 rows/V1 intact.

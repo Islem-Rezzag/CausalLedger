@@ -60,7 +60,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md` - completed M01 plan.
 - `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md` - completed M02 plan.
 - `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md` - completed M03 plan.
-- `plans/active/CLP-0005-m04-double-entry-ledger-core.md` - active M04 plan; current slice M04.02 LedgerTransaction schema.
+- `plans/active/CLP-0005-m04-double-entry-ledger-core.md` - active M04 plan; current slice M04.03 LedgerEntry schema.
 - `plans/proposals/CLP-PROJECT-COMPLETION-GOAL.md` - proposed grouping overlay; milestone acceptance and per-PR gates remain authoritative.
 - `docs/status/M02_CLOSEOUT.md` - M02 closeout packet.
 - `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
@@ -85,6 +85,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `docs/domain/payment-lifecycle.md` - M01.01 payment lifecycle vocabulary and boundaries.
 - `docs/specs/account-schema.md` - implemented M04.01 Account metadata contract and validation boundaries.
 - `docs/specs/ledger-transaction-schema.md` - M04.02 transaction header metadata, provenance, time and retry-key boundaries.
+- `docs/specs/ledger-entry-schema.md` - M04.03 exact wire money, side and supplied account/header references.
 - `docs/domain/ledger-vocabulary.md` - M01.02 ledger vocabulary and boundaries.
 - `docs/domain/settlement-vocabulary.md` - M01.03 settlement vocabulary and boundaries.
 - `docs/domain/reconciliation-vocabulary.md` - M01.04 reconciliation vocabulary and boundaries.
@@ -123,4 +124,4 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01 Account schema PR #62 human-merged at `44f6a833692326d00ed5a9b7479a52dd761af814`, matching its reviewed tree. M04.02 Define LedgerTransaction schema is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.03-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`. The implemented boundary remains source-neutral MoneyEvent validation/normalization and controlled fixtures/seeds; structural success is not financial truth. M04.01 Account and M04.02 transaction header metadata validation exist; no ledger posting, balances, storage or downstream runtime exists.
+M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01-M04.02 are Completed and merged; transaction PR #63 human-merged at `1dcfcbdb6c6f74a1ab6acb7b19e93ef2ddb09d0d`, matching its reviewed tree. M04.03 Define LedgerEntry schema is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.04-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`. The implemented boundary remains source-neutral MoneyEvent validation/normalization and controlled fixtures/seeds; structural success is not financial truth. M04.01 Account, M04.02 transaction header and M04.03 entry wire/reference validation exist; no ledger posting, balances, storage or downstream runtime exists.
