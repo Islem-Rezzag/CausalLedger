@@ -1214,3 +1214,5 @@ Sole PR #67, candidate2da8a60, same approved branch/plan. Local560/control526/ty
 ## M04.06 overall QA and human merge handoff (2026-10-06)
 
 Existing overall m04_02_qa PASS on2da8a60 and inspected current tracking; independent fresh ledger560/control526/type/lint/build/format and supplemental115 pure/mock and88 lifecycle probes PASS. Actual CI37455036023 storage64/balance22/migrations/schema/owned DB/roles/Compose cleanup PASS. Stale registry validation cell corrected before final review. Root records QApassed/PR67 and human-only merge in final tracking; final actual-head re-review/clean QA/CI proof maintained in same PR before readiness. All18/V1/prior schemas/storage unchanged; no07 before verified06 merge. User runs no tests; no agent financial authority, installs or paid calls.
+
+M04.06 final tracking correction: reviewer caught a dated05 Builder-status sentence changed by the current-status replacement; original historical status restored on attempt one. Query/source/tests/control unchanged. Intermediateada7d1d clean QA18/0/1 is not final proof; corrected actual-head review/clean QA/CI required in solePR67 before human merge.
