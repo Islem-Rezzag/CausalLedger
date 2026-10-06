@@ -1216,3 +1216,19 @@ Sole PR #67, candidate2da8a60, same approved branch/plan. Local560/control526/ty
 Existing overall m04_02_qa PASS on2da8a60 and inspected current tracking; independent fresh ledger560/control526/type/lint/build/format and supplemental115 pure/mock and88 lifecycle probes PASS. Actual CI37455036023 storage64/balance22/migrations/schema/owned DB/roles/Compose cleanup PASS. Stale registry validation cell corrected before final review. Root records QApassed/PR67 and human-only merge in final tracking; final actual-head re-review/clean QA/CI proof maintained in same PR before readiness. All18/V1/prior schemas/storage unchanged; no07 before verified06 merge. User runs no tests; no agent financial authority, installs or paid calls.
 
 M04.06 final tracking correction: reviewer caught a dated05 Builder-status sentence changed by the current-status replacement; original historical status restored on attempt one. Query/source/tests/control unchanged. Intermediateada7d1d clean QA18/0/1 is not final proof; corrected actual-head review/clean QA/CI required in solePR67 before human merge.
+
+## 2026-10-06 - PR67 verified; M04.07 started
+
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.06 are Completed and merged. Human PR #67 merge 471d76c6173208d33d7584756a6db0d433c29ec4 matches final reviewed ee5d6c2/tree da69be5; empty diff/main reachability, exact-head independent QA, clean QA18/0/1 and CI37455976639 both jobs with storage64/balance22 real Postgres17 tests PASS verified. M04.07 Add transaction query is Builder in progress on `m04-07-add-transaction-query` under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. No current07 validation or PR yet. M04.08-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`. Generated scoped complete-journal brief before coding; current validation pending.
+
+## 2026-10-06 - M04.07 builder checkpoint
+
+Builder complete, awaiting QA; no current PR yet. Fresh ledger655/15files and control614/type/lint/build/format PASS; root intermediate full QA17/0/2 PASS. Mandatory real PostgreSQL acceptance and overall independent QA pending; driver tests are not database proof. Scope29/prior127/all18 PASS; exact-head QA/CI and human merge gate remain.
+
+## 2026-10-06 - M04.07 builder checkpoint
+
+Builder complete, awaiting QA; sole [PR #68](https://github.com/Islem-Rezzag/CausalLedger/pull/68). Fresh ledger655/15files and control614/type/lint/build/format PASS; root intermediate full QA17/0/2 PASS. Mandatory real PostgreSQL acceptance and overall independent QA pending; driver tests are not database proof. Scope29/prior127/all18 PASS; exact-head QA/CI and human merge gate remain.
+
+## 2026-10-06 - M04.07 final checkpoint
+
+QA passed, awaiting merge; sole [PR #68](https://github.com/Islem-Rezzag/CausalLedger/pull/68). Fresh ledger655/15files and control614/type/lint/build/format PASS; root intermediate full QA17/0/2 PASS. Actual CI37467329970 both jobs and real Postgres17 storage64/balance22/transaction-query27, migration UP/DOWN/UP, exact schema/functions, owned database/roles and Compose cleanup PASS. Existing separate-context overall m04_02_qa PASS, no remaining findings. Actual final-head re-review/clean QA/CI required; final proof maintained in this sole PR. Scope29/prior127/all18 PASS; exact-head QA/CI and human merge gate remain.

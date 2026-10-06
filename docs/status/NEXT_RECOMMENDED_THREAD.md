@@ -1,10 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-Merge M04.06 PR - Add account balance query
+Merge M04.07 PR - Add transaction query
 
 Precondition:
-Same branch `m04-06-add-account-balance-query`, sole PR #67, active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; overall independent m04_02_qa PASS. Final actual SHA-bound re-review, clean QA and both CI jobs with mandatory real Postgres acceptance must PASS in PR #67 before ready/human merge. Existing candidate2da8a60 local ledger560/control526 and CI37455036023 storage64/balance22/migration/schema/owned cleanup PASS.
+Expected branch m04-07-add-transaction-query, sole [PR #68](https://github.com/Islem-Rezzag/CausalLedger/pull/68), active CLP-0005. Fresh ledger655/15files and control614/type/lint/build/format PASS; root intermediate full QA17/0/2 PASS. Actual CI37467329970 both jobs and real Postgres17 storage64/balance22/transaction-query27, migration UP/DOWN/UP, exact schema/functions, owned database/roles and Compose cleanup PASS. Existing separate-context overall m04_02_qa PASS, no remaining findings. Actual final-head re-review/clean QA/CI required; final proof maintained in this sole PR.
 
 Scope:
-Human-only review/merge. Root runs final checks; user runs no tests. After the user reports merge, verify exact merged/reviewed tree, empty diff, fetched-main reachability and final QA/CI, then finalize06 and start M04.07 Builder - Add transaction query. No07 before verified06 merge; no duplicate05 QA/new chats/goals/helpers, installs, paid calls or agent financial authority. Preserve V1/all18 and earlier contracts/storage/migration. Final evidence stays in this same PR without a CI-copy-only commit.
+Human-only review/merge after final exact-head gates; root runs every test. Then verify actual merged/reviewed tree/main and finalize07 before08. Preserve all18/V1 and127 prior paths, storage64/balance22, migration/schema/cleanup. No08, new chats/goals/helpers, installs, paid calls or agent financial authority.

@@ -229,6 +229,14 @@ try {
     testEnv,
   );
   console.log("PASS: Mandatory real PostgreSQL account balance acceptance completed");
+  child(
+    [
+      fileURLToPath(new URL("../packages/ledger/node_modules/vitest/vitest.mjs", import.meta.url)),
+      "run", "test/ledger-transaction-query-postgres.test.ts", "--root", "packages/ledger",
+    ],
+    testEnv,
+  );
+  console.log("PASS: Mandatory real PostgreSQL transaction query acceptance completed");
 } catch (error) {
   console.error("FAIL: " + sanitize(error.message));
   process.exitCode = 1;
