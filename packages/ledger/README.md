@@ -1,6 +1,6 @@
 # Ledger Package
 
-`@causalledger/ledger` owns Account/header/entry/journal contracts, immutable synthetic storage, read-only queries and scoped idempotency merged through M04.08. Current M04.09 full linked reversals have local validation PASS; database acceptance and overall QA pending.
+`@causalledger/ledger` owns Account/header/entry/journal contracts, immutable synthetic storage, read-only queries and scoped idempotency merged through M04.08. Current M04.09 full linked reversals have local validation PASS; database/overall QA PASS, final-head/human merge gates remain.
 
 The original M02.05 scaffold supplied:
 

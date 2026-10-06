@@ -16,13 +16,13 @@
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
   "currentMilestone": "M04.09",
   "currentBranch": "m04-09-add-reversal-transaction-type",
-  "currentPr": null,
+  "currentPr": 70,
   "latestMergedPr": 69,
   "latestMergeCommit": "3e0832254539140d55094404edec253b1766bc9c",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
   "localTestStatus": "M04_09_LEDGER789_CONTROL823_DIRTY_QA17_0_2_PASS",
-  "remoteCiStatus": "M04_09_PENDING_REQUIRED_POSTGRES_AND_CI",
-  "dockerStatus": "UNAVAILABLE_LOCALLY_CURRENT_09_DB_PENDING_PRIOR_08_REAL152_PASS",
+  "remoteCiStatus": "Actual CI37481198943 both jobs SUCCESS; real Postgres17 storage64/balance22/transaction-query27/idempotency39/reversal40 (192), THREE-migration recovery, both populated upgrades, exact6tables/10functions and owned/Compose cleanup PASS. Existing overall m04_02_qa PASS at32f7, P2/P3 and first-CI defects resolved;19pure/30driver independent probes PASS, no remaining finding. Root corrected cleanQA18/0/1 PASS.",
+  "dockerStatus": "UNAVAILABLE_LOCALLY_M04_09_REAL_POSTGRES_ACCEPTANCE_PASS",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
     "M00 repository operating system",
@@ -42,7 +42,7 @@
     "M04.06 read-only exact account balances; human PR67 merge and final QA/CI37455976639 real storage64/balance22 verified",
     "M04.07 complete read-only transaction queries; human PR68 merge/final independent QA/clean QA18/0/1/CI37468260697 real113 verified",
     "M04.08 durable scoped idempotency; human PR69 merge/final independent QA/clean QA18/0/1/CI37473789250 real152 verified",
-    "M04.09 full linked reversal with exact inverse multiset/snapshots/provenance, atomic single reversal and scoped retries; local validation PASS; database/overall QA pending"
+    "M04.09 full linked reversal with exact inverse multiset/snapshots/provenance, atomic single reversal and scoped retries; local/database/overall QA PASS; human merge pending"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -63,7 +63,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "M04.09 database acceptance, overall QA and human merge remain",
+    "M04.09 final SHA-bound gates and human merge remain",
     "no live-model provider/model/call-count/budget approved"
   ],
   "risks": [
@@ -79,9 +79,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "M04_09_EXISTING_OVERALL_QA_AND_DATABASE_ACCEPTANCE",
-  "stopReason": "BUILDER_COMPLETE_AWAITING_QA",
-  "lastUpdatedTimestamp": "2026-10-06T14:37:56Z",
+  "exactNextAction": "HUMAN_MERGE_M04_09_AFTER_FINAL_SHA_GATES",
+  "stopReason": "QA_PASSED_AWAITING_HUMAN_MERGE",
+  "lastUpdatedTimestamp": "2026-10-06T14:46:24Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -214,5 +214,19 @@
     "mergedTree": "1260235203a8bd97f144911624b462c08aa0d863",
     "ciRun": 37473789250,
     "independentQa": "PASS"
+  },
+  "currentQaEvidence": {
+    "reviewer": "m04_02_qa",
+    "candidateHead": "32f7da7d3dd50e9f8dca317b242c731325426528",
+    "result": "PASS",
+    "unitTests": 789,
+    "controlTests": 823,
+    "realStorageTests": 64,
+    "realBalanceTests": 22,
+    "realTransactionQueryTests": 27,
+    "realIdempotencyTests": 39,
+    "realReversalTests": 40,
+    "ciRun": 37481198943,
+    "finalShaBoundRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/70"
   }
 }
