@@ -124,6 +124,20 @@ export type {
   LedgerTransactionReader,
 } from "./ledger-transaction-query.js";
 
+export {
+  LEDGER_IDEMPOTENCY_CONTRACT_VERSION,
+  IdempotentLedgerJournalStorageError,
+  validateLedgerIdempotencyCandidate,
+  createIdempotentLedgerJournalStore,
+} from "./ledger-idempotency.js";
+export type {
+  LedgerIdempotencyIdentity,
+  LedgerIdempotencyValidationResult,
+  IdempotentLedgerJournalReceipt,
+  IdempotentLedgerJournalResult,
+  IdempotentLedgerJournalStore,
+} from "./ledger-idempotency.js";
+
 export const ledgerPackageBoundary = Object.freeze({
   packageName: "@causalledger/ledger",
   status: "ledger-schema-boundary",
@@ -138,6 +152,7 @@ export const ledgerPackageBoundary = Object.freeze({
   balanceQueriesImplemented: true,
   transactionQueriesImplemented: true,
   storageImplemented: true,
+  idempotencyImplemented: true,
   agentWriteAuthority: false,
   financialTruthEstablishedByValidation: false,
 } as const);

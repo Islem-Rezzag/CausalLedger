@@ -7,7 +7,7 @@
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit --pretty false && tsc -p tsconfig.test.json --noEmit --pretty false",
     "typecheck:test": "tsc -p tsconfig.test.json --noEmit --pretty false",
-    "test": "vitest run --exclude \"dist/**\" --exclude \"test/ledger-storage-postgres.test.ts\" --exclude \"test/ledger-account-balance-postgres.test.ts\" --exclude \"test/ledger-transaction-query-postgres.test.ts\"",
+    "test": "vitest run --exclude \"dist/**\" --exclude \"test/ledger-storage-postgres.test.ts\" --exclude \"test/ledger-account-balance-postgres.test.ts\" --exclude \"test/ledger-transaction-query-postgres.test.ts\" --exclude \"test/ledger-idempotency-postgres.test.ts\"",
     "lint": "eslint . --max-warnings=0",
     "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\" \"README.md\" \"package.json\" \"tsconfig*.json\""
   },
