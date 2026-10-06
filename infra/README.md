@@ -1,6 +1,6 @@
 # Local Infrastructure
 
-M02.06 added the local infrastructure baseline for development repeatability. The current M04.05 storage candidate extends its migration and isolated CI boundary; real database acceptance is pending.
+M02.06 added the local infrastructure baseline. M04.05 PR #66 extends only its reviewed ledger migration and isolated CI boundary; actual real Postgres17 acceptance passed64 tests. Candidate independent QA PASS; final tracking-head checks remain required.
 
 What exists:
 
@@ -50,4 +50,4 @@ The M02 baseline intentionally had an empty migration directory and created only
 
 ## M04.05 storage acceptance
 
-The candidate updates the existing disposable Postgres17 CI route to run `pnpm test:ledger-storage` for mandatory migrations, atomic append/rollback/readback and application-role immutability. Its runner provisions separate restricted identities and a named synthetic test database, refuses existing resources, inspects exact public schema and cleans only verified owned resources. This acceptance has not run: GitHub rejected the branch push because the existing OAuth credential lacks `workflow` permission. No remote M04.05 branch or PR exists. Default developer database credentials are bootstrap placeholders, not storage application permissions. No system installation, production provisioning or user-database mutation is authorized. See `docs/specs/ledger-immutable-storage.md` and the QA guide for explicit configuration and limits.
+The candidate updates the existing disposable Postgres17 CI route to run `pnpm test:ledger-storage` for mandatory migrations, atomic append/rollback/readback and application-role immutability. CI37445358766 on4c3010d executed64 tests, up/down/up migrations, exact schema inspection, owned database/role cleanup and always Compose cleanup; both jobs PASS. PR #66 has candidate independent QA PASS and remains draft pending final tracking-head checks. The runner uses separate restricted identities, refuses existing resources and cleans only verified owned resources. Default developer database credentials are bootstrap placeholders, not storage application permissions. No system installation, production provisioning or user-database mutation is authorized. See the storage spec and QA guide for explicit configuration and limits.

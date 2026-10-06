@@ -112,7 +112,7 @@ Completed execution:
 
 Active execution:
 
-- M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01-M04.04 are Completed and merged; PR #65 human-merged at `526bb66dda5d9c8b9aebd85775142e8d22c3a73a`, matching its reviewed tree. M04.05 Add immutable transaction storage is Blocked under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`: GitHub rejected the push because the existing OAuth credential lacks `workflow` permission. Local code and tests are committed; real disposable Postgres acceptance, PR/CI and overall independent QA remain pending. M04.06-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
+- M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01-M04.04 are Completed and merged; PR #65 human merge `526bb66dda5d9c8b9aebd85775142e8d22c3a73a` matches its reviewed tree. M04.05 Add immutable transaction storage is QA passed, awaiting merge under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, on [PR #66](https://github.com/Islem-Rezzag/CausalLedger/pull/66). The original GitHub CLI workflow authorization and scoped push succeeded. Actual disposable PostgreSQL17 acceptance passed 64 tests, migration up/down/up, schema inspection and owned-resource cleanup in CI37445358766 on `4c3010d16268d9c5cbff4d791cb4eda5d4ccf37c`; both CI jobs passed. Candidate overall independent QA PASS; final tracking-head review, clean QA and CI remain pending before human merge. M04.06-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
 
 Plan state:
 

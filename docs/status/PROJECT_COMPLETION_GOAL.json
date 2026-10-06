@@ -16,13 +16,13 @@
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
   "currentMilestone": "M04.05",
   "currentBranch": "m04-05-add-immutable-transaction-storage",
-  "currentPr": null,
+  "currentPr": 66,
   "latestMergedPr": 65,
   "latestMergeCommit": "526bb66dda5d9c8b9aebd85775142e8d22c3a73a",
-  "environmentReadiness": "BLOCKED_GITHUB_CLI_WORKFLOW_APPROVAL",
+  "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
   "localTestStatus": "LOCAL_LEDGER469_CONTROL451_CLEAN_QA18_0_1_PASS_WARM_CACHE",
-  "remoteCiStatus": "M04_05_NOT_RUN_PUSH_REJECTED_MISSING_WORKFLOW_PERMISSION",
-  "dockerStatus": "UNAVAILABLE_LOCALLY_REMOTE_INFRA_SMOKE_BLOCKED_BY_PUSH_PERMISSION",
+  "remoteCiStatus": "PR66_CI37445358766_BOTH_PASS_ON_4C3010D_FINAL_HEAD_PENDING",
+  "dockerStatus": "UNAVAILABLE_LOCALLY_REAL_POSTGRES17_CI64_PASS",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
     "M00 repository operating system",
@@ -38,7 +38,7 @@
     "M04.02 LedgerTransaction header metadata and pure validation (PR #63; completed and merged)",
     "M04.03 LedgerEntry wire/amount/reference validation (PR #64; completed and merged)",
     "M04.04 pure journal validation: exact per-currency bigint equality, duplicate/refusal rules and frozen detached output (PR #65; completed and merged)",
-    "M04.05 atomic immutable synthetic journal storage candidate; real Postgres acceptance and independent QA pending"
+    "M04.05 atomic immutable synthetic journal storage in PR66; real Postgres64 and candidate independent QA PASS; final-head PR-record gates required"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -59,8 +59,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "Existing Git workflow restoration explicitly authorized. GCM refresh succeeded but the actual unchanged host-scoped helper uses the existing GitHub CLI credential, still lacking workflow. Secure CLI refresh awaits the displayed GitHub Workflow approval. No remote M04.05 branch or PR.",
-    "M04.05 mandatory disposable Postgres17 acceptance has not run; independent review is partial/static/local only; local database tooling unavailable",
+    "M04.05 final tracking-head independent review, clean QA and CI pending; candidate overall QA PASS on4c3010d, human PR66 merge required",
     "no live-model provider/model/call-count/budget approved"
   ],
   "risks": [
@@ -71,15 +70,14 @@
     "local memory headroom was low during the audit and may constrain Docker plus development services"
   ],
   "humanDecisionsRequired": [
-    "complete the displayed GitHub CLI Workflow approval for the original existing Git credential; verbal restoration authority is already recorded",
     "review and merge each independently reviewed PR",
     "approve material scope or architecture changes and any system-level installation",
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "COMPLETE_GITHUB_CLI_WORKFLOW_APPROVAL_THEN_RESUME_M04_05_CI",
-  "stopReason": "BLOCKED_GITHUB_CLI_WORKFLOW_APPROVAL",
-  "lastUpdatedTimestamp": "2026-10-02T15:37:39Z",
+  "exactNextAction": "FINISH_M04_05_FINAL_HEAD_CHECKS_THEN_HUMAN_MERGE_PR66",
+  "stopReason": "QA_PASS_FINAL_TRACKING_HEAD_CHECKS_PENDING_HUMAN_MERGE_REQUIRED",
+  "lastUpdatedTimestamp": "2026-10-06T09:51:50Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
