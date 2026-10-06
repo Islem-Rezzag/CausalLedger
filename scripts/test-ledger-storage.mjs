@@ -151,33 +151,146 @@ try {
       database,
   );
   migration("up");
-  migration("down", 2);
+  migration("down", 3);
   migration("up");
-  console.log("PASS: Empty disposable BOTH migrations up/down/up recovery");
-  // Both migrations were fully removed/rebuilt on empty storage. Stage a real legacy upgrade too.
-  migration("down", 1);
-  const upgrade = new Client({connectionString: migrationUrl});
+  console.log("PASS: Empty disposable THREE migrations up/down/up recovery");
+  // Three migrations were fully removed/rebuilt on empty storage. Stage a real legacy upgrade too.
+  migration("down", 2);
+  const upgrade = new Client({ connectionString: migrationUrl });
   await upgrade.connect();
   let legacyBefore;
   try {
-    const id = (prefix,n) => prefix + String(n).padStart(26,"0");
-    const ledgerId = id("ldg_",9000000), accountId = id("acct_",9000000);
-    const accounts = [{storageVersion:"m04.05-account-snapshot.v1",account:{contractVersion:"m04.01-account.v1",id:accountId,ledgerId,name:{representation:"utf16_code_units",units:[83,121,110,116,104,101,116,105,99]},category:"asset",normalBalance:"debit",currency:"USD",owner:{namespace:"synthetic.owner",id:"upgrade"},status:"active"}}];
-    for (const n of [9000000,9000001]) {
-      const transactionId = id("txn_",n);
-      const journal = {contractVersion:"m04.04-ledger-journal.v1",transaction:{contractVersion:"m04.02-ledger-transaction.v1",id:transactionId,ledgerId,status:"pending",effectiveAt:"2026-10-02T10:00:00.000Z",recordedAt:"2026-10-02T10:01:00.000Z",idempotencyKey:"legacy.shared-key",provenance:{source:{namespace:"synthetic.upgrade",id:"same"},moneyEventIds:[],evidence:[{receiptId:id("rcpt_",9000000),contentHash:"sha256:"+"a".repeat(64)}]}},entries:["debit","credit"].map((side,i) => ({contractVersion:"m04.03-ledger-entry.v1",id:id("ent_",n*100+i+1),transactionId,ledgerId,accountId,side,amount:{representation:"integer_minor_units",minorUnits:"1250",currency:"USD"}}))};
-      await upgrade.query("SELECT public.append_ledger_journal($1::jsonb,$2::jsonb)",[JSON.stringify(journal),JSON.stringify(accounts)]);
+    const id = (prefix, n) => prefix + String(n).padStart(26, "0");
+    const ledgerId = id("ldg_", 9000000),
+      accountId = id("acct_", 9000000);
+    const accounts = [
+      {
+        storageVersion: "m04.05-account-snapshot.v1",
+        account: {
+          contractVersion: "m04.01-account.v1",
+          id: accountId,
+          ledgerId,
+          name: {
+            representation: "utf16_code_units",
+            units: [83, 121, 110, 116, 104, 101, 116, 105, 99],
+          },
+          category: "asset",
+          normalBalance: "debit",
+          currency: "USD",
+          owner: { namespace: "synthetic.owner", id: "upgrade" },
+          status: "active",
+        },
+      },
+    ];
+    for (const n of [9000000, 9000001]) {
+      const transactionId = id("txn_", n);
+      const journal = {
+        contractVersion: "m04.04-ledger-journal.v1",
+        transaction: {
+          contractVersion: "m04.02-ledger-transaction.v1",
+          id: transactionId,
+          ledgerId,
+          status: "pending",
+          effectiveAt: "2026-10-02T10:00:00.000Z",
+          recordedAt: "2026-10-02T10:01:00.000Z",
+          idempotencyKey: "legacy.shared-key",
+          provenance: {
+            source: { namespace: "synthetic.upgrade", id: "same" },
+            moneyEventIds: [],
+            evidence: [
+              {
+                receiptId: id("rcpt_", 9000000),
+                contentHash: "sha256:" + "a".repeat(64),
+              },
+            ],
+          },
+        },
+        entries: ["debit", "credit"].map((side, i) => ({
+          contractVersion: "m04.03-ledger-entry.v1",
+          id: id("ent_", n * 100 + i + 1),
+          transactionId,
+          ledgerId,
+          accountId,
+          side,
+          amount: {
+            representation: "integer_minor_units",
+            minorUnits: "1250",
+            currency: "USD",
+          },
+        })),
+      };
+      await upgrade.query(
+        "SELECT public.append_ledger_journal($1::jsonb,$2::jsonb)",
+        [JSON.stringify(journal), JSON.stringify(accounts)],
+      );
     }
-    legacyBefore = (await upgrade.query("SELECT jsonb_build_object('transactions',(SELECT jsonb_agg(to_jsonb(t) ORDER BY id) FROM public.ledger_transactions t),'accounts',(SELECT jsonb_agg(to_jsonb(a) ORDER BY transaction_id,account_id) FROM public.ledger_account_snapshots a),'entries',(SELECT jsonb_agg(to_jsonb(e) ORDER BY id) FROM public.ledger_entries e))::text AS snapshot")).rows[0].snapshot;
-  } finally { await upgrade.end(); }
+    legacyBefore = (
+      await upgrade.query(
+        "SELECT jsonb_build_object('transactions',(SELECT jsonb_agg(to_jsonb(t) ORDER BY id) FROM public.ledger_transactions t),'accounts',(SELECT jsonb_agg(to_jsonb(a) ORDER BY transaction_id,account_id) FROM public.ledger_account_snapshots a),'entries',(SELECT jsonb_agg(to_jsonb(e) ORDER BY id) FROM public.ledger_entries e))::text AS snapshot",
+      )
+    ).rows[0].snapshot;
+  } finally {
+    await upgrade.end();
+  }
+  migration("up", 1); // Install08 over populated05 first.
+  const checkpoint = new Client({ connectionString: migrationUrl });
+  await checkpoint.connect();
+  let history08;
+  try {
+    const legacyAfter = (
+      await checkpoint.query(
+        "SELECT jsonb_build_object('transactions',(SELECT jsonb_agg(to_jsonb(t) ORDER BY id) FROM public.ledger_transactions t),'accounts',(SELECT jsonb_agg(to_jsonb(a) ORDER BY transaction_id,account_id) FROM public.ledger_account_snapshots a),'entries',(SELECT jsonb_agg(to_jsonb(e) ORDER BY id) FROM public.ledger_entries e))::text AS snapshot",
+      )
+    ).rows[0].snapshot;
+    if (
+      legacyBefore !== legacyAfter ||
+      (
+        await checkpoint.query(
+          "SELECT count(*)::text AS count FROM public.ledger_idempotency_keys",
+        )
+      ).rows[0].count !== "0"
+    )
+      throw new Error("Additive08 upgrade changed/adopted legacy history");
+    console.log(
+      "PASS: Populated M04.05-to-M04.08 upgrade preserves both shared-key legacy journals exactly; no backfill",
+    );
+    // Explicitly reserve a third synthetic journal through08 before installing09; no guessed key adoption.
+    await checkpoint.query(`SELECT public.append_idempotent_ledger_journal(
+      jsonb_build_object('contractVersion',t.journal_version,'transaction',t.header || jsonb_build_object('id','txn_00000000000000000009000002','idempotencyKey','synthetic.upgrade.reserved'),
+        'entries',(SELECT jsonb_agg(jsonb_build_object('contractVersion',e.contract_version,'id','ent_' || lpad((900000200+CASE WHEN e.side='debit' THEN 1 ELSE 2 END)::text,26,'0'),
+          'transactionId','txn_00000000000000000009000002','ledgerId',e.ledger_id,'accountId',e.account_id,'side',e.side,
+          'amount',jsonb_build_object('representation','integer_minor_units','minorUnits',e.minor_units::text,'currency',e.currency))) FROM public.ledger_entries e WHERE e.transaction_id=t.id)),
+      (SELECT jsonb_agg(a.snapshot ORDER BY a.account_id) FROM public.ledger_account_snapshots a WHERE a.transaction_id=t.id))
+      FROM public.ledger_transactions t WHERE t.id='txn_00000000000000000009000000'`);
+    history08 = (
+      await checkpoint.query(
+        "SELECT jsonb_build_object('transactions',(SELECT jsonb_agg(to_jsonb(t) ORDER BY id) FROM public.ledger_transactions t),'accounts',(SELECT jsonb_agg(to_jsonb(a) ORDER BY transaction_id,account_id) FROM public.ledger_account_snapshots a),'entries',(SELECT jsonb_agg(to_jsonb(e) ORDER BY id) FROM public.ledger_entries e),'keys',(SELECT jsonb_agg(to_jsonb(k) ORDER BY ledger_id,source_namespace,idempotency_key) FROM public.ledger_idempotency_keys k))::text AS snapshot",
+      )
+    ).rows[0].snapshot;
+  } finally {
+    await checkpoint.end();
+  }
   migration("up");
   const inspect = new Client({ connectionString: migrationUrl });
   await inspect.connect();
   try {
-    const legacyAfter = (await inspect.query("SELECT jsonb_build_object('transactions',(SELECT jsonb_agg(to_jsonb(t) ORDER BY id) FROM public.ledger_transactions t),'accounts',(SELECT jsonb_agg(to_jsonb(a) ORDER BY transaction_id,account_id) FROM public.ledger_account_snapshots a),'entries',(SELECT jsonb_agg(to_jsonb(e) ORDER BY id) FROM public.ledger_entries e))::text AS snapshot")).rows[0].snapshot;
-    const keys = (await inspect.query("SELECT count(*)::text AS count FROM public.ledger_idempotency_keys")).rows[0].count;
-    if (legacyBefore !== legacyAfter || keys !== "0") throw new Error("Additive upgrade changed/adopted legacy history");
-    console.log("PASS: Populated M04.05-to-M04.08 upgrade preserves both shared-key legacy journals exactly; no backfill");
+    const history09 = (
+      await inspect.query(
+        "SELECT jsonb_build_object('transactions',(SELECT jsonb_agg(to_jsonb(t) ORDER BY id) FROM public.ledger_transactions t),'accounts',(SELECT jsonb_agg(to_jsonb(a) ORDER BY transaction_id,account_id) FROM public.ledger_account_snapshots a),'entries',(SELECT jsonb_agg(to_jsonb(e) ORDER BY id) FROM public.ledger_entries e),'keys',(SELECT jsonb_agg(to_jsonb(k) ORDER BY ledger_id,source_namespace,idempotency_key) FROM public.ledger_idempotency_keys k))::text AS snapshot",
+      )
+    ).rows[0].snapshot;
+    if (
+      history08 !== history09 ||
+      (
+        await inspect.query(
+          "SELECT count(*)::text AS count FROM public.ledger_reversals",
+        )
+      ).rows[0].count !== "0"
+    )
+      throw new Error("Additive09 upgrade changed/adopted populated08 history");
+    console.log(
+      "PASS: Populated M04.08-to-M04.09 upgrade preserves all journals/snapshots/entries and reserved key exactly; no reversal backfill",
+    );
     const tables = (
       await inspect.query(
         "SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename",
@@ -189,6 +302,7 @@ try {
         "ledger_account_snapshots",
         "ledger_entries",
         "ledger_idempotency_keys",
+        "ledger_reversals",
         "ledger_transactions",
         "pgmigrations",
       ])
@@ -204,6 +318,7 @@ try {
       JSON.stringify([
         "append_idempotent_ledger_journal",
         "append_ledger_journal",
+        "append_ledger_reversal",
         "ledger_account",
         "ledger_deny_mutation",
         "ledger_header",
@@ -248,26 +363,74 @@ try {
   // Run sequentially in the same owned database; keep M04.05 acceptance mandatory.
   child(
     [
-      fileURLToPath(new URL("../packages/ledger/node_modules/vitest/vitest.mjs", import.meta.url)),
-      "run", "test/ledger-account-balance-postgres.test.ts", "--root", "packages/ledger",
+      fileURLToPath(
+        new URL(
+          "../packages/ledger/node_modules/vitest/vitest.mjs",
+          import.meta.url,
+        ),
+      ),
+      "run",
+      "test/ledger-account-balance-postgres.test.ts",
+      "--root",
+      "packages/ledger",
     ],
     testEnv,
   );
-  console.log("PASS: Mandatory real PostgreSQL account balance acceptance completed");
+  console.log(
+    "PASS: Mandatory real PostgreSQL account balance acceptance completed",
+  );
   child(
     [
-      fileURLToPath(new URL("../packages/ledger/node_modules/vitest/vitest.mjs", import.meta.url)),
-      "run", "test/ledger-transaction-query-postgres.test.ts", "--root", "packages/ledger",
+      fileURLToPath(
+        new URL(
+          "../packages/ledger/node_modules/vitest/vitest.mjs",
+          import.meta.url,
+        ),
+      ),
+      "run",
+      "test/ledger-transaction-query-postgres.test.ts",
+      "--root",
+      "packages/ledger",
     ],
     testEnv,
   );
-  console.log("PASS: Mandatory real PostgreSQL transaction query acceptance completed");
+  console.log(
+    "PASS: Mandatory real PostgreSQL transaction query acceptance completed",
+  );
   child(
-    [fileURLToPath(new URL("../packages/ledger/node_modules/vitest/vitest.mjs",import.meta.url)),
-      "run","test/ledger-idempotency-postgres.test.ts","--root","packages/ledger"],
+    [
+      fileURLToPath(
+        new URL(
+          "../packages/ledger/node_modules/vitest/vitest.mjs",
+          import.meta.url,
+        ),
+      ),
+      "run",
+      "test/ledger-idempotency-postgres.test.ts",
+      "--root",
+      "packages/ledger",
+    ],
     testEnv,
   );
-  console.log("PASS: Mandatory real PostgreSQL idempotency acceptance completed");
+  console.log(
+    "PASS: Mandatory real PostgreSQL idempotency acceptance completed",
+  );
+  child(
+    [
+      fileURLToPath(
+        new URL(
+          "../packages/ledger/node_modules/vitest/vitest.mjs",
+          import.meta.url,
+        ),
+      ),
+      "run",
+      "test/ledger-reversal-postgres.test.ts",
+      "--root",
+      "packages/ledger",
+    ],
+    testEnv,
+  );
+  console.log("PASS: Mandatory real PostgreSQL reversal acceptance completed");
 } catch (error) {
   console.error("FAIL: " + sanitize(error.message));
   process.exitCode = 1;
