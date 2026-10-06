@@ -172,11 +172,62 @@ export function validateLedgerIdempotencyCandidate(
     : Object.freeze({ ok: false, issues: prepared.issues });
 }
 function state(error: unknown): string | null {
-  if (typeof error !== "object" || error === null || !("code" in error))
+  try {
+    if (typeof error !== "object" || error === null) return null;
+    const descriptor = Object.getOwnPropertyDescriptor(error, "code");
+    if (!descriptor || !("value" in descriptor)) return null;
+    const code: unknown = descriptor.value;
+    return typeof code === "string" && /^[0-9A-Z]{5}$/.test(code) ? code : null;
+  } catch {
     return null;
-  return typeof error.code === "string" && /^[0-9A-Z]{5}$/.test(error.code)
-    ? error.code
-    : null;
+  }
+}
+/** Treat acknowledgement data with the same strict own-data boundary as candidates. */
+function readReceipt(
+  input: unknown,
+  entryCount: number,
+): IdempotentLedgerJournalReceipt | undefined {
+  try {
+    if (typeof input !== "object" || input === null) return undefined;
+    const prototype = Object.getPrototypeOf(input);
+    if (prototype !== Object.prototype && prototype !== null) return undefined;
+    const fields = ["contractVersion", "transactionId", "entryCount"] as const;
+    const descriptors = Object.getOwnPropertyDescriptors(input);
+    const keys = Reflect.ownKeys(descriptors);
+    if (
+      keys.length !== fields.length ||
+      keys.some(
+        (key) =>
+          typeof key !== "string" ||
+          !fields.includes(key as (typeof fields)[number]),
+      )
+    )
+      return undefined;
+    const values: Record<string, unknown> = Object.create(null) as Record<
+      string,
+      unknown
+    >;
+    for (const field of fields) {
+      const descriptor = descriptors[field];
+      if (!descriptor || !("value" in descriptor) || !descriptor.enumerable)
+        return undefined;
+      values[field] = descriptor.value as unknown;
+    }
+    if (
+      values.contractVersion !== LEDGER_IDEMPOTENCY_CONTRACT_VERSION ||
+      typeof values.transactionId !== "string" ||
+      !/^txn_[0-7][0-9A-HJKMNP-TV-Z]{25}$/.test(values.transactionId) ||
+      values.entryCount !== entryCount
+    )
+      return undefined;
+    return Object.freeze({
+      contractVersion: LEDGER_IDEMPOTENCY_CONTRACT_VERSION,
+      transactionId: values.transactionId as LedgerTransactionId,
+      entryCount,
+    });
+  } catch {
+    return undefined;
+  }
 }
 /** Separate deterministic storage path; never exposed as an investigator/agent tool. */
 export function createIdempotentLedgerJournalStore(
@@ -241,32 +292,17 @@ export function createIdempotentLedgerJournalStore(
           "SELECT public.append_idempotent_ledger_journal($1::jsonb,$2::jsonb) AS receipt",
           [JSON.stringify(prepared.wire), JSON.stringify(prepared.accounts)],
         );
-        const receipt = result.rows[0]?.receipt;
-        if (
-          result.rows.length !== 1 ||
-          !receipt ||
-          typeof receipt !== "object" ||
-          Object.keys(receipt).sort().join(",") !==
-            "contractVersion,entryCount,transactionId" ||
-          receipt.contractVersion !== LEDGER_IDEMPOTENCY_CONTRACT_VERSION ||
-          typeof receipt.transactionId !== "string" ||
-          !/^txn_[0-7][0-9A-HJKMNP-TV-Z]{25}$/.test(receipt.transactionId) ||
-          receipt.entryCount !== prepared.wire.entries.length
-        )
+        const receipt = readReceipt(
+          result.rows[0]?.receipt,
+          prepared.wire.entries.length,
+        );
+        if (result.rows.length !== 1 || !receipt)
           throw new IdempotentLedgerJournalStorageError("unknown", null);
         return Object.freeze({
           ok: true,
-          receipt: Object.freeze({
-            contractVersion: LEDGER_IDEMPOTENCY_CONTRACT_VERSION,
-            transactionId: receipt.transactionId,
-            entryCount: receipt.entryCount,
-          }),
+          receipt,
         });
       } catch (error) {
-        if (error instanceof IdempotentLedgerJournalStorageError) {
-          discard = true;
-          throw error;
-        }
         const code = state(error);
         const refused =
           !attempted ||

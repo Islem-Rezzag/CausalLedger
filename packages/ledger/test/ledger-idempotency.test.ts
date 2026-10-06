@@ -423,4 +423,97 @@ describe("private idempotent driver boundary (doubles, not database evidence)", 
     ).rejects.toMatchObject({ outcome: "unknown" });
     expect(driver.release).toHaveBeenCalledWith(true);
   });
+  it.each([
+    "throwing accessor",
+    "inherited code",
+    "descriptor trap",
+    "prototype trap",
+  ])("untrusted error %s never leaks or calls accessors", async (mode) => {
+    const getter = vi.fn(() => {
+      throw new Error("SENSITIVE_SENTINEL");
+    });
+    const error =
+      mode === "throwing accessor"
+        ? Object.defineProperty({}, "code", { get: getter })
+        : mode === "inherited code"
+          ? (Object.create({ code: "23505" }) as unknown)
+          : mode === "descriptor trap"
+            ? new Proxy({}, { getOwnPropertyDescriptor: getter })
+            : new Proxy({}, { getPrototypeOf: getter });
+    driver.query.mockImplementation((sql: string) =>
+      sql.startsWith("SET ")
+        ? Promise.resolve({ rows: [] })
+        : Promise.reject(error),
+    );
+    const outcome = await createIdempotentLedgerJournalStore(url)
+      .append(storageJournal(), storageAccounts())
+      .catch((e: unknown) => e);
+    expect(outcome).toBeInstanceOf(IdempotentLedgerJournalStorageError);
+    expect(outcome).toMatchObject({ outcome: "unknown", sqlState: null });
+    expect(String(outcome)).not.toContain("SENSITIVE_SENTINEL");
+    expect(driver.release).toHaveBeenCalledWith(true);
+    expect(driver.query).toHaveBeenCalledTimes(2);
+    if (mode !== "descriptor trap") expect(getter).not.toHaveBeenCalled();
+  });
+  it.each([
+    "changing accessor",
+    "throwing accessor",
+    "hidden extra",
+    "symbol extra",
+    "hidden field",
+    "inherited field",
+    "custom prototype",
+    "descriptor trap",
+  ])("non-data acknowledgement %s fails closed", async (mode) => {
+    const getter = vi.fn(() => {
+      if (mode === "throwing accessor") throw new Error("SENSITIVE_SENTINEL");
+      return getter.mock.calls.length === 1
+        ? receipt.transactionId
+        : "txn_corrupt";
+    });
+    let candidate: unknown = { ...receipt };
+    if (mode.endsWith("accessor"))
+      Object.defineProperty(candidate, "transactionId", {
+        get: getter,
+        enumerable: true,
+      });
+    else if (mode === "hidden extra")
+      Object.defineProperty(candidate, "extra", { value: "hidden" });
+    else if (mode === "symbol extra")
+      Object.defineProperty(candidate, Symbol("extra"), { value: "hidden" });
+    else if (mode === "hidden field")
+      Object.defineProperty(candidate, "entryCount", {
+        value: 2,
+        enumerable: false,
+      });
+    else if (mode === "inherited field")
+      candidate = Object.assign(
+        Object.create({ transactionId: receipt.transactionId }) as object,
+        { contractVersion: receipt.contractVersion, entryCount: 2 },
+      );
+    else if (mode === "custom prototype")
+      Object.setPrototypeOf(candidate, { untrusted: true });
+    else
+      candidate = new Proxy(candidate as object, {
+        ownKeys: () => {
+          throw new Error("SENSITIVE_SENTINEL");
+        },
+      });
+    driver.query.mockImplementation((sql: string) =>
+      Promise.resolve(
+        sql.startsWith("SET ")
+          ? { rows: [] }
+          : { rows: [{ receipt: candidate }] },
+      ),
+    );
+    const outcome = await createIdempotentLedgerJournalStore(url)
+      .append(storageJournal(), storageAccounts())
+      .catch((e: unknown) => e);
+    expect(outcome).toBeInstanceOf(IdempotentLedgerJournalStorageError);
+    expect(outcome).toMatchObject({ outcome: "unknown", sqlState: null });
+    expect(String(outcome)).not.toContain("SENSITIVE_SENTINEL");
+    expect(getter).not.toHaveBeenCalled();
+    expect(driver.release).toHaveBeenCalledWith(true);
+    expect(driver.query).toHaveBeenCalledTimes(2);
+  });
 });
