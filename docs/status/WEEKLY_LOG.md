@@ -1232,3 +1232,23 @@ Builder complete, awaiting QA; sole [PR #68](https://github.com/Islem-Rezzag/Cau
 ## 2026-10-06 - M04.07 final checkpoint
 
 QA passed, awaiting merge; sole [PR #68](https://github.com/Islem-Rezzag/CausalLedger/pull/68). Fresh ledger655/15files and control614/type/lint/build/format PASS; root intermediate full QA17/0/2 PASS. Actual CI37467329970 both jobs and real Postgres17 storage64/balance22/transaction-query27, migration UP/DOWN/UP, exact schema/functions, owned database/roles and Compose cleanup PASS. Existing separate-context overall m04_02_qa PASS, no remaining findings. Actual final-head re-review/clean QA/CI required; final proof maintained in this sole PR. Scope29/prior127/all18 PASS; exact-head QA/CI and human merge gate remain.
+
+
+## 2026-10-06 - verified PR68 merge; M04.08 started
+
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.07 are Completed and merged. Human PR68 merge 584a4520311723a9fb6fdf7a29bbf749171345f9 matches final reviewed e3190fb/tree5c0338e; exact-head independent QA, root clean QA18/0/1, CI37468260697 both jobs and real Postgres17 storage64/balance22/transaction-query27 PASS, empty diff/main proof verified. M04.08 Add idempotency keys is Builder in progress on `m04-08-add-idempotency-keys` under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Current08 validation NOT RUN; no current PR. M04.09-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`. Scoped Builder brief in CLP-0005 before code; root tests, existing reviewer, original64/22/27 acceptance mandatory.
+
+
+## 2026-10-06 - M04.08 builder handoff
+
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.07 are Completed and merged; human PR68 merge584a452 matches reviewed e3190fb/tree5c0338e and exact final QA/clean QA18/0/1/CI37468260697 real113 verified. M04.08 Add idempotency keys is **Builder complete, awaiting QA** on `m04-08-add-idempotency-keys`, no current PR yet, under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger716/17files, control716, ledger type/lint/build/format PASS; root intermediate full QA17/0/2 PASS (dirty override and optional Docker skips). Actual PostgreSQL acceptance and existing overall independent QA pending; driver doubles are not database evidence. Final actual-head confirmation/clean QA/CI and human merge remain required; exact final proof stays in this sole PR. M04.09-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`.
+
+
+## 2026-10-06 - M04.08 builder handoff
+
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.07 are Completed and merged; human PR68 merge584a452 matches reviewed e3190fb/tree5c0338e and exact final QA/clean QA18/0/1/CI37468260697 real113 verified. M04.08 Add idempotency keys is **Builder complete, awaiting QA** on `m04-08-add-idempotency-keys`, sole [PR #69](https://github.com/Islem-Rezzag/CausalLedger/pull/69), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger728/17files, control716, ledger type/lint/build/format PASS; root pre-repair intermediate full QA17/0/2 PASS (dirty override and optional Docker skips). Actual PostgreSQL acceptance and existing overall independent QA pending; driver doubles are not database evidence. Final actual-head confirmation/clean QA/CI and human merge remain required; exact final proof stays in this sole PR. M04.09-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`.
+
+
+## 2026-10-06 - M04.08 final handoff
+
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.07 are Completed and merged; human PR68 merge584a452 matches reviewed e3190fb/tree5c0338e and exact final QA/clean QA18/0/1/CI37468260697 real113 verified. M04.08 Add idempotency keys is **QA passed, awaiting merge** on `m04-08-add-idempotency-keys`, sole [PR #69](https://github.com/Islem-Rezzag/CausalLedger/pull/69), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger728/17files, control716, ledger type/lint/build/format PASS; root pre-repair intermediate full QA17/0/2 PASS (dirty override and optional Docker skips). Actual CI37473167737 both jobs and real Postgres17 storage64/balance22/transaction-query27/idempotency39 (152), both-migration recovery, populated legacy preservation, exact schema/functions and owned/Compose cleanup PASS. Existing overall m04_02_qa PASS, both P2 repairs verified, no remaining finding. Final actual-head confirmation/clean QA/CI and human merge remain required; exact final proof stays in this sole PR. M04.09-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`.
