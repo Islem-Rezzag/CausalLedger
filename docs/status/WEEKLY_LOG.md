@@ -1202,3 +1202,17 @@ Root will commit/push only these inspected17 scoped paths on this same branch/PR
 ## M04.05 final tracking review correction (2026-10-06)
 
 Existing reviewer m04_02_qa found one P3 on7a77f8ebfb9e1457ec61c8c3d6497487929ad3cb: three undated roadmap notes still claimed the old workflow block/noPR/no real database acceptance/partial-only QA. Corrected on attempt one to actual original CLI authorization, solePR66, real64/candidateQA PASS and corrected-head/human-merge gates. No source/CI/migration/tests/assertion change; all18/V1/future boundaries retained. Root clean QA18/0/1 and CI37445957049 bothjobsSUCCESS on7a77f8e are intermediate evidence, not evidence for a later corrected head. Final corrected-state independent review, clean QA and actual-head CI remain required and belong in this same PR; no CI-copy commit or agent merge.
+
+## 2026-10-06 - M04.05 merged; M04.06 Builder started
+
+Human PR66 mergef5a5e910041611e0bf36184e4bc8fc483228a613 verified by reviewed treee83dc0b/emptydiff/main reachability and exact final independent QA/CI37446228689 with real64 tests. Safely advanced clean main and created m04-06-add-account-balance-query; guard passed. Generated06 Account/sign/cutoff/snapshot/conflict/readonly exact-money brief before coding; status/goal/registry updated, all18/V1 and prior contracts preserved. Validation pending for06; no query guarantee, currentPR, migration/dependency change, later slice or agent financial authority. Existing independent reviewer and actual finalhead CI remain required; root runs every test.
+
+## M04.06 Builder completion (2026-10-06)
+
+Sole PR #67, candidate2da8a60, same approved branch/plan. Local560/control526/type/lint/format and dirty QA17/0/2 PASS; actual CI37455036023 both jobs, clean QA18/0/1, storage64/balance22 plus migration/schema/owned DB/roles/Compose cleanup PASS. All18/V1/earlier contracts and migration unchanged. Existing overall m04_02_qa review active; final-head re-review/clean QA/CI and human merge required. Root runs tests; no07, installations, paid calls or agent financial authority.
+
+## M04.06 overall QA and human merge handoff (2026-10-06)
+
+Existing overall m04_02_qa PASS on2da8a60 and inspected current tracking; independent fresh ledger560/control526/type/lint/build/format and supplemental115 pure/mock and88 lifecycle probes PASS. Actual CI37455036023 storage64/balance22/migrations/schema/owned DB/roles/Compose cleanup PASS. Stale registry validation cell corrected before final review. Root records QApassed/PR67 and human-only merge in final tracking; final actual-head re-review/clean QA/CI proof maintained in same PR before readiness. All18/V1/prior schemas/storage unchanged; no07 before verified06 merge. User runs no tests; no agent financial authority, installs or paid calls.
+
+M04.06 final tracking correction: reviewer caught a dated05 Builder-status sentence changed by the current-status replacement; original historical status restored on attempt one. Query/source/tests/control unchanged. Intermediateada7d1d clean QA18/0/1 is not final proof; corrected actual-head review/clean QA/CI required in solePR67 before human merge.

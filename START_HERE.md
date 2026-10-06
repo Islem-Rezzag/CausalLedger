@@ -1,6 +1,6 @@
 # Start Here
 
-M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01-M04.04 are Completed and merged; PR #65 human merge `526bb66dda5d9c8b9aebd85775142e8d22c3a73a` matches its reviewed tree. M04.05 Add immutable transaction storage is QA passed, awaiting merge under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, on [PR #66](https://github.com/Islem-Rezzag/CausalLedger/pull/66). The original GitHub CLI workflow authorization and scoped push succeeded. Actual disposable PostgreSQL17 acceptance passed 64 tests, migration up/down/up, schema inspection and owned-resource cleanup in CI37445358766 on `4c3010d16268d9c5cbff4d791cb4eda5d4ccf37c`; both CI jobs passed. Candidate overall independent QA PASS; final tracking-head review, clean QA and CI remain pending before human merge. M04.06-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.05 are Completed and merged. PR #66 human merge `f5a5e910041611e0bf36184e4bc8fc483228a613` matches reviewed head49ca97c/treee83dc0b; final independent QA and CI37446228689 verified. M04.06 Add account balance query is **QA passed, awaiting merge** on `m04-06-add-account-balance-query`, sole [PR #67](https://github.com/Islem-Rezzag/CausalLedger/pull/67), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Candidate2da8a60 passed local ledger560/control526 and CI37455036023 including64 storage +22 balance real Postgres17 tests. Existing overall independent QA PASS; final SHA-bound re-review/clean QA/CI evidence is maintained in sole PR #67 before marking ready for human merge. M04.07-M04.18 and M05-M21 remain Not started. Current results and merge readiness live in `docs/status/CURRENT_STATE.md`.
 
 Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 
@@ -63,7 +63,7 @@ The handoff packet must include files created, files changed, files intentionall
 
 - Do not implement product functionality outside the active submilestone.
 - Do not extend MoneyEvent logic beyond the active source-neutral boundary.
-- Do not implement ledger logic outside the active M04.05 storage slice; overall independent QA and human merge are required before M04.06.
+- Keep ledger work inside M04.06 read-only account balances; no later query/retry/reversal or agent financial authority. Final independent QA and human merge gate every slice.
 - Do not implement invariants.
 - Do not implement the agent runtime.
 - Do not implement UI features.

@@ -60,7 +60,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md` - completed M01 plan.
 - `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md` - completed M02 plan.
 - `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md` - completed M03 plan.
-- `plans/active/CLP-0005-m04-double-entry-ledger-core.md` - active M04 plan; M04.05 storage on PR #66 has real Postgres acceptance, with candidate independent QA PASS and final-head checks pending.
+- `plans/active/CLP-0005-m04-double-entry-ledger-core.md` - current M04.06 account balance query brief; PR #66 storage merge and final QA/CI verified.
 - `plans/proposals/CLP-PROJECT-COMPLETION-GOAL.md` - proposed grouping overlay; milestone acceptance and per-PR gates remain authoritative.
 - `docs/status/M02_CLOSEOUT.md` - M02 closeout packet.
 - `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
@@ -125,6 +125,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01-M04.04 are Completed and merged; PR #65 human merge `526bb66dda5d9c8b9aebd85775142e8d22c3a73a` matches its reviewed tree. M04.05 Add immutable transaction storage is QA passed, awaiting merge under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, on [PR #66](https://github.com/Islem-Rezzag/CausalLedger/pull/66). The original GitHub CLI workflow authorization and scoped push succeeded. Actual disposable PostgreSQL17 acceptance passed 64 tests, migration up/down/up, schema inspection and owned-resource cleanup in CI37445358766 on `4c3010d16268d9c5cbff4d791cb4eda5d4ccf37c`; both CI jobs passed. Candidate overall independent QA PASS; final tracking-head review, clean QA and CI remain pending before human merge. M04.06-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`. Source-neutral MoneyEvent validation/normalization and Account/header/entry/journal contracts remain preserved. Storage of supplied synthetic records does not establish financial truth or grant agents financial authority.
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.05 are Completed and merged. PR #66 human merge `f5a5e910041611e0bf36184e4bc8fc483228a613` matches reviewed head49ca97c/treee83dc0b; final independent QA and CI37446228689 verified. M04.06 Add account balance query is **QA passed, awaiting merge** on `m04-06-add-account-balance-query`, sole [PR #67](https://github.com/Islem-Rezzag/CausalLedger/pull/67), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Candidate2da8a60 passed local ledger560/control526 and CI37455036023 including64 storage +22 balance real Postgres17 tests. Existing overall independent QA PASS; final SHA-bound re-review/clean QA/CI evidence is maintained in sole PR #67 before marking ready for human merge. M04.07-M04.18 and M05-M21 remain Not started. Current results and merge readiness live in `docs/status/CURRENT_STATE.md`.
 
+- `docs/specs/ledger-account-balance-query.md` - M04.06 read-only exact account/currency totals, sign, cutoff and committed-snapshot semantics.
 - `docs/specs/ledger-immutable-storage.md` - Current M04.05 storage contract and mandatory disposable acceptance.

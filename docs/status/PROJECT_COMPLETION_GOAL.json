@@ -12,17 +12,17 @@
   ],
   "recommendedImmediateTarget": "V0_6_BENCHMARK_DEMO",
   "recommendedLongTermTarget": "V1_PUBLIC_PRODUCT",
-  "currentPhase": "M04_IMMUTABLE_STORAGE",
+  "currentPhase": "M04_ACCOUNT_BALANCE_QUERY",
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
-  "currentMilestone": "M04.05",
-  "currentBranch": "m04-05-add-immutable-transaction-storage",
-  "currentPr": 66,
-  "latestMergedPr": 65,
-  "latestMergeCommit": "526bb66dda5d9c8b9aebd85775142e8d22c3a73a",
+  "currentMilestone": "M04.06",
+  "currentBranch": "m04-06-add-account-balance-query",
+  "currentPr": 67,
+  "latestMergedPr": 66,
+  "latestMergeCommit": "f5a5e910041611e0bf36184e4bc8fc483228a613",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "LOCAL_LEDGER469_CONTROL451_CLEAN_QA18_0_1_PASS_WARM_CACHE",
-  "remoteCiStatus": "PR66_CI37445358766_BOTH_PASS_ON_4C3010D_FINAL_HEAD_PENDING",
-  "dockerStatus": "UNAVAILABLE_LOCALLY_REAL_POSTGRES17_CI64_PASS",
+  "localTestStatus": "M04_06_LEDGER560_CONTROL526_DIRTY_QA17_0_2_PASS",
+  "remoteCiStatus": "M04_06_CI37455036023_BOTH_JOBS_PASS_STORAGE64_BALANCE22",
+  "dockerStatus": "UNAVAILABLE_LOCALLY_REAL_POSTGRES17_CI86_PASS",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
     "M00 repository operating system",
@@ -38,13 +38,14 @@
     "M04.02 LedgerTransaction header metadata and pure validation (PR #63; completed and merged)",
     "M04.03 LedgerEntry wire/amount/reference validation (PR #64; completed and merged)",
     "M04.04 pure journal validation: exact per-currency bigint equality, duplicate/refusal rules and frozen detached output (PR #65; completed and merged)",
-    "M04.05 atomic immutable synthetic journal storage in PR66; real Postgres64 and candidate independent QA PASS; final-head PR-record gates required"
+    "M04.05 immutable synthetic journal storage; PR66 human merge/final independent QA and actual Postgres64/CI verified",
+    "M04.06 read-only exact account/currency balance query; local/real Postgres acceptance and overall independent QA PASS, sole PR67 awaiting human merge"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
     "ingestion or raw evidence persistence",
     "product database schemas outside immutable ledger storage",
-    "posting eligibility, account balance/transaction queries, semantic retry and reversals",
+    "posting eligibility, transaction queries, semantic retry and reversals",
     "financial invariant engine",
     "provider and bank simulator execution",
     "incident lifecycle",
@@ -59,7 +60,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "M04.05 final tracking-head independent review, clean QA and CI pending; candidate overall QA PASS on4c3010d, human PR66 merge required",
+    "M04.06 human merge required after final SHA-bound proof in sole PR67; later slices remain gated",
     "no live-model provider/model/call-count/budget approved"
   ],
   "risks": [
@@ -75,9 +76,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "FINISH_M04_05_FINAL_HEAD_CHECKS_THEN_HUMAN_MERGE_PR66",
-  "stopReason": "QA_PASS_FINAL_TRACKING_HEAD_CHECKS_PENDING_HUMAN_MERGE_REQUIRED",
-  "lastUpdatedTimestamp": "2026-10-06T09:51:50Z",
+  "exactNextAction": "HUMAN_REVIEW_AND_MERGE_M04_06_PR67_AFTER_FINAL_SHA_GATES",
+  "stopReason": "QA_PASSED_AWAITING_HUMAN_MERGE_FINAL_SHA_PROOF_IN_PR67",
+  "lastUpdatedTimestamp": "2026-10-06T11:20:46Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -138,5 +139,25 @@
     "mergedTree": "15c668085da628122ff5601be7d87d8da6b91b35",
     "ciRun": 36998201769,
     "independentQa": "PASS"
+  },
+  "storageMergeEvidence": {
+    "pr": 66,
+    "mergeCommit": "f5a5e910041611e0bf36184e4bc8fc483228a613",
+    "reviewedHead": "49ca97cf54e581e4f63ab599562bc0d6bb6b5e4d",
+    "reviewedTree": "e83dc0b1748f47a76e72fd12e9332f98e399b17a",
+    "mergedTree": "e83dc0b1748f47a76e72fd12e9332f98e399b17a",
+    "ciRun": 37446228689,
+    "independentQa": "PASS"
+  },
+  "currentQaEvidence": {
+    "reviewer": "m04_02_qa",
+    "candidateHead": "2da8a60b422885ba54eabf82ec1de5562dc0a48f",
+    "result": "PASS",
+    "unitTests": 560,
+    "controlTests": 526,
+    "realStorageTests": 64,
+    "realBalanceTests": 22,
+    "ciRun": 37455036023,
+    "finalShaBoundRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/67"
   }
 }
