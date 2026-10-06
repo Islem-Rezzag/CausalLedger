@@ -1146,6 +1146,7 @@ def _pending_completion_goal() -> dict:
     state.pop("transactionMergeEvidence", None)
     state.pop("entryMergeEvidence", None)
     state.pop("journalMergeEvidence", None)
+    state.pop("reversalMergeEvidence", None)
     state.pop("idempotencyMergeEvidence", None)
     state.pop("transactionQueryMergeEvidence", None)
     state.pop("balanceQueryMergeEvidence", None)
@@ -1338,7 +1339,7 @@ def test_17q_later_m04_rows_and_m05_through_m21_remain_not_started():
         prefix = f"M{milestone_number:02d}."
         milestone_rows = [
             row for row in rows.values() if row.submilestone_id.startswith(prefix)
-            and row.submilestone_id not in {"M04.01", "M04.02", "M04.03", "M04.04", "M04.05", "M04.06", "M04.07", "M04.08", "M04.09"}
+            and row.submilestone_id not in {"M04.01", "M04.02", "M04.03", "M04.04", "M04.05", "M04.06", "M04.07", "M04.08", "M04.09", "M04.10"}
         ]
         assert milestone_rows
         assert all(row.status == "Not started" for row in milestone_rows)
@@ -1410,6 +1411,7 @@ def _planning_completion_goal():
     state.pop("transactionMergeEvidence", None)
     state.pop("entryMergeEvidence", None)
     state.pop("journalMergeEvidence", None)
+    state.pop("reversalMergeEvidence", None)
     state.pop("idempotencyMergeEvidence", None)
     state.pop("transactionQueryMergeEvidence", None)
     state.pop("balanceQueryMergeEvidence", None)
@@ -1426,6 +1428,7 @@ def _account_completion_goal():
     state.pop("transactionMergeEvidence", None)
     state.pop("entryMergeEvidence", None)
     state.pop("journalMergeEvidence", None)
+    state.pop("reversalMergeEvidence", None)
     state.pop("idempotencyMergeEvidence", None)
     state.pop("transactionQueryMergeEvidence", None)
     state.pop("balanceQueryMergeEvidence", None)
@@ -1441,6 +1444,7 @@ def _transaction_completion_goal():
     state.pop("transactionMergeEvidence", None)
     state.pop("entryMergeEvidence", None)
     state.pop("journalMergeEvidence", None)
+    state.pop("reversalMergeEvidence", None)
     state.pop("idempotencyMergeEvidence", None)
     state.pop("transactionQueryMergeEvidence", None)
     state.pop("balanceQueryMergeEvidence", None)
@@ -1455,6 +1459,7 @@ def _entry_completion_goal():
                  latestMergedPr=63, latestMergeCommit=validator.M04_TRANSACTION_MERGE_EVIDENCE["mergeCommit"])
     state.pop("entryMergeEvidence", None)
     state.pop("journalMergeEvidence", None)
+    state.pop("reversalMergeEvidence", None)
     state.pop("idempotencyMergeEvidence", None)
     state.pop("transactionQueryMergeEvidence", None)
     state.pop("balanceQueryMergeEvidence", None)
@@ -1462,7 +1467,7 @@ def _entry_completion_goal():
     return state
 
 
-def _prepare_m04_planning_tree(tmp_path, monkeypatch, *, account_slice=False, transaction_slice=False, entry_slice=False, balance_slice=False, storage_slice=False, query_slice=False, lookup_slice=False, idempotency_slice=False, reversal_slice=False):
+def _prepare_m04_planning_tree(tmp_path, monkeypatch, *, account_slice=False, transaction_slice=False, entry_slice=False, balance_slice=False, storage_slice=False, query_slice=False, lookup_slice=False, idempotency_slice=False, reversal_slice=False, cash_slice=False):
     for rel in [
         validator.PROJECT_COMPLETION_GOAL_STATE, validator.M04_ACTIVE_PLAN,
         "docs/milestones/SUBMILESTONE_REGISTRY.md", "docs/milestones/M04.md",
@@ -1472,13 +1477,13 @@ def _prepare_m04_planning_tree(tmp_path, monkeypatch, *, account_slice=False, tr
         destination.parent.mkdir(parents=True, exist_ok=True)
         content = text(rel)
         if rel == validator.PROJECT_COMPLETION_GOAL_STATE:
-            content = json.dumps(_reversal_completion_goal() if reversal_slice else _idempotency_completion_goal() if idempotency_slice else _lookup_completion_goal() if lookup_slice else _query_completion_goal() if query_slice else _storage_completion_goal() if storage_slice else _journal_completion_goal() if balance_slice else _entry_completion_goal() if entry_slice else _transaction_completion_goal() if transaction_slice else _account_completion_goal() if account_slice else _planning_completion_goal())
+            content = json.dumps(_cash_completion_goal() if cash_slice else _reversal_completion_goal() if reversal_slice else _idempotency_completion_goal() if idempotency_slice else _lookup_completion_goal() if lookup_slice else _query_completion_goal() if query_slice else _storage_completion_goal() if storage_slice else _journal_completion_goal() if balance_slice else _entry_completion_goal() if entry_slice else _transaction_completion_goal() if transaction_slice else _account_completion_goal() if account_slice else _planning_completion_goal())
         elif rel in {"docs/milestones/SUBMILESTONE_REGISTRY.md", "docs/milestones/M04.md"}:
-            selected = 9 if reversal_slice else 8 if idempotency_slice else 7 if lookup_slice else 6 if query_slice else 5 if storage_slice else 4 if balance_slice else 3 if entry_slice else 2 if transaction_slice else 1 if account_slice else 0
-            branches = [validator.M04_ACCOUNT_BRANCH, validator.M04_TRANSACTION_BRANCH, validator.M04_ENTRY_BRANCH, validator.M04_BALANCE_BRANCH, validator.M04_STORAGE_BRANCH, validator.M04_QUERY_BRANCH, validator.M04_LOOKUP_BRANCH, validator.M04_IDEMPOTENCY_BRANCH, validator.M04_REVERSAL_BRANCH]
+            selected = 10 if cash_slice else 9 if reversal_slice else 8 if idempotency_slice else 7 if lookup_slice else 6 if query_slice else 5 if storage_slice else 4 if balance_slice else 3 if entry_slice else 2 if transaction_slice else 1 if account_slice else 0
+            branches = [validator.M04_ACCOUNT_BRANCH, validator.M04_TRANSACTION_BRANCH, validator.M04_ENTRY_BRANCH, validator.M04_BALANCE_BRANCH, validator.M04_STORAGE_BRANCH, validator.M04_QUERY_BRANCH, validator.M04_LOOKUP_BRANCH, validator.M04_IDEMPOTENCY_BRANCH, validator.M04_REVERSAL_BRANCH, validator.M04_CASH_BRANCH]
             lines = content.splitlines()
             for index, line in enumerate(lines):
-                if any(line.startswith(f"| M04.{number:02d} |") for number in range(1,10)):
+                if any(line.startswith(f"| M04.{number:02d} |") for number in range(1,11)):
                     cells = [cell.strip() for cell in line.split("|")[1:-1]]
                     number = int(cells[0].split(".")[1])
                     status, branch, pr = "Not started", "", ""
@@ -1645,7 +1650,7 @@ def test_29_package_scaffolds_are_exactly_allowlisted():
             elif package_dir.name == "evals":
                 assert files == expected_evals
             elif package_dir.name == "ledger":
-                assert files == expected_scaffold | validator.M04_ACCOUNT_FILES | validator.M04_TRANSACTION_FILES | validator.M04_ENTRY_FILES | validator.M04_BALANCE_FILES | validator.M04_STORAGE_FILES | validator.M04_QUERY_FILES | validator.M04_LOOKUP_FILES | validator.M04_IDEMPOTENCY_FILES | validator.M04_REVERSAL_FILES
+                assert files == expected_scaffold | validator.M04_ACCOUNT_FILES | validator.M04_TRANSACTION_FILES | validator.M04_ENTRY_FILES | validator.M04_BALANCE_FILES | validator.M04_STORAGE_FILES | validator.M04_QUERY_FILES | validator.M04_LOOKUP_FILES | validator.M04_IDEMPOTENCY_FILES | validator.M04_REVERSAL_FILES | validator.M04_CASH_FILES
             elif package_dir.name in validator.M02_05_PACKAGE_DIRS:
                 assert files == expected_scaffold
             else:
@@ -2679,6 +2684,7 @@ def _journal_completion_goal():
                  currentBranch=validator.M04_BALANCE_BRANCH, currentPr=None,
                  latestMergedPr=64, latestMergeCommit=validator.M04_ENTRY_MERGE_EVIDENCE["mergeCommit"])
     state.pop("journalMergeEvidence", None)
+    state.pop("reversalMergeEvidence", None)
     state.pop("idempotencyMergeEvidence", None)
     state.pop("transactionQueryMergeEvidence", None)
     state.pop("balanceQueryMergeEvidence", None)
@@ -2838,6 +2844,7 @@ def _storage_completion_goal():
     state.update(currentPhase=validator.M04_STORAGE_PHASE, currentMilestone="M04.05",
                  currentBranch=validator.M04_STORAGE_BRANCH, currentPr=None,
                  latestMergedPr=65, latestMergeCommit=validator.M04_JOURNAL_MERGE_EVIDENCE["mergeCommit"])
+    state.pop("reversalMergeEvidence", None)
     state.pop("idempotencyMergeEvidence", None)
     state.pop("transactionQueryMergeEvidence", None)
     state.pop("balanceQueryMergeEvidence", None)
@@ -2850,6 +2857,7 @@ def _query_completion_goal():
     state.update(currentPhase=validator.M04_QUERY_PHASE, currentMilestone="M04.06",
                  currentBranch=validator.M04_QUERY_BRANCH, currentPr=None,
                  latestMergedPr=66, latestMergeCommit=validator.M04_STORAGE_MERGE_EVIDENCE["mergeCommit"])
+    state.pop("reversalMergeEvidence", None)
     state.pop("idempotencyMergeEvidence", None)
     state.pop("transactionQueryMergeEvidence", None)
     state.pop("balanceQueryMergeEvidence", None)
@@ -3159,6 +3167,7 @@ def _lookup_completion_goal():
     state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
     state.update(currentPhase=validator.M04_LOOKUP_PHASE,currentMilestone="M04.07",currentBranch=validator.M04_LOOKUP_BRANCH,currentPr=None,
                  latestMergedPr=67,latestMergeCommit=validator.M04_BALANCE_QUERY_MERGE_EVIDENCE["mergeCommit"])
+    state.pop("reversalMergeEvidence", None)
     state.pop("idempotencyMergeEvidence", None)
     state.pop("transactionQueryMergeEvidence", None)
     return state
@@ -3318,6 +3327,7 @@ def _idempotency_completion_goal():
     state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
     state.update(currentPhase=validator.M04_IDEMPOTENCY_PHASE,currentMilestone="M04.08",currentBranch=validator.M04_IDEMPOTENCY_BRANCH,currentPr=None,
                  latestMergedPr=68,latestMergeCommit=validator.M04_TRANSACTION_QUERY_MERGE_EVIDENCE["mergeCommit"])
+    state.pop("reversalMergeEvidence", None)
     state.pop("idempotencyMergeEvidence", None)
     return state
 
@@ -3492,6 +3502,7 @@ def _reversal_completion_goal():
     state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
     state.update(currentPhase=validator.M04_REVERSAL_PHASE,currentMilestone="M04.09",currentBranch=validator.M04_REVERSAL_BRANCH,currentPr=None,
                  latestMergedPr=69,latestMergeCommit=validator.M04_IDEMPOTENCY_MERGE_EVIDENCE["mergeCommit"])
+    state.pop("reversalMergeEvidence", None)
     return state
 
 # M04.09 has its own merge gate; previous phases retain their exact historical authority.
@@ -3615,6 +3626,7 @@ def test_reversal_files_refused_before_its_dependency_merge(monkeypatch, factory
 def test_reversal_default_tests_distinguish_each_required_database_suite(tmp_path, monkeypatch, removed):
     directory = tmp_path / "packages/ledger"; directory.mkdir(parents=True)
     manifest = json.loads(text("packages/ledger/package.json"))
+    manifest["scripts"]["test"] = 'vitest run --exclude "dist/**" --exclude "test/ledger-storage-postgres.test.ts" --exclude "test/ledger-account-balance-postgres.test.ts" --exclude "test/ledger-transaction-query-postgres.test.ts" --exclude "test/ledger-idempotency-postgres.test.ts" --exclude "test/ledger-reversal-postgres.test.ts"'
     manifest["scripts"]["test"] = manifest["scripts"]["test"].replace(f' --exclude "test/{removed}.test.ts"', '')
     (directory / "package.json").write_text(json.dumps(manifest), encoding="utf-8")
     state = _reversal_completion_goal(); monkeypatch.setattr(validator, "ROOT", tmp_path)
@@ -3658,3 +3670,159 @@ def test_reversal_requires_exact_additive_migration(tmp_path,monkeypatch):
     state=_reversal_completion_goal();monkeypatch.setattr(validator,"ROOT",tmp_path)
     monkeypatch.setattr(validator,"read_project_completion_goal",lambda:(state,[]))
     assert validator.validate_migration_directory()==["M04.09 requires its linked reversal migration"]
+
+
+def _cash_completion_goal():
+    state=json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
+    state.update(currentPhase=validator.M04_CASH_PHASE,currentMilestone="M04.10",currentBranch=validator.M04_CASH_BRANCH,currentPr=None,
+                 latestMergedPr=70,latestMergeCommit=validator.M04_REVERSAL_MERGE_EVIDENCE["mergeCommit"])
+    return state
+
+# M04.10 has its own merge gate; previous phases retain their exact historical authority.
+@pytest.mark.parametrize("factory", [_pending_completion_goal, _planning_completion_goal, _account_completion_goal,
+                                     _transaction_completion_goal, _entry_completion_goal, _journal_completion_goal, _storage_completion_goal, _query_completion_goal, _lookup_completion_goal, _idempotency_completion_goal, _reversal_completion_goal])
+def test_cash_merge_evidence_cannot_activate_earlier_phase(factory):
+    state = factory(); state["reversalMergeEvidence"] = dict(validator.M04_REVERSAL_MERGE_EVIDENCE)
+    assert any("earlier lifecycle phases" in e for e in validator.validate_project_completion_goal(state))
+
+
+@pytest.mark.parametrize("field", ["pr", "mergeCommit", "reviewedHead", "reviewedTree", "mergedTree", "ciRun", "independentQa"])
+def test_cash_requires_exact_storage_merge_proof(field):
+    state = _cash_completion_goal(); state["reversalMergeEvidence"][field] = "unverified"
+    assert any("verified PR #70 reversal merge evidence" in e for e in validator.validate_project_completion_goal(state))
+
+
+@pytest.mark.parametrize("proof", [None, {}, [], {**validator.M04_REVERSAL_MERGE_EVIDENCE, "pr": 70.0}, {**validator.M04_REVERSAL_MERGE_EVIDENCE, "ciRun": float(37481790910)}])
+def test_cash_refuses_missing_or_coerced_storage_proof(proof):
+    state = _cash_completion_goal(); state["reversalMergeEvidence"] = proof
+    assert any("verified PR #70 reversal merge evidence" in e for e in validator.validate_project_completion_goal(state))
+
+
+@pytest.mark.parametrize(("field", "value", "expected"), [
+    ("currentBranch", validator.M04_REVERSAL_BRANCH, "expected cash clearing branch"),
+    ("currentMilestone", "M04.11", "must not activate a later submilestone"),
+    ("latestMergedPr", 69, "latest merged PR must be 70"),
+    ("latestMergedPr", 70.0, "latest merged PR must be 70"),
+    ("latestMergeCommit", validator.M04_IDEMPOTENCY_MERGE_EVIDENCE["mergeCommit"], "latest merge commit is invalid"),
+    ("planningMergeEvidence", None, "verified PR #61"),
+    ("accountMergeEvidence", None, "verified PR #62"),
+    ("transactionMergeEvidence", None, "verified PR #63"),
+    ("entryMergeEvidence", None, "verified PR #64"),
+    ("journalMergeEvidence", None, "verified PR #65"),
+    ("releaseTargetApproval", None, "explicit human approval"),
+])
+def test_cash_preserves_prior_authority(field, value, expected):
+    state = _cash_completion_goal(); state[field] = value
+    assert any(expected in e for e in validator.validate_project_completion_goal(state))
+
+
+def test_cash_authorization_is_cumulative_only_after_verified_merge(monkeypatch):
+    state = _cash_completion_goal(); monkeypatch.setattr(validator, "read_project_completion_goal", lambda: (state, []))
+    for helper in [validator.m04_active_plan_is_authorized, validator.m04_account_schema_is_authorized,
+                   validator.m04_transaction_schema_is_authorized, validator.m04_entry_schema_is_authorized,
+                   validator.m04_balance_validation_is_authorized, validator.m04_storage_is_authorized,
+                   validator.m04_account_balance_query_is_authorized, validator.m04_transaction_query_is_authorized, validator.m04_idempotency_is_authorized, validator.m04_reversal_is_authorized,
+                   validator.m04_cash_clearing_is_authorized]:
+        assert helper()
+    for factory in [_pending_completion_goal, _planning_completion_goal, _account_completion_goal,
+                    _transaction_completion_goal, _entry_completion_goal, _journal_completion_goal, _storage_completion_goal, _query_completion_goal, _lookup_completion_goal, _idempotency_completion_goal, _reversal_completion_goal]:
+        state = factory(); assert not validator.m04_cash_clearing_is_authorized()
+
+
+@pytest.mark.parametrize(("target", "field", "value", "expected"), [
+    ("M04.09", 3, "QA passed, awaiting merge", "M04.09 Completed and merged"),
+    ("M04.09", 5, validator.M04_CASH_BRANCH, "reversal branch and PR #70"),
+    ("M04.09", 6, "#65", "reversal branch and PR #70"),
+    ("M04.10", 3, "Completed and merged", "must not claim merged completion"),
+    ("M04.10", 5, validator.M04_REVERSAL_BRANCH, "expected cash clearing branch"),
+    ("M04.10", 6, "#9999", "PR tracking must match"),
+    ("M04.11", 3, "Builder in progress", "remain Not started"),
+    ("M04.11", 5, "m04-07-query", "premature implementation branches/PRs"),
+])
+def test_cash_tracking_and_next_slice_gate(tmp_path, monkeypatch, target, field, value, expected):
+    _prepare_m04_planning_tree(tmp_path, monkeypatch, cash_slice=True)
+    _change_m04_row(tmp_path, "docs/milestones/SUBMILESTONE_REGISTRY.md", target, field, value)
+    assert any(expected in e for e in validator.validate_m04_planning())
+
+
+@pytest.mark.parametrize("target", ["M04.01", "M04.02", "M04.03", "M04.04", "M04.05", "M04.06", "M04.07", "M04.08", "M04.09"])
+def test_cash_all_dependencies_required_in_both_tables(tmp_path, monkeypatch, target):
+    _prepare_m04_planning_tree(tmp_path, monkeypatch, cash_slice=True)
+    _change_m04_row(tmp_path, "docs/milestones/M04.md", target, 2, "QA passed, awaiting merge")
+    assert any(f"{target} Completed and merged" in e for e in validator.validate_m04_planning())
+
+
+@pytest.mark.parametrize(("status", "pr"), [("Builder in progress", None), ("Builder complete, awaiting QA", None), ("Blocked", None), ("QA in progress", 71), ("QA passed, awaiting merge", 71)])
+def test_cash_current_states_and_sole_pr(tmp_path, monkeypatch, status, pr):
+    _prepare_m04_planning_tree(tmp_path, monkeypatch, cash_slice=True)
+    state = _cash_completion_goal(); state["currentPr"] = pr
+    (tmp_path / validator.PROJECT_COMPLETION_GOAL_STATE).write_text(json.dumps(state), encoding="utf-8")
+    for rel, field in [("docs/milestones/SUBMILESTONE_REGISTRY.md", 3), ("docs/milestones/M04.md", 2)]:
+        _change_m04_row(tmp_path, rel, "M04.10", field, status)
+    _change_m04_row(tmp_path, "docs/milestones/SUBMILESTONE_REGISTRY.md", "M04.10", 6, f"#{pr}" if pr else "")
+    assert validator.validate_m04_planning() == []
+
+
+@pytest.mark.parametrize("pr", [True, False, 67, 0, -1, "71", 68.0, [], {}])
+def test_cash_pr_refuses_coercion_or_reused_number(tmp_path, monkeypatch, pr):
+    _prepare_m04_planning_tree(tmp_path, monkeypatch, cash_slice=True)
+    state = _cash_completion_goal(); state["currentPr"] = pr
+    (tmp_path / validator.PROJECT_COMPLETION_GOAL_STATE).write_text(json.dumps(state), encoding="utf-8")
+    assert any("PR tracking must match" in e for e in validator.validate_m04_planning())
+
+
+@pytest.mark.parametrize("status", ["QA in progress", "QA passed, awaiting merge"])
+def test_cash_qa_requires_own_pr(tmp_path, monkeypatch, status):
+    _prepare_m04_planning_tree(tmp_path, monkeypatch, cash_slice=True)
+    for rel, field in [("docs/milestones/SUBMILESTONE_REGISTRY.md", 3), ("docs/milestones/M04.md", 2)]:
+        _change_m04_row(tmp_path, rel, "M04.10", field, status)
+    assert any("QA requires its own PR" in e for e in validator.validate_m04_planning())
+
+
+@pytest.mark.parametrize("package", ["ledger", "events", "invariants", "repair", "graph"])
+def test_cash_cannot_escape_owner_or_file(tmp_path, monkeypatch, package):
+    directory = tmp_path / "packages" / package / "src"; directory.mkdir(parents=True)
+    (directory / "future.ts").write_text("export const validateCashClearingAccountCandidate = () => null;", encoding="utf-8")
+    state = _cash_completion_goal(); monkeypatch.setattr(validator, "ROOT", tmp_path)
+    monkeypatch.setattr(validator, "read_project_completion_goal", lambda: (state, []))
+    assert any("cash clearing outside its authorized package owner" in e for e in validator.validate_package_sources(package))
+
+
+@pytest.mark.parametrize("factory", [_pending_completion_goal, _planning_completion_goal, _account_completion_goal,
+                                     _transaction_completion_goal, _entry_completion_goal, _journal_completion_goal, _storage_completion_goal, _query_completion_goal, _lookup_completion_goal, _idempotency_completion_goal, _reversal_completion_goal])
+def test_cash_files_refused_before_its_dependency_merge(monkeypatch, factory):
+    state = factory(); monkeypatch.setattr(validator, "read_project_completion_goal", lambda: (state, []))
+    assert any("src/cash-clearing-account.ts" in e and "unexpected files" in e for e in validator.validate_package_scaffolds())
+
+
+@pytest.mark.parametrize("removed", ["ledger-storage-postgres", "ledger-account-balance-postgres", "ledger-transaction-query-postgres", "ledger-idempotency-postgres", "ledger-reversal-postgres", "cash-clearing-account-postgres"])
+def test_cash_default_tests_distinguish_each_required_database_suite(tmp_path, monkeypatch, removed):
+    directory = tmp_path / "packages/ledger"; directory.mkdir(parents=True)
+    manifest = json.loads(text("packages/ledger/package.json"))
+    manifest["scripts"]["test"] = manifest["scripts"]["test"].replace(f' --exclude "test/{removed}.test.ts"', '')
+    (directory / "package.json").write_text(json.dumps(manifest), encoding="utf-8")
+    state = _cash_completion_goal(); monkeypatch.setattr(validator, "ROOT", tmp_path)
+    monkeypatch.setattr(validator, "read_project_completion_goal", lambda: (state, []))
+    assert any("distinguish unit checks from mandatory database acceptance" in e for e in validator.validate_package_manifest("ledger"))
+
+
+def test_cash_does_not_authorize_another_migration(tmp_path, monkeypatch):
+    directory = tmp_path / "infra/migrations"; directory.mkdir(parents=True)
+    for name in ["README.md", validator.M04_STORAGE_MIGRATION, validator.M04_IDEMPOTENCY_MIGRATION, validator.M04_REVERSAL_MIGRATION]: (directory / name).write_text("reviewed", encoding="utf-8")
+    state = _cash_completion_goal(); monkeypatch.setattr(validator, "ROOT", tmp_path)
+    monkeypatch.setattr(validator, "read_project_completion_goal", lambda: (state, []))
+    assert validator.validate_migration_directory() == []
+    (directory / "999_balance_cache.cjs").write_text("unapproved", encoding="utf-8")
+    assert any("999_balance_cache.cjs" in e for e in validator.validate_migration_directory())
+
+
+@pytest.mark.parametrize("proof", [None, {}, [], {**validator.M04_IDEMPOTENCY_MERGE_EVIDENCE, "pr":66.0}])
+def test_cash_still_requires_storage_proof(proof):
+    state=_cash_completion_goal();state["idempotencyMergeEvidence"]=proof
+    assert any("verified PR #69" in e for e in validator.validate_project_completion_goal(state))
+
+
+@pytest.mark.parametrize("pr", [True, False, 70.0, "70", None])
+def test_cash_latest_merge_requires_exact_integer(pr):
+    state=_cash_completion_goal();state["latestMergedPr"]=pr
+    assert any("latest merged PR must be 70" in e for e in validator.validate_project_completion_goal(state))
