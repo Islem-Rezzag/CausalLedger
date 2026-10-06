@@ -1,6 +1,6 @@
 # Ledger Package
 
-`@causalledger/ledger` owns Account/header/entry/journal contracts, immutable synthetic storage, read-only queries, scoped idempotency, full linked reversals and pure cash clearing configuration merged through M04.10. Current M04.11 pure provider clearing configuration has local validation PASS; database composition/overall QA pending.
+`@causalledger/ledger` owns Account/header/entry/journal contracts, immutable synthetic storage, read-only queries, scoped idempotency, full linked reversals and pure cash clearing configuration merged through M04.10. Current M04.11 pure provider clearing configuration has local validation PASS; database composition/overall QA PASS, final-head/human merge remain.
 
 The original M02.05 scaffold supplied:
 

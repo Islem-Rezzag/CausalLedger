@@ -1951,7 +1951,7 @@ def validate_project_completion_goal(goal_state: object) -> list[str]:
     if phase not in (M04_CASH_PHASE, M04_PROVIDER_PHASE) and goal_state.get("reversalMergeEvidence") is not None:
         errors.append("earlier lifecycle phases cannot carry M04.09 reversal merge evidence")
     if phase != M04_PROVIDER_PHASE and goal_state.get("cashClearingMergeEvidence") is not None:
-        errors.append("earlier lifecycle phases cannot carry M04.10 reversal merge evidence")
+        errors.append("earlier lifecycle phases cannot carry M04.10 cash clearing merge evidence")
     if phase in ("M04_PLANNING", M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE):
         if target != RELEASE_TARGET_APPROVAL["target"]:
             errors.append("M04 planning requires the recorded V1_PUBLIC_PRODUCT approval")

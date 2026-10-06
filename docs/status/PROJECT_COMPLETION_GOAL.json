@@ -16,13 +16,13 @@
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
   "currentMilestone": "M04.11",
   "currentBranch": "m04-11-add-provider-clearing-account",
-  "currentPr": null,
+  "currentPr": 72,
   "latestMergedPr": 71,
   "latestMergeCommit": "c01bf21d4fba413943a7e266b2453f95f33f851b",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
   "localTestStatus": "M04_11_LEDGER900_CONTROL1028_DIRTY_QA17_0_2_PASS",
-  "remoteCiStatus": "M04_11_PENDING_REQUIRED_POSTGRES_AND_CI",
-  "dockerStatus": "UNAVAILABLE_LOCALLY_CURRENT_11_DB_PENDING_PRIOR_10_REAL215_PASS",
+  "remoteCiStatus": "Actual CI37521515763 bothSUCCESS on e82c082; real PostgreSQL17 storage64/balance22/transaction-query27/idempotency39/reversal40/cash clearing23/provider clearing31 (246), all THREE-migration recovery, both populated upgrades, exact6tables/10functions and owned/Compose cleanup PASS. Existing overall m04_02_qa corrected-state PASS/no remaining findings; fresh900ledger/1028control plus63runtime/58lifecycle probes and195 broader protected paths PASS. Root candidate cleanQA18/0/1 PASS. Final tracking head re-review/cleanQA/CI remain required.",
+  "dockerStatus": "UNAVAILABLE_LOCALLY_M04_11_REAL_POSTGRES_COMPOSITION_ACCEPTANCE_PASS",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
     "M00 repository operating system",
@@ -44,7 +44,7 @@
     "M04.08 durable scoped idempotency; human PR69 merge/final independent QA/clean QA18/0/1/CI37473789250 real152 verified",
     "M04.09 full linked reversals; human PR70 merge/final independent QA/clean QA18/0/1/CI37481790910 real192 verified",
     "M04.10 pure cash clearing configuration; human PR71 merge/final independent QA/clean QA18/0/1/CI37490025286 real215 verified",
-    "M04.11 explicit pure asset/debit provider clearing configuration, full-span opaque provider references, exact caller-declared provider/catalog/single-currency journal context; local validation PASS; database composition/overall QA pending"
+    "M04.11 explicit pure asset/debit provider clearing configuration, full-span opaque provider references, exact caller-declared provider/catalog/single-currency journal context; local/database composition/overall QA PASS; human merge pending"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -65,7 +65,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "M04.11 provider database composition acceptance, overall QA and human merge remain",
+    "M04.11 final SHA-bound gates and human merge remain",
     "no live-model provider/model/call-count/budget approved"
   ],
   "risks": [
@@ -81,9 +81,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "M04_11_EXISTING_OVERALL_QA_AND_DATABASE_COMPOSITION_ACCEPTANCE",
-  "stopReason": "BUILDER_COMPLETE_AWAITING_QA",
-  "lastUpdatedTimestamp": "2026-10-06T19:46:41Z",
+  "exactNextAction": "HUMAN_MERGE_M04_11_AFTER_FINAL_SHA_GATES",
+  "stopReason": "QA_PASSED_AWAITING_HUMAN_MERGE",
+  "lastUpdatedTimestamp": "2026-10-06T19:52:39Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -265,5 +265,24 @@
     "mergedTree": "be1eb4edbdcb96a58aabc5b36fce0e03157c0f69",
     "ciRun": 37490025286,
     "independentQa": "PASS"
+  },
+  "currentQaEvidence": {
+    "reviewer": "m04_02_qa",
+    "candidateHead": "e82c082a00d7fe6947151810a2367b006344ebd7",
+    "result": "PASS",
+    "unitTests": 900,
+    "controlTests": 1028,
+    "realStorageTests": 64,
+    "realBalanceTests": 22,
+    "realTransactionQueryTests": 27,
+    "realIdempotencyTests": 39,
+    "realReversalTests": 40,
+    "realCashClearingCompositionTests": 23,
+    "realProviderClearingCompositionTests": 31,
+    "ciRun": 37521515763,
+    "finalShaBoundRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/72",
+    "independentRuntimeProbes": 63,
+    "independentLifecycleProbes": 58,
+    "reviewScope": "runtime e82c082 plus independently inspected one-line dependency diagnostic repair; final exact-head proof in sole PR72"
   }
 }
