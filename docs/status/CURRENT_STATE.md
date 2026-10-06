@@ -20,7 +20,7 @@ Recorded root and independent local ledger469/11files and control451, typecheck/
 
 ## Next action
 
-Existing separate-context reviewer m04_02_qa returned provisional overall candidate QA PASS on4c3010d, with no findings, after independently inspecting the complete scoped source and actual database evidence. Root validates tracking, obtains exact final-head review/clean QA/required CI, updates this same PR and stops for human review/squash merge. The user need not run tests. No M04.06 before verified human merge.
+Existing separate-context reviewer m04_02_qa returned provisional overall candidate QA PASS on4c3010d, with no source findings, after inspecting the complete scope and actual database evidence. Final tracking review on7a77f8e found three undated stale roadmap notes; corrected on attempt one, with no code/test/CI change. Root clean QA18/0/1 and CI37445957049 both jobs passed on7a77f8e, but the corrected head still requires exact independent re-review/clean QA/CI. Final results belong in PR #66 against the actual SHA; then stop for human review/squash merge. The user need not run tests. No M04.06 before verified human merge.
 
 ## Product implementation status
 
