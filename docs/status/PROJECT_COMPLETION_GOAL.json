@@ -12,16 +12,16 @@
   ],
   "recommendedImmediateTarget": "V0_6_BENCHMARK_DEMO",
   "recommendedLongTermTarget": "V1_PUBLIC_PRODUCT",
-  "currentPhase": "M04_ACCOUNT_BALANCE_QUERY",
+  "currentPhase": "M04_TRANSACTION_QUERY",
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
-  "currentMilestone": "M04.06",
-  "currentBranch": "m04-06-add-account-balance-query",
-  "currentPr": 67,
-  "latestMergedPr": 66,
-  "latestMergeCommit": "f5a5e910041611e0bf36184e4bc8fc483228a613",
+  "currentMilestone": "M04.07",
+  "currentBranch": "m04-07-add-transaction-query",
+  "currentPr": null,
+  "latestMergedPr": 67,
+  "latestMergeCommit": "471d76c6173208d33d7584756a6db0d433c29ec4",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "M04_06_LEDGER560_CONTROL526_DIRTY_QA17_0_2_PASS",
-  "remoteCiStatus": "M04_06_CI37455036023_BOTH_JOBS_PASS_STORAGE64_BALANCE22",
+  "localTestStatus": "M04_07_LEDGER655_CONTROL614_DIRTY_QA17_0_2_PASS",
+  "remoteCiStatus": "M04_07_DATABASE_ACCEPTANCE_PENDING",
   "dockerStatus": "UNAVAILABLE_LOCALLY_REAL_POSTGRES17_CI86_PASS",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -39,13 +39,14 @@
     "M04.03 LedgerEntry wire/amount/reference validation (PR #64; completed and merged)",
     "M04.04 pure journal validation: exact per-currency bigint equality, duplicate/refusal rules and frozen detached output (PR #65; completed and merged)",
     "M04.05 immutable synthetic journal storage; PR66 human merge/final independent QA and actual Postgres64/CI verified",
-    "M04.06 read-only exact account/currency balance query; local/real Postgres acceptance and overall independent QA PASS, sole PR67 awaiting human merge"
+    "M04.06 read-only exact account balances; human PR67 merge and final QA/CI37455976639 real storage64/balance22 verified",
+    "M04.07 complete read-only transaction queries; local validation PASS; actual database acceptance/overall QA pending"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
     "ingestion or raw evidence persistence",
     "product database schemas outside immutable ledger storage",
-    "posting eligibility, transaction queries, semantic retry and reversals",
+    "posting eligibility, semantic retry and reversals",
     "financial invariant engine",
     "provider and bank simulator execution",
     "incident lifecycle",
@@ -60,7 +61,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "M04.06 human merge required after final SHA-bound proof in sole PR67; later slices remain gated",
+    "M04.07 actual database acceptance, overall QA and human merge remain",
     "no live-model provider/model/call-count/budget approved"
   ],
   "risks": [
@@ -76,9 +77,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "HUMAN_REVIEW_AND_MERGE_M04_06_PR67_AFTER_FINAL_SHA_GATES",
-  "stopReason": "QA_PASSED_AWAITING_HUMAN_MERGE_FINAL_SHA_PROOF_IN_PR67",
-  "lastUpdatedTimestamp": "2026-10-06T11:20:46Z",
+  "exactNextAction": "EXISTING_OVERALL_QA_AND_REAL_POSTGRES_ACCEPTANCE_M04_07",
+  "stopReason": "BUILDER_COMPLETE_QA_DATABASE_ACCEPTANCE_PENDING",
+  "lastUpdatedTimestamp": "2026-10-06T12:56:52Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -149,15 +150,24 @@
     "ciRun": 37446228689,
     "independentQa": "PASS"
   },
-  "currentQaEvidence": {
+  "balanceQueryQaEvidence": {
     "reviewer": "m04_02_qa",
-    "candidateHead": "2da8a60b422885ba54eabf82ec1de5562dc0a48f",
+    "candidateHead": "ee5d6c27e351e1b9956ddaa11b992d029e95372e",
     "result": "PASS",
     "unitTests": 560,
     "controlTests": 526,
     "realStorageTests": 64,
     "realBalanceTests": 22,
-    "ciRun": 37455036023,
+    "ciRun": 37455976639,
     "finalShaBoundRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/67"
+  },
+  "balanceQueryMergeEvidence": {
+    "pr": 67,
+    "mergeCommit": "471d76c6173208d33d7584756a6db0d433c29ec4",
+    "reviewedHead": "ee5d6c27e351e1b9956ddaa11b992d029e95372e",
+    "reviewedTree": "da69be5c9c93630eeacad9be6f8414ae04dc46df",
+    "mergedTree": "da69be5c9c93630eeacad9be6f8414ae04dc46df",
+    "ciRun": 37455976639,
+    "independentQa": "PASS"
   }
 }

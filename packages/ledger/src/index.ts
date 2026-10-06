@@ -104,6 +104,26 @@ export type {
   LedgerAccountBalanceReader,
 } from "./ledger-account-balance.js";
 
+export {
+  LEDGER_TRANSACTION_QUERY_CONTRACT_VERSION,
+  LedgerTransactionReadError,
+  validateLedgerTransactionQueryCandidate,
+  createLedgerTransactionReader,
+} from "./ledger-transaction-query.js";
+export type {
+  LedgerTransactionQueryPage,
+  LedgerTransactionQuerySelection,
+  LedgerTransactionQueryCandidate,
+  LedgerTransactionQuery,
+  LedgerTransactionQueryIssueCode,
+  LedgerTransactionQueryIssue,
+  LedgerTransactionQueryValidationResult,
+  LedgerTransactionQueryRecord,
+  LedgerTransactionQueryOutput,
+  LedgerTransactionQueryResult,
+  LedgerTransactionReader,
+} from "./ledger-transaction-query.js";
+
 export const ledgerPackageBoundary = Object.freeze({
   packageName: "@causalledger/ledger",
   status: "ledger-schema-boundary",
@@ -116,6 +136,7 @@ export const ledgerPackageBoundary = Object.freeze({
   deterministicJournalValidationImplemented: true,
   postingImplemented: false,
   balanceQueriesImplemented: true,
+  transactionQueriesImplemented: true,
   storageImplemented: true,
   agentWriteAuthority: false,
   financialTruthEstablishedByValidation: false,

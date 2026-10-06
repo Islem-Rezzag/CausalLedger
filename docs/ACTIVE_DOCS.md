@@ -112,7 +112,7 @@ Completed execution:
 
 Active execution:
 
-- M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.05 are Completed and merged. PR #66 human merge `f5a5e910041611e0bf36184e4bc8fc483228a613` matches reviewed head49ca97c/treee83dc0b; final independent QA and CI37446228689 verified. M04.06 Add account balance query is **QA passed, awaiting merge** on `m04-06-add-account-balance-query`, sole [PR #67](https://github.com/Islem-Rezzag/CausalLedger/pull/67), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Candidate2da8a60 passed local ledger560/control526 and CI37455036023 including64 storage +22 balance real Postgres17 tests. Existing overall independent QA PASS; final SHA-bound re-review/clean QA/CI evidence is maintained in sole PR #67 before marking ready for human merge. M04.07-M04.18 and M05-M21 remain Not started. Current results and merge readiness live in `docs/status/CURRENT_STATE.md`.
+- M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.06 are Completed and merged. Human PR67 merge471d76c matches final reviewedee5d6c2/treeda69be5; exact final QA/clean QA18/0/1/CI37455976639 real storage64/balance22 and empty diff/main proof verified. M04.07 Add transaction query is **Builder complete, awaiting QA** on `m04-07-add-transaction-query`, no current PR yet, under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger655/15files and control614/type/lint/build/format PASS; root intermediate full QA17/0/2 PASS. Mandatory real PostgreSQL acceptance and overall independent QA pending; driver tests are not database proof. M04.08-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`.
 
 Plan state:
 
@@ -177,3 +177,4 @@ Use `docs/ops/repo-operating-system-freeze.md` and `docs/status/M00_FREEZE_READI
 Stale docs must be moved to archived locations or clearly marked reference-only. If a stale doc cannot be updated in the current slice, record the limitation in status docs or tech debt and do not let it override active docs.
 
 - M04.06 balance contract: `docs/specs/ledger-account-balance-query.md`; acceptance and merge gates remain in the active plan/sole PR.
+- M04.07 transaction query contract: `docs/specs/ledger-transaction-query.md`; complete journal readback and explicit pagination boundaries, current acceptance gates in active CLP-0005.

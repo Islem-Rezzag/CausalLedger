@@ -1,6 +1,6 @@
 # Local Environment Readiness
 
-Current delivery (2026-10-06): PR #66 human merge verified, final reviewed tree identical and final CI37446228689 both jobs/real64 PASS. M04.06 read-only balance candidate in PR #67 passes actual CI37455036023 (64 storage +22 balance, migrations/schema/owned cleanup), local560/control526 and dirty QA17/0/2. Overall independent QA PASS; final SHA-bound proof/merge readiness is maintained in sole PR #67. Original CLI workflow authorization is established; local Docker/Postgres remain unavailable. Earlier dated entries below are historical.
+Current delivery (2026-10-06): M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.06 are Completed and merged. Human PR67 merge471d76c matches final reviewedee5d6c2/treeda69be5; exact final QA/clean QA18/0/1/CI37455976639 real storage64/balance22 and empty diff/main proof verified. M04.07 Add transaction query is **Builder complete, awaiting QA** on `m04-07-add-transaction-query`, no current PR yet, under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger655/15files and control614/type/lint/build/format PASS; root intermediate full QA17/0/2 PASS. Mandatory real PostgreSQL acceptance and overall independent QA pending; driver tests are not database proof. M04.08-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`. Local Docker/Postgres unavailable. Earlier dated checkpoints below are historical.
 
 ## Audit scope
 
@@ -168,3 +168,11 @@ Root will commit/push only these inspected17 scoped paths on this same branch/PR
 ## 2026-10-06 - M04.05 merged; M04.06 Builder started
 
 Human PR66 mergef5a5e910041611e0bf36184e4bc8fc483228a613 verified by reviewed treee83dc0b/emptydiff/main reachability and exact final independent QA/CI37446228689 with real64 tests. Safely advanced clean main and created m04-06-add-account-balance-query; guard passed. Generated06 Account/sign/cutoff/snapshot/conflict/readonly exact-money brief before coding; status/goal/registry updated, all18/V1 and prior contracts preserved. Validation pending for06; no query guarantee, currentPR, migration/dependency change, later slice or agent financial authority. Existing independent reviewer and actual finalhead CI remain required; root runs every test.
+
+## 2026-10-06 - PR67 verified; M04.07 started
+
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.06 are Completed and merged. Human PR #67 merge 471d76c6173208d33d7584756a6db0d433c29ec4 matches final reviewed ee5d6c2/tree da69be5; empty diff/main reachability, exact-head independent QA, clean QA18/0/1 and CI37455976639 both jobs with storage64/balance22 real Postgres17 tests PASS verified. M04.07 Add transaction query is Builder in progress on `m04-07-add-transaction-query` under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. No current07 validation or PR yet. M04.08-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`. Generated scoped complete-journal brief before coding; current validation pending.
+
+## 2026-10-06 - M04.07 builder checkpoint
+
+Builder complete, awaiting QA; no current PR yet. Fresh ledger655/15files and control614/type/lint/build/format PASS; root intermediate full QA17/0/2 PASS. Mandatory real PostgreSQL acceptance and overall independent QA pending; driver tests are not database proof. Scope29/prior127/all18 PASS; exact-head QA/CI and human merge gate remain.

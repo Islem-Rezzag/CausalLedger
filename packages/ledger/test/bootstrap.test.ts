@@ -16,6 +16,7 @@ describe("@causalledger/ledger schema boundary", () => {
       deterministicJournalValidationImplemented: true,
       postingImplemented: false,
       balanceQueriesImplemented: true,
+      transactionQueriesImplemented: true,
       storageImplemented: true,
       agentWriteAuthority: false,
       financialTruthEstablishedByValidation: false,
@@ -33,11 +34,14 @@ describe("@causalledger/ledger schema boundary", () => {
       "LEDGER_JOURNAL_CONTRACT_VERSION",
       "LEDGER_STORAGE_CONTRACT_VERSION",
       "LEDGER_TRANSACTION_CONTRACT_VERSION",
+      "LEDGER_TRANSACTION_QUERY_CONTRACT_VERSION",
       "LEDGER_TRANSACTION_STATUSES",
       "LedgerAccountBalanceReadError",
       "LedgerJournalStorageError",
+      "LedgerTransactionReadError",
       "createLedgerAccountBalanceReader",
       "createLedgerJournalStore",
+      "createLedgerTransactionReader",
       "ledgerPackageBoundary",
       "validateAccountCandidate",
       "validateAccountCatalog",
@@ -45,6 +49,7 @@ describe("@causalledger/ledger schema boundary", () => {
       "validateLedgerEntryCandidate",
       "validateLedgerJournalCandidate",
       "validateLedgerTransactionCandidate",
+      "validateLedgerTransactionQueryCandidate",
     ]);
   });
 });
