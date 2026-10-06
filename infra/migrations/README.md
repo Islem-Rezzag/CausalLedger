@@ -1,18 +1,9 @@
 # Migrations
 
-M02.06 establishes the migration tooling boundary with `node-pg-migrate`.
+M02.06 established `node-pg-migrate`; its historical README-only boundary remains enforced for earlier lifecycle phases. M04.05 admits exactly `1780000000000_m04_05_immutable_journal.cjs`, owned by the reviewed ledger storage slice. No other domain tables/migrations are authorized.
 
-This directory intentionally contains no product schema migrations yet. Do not add MoneyEvent, ledger, invariant, incident, evidence, graph, replay, repair, agent, connector, queue, or scheduler tables in M02.06.
+This migration requires explicitly provisioned separate restricted `causalledger_storage_owner` and `causalledger_storage_app` identities. It creates only ledger transactions, per-journal Account snapshots and immutable entries, plus safe append/validation/immutability functions. The app cannot write tables directly, mutate history or extend existing journals. Down refuses populated history and removes only empty reviewed objects. It never grants an agent write or approval authority.
 
-Run migrations against local Postgres only after setting `DATABASE_URL` in an untracked local environment:
+`pnpm migrate:up` and `pnpm migrate:down` require an explicit `DATABASE_URL`, ignore this README and never silently select a database. Do not run either against user databases. Production provisioning/migrations remain outside this slice.
 
-```powershell
-pnpm migrate:up
-pnpm migrate:down
-```
-
-The migration commands require `DATABASE_URL`; they must fail rather than silently target an implicit database when the variable is absent.
-
-The root migration scripts explicitly ignore this `README.md` file. Until product schema work starts, the directory contains documentation only and no runnable migration files.
-
-At this stage the migration tool may create its own metadata table when executed. That metadata does not represent CausalLedger product storage behavior.
+`pnpm test:ledger-storage` provisions and verifies its own disposable synthetic Postgres17 database/roles in an explicitly owned Compose environment, runs real up/down/up and behavioral acceptance, inspects exact public schema, then verifies identities before cleanup. It refuses existing resources and missing configuration, ignores ambient DATABASE_URL as a target source, and never substitutes another database. Existing CI supplies this required environment; local no-Docker evidence cannot prove storage behavior.

@@ -2,26 +2,26 @@
 
 ## Current phase
 
-M00-M03 closed; V1_PUBLIC_PRODUCT approved. M04.01-M04.03 Completed and merged; PR #64 human merge `4a5637c8eab842b368e046b0994a620ecb08e90b`, exact reviewed/merged tree `73632a81652423e9713e808976b1a922dbd71ad5` and fetched-main reachability verified. M04.04 QA passed, awaiting merge in PR #65 under active plan `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.05-M04.18 and M05-M21 Not started.
+M00-M03 closed; V1_PUBLIC_PRODUCT approved. M04.01-M04.04 Completed and merged. PR #65 human merge `526bb66dda5d9c8b9aebd85775142e8d22c3a73a` and reviewed head66f679e share tree15c668085da628122ff5601be7d87d8da6b91b35; empty diff/main reachability and exact final-head independent QA/CI36998201769 verified. Prior clean QA18/0/1 is prior-slice evidence.
 
 ## Current submilestone and branch
 
-Current slice: M04.04 Enforce debit equals credit.
-Current branch: `m04-04-enforce-debit-equals-credit`.
-Scope: pure exact journal equality independently per currency against supplied header/Account/wire-entry metadata; no posting/storage/account balance query.
+Current slice: M04.05 Add immutable transaction storage: **QA passed, awaiting merge**, active plan `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, sole draft [PR #66](https://github.com/Islem-Rezzag/CausalLedger/pull/66). M04.06-M04.18 and M05-M21 remain Not started.
+
+Current branch: `m04-05-add-immutable-transaction-storage`
+
+## Environment and validation
+
+The user's actual GitHub approval completed the original GitHub CLI refresh: same Islem-Rezzag keyring account and prior scopes plus workflow. Normal scoped push succeeded; no credential/helper/configuration/protocol/remote change or alternate access route. Local Windows/WSL still lack Postgres/Docker; no system installation or paid calls.
+
+Actual [CI37445358766](https://github.com/Islem-Rezzag/CausalLedger/actions/runs/37445358766) on `4c3010d16268d9c5cbff4d791cb4eda5d4ccf37c` passed validate and infra-smoke. Mandatory isolated Postgres17 acceptance executed **64 tests, no skips**, migration up/down/up, exact schema inspection and owned database/role cleanup; always Compose cleanup removed its container/network/volume. SQL/store acceptance covers complete independent readback, exact money, metadata/Unicode, rejection/rollback, concurrency, privileges, history immutability, populated down refusal and reconnect preservation. This is controlled synthetic evidence, with no production connection.
+
+Recorded root and independent local ledger469/11files and control451, typecheck/lint/build/format PASS; source/CI/migration/tests unchanged from8e5c05b. Root prior clean QA18/0/1 on source-identical c211fad used warm caches and skipped unavailable optional local Docker; reviewer37 supplemental mock-only probes are separate counts. Initial CI executed workspace/control/package checks; candidate overall independent QA PASS on4c3010d; final tracking-head review/clean QA/CI remain pending.
 
 ## Next action
 
-Final actual-head independent re-review, clean QA and required validate/infra-smoke CI must PASS and be recorded in PR #65; then human review/squash merge. Exact next thread: **Merge M04.04 PR - Enforce debit equals credit**. Reply “Merged #65. Continue.” after actual merge; verify merge/tree/main before M04.05 and its Postgres gate. Agents cannot merge or enable auto-merge.
-
-## Latest validation
-
-Separate-context overall reviewer `m04_02_qa` PASS, no findings, on `b66f5fa23021f2cd4b2722402d0ac6fd1da99a61`. Fresh ledger typecheck/432 tests (9 files)/lint/build/format, control validator/380 bootstrap, runtime192/lifecycle182 supplemental probes and full scope/whitespace/18-row identity checks PASS. Zero getter/coercion calls. Two supplemental harness mistakes corrected; no implementation/committed test changes. Fresh Builder events97 PASS; workspace581 measured from cached task readback. Coordinator Builder clean `corepack pnpm qa:dev` 18 PASS / 0 FAIL / 1 optional Docker skip and Builder CI36997409686 both jobs PASS. Warm caches, not cold-install proof. Final doc-only handoff still requires actual-SHA gates; record them in PR #65, no extra CI-copy commit.
-
-## Environment and safety
-
-Node22.16.0/pnpm10.32.1/TypeScript6.0.3/Python3.13.1 (CI3.12). Docker/make unavailable on fresh recheck, direct Python substitutes PASS. Pure arithmetic requires no Postgres; M04.05 requires approved disposable Postgres/durable encoding/range/atomicity/rollback/immutable guards. Remote baseline infra-smoke does not prove product storage. Existing CI action deprecation warnings are nonblocking. No installations/paid calls/financial mutation.
+Existing separate-context reviewer m04_02_qa returned provisional overall candidate QA PASS on4c3010d, with no source findings, after inspecting the complete scope and actual database evidence. Final tracking review on7a77f8e found three undated stale roadmap notes; corrected on attempt one, with no code/test/CI change. Root clean QA18/0/1 and CI37445957049 both jobs passed on7a77f8e, but the corrected head still requires exact independent re-review/clean QA/CI. Final results belong in PR #66 against the actual SHA; then stop for human review/squash merge. The user need not run tests. No M04.06 before verified human merge.
 
 ## Product implementation status
 
-Source-neutral MoneyEvent validation/normalization and merged Account/header/entry validation exist. M04.04 strict per-currency bigint journal equality is implemented and independently reviewed; duplicate/malformed/unequal groups reject without partial output, success is sorted/detached/frozen. No posting/storage/account balances/reversal/durable idempotency or agent financial-write/approval authority. Structural/arithmetic consistency is not financial truth.
+Source-neutral MoneyEvent validation/normalization and merged Account/header/entry/journal contracts remain preserved. M04.05 tests establish the controlled synthetic storage candidate's atomicity, immutable application-role history and explicit acknowledgement limits. Candidate independent QA PASS; final tracking-head review and required checks remain before human merge. No posting eligibility, balance/general lookup API, semantic retry, reversal or agent financial-write/repair-approval authority. Supplied balanced records do not authenticate evidence or establish financial truth.
