@@ -1,6 +1,6 @@
 # Ledger Package
 
-`@causalledger/ledger` owns Account/header/entry/journal contracts, immutable synthetic storage, read-only account balances and current M04.07 complete transaction queries; Builder complete, awaiting QA.
+`@causalledger/ledger` owns Account/header/entry/journal contracts, immutable synthetic storage, read-only account balances and current M04.07 complete transaction queries; QA passed, awaiting merge.
 
 The original M02.05 scaffold supplied:
 
@@ -32,4 +32,4 @@ See [the storage contract](../../docs/specs/ledger-immutable-storage.md). Driver
 
 See [the balance query contract](../../docs/specs/ledger-account-balance-query.md) for exact arithmetic, cutoff, snapshot and context limits. M04.06 human PR67 merge was verified against final reviewed ee5d6c2/tree da69be5 and final CI37455976639 storage64/balance22, migration/schema/cleanup and independent QA PASS.
 
-`createLedgerTransactionReader(explicitConnectionUrl)` reads complete journals and their own Account snapshots by exact identity, source reference or account/currency membership. Both cutoffs and explicit list page bounds are required. The read-only snapshot validates independent counts and complete per-currency journal arithmetic. It retains counteraccounts and other currency legs; it supplies no authorization, posting or durable cross-page snapshot guarantee. See [the transaction query contract](../../docs/specs/ledger-transaction-query.md) and executable1250 debit/credit learning tests. The owned runner executes storage, balance and transaction-query acceptance sequentially. Current07 local validation PASS; actual database/overall QA pending. Driver doubles are not database proof.
+`createLedgerTransactionReader(explicitConnectionUrl)` reads complete journals and their own Account snapshots by exact identity, source reference or account/currency membership. Both cutoffs and explicit list page bounds are required. The read-only snapshot validates independent counts and complete per-currency journal arithmetic. It retains counteraccounts and other currency legs; it supplies no authorization, posting or durable cross-page snapshot guarantee. See [the transaction query contract](../../docs/specs/ledger-transaction-query.md) and executable1250 debit/credit learning tests. The owned runner executes storage, balance and transaction-query acceptance sequentially. Current07 actual database/overall QA PASS, final exact-head/human merge gates in sole PR.

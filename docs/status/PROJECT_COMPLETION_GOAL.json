@@ -21,8 +21,8 @@
   "latestMergeCommit": "471d76c6173208d33d7584756a6db0d433c29ec4",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
   "localTestStatus": "M04_07_LEDGER655_CONTROL614_DIRTY_QA17_0_2_PASS",
-  "remoteCiStatus": "M04_07_DATABASE_ACCEPTANCE_PENDING",
-  "dockerStatus": "UNAVAILABLE_LOCALLY_REAL_POSTGRES17_CI86_PASS",
+  "remoteCiStatus": "M04_07_CI37467329970_BOTH_JOBS_PASS_REAL_ACCEPTANCE",
+  "dockerStatus": "UNAVAILABLE_LOCALLY_REAL_POSTGRES17_CI113_PASS",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
     "M00 repository operating system",
@@ -61,7 +61,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "M04.07 actual database acceptance, overall QA and human merge remain",
+    "M04.07 final SHA-bound QA/CI and human merge required",
     "no live-model provider/model/call-count/budget approved"
   ],
   "risks": [
@@ -77,9 +77,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "EXISTING_OVERALL_QA_AND_REAL_POSTGRES_ACCEPTANCE_M04_07",
-  "stopReason": "BUILDER_COMPLETE_QA_DATABASE_ACCEPTANCE_PENDING",
-  "lastUpdatedTimestamp": "2026-10-06T12:57:55Z",
+  "exactNextAction": "HUMAN_REVIEW_AND_MERGE_M04_07_AFTER_FINAL_SHA_GATES",
+  "stopReason": "QA_PASSED_AWAITING_HUMAN_MERGE",
+  "lastUpdatedTimestamp": "2026-10-06T13:05:08Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -169,5 +169,17 @@
     "mergedTree": "da69be5c9c93630eeacad9be6f8414ae04dc46df",
     "ciRun": 37455976639,
     "independentQa": "PASS"
+  },
+  "currentQaEvidence": {
+    "reviewer": "m04_02_qa",
+    "candidateHead": "29782bd46418d4c99558703ced2e461ecb4b4555",
+    "result": "PASS",
+    "unitTests": 655,
+    "controlTests": 614,
+    "realStorageTests": 64,
+    "realBalanceTests": 22,
+    "realTransactionQueryTests": 27,
+    "ciRun": 37467329970,
+    "finalShaBoundRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/68"
   }
 }

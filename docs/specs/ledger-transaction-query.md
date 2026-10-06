@@ -1,6 +1,6 @@
 # M04.07 transaction query
 
-Current status: Builder complete, awaiting QA; Fresh ledger655/15files and control614/type/lint/build/format PASS; root intermediate full QA17/0/2 PASS. Mandatory real PostgreSQL acceptance and overall independent QA pending; driver tests are not database proof. Active plan: `plans/active/CLP-0005-m04-double-entry-ledger-core.md`.
+Current status: QA passed, awaiting merge; Fresh ledger655/15files and control614/type/lint/build/format PASS; root intermediate full QA17/0/2 PASS. Actual CI37467329970 both jobs and real Postgres17 storage64/balance22/transaction-query27, migration UP/DOWN/UP, exact schema/functions, owned database/roles and Compose cleanup PASS. Existing separate-context overall m04_02_qa PASS, no remaining findings. Actual final-head re-review/clean QA/CI required; final proof maintained in this sole PR. Active plan: `plans/active/CLP-0005-m04-double-entry-ledger-core.md`.
 
 `m04.07-transaction-query.v1` reads complete committed synthetic journals from the unchanged immutable storage tables. `validateLedgerTransactionQueryCandidate(unknown)` validates without I/O. `createLedgerTransactionReader(explicitConnectionUrl)` exposes only `query(unknown)` and `close()`. It offers no financial write, approval or arbitrary SQL authority.
 

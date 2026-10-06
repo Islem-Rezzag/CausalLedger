@@ -1228,3 +1228,7 @@ Builder complete, awaiting QA; no current PR yet. Fresh ledger655/15files and co
 ## 2026-10-06 - M04.07 builder checkpoint
 
 Builder complete, awaiting QA; sole [PR #68](https://github.com/Islem-Rezzag/CausalLedger/pull/68). Fresh ledger655/15files and control614/type/lint/build/format PASS; root intermediate full QA17/0/2 PASS. Mandatory real PostgreSQL acceptance and overall independent QA pending; driver tests are not database proof. Scope29/prior127/all18 PASS; exact-head QA/CI and human merge gate remain.
+
+## 2026-10-06 - M04.07 final checkpoint
+
+QA passed, awaiting merge; sole [PR #68](https://github.com/Islem-Rezzag/CausalLedger/pull/68). Fresh ledger655/15files and control614/type/lint/build/format PASS; root intermediate full QA17/0/2 PASS. Actual CI37467329970 both jobs and real Postgres17 storage64/balance22/transaction-query27, migration UP/DOWN/UP, exact schema/functions, owned database/roles and Compose cleanup PASS. Existing separate-context overall m04_02_qa PASS, no remaining findings. Actual final-head re-review/clean QA/CI required; final proof maintained in this sole PR. Scope29/prior127/all18 PASS; exact-head QA/CI and human merge gate remain.
