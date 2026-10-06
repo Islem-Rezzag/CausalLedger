@@ -21,8 +21,8 @@
   "latestMergeCommit": "78cc3d6710689c9a5ae627d64398e25e165a03d1",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
   "localTestStatus": "M04_10_LEDGER834_CONTROL923_DIRTY_QA17_0_2_PASS",
-  "remoteCiStatus": "M04_10_FIRST_CI37488816950_VALIDATE_PASS_INFRA_FAIL_NEW_TEST_INVENTORY_EXPECTATION_ROOT_FIX_ATTEMPT1",
-  "dockerStatus": "UNAVAILABLE_LOCALLY_FIRST_10_CI_PRIOR192_PASS_NEW22PASS_1FAIL_SCHEMA_ASSERTION",
+  "remoteCiStatus": "Actual CI37489136391 bothSUCCESS; real Postgres17 storage64/balance22/transaction-query27/idempotency39/reversal40/cash-clearing-composition23 (215), THREE-migration recovery, both populated upgrades, exact6tables/10functions and owned/Composecleanup PASS. Existing overall m04_02_qa PASS for runtime8fdec plus inspected seven historical-line corrections; fresh834ledger/923control and53pure/38lifecycle probes PASS, no remaining finding. Root corrected cleanQA18/0/1 PASS.",
+  "dockerStatus": "UNAVAILABLE_LOCALLY_M04_10_REAL_POSTGRES_COMPOSITION_ACCEPTANCE_PASS",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
     "M00 repository operating system",
@@ -43,7 +43,7 @@
     "M04.07 complete read-only transaction queries; human PR68 merge/final independent QA/clean QA18/0/1/CI37468260697 real113 verified",
     "M04.08 durable scoped idempotency; human PR69 merge/final independent QA/clean QA18/0/1/CI37473789250 real152 verified",
     "M04.09 full linked reversals; human PR70 merge/final independent QA/clean QA18/0/1/CI37481790910 real192 verified",
-    "M04.10 explicit pure asset/debit cash clearing configuration and exact single-currency journal context; local validation PASS; database composition/overall QA pending"
+    "M04.10 explicit pure asset/debit cash clearing configuration and exact single-currency journal context; local/database composition/overall QA PASS; human merge pending"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -64,7 +64,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "M04.10 database composition acceptance, overall QA and human merge remain",
+    "M04.10 final SHA-bound gates and human merge remain",
     "no live-model provider/model/call-count/budget approved"
   ],
   "risks": [
@@ -80,9 +80,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "M04_10_EXISTING_OVERALL_QA_AND_DATABASE_COMPOSITION_ACCEPTANCE",
-  "stopReason": "BUILDER_COMPLETE_AWAITING_QA",
-  "lastUpdatedTimestamp": "2026-10-06T15:35:22Z",
+  "exactNextAction": "HUMAN_MERGE_M04_10_AFTER_FINAL_SHA_GATES",
+  "stopReason": "QA_PASSED_AWAITING_HUMAN_MERGE",
+  "lastUpdatedTimestamp": "2026-10-06T15:44:10Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -238,5 +238,23 @@
     "mergedTree": "238a44e050a0860560e71335434a3eb08ec34cc4",
     "ciRun": 37481790910,
     "independentQa": "PASS"
+  },
+  "currentQaEvidence": {
+    "reviewer": "m04_02_qa",
+    "candidateHead": "8fdec3f0e97974f8947a109595bbbe176f915898",
+    "result": "PASS",
+    "unitTests": 834,
+    "controlTests": 923,
+    "realStorageTests": 64,
+    "realBalanceTests": 22,
+    "realTransactionQueryTests": 27,
+    "realIdempotencyTests": 39,
+    "realReversalTests": 40,
+    "realCashClearingCompositionTests": 23,
+    "ciRun": 37489136391,
+    "finalShaBoundRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/71",
+    "reviewScope": "runtime8fdec plus explicitly inspected seven historical-line corrections, included in final tracking commit; exact final SHA proof in solePR71",
+    "independentRuntimeProbes": 53,
+    "independentLifecycleProbes": 38
   }
 }

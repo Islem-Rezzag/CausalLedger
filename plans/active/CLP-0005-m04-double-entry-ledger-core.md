@@ -4,7 +4,7 @@
 
 Plan M04's deterministic ledger primitives using the approved MoneyEvent boundary, M01 ledger vocabulary, and ADR-0008. The human explicitly approved `V1_PUBLIC_PRODUCT` on 2026-09-24: “Merged #60. I approve V1_PUBLIC_PRODUCT. Continue.” v0.6 is an intermediate checkpoint, not a replacement target. This approval authorizes the existing roadmap and routine delivery; it does not authorize live financial writes, repair approval, paid calls, system installation, material architecture changes, release tags, deployment, or publication.
 
-M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.09 are Completed and merged; human PR70 merge78cc3d6 matches reviewed963c11f/tree238a44e and exact final independent QA/cleanQA18/0/1/CI37481790910 real192 verified. M04.10 Add cash clearing account is **Builder complete, awaiting QA** on `m04-10-add-cash-clearing-account`, sole [PR #71](https://github.com/Islem-Rezzag/CausalLedger/pull/71), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger834/21files and control923 PASS; ledger type/lint/build/format PASS; root intermediate fullQA17/0/2 PASS (dirty override and optional Docker skips). Actual PostgreSQL composition acceptance and existing overall independent QA pending; pure tests are not database evidence. Final actual-head independent confirmation/cleanQA/CI and human merge remain required; exact final proof stays in the sole PR. M04.11-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`. Earlier records below historical.
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.09 are Completed and merged; human PR70 merge78cc3d6 matches reviewed963c11f/tree238a44e and exact final independent QA/cleanQA18/0/1/CI37481790910 real192 verified. M04.10 Add cash clearing account is **QA passed, awaiting merge** on `m04-10-add-cash-clearing-account`, sole [PR #71](https://github.com/Islem-Rezzag/CausalLedger/pull/71), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger834/21files and control923 PASS; ledger type/lint/build/format PASS; root intermediate fullQA17/0/2 PASS (dirty override and optional Docker skips). Actual CI37489136391 bothSUCCESS; real Postgres17 storage64/balance22/transaction-query27/idempotency39/reversal40/cash-clearing-composition23 (215), THREE-migration recovery, both populated upgrades, exact6tables/10functions and owned/Composecleanup PASS. Existing overall m04_02_qa PASS for runtime8fdec plus inspected seven historical-line corrections; fresh834ledger/923control and53pure/38lifecycle probes PASS, no remaining finding. Root corrected cleanQA18/0/1 PASS. Final actual-head independent confirmation/cleanQA/CI and human merge remain required; exact final proof stays in the sole PR. M04.11-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`. Earlier records below historical.
 
 ## Progress
 
@@ -41,6 +41,9 @@ M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.09 are Complete
 - [x] M04.09 guarded scoped implementation/local validation, sole draft PR70.
 - [x] M04.09 corrected candidate32f7 independent overall QA and root cleanQA18/0/1; CI37481198943 bothSUCCESS/real192/migrations/upgrades/cleanup PASS.
 - [x] M04.09 exact final reviewed963c11f/CI37481790910/cleanQA18/0/1 and human PR70 merge78cc3d6/tree238a44e verified before10.
+- [x] M04.10 scoped implementation, ledger834/control923 and intermediate fullQA17/0/2 PASS.
+- [x] M04.10 overall QA PASS for corrected runtime and inspected history repair; actual215 database tests/CI37489136391 and rootcleanQA18/0/1 PASS.
+- [ ] M04.10 final actual tracking-head independent confirmation/cleanQA/CI and human merge; verify before11.
 
 ## Surprises & Discoveries
 
@@ -493,7 +496,7 @@ Human PR67 merged by Islem-Rezzag at2026-10-06T12:43:28Z, merge 471d76c6173208d3
 
 ## M04.07 builder handoff (2026-10-06)
 
-Status: Builder complete, awaiting QA; sole [PR #71](https://github.com/Islem-Rezzag/CausalLedger/pull/71). Fresh ledger655/15files and control614/type/lint/build/format PASS; root intermediate full QA17/0/2 PASS. Mandatory real PostgreSQL acceptance and overall independent QA pending; driver tests are not database proof.
+Status: Builder complete, awaiting QA; no current PR yet. Fresh ledger655/15files and control614/type/lint/build/format PASS; root intermediate full QA17/0/2 PASS. Mandatory real PostgreSQL acceptance and overall independent QA pending; driver tests are not database proof.
 
 Created5 files: transaction query source/unit/type/Postgres tests and spec. Changed24: ledger exports/bootstrap/manifest/README, existing third-suite runner, narrow validator/historical bootstrap fixtures, current/navigation/plan/goal/registry/milestone/environment tracking. Full29-path audit PASS;127 prior/forbidden paths and all18 exact raw plan rows preserved. No prior financial source/test/contract, migration/dependency/CI workflow, other product app/package, raw evidence or fixture change. Reused read-only auditor supplied design/control advice, no overall verdict; existing overall m04_02_qa remains sole reviewer.
 
@@ -564,7 +567,7 @@ Human PR68 merged by Islem-Rezzag at2026-10-06T13:23:43Z, merge584a4520311723a9f
 
 ## M04.08 builder handoff (2026-10-06)
 
-Status: Builder complete, awaiting QA; sole [PR #71](https://github.com/Islem-Rezzag/CausalLedger/pull/71). Fresh ledger716/17files, control716, ledger type/lint/build/format PASS; root intermediate full QA17/0/2 PASS (dirty override and optional Docker skips). Actual PostgreSQL acceptance and existing overall independent QA pending; driver doubles are not database evidence.
+Status: Builder complete, awaiting QA; no current PR yet. Fresh ledger716/17files, control716, ledger type/lint/build/format PASS; root intermediate full QA17/0/2 PASS (dirty override and optional Docker skips). Actual PostgreSQL acceptance and existing overall independent QA pending; driver doubles are not database evidence.
 
 Changed: four new ledger source/unit/type/Postgres files, one scoped additive migration and spec; ledger exports/bootstrap/test exclusions/README; owned runner full both-migration recovery, populated legacy upgrade and fourth suite; cumulative exact PR68 merge/08 owner/file/schema/lifecycle guards, historical factories and102 new control regressions; active plan/status/navigation/milestone/registry. Full30-path scope audit PASS;131 prior/forbidden paths, previous financial sources/tests/contracts/05 migration, other apps/packages/dependencies/CI/fixtures, all18 raw acceptance rows and V1 unchanged.
 
@@ -635,7 +638,7 @@ Human PR69 merged by Islem-Rezzag at2026-10-06T14:23:24Z, merge3e0832254539140d5
 
 ## M04.09 builder handoff (2026-10-06)
 
-Status: Builder complete, awaiting QA; sole [PR #71](https://github.com/Islem-Rezzag/CausalLedger/pull/71). Fresh ledger789/19files, control823, ledger type/lint/build/format PASS; root intermediate full QA17/0/2 PASS (dirty override and optional Docker skips). Actual PostgreSQL acceptance and existing overall independent QA pending; driver doubles are not database evidence.
+Status: Builder complete, awaiting QA; no current PR yet. Fresh ledger789/19files, control823, ledger type/lint/build/format PASS; root intermediate full QA17/0/2 PASS (dirty override and optional Docker skips). Actual PostgreSQL acceptance and existing overall independent QA pending; driver doubles are not database evidence.
 
 Changed: four new ledger source/unit/type/Postgres files, one additive migration and reversal spec; ledger exports/bootstrap/test exclusions/README; existing owned runner full THREE-migration recovery, separate populated05-to08 and08-to09 byte-identical upgrades and fifth suite; cumulative exact PR69 merge/09 owner/file/schema/lifecycle guards, historical factories and107 new control regressions; active plan/status/navigation/milestone/registry. Full30-path scope audit PASS;136 prior/forbidden paths, previous financial sources/tests/contracts/05+08 migrations, other apps/packages/dependencies/CI/fixtures, all18 raw acceptance rows and V1 unchanged.
 
@@ -684,8 +687,6 @@ Human PR70 merged by Islem-Rezzag at2026-10-06T15:23:38Z, merge78cc3d6710689c9a5
 - Ladder:0 branch/plan;1 owner/scope;2 control+pytest;3 unit/type/lint/format;4 diff;5 build/frozen fullQA and mandatory real17 existing192 plus role-composition/net-balance/refusal suite;6 N/A no eval/model;7 financial/agent safety;8 existing independent overall reviewer and final actual-head cleanQA/CI. Current10 NOT RUN; local no Docker/Postgres/make, approved existing owned CI, root runs tests/user runs none. No installs/paid calls/cold-cache claim.
 - Handoff: record changed/protected paths, validation commands/fresh vs cached counts, skips/warnings/risks, candidate/tree/CI and exact next thread. Safe routine scoped ordinary commit/push/sole draftPR under existing explicit authority; no force/reset/amend/stash/branch deletion/agent merge. Human review/merge only after finalQA/cleanQA/bothCI; no11 until verified10 merge. Next M04.10 Builder - Add cash clearing account.
 
-- [x] M04.10 scoped implementation, ledger834/control923 and intermediate fullQA17/0/2 PASS.
-- [ ] M04.10 overall QA, mandatory real17 composition, final-head gates and human merge; verify before11.
 
 
 ## M04.10 builder handoff (2026-10-06)
@@ -706,3 +707,21 @@ Safe routine scoped ordinary stage/commit/push/sole PR update under original exp
 ## M04.10 first candidate acceptance repair (2026-10-06)
 
 Candidate b706ff3, sole draft PR71, root cleanQA18/0/1 PASS. First CI37488816950 validateSUCCESS/infraFAIL: prior real192, THREE-migration recovery, both populated upgrades, exact6tables/10functions and owned/Compose cleanup PASS; new10 composition22PASS/1FAIL. Root and existing reviewer confirmed test queried five business tables by excluding pgmigrations but expected six total tables. Root correction attempt1 checks all exact six preserved names including pgmigrations, matching the already passing runner; no DDL or acceptance weakening. Corrected CI/overall verdict pending; no human merge readiness.
+
+
+## M04.10 final handoff (2026-10-06)
+
+Status: QA passed, awaiting merge; sole [PR #71](https://github.com/Islem-Rezzag/CausalLedger/pull/71). Fresh ledger834/21files and control923 PASS; ledger type/lint/build/format PASS; root intermediate fullQA17/0/2 PASS (dirty override and optional Docker skips). Actual CI37489136391 bothSUCCESS; real Postgres17 storage64/balance22/transaction-query27/idempotency39/reversal40/cash-clearing-composition23 (215), THREE-migration recovery, both populated upgrades, exact6tables/10functions and owned/Composecleanup PASS. Existing overall m04_02_qa PASS for runtime8fdec plus inspected seven historical-line corrections; fresh834ledger/923control and53pure/38lifecycle probes PASS, no remaining finding. Root corrected cleanQA18/0/1 PASS.
+
+Changed: cash clearing source/unit/type/Postgres files and spec; ledger exports/bootstrap/test exclusion/README; sixth sequential composition suite in the existing owned runner; cumulative exact PR70 merge/10 owner/file/schema/lifecycle guards and100 control regressions; active plan/status/navigation/milestone/registry. Full29-path scope audit PASS;141 prior/forbidden paths, previous financial sources/tests/contracts/all THREE migrations, synthetic helpers, other apps/packages/dependencies/CI/fixtures, all18 raw acceptance rows and V1 unchanged.
+
+Behavior: explicit asset/debit-normal cash clearing wrapper over unchanged01 Account; no role guessing or ID generation. Journal helper captures one detached full catalog, requires exact clearing snapshot, active clearing, configured ledger/currency on all lines, clearing membership and a distinct counteraccount, and delegates complete04 validation. Executable1250/offset net-zero example, wrong role/class/side/currency/ledger/snapshot/account/lifecycle/imbalance/refusal tests. Wrapper is not persisted or universally enforced by existing SQL; composition acceptance is not durable role registration or external settlement proof. No write API, posting eligibility, repair approval, agent authority or evidence authentication.
+
+Validation commands: python scripts/validate-control-plane.py; python -m pytest tests/test_control_plane_bootstrap.py -q; pnpm --filter @causalledger/ledger typecheck/test/lint/build/format:check; python scripts/qa-dev-environment.py --allow-dirty; node --check scripts/test-ledger-storage.mjs; git diff --check; external scope audit. Local PASS; intermediate fullQA17PASS/0FAIL/2SKIPPED (dirty override, optionalDocker). Approved existing CI runs pnpm test:ledger-storage, prior64+22+27+39+40 plus10 composition suite, exact6tables/10functions, THREE-migration UP/DOWN/UP, both populated upgrades and owned/Compose cleanup. Actual acceptance/overall QA PASS as above; final tracking head re-review/cleanQA/CI required.
+
+Coordinator sole editor; existing overall m04_02_qa reused; read-only design auditor completed (no overall verdict). Root fixed the changing raw-catalog context by delegating captured catalog.value, with regression; corrected type tuple and accessor test-name formatting before candidate. Risks: caller-supplied source/role/tenancy/evidence remain unauthenticated; zero balance is not external settlement, localDB absent. Level6 N/A no eval/model. Root runs all tests; user runs none.
+
+Safe routine scoped ordinary stage/commit/push/sole PR update under original explicit authority: yes. Safe human merge only after actual final-head QA/cleanQA/bothCI/real acceptance PASS and ready state. Exact next thread: Merge M04.10 PR - Add cash clearing account. No11 until verified10 human merge; no agent merge/force/reset/amend/stash/branch deletion, installs/paid calls or duplicate chats/goals.
+
+
+Corrected8fdec treef57f8571308049de514db0bafc5e7507023303a1 matches both actual CI checkout73b2e60ee69dd1c09c9cef3ac53a77cb76792ec4 (parents78cc3+8fdec), full empty diff independently verified. Existing reviewer whole29-path review/145 broader protected paths/all18/V1 PASS; root141 protected financial/app/infra paths PASS. P2 exact-inventory assertion and P3 broad PR-link update are resolved: seven dated historical lines restored exactly from b706 before this final tracking commit.53pure/38lifecycle probes PASS. No source/DDL/test/control/runner change after corrected8fdec. Exact final head proof stays in solePR71; legitimate QA tracking only, no CI-copy-only commit.
