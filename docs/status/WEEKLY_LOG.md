@@ -1224,3 +1224,7 @@ M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.06 are Complete
 ## 2026-10-06 - M04.07 builder checkpoint
 
 Builder complete, awaiting QA; no current PR yet. Fresh ledger655/15files and control614/type/lint/build/format PASS; root intermediate full QA17/0/2 PASS. Mandatory real PostgreSQL acceptance and overall independent QA pending; driver tests are not database proof. Scope29/prior127/all18 PASS; exact-head QA/CI and human merge gate remain.
+
+## 2026-10-06 - M04.07 builder checkpoint
+
+Builder complete, awaiting QA; sole [PR #68](https://github.com/Islem-Rezzag/CausalLedger/pull/68). Fresh ledger655/15files and control614/type/lint/build/format PASS; root intermediate full QA17/0/2 PASS. Mandatory real PostgreSQL acceptance and overall independent QA pending; driver tests are not database proof. Scope29/prior127/all18 PASS; exact-head QA/CI and human merge gate remain.

@@ -6,7 +6,7 @@ M00-M03 closed; V1_PUBLIC_PRODUCT approved. M04.01-M04.06 Completed and merged. 
 
 ## Current submilestone and branch
 
-Current slice: M04.07 Add transaction query, Builder complete, awaiting QA, no current PR yet. Active milestone plan: `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. M04.08-M04.18 and M05-M21 Not started.
+Current slice: M04.07 Add transaction query, Builder complete, awaiting QA, sole [PR #68](https://github.com/Islem-Rezzag/CausalLedger/pull/68). Active milestone plan: `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. M04.08-M04.18 and M05-M21 Not started.
 
 Current branch: `m04-07-add-transaction-query`
 

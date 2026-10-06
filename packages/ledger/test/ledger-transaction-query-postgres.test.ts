@@ -169,6 +169,8 @@ describe("mandatory real PostgreSQL transaction query acceptance", () => {
       })),
     };
     await append(j, a);
+    // This200-line journal uses more than the helper's100-ID stride.
+    serial += 2;
     for (let i = 0; i < 50; i++) await append(fresh(a), a);
     const v = await read(list(a, 50));
     expect(v.transactions).toHaveLength(50);

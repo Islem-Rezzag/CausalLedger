@@ -16,7 +16,7 @@
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
   "currentMilestone": "M04.07",
   "currentBranch": "m04-07-add-transaction-query",
-  "currentPr": null,
+  "currentPr": 68,
   "latestMergedPr": 67,
   "latestMergeCommit": "471d76c6173208d33d7584756a6db0d433c29ec4",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
@@ -40,7 +40,7 @@
     "M04.04 pure journal validation: exact per-currency bigint equality, duplicate/refusal rules and frozen detached output (PR #65; completed and merged)",
     "M04.05 immutable synthetic journal storage; PR66 human merge/final independent QA and actual Postgres64/CI verified",
     "M04.06 read-only exact account balances; human PR67 merge and final QA/CI37455976639 real storage64/balance22 verified",
-    "M04.07 complete read-only transaction queries; local validation PASS; actual database acceptance/overall QA pending"
+    "M04.07 complete read-only transaction queries; local/database/overall QA PASS; human merge pending"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -79,7 +79,7 @@
   ],
   "exactNextAction": "EXISTING_OVERALL_QA_AND_REAL_POSTGRES_ACCEPTANCE_M04_07",
   "stopReason": "BUILDER_COMPLETE_QA_DATABASE_ACCEPTANCE_PENDING",
-  "lastUpdatedTimestamp": "2026-10-06T12:56:52Z",
+  "lastUpdatedTimestamp": "2026-10-06T12:57:55Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
