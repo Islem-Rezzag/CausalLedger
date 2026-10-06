@@ -1,6 +1,6 @@
 # Start Here
 
-M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.07 are Completed and merged; human PR68 merge584a452 matches reviewed e3190fb/tree5c0338e and exact final QA/clean QA18/0/1/CI37468260697 real113 verified. M04.08 Add idempotency keys is **QA passed, awaiting merge** on `m04-08-add-idempotency-keys`, sole [PR #69](https://github.com/Islem-Rezzag/CausalLedger/pull/69), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger728/17files, control716, ledger type/lint/build/format PASS; root pre-repair intermediate full QA17/0/2 PASS (dirty override and optional Docker skips). Actual CI37473167737 both jobs and real Postgres17 storage64/balance22/transaction-query27/idempotency39 (152), both-migration recovery, populated legacy preservation, exact schema/functions and owned/Compose cleanup PASS. Existing overall m04_02_qa PASS, both P2 repairs verified, no remaining finding. Final actual-head confirmation/clean QA/CI and human merge remain required; exact final proof stays in this sole PR. M04.09-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`.
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.08 are Completed and merged; human PR69 merge3e08322 matches reviewed00eb3cf/tree1260235 and exact final QA/clean QA18/0/1/CI37473789250 real152 verified. M04.09 Add reversal transaction type is **Builder complete, awaiting QA** on `m04-09-add-reversal-transaction-type`, no current PR yet, under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger789/19files, control823, ledger type/lint/build/format PASS; root intermediate full QA17/0/2 PASS (dirty override and optional Docker skips). Actual PostgreSQL acceptance and existing overall independent QA pending; driver doubles are not database evidence. Final actual-head confirmation/clean QA/CI and human merge remain required; exact final proof stays in this sole PR. M04.10-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`.
 
 Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 
@@ -63,7 +63,7 @@ The handoff packet must include files created, files changed, files intentionall
 
 - Do not implement product functionality outside the active submilestone.
 - Do not extend MoneyEvent logic beyond the active source-neutral boundary.
-- Keep ledger work inside current M04.08 idempotency keys; no later reversal, posting eligibility or agent financial authority. Independent QA and human merge gate every slice.
+- Keep ledger work inside current M04.09 full linked reversals; no later posting eligibility or agent financial authority. Independent QA and human merge gate every slice.
 - Do not implement invariants.
 - Do not implement the agent runtime.
 - Do not implement UI features.

@@ -138,6 +138,21 @@ export type {
   IdempotentLedgerJournalStore,
 } from "./ledger-idempotency.js";
 
+export {
+  LEDGER_REVERSAL_CONTRACT_VERSION,
+  LedgerReversalStorageError,
+  validateLedgerReversalCandidate,
+  createLedgerReversalStore,
+} from "./ledger-reversal.js";
+export type {
+  LedgerReversalCandidate,
+  LedgerReversalIdentity,
+  LedgerReversalValidationResult,
+  LedgerReversalReceipt,
+  LedgerReversalResult,
+  LedgerReversalStore,
+} from "./ledger-reversal.js";
+
 export const ledgerPackageBoundary = Object.freeze({
   packageName: "@causalledger/ledger",
   status: "ledger-schema-boundary",
@@ -153,6 +168,7 @@ export const ledgerPackageBoundary = Object.freeze({
   transactionQueriesImplemented: true,
   storageImplemented: true,
   idempotencyImplemented: true,
+  reversalsImplemented: true,
   agentWriteAuthority: false,
   financialTruthEstablishedByValidation: false,
 } as const);

@@ -60,7 +60,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md` - completed M01 plan.
 - `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md` - completed M02 plan.
 - `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md` - completed M03 plan.
-- `plans/active/CLP-0005-m04-double-entry-ledger-core.md` - current08 idempotency brief, verified PR68 merge/final QA/CI.
+- `plans/active/CLP-0005-m04-double-entry-ledger-core.md` - current09 reversal brief, verified PR69 merge/final QA/CI.
 - `plans/proposals/CLP-PROJECT-COMPLETION-GOAL.md` - proposed grouping overlay; milestone acceptance and per-PR gates remain authoritative.
 - `docs/status/M02_CLOSEOUT.md` - M02 closeout packet.
 - `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
@@ -125,7 +125,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.07 are Completed and merged; human PR68 merge584a452 matches reviewed e3190fb/tree5c0338e and exact final QA/clean QA18/0/1/CI37468260697 real113 verified. M04.08 Add idempotency keys is **QA passed, awaiting merge** on `m04-08-add-idempotency-keys`, sole [PR #69](https://github.com/Islem-Rezzag/CausalLedger/pull/69), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger728/17files, control716, ledger type/lint/build/format PASS; root pre-repair intermediate full QA17/0/2 PASS (dirty override and optional Docker skips). Actual CI37473167737 both jobs and real Postgres17 storage64/balance22/transaction-query27/idempotency39 (152), both-migration recovery, populated legacy preservation, exact schema/functions and owned/Compose cleanup PASS. Existing overall m04_02_qa PASS, both P2 repairs verified, no remaining finding. Final actual-head confirmation/clean QA/CI and human merge remain required; exact final proof stays in this sole PR. M04.09-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`.
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.08 are Completed and merged; human PR69 merge3e08322 matches reviewed00eb3cf/tree1260235 and exact final QA/clean QA18/0/1/CI37473789250 real152 verified. M04.09 Add reversal transaction type is **Builder complete, awaiting QA** on `m04-09-add-reversal-transaction-type`, no current PR yet, under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger789/19files, control823, ledger type/lint/build/format PASS; root intermediate full QA17/0/2 PASS (dirty override and optional Docker skips). Actual PostgreSQL acceptance and existing overall independent QA pending; driver doubles are not database evidence. Final actual-head confirmation/clean QA/CI and human merge remain required; exact final proof stays in this sole PR. M04.10-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`.
 
 - `docs/specs/ledger-account-balance-query.md` - M04.06 read-only exact account/currency totals, sign, cutoff and committed-snapshot semantics.
 - `docs/specs/ledger-transaction-query.md` - M04.07 complete journal identity/reference/account-currency queries and explicit page boundaries.

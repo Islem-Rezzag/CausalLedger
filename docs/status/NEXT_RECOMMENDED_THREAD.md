@@ -1,10 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-Merge M04.08 PR - Add idempotency keys
+M04.09 QA - Add reversal transaction type
 
 Precondition:
-Expected m04-08-add-idempotency-keys, scoped dirty edits allowed only within this slice, sole PR and active CLP-0005. Verified07 human merge/final QA/CI. Fresh ledger728/17files, control716, ledger type/lint/build/format PASS; root pre-repair intermediate full QA17/0/2 PASS (dirty override and optional Docker skips). Actual CI37473167737 both jobs and real Postgres17 storage64/balance22/transaction-query27/idempotency39 (152), both-migration recovery, populated legacy preservation, exact schema/functions and owned/Compose cleanup PASS. Existing overall m04_02_qa PASS, both P2 repairs verified, no remaining finding.
+Expected `m04-09-add-reversal-transaction-type`, scoped dirty edits allowed only within this slice, sole PR and active CLP-0005. Verified08 human merge/final QA/CI. Fresh ledger789/19files, control823, ledger type/lint/build/format PASS; root intermediate full QA17/0/2 PASS (dirty override and optional Docker skips). Actual PostgreSQL acceptance and existing overall independent QA pending; driver doubles are not database evidence.
 
 Scope:
-Confirm actual final-head independent review/root clean QA/both CI jobs/mandatory owned17 four suites, then human-only merge. Exact final evidence in sole PR; no CI-copy-only commit. No09 before verified08 merge, new chats/goals, installs, paid calls or agent authority.
+Reuse existing separate-context m04_02_qa, read-only full scoped review; no helpers or simultaneous pnpm/full-QA install. Mandatory real17 all five suites, root tests and actual final-head gates. Root sole editor; fixes stay on same branch/PR. No10 before verified09 merge, new chats/goals, installs, paid calls or agent authority.
