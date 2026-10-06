@@ -1,6 +1,6 @@
 # Local Environment Readiness
 
-Current delivery (2026-10-06): PR #66 human merge verified, final reviewed tree identical and final CI37446228689 both jobs/real64 PASS. M04.06 Builder is implementing the read-only balance query; new database acceptance and independent QA are pending. Original CLI workflow authorization is established; local Docker/Postgres remain unavailable. Earlier dated entries below are historical.
+Current delivery (2026-10-06): PR #66 human merge verified, final reviewed tree identical and final CI37446228689 both jobs/real64 PASS. M04.06 read-only balance candidate in PR #67 passes actual CI37455036023 (64 storage +22 balance, migrations/schema/owned cleanup), local560/control526 and dirty QA17/0/2. Overall independent QA PASS; final SHA-bound proof/merge readiness is maintained in sole PR #67. Original CLI workflow authorization is established; local Docker/Postgres remain unavailable. Earlier dated entries below are historical.
 
 ## Audit scope
 
@@ -155,7 +155,7 @@ Actual CI37445358766 on `4c3010d16268d9c5cbff4d791cb4eda5d4ccf37c` PASS: validat
 
 Full slice remains36 paths including8 new files listed in the earlier handoff. This operational update changes only existing scoped documentation/tracking/ledger README; implementation/CI/driver/migration/tests/validator unchanged from8e5c05b. Original Account/header/entry/journal code, other product packages/apps, fixtures/raw evidence, all18 acceptance/dependency rows and V1 remain untouched. Tests cover the brief's exact money, lossless account snapshots, atomic rollback, direct SQL defenses, durable duplicate IDs, concurrency, immutable history, privileges and acknowledgement boundaries; no posting eligibility, balance/general query, semantic retry, reversal or agent financial authority.
 
-Existing sole overall reviewer m04_02_qa is reviewing actual real database evidence; separate transition auditor checks its logs without code edits. Builder complete, awaiting QA; no overall QA PASS or final-head merge readiness yet. Root will validate this tracking checkpoint, obtain corrected-state review and final clean QA/CI, store final SHA-bound evidence in the same PR, and stop for human-only squash merge. Valid synthetic1250 debit/credit persists completely; unequal1249 refuses before connection. Root owns every test; optional VS Code learning command remains `corepack pnpm --filter @causalledger/ledger test`. Exact next thread: **M04.05 QA - Validate immutable transaction storage**. No M04.06 or native-goal completion.
+Existing sole overall reviewer m04_02_qa is reviewing actual real database evidence; separate transition auditor checks its logs without code edits. QA passed, awaiting merge; no overall QA PASS or final-head merge readiness yet. Root will validate this tracking checkpoint, obtain corrected-state review and final clean QA/CI, store final SHA-bound evidence in the same PR, and stop for human-only squash merge. Valid synthetic1250 debit/credit persists completely; unequal1249 refuses before connection. Root owns every test; optional VS Code learning command remains `corepack pnpm --filter @causalledger/ledger test`. Exact next thread: **M04.05 QA - Validate immutable transaction storage**. No M04.06 or native-goal completion.
 
 ## M04.05 candidate independent QA and final tracking handoff (2026-10-06T09:51:50Z)
 

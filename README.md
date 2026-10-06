@@ -12,9 +12,9 @@ CausalLedger helps fintech teams prove, replay, and safely repair money-movement
 
 ## Current status
 
-M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.05 are Completed and merged. PR #66 human merge `f5a5e910041611e0bf36184e4bc8fc483228a613` matches reviewed49ca97c/treee83dc0b; final independent QA, clean QA18/0/1 and CI37446228689 with real Postgres64 PASS verified. M04.06 Add account balance query is Builder in progress under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md` on `m04-06-add-account-balance-query`. No current query implementation/validation or PR is claimed yet. M04.07-M04.18 and M05-M21 remain Not started. Current results and merge readiness live in `docs/status/CURRENT_STATE.md`.
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.05 are Completed and merged. PR #66 human merge `f5a5e910041611e0bf36184e4bc8fc483228a613` matches reviewed head49ca97c/treee83dc0b; final independent QA and CI37446228689 verified. M04.06 Add account balance query is **QA passed, awaiting merge** on `m04-06-add-account-balance-query`, sole [PR #67](https://github.com/Islem-Rezzag/CausalLedger/pull/67), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Candidate2da8a60 passed local ledger560/control526 and CI37455036023 including64 storage +22 balance real Postgres17 tests. Existing overall independent QA PASS; final SHA-bound re-review/clean QA/CI evidence is maintained in sole PR #67 before marking ready for human merge. M04.07-M04.18 and M05-M21 remain Not started. Current results and merge readiness live in `docs/status/CURRENT_STATE.md`.
 
-The implemented runtime includes source-neutral MoneyEvent validation/normalization, Account/header/entry/journal contracts and immutable synthetic storage merged in PR #66 after actual Postgres64 tests. Current M04.06 account balance query is planned in the active brief, not accepted yet. No posting eligibility, transaction lookup, semantic retry, reversal, downstream incident/replay/repair/agent runtime, benchmark runner or product UI. Deterministic stored arithmetic is not evidence authentication or financial truth.
+The implemented runtime includes source-neutral MoneyEvent validation/normalization, Account/header/entry/journal contracts and immutable synthetic storage merged in PR #66 after actual Postgres64 tests. M04.06 read-only balance query has passed local/actual Postgres acceptance and overall independent QA; final SHA-bound proof and human merge readiness are maintained in sole PR #67. No posting eligibility, transaction lookup, semantic retry, reversal, downstream incident/replay/repair/agent runtime, benchmark runner or product UI. Deterministic stored arithmetic is not evidence authentication or financial truth.
 
 ## What CausalLedger is
 
@@ -152,4 +152,5 @@ See `plans/ROADMAP.md` and `docs/milestones/SUBMILESTONE_REGISTRY.md` for the ca
 
 Codex understands the repo and can continue from active docs without relying on chat memory.
 
+- `docs/specs/ledger-account-balance-query.md` - M04.06 exact read-only balances, sign, cutoffs and committed snapshot limits.
 - `docs/specs/ledger-immutable-storage.md` - M04.05 atomic immutable synthetic storage, encoding, disposable tests and acknowledgement limits.

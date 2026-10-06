@@ -2,7 +2,7 @@
 
 ## Status and boundary
 
-Contract `m04.06-account-balance.v1`, owned by `packages/ledger`. Builder implementation; acceptance and independent QA are recorded in the active plan and current status. This is an exact read of selected stored entries, not posting, account creation, repair approval, evidence authentication or financial truth. M04.07 transaction lookup and later rows remain unimplemented until their own merge gates.
+Contract `m04.06-account-balance.v1`, owned by `packages/ledger`. Implemented and accepted by local/actual PostgreSQL tests and overall independent QA; final SHA-bound merge-readiness proof is maintained in sole PR #67 and the active plan/current status. Human merge remains required. This is an exact read of selected stored entries, not posting, account creation, repair approval, evidence authentication or financial truth. M04.07 transaction lookup and later rows remain unimplemented until their own merge gates.
 
 ## Input and output
 

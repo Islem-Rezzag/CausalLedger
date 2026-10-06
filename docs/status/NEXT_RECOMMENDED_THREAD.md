@@ -1,10 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-M04.06 Builder - Add account balance query
+Merge M04.06 PR - Add account balance query
 
 Precondition:
-PR #66 actual human mergef5a5e910041611e0bf36184e4bc8fc483228a613 and reviewed49ca97c share treee83dc0b; empty diff/main reachability and exact final independent QA/clean QA18/0/1/CI37446228689 real64 PASS verified. Expected branch `m04-06-add-account-balance-query` created from clean fast-forwarded main; no current PR.
+Same branch `m04-06-add-account-balance-query`, sole PR #67, active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; overall independent m04_02_qa PASS. Final actual SHA-bound re-review, clean QA and both CI jobs with mandatory real Postgres acceptance must PASS in PR #67 before ready/human merge. Existing candidate2da8a60 local ledger560/control526 and CI37455036023 storage64/balance22/migration/schema/owned cleanup PASS.
 
 Scope:
-Execute generated activeCLP-0005 M04.06 brief for a read-only exact balance query with supplied Account/sign/cutoffs and one committed snapshot. Run all unit/type/control and real Postgres tests through approved existing owned CI; preserve previous64 storage tests/migration/schema/cleanup. Existing overall reviewer, one branch/PR, final-head QA/CI and human-only merge. Preserve V1/all18; no07, installs, paid calls or agent financial authority. The user runs no tests.
+Human-only review/merge. Root runs final checks; user runs no tests. After the user reports merge, verify exact merged/reviewed tree, empty diff, fetched-main reachability and final QA/CI, then finalize06 and start M04.07 Builder - Add transaction query. No07 before verified06 merge; no duplicate05 QA/new chats/goals/helpers, installs, paid calls or agent financial authority. Preserve V1/all18 and earlier contracts/storage/migration. Final evidence stays in this same PR without a CI-copy-only commit.

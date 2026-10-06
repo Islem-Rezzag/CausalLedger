@@ -16,13 +16,13 @@
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
   "currentMilestone": "M04.06",
   "currentBranch": "m04-06-add-account-balance-query",
-  "currentPr": null,
+  "currentPr": 67,
   "latestMergedPr": 66,
   "latestMergeCommit": "f5a5e910041611e0bf36184e4bc8fc483228a613",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "M04_06_LEDGER560_CONTROL526_DIRTY_QA17_0_2_PASS_ACTUAL_DB_PENDING",
-  "remoteCiStatus": "M04_06_NOT_RUN_PRIOR_M04_05_CI37446228689_PASS",
-  "dockerStatus": "UNAVAILABLE_LOCALLY_REAL_POSTGRES17_CI64_PASS",
+  "localTestStatus": "M04_06_LEDGER560_CONTROL526_DIRTY_QA17_0_2_PASS",
+  "remoteCiStatus": "M04_06_CI37455036023_BOTH_JOBS_PASS_STORAGE64_BALANCE22",
+  "dockerStatus": "UNAVAILABLE_LOCALLY_REAL_POSTGRES17_CI86_PASS",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
     "M00 repository operating system",
@@ -39,13 +39,13 @@
     "M04.03 LedgerEntry wire/amount/reference validation (PR #64; completed and merged)",
     "M04.04 pure journal validation: exact per-currency bigint equality, duplicate/refusal rules and frozen detached output (PR #65; completed and merged)",
     "M04.05 immutable synthetic journal storage; PR66 human merge/final independent QA and actual Postgres64/CI verified",
-    "M04.06 read-only balance query candidate; exact bigint sign/cutoff/MVCC contract; actual DB acceptance and independent QA pending"
+    "M04.06 read-only exact account/currency balance query; local/real Postgres acceptance and overall independent QA PASS, sole PR67 awaiting human merge"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
     "ingestion or raw evidence persistence",
     "product database schemas outside immutable ledger storage",
-    "posting eligibility, account balance query acceptance and transaction queries, semantic retry and reversals",
+    "posting eligibility, transaction queries, semantic retry and reversals",
     "financial invariant engine",
     "provider and bank simulator execution",
     "incident lifecycle",
@@ -60,7 +60,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "M04.06 actual database acceptance, independent QA and human merge remain",
+    "M04.06 human merge required after final SHA-bound proof in sole PR67; later slices remain gated",
     "no live-model provider/model/call-count/budget approved"
   ],
   "risks": [
@@ -76,9 +76,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "BUILD_AND_VALIDATE_M04_06_ACCOUNT_BALANCE_QUERY",
-  "stopReason": "BUILDER_IN_PROGRESS",
-  "lastUpdatedTimestamp": "2026-10-06T11:13:55Z",
+  "exactNextAction": "HUMAN_REVIEW_AND_MERGE_M04_06_PR67_AFTER_FINAL_SHA_GATES",
+  "stopReason": "QA_PASSED_AWAITING_HUMAN_MERGE_FINAL_SHA_PROOF_IN_PR67",
+  "lastUpdatedTimestamp": "2026-10-06T11:20:46Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -148,5 +148,16 @@
     "mergedTree": "e83dc0b1748f47a76e72fd12e9332f98e399b17a",
     "ciRun": 37446228689,
     "independentQa": "PASS"
+  },
+  "currentQaEvidence": {
+    "reviewer": "m04_02_qa",
+    "candidateHead": "2da8a60b422885ba54eabf82ec1de5562dc0a48f",
+    "result": "PASS",
+    "unitTests": 560,
+    "controlTests": 526,
+    "realStorageTests": 64,
+    "realBalanceTests": 22,
+    "ciRun": 37455036023,
+    "finalShaBoundRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/67"
   }
 }
