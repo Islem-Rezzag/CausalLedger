@@ -226,11 +226,18 @@ describe("M04.10 mandatory real PostgreSQL17 cash clearing composition", () => {
     expect(record.journal.transaction.status).toBe("pending");
     expect(Object.keys(record.journal.transaction)).not.toContain("settled");
     const tables = (
-      await owner.query(
-        "SELECT count(*)::text AS count FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE' AND table_name<>'pgmigrations'",
+      await owner.query<{ tablename: string }>(
+        "SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename",
       )
-    ).rows[0] as { count: string };
-    expect(tables.count).toBe("6");
+    ).rows.map((row) => row.tablename);
+    expect(tables).toEqual([
+      "ledger_account_snapshots",
+      "ledger_entries",
+      "ledger_idempotency_keys",
+      "ledger_reversals",
+      "ledger_transactions",
+      "pgmigrations",
+    ]);
   });
   it.each([
     "wrong role",
