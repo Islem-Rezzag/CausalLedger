@@ -1,6 +1,6 @@
 # Local Environment Readiness
 
-Current delivery (2026-10-06): original CLI workflow approval/normal push succeeded; sole draft PR #66. Actual CI37445358766 both jobs and real Postgres17 acceptance64/migrations/schema/owned cleanup PASS. Local Docker/Postgres remain unavailable; candidate independent QA PASS; final tracking-head checks pending. Earlier dated audit/authorization entries below are historical.
+Current delivery (2026-10-06): PR #66 human merge verified, final reviewed tree identical and final CI37446228689 both jobs/real64 PASS. M04.06 Builder is implementing the read-only balance query; new database acceptance and independent QA are pending. Original CLI workflow authorization is established; local Docker/Postgres remain unavailable. Earlier dated entries below are historical.
 
 ## Audit scope
 
@@ -164,3 +164,7 @@ Existing separate-context overall reviewer m04_02_qa returned **provisional over
 Root's17 existing scoped documentation/tracking edits record original CLI authorization success, sole PR #66, real database acceptance and candidate QA PASS. Initial control validation caught missing current-slice/current-branch labels, source-neutral MoneyEvent wording, the cumulative capability marker and PR-column format. Corrected on attempt one without changing validator/assertions. Corrected control validator and whitespace PASS; no source/CI/migration/test/manifest/driver change or additional product path. Status **QA passed, awaiting merge** reflects candidate QA; final committed tracking-head re-review, clean QA and exact-head CI are explicitly still required before readiness.
 
 Root will commit/push only these inspected17 scoped paths on this same branch/PR; no history rewrite, merge or next slice. Existing reviewer performs final tracking recheck, root executes clean QA and confirms real Postgres/required CI on the actual final head. Store final SHA-bound review/CI in PR #66 rather than another preceding-CI documentation commit. Safe to merge only after those final gates. Exact next thread: **Merge M04.05 PR - Add immutable transaction storage**; human-only review/squash merge, then verify merge before M04.06. Valid synthetic1250/1250 stores all rows;1250/1249 refuses before connection. No posting eligibility, lookup/balance API, semantic retry, reversal, financial truth or agent financial authority. No local Docker, system install, paid call or production connection.
+
+## 2026-10-06 - M04.05 merged; M04.06 Builder started
+
+Human PR66 mergef5a5e910041611e0bf36184e4bc8fc483228a613 verified by reviewed treee83dc0b/emptydiff/main reachability and exact final independent QA/CI37446228689 with real64 tests. Safely advanced clean main and created m04-06-add-account-balance-query; guard passed. Generated06 Account/sign/cutoff/snapshot/conflict/readonly exact-money brief before coding; status/goal/registry updated, all18/V1 and prior contracts preserved. Validation pending for06; no query guarantee, currentPR, migration/dependency change, later slice or agent financial authority. Existing independent reviewer and actual finalhead CI remain required; root runs every test.

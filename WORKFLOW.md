@@ -54,7 +54,7 @@ Use `docs/ops/repo-operating-system-freeze.md` and `docs/status/M00_FREEZE_READI
 
 Use `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md` for release versioning, release-scope, and overclaim-prevention guidance.
 
-M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01-M04.03 are Completed and merged; entry PR #64 human-merged at `4a5637c8eab842b368e046b0994a620ecb08e90b`, matching its reviewed tree. M04.04 Enforce debit equals credit is active under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; M04.05-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.05 are Completed and merged. PR #66 human merge `f5a5e910041611e0bf36184e4bc8fc483228a613` matches reviewed49ca97c/treee83dc0b; final independent QA, clean QA18/0/1 and CI37446228689 with real Postgres64 PASS verified. M04.06 Add account balance query is Builder in progress under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md` on `m04-06-add-account-balance-query`. No current query implementation/validation or PR is claimed yet. M04.07-M04.18 and M05-M21 remain Not started. Current results and merge readiness live in `docs/status/CURRENT_STATE.md`.
 
 ## Sandbox assumptions
 

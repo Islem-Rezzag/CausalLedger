@@ -112,7 +112,7 @@ Completed execution:
 
 Active execution:
 
-- M00-M03 are closed and `V1_PUBLIC_PRODUCT` is approved. M04.01-M04.04 are Completed and merged; PR #65 human merge `526bb66dda5d9c8b9aebd85775142e8d22c3a73a` matches its reviewed tree. M04.05 Add immutable transaction storage is QA passed, awaiting merge under `plans/active/CLP-0005-m04-double-entry-ledger-core.md`, on [PR #66](https://github.com/Islem-Rezzag/CausalLedger/pull/66). The original GitHub CLI workflow authorization and scoped push succeeded. Actual disposable PostgreSQL17 acceptance passed 64 tests, migration up/down/up, schema inspection and owned-resource cleanup in CI37445358766 on `4c3010d16268d9c5cbff4d791cb4eda5d4ccf37c`; both CI jobs passed. Candidate overall independent QA PASS; final tracking-head review, clean QA and CI remain pending before human merge. M04.06-M04.18 and M05-M21 remain `Not started`. Current validation and merge readiness live in `docs/status/CURRENT_STATE.md`.
+- M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.05 are Completed and merged. PR #66 human merge `f5a5e910041611e0bf36184e4bc8fc483228a613` matches reviewed49ca97c/treee83dc0b; final independent QA, clean QA18/0/1 and CI37446228689 with real Postgres64 PASS verified. M04.06 Add account balance query is Builder in progress under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md` on `m04-06-add-account-balance-query`. No current query implementation/validation or PR is claimed yet. M04.07-M04.18 and M05-M21 remain Not started. Current results and merge readiness live in `docs/status/CURRENT_STATE.md`.
 
 Plan state:
 

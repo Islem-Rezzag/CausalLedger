@@ -220,6 +220,15 @@ try {
     testEnv,
   );
   console.log("PASS: Mandatory real PostgreSQL storage acceptance completed");
+  // Run sequentially in the same owned database; keep M04.05 acceptance mandatory.
+  child(
+    [
+      fileURLToPath(new URL("../packages/ledger/node_modules/vitest/vitest.mjs", import.meta.url)),
+      "run", "test/ledger-account-balance-postgres.test.ts", "--root", "packages/ledger",
+    ],
+    testEnv,
+  );
+  console.log("PASS: Mandatory real PostgreSQL account balance acceptance completed");
 } catch (error) {
   console.error("FAIL: " + sanitize(error.message));
   process.exitCode = 1;

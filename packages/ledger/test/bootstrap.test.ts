@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import * as ledger from "../src/index.js";
 
 describe("@causalledger/ledger schema boundary", () => {
-  it("exposes schema, journal arithmetic and isolated storage without posting", () => {
+  it("exposes schema, journal arithmetic, isolated storage and read-only balances", () => {
     expect(ledger.ledgerPackageBoundary).toEqual({
       packageName: "@causalledger/ledger",
       status: "ledger-schema-boundary",
@@ -15,7 +15,7 @@ describe("@causalledger/ledger schema boundary", () => {
       deterministicEntryValidationImplemented: true,
       deterministicJournalValidationImplemented: true,
       postingImplemented: false,
-      balanceQueriesImplemented: false,
+      balanceQueriesImplemented: true,
       storageImplemented: true,
       agentWriteAuthority: false,
       financialTruthEstablishedByValidation: false,
@@ -26,6 +26,7 @@ describe("@causalledger/ledger schema boundary", () => {
       "ACCOUNT_CURRENCIES",
       "ACCOUNT_NORMAL_BALANCES",
       "ACCOUNT_STATUSES",
+      "LEDGER_ACCOUNT_BALANCE_CONTRACT_VERSION",
       "LEDGER_ENTRY_CONTRACT_VERSION",
       "LEDGER_ENTRY_MAX_MINOR_UNITS",
       "LEDGER_ENTRY_SIDES",
@@ -33,11 +34,14 @@ describe("@causalledger/ledger schema boundary", () => {
       "LEDGER_STORAGE_CONTRACT_VERSION",
       "LEDGER_TRANSACTION_CONTRACT_VERSION",
       "LEDGER_TRANSACTION_STATUSES",
+      "LedgerAccountBalanceReadError",
       "LedgerJournalStorageError",
+      "createLedgerAccountBalanceReader",
       "createLedgerJournalStore",
       "ledgerPackageBoundary",
       "validateAccountCandidate",
       "validateAccountCatalog",
+      "validateLedgerAccountBalanceQueryCandidate",
       "validateLedgerEntryCandidate",
       "validateLedgerJournalCandidate",
       "validateLedgerTransactionCandidate",
