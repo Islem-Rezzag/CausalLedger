@@ -37,7 +37,9 @@ M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.08 are Complete
 - [x] M04.06 overall independent QA PASS on candidate2da8a60 plus inspected root-owned current tracking.
 - [x] M04.06 and M04.07 exact final QA/CI/human merges verified; PR68 reviewed e3190fb/tree5c0338e and merge584a452 match.
 - [x] M04.08 brief/branch/scope and local validation PASS.
-- [ ] M04.08 actual final-head gates and human merge, then verify before09.
+- [x] M04.08 exact final QA/CI37473789250 and human PR69 merge3e08322 verified before09.
+- [x] M04.09 guarded scoped implementation/local validation, sole draft PR70.
+- [ ] M04.09 corrected database acceptance/overall QA, exact final gates and human merge; verify before10.
 
 ## Surprises & Discoveries
 
@@ -643,3 +645,10 @@ Validation commands: python scripts/validate-control-plane.py; python -m pytest 
 Coordinator sole editor; existing separate-context overall m04_02_qa reused, read-only design auditor completed (no overall verdict). Initial self-check corrected restricted-role guard, fixture/type/format/status issues before candidate. Risks: unknown acknowledgement requires explicit same-original/material-payload retry; localDB absent; older append paths and caller-supplied tenancy/evidence unauthenticated. Level6 N/A no eval/model. Root runs all tests; user runs none.
 
 Safe scoped ordinary stage/commit/push/sole PR update under original explicit authority: yes. Safe human merge only after actual final-head QA/cleanQA/bothCI/real acceptance PASS and ready state. Exact next thread: M04.09 QA - Add reversal transaction type. No10 until verified09 human merge; no agent merge/force/reset/amend/stash/branch deletion, installs/paid calls or duplicate chats/goals.
+
+
+## M04.09 first candidate acceptance repairs (2026-10-06)
+
+Candidate c2fc42900e013701de028f52f27c69db9c397bb8, sole draft PR70, root cleanQA18/0/1 PASS. First CI37480819957 infra112328156466: prior real64/22/27/39, THREE-migration recovery, both populated upgrades, exact6tables/10functions and owned/Compose cleanup PASS; new09 suite20FAIL/19PASS. PostgreSQL containment/JSON operator precedence broke the provenance comparison; one nonposted fixture used unsupported reversed status. Existing overall reviewer found P2: original entry IDs were refused by pure comparison and initial writes but could pass committed semantic replay. Root repair attempt1 per defect parenthesizes both containment operands, uses supported rejected fixture and explicitly checks original entry-ID overlap before every08 composition, with committed replay regression and valid retry recovery. Existing API/DDL unchanged; no acceptance weakening. Corrected CI/overall verdict pending; no human merge readiness yet.
+
+The same repair records the reviewer P3 README correction:08 four-suite/two-migration statements are historical with verified PR69 proof; current09 requires five-suite/three-migration staged upgrade acceptance. FirstCI completed: validateSUCCESS, infra-smokeFAIL; corrected root/CI/overall review pending.

@@ -63,6 +63,9 @@ BEGIN
     INTO original,snapshots FROM public.ledger_transactions t WHERE t.id=original_id AND t.ledger_id=h->>'ledgerId';
   IF NOT FOUND OR original->'transaction'->>'status'<>'posted'
   THEN RAISE EXCEPTION 'Matching posted original required' USING ERRCODE='23514'; END IF;
+  IF EXISTS(SELECT 1 FROM jsonb_array_elements(journal->'entries') attempted
+    JOIN public.ledger_entries stored ON stored.transaction_id=original_id AND stored.id=attempted->>'id')
+  THEN RAISE EXCEPTION 'Reversal entries require new immutable identities' USING ERRCODE='23505'; END IF;
   original_semantic:=public.ledger_idempotency_payload(original,snapshots);
   SELECT jsonb_agg(jsonb_set(value,'{side}',to_jsonb(CASE WHEN value->>'side'='debit' THEN 'credit'::text ELSE 'debit'::text END))
     ORDER BY value->>'accountId' COLLATE "C", CASE WHEN value->>'side'='debit' THEN 'credit' ELSE 'debit' END COLLATE "C",
@@ -70,8 +73,8 @@ BEGIN
     INTO expected_entries FROM jsonb_array_elements(original_semantic->'entries');
   IF semantic->'entries' IS DISTINCT FROM expected_entries OR semantic->'accounts' IS DISTINCT FROM original_semantic->'accounts'
   THEN RAISE EXCEPTION 'Full inverse multiset and original Account snapshots required' USING ERRCODE='23514'; END IF;
-  IF NOT (h->'provenance'->'moneyEventIds' @> original->'transaction'->'provenance'->'moneyEventIds') OR
-     NOT (h->'provenance'->'evidence' @> original->'transaction'->'provenance'->'evidence')
+  IF NOT ((h->'provenance'->'moneyEventIds') @> (original->'transaction'->'provenance'->'moneyEventIds')) OR
+     NOT ((h->'provenance'->'evidence') @> (original->'transaction'->'provenance'->'evidence'))
   THEN RAISE EXCEPTION 'Original provenance must be retained' USING ERRCODE='23514'; END IF;
   receipt:=public.append_idempotent_ledger_journal(journal,accounts);
   IF NOT has_link THEN

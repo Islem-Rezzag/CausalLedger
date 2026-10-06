@@ -367,7 +367,7 @@ describe("mandatory owned real17 full reversals", () => {
         persisted,
       );
   });
-  it.each(["pending", "reversed", "voided"])(
+  it.each(["pending", "rejected", "voided"])(
     "refuses original status %s without candidate writes",
     async (status) => {
       const j = change(original(), ["transaction", "status"], status);
@@ -512,6 +512,29 @@ describe("mandatory owned real17 full reversals", () => {
       direct(request, snapshots(request.journal, a)),
     ).rejects.toMatchObject({ code: "23514" });
     await absent(request.journal);
+  });
+  it("committed replay also refuses original entry IDs before returning a receipt", async () => {
+    const j = original();
+    await seed(j);
+    const request = reversal(j);
+    const receipt = (await direct(request, snapshots(request.journal))).rows[0]
+      .receipt;
+    const bad = change(
+      retry(request),
+      ["journal", "entries", "0", "id"],
+      j.entries[0]!.id,
+    );
+    expect(
+      validateLedgerReversalCandidate(bad, j, catalog(), catalog()).ok,
+    ).toBe(false);
+    await expect(direct(bad, snapshots(bad.journal))).rejects.toMatchObject({
+      code: "23505",
+    });
+    await absent(bad.journal);
+    const valid = retry(request);
+    expect(
+      (await direct(valid, snapshots(valid.journal))).rows[0].receipt,
+    ).toEqual(receipt);
   });
   it("duplicate original entry IDs refuse atomically without a journal/key/link", async () => {
     const j = original();
