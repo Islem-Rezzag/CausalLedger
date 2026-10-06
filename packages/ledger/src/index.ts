@@ -164,6 +164,19 @@ export type {
   CashClearingAccountIssue,
   CashClearingAccountValidationResult,
 } from "./cash-clearing-account.js";
+export {
+  PROVIDER_CLEARING_ACCOUNT_CONTRACT_VERSION,
+  validateProviderClearingAccountCandidate,
+  validateProviderClearingJournalCandidate,
+} from "./provider-clearing-account.js";
+export type {
+  ProviderClearingReference,
+  ProviderClearingJournalContextCandidate,
+  ProviderClearingAccountCandidate,
+  ProviderClearingAccount,
+  ProviderClearingAccountIssue,
+  ProviderClearingAccountValidationResult,
+} from "./provider-clearing-account.js";
 export const ledgerPackageBoundary = Object.freeze({
   packageName: "@causalledger/ledger",
   status: "ledger-schema-boundary",
@@ -181,6 +194,7 @@ export const ledgerPackageBoundary = Object.freeze({
   idempotencyImplemented: true,
   reversalsImplemented: true,
   cashClearingConfigurationImplemented: true,
+  providerClearingConfigurationImplemented: true,
   agentWriteAuthority: false,
   financialTruthEstablishedByValidation: false,
 } as const);

@@ -21,6 +21,7 @@ describe("@causalledger/ledger schema boundary", () => {
       idempotencyImplemented: true,
       reversalsImplemented: true,
       cashClearingConfigurationImplemented: true,
+      providerClearingConfigurationImplemented: true,
       agentWriteAuthority: false,
       financialTruthEstablishedByValidation: false,
     });
@@ -47,6 +48,7 @@ describe("@causalledger/ledger schema boundary", () => {
       "LedgerJournalStorageError",
       "LedgerReversalStorageError",
       "LedgerTransactionReadError",
+      "PROVIDER_CLEARING_ACCOUNT_CONTRACT_VERSION",
       "createIdempotentLedgerJournalStore",
       "createLedgerAccountBalanceReader",
       "createLedgerJournalStore",
@@ -64,6 +66,8 @@ describe("@causalledger/ledger schema boundary", () => {
       "validateLedgerReversalCandidate",
       "validateLedgerTransactionCandidate",
       "validateLedgerTransactionQueryCandidate",
+      "validateProviderClearingAccountCandidate",
+      "validateProviderClearingJournalCandidate",
     ]);
   });
 });
