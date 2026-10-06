@@ -1,0 +1,13 @@
+# Cash clearing account — M04.10
+
+The `m04.10-cash-clearing-account.v1` contract is an explicit caller-supplied `{ contractVersion, role: "cash_clearing", account }` configuration. Cash clearing represents temporary cash movement expected to settle into another cash or bank account. It is an asset with debit-normal accounting metadata; the five M04.01 accounting categories are unchanged. No role is inferred from names, IDs, balances or model output.
+
+`validateCashClearingAccountCandidate(unknown)` validates strict own enumerable data fields and delegates every Account field to M04.01. Account ID, ledger, owner, name, currency and active/closed status are required. USD/EUR/GBP are supported. Success returns a detached frozen snapshot; refusal returns deterministic issues with no partial value. Closed configuration is inspectable.
+
+`validateCashClearingJournalCandidate(unknown, clearingConfiguration, suppliedAccounts)` validates the complete catalog, requires an exact matching clearing Account snapshot and active clearing metadata, then delegates complete header/entry/arithmetic validation to M04.04 using the detached catalog. The journal must use the configured ledger and currency on every line, include the clearing account and a distinct counteraccount, and balance with exact bigint arithmetic. Counteraccounts follow existing Account/entry rules; this slice does not invent bank ownership or external cash classifications. Success is an ordinary detached frozen M04.04 journal. No ID generation, persistence, posting eligibility, approval, application or agent write tool is exposed.
+
+The executable example debits cash clearing by 1250 and credits a separate supplied cash account by 1250. A later explicitly supplied opposite journal reduces both balances to zero. Both inclusive balance-query clocks still apply. A zero balance establishes arithmetic on stored supplied metadata, not external settlement, evidence authenticity, authorization or financial truth.
+
+The role wrapper is not stored in M04.05 account snapshots and has no durable registry. Callers explicitly compose the pure validator with already reviewed storage APIs; those APIs and SQL do not universally enforce this business role. The mandatory sixth PostgreSQL17 suite tests that composition, exact Account/journal readback, immutable original history, currency separation, cutoff behavior, bigint arithmetic and pre-I/O refusal. It runs after all five existing suites on the owned disposable synthetic database. All three existing migrations remain byte-identical; no DDL is added. No live source, money or ledger mutation is authorized by this contract.
+
+M04.11 provider clearing and later business roles remain unimplemented.

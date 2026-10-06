@@ -153,6 +153,17 @@ export type {
   LedgerReversalStore,
 } from "./ledger-reversal.js";
 
+export {
+  CASH_CLEARING_ACCOUNT_CONTRACT_VERSION,
+  validateCashClearingAccountCandidate,
+  validateCashClearingJournalCandidate,
+} from "./cash-clearing-account.js";
+export type {
+  CashClearingAccountCandidate,
+  CashClearingAccount,
+  CashClearingAccountIssue,
+  CashClearingAccountValidationResult,
+} from "./cash-clearing-account.js";
 export const ledgerPackageBoundary = Object.freeze({
   packageName: "@causalledger/ledger",
   status: "ledger-schema-boundary",
@@ -169,6 +180,7 @@ export const ledgerPackageBoundary = Object.freeze({
   storageImplemented: true,
   idempotencyImplemented: true,
   reversalsImplemented: true,
+  cashClearingConfigurationImplemented: true,
   agentWriteAuthority: false,
   financialTruthEstablishedByValidation: false,
 } as const);
