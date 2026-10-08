@@ -14,7 +14,7 @@ import type {
 } from "../src/index.js";
 import { balanceAccounts, balanceJournal } from "./balance-synthetic.js";
 import { storageAccounts, syntheticId } from "./storage-synthetic.js";
-const FEE_SOURCE = Object.freeze({
+const REVENUE_SOURCE = Object.freeze({
   namespace: "synthetic.revenue",
   id: "revenue-A",
 });
@@ -31,7 +31,7 @@ function revenueJournal(
       ...j.transaction,
       provenance: {
         ...j.transaction.provenance,
-        source: FEE_SOURCE,
+        source: REVENUE_SOURCE,
         moneyEventIds: [`evt_${syntheticId(n)}`],
       },
     },
@@ -64,7 +64,7 @@ const check = (
   accounts: unknown = catalog(),
 ) =>
   validateRevenueJournalCandidate(input, role, {
-    source: FEE_SOURCE,
+    source: REVENUE_SOURCE,
     accounts,
   });
 describe("explicit pure revenue role", () => {
@@ -364,7 +364,7 @@ describe("revenue context delegates full journal validation", () => {
 
 const sourceCheck = (
   input: unknown = journal(),
-  source: unknown = FEE_SOURCE,
+  source: unknown = REVENUE_SOURCE,
   accounts: unknown = catalog(),
 ) => validateRevenueJournalCandidate(input, wrapper(), { source, accounts });
 const invalidSources = [
@@ -381,7 +381,7 @@ describe("explicit per-journal revenue source consistency", () => {
   it.each(["namespace", "id"] as const)(
     "refuses source %s mismatch without deriving it from owner/name",
     (field) => {
-      const source = { ...FEE_SOURCE, [field]: "other" };
+      const source = { ...REVENUE_SOURCE, [field]: "other" };
       expect(sourceCheck(journal(), source)).toMatchObject({
         ok: false,
         issues: [{ path: "$.transaction.provenance.source" }],
@@ -416,7 +416,7 @@ describe("explicit per-journal revenue source consistency", () => {
       j = change(journal(), ["transaction", "provenance", "source"], source);
     expect(sourceCheck(j, source).ok).toBe(true);
     expect(sourceCheck().ok).toBe(true);
-    expect(catalog()[0].owner).not.toEqual(FEE_SOURCE);
+    expect(catalog()[0].owner).not.toEqual(REVENUE_SOURCE);
   });
   it("accepts full-span canonical length/punctuation/case exactly without normalization", () => {
     const source = {
@@ -439,8 +439,8 @@ describe("explicit per-journal revenue source consistency", () => {
     [],
     {},
     new Date(),
-    { source: FEE_SOURCE },
-    { source: FEE_SOURCE, accounts: catalog(), extra: true },
+    { source: REVENUE_SOURCE },
+    { source: REVENUE_SOURCE, accounts: catalog(), extra: true },
   ])("refuses nonstrict source context %s", (ctx) => {
     expect(validateRevenueJournalCandidate(journal(), wrapper(), ctx).ok).toBe(
       false,
@@ -453,7 +453,7 @@ describe("explicit per-journal revenue source consistency", () => {
           throw new Error("private");
         }),
         ctx = Object.defineProperty(
-          { source: FEE_SOURCE, accounts: catalog() },
+          { source: REVENUE_SOURCE, accounts: catalog() },
           field,
           { get: getter, enumerable: true },
         );
@@ -469,7 +469,7 @@ describe("explicit per-journal revenue source consistency", () => {
       const getter = vi.fn(() => {
           throw new Error("private");
         }),
-        source = Object.defineProperty({ ...FEE_SOURCE }, field, {
+        source = Object.defineProperty({ ...REVENUE_SOURCE }, field, {
           get: getter,
           enumerable: true,
         });
@@ -480,17 +480,17 @@ describe("explicit per-journal revenue source consistency", () => {
   it.each(["hidden", "symbol", "extra", "class", "trap"])(
     "refuses nondata source %s",
     (kind) => {
-      let source: unknown = { ...FEE_SOURCE };
+      let source: unknown = { ...REVENUE_SOURCE };
       if (kind === "hidden")
-        source = Object.defineProperty({ ...FEE_SOURCE }, "id", {
-          value: FEE_SOURCE.id,
+        source = Object.defineProperty({ ...REVENUE_SOURCE }, "id", {
+          value: REVENUE_SOURCE.id,
           enumerable: false,
         });
       if (kind === "symbol")
-        source = { ...FEE_SOURCE, [Symbol("extra")]: true };
-      if (kind === "extra") source = { ...FEE_SOURCE, owner: true };
+        source = { ...REVENUE_SOURCE, [Symbol("extra")]: true };
+      if (kind === "extra") source = { ...REVENUE_SOURCE, owner: true };
       if (kind === "class")
-        source = Object.assign(Object.create({}), FEE_SOURCE);
+        source = Object.assign(Object.create({}), REVENUE_SOURCE);
       if (kind === "trap")
         source = new Proxy(
           {},
@@ -506,13 +506,13 @@ describe("explicit per-journal revenue source consistency", () => {
   it("captures a changing source descriptor exactly once and accepts null-prototype data", () => {
     let calls = 0;
     const source = new Proxy(
-      { ...FEE_SOURCE },
+      { ...REVENUE_SOURCE },
       {
         getOwnPropertyDescriptor(target, key) {
           const d = Reflect.getOwnPropertyDescriptor(target, key);
           if (key === "id") {
             calls++;
-            return { ...d, value: calls === 1 ? FEE_SOURCE.id : "other" };
+            return { ...d, value: calls === 1 ? REVENUE_SOURCE.id : "other" };
           }
           return d;
         },
@@ -526,7 +526,7 @@ describe("explicit per-journal revenue source consistency", () => {
         journal(),
         wrapper(),
         Object.assign(Object.create(null), {
-          source: Object.assign(Object.create(null), FEE_SOURCE),
+          source: Object.assign(Object.create(null), REVENUE_SOURCE),
           accounts: catalog(),
         }),
       ).ok,

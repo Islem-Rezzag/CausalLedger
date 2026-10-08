@@ -28,7 +28,7 @@ import {
   balanceQuery,
 } from "./balance-synthetic.js";
 import { syntheticId } from "./storage-synthetic.js";
-const FEE_SOURCE = Object.freeze({
+const REVENUE_SOURCE = Object.freeze({
   namespace: "synthetic.revenue",
   id: "revenue-A",
 });
@@ -76,8 +76,9 @@ let store: LedgerJournalStore,
   reversalStore: LedgerReversalStore,
   balance: LedgerAccountBalanceReader,
   reader: LedgerTransactionReader,
-  serial = 9_000_000,
-  namespace = 9_000_000;
+  // The unchanged migration-upgrade fixture reserves transaction IDs 9,000,000–2.
+  serial = 10_000_000,
+  namespace = 10_000_000;
 const accounts = (currency: "USD" | "EUR" | "GBP" = "USD") => {
   const a = balanceAccounts(++namespace, "revenue", currency);
   a[1] = { ...a[1], category: "asset", normalBalance: "debit" };
@@ -100,7 +101,7 @@ const fresh = (
       ...j.transaction,
       provenance: {
         ...j.transaction.provenance,
-        source: FEE_SOURCE,
+        source: REVENUE_SOURCE,
         moneyEventIds: [`evt_${syntheticId(serial)}`],
       },
     },
@@ -121,7 +122,7 @@ async function compose(
   a: unknown,
   append: LedgerJournalStore["append"] = (input, catalog) =>
     store.append(input, catalog),
-  source: unknown = FEE_SOURCE,
+  source: unknown = REVENUE_SOURCE,
 ) {
   const checked = validateRevenueJournalCandidate(j, r, {
     source,
@@ -456,7 +457,7 @@ describe("mandatory real explicit revenue source and malformed-wire composition"
       expect(
         (
           await compose(fresh(a), role(a[0]), a, append, {
-            ...FEE_SOURCE,
+            ...REVENUE_SOURCE,
             [field]: "other",
           })
         ).ok,
