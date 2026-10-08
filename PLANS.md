@@ -32,11 +32,11 @@ Use `CLP-0001-short-name.md`. Increment the number monotonically and keep the sh
 - Completed plans move to `plans/completed/`.
 - Archived or stale plans move to `plans/archived/`.
 
-Current active milestone plan: `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; current M04.14 revenue configuration.
+Current active milestone plan: `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; current M04.15 balanced-posting tests.
 
 The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.13 are Completed and merged; Human PR74 mergeeee635e matches final reviewed 68352e3/tree5dbb1593, independent QA/rootcleanQA18/0/1/CI37757996965 real336 verified. M04.14 Add revenue account is **QA passed, awaiting merge** on `m04-14-add-revenue-account`, sole [PR #75](https://github.com/Islem-Rezzag/CausalLedger/pull/75), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger1128/29 files and full control1367 PASS; ledger type/lint/build/format PASS; root candidate cleanQA18/0/1 PASS (optional localDocker skip). Candidate database composition/overall QA PASS; final actual-head gates and human merge remain. Exact final proof belongs in the sole PR. M04.15-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`.
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.14 are Completed and merged; Human PR75 mergeb7999fb matches final reviewed d4daa779/tree2c521171, independent QA/rootcleanQA18/0/1/CI37766171659 real392 verified. M04.15 Add tests for balanced posting is **QA passed, awaiting merge** on `m04-15-add-tests-for-balanced-posting`, sole [PR #76](https://github.com/Islem-Rezzag/CausalLedger/pull/76), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger1300/30 files and full control1488 PASS; ledger type/lint/build/format PASS; root candidate cleanQA18/0/1 PASS (optional localDocker skip). Candidate database corpus/overall QA PASS; final actual-head gates and human merge remain. Exact final proof belongs in the sole PR. M04.16-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`.
 
 Progress is recorded in the active plan during the slice. Submilestone status is recorded in `docs/milestones/SUBMILESTONE_REGISTRY.md`, reflected in the relevant milestone doc, and summarized in `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md`.
 
