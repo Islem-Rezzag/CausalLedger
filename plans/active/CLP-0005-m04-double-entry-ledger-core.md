@@ -1132,3 +1132,10 @@ Risks/limits: synthetic arithmetic/caller declarations/software QA do not establ
 - [ ] M04.17 final tracking-head independent confirmation/rootcleanQA/bothCI and human merge; no18 before verified17humanmerge; formalM04closeout beforeM05.
 
 Confirmed earlyP2 other-original fixture replay mask resolved with distinct key/source/exactreceiptID/durable readback, independently rechecked and actualSQL exercised; detached original/inverse hash oracles remain strict. No remaining finding. No source/test/spec/runner/DDL/control/package change after accepted candidate. Legitimate final18doc QA handoff requires independent final-head review; final proof belongs in solePR without a CI-copy-only commit.
+
+
+## M04.17 final documentation pointer correction (2026-10-08)
+
+Independent final-doc review confirmed P3 stale current17 pending/unimplemented fragments in the ledger README's general limitation and prior15/16 paragraphs. They now state that the candidate real1224/overallQA passed, final-head and human merge gates remain, and18/later are unimplemented. All prior15/16 merge evidence and financial-boundary text are preserved. The initial final-tracking f168 head passed root cleanQA18/0/1, but is not accepted as the final merge candidate because these pointers needed correction.
+
+This ordinary scoped README correction and this handoff are the only changes after initial18doc QA tracking. Accepted candidatef471 source/test/spec/runner/control/package bytes remain identical; no financial/runtime change or CI-copy-only commit. Corrected final-head independent documentation confirmation, fresh lifecycle/full1742 controls, root cleanQA and both new current-head CI jobs remain mandatory. No18 before verified human PR78 merge; M05 waits separate formalM04closeout.
