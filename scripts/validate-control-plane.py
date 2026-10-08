@@ -120,6 +120,10 @@ M04_CASH_FILES = {"src/cash-clearing-account.ts", "test/cash-clearing-account.te
 M04_PROVIDER_BRANCH = "m04-11-add-provider-clearing-account"
 M04_PROVIDER_PHASE = "M04_PROVIDER_CLEARING"
 M04_PROVIDER_FILES = {"src/provider-clearing-account.ts", "test/provider-clearing-account.test.ts", "test/provider-clearing-account-types.test.ts", "test/provider-clearing-account-postgres.test.ts"}
+M04_CUSTOMER_BRANCH = "m04-12-add-customer-liability-account"
+M04_CUSTOMER_PHASE = "M04_CUSTOMER_LIABILITY"
+M04_CUSTOMER_FILES = {"src/customer-liability-account.ts", "test/customer-liability-account.test.ts", "test/customer-liability-account-types.test.ts", "test/customer-liability-account-postgres.test.ts"}
+M04_PROVIDER_MERGE_EVIDENCE = {'pr': 72, 'mergeCommit': '372a05784f6a081c698654dd0597009f006ee2a5', 'reviewedHead': '465ba9c0bfe8f7fc37754f3326dc0d23f3c5658f', 'reviewedTree': 'ef3cf9b48cda0c1d2ad36f5c1d35ac4e820d990e', 'mergedTree': 'ef3cf9b48cda0c1d2ad36f5c1d35ac4e820d990e', 'ciRun': 37522188067, 'independentQa': 'PASS'}
 M04_CASH_MERGE_EVIDENCE = {'pr': 71, 'mergeCommit': 'c01bf21d4fba413943a7e266b2453f95f33f851b', 'reviewedHead': '0e5fec533eb3f17d92a86b5fbc796be9ea0c8c6e', 'reviewedTree': 'be1eb4edbdcb96a58aabc5b36fce0e03157c0f69', 'mergedTree': 'be1eb4edbdcb96a58aabc5b36fce0e03157c0f69', 'ciRun': 37490025286, 'independentQa': 'PASS'}
 M04_REVERSAL_MERGE_EVIDENCE = {'pr': 70, 'mergeCommit': '78cc3d6710689c9a5ae627d64398e25e165a03d1', 'reviewedHead': '963c11f340b11660e1c78a2dbdd3bc278c3e577a', 'reviewedTree': '238a44e050a0860560e71335434a3eb08ec34cc4', 'mergedTree': '238a44e050a0860560e71335434a3eb08ec34cc4', 'ciRun': 37481790910, 'independentQa': 'PASS'}
 M04_IDEMPOTENCY_MERGE_EVIDENCE = {'pr': 69, 'mergeCommit': '3e0832254539140d55094404edec253b1766bc9c', 'reviewedHead': '00eb3cf627f52c4ab6eb261f064e41056c59b869', 'reviewedTree': '1260235203a8bd97f144911624b462c08aa0d863', 'mergedTree': '1260235203a8bd97f144911624b462c08aa0d863', 'ciRun': 37473789250, 'independentQa': 'PASS'}
@@ -1932,34 +1936,36 @@ def validate_project_completion_goal(goal_state: object) -> list[str]:
         errors.append("PROJECT_COMPLETION_GOAL.json permitted target list is invalid")
     phase = goal_state.get("currentPhase")
     target = goal_state.get("approvedReleaseTarget")
-    if phase not in (M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE) and goal_state.get("accountMergeEvidence") is not None:
+    if phase not in (M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE) and goal_state.get("accountMergeEvidence") is not None:
         errors.append("earlier lifecycle phases cannot carry M04.01 account merge evidence")
-    if phase not in (M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE) and goal_state.get("transactionMergeEvidence") is not None:
+    if phase not in (M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE) and goal_state.get("transactionMergeEvidence") is not None:
         errors.append("earlier lifecycle phases cannot carry M04.02 transaction merge evidence")
-    if phase not in (M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE) and goal_state.get("entryMergeEvidence") is not None:
+    if phase not in (M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE) and goal_state.get("entryMergeEvidence") is not None:
         errors.append("earlier lifecycle phases cannot carry M04.03 entry merge evidence")
-    if phase not in (M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE) and goal_state.get("journalMergeEvidence") is not None:
+    if phase not in (M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE) and goal_state.get("journalMergeEvidence") is not None:
         errors.append("earlier lifecycle phases cannot carry M04.04 journal merge evidence")
-    if phase not in (M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE) and goal_state.get("storageMergeEvidence") is not None:
+    if phase not in (M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE) and goal_state.get("storageMergeEvidence") is not None:
         errors.append("earlier lifecycle phases cannot carry M04.05 storage merge evidence")
-    if phase not in (M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE) and goal_state.get("balanceQueryMergeEvidence") is not None:
+    if phase not in (M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE) and goal_state.get("balanceQueryMergeEvidence") is not None:
         errors.append("earlier lifecycle phases cannot carry M04.06 balance query merge evidence")
-    if phase not in (M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE) and goal_state.get("transactionQueryMergeEvidence") is not None:
+    if phase not in (M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE) and goal_state.get("transactionQueryMergeEvidence") is not None:
         errors.append("earlier lifecycle phases cannot carry M04.07 transaction query merge evidence")
-    if phase not in (M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE) and goal_state.get("idempotencyMergeEvidence") is not None:
+    if phase not in (M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE) and goal_state.get("idempotencyMergeEvidence") is not None:
         errors.append("earlier lifecycle phases cannot carry M04.08 idempotency merge evidence")
-    if phase not in (M04_CASH_PHASE, M04_PROVIDER_PHASE) and goal_state.get("reversalMergeEvidence") is not None:
+    if phase not in (M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE) and goal_state.get("reversalMergeEvidence") is not None:
         errors.append("earlier lifecycle phases cannot carry M04.09 reversal merge evidence")
-    if phase != M04_PROVIDER_PHASE and goal_state.get("cashClearingMergeEvidence") is not None:
+    if phase not in (M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE) and goal_state.get("cashClearingMergeEvidence") is not None:
         errors.append("earlier lifecycle phases cannot carry M04.10 cash clearing merge evidence")
-    if phase in ("M04_PLANNING", M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE):
+    if phase != M04_CUSTOMER_PHASE and goal_state.get("providerClearingMergeEvidence") is not None:
+        errors.append("earlier lifecycle phases cannot carry M04.11 provider clearing merge evidence")
+    if phase in ("M04_PLANNING", M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE):
         if target != RELEASE_TARGET_APPROVAL["target"]:
             errors.append("M04 planning requires the recorded V1_PUBLIC_PRODUCT approval")
         if goal_state.get("releaseTargetApproval") != RELEASE_TARGET_APPROVAL:
             errors.append("M04 planning requires the explicit human approval record")
         if goal_state.get("closeoutMergeEvidence") != M03_CLOSEOUT_MERGE_EVIDENCE:
             errors.append("M04 planning requires verified PR #60 closeout merge evidence")
-        if phase in (M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE):
+        if phase in (M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE):
             if goal_state.get("planningMergeEvidence") != M04_PLANNING_MERGE_EVIDENCE:
                 errors.append("M04.01 requires verified PR #61 planning merge evidence")
             if phase == M04_ACCOUNT_PHASE:
@@ -1992,47 +1998,59 @@ def validate_project_completion_goal(goal_state: object) -> list[str]:
                     else:
                         if goal_state.get("entryMergeEvidence") != M04_ENTRY_MERGE_EVIDENCE:
                             errors.append("M04.04 requires verified PR #64 entry merge evidence")
-                        if phase in (M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE):
+                        if phase in (M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE):
                             if (goal_state.get("journalMergeEvidence") != M04_JOURNAL_MERGE_EVIDENCE or
                                 not isinstance(goal_state.get("journalMergeEvidence"), dict) or
                                 any(type(goal_state["journalMergeEvidence"].get(key)) is not int for key in ("pr", "ciRun"))):
                                 errors.append("M04.05 requires verified PR #65 journal merge evidence")
-                            if phase in (M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE):
+                            if phase in (M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE):
                                 if (goal_state.get("storageMergeEvidence") != M04_STORAGE_MERGE_EVIDENCE or
                                     not isinstance(goal_state.get("storageMergeEvidence"), dict) or
                                     any(type(goal_state["storageMergeEvidence"].get(key)) is not int for key in ("pr", "ciRun"))):
                                     errors.append("M04.06 requires verified PR #66 storage merge evidence")
-                                if phase in (M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE):
+                                if phase in (M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE):
                                     if (goal_state.get("balanceQueryMergeEvidence") != M04_BALANCE_QUERY_MERGE_EVIDENCE or
                                         not isinstance(goal_state.get("balanceQueryMergeEvidence"), dict) or
                                         any(type(goal_state["balanceQueryMergeEvidence"].get(key)) is not int for key in ("pr", "ciRun"))):
                                         errors.append("M04.07 requires verified PR #67 balance query merge evidence")
-                                    if phase in (M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE):
+                                    if phase in (M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE):
                                         if (goal_state.get("transactionQueryMergeEvidence") != M04_TRANSACTION_QUERY_MERGE_EVIDENCE or
                                             not isinstance(goal_state.get("transactionQueryMergeEvidence"), dict) or
                                             any(type(goal_state["transactionQueryMergeEvidence"].get(key)) is not int for key in ("pr", "ciRun"))):
                                             errors.append("M04.08 requires verified PR #68 transaction query merge evidence")
-                                        if phase in (M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE):
+                                        if phase in (M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE):
                                             if (goal_state.get("idempotencyMergeEvidence") != M04_IDEMPOTENCY_MERGE_EVIDENCE or
                                                 not isinstance(goal_state.get("idempotencyMergeEvidence"), dict) or
                                                 any(type(goal_state["idempotencyMergeEvidence"].get(key)) is not int for key in ("pr", "ciRun"))):
                                                 errors.append("M04.09 requires verified PR #69 idempotency merge evidence")
-                                            if phase in (M04_CASH_PHASE, M04_PROVIDER_PHASE):
+                                            if phase in (M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE):
                                                 if (goal_state.get("reversalMergeEvidence") != M04_REVERSAL_MERGE_EVIDENCE or
                                                     not isinstance(goal_state.get("reversalMergeEvidence"), dict) or
                                                     any(type(goal_state["reversalMergeEvidence"].get(key)) is not int for key in ("pr", "ciRun"))):
                                                     errors.append("M04.10 requires verified PR #70 reversal merge evidence")
-                                                if phase == M04_PROVIDER_PHASE:
+                                                if phase in (M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE):
                                                     if (goal_state.get("cashClearingMergeEvidence") != M04_CASH_MERGE_EVIDENCE or
                                                         not isinstance(goal_state.get("cashClearingMergeEvidence"), dict) or
                                                         any(type(goal_state["cashClearingMergeEvidence"].get(key)) is not int for key in ("pr", "ciRun"))):
                                                         errors.append("M04.11 requires verified PR #71 cash clearing merge evidence")
-                                                    if goal_state.get("currentBranch") != M04_PROVIDER_BRANCH:
-                                                        errors.append("M04.11 requires the expected provider clearing branch")
-                                                    if goal_state.get("currentMilestone") != "M04.11":
-                                                        errors.append("M04.11 must not activate a later submilestone")
-                                                    expected_pr = 71
-                                                    expected_merge = M04_CASH_MERGE_EVIDENCE["mergeCommit"]
+                                                    if phase == M04_CUSTOMER_PHASE:
+                                                        if (goal_state.get("providerClearingMergeEvidence") != M04_PROVIDER_MERGE_EVIDENCE or
+                                                            not isinstance(goal_state.get("providerClearingMergeEvidence"), dict) or
+                                                            any(type(goal_state["providerClearingMergeEvidence"].get(key)) is not int for key in ("pr", "ciRun"))):
+                                                            errors.append("M04.12 requires verified PR #72 provider clearing merge evidence")
+                                                        if goal_state.get("currentBranch") != M04_CUSTOMER_BRANCH:
+                                                            errors.append("M04.12 requires the expected customer liability branch")
+                                                        if goal_state.get("currentMilestone") != "M04.12":
+                                                            errors.append("M04.12 must not activate a later submilestone")
+                                                        expected_pr = 72
+                                                        expected_merge = M04_PROVIDER_MERGE_EVIDENCE["mergeCommit"]
+                                                    else:
+                                                        if goal_state.get("currentBranch") != M04_PROVIDER_BRANCH:
+                                                            errors.append("M04.11 requires the expected provider clearing branch")
+                                                        if goal_state.get("currentMilestone") != "M04.11":
+                                                            errors.append("M04.11 must not activate a later submilestone")
+                                                        expected_pr = 71
+                                                        expected_merge = M04_CASH_MERGE_EVIDENCE["mergeCommit"]
                                                 else:
                                                     if goal_state.get("currentBranch") != M04_CASH_BRANCH:
                                                         errors.append("M04.10 requires the expected cash clearing branch")
@@ -2112,7 +2130,7 @@ def validate_project_completion_goal(goal_state: object) -> list[str]:
 def m04_active_plan_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in ("M04_PLANNING", M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE)
+        not errors and state is not None and state.get("currentPhase") in ("M04_PLANNING", M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE)
         and not validate_project_completion_goal(state)
     )
 
@@ -2120,7 +2138,7 @@ def m04_active_plan_is_authorized() -> bool:
 def m04_account_schema_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE)
         and not validate_project_completion_goal(state)
     )
 
@@ -2128,7 +2146,7 @@ def m04_account_schema_is_authorized() -> bool:
 def m04_transaction_schema_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE)
         and not validate_project_completion_goal(state)
     )
 
@@ -2136,7 +2154,7 @@ def m04_transaction_schema_is_authorized() -> bool:
 def m04_entry_schema_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE)
         and not validate_project_completion_goal(state)
     )
 
@@ -2144,57 +2162,63 @@ def m04_entry_schema_is_authorized() -> bool:
 def m04_balance_validation_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE)
         and not validate_project_completion_goal(state)
     )
 
 
 def m04_storage_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_account_balance_query_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_transaction_query_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_idempotency_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_reversal_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_cash_clearing_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_CASH_PHASE, M04_PROVIDER_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_provider_clearing_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") == M04_PROVIDER_PHASE
+    return (not errors and state is not None and state.get("currentPhase") in (M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE)
+            and not validate_project_completion_goal(state))
+
+
+def m04_customer_liability_is_authorized() -> bool:
+    state, errors = read_project_completion_goal()
+    return (not errors and state is not None and state.get("currentPhase") == M04_CUSTOMER_PHASE
             and not validate_project_completion_goal(state))
 
 
 def validate_m04_planning() -> list[str]:
     """Keep the milestone plan intact while permitting only the verified current slice."""
     state, _ = read_project_completion_goal()
-    if not (state and state.get("currentPhase") in ("M04_PLANNING", M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE)):
+    if not (state and state.get("currentPhase") in ("M04_PLANNING", M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE)):
         return []
     account_slice = state.get("currentPhase") == M04_ACCOUNT_PHASE
     transaction_slice = state.get("currentPhase") == M04_TRANSACTION_PHASE
@@ -2207,7 +2231,8 @@ def validate_m04_planning() -> list[str]:
     reversal_slice = state.get("currentPhase") == M04_REVERSAL_PHASE
     cash_slice = state.get("currentPhase") == M04_CASH_PHASE
     provider_slice = state.get("currentPhase") == M04_PROVIDER_PHASE
-    authorized_ids = {f"M04.{n:02d}" for n in range(1,12)} if provider_slice else {f"M04.{n:02d}" for n in range(1,11)} if cash_slice else {f"M04.{n:02d}" for n in range(1,10)} if reversal_slice else {f"M04.{n:02d}" for n in range(1,9)} if idempotency_slice else {f"M04.{n:02d}" for n in range(1,8)} if lookup_slice else {"M04.01", "M04.02", "M04.03", "M04.04", "M04.05", "M04.06"} if query_slice else {"M04.01", "M04.02", "M04.03", "M04.04", "M04.05"} if storage_slice else {"M04.01", "M04.02", "M04.03", "M04.04"} if balance_slice else {"M04.01", "M04.02", "M04.03"} if entry_slice else {"M04.01", "M04.02"} if transaction_slice else {"M04.01"} if account_slice else set()
+    customer_slice = state.get("currentPhase") == M04_CUSTOMER_PHASE
+    authorized_ids = {f"M04.{n:02d}" for n in range(1,13)} if customer_slice else {f"M04.{n:02d}" for n in range(1,12)} if provider_slice else {f"M04.{n:02d}" for n in range(1,11)} if cash_slice else {f"M04.{n:02d}" for n in range(1,10)} if reversal_slice else {f"M04.{n:02d}" for n in range(1,9)} if idempotency_slice else {f"M04.{n:02d}" for n in range(1,8)} if lookup_slice else {"M04.01", "M04.02", "M04.03", "M04.04", "M04.05", "M04.06"} if query_slice else {"M04.01", "M04.02", "M04.03", "M04.04", "M04.05"} if storage_slice else {"M04.01", "M04.02", "M04.03", "M04.04"} if balance_slice else {"M04.01", "M04.02", "M04.03"} if entry_slice else {"M04.01", "M04.02"} if transaction_slice else {"M04.01"} if account_slice else set()
     errors = validate_project_completion_goal(state)
     if active_plan_files() != [ROOT / M04_ACTIVE_PLAN]:
         errors.append("M04 planning requires exactly the active CLP-0005 M04 plan")
@@ -2238,7 +2263,7 @@ def validate_m04_planning() -> list[str]:
             errors.append(f"M04 {label} later implementation rows must remain Not started")
     if any(row.active_plan != M04_ACTIVE_PLAN or ((row.branch or row.pr) and row.submilestone_id not in authorized_ids) for row in registry_rows):
         errors.append("M04 registry must reference its plan without premature implementation branches/PRs")
-    if transaction_slice or entry_slice or balance_slice or storage_slice or query_slice or lookup_slice or idempotency_slice or reversal_slice or cash_slice or provider_slice:
+    if transaction_slice or entry_slice or balance_slice or storage_slice or query_slice or lookup_slice or idempotency_slice or reversal_slice or cash_slice or provider_slice or customer_slice:
         for rows in [registry_rows, milestone_rows]:
             account = next((row for row in rows if row.submilestone_id == "M04.01"), None)
             if account is None or account.status != "Completed and merged":
@@ -2246,7 +2271,7 @@ def validate_m04_planning() -> list[str]:
         account = next((row for row in registry_rows if row.submilestone_id == "M04.01"), None)
         if account and (account.branch != M04_ACCOUNT_BRANCH or account.pr != "#62"):
             errors.append("merged M04.01 must retain its account branch and PR #62")
-    if entry_slice or balance_slice or storage_slice or query_slice or lookup_slice or idempotency_slice or reversal_slice or cash_slice or provider_slice:
+    if entry_slice or balance_slice or storage_slice or query_slice or lookup_slice or idempotency_slice or reversal_slice or cash_slice or provider_slice or customer_slice:
         for rows in [registry_rows, milestone_rows]:
             transaction = next((row for row in rows if row.submilestone_id == "M04.02"), None)
             if transaction is None or transaction.status != "Completed and merged":
@@ -2254,7 +2279,7 @@ def validate_m04_planning() -> list[str]:
         transaction = next((row for row in registry_rows if row.submilestone_id == "M04.02"), None)
         if transaction and (transaction.branch != M04_TRANSACTION_BRANCH or transaction.pr != "#63"):
             errors.append("merged M04.02 must retain its transaction branch and PR #63")
-    if balance_slice or storage_slice or query_slice or lookup_slice or idempotency_slice or reversal_slice or cash_slice or provider_slice:
+    if balance_slice or storage_slice or query_slice or lookup_slice or idempotency_slice or reversal_slice or cash_slice or provider_slice or customer_slice:
         for rows in [registry_rows, milestone_rows]:
             entry = next((row for row in rows if row.submilestone_id == "M04.03"), None)
             if entry is None or entry.status != "Completed and merged":
@@ -2262,7 +2287,7 @@ def validate_m04_planning() -> list[str]:
         entry = next((row for row in registry_rows if row.submilestone_id == "M04.03"), None)
         if entry and (entry.branch != M04_ENTRY_BRANCH or entry.pr != "#64"):
             errors.append("merged M04.03 must retain its entry branch and PR #64")
-    if storage_slice or query_slice or lookup_slice or idempotency_slice or reversal_slice or cash_slice or provider_slice:
+    if storage_slice or query_slice or lookup_slice or idempotency_slice or reversal_slice or cash_slice or provider_slice or customer_slice:
         for rows in [registry_rows, milestone_rows]:
             journal = next((row for row in rows if row.submilestone_id == "M04.04"), None)
             if journal is None or journal.status != "Completed and merged":
@@ -2270,7 +2295,7 @@ def validate_m04_planning() -> list[str]:
         journal = next((row for row in registry_rows if row.submilestone_id == "M04.04"), None)
         if journal and (journal.branch != M04_BALANCE_BRANCH or journal.pr != "#65"):
             errors.append("merged M04.04 must retain its journal branch and PR #65")
-    if query_slice or lookup_slice or idempotency_slice or reversal_slice or cash_slice or provider_slice:
+    if query_slice or lookup_slice or idempotency_slice or reversal_slice or cash_slice or provider_slice or customer_slice:
         for rows in [registry_rows, milestone_rows]:
             storage = next((row for row in rows if row.submilestone_id == "M04.05"), None)
             if storage is None or storage.status != "Completed and merged":
@@ -2278,7 +2303,7 @@ def validate_m04_planning() -> list[str]:
         storage = next((row for row in registry_rows if row.submilestone_id == "M04.05"), None)
         if storage and (storage.branch != M04_STORAGE_BRANCH or storage.pr != "#66"):
             errors.append("merged M04.05 must retain its storage branch and PR #66")
-    if lookup_slice or idempotency_slice or reversal_slice or cash_slice or provider_slice:
+    if lookup_slice or idempotency_slice or reversal_slice or cash_slice or provider_slice or customer_slice:
         for rows in [registry_rows, milestone_rows]:
             balance_query = next((row for row in rows if row.submilestone_id == "M04.06"), None)
             if balance_query is None or balance_query.status != "Completed and merged":
@@ -2286,7 +2311,7 @@ def validate_m04_planning() -> list[str]:
         balance_query = next((row for row in registry_rows if row.submilestone_id == "M04.06"), None)
         if balance_query and (balance_query.branch != M04_QUERY_BRANCH or balance_query.pr != "#67"):
             errors.append("merged M04.06 must retain its account balance query branch and PR #67")
-    if idempotency_slice or reversal_slice or cash_slice or provider_slice:
+    if idempotency_slice or reversal_slice or cash_slice or provider_slice or customer_slice:
         for rows in [registry_rows, milestone_rows]:
             lookup = next((row for row in rows if row.submilestone_id == "M04.07"), None)
             if lookup is None or lookup.status != "Completed and merged":
@@ -2294,7 +2319,7 @@ def validate_m04_planning() -> list[str]:
         lookup = next((row for row in registry_rows if row.submilestone_id == "M04.07"), None)
         if lookup and (lookup.branch != M04_LOOKUP_BRANCH or lookup.pr != "#68"):
             errors.append("merged M04.07 must retain its transaction query branch and PR #68")
-    if reversal_slice or cash_slice or provider_slice:
+    if reversal_slice or cash_slice or provider_slice or customer_slice:
         for rows in [registry_rows, milestone_rows]:
             previous = next((row for row in rows if row.submilestone_id == "M04.08"), None)
             if previous is None or previous.status != "Completed and merged":
@@ -2302,7 +2327,7 @@ def validate_m04_planning() -> list[str]:
         previous = next((row for row in registry_rows if row.submilestone_id == "M04.08"), None)
         if previous and (previous.branch != M04_IDEMPOTENCY_BRANCH or previous.pr != "#69"):
             errors.append("merged M04.08 must retain its idempotency branch and PR #69")
-    if cash_slice or provider_slice:
+    if cash_slice or provider_slice or customer_slice:
         for rows in [registry_rows, milestone_rows]:
             previous = next((row for row in rows if row.submilestone_id == "M04.09"), None)
             if previous is None or previous.status != "Completed and merged":
@@ -2310,7 +2335,7 @@ def validate_m04_planning() -> list[str]:
         previous = next((row for row in registry_rows if row.submilestone_id == "M04.09"), None)
         if previous and (previous.branch != M04_REVERSAL_BRANCH or previous.pr != "#70"):
             errors.append("merged M04.09 must retain its reversal branch and PR #70")
-    if provider_slice:
+    if provider_slice or customer_slice:
         for rows in [registry_rows, milestone_rows]:
             previous = next((row for row in rows if row.submilestone_id == "M04.10"), None)
             if previous is None or previous.status != "Completed and merged":
@@ -2318,9 +2343,17 @@ def validate_m04_planning() -> list[str]:
         previous = next((row for row in registry_rows if row.submilestone_id == "M04.10"), None)
         if previous and (previous.branch != M04_CASH_BRANCH or previous.pr != "#71"):
             errors.append("merged M04.10 must retain its cash clearing branch and PR #71")
-    if account_slice or transaction_slice or entry_slice or balance_slice or storage_slice or query_slice or lookup_slice or idempotency_slice or reversal_slice or cash_slice or provider_slice:
-        current_id = "M04.11" if provider_slice else "M04.10" if cash_slice else "M04.09" if reversal_slice else "M04.08" if idempotency_slice else "M04.07" if lookup_slice else "M04.06" if query_slice else "M04.05" if storage_slice else "M04.04" if balance_slice else "M04.03" if entry_slice else "M04.02" if transaction_slice else "M04.01"
-        current_branch = M04_PROVIDER_BRANCH if provider_slice else M04_CASH_BRANCH if cash_slice else M04_REVERSAL_BRANCH if reversal_slice else M04_IDEMPOTENCY_BRANCH if idempotency_slice else M04_LOOKUP_BRANCH if lookup_slice else M04_QUERY_BRANCH if query_slice else M04_STORAGE_BRANCH if storage_slice else M04_BALANCE_BRANCH if balance_slice else M04_ENTRY_BRANCH if entry_slice else M04_TRANSACTION_BRANCH if transaction_slice else M04_ACCOUNT_BRANCH
+    if customer_slice:
+        for rows in [registry_rows, milestone_rows]:
+            previous = next((row for row in rows if row.submilestone_id == "M04.11"), None)
+            if previous is None or previous.status != "Completed and merged":
+                errors.append("M04.12 requires M04.11 Completed and merged across tracking")
+        previous = next((row for row in registry_rows if row.submilestone_id == "M04.11"), None)
+        if previous and (previous.branch != M04_PROVIDER_BRANCH or previous.pr != "#72"):
+            errors.append("merged M04.11 must retain its provider clearing branch and PR #72")
+    if account_slice or transaction_slice or entry_slice or balance_slice or storage_slice or query_slice or lookup_slice or idempotency_slice or reversal_slice or cash_slice or provider_slice or customer_slice:
+        current_id = "M04.12" if customer_slice else "M04.11" if provider_slice else "M04.10" if cash_slice else "M04.09" if reversal_slice else "M04.08" if idempotency_slice else "M04.07" if lookup_slice else "M04.06" if query_slice else "M04.05" if storage_slice else "M04.04" if balance_slice else "M04.03" if entry_slice else "M04.02" if transaction_slice else "M04.01"
+        current_branch = M04_CUSTOMER_BRANCH if customer_slice else M04_PROVIDER_BRANCH if provider_slice else M04_CASH_BRANCH if cash_slice else M04_REVERSAL_BRANCH if reversal_slice else M04_IDEMPOTENCY_BRANCH if idempotency_slice else M04_LOOKUP_BRANCH if lookup_slice else M04_QUERY_BRANCH if query_slice else M04_STORAGE_BRANCH if storage_slice else M04_BALANCE_BRANCH if balance_slice else M04_ENTRY_BRANCH if entry_slice else M04_TRANSACTION_BRANCH if transaction_slice else M04_ACCOUNT_BRANCH
         registry_account = next((row for row in registry_rows if row.submilestone_id == current_id), None)
         milestone_account = next((row for row in milestone_rows if row.submilestone_id == current_id), None)
         allowed_states = {"Builder in progress", "Builder complete, awaiting QA", "QA in progress", "QA passed, awaiting merge", "Blocked"}
@@ -2328,9 +2361,9 @@ def validate_m04_planning() -> list[str]:
             if registry_account.status not in allowed_states or registry_account.status != milestone_account.status:
                 errors.append(f"{current_id} status must agree across tracking and must not claim merged completion")
             if registry_account.branch != current_branch:
-                errors.append(f"{current_id} registry requires the expected {'provider clearing' if provider_slice else 'cash clearing' if cash_slice else 'reversal' if reversal_slice else 'idempotency' if idempotency_slice else 'transaction query' if lookup_slice else 'account balance query' if query_slice else 'immutable storage' if storage_slice else 'journal validation' if balance_slice else 'entry schema' if entry_slice else 'transaction schema' if transaction_slice else 'account schema'} branch")
+                errors.append(f"{current_id} registry requires the expected {'customer liability' if customer_slice else 'provider clearing' if provider_slice else 'cash clearing' if cash_slice else 'reversal' if reversal_slice else 'idempotency' if idempotency_slice else 'transaction query' if lookup_slice else 'account balance query' if query_slice else 'immutable storage' if storage_slice else 'journal validation' if balance_slice else 'entry schema' if entry_slice else 'transaction schema' if transaction_slice else 'account schema'} branch")
             pr = state.get("currentPr")
-            if (pr is not None and (type(pr) is not int or pr <= (71 if provider_slice else 70 if cash_slice else 69 if reversal_slice else 68 if idempotency_slice else 67 if lookup_slice else 66 if query_slice else 65 if storage_slice else 64 if balance_slice else 63 if entry_slice else 62 if transaction_slice else 61))) or registry_account.pr != (f"#{pr}" if pr is not None else ""):
+            if (pr is not None and (type(pr) is not int or pr <= (72 if customer_slice else 71 if provider_slice else 70 if cash_slice else 69 if reversal_slice else 68 if idempotency_slice else 67 if lookup_slice else 66 if query_slice else 65 if storage_slice else 64 if balance_slice else 63 if entry_slice else 62 if transaction_slice else 61))) or registry_account.pr != (f"#{pr}" if pr is not None else ""):
                 errors.append(f"{current_id} PR tracking must match its own current PR")
             if registry_account.status in {"QA in progress", "QA passed, awaiting merge"} and pr is None:
                 errors.append(f"{current_id} QA requires its own PR")
@@ -2398,6 +2431,7 @@ def validate_m03_06_closeout_readiness() -> list[str]:
             and not (row.submilestone_id == "M04.09" and m04_reversal_is_authorized())
             and not (row.submilestone_id == "M04.10" and m04_cash_clearing_is_authorized())
             and not (row.submilestone_id == "M04.11" and m04_provider_clearing_is_authorized())
+            and not (row.submilestone_id == "M04.12" and m04_customer_liability_is_authorized())
         )
         if non_not_started:
             errors.append(
@@ -2620,6 +2654,8 @@ def validate_package_manifest(package_dir: str) -> list[str]:
             expected_test += ' --exclude "test/cash-clearing-account-postgres.test.ts"'
         if m04_provider_clearing_is_authorized():
             expected_test += ' --exclude "test/provider-clearing-account-postgres.test.ts"'
+        if m04_customer_liability_is_authorized():
+            expected_test += ' --exclude "test/customer-liability-account-postgres.test.ts"'
         if scripts.get("test") != expected_test:
             errors.append("ledger default tests must distinguish unit checks from mandatory database acceptance")
     return errors
@@ -2672,7 +2708,8 @@ def validate_package_sources(package_dir: str) -> list[str]:
                 or package_relative_path == "src/ledger-idempotency.ts" and m04_idempotency_is_authorized()
                 or package_relative_path == "src/ledger-reversal.ts" and m04_reversal_is_authorized()
                 or package_relative_path == "src/cash-clearing-account.ts" and m04_cash_clearing_is_authorized()
-                or package_relative_path == "src/provider-clearing-account.ts" and m04_provider_clearing_is_authorized())
+                or package_relative_path == "src/provider-clearing-account.ts" and m04_provider_clearing_is_authorized()
+                or package_relative_path == "src/customer-liability-account.ts" and m04_customer_liability_is_authorized())
         ):
             errors.append(f"{relative_path} contains journal validation outside its authorized package owner")
         if re.search(r"\b(?:createLedgerJournalStore|LedgerJournalStore|LEDGER_STORAGE_CONTRACT_VERSION)\b", source) and not (
@@ -2703,6 +2740,10 @@ def validate_package_sources(package_dir: str) -> list[str]:
             package_dir == "ledger" and package_relative_path in {"src/index.ts", "src/provider-clearing-account.ts"} and m04_provider_clearing_is_authorized()
         ):
             errors.append(f"{relative_path} contains provider clearing outside its authorized package owner")
+        if re.search(r"\b(?:CustomerLiability\w*|validateCustomerLiabilityAccountCandidate|validateCustomerLiabilityJournalCandidate|CUSTOMER_LIABILITY_ACCOUNT_CONTRACT_VERSION)\b", source) and not (
+            package_dir == "ledger" and package_relative_path in {"src/index.ts", "src/customer-liability-account.ts"} and m04_customer_liability_is_authorized()
+        ):
+            errors.append(f"{relative_path} contains customer liability outside its authorized package owner")
         if re.search(r"\b(?:validateMoneyEventCandidate|normalizeMoneyEventCandidate|validateAndNormalizeMoneyEventCandidate)\b", source) and not (
             package_dir == "events"
             and package_relative_path in {"src/index.ts", "src/money-event-validation.ts"}
@@ -2878,6 +2919,8 @@ def validate_package_scaffolds() -> list[str]:
             expected_files.update(M04_CASH_FILES)
         if package_dir.name == "ledger" and m04_provider_clearing_is_authorized():
             expected_files.update(M04_PROVIDER_FILES)
+        if package_dir.name == "ledger" and m04_customer_liability_is_authorized():
+            expected_files.update(M04_CUSTOMER_FILES)
         if files != expected_files:
             missing = sorted(expected_files - files)
             extra = sorted(files - expected_files)
@@ -2999,6 +3042,8 @@ def validate_qa_development_environment() -> list[str]:
                 errors.append("M04.10 requires mandatory real cash clearing database acceptance")
             if m04_provider_clearing_is_authorized() and '"test/provider-clearing-account-postgres.test.ts"' not in runner:
                 errors.append("M04.11 requires mandatory real provider clearing database acceptance")
+            if m04_customer_liability_is_authorized() and '"test/customer-liability-account-postgres.test.ts"' not in runner:
+                errors.append("M04.12 requires mandatory real customer liability database acceptance")
     return errors
 
 
