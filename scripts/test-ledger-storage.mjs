@@ -555,7 +555,10 @@ try {
   console.log(
     "PASS: Mandatory real PostgreSQL invalid posting corpus acceptance completed",
   );
-  child(
+  // Complete five-table history checks grow across all 400 cases; keep a finite
+  // suite budget without changing prior child or individual race deadlines.
+  const reversalCorpus = spawnSync(
+    process.execPath,
     [
       fileURLToPath(
         new URL(
@@ -569,8 +572,14 @@ try {
       "--root",
       "packages/ledger",
     ],
-    testEnv,
+    { cwd: root, env: testEnv, encoding: "utf8", timeout: 600000 },
   );
+  console.log(sanitize((reversalCorpus.stdout ?? "") + (reversalCorpus.stderr ?? "")));
+  if (reversalCorpus.status !== 0)
+    throw new Error(
+      "Required reversal corpus validation failed: " +
+        (reversalCorpus.error?.code ?? reversalCorpus.status),
+    );
   console.log(
     "PASS: Mandatory real PostgreSQL reversal corpus acceptance completed",
   );
