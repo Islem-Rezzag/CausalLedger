@@ -1,6 +1,6 @@
 # Ledger Package
 
-`@causalledger/ledger` owns merged runtime through14 and15 balanced corpus. Current16 adversarial/no-write/rollback/concurrency tests local validation PASS; mandatory database acceptance/overallQA/human merge remain. No runtime/API/DDL/financial authority change.
+`@causalledger/ledger` owns merged runtime through14 and15 balanced corpus. Current16 adversarial/no-write/rollback/concurrency tests local validation PASS; candidate real824/overallQA PASS, final-head/human merge remain. No runtime/API/DDL/financial authority change.
 
 The original M02.05 scaffold supplied:
 

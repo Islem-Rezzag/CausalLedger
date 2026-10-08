@@ -16,13 +16,13 @@
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
   "currentMilestone": "M04.16",
   "currentBranch": "m04-16-add-tests-for-invalid-posting",
-  "currentPr": null,
+  "currentPr": 77,
   "latestMergedPr": 76,
   "latestMergeCommit": "1c5ad6c7cf9be341c92d6787f74748c7812730e3",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "M04_16_LEDGER1418_CONTROL1613_CORRECTED_DIRTY_QA17_0_2_PASS",
-  "remoteCiStatus": "M04_16_PENDING_REQUIRED_POSTGRES_AND_CI",
-  "dockerStatus": "UNAVAILABLE_LOCALLY_CURRENT16_DB_PENDING_PRIOR15_REAL561_PASS",
+  "localTestStatus": "M04_16_LEDGER1418_CONTROL1613_CANDIDATE_CLEAN_QA18_0_1_PASS",
+  "remoteCiStatus": "Candidate 23b8c35f3990e5369421df4a31f548e4a4d72fb1/tree821f0d26dc0c9f2c1582c3aad5c0aa9883073f83, existing overall m04_02_qa independent PASS with no remaining findings; 359 runtime/72 lifecycle probes and fresh full1613 control PASS; root cleanQA18/0/1 PASS. Actual both CI37784859908 jobs SUCCESS; both checkout872d3f5a9c98184ef6b73f8dc26dfe8728600c2d has exact base+head parents/identical tree/full empty diff independently verified. Actual real64storage+22balances+27lookup+39idempotency+40reversal+23cash+31provider+34customer+56fee+56revenue+169balanced+263invalid-posting=824 mandatory no-skip PASS; THREE UP/DOWN/UP, separate populated05-to08 and08-to09 exact-preservation/no-backfill upgrades, exact6tables/10functions and owned/Compose cleanup PASS. Full26/root166/reviewer330protected/all18rawrows/V1/history PASS. Final tracking actual-head independent confirmation/cleanQA/bothCI and human merge remain required; exact final proof in sole PR77.",
+  "dockerStatus": "UNAVAILABLE_LOCALLY_M04_16_REAL_POSTGRES_CORPUS_PASS",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
     "M00 repository operating system",
@@ -49,7 +49,7 @@
     "M04.13 pure fee expense configuration; human PR74 merge/final independent QA/cleanQA18/0/1/CI37757996965 real336 verified",
     "M04.14 pure revenue configuration; human PR75 merge/final independent QA/cleanQA18/0/1/CI37766171659 real392 verified",
     "M04.15 test-only balanced-posting corpus; human PR76 merge/final QA/rootcleanQA18/0/1/CI37777406231 real561 verified",
-    "M04.16 tests-only invalid-posting/no-write/rollback/concurrency corpus; local validation PASS; database/overallQA pending"
+    "M04.16 tests-only invalid-posting/no-write/rollback/concurrency corpus; local/candidate database/overallQA PASS; human merge pending"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -70,7 +70,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "M04.16 database corpus, independent QA and human merge remain",
+    "M04.16 final actual-head gates and human merge remain",
     "no live-model provider/model/call-count/budget approved"
   ],
   "risks": [
@@ -86,9 +86,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "M04_16_EXISTING_QA_AND_DATABASE_CORPUS_ACCEPTANCE",
-  "stopReason": "BUILDER_COMPLETE_AWAITING_QA",
-  "lastUpdatedTimestamp": "2026-10-08T13:30:08Z",
+  "exactNextAction": "HUMAN_MERGE_M04_16_AFTER_FINAL_SHA_GATES",
+  "stopReason": "QA_PASSED_AWAITING_HUMAN_MERGE",
+  "lastUpdatedTimestamp": "2026-10-08T13:38:19Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -417,5 +417,26 @@
     "independentRuntimeProbes": 473,
     "independentLifecycleProbes": 67,
     "independentRuntimeEvidence": "Accepted candidate473 carried to final by verified source/test/spec/runner/control/package byte identity; final67 lifecycle fresh; root/CI final1300/1488 executed."
+  },
+  "currentQaEvidence": {
+    "reviewer": "m04_02_qa",
+    "candidateHead": "23b8c35f3990e5369421df4a31f548e4a4d72fb1",
+    "result": "PASS",
+    "unitTests": 1418,
+    "controlTests": 1613,
+    "realStorageTests": 64,
+    "realBalanceTests": 22,
+    "realTransactionQueryTests": 27,
+    "realIdempotencyTests": 39,
+    "realReversalTests": 40,
+    "realCashClearingCompositionTests": 23,
+    "realProviderClearingCompositionTests": 31,
+    "realCustomerLiabilityCompositionTests": 34,
+    "realFeeExpenseCompositionTests": 56,
+    "realRevenueCompositionTests": 56,
+    "realBalancedPostingCorpusTests": 169,
+    "realInvalidPostingCorpusTests": 263,
+    "ciRun": 37784859908,
+    "finalShaBoundRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/77"
   }
 }
