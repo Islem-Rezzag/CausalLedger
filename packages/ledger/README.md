@@ -1,6 +1,6 @@
 # Ledger Package
 
-`@causalledger/ledger` owns merged contracts/runtime through M04.14. Current M04.15 adds a test-only balanced-posting corpus with local validation PASS; mandatory real database acceptance/overall QA/human merge remain.
+`@causalledger/ledger` owns merged contracts/runtime through M04.14. Current M04.15 adds a test-only balanced-posting corpus with local validation PASS; candidate real561/overall QA PASS, final-head/human merge remain.
 
 The original M02.05 scaffold supplied:
 
