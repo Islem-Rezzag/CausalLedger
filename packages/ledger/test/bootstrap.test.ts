@@ -24,6 +24,7 @@ describe("@causalledger/ledger schema boundary", () => {
       providerClearingConfigurationImplemented: true,
       customerLiabilityConfigurationImplemented: true,
       feeExpenseConfigurationImplemented: true,
+      revenueConfigurationImplemented: true,
       agentWriteAuthority: false,
       financialTruthEstablishedByValidation: false,
     });
@@ -53,6 +54,7 @@ describe("@causalledger/ledger schema boundary", () => {
       "LedgerReversalStorageError",
       "LedgerTransactionReadError",
       "PROVIDER_CLEARING_ACCOUNT_CONTRACT_VERSION",
+      "REVENUE_ACCOUNT_CONTRACT_VERSION",
       "createIdempotentLedgerJournalStore",
       "createLedgerAccountBalanceReader",
       "createLedgerJournalStore",
@@ -76,6 +78,8 @@ describe("@causalledger/ledger schema boundary", () => {
       "validateLedgerTransactionQueryCandidate",
       "validateProviderClearingAccountCandidate",
       "validateProviderClearingJournalCandidate",
+      "validateRevenueAccountCandidate",
+      "validateRevenueJournalCandidate",
     ]);
   });
 });
