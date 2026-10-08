@@ -12,17 +12,17 @@
   ],
   "recommendedImmediateTarget": "V0_6_BENCHMARK_DEMO",
   "recommendedLongTermTarget": "V1_PUBLIC_PRODUCT",
-  "currentPhase": "M04_CUSTOMER_LIABILITY",
+  "currentPhase": "M04_FEE_EXPENSE",
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
-  "currentMilestone": "M04.12",
-  "currentBranch": "m04-12-add-customer-liability-account",
-  "currentPr": 73,
-  "latestMergedPr": 72,
-  "latestMergeCommit": "372a05784f6a081c698654dd0597009f006ee2a5",
+  "currentMilestone": "M04.13",
+  "currentBranch": "m04-13-add-fee-expense-account",
+  "currentPr": 74,
+  "latestMergedPr": 73,
+  "latestMergeCommit": "6df37f79f2217090fd778f6d8195c294f544aff5",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "M04_12_LEDGER964_CONTROL1137_DIRTY_QA17_0_2_PASS",
-  "remoteCiStatus": "Candidate a311152e0c98d06329b0e0a45fe9de68a55d3750/tree4621b92de5bdd072b2d846eea55ac94c2a5897db, existing overall m04_02_qa independent PASS with no remaining findings; 81runtime/60lifecycle probes and full1137control PASS; root cleanQA18/0/1 PASS. Actual both CI37594878875 jobs SUCCESS; actual both checkoutb69b4478cda65437be59e10bba41a4cfaa43992d has base+head parents/identical tree/full empty diff independently verified. Actual real64storage+22balances+27lookup+39idempotency+40reversal+23cash+31provider+34customer=280 mandatory no-skip PASS; THREE UP/DOWN/UP, separate populated05-to08 and08-to09 exact-preservation/no-backfill upgrades, exact6tables/10functions, owned database/roles and Compose cleanup PASS. Full29/root149/reviewer204protected/all18rawrows/V1/history PASS. Final tracking actual-head confirmation/cleanQA/CI and human merge remain required; exact final proof in sole PR73.",
-  "dockerStatus": "UNAVAILABLE_LOCALLY_M04_12_REAL_POSTGRES_COMPOSITION_ACCEPTANCE_PASS",
+  "localTestStatus": "M04_13_LEDGER1046_CONTROL1250_CANDIDATE_CLEAN_QA18_0_1_PASS",
+  "remoteCiStatus": "Candidate 996110a0f0bd38057a6c615a6ea0d7342b9510ce/tree3eef1d54700309baa474ebbe8d2df653b936f0fd, existing overall m04_02_qa independent PASS with no remaining findings; 86runtime/62lifecycle probes and full1250control PASS; root cleanQA18/0/1 PASS. Actual both CI37756266856 jobs SUCCESS; actual both checkout9c28e4019d215de1c8101b7f7eab50fbc484ed7d has base+head parents/identical tree/full empty diff independently verified. Actual real64storage+22balances+27lookup+39idempotency+40reversal+23cash+31provider+34customer+56fee=336 mandatory no-skip PASS; THREE UP/DOWN/UP, separate populated05-to08 and08-to09 exact-preservation/no-backfill upgrades, exact6tables/10functions, owned database/roles and Compose cleanup PASS. Full29/root153/reviewer209protected/all18rawrows/V1/history PASS. Final tracking actual-head confirmation/cleanQA/CI and human merge remain required; exact final proof in sole PR74.",
+  "dockerStatus": "UNAVAILABLE_LOCALLY_M04_13_REAL_POSTGRES_COMPOSITION_ACCEPTANCE_PASS",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
     "M00 repository operating system",
@@ -45,7 +45,8 @@
     "M04.09 full linked reversals; human PR70 merge/final independent QA/clean QA18/0/1/CI37481790910 real192 verified",
     "M04.10 pure cash clearing configuration; human PR71 merge/final independent QA/clean QA18/0/1/CI37490025286 real215 verified",
     "M04.11 pure provider clearing configuration; human PR72 merge/final independent QA/cleanQA18/0/1/CI37522188067 real246 verified",
-    "M04.12 explicit pure liability/credit-normal customer configuration, full-span declared owner context, participating-liability owner isolation and existing account-normal-positive single-currency journal semantics; local/database composition/overall QA PASS; human merge pending"
+    "M04.12 pure customer liability configuration; human PR73 merge/final independent QA/cleanQA18/0/1/CI37595435305 real280 verified",
+    "M04.13 explicit pure expense/debit-normal fee configuration, full-span per-journal source/catalog consistency and existing full linked reversal examples; local/candidate database composition/overall QA PASS; human merge pending"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -66,7 +67,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "M04.12 final SHA-bound gates and human merge remain",
+    "M04.13 final SHA-bound gates and human merge remain",
     "no live-model provider/model/call-count/budget approved"
   ],
   "risks": [
@@ -82,9 +83,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "HUMAN_MERGE_M04_12_AFTER_FINAL_SHA_GATES",
+  "exactNextAction": "HUMAN_MERGE_M04_13_AFTER_FINAL_SHA_GATES",
   "stopReason": "QA_PASSED_AWAITING_HUMAN_MERGE",
-  "lastUpdatedTimestamp": "2026-10-07T08:41:13Z",
+  "lastUpdatedTimestamp": "2026-10-08T09:37:32Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -294,9 +295,9 @@
     "ciRun": 37522188067,
     "independentQa": "PASS"
   },
-  "currentQaEvidence": {
+  "customerLiabilityQaEvidence": {
     "reviewer": "m04_02_qa",
-    "candidateHead": "a311152e0c98d06329b0e0a45fe9de68a55d3750",
+    "candidateHead": "a7b024563531ef069c9a7636327f3c8030d7635f",
     "result": "PASS",
     "unitTests": 964,
     "controlTests": 1137,
@@ -308,7 +309,36 @@
     "realCashClearingCompositionTests": 23,
     "realProviderClearingCompositionTests": 31,
     "realCustomerLiabilityCompositionTests": 34,
-    "ciRun": 37594878875,
-    "finalShaBoundRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/73"
+    "ciRun": 37595435305,
+    "finalShaBoundRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/73#issuecomment-6034329350",
+    "independentRuntimeProbes": 81,
+    "independentLifecycleProbes": 60
+  },
+  "customerLiabilityMergeEvidence": {
+    "pr": 73,
+    "mergeCommit": "6df37f79f2217090fd778f6d8195c294f544aff5",
+    "reviewedHead": "a7b024563531ef069c9a7636327f3c8030d7635f",
+    "reviewedTree": "1d7bf960860e4440ec6adba593237c033a9d419f",
+    "mergedTree": "1d7bf960860e4440ec6adba593237c033a9d419f",
+    "ciRun": 37595435305,
+    "independentQa": "PASS"
+  },
+  "currentQaEvidence": {
+    "reviewer": "m04_02_qa",
+    "candidateHead": "996110a0f0bd38057a6c615a6ea0d7342b9510ce",
+    "result": "PASS",
+    "unitTests": 1046,
+    "controlTests": 1250,
+    "realStorageTests": 64,
+    "realBalanceTests": 22,
+    "realTransactionQueryTests": 27,
+    "realIdempotencyTests": 39,
+    "realReversalTests": 40,
+    "realCashClearingCompositionTests": 23,
+    "realProviderClearingCompositionTests": 31,
+    "realCustomerLiabilityCompositionTests": 34,
+    "realFeeExpenseCompositionTests": 56,
+    "ciRun": 37756266856,
+    "finalShaBoundRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/74"
   }
 }
