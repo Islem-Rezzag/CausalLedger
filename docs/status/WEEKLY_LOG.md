@@ -1345,3 +1345,8 @@ M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.13 are Complete
 
 
 Repair1 after candidate8a187c1: actual CI37765196387 validate SUCCESS, infra FAIL because first revenue USD fixture txn9000001 collided with the unchanged populated-upgrade fixture (runner reserves9000000–2). All55 other current14 PostgreSQL cases passed; no mandatory acceptance claimed for this failed run. Root changed only new revenue PostgreSQL serial/catalog namespace to10_000_000 and corrected both new test source labels toREVENUE_SOURCE; previous financial files/runner/DDL unchanged. Existing deterministic store correctly refused duplicate ID with23505. Fresh repair-head root cleanQA, all TEN mandatory CI suites and independent overall QA remain required; same branch/sole PR75, no15.
+
+
+## 2026-10-08 - M04.14 final handoff
+
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.13 are Completed and merged; Human PR74 mergeeee635e matches final reviewed 68352e3/tree5dbb1593, independent QA/rootcleanQA18/0/1/CI37757996965 real336 verified. M04.14 Add revenue account is **QA passed, awaiting merge** on `m04-14-add-revenue-account`, sole [PR #75](https://github.com/Islem-Rezzag/CausalLedger/pull/75), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger1128/29 files and full control1367 PASS; ledger type/lint/build/format PASS; root candidate cleanQA18/0/1 PASS (optional localDocker skip). Candidate database composition/overall QA PASS; final actual-head gates and human merge remain. Exact final proof belongs in the sole PR. M04.15-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`.

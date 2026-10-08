@@ -20,7 +20,7 @@ M04.03 human-merged in PR #64 at `4a5637c8eab842b368e046b0994a620ecb08e90b`; rev
 
 M04.04 human-merged in PR #65 at `526bb66dda5d9c8b9aebd85775142e8d22c3a73a`; reviewed final head `66f679e9711a0a5f06830eb203119d1dd8e3e04e` shares tree `15c668085da628122ff5601be7d87d8da6b91b35`, with empty diff/main reachability. Exact-head independent QA, clean QA18/0/1 and CI36998201769 both jobs PASS. All prior contracts and 18 approved acceptance rows remain preserved.
 
-M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.13 are Completed and merged; Human PR74 mergeeee635e matches final reviewed 68352e3/tree5dbb1593, independent QA/rootcleanQA18/0/1/CI37757996965 real336 verified. M04.14 Add revenue account is **Builder complete, awaiting QA** on `m04-14-add-revenue-account`, no current PR yet, under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger1128/29 files, prior full1365 plus117 current14 negative cases PASS (1367 collected); ledger type/lint/build/format PASS; root intermediate fullQA17/0/2 PASS (dirty override and optional Docker skips). Database composition/overall QA pending. Exact final proof belongs in the sole PR. M04.15-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`.
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.13 are Completed and merged; Human PR74 mergeeee635e matches final reviewed 68352e3/tree5dbb1593, independent QA/rootcleanQA18/0/1/CI37757996965 real336 verified. M04.14 Add revenue account is **QA passed, awaiting merge** on `m04-14-add-revenue-account`, sole [PR #75](https://github.com/Islem-Rezzag/CausalLedger/pull/75), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger1128/29 files and full control1367 PASS; ledger type/lint/build/format PASS; root candidate cleanQA18/0/1 PASS (optional localDocker skip). Candidate database composition/overall QA PASS; final actual-head gates and human merge remain. Exact final proof belongs in the sole PR. M04.15-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`.
 
 ## Authority and safety
 
@@ -30,7 +30,7 @@ V1 selection does not approve paid calls/budgets, system installs, material scop
 
 ## Environment and validation
 
-Pinned tools and authorized owned Postgres17 CI route; prior13 final reviewed 68352e3/tree5dbb1593/CI37757996965 real336, rootcleanQA18/0/1 and humanPR74 mergeeee635e verified. Fresh ledger1128/29 files, prior full1365 plus117 current14 negative cases PASS (1367 collected); ledger type/lint/build/format PASS; root intermediate fullQA17/0/2 PASS (dirty override and optional Docker skips). Current14 actual database/overall QA pending. Local no Docker/Postgres/make; Python substitutes, warm caches/no cold-install/localDB claim. Exact final proof in sole PR without preceding-CI copy-only commit.
+Pinned tools and authorized owned Postgres17 CI route; prior13 final reviewed 68352e3/tree5dbb1593/CI37757996965 real336, rootcleanQA18/0/1 and humanPR74 mergeeee635e verified. Fresh ledger1128/29 files and full control1367 PASS; ledger type/lint/build/format PASS; root candidate cleanQA18/0/1 PASS (optional localDocker skip). Candidate real392/overall QA PASS; final-head gates/human merge remain. Local no Docker/Postgres/make; Python substitutes, warm caches/no cold-install/localDB claim. Exact final proof in sole PR without preceding-CI copy-only commit.
 
 ## Next gate
 
