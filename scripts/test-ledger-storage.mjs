@@ -565,6 +565,7 @@ try {
       ),
       "run",
       "test/reversal-corpus-postgres.test.ts",
+      "--reporter=verbose",
       "--root",
       "packages/ledger",
     ],

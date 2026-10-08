@@ -77,25 +77,45 @@ const TABLES = [
   ],
   ["ledger_reversals", "reversal_transaction_id", "original_transaction_id"],
 ] as const;
-async function history(
-  excluded: string[] = [],
-): Promise<Record<string, string>> {
+type History = Record<string, [string, string, string][]>;
+function excludeHistory(snapshot: History, excluded: string[]): History {
+  return Object.fromEntries(
+    Object.entries(snapshot).map(([table, rows]) => [
+      table,
+      rows.filter(
+        ([id, original]) =>
+          !excluded.includes(id) && !excluded.includes(original),
+      ),
+    ]),
+  );
+}
+async function history(excluded: string[] = []): Promise<History> {
   const row = (
     await owner.query(
       "SELECT " +
         TABLES.map(
           ([table, id, order]) =>
-            `(SELECT COALESCE(jsonb_agg(to_jsonb(t) ORDER BY ${order
+            `(SELECT COALESCE(array_agg(ARRAY[t.${id}, ${table === "ledger_reversals" ? "t.original_transaction_id" : "''::text"}, to_jsonb(t)::text] ORDER BY ${order
               .split(",")
               .map((k) => `t.${k} COLLATE "C"`)
               .join(
                 ",",
-              )}), '[]'::jsonb)::text FROM public.${table} t WHERE NOT(t.${id}=ANY($1::text[])${table === "ledger_reversals" ? " OR t.original_transaction_id=ANY($1::text[])" : ""})) AS ${table}`,
+              )}), ARRAY[]::text[]) FROM public.${table} t WHERE NOT(t.${id}=ANY($1::text[])${table === "ledger_reversals" ? " OR t.original_transaction_id=ANY($1::text[])" : ""})) AS ${table}`,
         ).join(","),
       [excluded],
     )
-  ).rows[0] as Record<string, string>;
-  for (const [table] of TABLES) expect(row[table]).toBeTypeOf("string");
+  ).rows[0] as History;
+  for (const [table] of TABLES) {
+    expect(Array.isArray(row[table])).toBe(true);
+    expect(
+      row[table]!.every(
+        (tuple) =>
+          Array.isArray(tuple) &&
+          tuple.length === 3 &&
+          tuple.every((value) => typeof value === "string"),
+      ),
+    ).toBe(true);
+  }
   return row;
 }
 async function direct(
@@ -254,17 +274,17 @@ async function roundtrip(f: ReversalFixture, old = false) {
   await readback(f, true);
   await linkAndKey(f);
   await balances(f, true);
-  expect(await history([f.request.journal.transaction.id])).toEqual(
-    originalHistory,
-  );
+  const acceptedHistory = await history();
   expect(
-    await history([
+    excludeHistory(acceptedHistory, [f.request.journal.transaction.id]),
+  ).toEqual(originalHistory);
+  expect(
+    excludeHistory(acceptedHistory, [
       f.input.journal.transaction.id,
       f.request.journal.transaction.id,
     ]),
   ).toEqual(before);
-  const acceptedHistory = await history(),
-    next = retry(f.request, 60_000 + f.number);
+  const next = retry(f.request, 60_000 + f.number);
   const again = await reversal.append(next, [...f.input.accounts].reverse());
   expect(again).toEqual(result);
   expect(await history()).toEqual(acceptedHistory);
