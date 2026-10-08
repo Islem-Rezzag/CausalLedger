@@ -1,6 +1,6 @@
 # Ledger Package
 
-`@causalledger/ledger` owns merged runtime through14 and15/16 test corpora. Current17 reversal corpus local validation PASS; mandatory database/overallQA/human merge pending. No runtime/API/DDL/financial authority change.
+`@causalledger/ledger` owns merged runtime through14 and15/16 test corpora. Current17 reversal corpus local validation PASS; candidate real1224/overallQA PASS, final-head/human merge remain. No runtime/API/DDL/financial authority change.
 
 The original M02.05 scaffold supplied:
 
@@ -52,4 +52,4 @@ M04.14 revenue is human-merged in PR75 (`b7999fb`), matching final reviewed `d4d
 
 M04.16 adds test-only invalid-posting corpus with literal pure issue/path and separate05/08 SQLSTATE expectations, exact ordered full five-table history comparisons, application/owner mutation refusal, late-conflict and explicit transaction rollback, observed concurrent duplicate/conflict losers and direct lock_timeout rollback. New12m IDs; prior11 suites/THREE recovery/upgrades/schema/cleanup unchanged. Human PR76 merge1c5ad6c matches final reviewedeef72bc/tree83138043/CI37777406231 real561/rootcleanQA18/0/1/independentQA. Human PR77 mergeec29ba3c matches finalb9c9abcb/tree6e65fdf9/CI37785947729 real824/rootcleanQA18/0/1/independentQA verified. Hostile JS cases are separate from JSON-compatible SQL; unknown acknowledgement outcomes remain uncertain.Current17 reversal corpus validation pending; postingImplemented:false unchanged.
 
-M04.17 adds only cross-feature full reversal tests: all25 category pairs/three currencies/four amount shapes, role10–14 and general multicurrency; exact original preservation/net-zero/partial policy/semantic retry/observed concurrent losers/rollback. New13m IDs; prior12 suites/THREE migrations/source/tests/helpers/specs preserved. Local validation PASS; database/independentQA/human merge pending. See [the reversal tests guide](../../docs/specs/reversal-tests.md). No runtime/API/DDL/financial authority change; postingImplemented:false unchanged.
+M04.17 adds only cross-feature full reversal tests: all25 category pairs/three currencies/four amount shapes, role10–14 and general multicurrency; exact original preservation/net-zero/partial policy/semantic retry/observed concurrent losers/rollback. New13m IDs; prior12 suites/THREE migrations/source/tests/helpers/specs preserved. Candidate real1224/overallQA PASS; final-head/human merge remain. See [the reversal tests guide](../../docs/specs/reversal-tests.md). No runtime/API/DDL/financial authority change; postingImplemented:false unchanged.
