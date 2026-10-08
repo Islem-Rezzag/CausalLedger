@@ -484,6 +484,23 @@ try {
   );
   console.log(
     "PASS: Mandatory real PostgreSQL customer liability composition acceptance completed",
+  );  child(
+    [
+      fileURLToPath(
+        new URL(
+          "../packages/ledger/node_modules/vitest/vitest.mjs",
+          import.meta.url,
+        ),
+      ),
+      "run",
+      "test/fee-expense-account-postgres.test.ts",
+      "--root",
+      "packages/ledger",
+    ],
+    testEnv,
+  );
+  console.log(
+    "PASS: Mandatory real PostgreSQL fee expense composition acceptance completed",
   );
 } catch (error) {
   console.error("FAIL: " + sanitize(error.message));
