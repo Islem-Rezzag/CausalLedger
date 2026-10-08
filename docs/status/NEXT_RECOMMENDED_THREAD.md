@@ -1,12 +1,12 @@
 # Next Recommended Thread
 
 Thread name:
-Merge M04.13 PR - Add fee expense account
+M04.14 QA - Add revenue account
 
 Precondition:
-Expected `m04-13-add-fee-expense-account`, scoped dirty edits allowed only within this slice, sole PR and active CLP-0005. Human PR73 merge6df37f7 matches final reviewed a7b0245/tree1d7bf960, independent QA/rootcleanQA18/0/1/CI37595435305 real280 verified. Fresh ledger1046/27 files and control1250 PASS; ledger type/lint/build/format PASS; root candidate cleanQA18/0/1 PASS (optional localDocker skip).
+Expected `m04-14-add-revenue-account`, scoped dirty edits allowed only within this slice, sole PR and active CLP-0005. Human PR74 mergeeee635e matches final reviewed 68352e3/tree5dbb1593, independent QA/rootcleanQA18/0/1/CI37757996965 real336 verified. Fresh ledger1128/29 files, prior full1365 plus117 current14 negative cases PASS (1367 collected); ledger type/lint/build/format PASS; root intermediate fullQA17/0/2 PASS (dirty override and optional Docker skips).
 
-Candidate 996110a0f0bd38057a6c615a6ea0d7342b9510ce/tree3eef1d54700309baa474ebbe8d2df653b936f0fd, existing overall m04_02_qa independent PASS with no remaining findings; 86runtime/62lifecycle probes and full1250control PASS; root cleanQA18/0/1 PASS. Actual both CI37756266856 jobs SUCCESS; actual both checkout9c28e4019d215de1c8101b7f7eab50fbc484ed7d has base+head parents/identical tree/full empty diff independently verified. Actual real64storage+22balances+27lookup+39idempotency+40reversal+23cash+31provider+34customer+56fee=336 mandatory no-skip PASS; THREE UP/DOWN/UP, separate populated05-to08 and08-to09 exact-preservation/no-backfill upgrades, exact6tables/10functions, owned database/roles and Compose cleanup PASS. Full29/root153/reviewer209protected/all18rawrows/V1/history PASS. Final tracking actual-head confirmation/cleanQA/CI and human merge remain required; exact final proof in sole PR74.
+Current14 actual PostgreSQL revenue composition and existing overall independent QA pending; unit tests are not database evidence.
 
 Scope:
-Confirm actual final-head independent review/root cleanQA/bothCI/all NINE mandatory owned17 suites, then human-only merge. Exact final proof in sole PR; no CI-copy-only commit. No14 before verified13 merge, new chats/goals, installs, paid calls or agent authority.
+Reuse existing separate-context m04_02_qa; full read-only scoped review and independent probes after root test hold release. No simultaneous pnpm/fullQA or helpers. Mandatory owned17 all TEN suites, root tests and actual final-head gates. Root sole editor; repairs stay same branch/PR. No15 before verified14 merge, new chats/goals, installs, paid calls or agent authority.

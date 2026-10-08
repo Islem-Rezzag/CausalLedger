@@ -197,6 +197,7 @@ export const ledgerPackageBoundary = Object.freeze({
   providerClearingConfigurationImplemented: true,
   customerLiabilityConfigurationImplemented: true,
   feeExpenseConfigurationImplemented: true,
+  revenueConfigurationImplemented: true,
   agentWriteAuthority: false,
   financialTruthEstablishedByValidation: false,
 } as const);
@@ -226,3 +227,16 @@ export {
   validateFeeExpenseAccountCandidate,
   validateFeeExpenseJournalCandidate,
 } from "./fee-expense-account.js";
+
+export type {
+  RevenueAccount,
+  RevenueAccountCandidate,
+  RevenueAccountIssue,
+  RevenueAccountValidationResult,
+  RevenueJournalContextCandidate,
+} from "./revenue-account.js";
+export {
+  REVENUE_ACCOUNT_CONTRACT_VERSION,
+  validateRevenueAccountCandidate,
+  validateRevenueJournalCandidate,
+} from "./revenue-account.js";
