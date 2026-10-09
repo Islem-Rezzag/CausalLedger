@@ -60,7 +60,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md` - completed M01 plan.
 - `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md` - completed M02 plan.
 - `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md` - completed M03 plan.
-- `plans/active/CLP-0005-m04-double-entry-ledger-core.md` - current17 full-reversal/net-zero/policy/retry/concurrency test brief; verified PR77 human merge.
+- `plans/active/CLP-0005-m04-double-entry-ledger-core.md` - current18 acceptance/demo brief; verified PR78 human merge; separate formal closeout after18 merge.
 - `plans/proposals/CLP-PROJECT-COMPLETION-GOAL.md` - proposed grouping overlay; milestone acceptance and per-PR gates remain authoritative.
 - `docs/status/M02_CLOSEOUT.md` - M02 closeout packet.
 - `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
@@ -125,8 +125,10 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.16 are Completed and merged; Human PR77 mergeec29ba3c matches final reviewedb9c9abcb/tree6e65fdf9/CI37785947729 real824/rootcleanQA18/0/1/independent359 carried-runtime+72 fresh-lifecycle/full1613 controls verified. M04.17 Add reversal tests is **QA passed, awaiting merge** on `m04-17-add-reversal-tests`, sole [PR #78](https://github.com/Islem-Rezzag/CausalLedger/pull/78), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger1785/32files and full control1742 PASS; ledger type/lint/build/format PASS; root candidate cleanQA18/0/1 PASS. Candidate real1224/overall QA PASS; final-head gates and human merge remain. Exact final proof belongs in the sole PR. M04.18 and M05-M21 remain Not started; formalM04closeout remains required beforeM05. Current evidence is in `docs/status/CURRENT_STATE.md`.
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.17 are Completed and merged. Human PR #78 merge626dbc04 matches reviewed6b4fa5ad/tree d36e7eed, final CI37804064435 (1785 ledger/1742 controls/1224 real PostgreSQL assertions), cleanQA18/0/1 and independent QA PASS; full diff empty and main reachability verified. M04.18 QA ledger core is **Builder complete, awaiting QA** on `m04-18-qa-ledger-core`, no current PR, under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger1785/32files and fullcontrol1882 PASS; type/lint/build/format PASS; intermediateQA17/0/2 PASS. Mandatory current database acceptance and independent QA pending. Final actual-head gates and human merge remain. Formal M04 closeout remains separate after all18 rows merge; M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`.
 
 - `docs/specs/ledger-account-balance-query.md` - M04.06 read-only exact account/currency totals, sign, cutoff and committed-snapshot semantics.
 - `docs/specs/ledger-transaction-query.md` - M04.07 complete journal identity/reference/account-currency queries and explicit page boundaries.
 - `docs/specs/ledger-immutable-storage.md` - Current M04.05 storage contract and mandatory disposable acceptance.
+
+- `docs/specs/ledger-core-acceptance.md` - M04 acceptance mapping, clean CI setup and executable synthetic demo.

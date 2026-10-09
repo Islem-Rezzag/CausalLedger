@@ -90,7 +90,7 @@ The Docker path checks:
 - Compose configuration;
 - local Postgres start and health;
 - M04.05 mandatory isolated migration up/down/up and storage acceptance through `pnpm test:ledger-storage` (historical M02 used empty `pnpm migrate:up`);
-- explicit storage-database public schema inspection allowing exactly three reviewed ledger tables plus `pgmigrations`; the bootstrap Compose database is inspected separately and remains empty or metadata-only;
+- explicit storage-database public schema inspection allowing exactly five reviewed ledger tables plus `pgmigrations` and ten reviewed functions; the bootstrap Compose database is inspected separately and remains empty or metadata-only;
 - cleanup through `docker compose down -v`.
 
 The script uses a unique Compose project name and a temporary local host port. The cleanup path always runs for resources created by the script.

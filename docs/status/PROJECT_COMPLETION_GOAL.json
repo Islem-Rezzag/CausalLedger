@@ -12,17 +12,17 @@
   ],
   "recommendedImmediateTarget": "V0_6_BENCHMARK_DEMO",
   "recommendedLongTermTarget": "V1_PUBLIC_PRODUCT",
-  "currentPhase": "M04_REVERSAL_TESTS",
+  "currentPhase": "M04_LEDGER_ACCEPTANCE",
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
-  "currentMilestone": "M04.17",
-  "currentBranch": "m04-17-add-reversal-tests",
-  "currentPr": 78,
-  "latestMergedPr": 77,
-  "latestMergeCommit": "ec29ba3c0fefdd80ff8c3c71e10aa3e27642db64",
+  "currentMilestone": "M04.18",
+  "currentBranch": "m04-18-qa-ledger-core",
+  "currentPr": null,
+  "latestMergedPr": 78,
+  "latestMergeCommit": "626dbc04a41929ccfcb67cee0790381f87b0a9cd",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "M04_17_LEDGER1785_CONTROL1742_CANDIDATE_CLEAN_QA18_0_1_PASS",
-  "remoteCiStatus": "Candidate f471feaec200fb93aa666d450817be6a19af74ce/tree385f3cefb5f14da8510e12fbc2082b0e1c82603f, existing overall m04_02_qa independent PASS/no remaining findings; 380 runtime/71 lifecycle and fresh full1742 control PASS; root cleanQA18/0/1 PASS. Actual bothCI37801829121 jobs SUCCESS; both checkoutbd4aa1718d5f70d4ffacca85dd7918a51e2e763b exact base+head parents/same tree/fullEMPTYdiff independently verified. Actual64storage+22balances+27queries+39idempotency+40reversal+23cash+31provider+34customer+56fee+56revenue+169balanced+263invalid+400cross-feature-reversal=1224 mandatory no-skip PASS; THREE UP/DOWN/UP/both populated preservation-no-backfill upgrades/exact6tables10functions/owned+Composecleanup PASS. Full26/root169/reviewer334protected/all18rawrows/V1/history PASS. Final tracking actual-head reviewer/rootcleanQA/bothCI/human merge remain required; exact final proof in solePR78.",
-  "dockerStatus": "UNAVAILABLE_LOCALLY_M04_17_REAL_POSTGRES_CORPUS_PASS",
+  "localTestStatus": "Fresh ledger1785/32files and fullcontrol1882 PASS; type/lint/build/format PASS; intermediateQA17/0/2 PASS. Mandatory current database acceptance and independent QA pending.",
+  "remoteCiStatus": "M04_18_DATABASE_ACCEPTANCE_AND_EXACT_HEAD_CI_PENDING",
+  "dockerStatus": "UNAVAILABLE_LOCALLY_APPROVED_OWNED_POSTGRES17_CI_ROUTE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
     "M00 repository operating system",
@@ -50,7 +50,8 @@
     "M04.14 pure revenue configuration; human PR75 merge/final independent QA/cleanQA18/0/1/CI37766171659 real392 verified",
     "M04.15 test-only balanced-posting corpus; human PR76 merge/final QA/rootcleanQA18/0/1/CI37777406231 real561 verified",
     "M04.16 tests-only invalid-posting corpus; human PR77 merge/final QA/rootcleanQA18/0/1/CI37785947729 real824 verified",
-    "M04.17 tests-only full-linked reversal/net-zero/policy/retry/concurrency corpus; local/candidate database/overallQA PASS; human merge pending"
+    "M04.17 reversal test corpus human PR78 merge/final QA/CI/rootcleanQA verified",
+    "M04.18 whole-ledger acceptance and test-only demo; Fresh ledger1785/32files and fullcontrol1882 PASS; type/lint/build/format PASS; intermediateQA17/0/2 PASS. Mandatory current database acceptance and independent QA pending. Human merge/formal closeout pending."
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -71,7 +72,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "M04.17 final actual-head gates and human merge remain",
+    "M04.18 final actual-head gates/human merge and subsequent formal M04 closeout remain",
     "no live-model provider/model/call-count/budget approved"
   ],
   "risks": [
@@ -87,9 +88,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "HUMAN_MERGE_M04_17_AFTER_FINAL_SHA_GATES",
-  "stopReason": "QA_PASSED_AWAITING_HUMAN_MERGE",
-  "lastUpdatedTimestamp": "2026-10-08T15:45:18Z",
+  "exactNextAction": "M04_18_ACCEPTANCE_DEMO_AND_EXISTING_INDEPENDENT_QA",
+  "stopReason": "BUILDER_COMPLETE_AWAITING_QA",
+  "lastUpdatedTimestamp": "2026-10-09T16:10:33Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -452,9 +453,9 @@
     "independentLifecycleProbes": 72,
     "independentRuntimeEvidence": "Accepted359 runtime carried to final by338 non-document byte identity; final72 lifecycle and1613 controls fresh; actualfinalCI1418/1613/824 and rootcleanQA18/0/1 verified."
   },
-  "currentQaEvidence": {
+  "reversalTestsQaEvidence": {
     "reviewer": "m04_02_qa",
-    "candidateHead": "f471feaec200fb93aa666d450817be6a19af74ce",
+    "candidateHead": "6b4fa5ad6ce5c3d3034621530e984a3a43313339",
     "result": "PASS",
     "unitTests": 1785,
     "controlTests": 1742,
@@ -471,7 +472,17 @@
     "realBalancedPostingCorpusTests": 169,
     "realInvalidPostingCorpusTests": 263,
     "realCrossFeatureReversalTests": 400,
-    "ciRun": 37801829121,
-    "finalShaBoundRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/78"
+    "ciRun": 37804064435,
+    "finalShaBoundRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/78#issuecomment-6077167267",
+    "independentRuntimeEvidence": "380 accepted runtime probes carried by342 non-document byte identity; fresh final71 lifecycle/1742 controls; finalCI1785/1742/1224/rootcleanQA18/0/1 verified."
+  },
+  "reversalTestsMergeEvidence": {
+    "pr": 78,
+    "mergeCommit": "626dbc04a41929ccfcb67cee0790381f87b0a9cd",
+    "reviewedHead": "6b4fa5ad6ce5c3d3034621530e984a3a43313339",
+    "reviewedTree": "d36e7eedf8bdfb2d73839b75615469e890616030",
+    "mergedTree": "d36e7eedf8bdfb2d73839b75615469e890616030",
+    "ciRun": 37804064435,
+    "independentQa": "PASS"
   }
 }
