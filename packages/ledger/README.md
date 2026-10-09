@@ -1,6 +1,6 @@
 # Ledger Package
 
-`@causalledger/ledger` owns merged runtime through14 and15–17 test corpora. Current18 acceptance/demo: Fresh ledger1785/32files and fullcontrol1882 PASS; type/lint/build/format PASS; intermediateQA17/0/2 PASS. Mandatory current database acceptance and independent QA pending. Human18 merge and formalM04closeout pending. No runtime/API/DDL/financial authority change.
+`@causalledger/ledger` owns merged runtime through14 and15–17 test corpora. Current18 acceptance/demo: Fresh ledger1785/32files and fullcontrol1882 PASS; candidate cleanQA18/0/1, independent whole-M04 QA and actual PostgreSQL1227 including executable demo PASS. Final exact-head gates and human merge remain; final proof belongs in sole PR. Human18 merge and formalM04closeout pending. No runtime/API/DDL/financial authority change.
 
 The original M02.05 scaffold supplied:
 

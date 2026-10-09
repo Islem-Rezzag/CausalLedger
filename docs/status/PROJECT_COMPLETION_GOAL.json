@@ -16,12 +16,12 @@
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
   "currentMilestone": "M04.18",
   "currentBranch": "m04-18-qa-ledger-core",
-  "currentPr": null,
+  "currentPr": 79,
   "latestMergedPr": 78,
   "latestMergeCommit": "626dbc04a41929ccfcb67cee0790381f87b0a9cd",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "Fresh ledger1785/32files and fullcontrol1882 PASS; type/lint/build/format PASS; intermediateQA17/0/2 PASS. Mandatory current database acceptance and independent QA pending.",
-  "remoteCiStatus": "M04_18_DATABASE_ACCEPTANCE_AND_EXACT_HEAD_CI_PENDING",
+  "localTestStatus": "Fresh ledger1785/32files and fullcontrol1882 PASS; candidate cleanQA18/0/1, independent whole-M04 QA and actual PostgreSQL1227 including executable demo PASS. Final exact-head gates and human merge remain; final proof belongs in sole PR.",
+  "remoteCiStatus": "M04_18_CANDIDATE_CI37958497867_BOTH_JOBS_1227_REAL_PASS",
   "dockerStatus": "UNAVAILABLE_LOCALLY_APPROVED_OWNED_POSTGRES17_CI_ROUTE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -51,7 +51,7 @@
     "M04.15 test-only balanced-posting corpus; human PR76 merge/final QA/rootcleanQA18/0/1/CI37777406231 real561 verified",
     "M04.16 tests-only invalid-posting corpus; human PR77 merge/final QA/rootcleanQA18/0/1/CI37785947729 real824 verified",
     "M04.17 reversal test corpus human PR78 merge/final QA/CI/rootcleanQA verified",
-    "M04.18 whole-ledger acceptance and test-only demo; Fresh ledger1785/32files and fullcontrol1882 PASS; type/lint/build/format PASS; intermediateQA17/0/2 PASS. Mandatory current database acceptance and independent QA pending. Human merge/formal closeout pending."
+    "M04.18 whole-ledger acceptance and test-only demo; Fresh ledger1785/32files and fullcontrol1882 PASS; candidate cleanQA18/0/1, independent whole-M04 QA and actual PostgreSQL1227 including executable demo PASS. Final exact-head gates and human merge remain; final proof belongs in sole PR. Human merge/formal closeout pending."
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -88,9 +88,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "M04_18_ACCEPTANCE_DEMO_AND_EXISTING_INDEPENDENT_QA",
-  "stopReason": "BUILDER_COMPLETE_AWAITING_QA",
-  "lastUpdatedTimestamp": "2026-10-09T16:10:33Z",
+  "exactNextAction": "HUMAN_MERGE_M04_18_AFTER_FINAL_SHA_GATES",
+  "stopReason": "QA_PASSED_AWAITING_HUMAN_MERGE",
+  "lastUpdatedTimestamp": "2026-10-09T16:32:43Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -484,5 +484,17 @@
     "mergedTree": "d36e7eedf8bdfb2d73839b75615469e890616030",
     "ciRun": 37804064435,
     "independentQa": "PASS"
+  },
+  "currentQaEvidence": {
+    "head": "1db4130c598cd05103fcbe1f134cb3d0a5c0f3be",
+    "tree": "19739785b7baacaf9da994b00f91b065faf7c8b4",
+    "result": "PASS",
+    "runtimeProbes": 510,
+    "lifecycleProbes": 122,
+    "controlTests": 1882,
+    "ciRun": 37958497867,
+    "reviewer": "m04_02_qa",
+    "candidateHead": "1db4130c598cd05103fcbe1f134cb3d0a5c0f3be",
+    "finalShaBoundRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/79"
   }
 }
