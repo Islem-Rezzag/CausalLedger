@@ -20,7 +20,7 @@ M04.03 human-merged in PR #64 at `4a5637c8eab842b368e046b0994a620ecb08e90b`; rev
 
 M04.04 human-merged in PR #65 at `526bb66dda5d9c8b9aebd85775142e8d22c3a73a`; reviewed final head `66f679e9711a0a5f06830eb203119d1dd8e3e04e` shares tree `15c668085da628122ff5601be7d87d8da6b91b35`, with empty diff/main reachability. Exact-head independent QA, clean QA18/0/1 and CI36998201769 both jobs PASS. All prior contracts and 18 approved acceptance rows remain preserved.
 
-M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.15 are Completed and merged; Human PR76 merge1c5ad6c matches final reviewedeef72bc/tree83138043/CI37777406231 real561/rootcleanQA18/0/1/independent473 carried-runtime+67 fresh-lifecycle verified. M04.16 Add tests for invalid posting is **QA passed, awaiting merge** on `m04-16-add-tests-for-invalid-posting`, sole [PR #77](https://github.com/Islem-Rezzag/CausalLedger/pull/77), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger1418/31files and full control1613 PASS; ledger type/lint/build/format PASS; root candidate cleanQA18/0/1 PASS. Candidate real824/overall QA PASS; final-head gates and human merge remain. Exact final proof belongs in the sole PR. M04.17-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`.
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.16 are Completed and merged; Human PR77 mergeec29ba3c matches final reviewedb9c9abcb/tree6e65fdf9/CI37785947729 real824/rootcleanQA18/0/1/independent359 carried-runtime+72 fresh-lifecycle/full1613 controls verified. M04.17 Add reversal tests is **QA passed, awaiting merge** on `m04-17-add-reversal-tests`, sole [PR #78](https://github.com/Islem-Rezzag/CausalLedger/pull/78), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger1785/32files and full control1742 PASS; ledger type/lint/build/format PASS; root candidate cleanQA18/0/1 PASS. Candidate real1224/overall QA PASS; final-head gates and human merge remain. Exact final proof belongs in the sole PR. M04.18 and M05-M21 remain Not started; formalM04closeout remains required beforeM05. Current evidence is in `docs/status/CURRENT_STATE.md`.
 
 ## Authority and safety
 
@@ -30,8 +30,8 @@ V1 selection does not approve paid calls/budgets, system installs, material scop
 
 ## Environment and validation
 
-Pinned tools and approved owned17 CI route. Human PR76 merge1c5ad6c matches final reviewedeef72bc/tree83138043/CI37777406231 real561/rootcleanQA18/0/1/independent473 carried-runtime+67 fresh-lifecycle verified. Fresh ledger1418/31files and full control1613 PASS; ledger type/lint/build/format PASS; root candidate cleanQA18/0/1 PASS. Candidate real824/overallQA PASS; final-head/human merge remain. Local no Docker/Postgres/make; warm caches/no cold-install claim; final proof in sole PR, no CI-copy-only commit.
+Pinned tools and approved owned17 CI. Human PR77 mergeec29ba3c matches final reviewedb9c9abcb/tree6e65fdf9/CI37785947729 real824/rootcleanQA18/0/1/independent359 carried-runtime+72 fresh-lifecycle/full1613 controls verified. Fresh ledger1785/32files and full control1742 PASS; ledger type/lint/build/format PASS; root candidate cleanQA18/0/1 PASS. Candidate real1224/overallQA PASS; final-head/human merge remain. Local no Docker/Postgres/make; warm caches/no cold-install claim; final proof in sole PR.
 
 ## Next gate
 
-Next gate: build/validate16 adversarial tests, existing independent QA/mandatory owned17 acceptance/final-head cleanQA/bothCI/human-only merge. No17 before verified16 merge; no repeated15 QA, installs, paid calls, chats or goals.
+Next gate: final actual-head independent confirmation/rootcleanQA/bothCI/human-only merge. No18 before verified17 merge; noM05 before formalM04closeout; no repeated16 QA/newhelpers/chats/goals/installs/paidcalls.

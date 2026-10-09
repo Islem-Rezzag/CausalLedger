@@ -60,7 +60,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 - `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md` - completed M01 plan.
 - `plans/completed/CLP-0003-m02-monorepo-and-local-development-environment.md` - completed M02 plan.
 - `plans/completed/CLP-0004-m03-canonical-moneyevent-engine.md` - completed M03 plan.
-- `plans/active/CLP-0005-m04-double-entry-ledger-core.md` - current16 adversarial/no-write/rollback/concurrency tests brief, verified PR76 human merge/final QA/CI.
+- `plans/active/CLP-0005-m04-double-entry-ledger-core.md` - current17 full-reversal/net-zero/policy/retry/concurrency test brief; verified PR77 human merge.
 - `plans/proposals/CLP-PROJECT-COMPLETION-GOAL.md` - proposed grouping overlay; milestone acceptance and per-PR gates remain authoritative.
 - `docs/status/M02_CLOSEOUT.md` - M02 closeout packet.
 - `prompts/template_builder_submilestone.md` - reusable builder thread prompt template.
@@ -125,7 +125,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.15 are Completed and merged; Human PR76 merge1c5ad6c matches final reviewedeef72bc/tree83138043/CI37777406231 real561/rootcleanQA18/0/1/independent473 carried-runtime+67 fresh-lifecycle verified. M04.16 Add tests for invalid posting is **QA passed, awaiting merge** on `m04-16-add-tests-for-invalid-posting`, sole [PR #77](https://github.com/Islem-Rezzag/CausalLedger/pull/77), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger1418/31files and full control1613 PASS; ledger type/lint/build/format PASS; root candidate cleanQA18/0/1 PASS. Candidate real824/overall QA PASS; final-head gates and human merge remain. Exact final proof belongs in the sole PR. M04.17-M04.18 and M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`.
+M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.16 are Completed and merged; Human PR77 mergeec29ba3c matches final reviewedb9c9abcb/tree6e65fdf9/CI37785947729 real824/rootcleanQA18/0/1/independent359 carried-runtime+72 fresh-lifecycle/full1613 controls verified. M04.17 Add reversal tests is **QA passed, awaiting merge** on `m04-17-add-reversal-tests`, sole [PR #78](https://github.com/Islem-Rezzag/CausalLedger/pull/78), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger1785/32files and full control1742 PASS; ledger type/lint/build/format PASS; root candidate cleanQA18/0/1 PASS. Candidate real1224/overall QA PASS; final-head gates and human merge remain. Exact final proof belongs in the sole PR. M04.18 and M05-M21 remain Not started; formalM04closeout remains required beforeM05. Current evidence is in `docs/status/CURRENT_STATE.md`.
 
 - `docs/specs/ledger-account-balance-query.md` - M04.06 read-only exact account/currency totals, sign, cutoff and committed-snapshot semantics.
 - `docs/specs/ledger-transaction-query.md` - M04.07 complete journal identity/reference/account-currency queries and explicit page boundaries.
