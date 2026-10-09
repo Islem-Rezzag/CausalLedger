@@ -321,7 +321,7 @@ describe("M04.18 mandatory executable synthetic ledger core acceptance", () => {
     await absent(next.transaction.id);
     // Restricted application writes must remain refused; owner is read-only here.
     for (const sql of [
-      "UPDATE public.ledger_transactions SET status='pending' WHERE id=$1",
+      "UPDATE public.ledger_transactions SET header=jsonb_set(header,'{status}','\"pending\"'::jsonb) WHERE id=$1",
       "DELETE FROM public.ledger_transactions WHERE id=$1",
     ]) {
       await expect(
