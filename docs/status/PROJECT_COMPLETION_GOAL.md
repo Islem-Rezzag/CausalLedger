@@ -20,7 +20,7 @@ M04.03 human-merged in PR #64 at `4a5637c8eab842b368e046b0994a620ecb08e90b`; rev
 
 M04.04 human-merged in PR #65 at `526bb66dda5d9c8b9aebd85775142e8d22c3a73a`; reviewed final head `66f679e9711a0a5f06830eb203119d1dd8e3e04e` shares tree `15c668085da628122ff5601be7d87d8da6b91b35`, with empty diff/main reachability. Exact-head independent QA, clean QA18/0/1 and CI36998201769 both jobs PASS. All prior contracts and 18 approved acceptance rows remain preserved.
 
-M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.17 are Completed and merged. Human PR #78 merge626dbc04 matches reviewed6b4fa5ad/tree d36e7eed, final CI37804064435 (1785 ledger/1742 controls/1224 real PostgreSQL assertions), cleanQA18/0/1 and independent QA PASS; full diff empty and main reachability verified. M04.18 QA ledger core is **QA passed, awaiting merge** on `m04-18-qa-ledger-core`, sole [PR #79](https://github.com/Islem-Rezzag/CausalLedger/pull/79), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger1785/32files and fullcontrol1882 PASS; candidate cleanQA18/0/1, independent whole-M04 QA and actual PostgreSQL1227 including executable demo PASS. Final exact-head gates and human merge remain; final proof belongs in sole PR. Final actual-head gates and human merge remain. Formal M04 closeout remains separate after all18 rows merge; M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`.
+M00–M03 are closed and V1_PUBLIC_PRODUCT remains approved. M04.01–M04.18 are Completed and merged, including verified [PR #79](https://github.com/Islem-Rezzag/CausalLedger/pull/79). Formal M04 closeout is proposed on `m04-closeout-double-entry-ledger-core` under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; builder validation passed and independent closeout QA/CI are pending. M04 remains In progress until this separate closeout's human merge is verified. M05–M21 remain Not started. Current evidence and conditions are in `docs/status/M04_CLOSEOUT.md`.
 
 ## Authority and safety
 
@@ -30,8 +30,17 @@ V1 selection does not approve paid calls/budgets, system installs, material scop
 
 ## Environment and validation
 
-Pinned tools and approved owned17 CI. Human PR #78 merge626dbc04 matches reviewed6b4fa5ad/tree d36e7eed, final CI37804064435 (1785 ledger/1742 controls/1224 real PostgreSQL assertions), cleanQA18/0/1 and independent QA PASS; full diff empty and main reachability verified. Fresh ledger1785/32files and fullcontrol1882 PASS; candidate cleanQA18/0/1, independent whole-M04 QA and actual PostgreSQL1227 including executable demo PASS. Final exact-head gates and human merge remain; final proof belongs in sole PR. Local warm caches; clean setup uses fresh CI checkout. Root runs tests/user none. Final proof in sole PR.
+Verified prerequisite: PR79 final independent QA, CI37959900408, 1785 ledger/1882 controls/1227 real PostgreSQL tests and human merge/tree/main provenance passed. This is prerequisite evidence; closeout builder validation passed all2,055 controls and intermediate QA17/0/2. Independent closeout review, candidate/final clean QA and current-head CI are pending. Local caches are warm, and clean database setup uses approved owned PostgreSQL17 CI. Coordinator runs tests; user need not run them.
 
 ## Next gate
 
-Next gate:18 actual-head QA/rootcleanQA/bothCI/human-only merge; then separate formalM04closeout beforeM05. No new helpers/chats/nativegoals, installs or paid calls.
+Next gate: separate formal M04 closeout review, final clean-workspace QA, both exact-head CI jobs and human-only merge. Verify that merge before plan movement and M05 planning. Reuse existing reviewer/design auditor; no new helper chats/native goals, installations or paid calls.
+
+
+## Current formal M04 closeout proposal (2026-10-09)
+
+M00–M03 are closed and V1_PUBLIC_PRODUCT remains approved. M04.01–M04.18 are Completed and merged, including verified [PR #79](https://github.com/Islem-Rezzag/CausalLedger/pull/79). Formal M04 closeout is proposed on `m04-closeout-double-entry-ledger-core` under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; builder validation passed and independent closeout QA/CI are pending. M04 remains In progress until this separate closeout's human merge is verified. M05–M21 remain Not started. Current evidence and conditions are in `docs/status/M04_CLOSEOUT.md`.
+
+Human PR #79 merged at `c039964073fd7b80fdecea34a035a242353261c7` on 2026-10-09T17:14:57Z by Islem-Rezzag. Reviewed head `3f5236f45baa6b77dd0c48ed7119124d249523db` and merged commit have the same tree `e3ab43ed87084dfefb6c2b6a95ac176edc2472dc` and an empty full diff; fetched main reachability passed. Both jobs of CI 37959900408 passed, with 1,785 ledger tests, 1,882 controls and 1,227 actual PostgreSQL tests across fourteen suites. Independent final QA passed; published body/advisory 6085224093 and SHA256 bindings were read back.
+
+Closeout disposition: PROPOSED_PENDING_HUMAN_MERGE. Independent closeout QA/current-head CI pending; native goal remains user-paused, with no goal tool or new goal used. Plan movement and M05 planning require actual closeout human merge and provenance verification.

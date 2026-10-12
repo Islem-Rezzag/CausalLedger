@@ -142,6 +142,12 @@ M04_ACCEPTANCE_BRANCH = "m04-18-qa-ledger-core"
 M04_ACCEPTANCE_PHASE = "M04_LEDGER_ACCEPTANCE"
 M04_ACCEPTANCE_FILES = {"test/ledger-core-acceptance-postgres.test.ts"}
 M04_ACCEPTANCE_GUIDE = "docs/specs/ledger-core-acceptance.md"
+M04_CLOSEOUT_PHASE = "M04_CLOSEOUT"
+M04_CLOSEOUT_BRANCH = "m04-closeout-double-entry-ledger-core"
+M04_CLOSEOUT_DOC = "docs/status/M04_CLOSEOUT.md"
+M04_ACCEPTANCE_MERGE_EVIDENCE = {'pr': 79, 'mergeCommit': 'c039964073fd7b80fdecea34a035a242353261c7', 'reviewedHead': '3f5236f45baa6b77dd0c48ed7119124d249523db', 'reviewedTree': 'e3ab43ed87084dfefb6c2b6a95ac176edc2472dc', 'mergedTree': 'e3ab43ed87084dfefb6c2b6a95ac176edc2472dc', 'ciRun': 37959900408, 'independentQa': 'PASS'}
+M04_ACCEPTANCE_QA_EVIDENCE = {'head': '3f5236f45baa6b77dd0c48ed7119124d249523db', 'tree': 'e3ab43ed87084dfefb6c2b6a95ac176edc2472dc', 'result': 'PASS', 'runtimeProbes': 510, 'lifecycleProbes': 122, 'controlTests': 1882, 'ciRun': 37959900408, 'reviewer': 'existing separate-context m04_02_qa', 'finalReviewRecord': 'https://github.com/Islem-Rezzag/CausalLedger/pull/79#issuecomment-6085224093', 'reviewerResultSha256': 'd329c10040992a9fec49e7813774b8cf3e54532c22bad5ef3ec8e9311b9d49f3', 'bodySha256': 'cb5382b32fd6d7fbad96420f86dbd8f5cf6ace9140af885fdbc20b1fff6dded8', 'advisorySha256': '269876c410d9568918ed0c11719d01bf545c6374e40f3e04bcbd8d1cc24d082e'}
+M04_CLOSEOUT_PLAN_ROWS = [{'ID': 'M04.01', 'Existing submilestone': 'Define Account schema', 'Dependencies': 'Planning PR merged; M03/ADR-0008', 'Acceptance and deterministic evidence': 'Specify account identity, category, currency and lifecycle/ownership boundaries. Tests refuse invalid/unknown fields, conflicting IDs, unsupported currencies/categories and unsafe coercion; no persistence/posting. Resolve exact category and sign-policy questions explicitly.'}, {'ID': 'M04.02', 'Existing submilestone': 'Define LedgerTransaction schema', 'Dependencies': 'M04.01 merged', 'Acceptance and deterministic evidence': 'Explicit transaction identity, references, supplied times, idempotency boundary and status semantics. Test missing/contradictory provenance, invalid references and mutation of input. No implicit posting from a structurally valid MoneyEvent.'}, {'ID': 'M04.03', 'Existing submilestone': 'Define LedgerEntry schema', 'Dependencies': 'M04.02 merged', 'Acceptance and deterministic evidence': 'Explicit debit/credit side separate from amount and account/currency references. Freeze exact positive/zero/negative policy in this slice. Test float/string ambiguity, zero/negative policy, invalid side, missing account and cross-currency mismatch.'}, {'ID': 'M04.04', 'Existing submilestone': 'Enforce debit equals credit', 'Dependencies': 'M04.03 merged', 'Acceptance and deterministic evidence': 'Exact integer totals, balanced per currency, deterministic rejection with no partial result. Test empty/single-sided/unbalanced groups, mixed currencies, large integers, duplicate line identities, order independence where specified and input immutability. No persisted posting.'}, {'ID': 'M04.05', 'Existing submilestone': 'Add immutable transaction storage', 'Dependencies': 'M04.04 merged; Postgres gate cleared', 'Acceptance and deterministic evidence': 'Atomic all-or-nothing storage of validated synthetic transactions/entries with referential constraints and immutable history. Reject application-role update/delete, orphan entries and partial commits; test migrations in isolated disposable Postgres, rollback/failure behavior and replayable readback. No destructive operations on user databases.'}, {'ID': 'M04.06', 'Existing submilestone': 'Add account balance query', 'Dependencies': 'M04.05 merged', 'Acceptance and deterministic evidence': 'Deterministic per-account/per-currency totals with explicit sign convention and snapshot/cutoff semantics. Test empty accounts, account/currency isolation, large values, ordering and supplied cutoff boundaries against durable entries. No hidden mutable balance truth.'}, {'ID': 'M04.07', 'Existing submilestone': 'Add transaction query', 'Dependencies': 'M04.06 merged', 'Acceptance and deterministic evidence': 'Stable identity/reference lookup and deterministic ordering/pagination boundaries. Test absent IDs, account/currency isolation, complete entry sets and consistent snapshots. Queries cannot mutate history.'}, {'ID': 'M04.08', 'Existing submilestone': 'Add idempotency keys', 'Dependencies': 'M04.07 merged', 'Acceptance and deterministic evidence': 'Explicit key scope plus canonical semantic payload identity: same key/same payload returns original outcome; same key/different payload rejects. Test concurrent duplicate attempts, rollback/retry, key collisions and persisted uniqueness; no partial/duplicate journal writes.'}, {'ID': 'M04.09', 'Existing submilestone': 'Add reversal transaction type', 'Dependencies': 'M04.08 merged', 'Acceptance and deterministic evidence': 'New linked balanced reversal preserves original, swaps sides under the approved amount policy and retains provenance. Define full/partial/repeated reversal policy explicitly. Reject missing originals, currency/account drift and over-reversal; test retry/race behavior and net balances. No agent approval or repair application.'}, {'ID': 'M04.10', 'Existing submilestone': 'Add cash clearing account', 'Dependencies': 'M04.09 merged', 'Acceptance and deterministic evidence': 'Required cash-clearing category uses reviewed account/entry rules; synthetic balanced example and invalid currency/account/refusal tests. No claim that clearing proves external settlement.'}, {'ID': 'M04.11', 'Existing submilestone': 'Add provider clearing account', 'Dependencies': 'M04.10 merged', 'Acceptance and deterministic evidence': 'Explicit provider-clearing semantics and isolation; deterministic balanced example, duplicate/reference and currency failure cases. No provider integration.'}, {'ID': 'M04.12', 'Existing submilestone': 'Add customer liability account', 'Dependencies': 'M04.11 merged', 'Acceptance and deterministic evidence': 'Reviewed liability sign convention and owner isolation; deterministic debit/credit effects, balanced example and invalid cross-owner/currency cases. No live customer balances.'}, {'ID': 'M04.13', 'Existing submilestone': 'Add fee expense account', 'Dependencies': 'M04.12 merged', 'Acceptance and deterministic evidence': 'Explicit fee-expense semantics with exact amounts and source references; balanced example, reversal and malformed currency/amount cases. No fee inference by an LLM.'}, {'ID': 'M04.14', 'Existing submilestone': 'Add revenue account', 'Dependencies': 'M04.13 merged', 'Acceptance and deterministic evidence': 'Explicit revenue semantics with exact amounts and source references; balanced example, reversal and invalid input tests. No revenue-recognition advice or inferred accounting policy.'}, {'ID': 'M04.15', 'Existing submilestone': 'Add tests for balanced posting', 'Dependencies': 'M04.14 merged', 'Acceptance and deterministic evidence': 'Cross-category synthetic transaction corpus plus exact conservation, durable readback and deterministic repeatability/property coverage; no weakened feature tests.'}, {'ID': 'M04.16', 'Existing submilestone': 'Add tests for invalid posting', 'Dependencies': 'M04.15 merged', 'Acceptance and deterministic evidence': 'Adversarial corpus proves malformed, unsupported, unbalanced, duplicate/conflicting and unauthorized mutation attempts leave no ledger writes; include transaction rollback/concurrency failures.'}, {'ID': 'M04.17', 'Existing submilestone': 'Add reversal tests', 'Dependencies': 'M04.16 merged', 'Acceptance and deterministic evidence': 'Cross-feature reversal, original preservation, net-zero/full reversal, partial-policy, duplicate retry and concurrent rejection tests with exact linked history.'}, {'ID': 'M04.18', 'Existing submilestone': 'QA ledger core', 'Dependencies': 'M04.17 merged', 'Acceptance and deterministic evidence': 'Independent full milestone acceptance/safety audit; exact-head CI, clean setup and executable synthetic ledger demonstration. All rows merged before separate formal M04 closeout; M05 stays unstarted until closeout.'}]
 M04_REVERSAL_TESTS_MERGE_EVIDENCE = {'pr': 78, 'mergeCommit': '626dbc04a41929ccfcb67cee0790381f87b0a9cd', 'reviewedHead': '6b4fa5ad6ce5c3d3034621530e984a3a43313339', 'reviewedTree': 'd36e7eedf8bdfb2d73839b75615469e890616030', 'mergedTree': 'd36e7eedf8bdfb2d73839b75615469e890616030', 'ciRun': 37804064435, 'independentQa': 'PASS'}
 M04_INVALID_POSTING_MERGE_EVIDENCE = {'pr': 77, 'mergeCommit': 'ec29ba3c0fefdd80ff8c3c71e10aa3e27642db64', 'reviewedHead': 'b9c9abcb019c60390b99fa735efc7aaebf6582b4', 'reviewedTree': '6e65fdf91c5eee77670c8bdc4e27bb63926af884', 'mergedTree': '6e65fdf91c5eee77670c8bdc4e27bb63926af884', 'ciRun': 37785947729, 'independentQa': 'PASS'}
 M04_BALANCED_POSTING_MERGE_EVIDENCE = {'pr': 76, 'mergeCommit': '1c5ad6c7cf9be341c92d6787f74748c7812730e3', 'reviewedHead': 'eef72bc39f49e22642b0ccde0badd2d4e06d2b3a', 'reviewedTree': '831380433717b3cb183a3f2d6c5e44aa55520efe', 'mergedTree': '831380433717b3cb183a3f2d6c5e44aa55520efe', 'ciRun': 37777406231, 'independentQa': 'PASS'}
@@ -1362,6 +1368,8 @@ def validate_roadmap_consistency(
             [registry_row.status for registry_row in registry_milestone_rows],
             planning_active=milestone_id == active_planning_milestone_id(),
         )
+        if milestone_id == "M04" and m04_closeout_is_authorized():
+            expected_status = "In progress"
         if row.status != expected_status:
             errors.append(
                 f"plans/ROADMAP.md {milestone_id} status is {row.status}, "
@@ -1913,6 +1921,174 @@ def validate_m03_final_closeout_text(content: str) -> list[str]:
     return errors
 
 
+
+M04_CLOSEOUT_MERGE_CHAIN = (
+    ("accountMergeEvidence", M04_ACCOUNT_MERGE_EVIDENCE),
+    ("transactionMergeEvidence", M04_TRANSACTION_MERGE_EVIDENCE),
+    ("entryMergeEvidence", M04_ENTRY_MERGE_EVIDENCE),
+    ("journalMergeEvidence", M04_JOURNAL_MERGE_EVIDENCE),
+    ("storageMergeEvidence", M04_STORAGE_MERGE_EVIDENCE),
+    ("balanceQueryMergeEvidence", M04_BALANCE_QUERY_MERGE_EVIDENCE),
+    ("transactionQueryMergeEvidence", M04_TRANSACTION_QUERY_MERGE_EVIDENCE),
+    ("idempotencyMergeEvidence", M04_IDEMPOTENCY_MERGE_EVIDENCE),
+    ("reversalMergeEvidence", M04_REVERSAL_MERGE_EVIDENCE),
+    ("cashClearingMergeEvidence", M04_CASH_MERGE_EVIDENCE),
+    ("providerClearingMergeEvidence", M04_PROVIDER_MERGE_EVIDENCE),
+    ("customerLiabilityMergeEvidence", M04_CUSTOMER_MERGE_EVIDENCE),
+    ("feeExpenseMergeEvidence", M04_FEE_MERGE_EVIDENCE),
+    ("revenueMergeEvidence", M04_REVENUE_MERGE_EVIDENCE),
+    ("balancedPostingMergeEvidence", M04_BALANCED_POSTING_MERGE_EVIDENCE),
+    ("invalidPostingMergeEvidence", M04_INVALID_POSTING_MERGE_EVIDENCE),
+    ("reversalTestsMergeEvidence", M04_REVERSAL_TESTS_MERGE_EVIDENCE),
+    ("ledgerAcceptanceMergeEvidence", M04_ACCEPTANCE_MERGE_EVIDENCE),
+)
+
+
+def validate_m04_closeout_goal(state: dict) -> list[str]:
+    """Preserve the entire accepted cumulative chain and add the separate human gate."""
+    accepted = dict(state)
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus"):
+        accepted.pop(field, None)
+    accepted.update(currentPhase=M04_ACCEPTANCE_PHASE, currentMilestone="M04.18",
+                    currentBranch=M04_ACCEPTANCE_BRANCH, currentPr=None,
+                    latestMergedPr=78, latestMergeCommit=M04_REVERSAL_TESTS_MERGE_EVIDENCE["mergeCommit"])
+    errors = validate_project_completion_goal(accepted)
+    for field, expected in M04_CLOSEOUT_MERGE_CHAIN:
+        proof = state.get(field)
+        if not isinstance(proof, dict) or proof != expected or any(type(proof.get(key)) is not int for key in ("pr", "ciRun")):
+            errors.append("M04 closeout must preserve exact typed cumulative merge provenance")
+    for field, expected in (("ledgerAcceptanceMergeEvidence", M04_ACCEPTANCE_MERGE_EVIDENCE),
+                            ("ledgerAcceptanceQaEvidence", M04_ACCEPTANCE_QA_EVIDENCE)):
+        proof = state.get(field)
+        if proof != expected or not isinstance(proof, dict) or any(
+            type(proof.get(key)) is not int for key, value in expected.items() if type(value) is int
+        ):
+            errors.append("M04 closeout requires exact verified PR #79 merge and final QA evidence")
+    if type(state.get("latestMergedPr")) is not int or state.get("latestMergedPr") != 79:
+        errors.append("M04 closeout latest merged PR must be 79")
+    if state.get("latestMergeCommit") != M04_ACCEPTANCE_MERGE_EVIDENCE["mergeCommit"]:
+        errors.append("M04 closeout requires the actual PR #79 merge commit")
+    if state.get("currentBranch") != M04_CLOSEOUT_BRANCH or state.get("currentMilestone") != "M04_CLOSEOUT":
+        errors.append("M04 closeout requires its expected branch and milestone")
+    if state.get("closeoutDisposition") != "PROPOSED_PENDING_HUMAN_MERGE":
+        errors.append("M04 closeout must remain proposed pending human merge")
+    pr = state.get("currentPr")
+    if pr is not None and (type(pr) is not int or pr <= 79):
+        errors.append("M04 closeout requires its own integer PR after #79")
+    review_status = state.get("closeoutReviewStatus")
+    if not isinstance(review_status, str) or review_status not in ("Builder in progress", "Builder complete, awaiting QA", "QA in progress", "QA passed, awaiting merge", "Blocked"):
+        errors.append("M04 closeout requires a valid pending review status")
+    if review_status in ("QA in progress", "QA passed, awaiting merge") and pr is None:
+        errors.append("M04 closeout QA requires its own PR")
+    current_qa = state.get("currentQaEvidence")
+    if current_qa is not None:
+        errors.append("M04 closeout current QA stays external and exact-head bound; currentQaEvidence must be None")
+    return errors
+
+
+def m04_closeout_is_authorized() -> bool:
+    state, errors = read_project_completion_goal()
+    return (not errors and state is not None and state.get("currentPhase") == M04_CLOSEOUT_PHASE
+            and not validate_project_completion_goal(state))
+
+
+M04_CLOSEOUT_PACKET_SECTIONS = (
+    "Milestone ID and name", "Closeout result", "Completed submilestones", "Deferred submilestones",
+    "Merged PRs and merge references", "Validation summary", "Changed docs", "Changed code",
+    "Implemented product boundary", "Unimplemented product boundary", "Skipped validation and why",
+    "Warnings", "Risks", "Tech debt", "Open questions", "Deferred work", "Branch inventory",
+    "Follow-up work", "Next milestone readiness", "Whether active plan can move to completed",
+    "Whether safe to start next milestone", "Exact next recommended thread", "Release implications",
+)
+
+
+def validate_m04_closeout_text(content: str) -> list[str]:
+    errors: list[str] = []
+    sections = markdown_sections(content)
+    for heading in M04_CLOSEOUT_PACKET_SECTIONS:
+        if not sections.get(heading.lower()) or len(re.findall(r"^## " + re.escape(heading) + r"$", content, re.M)) != 1:
+            errors.append("M04_CLOSEOUT.md missing, empty or duplicated owning section: " + heading)
+    coverage = {
+        "Closeout result": ("not yet merged on `main`", "Independent closeout QA and exact-head CI must pass before human merge", "M04 remains In progress"),
+        "Merged PRs and merge references": (M04_ACCEPTANCE_MERGE_EVIDENCE["mergeCommit"], M04_ACCEPTANCE_MERGE_EVIDENCE["reviewedHead"], M04_ACCEPTANCE_MERGE_EVIDENCE["mergedTree"], "37959900408"),
+        "Validation summary": ("Prerequisite M04.18 evidence", "Current closeout checks:", "Actual closeout CI must pass both jobs"),
+        "Changed code": ("No financial source",),
+        "Implemented product boundary": ("Synthetic software acceptance is not economic truth", "Unknown acknowledgement remains unknown"),
+        "Unimplemented product boundary": ("Agent financial-write authority remains forbidden", "postingImplemented:false is unchanged"),
+        "Next milestone readiness": ("M05–M21 remain Not started", "M05 planning is blocked until actual closeout human merge"),
+        "Whether active plan can move to completed": ("Keep plans/active/CLP-0005-m04-double-entry-ledger-core.md active", "human merge/provenance are verified"),
+        "Whether safe to start next milestone": ("No, while this closeout proposal is unmerged",),
+        "Exact next recommended thread": ("M04 Closeout - Double-entry ledger core", "M05 Planning - Payment provider simulators"),
+        "Release implications": ("V1_PUBLIC_PRODUCT", "not the integrated public product"),
+    }
+    for heading, phrases in coverage.items():
+        section = sections.get(heading.lower(), "")
+        for phrase in phrases:
+            if phrase.lower() not in section.lower():
+                errors.append("M04_CLOSEOUT.md missing required owning-section coverage: " + heading + " / " + phrase)
+    dispositions = re.findall(r"^Closeout disposition: (.+)$", sections.get("closeout result", ""), re.M)
+    if dispositions != ["PROPOSED_PENDING_HUMAN_MERGE"]:
+        errors.append("M04_CLOSEOUT.md disposition must be PROPOSED_PENDING_HUMAN_MERGE")
+    if re.search(r"\bM04 (?:is|remains) (?:formally closed|Completed)\b|\bM05 (?:is|has) started\b", content, re.I):
+        errors.append("M04 closeout packet must not claim premature closure or M05 activation")
+    try:
+        rows = parse_markdown_table(sections.get("completed submilestones", ""), ["ID", "Original name", "Human-merged PR", "Result"])
+        expected = {f"M04.{n:02d}": name for n, name in enumerate(M04_SUBMILESTONE_NAMES, 1)}
+        if len(rows) != 18 or {row["ID"]: row["Original name"] for row in rows} != expected or any(
+            row["Result"] != "Completed and merged" or row["Human-merged PR"] != f"[#{int(row['ID'][-2:])+61}](https://github.com/Islem-Rezzag/CausalLedger/pull/{int(row['ID'][-2:])+61})" for row in rows
+        ):
+            errors.append("M04 closeout packet must separately map all18 merged requirements and PRs")
+    except (ValueError, KeyError):
+        errors.append("M04 closeout packet completed-requirement table is invalid")
+    try:
+        proof_rows = parse_markdown_table(sections.get("merged prs and merge references", ""),
+            ["PR", "Human merge", "Reviewed head", "Reviewed and merged tree", "Exact-head CI / independent QA"])
+        expected_rows = [{"PR": f"#{proof['pr']}", "Human merge": f"`{proof['mergeCommit']}`",
+                          "Reviewed head": f"`{proof['reviewedHead']}`", "Reviewed and merged tree": f"`{proof['mergedTree']}`",
+                          "Exact-head CI / independent QA": f"{proof['ciRun']} / PASS"} for _, proof in M04_CLOSEOUT_MERGE_CHAIN]
+        if proof_rows != expected_rows:
+            errors.append("M04 closeout merged-proof table must preserve all18 exact records in its owning section")
+    except ValueError:
+        errors.append("M04 closeout merged-proof table must preserve all18 exact records in its owning section")
+    return errors
+
+
+def validate_m04_closeout(state: dict, registry_rows: list, milestone_rows: list, plan_rows: list) -> list[str]:
+    errors: list[str] = []
+    if plan_rows != M04_CLOSEOUT_PLAN_ROWS:
+        errors.append("M04 closeout must preserve every original dependency and acceptance cell")
+    for rows in (registry_rows, milestone_rows):
+        if len(rows) != 18 or any(row.status != "Completed and merged" for row in rows):
+            errors.append("M04 closeout requires all18 rows Completed and merged across tracking")
+    branches = (M04_ACCOUNT_BRANCH, M04_TRANSACTION_BRANCH, M04_ENTRY_BRANCH, M04_BALANCE_BRANCH,
+                M04_STORAGE_BRANCH, M04_QUERY_BRANCH, M04_LOOKUP_BRANCH, M04_IDEMPOTENCY_BRANCH,
+                M04_REVERSAL_BRANCH, M04_CASH_BRANCH, M04_PROVIDER_BRANCH, M04_CUSTOMER_BRANCH,
+                M04_FEE_BRANCH, M04_REVENUE_BRANCH, M04_BALANCED_POSTING_BRANCH,
+                M04_INVALID_POSTING_BRANCH, M04_REVERSAL_TESTS_BRANCH, M04_ACCEPTANCE_BRANCH)
+    for row in registry_rows:
+        try:
+            number = int(row.submilestone_id[-2:])
+        except ValueError:
+            errors.append("M04 closeout must retain each original merged branch and PR")
+            continue
+        if not 1 <= number <= 18 or row.branch != branches[number-1] or row.pr != f"#{number+61}":
+            errors.append("M04 closeout must retain each original merged branch and PR")
+    if not (ROOT / M04_CLOSEOUT_DOC).is_file():
+        return errors + ["M04 closeout requires docs/status/M04_CLOSEOUT.md"]
+    packet = read_text(M04_CLOSEOUT_DOC)
+    errors.extend(validate_m04_closeout_text(packet))
+    result_section = markdown_sections(packet).get("closeout result", "")
+    review_markers = re.findall(r"^[ \t]*Current closeout review:.*$", result_section, re.M)
+    if review_markers != [f"Current closeout review: {state.get('closeoutReviewStatus')}"]:
+        errors.append("M04 closeout packet review status must match its own pending gate exactly once")
+    pr_markers = re.findall(r"^[ \t]*Sole proposed closeout PR\b.*$", result_section, re.M)
+    expected_pr_markers = [] if state.get("currentPr") is None else [f"Sole proposed closeout PR #{state['currentPr']}"]
+    if pr_markers != expected_pr_markers:
+        errors.append("M04 closeout packet must bind its own proposed PR exactly once, or none before creation")
+    if (ROOT / "plans/completed/CLP-0005-m04-double-entry-ledger-core.md").exists():
+        errors.append("M04 closeout must keep its plan active until verified human merge")
+    return errors
+
 def read_project_completion_goal() -> tuple[dict | None, list[str]]:
     try:
         state = json.loads(read_text(PROJECT_COMPLETION_GOAL_STATE))
@@ -1957,6 +2133,11 @@ def validate_project_completion_goal(goal_state: object) -> list[str]:
         errors.append(
             "PROJECT_COMPLETION_GOAL.json missing required keys: " + ", ".join(missing)
         )
+    if goal_state.get("currentPhase") == M04_CLOSEOUT_PHASE:
+        return errors + validate_m04_closeout_goal(goal_state)
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus"):
+        if goal_state.get(field) is not None:
+            errors.append("earlier lifecycle phases cannot carry M04 closeout evidence or disposition")
     if goal_state.get("permittedReleaseTargets") != PERMITTED_RELEASE_TARGETS:
         errors.append("PROJECT_COMPLETION_GOAL.json permitted target list is invalid")
     phase = goal_state.get("currentPhase")
@@ -2239,7 +2420,7 @@ def validate_project_completion_goal(goal_state: object) -> list[str]:
 def m04_active_plan_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in ("M04_PLANNING", M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
+        not errors and state is not None and state.get("currentPhase") in ("M04_PLANNING", M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
         and not validate_project_completion_goal(state)
     )
 
@@ -2247,7 +2428,7 @@ def m04_active_plan_is_authorized() -> bool:
 def m04_account_schema_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
         and not validate_project_completion_goal(state)
     )
 
@@ -2255,7 +2436,7 @@ def m04_account_schema_is_authorized() -> bool:
 def m04_transaction_schema_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
         and not validate_project_completion_goal(state)
     )
 
@@ -2263,7 +2444,7 @@ def m04_transaction_schema_is_authorized() -> bool:
 def m04_entry_schema_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
         and not validate_project_completion_goal(state)
     )
 
@@ -2271,100 +2452,101 @@ def m04_entry_schema_is_authorized() -> bool:
 def m04_balance_validation_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
         and not validate_project_completion_goal(state)
     )
 
 
 def m04_storage_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_account_balance_query_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_transaction_query_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_idempotency_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_reversal_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_cash_clearing_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_provider_clearing_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_customer_liability_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_fee_expense_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_revenue_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_balanced_posting_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_invalid_posting_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_reversal_tests_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_ledger_acceptance_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") == M04_ACCEPTANCE_PHASE
+    return (not errors and state is not None and state.get("currentPhase") in (M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def validate_m04_planning() -> list[str]:
     """Keep the milestone plan intact while permitting only the verified current slice."""
     state, _ = read_project_completion_goal()
-    if not (state and state.get("currentPhase") in ("M04_PLANNING", M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)):
+    if not (state and state.get("currentPhase") in ("M04_PLANNING", M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)):
         return []
+    closeout_slice = state.get("currentPhase") == M04_CLOSEOUT_PHASE
     account_slice = state.get("currentPhase") == M04_ACCOUNT_PHASE
     transaction_slice = state.get("currentPhase") == M04_TRANSACTION_PHASE
     entry_slice = state.get("currentPhase") == M04_ENTRY_PHASE
@@ -2377,12 +2559,12 @@ def validate_m04_planning() -> list[str]:
     cash_slice = state.get("currentPhase") == M04_CASH_PHASE
     provider_slice = state.get("currentPhase") == M04_PROVIDER_PHASE
     customer_slice = state.get("currentPhase") == M04_CUSTOMER_PHASE
-    fee_slice = state.get("currentPhase") in (M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
-    revenue_slice = state.get("currentPhase") in (M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
-    balanced_slice = state.get("currentPhase") in (M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
-    invalid_slice = state.get("currentPhase") in (M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
-    reversal_tests_slice = state.get("currentPhase") in (M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE)
-    acceptance_slice = state.get("currentPhase") == M04_ACCEPTANCE_PHASE
+    fee_slice = state.get("currentPhase") in (M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
+    revenue_slice = state.get("currentPhase") in (M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
+    balanced_slice = state.get("currentPhase") in (M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
+    invalid_slice = state.get("currentPhase") in (M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
+    reversal_tests_slice = state.get("currentPhase") in (M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
+    acceptance_slice = state.get("currentPhase") in (M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE)
     authorized_ids = {f"M04.{n:02d}" for n in range(1,19)} if acceptance_slice else {f"M04.{n:02d}" for n in range(1,18)} if reversal_tests_slice else {f"M04.{n:02d}" for n in range(1,17)} if invalid_slice else {f"M04.{n:02d}" for n in range(1,16)} if balanced_slice else {f"M04.{n:02d}" for n in range(1,15)} if revenue_slice else {f"M04.{n:02d}" for n in range(1,14)} if fee_slice else {f"M04.{n:02d}" for n in range(1,13)} if customer_slice else {f"M04.{n:02d}" for n in range(1,12)} if provider_slice else {f"M04.{n:02d}" for n in range(1,11)} if cash_slice else {f"M04.{n:02d}" for n in range(1,10)} if reversal_slice else {f"M04.{n:02d}" for n in range(1,9)} if idempotency_slice else {f"M04.{n:02d}" for n in range(1,8)} if lookup_slice else {"M04.01", "M04.02", "M04.03", "M04.04", "M04.05", "M04.06"} if query_slice else {"M04.01", "M04.02", "M04.03", "M04.04", "M04.05"} if storage_slice else {"M04.01", "M04.02", "M04.03", "M04.04"} if balance_slice else {"M04.01", "M04.02", "M04.03"} if entry_slice else {"M04.01", "M04.02"} if transaction_slice else {"M04.01"} if account_slice else set()
     errors = validate_project_completion_goal(state)
     if active_plan_files() != [ROOT / M04_ACTIVE_PLAN]:
@@ -2559,7 +2741,7 @@ def validate_m04_planning() -> list[str]:
             errors.append("M04.18 acceptance guide must map all 18 original requirements")
         if "test/ledger-core-acceptance-postgres.test.ts" not in guide:
             errors.append("M04.18 acceptance guide must identify the executable synthetic demonstration")
-    if account_slice or transaction_slice or entry_slice or balance_slice or storage_slice or query_slice or lookup_slice or idempotency_slice or reversal_slice or cash_slice or provider_slice or customer_slice or fee_slice or revenue_slice or balanced_slice or invalid_slice or reversal_tests_slice:
+    if not closeout_slice and (account_slice or transaction_slice or entry_slice or balance_slice or storage_slice or query_slice or lookup_slice or idempotency_slice or reversal_slice or cash_slice or provider_slice or customer_slice or fee_slice or revenue_slice or balanced_slice or invalid_slice or reversal_tests_slice):
         current_id = "M04.18" if acceptance_slice else "M04.17" if reversal_tests_slice else "M04.16" if invalid_slice else "M04.15" if balanced_slice else "M04.14" if revenue_slice else "M04.13" if fee_slice else "M04.12" if customer_slice else "M04.11" if provider_slice else "M04.10" if cash_slice else "M04.09" if reversal_slice else "M04.08" if idempotency_slice else "M04.07" if lookup_slice else "M04.06" if query_slice else "M04.05" if storage_slice else "M04.04" if balance_slice else "M04.03" if entry_slice else "M04.02" if transaction_slice else "M04.01"
         current_branch = M04_ACCEPTANCE_BRANCH if acceptance_slice else M04_REVERSAL_TESTS_BRANCH if reversal_tests_slice else M04_INVALID_POSTING_BRANCH if invalid_slice else M04_BALANCED_POSTING_BRANCH if balanced_slice else M04_REVENUE_BRANCH if revenue_slice else M04_FEE_BRANCH if fee_slice else M04_CUSTOMER_BRANCH if customer_slice else M04_PROVIDER_BRANCH if provider_slice else M04_CASH_BRANCH if cash_slice else M04_REVERSAL_BRANCH if reversal_slice else M04_IDEMPOTENCY_BRANCH if idempotency_slice else M04_LOOKUP_BRANCH if lookup_slice else M04_QUERY_BRANCH if query_slice else M04_STORAGE_BRANCH if storage_slice else M04_BALANCE_BRANCH if balance_slice else M04_ENTRY_BRANCH if entry_slice else M04_TRANSACTION_BRANCH if transaction_slice else M04_ACCOUNT_BRANCH
         registry_account = next((row for row in registry_rows if row.submilestone_id == current_id), None)
@@ -2582,6 +2764,8 @@ def validate_m04_planning() -> list[str]:
     for rel in ["docs/ACTIVE_DOCS.md", "docs/INDEX.md", "docs/status/CURRENT_STATE.md"]:
         if M04_ACTIVE_PLAN not in read_text(rel):
             errors.append(f"{rel} must identify the active M04 plan")
+    if closeout_slice:
+        errors.extend(validate_m04_closeout(state, registry_rows, milestone_rows, plan_rows))
     return errors
 
 

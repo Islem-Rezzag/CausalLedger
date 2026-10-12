@@ -20,3 +20,8 @@
 | Completion-roadmap compression drift | Vertical grouping obscures milestone acceptance criteria or human gates | Treat `plans/proposals/CLP-PROJECT-COMPLETION-GOAL.md` as an overlay only; retain milestone IDs, bounded plans, independent QA, CI, and human merge gates | Open |
 | Live-model cost or trust expansion | Agent work begins with unbounded spend or gains authority over financial truth | Default to mocks; require explicit provider, model, call-count, and cost approval plus proposal-only tools before any live call | Open |
 | QA gate bypass | A submilestone PR merges before the required QA thread records PASS | Record protocol deviation, run a scoped post-merge QA recovery branch before the next submilestone, and confirm recovery merges before the next submilestone begins | Mitigated for M01.01, M01.05, and M01.10 after recovery merges |
+
+
+## M04 closeout risk review (2026-10-09)
+
+Synthetic software and owned database tests prove declared accounting behavior, not economic occurrence, authorization, settlement, revenue recognition, posting eligibility or repair approval. Unknown acknowledgements remain unknown. Local Docker is unavailable; approved owned PostgreSQL17 CI provides database acceptance. Source integration, authentication/authorization, retention, production operations and later benchmark/agent safety remain separately scoped risks.

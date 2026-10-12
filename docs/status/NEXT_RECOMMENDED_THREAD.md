@@ -1,10 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-Human merge M04.18, then formal M04 closeout
+M04 Closeout - Double-entry ledger core
 
 Precondition:
-Expected `m04-18-qa-ledger-core`. Human PR #78 merge626dbc04 matches reviewed6b4fa5ad/tree d36e7eed, final CI37804064435 (1785 ledger/1742 controls/1224 real PostgreSQL assertions), cleanQA18/0/1 and independent QA PASS; full diff empty and main reachability verified.
+Expected `m04-closeout-double-entry-ledger-core`; all eighteen original M04 rows are Completed and merged. Human PR #79 merged at `c039964073fd7b80fdecea34a035a242353261c7` on 2026-10-09T17:14:57Z by Islem-Rezzag. Reviewed head `3f5236f45baa6b77dd0c48ed7119124d249523db` and merged commit have the same tree `e3ab43ed87084dfefb6c2b6a95ac176edc2472dc` and an empty full diff; fetched main reachability passed. Both jobs of CI 37959900408 passed, with 1,785 ledger tests, 1,882 controls and 1,227 actual PostgreSQL tests across fourteen suites. Independent final QA passed; published body/advisory 6085224093 and SHA256 bindings were read back.
 
 Scope:
-Current18 acceptance/demo under active CLP-0005. Fresh ledger1785/32files and fullcontrol1882 PASS; candidate cleanQA18/0/1, independent whole-M04 QA and actual PostgreSQL1227 including executable demo PASS. Final exact-head gates and human merge remain; final proof belongs in sole PR. Final proof belongs in sole PR. Preserve prior financial source/tests/helpers/specs/THREE migrations, all18 raw rows/V1/history. Root sole editor; reuse overall m04_02_qa and read-only design auditor; no overlapping runtime checks, newhelpers/chats/goals or installs/paid calls. Formal closeout only after verified18 human merge; M05 unstarted until closeout.
+Finish the separate closeout proposal under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Require coordinator validation, independent QA, final clean QA, both exact-head CI jobs and human-only merge. Keep M04 In progress and M05–M21 unstarted with blank branches/PRs. After the actual closeout merge/tree/main verification, move the plan to completed and synchronize its references before `M05 Planning - Payment provider simulators`. Root runs tests; user need not run them.

@@ -1,7 +1,7 @@
 # Open Questions
 
 - Resolved 2026-09-24: the human explicitly approved `V1_PUBLIC_PRODUCT`, with v0.6 as an intermediate checkpoint.
-- When storage work is approved, will the operator install Docker Desktop/Compose or provide an equivalent deterministic Postgres validation environment?
+- Resolved 2026-10-09: approved owned disposable PostgreSQL17 CI provides deterministic storage validation; local Docker remains unavailable.
 - If live-model evaluation is later approved, which provider/model, maximum call count, and cost cap should govern it? Default and CI validation must remain mock-only.
 - Should a later version replace or complement the dependency-free M03.04 validator with a runtime schema framework, and what migration/versioning proof would justify that dependency?
 - What error taxonomy, structured logging fields, and observability IDs should future runtime work standardize on?
@@ -35,3 +35,8 @@
 ## M04.03 money and reference decisions
 
 The versioned entry wire amount is a canonical positive decimal string, parsed exactly to bigint; 1 through 9223372036854775807 per line, zero/negative/Number/bigint input rejected. USD/EUR/GBP match supplied Account metadata. This settles the schema slice's wire/range/side policy; it does not implement storage or posting. M04.04 now sums exact bigint above per-line range where needed; its supplied journal accepts multiple currencies only when each has both sides and equal totals. Per-line limits remain unchanged. Frozen aggregate bigint output has a distinct type from bounded entry amounts; no serializer or database encoding is introduced. M04.05 must specify/test its durable encoding, range, atomicity, rollback and immutable Postgres guards. Serializers, durable reference uniqueness, closed-account eligibility, authorization and economic-occurrence identity remain future owning work; no material scope amendment applied.
+
+
+## M04 closeout resolutions and remaining questions (2026-10-09)
+
+Resolved: the existing approved disposable owned PostgreSQL17 CI route supports storage acceptance without a local Docker installation. M04.05–09 specified and tested exact durable encoding/range, atomicity, rollback, immutable history, ordinary retry and full reversal linkage. The earlier M04.05 future-tense note is historical. Still open for separately scoped work: source-specific mapping and economic-occurrence identity, authoritative currency registry, ownership/lifecycle authorization, retention, observability, production operations, simulator priority, and future model/evaluation budgets. No new paid calls or release approval is inferred.
