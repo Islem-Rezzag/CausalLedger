@@ -1,13 +1,10 @@
 # Next Recommended Thread
 
 Thread name:
-M04 Closeout - Double-entry ledger core
+M05 Planning - Provider and bank simulator
 
 Precondition:
-Expected `m04-closeout-double-entry-ledger-core`; all eighteen original M04 rows are Completed and merged. Human PR #79 merged at `c039964073fd7b80fdecea34a035a242353261c7` on 2026-10-09T17:14:57Z by Islem-Rezzag. Reviewed head `3f5236f45baa6b77dd0c48ed7119124d249523db` and merged commit have the same tree `e3ab43ed87084dfefb6c2b6a95ac176edc2472dc` and an empty full diff; fetched main reachability passed. Both jobs of CI 37959900408 passed, with 1,785 ledger tests, 1,882 controls and 1,227 actual PostgreSQL tests across fourteen suites. Independent final QA passed; published body/advisory 6085224093 and SHA256 bindings were read back.
+Expected m05-planning-provider-and-bank-simulator; one active plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Human PR #80 merged at 07ae89701eca3f0ee669265c99a3a180b31724ca on 2026-10-12T14:58:48Z by nonbot Islem-Rezzag. Reviewed edf6a873ffb7d9d46097f4646d960369f5d3c937 and merged contents share tree c0a4573497f2a38cdbf65ad6334fd0a542abf30d; full diff empty and fetched-main reachability verified. Final independent closeout QA/354 lifecycle/full2055 controls/rootclean18/0/1 and bothCI38239309974 passed; actual1785 ledger/32 files and14 PostgreSQL suites1227, THREE recovery/both populated preservation upgrades/exact schema/DEMO/cleanup passed. Published body/advisory6123224889/reviewer SHA256 bindings were read back. No unchanged M04 QA was repeated for merge verification.
 
 Scope:
-Finish the separate closeout proposal under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Require coordinator validation, independent QA, final clean QA, both exact-head CI jobs and human-only merge. Keep M04 In progress and M05–M21 unstarted with blank branches/PRs. After the actual closeout merge/tree/main verification, move the plan to completed and synchronize its references before `M05 Planning - Payment provider simulators`. Root runs tests; user need not run them.
-
-
-Current closeout review: candidate PASS; sole PR #80. Finish final actual-head/root/independent/CI/publication gates, then human-only squash merge. After actual merge/tree/main verification, finalize plan location/references before M05 planning. No user tests required.
+Finalize documentation-only M05 plan and narrow lifecycle guards, preserving all19 rows/unstarted+blank branch/PR and M06–21 unstarted, completed M04/raw18/history/V1/financial safety. Root sole editor/main validation owner; existing independent reviewer after clean candidate release, no overlapping runtime/new chats/agents/native goals. Builder/current-head QA+CI pending; no M05.01 implementation until planning human merge verified. After that: M05.01 Create simulator package. Root runs tests; user none.

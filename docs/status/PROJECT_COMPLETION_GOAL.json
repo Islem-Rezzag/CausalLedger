@@ -12,16 +12,16 @@
   ],
   "recommendedImmediateTarget": "V0_6_BENCHMARK_DEMO",
   "recommendedLongTermTarget": "V1_PUBLIC_PRODUCT",
-  "currentPhase": "M04_CLOSEOUT",
+  "currentPhase": "M05_PLANNING",
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
-  "currentMilestone": "M04_CLOSEOUT",
-  "currentBranch": "m04-closeout-double-entry-ledger-core",
-  "currentPr": 80,
-  "latestMergedPr": 79,
-  "latestMergeCommit": "c039964073fd7b80fdecea34a035a242353261c7",
+  "currentMilestone": "M05_PLANNING",
+  "currentBranch": "m05-planning-provider-and-bank-simulator",
+  "currentPr": null,
+  "latestMergedPr": 80,
+  "latestMergeCommit": "07ae89701eca3f0ee669265c99a3a180b31724ca",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "Accepted closeout candidate 7197af4bee8385406cc5beb32cb4c62358523cff / tree ec97c4ce206c455afb49ade60504ae300e60eeb2: existing independent reviewer PASS with no remaining findings, 354 fresh lifecycle probes and all2,055 controls; root clean QA18/0/1 without dirty override. Both candidate CI jobs 38238151547 passed, including1785 ledger tests/32 files and all1227 actual PostgreSQL tests in14 unchanged suites (64/22/27/39/40/23/31/34/56/56/169/263/400/3), THREE recovery/both populated preservation upgrades/exact schema/owned+Compose cleanup. Actual checkout has expected base/head parents, the same tree and empty full diff. Scope25/protected338/raw18/V1/history/append-only guide+weekly preserved. Final tracking-head root clean QA, independent review, both actual CI jobs and SHA-bound published readback/readiness remain mandatory before human merge.",
-  "remoteCiStatus": "CLOSEOUT_CANDIDATE_BOTH_PASS_FINAL_HEAD_PENDING",
+  "localTestStatus": "Builder validator/full2,252 controls/expanded411 focused/workspace frozen install/typecheck/test/lint/build/format/whitespace PASS. Intermediate qa-dev --allow-dirty17/0/2 PASS; scoped28/protected337/full318300-byte M04 plan prefix/historical packet/raw18/all19 frozen M05 rows/V1/prior proofs/append-only weekly PASS. Existing independent static reviewers confirmed findings resolved; overall clean-candidate and final independent QA/actual CI remain pending. Local caches warm; Docker/PostgreSQL/make unavailable locally; approved owned17 CI remains mandatory.",
+  "remoteCiStatus": "M05_PLANNING_CURRENT_HEAD_PENDING",
   "dockerStatus": "UNAVAILABLE_LOCALLY_APPROVED_OWNED_POSTGRES17_CI_ROUTE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -72,7 +72,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "Separate M04 closeout QA/exact-head CI/human merge and reviewed-tree/main verification remain",
+    "M05 planning independent QA/exact-head CI/human merge remain",
     "No live-model provider/model/call-count/budget approved"
   ],
   "risks": [
@@ -88,9 +88,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "Finish final actual-head independent/root/CI/publication gates, then human squash merge PR #80; verify merge/tree/main before plan movement and M05 planning.",
-  "stopReason": "M04_CLOSEOUT_FINAL_HEAD_CHECKS_PENDING",
-  "lastUpdatedTimestamp": "2026-10-12T10:54:44Z",
+  "exactNextAction": "Finish scoped M05 planning validation/independent QA/current-head CI, then human merge before M05.01.",
+  "stopReason": "M05_PLANNING_BUILDER_COMPLETE_AWAITING_QA",
+  "lastUpdatedTimestamp": "2026-10-12T15:33:17Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -509,6 +509,32 @@
     "ciRun": 37959900408,
     "independentQa": "PASS"
   },
-  "closeoutDisposition": "PROPOSED_PENDING_HUMAN_MERGE",
-  "closeoutReviewStatus": "QA passed, awaiting merge"
+  "closeoutDisposition": "COMPLETED_AND_MERGED",
+  "closeoutReviewStatus": "Completed and merged",
+  "m04MilestoneCloseoutMergeEvidence": {
+    "pr": 80,
+    "mergeCommit": "07ae89701eca3f0ee669265c99a3a180b31724ca",
+    "reviewedHead": "edf6a873ffb7d9d46097f4646d960369f5d3c937",
+    "reviewedTree": "c0a4573497f2a38cdbf65ad6334fd0a542abf30d",
+    "mergedTree": "c0a4573497f2a38cdbf65ad6334fd0a542abf30d",
+    "ciRun": 38239309974,
+    "qaResult": "PASS"
+  },
+  "m04MilestoneCloseoutQaEvidence": {
+    "head": "edf6a873ffb7d9d46097f4646d960369f5d3c937",
+    "tree": "c0a4573497f2a38cdbf65ad6334fd0a542abf30d",
+    "result": "PASS",
+    "controlTests": 2055,
+    "lifecycleProbes": 354,
+    "ciRun": 38239309974,
+    "ledgerTests": 1785,
+    "realDatabaseTests": 1227,
+    "reviewer": "m04_02_qa",
+    "reviewRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/80#issuecomment-6123224889",
+    "base": "c039964073fd7b80fdecea34a035a242353261c7",
+    "reviewerResultSha256": "9dfd71169b13605b069c8ea598928cb18598df6e902a52cfa1c4721d549ce1dd",
+    "bodySha256": "338b8471ec54cbe8d1b00bbfd53178359ef9be18c914bbcbe50de39c65a2c5ee",
+    "advisorySha256": "40ca6f7da462f328a5c56b82ad47ffdb4be0fe5e84162c11f30accc415886e40"
+  },
+  "m05PlanningReviewStatus": "Builder complete, awaiting QA"
 }

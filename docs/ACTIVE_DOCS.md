@@ -112,7 +112,7 @@ Completed execution:
 
 Active execution:
 
-- M00–M03 are closed and V1_PUBLIC_PRODUCT remains approved. M04.01–M04.18 are Completed and merged, including verified [PR #79](https://github.com/Islem-Rezzag/CausalLedger/pull/79). Formal M04 closeout is proposed on `m04-closeout-double-entry-ledger-core` under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; candidate independent QA and both CI jobs passed for sole PR #80; final tracking-head checks and human merge remain pending. M04 remains In progress until this separate closeout's human merge is verified. M05–M21 remain Not started. Current evidence and conditions are in `docs/status/M04_CLOSEOUT.md`.
+- M00–M04 are closed and V1_PUBLIC_PRODUCT remains approved. Human M04 closeout PR #80 merge 07ae89701eca3f0ee669265c99a3a180b31724ca matches reviewed edf6a873ffb7d9d46097f4646d960369f5d3c937/tree c0a4573497f2a38cdbf65ad6334fd0a542abf30d with final QA/CI and main provenance verified. Completed M04 plan: plans/completed/CLP-0005-m04-double-entry-ledger-core.md. M05 Planning - Provider and bank simulator is active on m05-planning-provider-and-bank-simulator under plans/active/CLP-0006-m05-provider-and-bank-simulator.md; builder validation passed; independent planning QA/current-head CI pending. All19 M05 implementation rows remain Not started with blank branches/PRs; M06–M21 remain Not started. No simulator is implemented.
 
 Plan state:
 
@@ -176,8 +176,11 @@ Use `docs/ops/repo-operating-system-freeze.md` and `docs/status/M00_FREEZE_READI
 
 Stale docs must be moved to archived locations or clearly marked reference-only. If a stale doc cannot be updated in the current slice, record the limitation in status docs or tech debt and do not let it override active docs.
 
-- M04.06 balance contract: `docs/specs/ledger-account-balance-query.md`; human PR67 merge and final acceptance proof verified in active CLP-0005.
-- M04.07 transaction query contract: `docs/specs/ledger-transaction-query.md`; complete journal readback and explicit pagination boundaries, current acceptance gates in active CLP-0005.
+- M04.06 balance contract: `docs/specs/ledger-account-balance-query.md`; human PR67 merge and final acceptance proof verified in completed CLP-0005.
+- M04.07 transaction query contract: `docs/specs/ledger-transaction-query.md`; complete journal readback and explicit pagination boundaries, accepted evidence in completed CLP-0005.
 
 
-Current formal-closeout packet: `docs/status/M04_CLOSEOUT.md`; active CLP-0005 stays active pending the verified closeout human gate.
+Current formal-closeout packet: `docs/status/M04_CLOSEOUT.md`; M04 is completed; current planning uses plans/active/CLP-0006-m05-provider-and-bank-simulator.md.
+
+
+Current active M05 planning: plans/active/CLP-0006-m05-provider-and-bank-simulator.md; completed M04: plans/completed/CLP-0005-m04-double-entry-ledger-core.md. No simulator package or output is created; M05.01 waits for planning QA and human merge.

@@ -20,7 +20,7 @@ M04.03 human-merged in PR #64 at `4a5637c8eab842b368e046b0994a620ecb08e90b`; rev
 
 M04.04 human-merged in PR #65 at `526bb66dda5d9c8b9aebd85775142e8d22c3a73a`; reviewed final head `66f679e9711a0a5f06830eb203119d1dd8e3e04e` shares tree `15c668085da628122ff5601be7d87d8da6b91b35`, with empty diff/main reachability. Exact-head independent QA, clean QA18/0/1 and CI36998201769 both jobs PASS. All prior contracts and 18 approved acceptance rows remain preserved.
 
-M00–M03 are closed and V1_PUBLIC_PRODUCT remains approved. M04.01–M04.18 are Completed and merged, including verified [PR #79](https://github.com/Islem-Rezzag/CausalLedger/pull/79). Formal M04 closeout is proposed on `m04-closeout-double-entry-ledger-core` under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; candidate independent QA and both CI jobs passed for sole PR #80; final tracking-head checks and human merge remain pending. M04 remains In progress until this separate closeout's human merge is verified. M05–M21 remain Not started. Current evidence and conditions are in `docs/status/M04_CLOSEOUT.md`.
+M00–M04 are closed and V1_PUBLIC_PRODUCT remains approved. Human M04 closeout PR #80 merge 07ae89701eca3f0ee669265c99a3a180b31724ca matches reviewed edf6a873ffb7d9d46097f4646d960369f5d3c937/tree c0a4573497f2a38cdbf65ad6334fd0a542abf30d with final QA/CI and main provenance verified. Completed M04 plan: plans/completed/CLP-0005-m04-double-entry-ledger-core.md. M05 Planning - Provider and bank simulator is active on m05-planning-provider-and-bank-simulator under plans/active/CLP-0006-m05-provider-and-bank-simulator.md; builder validation passed; independent planning QA/current-head CI pending. All19 M05 implementation rows remain Not started with blank branches/PRs; M06–M21 remain Not started. No simulator is implemented.
 
 ## Authority and safety
 
@@ -30,17 +30,33 @@ V1 selection does not approve paid calls/budgets, system installs, material scop
 
 ## Environment and validation
 
-Verified prerequisite: PR79 final independent QA, CI37959900408, 1785 ledger/1882 controls/1227 real PostgreSQL tests and human merge/tree/main provenance passed. This is prerequisite evidence; closeout builder validation passed all2,055 controls and intermediate QA17/0/2. Candidate independent review, clean QA18/0/1 and both CI38238151547 jobs passed. Final tracking-head gates and human merge PR #80 remain required. Local caches are warm, and clean database setup uses approved owned PostgreSQL17 CI. Coordinator runs tests; user need not run them.
+Verified prerequisite: M04 final closeout independent QA/rootclean18/0/1/bothCI38239309974,1785 ledger/2055 controls/1227 real PostgreSQL and human PR80 reviewed-tree/main provenance passed. M05 planning builder validator/full2252/expanded411/intermediateQA17/0/2 checks passed; clean-candidate/final independent/current-head CI remain pending. Local caches warm, local Docker unavailable; approved owned17 CI required. Root runs tests; user none.
 
 ## Next gate
 
-Next gate: separate formal M04 closeout review, final clean-workspace QA, both exact-head CI jobs and human-only merge. Verify that merge before plan movement and M05 planning. Reuse existing reviewer/design auditor; no new helper chats/native goals, installations or paid calls.
+M05 planning independent QA/final clean-workspace/both exact-head CI and human-only merge. Verify planning merge before M05.01; reuse existing reviewer/design auditor, no new chats/goals/install/paid calls.
 
+## Historical formal M04 closeout proposal (2026-10-09)
 
-## Current formal M04 closeout proposal (2026-10-09)
+The following preserves the dated premerge checkpoint; current human-verified M04 completion and M05 planning supersede its pending fields.
+
 
 M00–M03 are closed and V1_PUBLIC_PRODUCT remains approved. M04.01–M04.18 are Completed and merged, including verified [PR #79](https://github.com/Islem-Rezzag/CausalLedger/pull/79). Formal M04 closeout is proposed on `m04-closeout-double-entry-ledger-core` under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; candidate independent QA and both CI jobs passed for sole PR #80; final tracking-head checks and human merge remain pending. M04 remains In progress until this separate closeout's human merge is verified. M05–M21 remain Not started. Current evidence and conditions are in `docs/status/M04_CLOSEOUT.md`.
 
 Human PR #79 merged at `c039964073fd7b80fdecea34a035a242353261c7` on 2026-10-09T17:14:57Z by Islem-Rezzag. Reviewed head `3f5236f45baa6b77dd0c48ed7119124d249523db` and merged commit have the same tree `e3ab43ed87084dfefb6c2b6a95ac176edc2472dc` and an empty full diff; fetched main reachability passed. Both jobs of CI 37959900408 passed, with 1,785 ledger tests, 1,882 controls and 1,227 actual PostgreSQL tests across fourteen suites. Independent final QA passed; published body/advisory 6085224093 and SHA256 bindings were read back.
 
 Closeout disposition: PROPOSED_PENDING_HUMAN_MERGE. Candidate closeout independent QA/CI passed; final actual-head gates and human merge pending; native goal remains user-paused, with no goal tool or new goal used. Plan movement and M05 planning require actual closeout human merge and provenance verification.
+
+## Verified M04 closeout and M05 planning (2026-10-12)
+
+M00–M04 are closed and V1_PUBLIC_PRODUCT remains approved. Human M04 closeout PR #80 merge 07ae89701eca3f0ee669265c99a3a180b31724ca matches reviewed edf6a873ffb7d9d46097f4646d960369f5d3c937/tree c0a4573497f2a38cdbf65ad6334fd0a542abf30d with final QA/CI and main provenance verified. Completed M04 plan: plans/completed/CLP-0005-m04-double-entry-ledger-core.md. M05 Planning - Provider and bank simulator is active on m05-planning-provider-and-bank-simulator under plans/active/CLP-0006-m05-provider-and-bank-simulator.md; builder validation passed; independent planning QA/current-head CI pending. All19 M05 implementation rows remain Not started with blank branches/PRs; M06–M21 remain Not started. No simulator is implemented.
+
+Human PR #80 merged at 07ae89701eca3f0ee669265c99a3a180b31724ca on 2026-10-12T14:58:48Z by nonbot Islem-Rezzag. Reviewed edf6a873ffb7d9d46097f4646d960369f5d3c937 and merged contents share tree c0a4573497f2a38cdbf65ad6334fd0a542abf30d; full diff empty and fetched-main reachability verified. Final independent closeout QA/354 lifecycle/full2055 controls/rootclean18/0/1 and bothCI38239309974 passed; actual1785 ledger/32 files and14 PostgreSQL suites1227, THREE recovery/both populated preservation upgrades/exact schema/DEMO/cleanup passed. Published body/advisory6123224889/reviewer SHA256 bindings were read back. No unchanged M04 QA was repeated for merge verification.
+M05 planning review is Builder in progress; no current QA claim or simulator implementation. Native goal remains user-paused; no goal tool/new goal used.
+
+
+## M05 planning builder checkpoint (2026-10-12)
+
+Builder complete, awaiting QA. Builder validator/full2,252 controls/expanded411 focused/workspace frozen install/typecheck/test/lint/build/format/whitespace PASS. Intermediate qa-dev --allow-dirty17/0/2 PASS; scoped28/protected337/full318300-byte M04 plan prefix/historical packet/raw18/all19 frozen M05 rows/V1/prior proofs/append-only weekly PASS. Existing independent static reviewers confirmed findings resolved; overall clean-candidate and final independent QA/actual CI remain pending. Local caches warm; Docker/PostgreSQL/make unavailable locally; approved owned17 CI remains mandatory.
+
+No simulator implementation or M05.01 before planning QA/human merge. Root runs tests; user no tests.
