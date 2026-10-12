@@ -20,3 +20,8 @@ M03 is closed after PR #60 merged. No product implementation defect is confirmed
 
 - Local Docker is unavailable in the current Windows shell unless a later validation run proves otherwise. M02 relies on GitHub Actions `infra-smoke` plus QA script behavioral tests for Docker/Postgres/migration evidence.
 - `make bootstrap-check` is unavailable in the current Windows shell unless a later validation run proves otherwise. Direct Python validation commands are the accepted equivalent for this environment.
+
+
+## M04 closeout debt review (2026-10-09)
+
+M04 has implemented and tested durable exact money encoding, bounded per-entry values with BigInt aggregate sums, atomic append, rollback, immutable SQL guards, ordinary retry identity, full linked reversals and explicit account-role validators/configuration wrappers. Earlier future-storage/accounting notes are historical, not current blockers. No confirmed ledger implementation defect remains after M04.18 independent QA. Source-specific mapping, economic-occurrence deduplication, authoritative currency registry, lifecycle authorization and production operations remain future scope. M02-only infrastructure wording is superseded by fourteen mandatory approved owned PostgreSQL17 suites, migration recovery and populated upgrades; local Docker/make limitations persist. Branches are intentionally retained for audit/recovery; no deletion is authorized.

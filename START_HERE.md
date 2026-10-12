@@ -1,6 +1,6 @@
 # Start Here
 
-M00-M03 are closed and V1_PUBLIC_PRODUCT is approved. M04.01-M04.17 are Completed and merged. Human PR #78 merge626dbc04 matches reviewed6b4fa5ad/tree d36e7eed, final CI37804064435 (1785 ledger/1742 controls/1224 real PostgreSQL assertions), cleanQA18/0/1 and independent QA PASS; full diff empty and main reachability verified. M04.18 QA ledger core is **QA passed, awaiting merge** on `m04-18-qa-ledger-core`, sole [PR #79](https://github.com/Islem-Rezzag/CausalLedger/pull/79), under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Fresh ledger1785/32files and fullcontrol1882 PASS; candidate cleanQA18/0/1, independent whole-M04 QA and actual PostgreSQL1227 including executable demo PASS. Final exact-head gates and human merge remain; final proof belongs in sole PR. Final actual-head gates and human merge remain. Formal M04 closeout remains separate after all18 rows merge; M05-M21 remain Not started. Current evidence is in `docs/status/CURRENT_STATE.md`.
+M00–M03 are closed and V1_PUBLIC_PRODUCT remains approved. M04.01–M04.18 are Completed and merged, including verified [PR #79](https://github.com/Islem-Rezzag/CausalLedger/pull/79). Formal M04 closeout is proposed on `m04-closeout-double-entry-ledger-core` under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; candidate independent QA and both CI jobs passed for sole PR #80; final tracking-head checks and human merge remain pending. M04 remains In progress until this separate closeout's human merge is verified. M05–M21 remain Not started. Current evidence and conditions are in `docs/status/M04_CLOSEOUT.md`.
 
 Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 
@@ -63,7 +63,7 @@ The handoff packet must include files created, files changed, files intentionall
 
 - Do not implement product functionality outside the active submilestone.
 - Do not extend MoneyEvent logic beyond the active source-neutral boundary.
-- Keep ledger work inside current M04.18 acceptance/demo; no runtime/DDL/API/financial authority. Human merge and separate formalM04closeout beforeM05.
+- Keep current work inside the separate M04 closeout proposal. All eighteen ledger-core rows are merged; plan movement and M05 planning require verified human closeout merge. No financial implementation or authority is added.
 - Do not implement invariants.
 - Do not implement the agent runtime.
 - Do not implement UI features.

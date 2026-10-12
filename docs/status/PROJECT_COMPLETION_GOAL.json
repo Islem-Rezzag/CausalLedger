@@ -12,16 +12,16 @@
   ],
   "recommendedImmediateTarget": "V0_6_BENCHMARK_DEMO",
   "recommendedLongTermTarget": "V1_PUBLIC_PRODUCT",
-  "currentPhase": "M04_LEDGER_ACCEPTANCE",
+  "currentPhase": "M04_CLOSEOUT",
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
-  "currentMilestone": "M04.18",
-  "currentBranch": "m04-18-qa-ledger-core",
-  "currentPr": 79,
-  "latestMergedPr": 78,
-  "latestMergeCommit": "626dbc04a41929ccfcb67cee0790381f87b0a9cd",
+  "currentMilestone": "M04_CLOSEOUT",
+  "currentBranch": "m04-closeout-double-entry-ledger-core",
+  "currentPr": 80,
+  "latestMergedPr": 79,
+  "latestMergeCommit": "c039964073fd7b80fdecea34a035a242353261c7",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "Fresh ledger1785/32files and fullcontrol1882 PASS; candidate cleanQA18/0/1, independent whole-M04 QA and actual PostgreSQL1227 including executable demo PASS. Final exact-head gates and human merge remain; final proof belongs in sole PR.",
-  "remoteCiStatus": "M04_18_CANDIDATE_CI37958497867_BOTH_JOBS_1227_REAL_PASS",
+  "localTestStatus": "Accepted closeout candidate 7197af4bee8385406cc5beb32cb4c62358523cff / tree ec97c4ce206c455afb49ade60504ae300e60eeb2: existing independent reviewer PASS with no remaining findings, 354 fresh lifecycle probes and all2,055 controls; root clean QA18/0/1 without dirty override. Both candidate CI jobs 38238151547 passed, including1785 ledger tests/32 files and all1227 actual PostgreSQL tests in14 unchanged suites (64/22/27/39/40/23/31/34/56/56/169/263/400/3), THREE recovery/both populated preservation upgrades/exact schema/owned+Compose cleanup. Actual checkout has expected base/head parents, the same tree and empty full diff. Scope25/protected338/raw18/V1/history/append-only guide+weekly preserved. Final tracking-head root clean QA, independent review, both actual CI jobs and SHA-bound published readback/readiness remain mandatory before human merge.",
+  "remoteCiStatus": "CLOSEOUT_CANDIDATE_BOTH_PASS_FINAL_HEAD_PENDING",
   "dockerStatus": "UNAVAILABLE_LOCALLY_APPROVED_OWNED_POSTGRES17_CI_ROUTE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -51,7 +51,7 @@
     "M04.15 test-only balanced-posting corpus; human PR76 merge/final QA/rootcleanQA18/0/1/CI37777406231 real561 verified",
     "M04.16 tests-only invalid-posting corpus; human PR77 merge/final QA/rootcleanQA18/0/1/CI37785947729 real824 verified",
     "M04.17 reversal test corpus human PR78 merge/final QA/CI/rootcleanQA verified",
-    "M04.18 whole-ledger acceptance and test-only demo; Fresh ledger1785/32files and fullcontrol1882 PASS; candidate cleanQA18/0/1, independent whole-M04 QA and actual PostgreSQL1227 including executable demo PASS. Final exact-head gates and human merge remain; final proof belongs in sole PR. Human merge/formal closeout pending."
+    "M04.18 whole-ledger acceptance and synthetic demonstration; human PR79 merge/final QA/CI37959900408/1227 database tests verified."
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -72,8 +72,8 @@
     "production deployment"
   ],
   "openBlockers": [
-    "M04.18 final actual-head gates/human merge and subsequent formal M04 closeout remain",
-    "no live-model provider/model/call-count/budget approved"
+    "Separate M04 closeout QA/exact-head CI/human merge and reviewed-tree/main verification remain",
+    "No live-model provider/model/call-count/budget approved"
   ],
   "risks": [
     "portfolio claims could outrun implemented behavior",
@@ -88,9 +88,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "HUMAN_MERGE_M04_18_AFTER_FINAL_SHA_GATES",
-  "stopReason": "QA_PASSED_AWAITING_HUMAN_MERGE",
-  "lastUpdatedTimestamp": "2026-10-09T16:32:43Z",
+  "exactNextAction": "Finish final actual-head independent/root/CI/publication gates, then human squash merge PR #80; verify merge/tree/main before plan movement and M05 planning.",
+  "stopReason": "M04_CLOSEOUT_FINAL_HEAD_CHECKS_PENDING",
+  "lastUpdatedTimestamp": "2026-10-12T10:54:44Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -485,16 +485,30 @@
     "ciRun": 37804064435,
     "independentQa": "PASS"
   },
-  "currentQaEvidence": {
-    "head": "1db4130c598cd05103fcbe1f134cb3d0a5c0f3be",
-    "tree": "19739785b7baacaf9da994b00f91b065faf7c8b4",
+  "currentQaEvidence": null,
+  "ledgerAcceptanceQaEvidence": {
+    "head": "3f5236f45baa6b77dd0c48ed7119124d249523db",
+    "tree": "e3ab43ed87084dfefb6c2b6a95ac176edc2472dc",
     "result": "PASS",
     "runtimeProbes": 510,
     "lifecycleProbes": 122,
     "controlTests": 1882,
-    "ciRun": 37958497867,
-    "reviewer": "m04_02_qa",
-    "candidateHead": "1db4130c598cd05103fcbe1f134cb3d0a5c0f3be",
-    "finalShaBoundRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/79"
-  }
+    "ciRun": 37959900408,
+    "reviewer": "existing separate-context m04_02_qa",
+    "finalReviewRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/79#issuecomment-6085224093",
+    "reviewerResultSha256": "d329c10040992a9fec49e7813774b8cf3e54532c22bad5ef3ec8e9311b9d49f3",
+    "bodySha256": "cb5382b32fd6d7fbad96420f86dbd8f5cf6ace9140af885fdbc20b1fff6dded8",
+    "advisorySha256": "269876c410d9568918ed0c11719d01bf545c6374e40f3e04bcbd8d1cc24d082e"
+  },
+  "ledgerAcceptanceMergeEvidence": {
+    "pr": 79,
+    "mergeCommit": "c039964073fd7b80fdecea34a035a242353261c7",
+    "reviewedHead": "3f5236f45baa6b77dd0c48ed7119124d249523db",
+    "reviewedTree": "e3ab43ed87084dfefb6c2b6a95ac176edc2472dc",
+    "mergedTree": "e3ab43ed87084dfefb6c2b6a95ac176edc2472dc",
+    "ciRun": 37959900408,
+    "independentQa": "PASS"
+  },
+  "closeoutDisposition": "PROPOSED_PENDING_HUMAN_MERGE",
+  "closeoutReviewStatus": "QA passed, awaiting merge"
 }
