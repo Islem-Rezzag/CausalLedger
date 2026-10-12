@@ -12,7 +12,7 @@ CausalLedger helps fintech teams prove, replay, and safely repair money-movement
 
 ## Current status
 
-M00–M03 are closed and V1_PUBLIC_PRODUCT remains approved. M04.01–M04.18 are Completed and merged, including verified [PR #79](https://github.com/Islem-Rezzag/CausalLedger/pull/79). Formal M04 closeout is proposed on `m04-closeout-double-entry-ledger-core` under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; builder validation passed and independent closeout QA/CI are pending. M04 remains In progress until this separate closeout's human merge is verified. M05–M21 remain Not started. Current evidence and conditions are in `docs/status/M04_CLOSEOUT.md`.
+M00–M03 are closed and V1_PUBLIC_PRODUCT remains approved. M04.01–M04.18 are Completed and merged, including verified [PR #79](https://github.com/Islem-Rezzag/CausalLedger/pull/79). Formal M04 closeout is proposed on `m04-closeout-double-entry-ledger-core` under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; candidate independent QA and both CI jobs passed for sole PR #80; final tracking-head checks and human merge remain pending. M04 remains In progress until this separate closeout's human merge is verified. M05–M21 remain Not started. Current evidence and conditions are in `docs/status/M04_CLOSEOUT.md`.
 
 Implemented runtime includes source-neutral MoneyEvent and deterministic ledger schemas, journal checks, immutable storage, exact readers, durable retry identity, full linked reversals and account-role validation, with property/adversarial corpora and a synthetic demonstration. Formal M04 closeout is proposed. Source-specific ingestion, invariant/incident/graph/replay/repair/agent engines, benchmark and product UI remain unimplemented.
 

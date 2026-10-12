@@ -8,7 +8,9 @@ M04 Double-entry ledger core.
 
 Closeout disposition: PROPOSED_PENDING_HUMAN_MERGE
 
-Current closeout review: Builder complete, awaiting QA
+Current closeout review: QA passed, awaiting merge
+
+Sole proposed closeout PR #80
 
 All eighteen original submilestones are Completed and merged. This separate closeout proposal is not yet merged on `main`. Independent closeout QA and exact-head CI must pass before human merge. M04 remains In progress; the existing active plan remains active until actual closeout human merge and reviewed-tree/main verification. No M05 work starts here.
 
@@ -70,7 +72,7 @@ The whole-M04 reviewer independently verified the primary merge/head/tree/CI rec
 
 Prerequisite M04.18 evidence: independent PASS, 1,785 ledger tests/32 files, 1,882 controls, 510 accepted-candidate behavior probes carried by 343-file identity, 122 fresh final lifecycle probes, clean QA 18/0/1, and both CI jobs with fourteen PostgreSQL suite counts 64/22/27/39/40/23/31/34/56/56/169/263/400/3 = 1227. All three migration recovery cycles, both populated exact-preservation/no-backfill upgrades, exact five ledger tables plus pgmigrations/ten functions, DEMO PASS and owned/Compose cleanup passed.
 
-Current closeout checks: Builder validator, all2,055 controls, workspace frozen install/typecheck/test/lint/build/format and intermediate QA17 PASS/0 FAIL/2 expected skips passed. Focused closeout208 PASS; scope25/protected338/all18 raw requirements/V1/prior proofs/history/append-only guide+weekly and whitespace passed. Candidate/final clean QA, independent whole-closeout review and actual current-head CI remain required. Optional local Docker/make unavailable; warm local caches retained; approved fresh owned PostgreSQL17 CI supplies required database acceptance. Commands: python scripts/validate-control-plane.py; python -m pytest tests/test_control_plane_bootstrap.py; git diff --check; scripts/qa-dev-environment.py; independent lifecycle/control/scope review; both exact-head CI jobs and synthetic-merge parents/tree/full-diff verification. Actual closeout CI must pass both jobs, including all14 mandatory PostgreSQL suites and synthetic-merge tree/parents/full-diff checks. Prerequisite success does not approve the closeout.
+Current closeout checks: Accepted closeout candidate 7197af4bee8385406cc5beb32cb4c62358523cff / tree ec97c4ce206c455afb49ade60504ae300e60eeb2: existing independent reviewer PASS with no remaining findings, 354 fresh lifecycle probes and all2,055 controls; root clean QA18/0/1 without dirty override. Both candidate CI jobs 38238151547 passed, including1785 ledger tests/32 files and all1227 actual PostgreSQL tests in14 unchanged suites (64/22/27/39/40/23/31/34/56/56/169/263/400/3), THREE recovery/both populated preservation upgrades/exact schema/owned+Compose cleanup. Actual checkout has expected base/head parents, the same tree and empty full diff. Scope25/protected338/raw18/V1/history/append-only guide+weekly preserved. Final tracking-head root clean QA, independent review, both actual CI jobs and SHA-bound published readback/readiness remain mandatory before human merge. Actual closeout CI must pass both jobs on the final reviewed revision. Commands: python scripts/validate-control-plane.py; python -m pytest tests/test_control_plane_bootstrap.py; git diff --check; scripts/qa-dev-environment.py; independent lifecycle/control/scope audit; primary CI logs/checkout tree/parents/full-diff verification. Current QA stays external and exact-head bound; prerequisite success does not approve this proposal.
 
 ## Changed docs
 
@@ -94,7 +96,7 @@ Optional local Docker/make are unavailable; direct Python checks and approved ow
 
 ## Warnings
 
-Initial builder QA16/1/2 failed only ledger README formatting; all2,045 then-current controls passed. Formatting was corrected and full updated QA17/0/2 passed. Independent static findings on required-key masking, hostile status types, owning-section tables and exact unique PR/status markers were corrected with retained negative regressions; no financial assertion was weakened. Corrections remain in the active plan. No unresolved static finding remains; clean-candidate independent review and actual CI are pending. Local Docker limits remain explicit.
+Initial builder QA16/1/2 failed only ledger README formatting; all2,045 then-current controls passed. Formatting was corrected and full updated QA17/0/2 passed. Independent static findings on required-key masking, hostile status types, owning-section tables and exact unique PR/status markers were corrected with retained negative regressions; no financial assertion was weakened. Corrections remain in the active plan. No unresolved static finding remains; candidate independent review and actual CI passed; final tracking-head checks remain mandatory. Local Docker limits remain explicit.
 
 ## Risks
 

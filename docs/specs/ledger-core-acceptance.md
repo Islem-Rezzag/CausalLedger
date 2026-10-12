@@ -67,3 +67,6 @@ Fresh ledger1785/32files and fullcontrol1882 PASS; candidate cleanQA18/0/1, inde
 ## Verified human merge and closeout handoff (2026-10-09)
 
 Human PR #79 merged at `c039964073fd7b80fdecea34a035a242353261c7` on 2026-10-09T17:14:57Z by Islem-Rezzag. Reviewed head `3f5236f45baa6b77dd0c48ed7119124d249523db` and merged commit have the same tree `e3ab43ed87084dfefb6c2b6a95ac176edc2472dc` and an empty full diff; fetched main reachability passed. Both jobs of CI 37959900408 passed, with 1,785 ledger tests, 1,882 controls and 1,227 actual PostgreSQL tests across fourteen suites. Independent final QA passed; published body/advisory 6085224093 and SHA256 bindings were read back. All earlier candidate/final-pending statements above describe the historical M04.18 acceptance sequence. This merge completes row18; separate formal M04 closeout is now proposed, with M05 unstarted until its human merge is verified.
+
+
+Closeout proposal update (2026-10-12): sole PR #80 candidate independent QA and actual14-suite CI passed. This is closeout tracking only; the original guide and all financial tests are unchanged. Final-head proof belongs in that PR. M04 remains In progress, active plan retained and M05 unstarted until actual human closeout merge/provenance verification.

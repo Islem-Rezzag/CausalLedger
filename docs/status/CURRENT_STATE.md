@@ -2,7 +2,7 @@
 
 ## Current phase
 
-M00–M03 are closed and V1_PUBLIC_PRODUCT remains approved. M04.01–M04.18 are Completed and merged, including verified [PR #79](https://github.com/Islem-Rezzag/CausalLedger/pull/79). Formal M04 closeout is proposed on `m04-closeout-double-entry-ledger-core` under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; builder validation passed and independent closeout QA/CI are pending. M04 remains In progress until this separate closeout's human merge is verified. M05–M21 remain Not started. Current evidence and conditions are in `docs/status/M04_CLOSEOUT.md`.
+M00–M03 are closed and V1_PUBLIC_PRODUCT remains approved. M04.01–M04.18 are Completed and merged, including verified [PR #79](https://github.com/Islem-Rezzag/CausalLedger/pull/79). Formal M04 closeout is proposed on `m04-closeout-double-entry-ledger-core` under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; candidate independent QA and both CI jobs passed for sole PR #80; final tracking-head checks and human merge remain pending. M04 remains In progress until this separate closeout's human merge is verified. M05–M21 remain Not started. Current evidence and conditions are in `docs/status/M04_CLOSEOUT.md`.
 
 ## Current submilestone and branch
 
@@ -16,7 +16,7 @@ Human PR #79 merged at `c039964073fd7b80fdecea34a035a242353261c7` on 2026-10-09T
 
 ## Current closeout validation
 
-Builder validator, all2,055 controls, workspace frozen install/typecheck/test/lint/build/format and intermediate QA17 PASS/0 FAIL/2 expected skips passed. Focused closeout208 PASS; scope25/protected338/all18 raw requirements/V1/prior proofs/history/append-only guide+weekly and whitespace passed. Candidate/final clean QA, independent whole-closeout review and actual current-head CI remain required. Optional local Docker/make unavailable; warm local caches retained; approved fresh owned PostgreSQL17 CI supplies required database acceptance.
+Accepted closeout candidate 7197af4bee8385406cc5beb32cb4c62358523cff / tree ec97c4ce206c455afb49ade60504ae300e60eeb2: existing independent reviewer PASS with no remaining findings, 354 fresh lifecycle probes and all2,055 controls; root clean QA18/0/1 without dirty override. Both candidate CI jobs 38238151547 passed, including1785 ledger tests/32 files and all1227 actual PostgreSQL tests in14 unchanged suites (64/22/27/39/40/23/31/34/56/56/169/263/400/3), THREE recovery/both populated preservation upgrades/exact schema/owned+Compose cleanup. Actual checkout has expected base/head parents, the same tree and empty full diff. Scope25/protected338/raw18/V1/history/append-only guide+weekly preserved. Final tracking-head root clean QA, independent review, both actual CI jobs and SHA-bound published readback/readiness remain mandatory before human merge.
 
 ## Product implementation status
 

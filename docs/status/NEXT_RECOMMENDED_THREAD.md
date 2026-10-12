@@ -8,3 +8,6 @@ Expected `m04-closeout-double-entry-ledger-core`; all eighteen original M04 rows
 
 Scope:
 Finish the separate closeout proposal under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`. Require coordinator validation, independent QA, final clean QA, both exact-head CI jobs and human-only merge. Keep M04 In progress and M05–M21 unstarted with blank branches/PRs. After the actual closeout merge/tree/main verification, move the plan to completed and synchronize its references before `M05 Planning - Payment provider simulators`. Root runs tests; user need not run them.
+
+
+Current closeout review: candidate PASS; sole PR #80. Finish final actual-head/root/independent/CI/publication gates, then human-only squash merge. After actual merge/tree/main verification, finalize plan location/references before M05 planning. No user tests required.

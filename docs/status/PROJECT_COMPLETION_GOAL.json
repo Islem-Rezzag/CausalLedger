@@ -16,12 +16,12 @@
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
   "currentMilestone": "M04_CLOSEOUT",
   "currentBranch": "m04-closeout-double-entry-ledger-core",
-  "currentPr": null,
+  "currentPr": 80,
   "latestMergedPr": 79,
   "latestMergeCommit": "c039964073fd7b80fdecea34a035a242353261c7",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "Builder validator, all2,055 controls, workspace frozen install/typecheck/test/lint/build/format and intermediate QA17 PASS/0 FAIL/2 expected skips passed. Focused closeout208 PASS; scope25/protected338/all18 raw requirements/V1/prior proofs/history/append-only guide+weekly and whitespace passed. Candidate/final clean QA, independent whole-closeout review and actual current-head CI remain required. Optional local Docker/make unavailable; warm local caches retained; approved fresh owned PostgreSQL17 CI supplies required database acceptance.",
-  "remoteCiStatus": "CLOSEOUT_CURRENT_HEAD_PENDING",
+  "localTestStatus": "Accepted closeout candidate 7197af4bee8385406cc5beb32cb4c62358523cff / tree ec97c4ce206c455afb49ade60504ae300e60eeb2: existing independent reviewer PASS with no remaining findings, 354 fresh lifecycle probes and all2,055 controls; root clean QA18/0/1 without dirty override. Both candidate CI jobs 38238151547 passed, including1785 ledger tests/32 files and all1227 actual PostgreSQL tests in14 unchanged suites (64/22/27/39/40/23/31/34/56/56/169/263/400/3), THREE recovery/both populated preservation upgrades/exact schema/owned+Compose cleanup. Actual checkout has expected base/head parents, the same tree and empty full diff. Scope25/protected338/raw18/V1/history/append-only guide+weekly preserved. Final tracking-head root clean QA, independent review, both actual CI jobs and SHA-bound published readback/readiness remain mandatory before human merge.",
+  "remoteCiStatus": "CLOSEOUT_CANDIDATE_BOTH_PASS_FINAL_HEAD_PENDING",
   "dockerStatus": "UNAVAILABLE_LOCALLY_APPROVED_OWNED_POSTGRES17_CI_ROUTE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -88,9 +88,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "Complete and independently validate separate M04 closeout proposal; human-only merge, verify provenance, then move plan and prepare M05 planning.",
-  "stopReason": "M04_CLOSEOUT_BUILDER_COMPLETE_AWAITING_QA",
-  "lastUpdatedTimestamp": "2026-10-09T17:50:15Z",
+  "exactNextAction": "Finish final actual-head independent/root/CI/publication gates, then human squash merge PR #80; verify merge/tree/main before plan movement and M05 planning.",
+  "stopReason": "M04_CLOSEOUT_FINAL_HEAD_CHECKS_PENDING",
+  "lastUpdatedTimestamp": "2026-10-12T10:54:44Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -510,5 +510,5 @@
     "independentQa": "PASS"
   },
   "closeoutDisposition": "PROPOSED_PENDING_HUMAN_MERGE",
-  "closeoutReviewStatus": "Builder complete, awaiting QA"
+  "closeoutReviewStatus": "QA passed, awaiting merge"
 }
