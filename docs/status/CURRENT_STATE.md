@@ -2,7 +2,7 @@
 
 ## Current phase
 
-M00–M04 are closed and V1_PUBLIC_PRODUCT remains approved. Human M04 closeout PR #80 merge 07ae89701eca3f0ee669265c99a3a180b31724ca matches reviewed edf6a873ffb7d9d46097f4646d960369f5d3c937/tree c0a4573497f2a38cdbf65ad6334fd0a542abf30d with final QA/CI and main provenance verified. Completed M04 plan: plans/completed/CLP-0005-m04-double-entry-ledger-core.md. M05 Planning - Provider and bank simulator is active on m05-planning-provider-and-bank-simulator under plans/active/CLP-0006-m05-provider-and-bank-simulator.md; builder validation passed; independent planning QA/current-head CI pending. All19 M05 implementation rows remain Not started with blank branches/PRs; M06–M21 remain Not started. No simulator is implemented.
+M00–M04 are closed and V1_PUBLIC_PRODUCT remains approved. Human M04 closeout PR #80 merge 07ae89701eca3f0ee669265c99a3a180b31724ca matches reviewed edf6a873ffb7d9d46097f4646d960369f5d3c937/tree c0a4573497f2a38cdbf65ad6334fd0a542abf30d with final QA/CI and main provenance verified. Completed M04 plan: plans/completed/CLP-0005-m04-double-entry-ledger-core.md. M05 Planning - Provider and bank simulator is active on m05-planning-provider-and-bank-simulator under plans/active/CLP-0006-m05-provider-and-bank-simulator.md; candidate independent QA/both CI passed for sole planning PR #81; final tracking-head checks and human merge pending. All19 M05 implementation rows remain Not started with blank branches/PRs; M06–M21 remain Not started. No simulator is implemented.
 
 ## Current submilestone and branch
 
@@ -16,7 +16,7 @@ Human PR #80 merged at 07ae89701eca3f0ee669265c99a3a180b31724ca on 2026-10-12T14
 
 ## Current planning validation
 
-Builder validator/full2,252 controls/expanded411 focused/workspace frozen install/typecheck/test/lint/build/format/whitespace PASS. Intermediate qa-dev --allow-dirty17/0/2 PASS; scoped28/protected337/full318300-byte M04 plan prefix/historical packet/raw18/all19 frozen M05 rows/V1/prior proofs/append-only weekly PASS. Existing independent static reviewers confirmed findings resolved; overall clean-candidate and final independent QA/actual CI remain pending. Local caches warm; Docker/PostgreSQL/make unavailable locally; approved owned17 CI remains mandatory.
+M05 planning candidate e833da8ea7df92fcda30c7bfe90f665f08fc5eab / tree 8583055fdeeb714d3b33620d5abb8533eee7edc3: existing independent reviewer PASS_WITH_TRACKING_FIXES, 441 fresh lifecycle probes and all2252 controls; root cleanQA18/0/1/no dirty override. The two P3 current metadata findings (ledger README opening proposed-closeout text and roadmap builder-pending labels) are corrected in this bounded final handoff; independent committed-head confirmation remains required. Both candidate CI38271340279 jobs passed with1785 ledger/32 files and all14 unchanged mandatory PostgreSQL suites1227/no skips, THREE recovery/both populated preservation upgrades/exact schema/DEMO/owned+Compose cleanup. Actual tested merge has expected base/head parents/same tree/full empty diff. Scope28/protected337/full318300-byte M04 historical prefix/original packet/raw18/raw19/V1/prior proof/weekly preserved. Final tracking-head root clean QA/independent fresh lifecycle+controls/both actual CI/published SHA-bound readback/readiness remain required before human merge. No simulator implementation.
 
 ## Product implementation status
 
@@ -24,4 +24,4 @@ The source-neutral MoneyEvent validator/normalizer and human-merged deterministi
 
 ## Next action
 
-Finish M05 planning validation and independent QA, then human review/squash merge its sole PR. Verify that merge before M05.01 Create simulator package. Root runs tests; user need not run them.
+Finish final actual-head review/rootclean/both CI/publication/readiness gates, then human squash merge sole M05 planning PR #81. Verify that merge before M05.01 Create simulator package. Root runs tests; user need not run them.

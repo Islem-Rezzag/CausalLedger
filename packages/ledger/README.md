@@ -1,6 +1,6 @@
 # Ledger Package
 
-`@causalledger/ledger` owns the approved deterministic runtime, all merged M04 test corpora and the combined synthetic demonstration. PR #79 final QA/CI37959900408 passed 1785 ledger tests and 1227 PostgreSQL tests before verified human merge. The separate formal M04 closeout is proposed; M05 remains unstarted. No financial runtime/API/DDL/authority changes occur in closeout.
+`@causalledger/ledger` owns the approved deterministic runtime, all merged M04 test corpora and the combined synthetic demonstration. PR #79 final QA/CI37959900408 passed 1785 ledger tests and 1227 PostgreSQL tests before verified human merge. The formal M04 closeout is human-merged and verified through PR #80. M05 planning is active separately; all nineteen implementation rows remain unstarted until its planning human merge is verified. This planning slice changes no financial runtime/API/DDL/authority.
 
 The original M02.05 scaffold supplied:
 

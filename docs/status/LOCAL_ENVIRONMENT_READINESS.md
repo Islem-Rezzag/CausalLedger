@@ -1,6 +1,6 @@
 # Local Environment Readiness
 
-M00–M04 are closed and V1_PUBLIC_PRODUCT remains approved. Human M04 closeout PR #80 merge 07ae89701eca3f0ee669265c99a3a180b31724ca matches reviewed edf6a873ffb7d9d46097f4646d960369f5d3c937/tree c0a4573497f2a38cdbf65ad6334fd0a542abf30d with final QA/CI and main provenance verified. Completed M04 plan: plans/completed/CLP-0005-m04-double-entry-ledger-core.md. M05 Planning - Provider and bank simulator is active on m05-planning-provider-and-bank-simulator under plans/active/CLP-0006-m05-provider-and-bank-simulator.md; builder validation passed; independent planning QA/current-head CI pending. All19 M05 implementation rows remain Not started with blank branches/PRs; M06–M21 remain Not started. No simulator is implemented.
+M00–M04 are closed and V1_PUBLIC_PRODUCT remains approved. Human M04 closeout PR #80 merge 07ae89701eca3f0ee669265c99a3a180b31724ca matches reviewed edf6a873ffb7d9d46097f4646d960369f5d3c937/tree c0a4573497f2a38cdbf65ad6334fd0a542abf30d with final QA/CI and main provenance verified. Completed M04 plan: plans/completed/CLP-0005-m04-double-entry-ledger-core.md. M05 Planning - Provider and bank simulator is active on m05-planning-provider-and-bank-simulator under plans/active/CLP-0006-m05-provider-and-bank-simulator.md; candidate independent QA/both CI passed for sole planning PR #81; final tracking-head checks and human merge pending. All19 M05 implementation rows remain Not started with blank branches/PRs; M06–M21 remain Not started. No simulator is implemented.
 
 ## Audit scope
 

@@ -10,11 +10,13 @@ Plan controlled synthetic provider and bank sources after verified M04 closeout.
 - [x] Finalize M04 closeout and move its plan with original requirements/history retained.
 - [x] Draft all19 original M05 dependencies, deterministic acceptance and learning examples.
 - [x] Builder validation and complete scope/history audit.
-- [ ] Sole draft planning PR, clean candidate QA and independent review.
+- [x] Sole draft planning PR, clean candidate QA and independent review.
 - [ ] Final exact-head review/rootclean/both CI/publication/readback/readiness.
 - [ ] Human planning merge verified before M05.01.
 
-Current planning review: Builder complete, awaiting QA
+Current planning review: QA passed, awaiting merge
+
+Sole proposed M05 planning PR #81
 
 ## Surprises & Discoveries
 
@@ -79,7 +81,7 @@ Verify dependencies and write a compact scope/behavior/negative-test/learning br
 
 ## Validation and Acceptance
 
-Current planning: Level6 N/A because the benchmark is unimplemented. Commands include python scripts/validate-control-plane.py and python -m pytest tests/test_control_plane_bootstrap.py. Branch/scope/control/bootstrap/whitespace/security/human review Levels0–4/7/8; full existing regression/approved CI above. Initial checkpoint was NOT RUN. Validator/expanded411 focused controls and full scope/history audit now passed; Full builder2252 checks passed; clean-candidate/final independent QA/current-head CI remain pending. Earlier M04 counts are prerequisite evidence. Independent new19 mapping, typed provenance, pending-state negative controls and plan/history movement tests are required. Record actual counts/results/skips/warnings and exact candidate/final SHA externally in sole PR; no CI-copy-only commit.
+Current planning: Level6 N/A because the benchmark is unimplemented. Commands include python scripts/validate-control-plane.py and python -m pytest tests/test_control_plane_bootstrap.py. Branch/scope/control/bootstrap/whitespace/security/human review Levels0–4/7/8; full existing regression/approved CI above. Initial checkpoint was NOT RUN. Validator/expanded411 focused controls and full scope/history audit now passed; Candidate independent/root clean QA and both CI passed for sole PR #81; final tracking-head checks and human merge pending. Earlier M04 counts are prerequisite evidence. Independent new19 mapping, typed provenance, pending-state negative controls and plan/history movement tests are required. Record actual counts/results/skips/warnings and exact candidate/final SHA externally in sole PR; no CI-copy-only commit.
 
 Future functional acceptance: literal synthetic USD1250 authorization/capture/payout records, separate receipts, deterministic source times, settlement CSV and bank CSV references. A benign repeated webhook has the same occurrence and two delivery identities; a separately declared faulty duplicate has a distinct faulty occurrence. Malformed amount/currency/reference refuses without rewriting inputs; missing evidence is not fabricated. These are planned test examples, not implemented outputs or financial truth. Each feature supplies an executable VSCode test/demonstration; root runs it for the user.
 
@@ -97,7 +99,7 @@ Future packages/simulator emits synthetic raw provider/webhook/settlement/bank r
 
 ## Outcomes & Retrospective
 
-Builder complete, awaiting QA; planning-only. Builder checks passed; independent clean-candidate/final QA/current-head CI pending. Safe scoped ordinary Git publication follows passing builder checks; QA-only merge readiness requires final actual-head PASS/readback; human merges. Exact next recommended thread: M05 Planning - Provider and bank simulator. After verified planning merge: M05.01 Create simulator package.
+QA passed, awaiting merge; planning-only. Sole PR #81 candidate independent/rootclean/both CI passed. Final tracking-head checks and human merge remain. Safe scoped ordinary Git publication follows passing builder checks; QA-only merge readiness requires final actual-head PASS/readback; human merges. Exact next recommended thread: M05 Planning - Provider and bank simulator. After verified planning merge: M05.01 Create simulator package.
 
 ## Generated builder and QA brief (2026-10-12)
 
@@ -137,3 +139,16 @@ Changed: planning-only documentation, current architecture/closeout/navigation, 
 The staged publication whitespace check caught a trailing space in the new untracked plan that earlier unstaged git diff did not inspect. Fixed before commit; the already inspected scoped index is retained and revalidated. No source or acceptance changes, unstaging/reset/amend/force operation, or financial assertion weakening.
 
 The first publication retry also attempted to re-add the already indexed old plan path after its rename and stopped on that absent pathspec. Retry stages existing scoped paths only, while verifying the complete28-path index including the retained deletion/rename. No history rewrite or unstage/reset operation.
+
+Final handoff metadata correction: corrected the remaining stale ledger README opening M04-proposed/M05-unstarted text, roadmap builder-pending labels and current goal/next-action fields. Existing static auditor confirmed these were current fields; dated initial correction/builder checkpoints remain historical. Completed M04 plan/packet and all candidate controls/financial files stay byte-identical.
+
+The initial standalone formatting check used the root context, where Prettier is not a root dependency, and stopped before inspecting files. Repeated in the ledger package context; the scoped README formatting check passed without edits or installation.
+
+
+## M05 planning independent candidate QA and final handoff (2026-10-12)
+
+QA passed, awaiting merge; sole [PR #81](https://github.com/Islem-Rezzag/CausalLedger/pull/81). M05 planning candidate e833da8ea7df92fcda30c7bfe90f665f08fc5eab / tree 8583055fdeeb714d3b33620d5abb8533eee7edc3: existing independent reviewer PASS_WITH_TRACKING_FIXES, 441 fresh lifecycle probes and all2252 controls; root cleanQA18/0/1/no dirty override. The two P3 current metadata findings (ledger README opening proposed-closeout text and roadmap builder-pending labels) are corrected in this bounded final handoff; independent committed-head confirmation remains required. Both candidate CI38271340279 jobs passed with1785 ledger/32 files and all14 unchanged mandatory PostgreSQL suites1227/no skips, THREE recovery/both populated preservation upgrades/exact schema/DEMO/owned+Compose cleanup. Actual tested merge has expected base/head parents/same tree/full empty diff. Scope28/protected337/full318300-byte M04 historical prefix/original packet/raw18/raw19/V1/prior proof/weekly preserved. Final tracking-head root clean QA/independent fresh lifecycle+controls/both actual CI/published SHA-bound readback/readiness remain required before human merge. No simulator implementation.
+
+This legitimate final handoff binds the actual own PR, records independent candidate acceptance and updates pending review/next-action tracking. All candidate control source/tests, complete M04 plan/packet history and all financial source/tests/migrations/runner/manifests/dependencies/CI remain unchanged. No commit solely copies CI. Root sole editor/main validation owner; existing separate-context reviewer and static auditor reused, no overlapping runtime/new chats/agents/native goals. Native goal stays user-paused. No force/reset/amend/stash/branch deletion/agent merge/auto-merge/install/paidcall/deploy/publication.
+
+Final actual-head independent PASS/rootclean/both CI/primary log and synthetic-merge proof/publication readback/readiness belong in sole PR's SHA-bound body/advisory. CurrentQaEvidence None; prerequisite M04 and candidate evidence do not substitute for final M05 proof. Exact next: HUMAN review/squash merge only after final gates; reply Merged #81. Continue after actual merge. Verify reviewed contents/main provenance before M05.01 Create simulator package. M04 Completed; active M05 planning; all19 implementation rows and M06–21 unstarted/unbound. Future packages/simulator remains proposed, no package/output/financial-write authority. Root ran tests; user none.
