@@ -10,7 +10,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-Architecture combines implemented source-neutral MoneyEvent and human-merged M04 ledger primitives with planned later layers. M05 synthetic provider/bank generation is planning only; no simulator or later integrated public product is claimed.
+Architecture combines implemented source-neutral MoneyEvent and human-merged M04 ledger primitives with planned later layers. M05.01 generic manifest foundation is implemented and builder-tested, awaiting independent QA; synthetic provider/bank generation and the integrated public product remain unimplemented.
 
 ## High-level architecture
 
@@ -137,6 +137,15 @@ Implemented runtime includes source-neutral MoneyEvent candidate validation/norm
 It also does not implement AML/KYC, sanctions screening, fraud scoring, credit decisions, legal or tax advice, investment advice, accounting close, ERP, treasury, banking, payment processing, autonomous repair execution, or autonomous money movement. See `docs/domain/out-of-scope-domains.md` for the M01.09 domain boundary.
 
 
-## M05 synthetic source ownership (2026-10-12)
+## Historical M05 synthetic source planning ownership (2026-10-12)
 
 Proposed dedicated packages/simulator owns offline deterministic synthetic provider/webhook/settlement/bank generation, distinct source-occurrence and delivery identities, explicit clocks, versioned manifests/seed/CSV output. This planning slice creates no package, output, parser, connector, evidence store or financial-write API. Connectors retain external source adapters; evidence retains append-only capture/receipt/storage; events retains source-neutral canonical validation; ledger retains deterministic financial primitives. No direct ledger write or agent authority is introduced. Active plan: plans/active/CLP-0006-m05-provider-and-bank-simulator.md.
+
+
+## M05.01 foundation checkpoint (2026-10-13)
+
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05 planning PR81 is human-merged and verified. M05.01 Create simulator package is Builder complete, awaiting QA on m05-01-create-simulator-package under active plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Builder validation passed; independent clean candidate/final QA and actual CI pending; no current PR. Generic package/contracts/manifest validation are implemented and builder-tested. M05.02–M05.19 and M06–M21 remain Not started/unbound; provider/bank generation remains unimplemented.
+
+Human PR81 merged at 6b755d57bf0f03f1618aea1096cc99e1876e4bed on 2026-10-13T17:25:57Z by nonbot Islem-Rezzag. Reviewed b18b047fe87ed8eafa6d9756ca7db5c9d569291f and actual merge have tree 4f45bfdfbc063966766f9a347a1fccd3f4d237ca, full diff EMPTY and fetched-main reachability PASS. Root and existing independent reviewer verified primary merge/CI/body/advisory6128785198/reviewer hash bindings. Final planning QA441 lifecycle/2252 controls/rootclean18/0/1/bothCI38273448464 passed;1785 ledger/32files/all14 PostgreSQL1227/THREE recovery/both populated upgrades/schema/DEMO/cleanup passed. No unchanged planning tests rerun to verify merge.
+
+Generic structural/hash validation is not financial payload validation, source authenticity or actual receipt ingestion. Exact UTF8 preservation and explicit unknown source time are required. Future amount/currency/seed/CLI/CSV behavior stays with its owning slice. No material scope expansion or financial-write authority.

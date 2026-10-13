@@ -1119,7 +1119,7 @@ def validate_m03_plan_location() -> list[str]:
         errors.append("completed M03 plan must not remain in plans/active")
     if not completed_m03.is_file():
         errors.append("completed M03 plan is missing from plans/completed")
-    if active_plan_files() and not (m04_active_plan_is_authorized() or m05_planning_is_authorized()):
+    if active_plan_files() and not (m04_active_plan_is_authorized() or m05_planning_is_authorized() or m05_simulator_package_is_authorized()):
         errors.append("plans/active must remain empty while target approval is pending")
     return errors
 
@@ -1965,6 +1965,123 @@ def exact_typed_proof(actual: object, expected: dict) -> bool:
     )
 
 
+M05_SIMULATOR_PACKAGE_PHASE = "M05_SIMULATOR_PACKAGE"
+M05_SIMULATOR_PACKAGE_BRANCH = "m05-01-create-simulator-package"
+M05_PLANNING_HISTORY_MARKER = "## Historical merged M05 planning record (immutable)\n\n"
+M05_PLANNING_HISTORY_SHA256 = 'b55510784bfc5186214272bf04dc769d782d8f669cff6eab4272f3d16cbe3de7'
+M05_PLANNING_MERGE_EVIDENCE = {'pr': 81, 'mergeCommit': '6b755d57bf0f03f1618aea1096cc99e1876e4bed', 'reviewedHead': 'b18b047fe87ed8eafa6d9756ca7db5c9d569291f', 'reviewedTree': '4f45bfdfbc063966766f9a347a1fccd3f4d237ca', 'mergedTree': '4f45bfdfbc063966766f9a347a1fccd3f4d237ca', 'ciRun': 38273448464, 'qaResult': 'PASS'}
+M05_PLANNING_QA_EVIDENCE = {'head': 'b18b047fe87ed8eafa6d9756ca7db5c9d569291f', 'tree': '4f45bfdfbc063966766f9a347a1fccd3f4d237ca', 'base': '07ae89701eca3f0ee669265c99a3a180b31724ca', 'result': 'PASS', 'controlTests': 2252, 'lifecycleProbes': 441, 'ciRun': 38273448464, 'ledgerTests': 1785, 'realDatabaseTests': 1227, 'reviewer': 'm04_02_qa', 'reviewRecord': 'https://github.com/Islem-Rezzag/CausalLedger/pull/81#issuecomment-6128785198', 'reviewerResultSha256': '58b9c6f9bac0b770d1dccb9fc4e68738514e6f3aea946a4046d119aa14056a35', 'bodySha256': 'e971768cd3d192c216b9c57344e9dd4407a436808736f937b94b7614b3154c0c', 'advisorySha256': '61178fe2bf587c7910209e882014123b97d82f470362db872b717298dfcfff68'}
+M05_SIMULATOR_PACKAGE_FILES = ['README.md', 'package.json', 'tsconfig.json', 'tsconfig.test.json', 'src/index.ts', 'src/contract.ts', 'src/validation.ts', 'test/contract.test.ts', 'test/contract-types.test.ts', 'test/ownership.test.ts']
+M05_PACKAGE_REVIEW_STATUSES = ("Builder in progress", "Builder complete, awaiting QA", "QA passed, awaiting merge", "Blocked")
+
+def validate_m05_simulator_package_goal(state: dict) -> list[str]:
+    prior=dict(state)
+    for key in ("m05PlanningMergeEvidence","m05PlanningQaEvidence","simulatorPackageReviewStatus"):
+        prior.pop(key,None)
+    prior.update(currentPhase=M05_PLANNING_PHASE,currentMilestone=M05_PLANNING_PHASE,
+                 currentBranch=M05_PLANNING_BRANCH,currentPr=None,latestMergedPr=80,
+                 latestMergeCommit=M04_MILESTONE_CLOSEOUT_MERGE_EVIDENCE["mergeCommit"],
+                 m05PlanningReviewStatus="Builder in progress")
+    errors=validate_project_completion_goal(prior)
+    for key,expected in (("m05PlanningMergeEvidence",M05_PLANNING_MERGE_EVIDENCE),
+                         ("m05PlanningQaEvidence",M05_PLANNING_QA_EVIDENCE)):
+        if not exact_typed_proof(state.get(key),expected):
+            errors.append("M05.01 requires exact typed actual PR81 planning merge/final QA proof")
+    if state.get("currentMilestone")!="M05.01" or state.get("currentBranch")!=M05_SIMULATOR_PACKAGE_BRANCH:
+        errors.append("M05.01 requires expected milestone and branch")
+    if type(state.get("latestMergedPr")) is not int or state.get("latestMergedPr")!=81 or state.get("latestMergeCommit")!=M05_PLANNING_MERGE_EVIDENCE["mergeCommit"]:
+        errors.append("M05.01 requires actual PR81 latest merge")
+    if state.get("m05PlanningReviewStatus")!="Completed and merged":
+        errors.append("M05.01 requires completed human-merged planning")
+    pr=state.get("currentPr")
+    if pr is not None and (type(pr) is not int or pr<=81):
+        errors.append("M05.01 requires its own integer PR after81")
+    status=state.get("simulatorPackageReviewStatus")
+    if not isinstance(status,str) or status not in M05_PACKAGE_REVIEW_STATUSES:
+        errors.append("M05.01 requires a pending review status")
+    if status in ("QA in progress","QA passed, awaiting merge") and pr is None:
+        errors.append("M05.01 QA requires its own PR")
+    if state.get("currentQaEvidence") is not None:
+        errors.append("M05.01 current QA remains external and exact-head bound")
+    return errors
+
+def m05_simulator_package_is_authorized() -> bool:
+    state,errors=read_project_completion_goal()
+    return not errors and isinstance(state,dict) and state.get("currentPhase")==M05_SIMULATOR_PACKAGE_PHASE and not validate_project_completion_goal(state)
+
+def validate_m05_simulator_package() -> list[str]:
+    state,_=read_project_completion_goal()
+    if not isinstance(state,dict) or state.get("currentPhase")!=M05_SIMULATOR_PACKAGE_PHASE:
+        return []
+    errors=validate_project_completion_goal(state)
+    errors.extend(validate_completed_m04_for_m05())
+    if active_plan_files()!=[ROOT/M05_ACTIVE_PLAN]:
+        errors.append("M05.01 requires exactly one active CLP0006")
+    try:
+        raw=(ROOT/M05_ACTIVE_PLAN).read_bytes()
+        before,marker,history=raw.partition(M05_PLANNING_HISTORY_MARKER.encode())
+        if not marker or hashlib.sha256(history).hexdigest()!=M05_PLANNING_HISTORY_SHA256:
+            errors.append("M05.01 must preserve complete merged planning history")
+        sections=markdown_sections(before.decode("utf-8"))
+        for heading in ("Purpose / Big Picture","Progress","Surprises & Discoveries","Decision Log","Context and Orientation","Scope","Plan of Work","Concrete Steps","Validation and Acceptance","Idempotence and Recovery","Artifacts and Notes","Interfaces and Dependencies","Outcomes & Retrospective"):
+            if not sections.get(heading.lower()) or len(re.findall("^## "+re.escape(heading)+"$",before.decode("utf-8"),re.M))!=1:
+                errors.append("M05.01 plan missing/duplicated section: "+heading)
+        if parse_markdown_table(sections.get("plan of work",""),["ID","Existing submilestone","Dependencies","Acceptance and deterministic evidence"])!=M05_PLAN_ROWS:
+            errors.append("M05.01 must preserve all19 original frozen rows")
+        progress=sections.get("progress","")
+        for prefix,value in (("Current planning review:","Completed and merged"),("Sole merged M05 planning PR","#81"),("Current package review:",state.get("simulatorPackageReviewStatus"))):
+            if re.findall(r"^[ \t]*"+re.escape(prefix)+r".*$",progress,re.M)!=[prefix+" "+str(value)]:
+                errors.append("M05.01 plan has missing/duplicate/conflicting gate marker: "+prefix)
+        own=[] if state.get("currentPr") is None else ["Sole proposed M05.01 PR #"+str(state["currentPr"])]
+        if re.findall(r"^[ \t]*Sole proposed M05\.01 PR\b.*$",progress,re.M)!=own:
+            errors.append("M05.01 plan must bind only its own PR")
+        registry=parse_registry()
+        expected={row["ID"]:row["Existing submilestone"] for row in M05_PLAN_ROWS}
+        rows=[row for row in registry if row.submilestone_id.startswith("M05.")]
+        detail=parse_milestone_submilestone_table(read_text("docs/milestones/M05.md"))
+        for source in (rows,detail):
+            if len(source)!=19 or {row.submilestone_id:row.name for row in source}!=expected:
+                errors.append("M05.01 requires all19 original rows")
+            for row in source:
+                wanted=state.get("simulatorPackageReviewStatus") if row.submilestone_id=="M05.01" else "Not started"
+                if row.status!=wanted:
+                    errors.append("M05.01 only row01 may enter current pending state")
+        for row in rows:
+            if row.active_plan!=M05_ACTIVE_PLAN:
+                errors.append("M05.01 registry must retain active CLP0006")
+            if row.submilestone_id=="M05.01":
+                if row.branch!=M05_SIMULATOR_PACKAGE_BRANCH or row.pr!=("" if state.get("currentPr") is None else "#"+str(state["currentPr"])):
+                    errors.append("M05.01 registry requires exact own branch/PR")
+            elif row.branch or row.pr:
+                errors.append("M05.01 cannot bind later implementation branch/PR")
+        if any(row.status!="Not started" or row.active_plan or row.branch or row.pr for row in registry if row.submilestone_id[:3] in {f"M{n:02d}" for n in range(6,22)}):
+            errors.append("M05.01 cannot activate M06–M21")
+        package=ROOT/"packages/simulator"
+        if not package.is_dir() or package_files(package)!=set(M05_SIMULATOR_PACKAGE_FILES):
+            errors.append("M05.01 requires exactly the owned foundation package files")
+        if (ROOT/"packages/simulators").exists():
+            errors.append("M05.01 forbids alternative simulator owner")
+        manifest=json.loads(read_text("packages/simulator/package.json"))
+        if not isinstance(manifest,dict):
+            return errors+["M05.01 package manifest must be an object"]
+        if manifest.get("name")!="@causalledger/simulator" or manifest.get("private") is not True or manifest.get("type")!="module" or set(manifest)!={"name","version","private","type","scripts","devDependencies"}:
+            errors.append("M05.01 package must be private and dependency-free")
+        if manifest.get("version")!="0.0.0" or manifest.get("devDependencies")!={"@types/node":"^22.0.0","prettier":"^3.8.3","typescript":"^6.0.3","vitest":"^4.1.8"}:
+            errors.append("M05.01 package must reuse reviewed development dependency constraints")
+        expected_scripts={"build":"tsc -p tsconfig.json","typecheck":"tsc -p tsconfig.json --noEmit --pretty false && tsc -p tsconfig.test.json --noEmit --pretty false","typecheck:test":"tsc -p tsconfig.test.json --noEmit --pretty false","test":'vitest run --exclude "dist/**"',"lint":"eslint . --max-warnings=0","format:check":'prettier --check "src/**/*.ts" "test/**/*.ts" "README.md" "package.json" "tsconfig*.json"'}
+        if manifest.get("scripts")!=expected_scripts:
+            errors.append("M05.01 package scripts must match reviewed checks")
+        production=json.loads(read_text("packages/simulator/tsconfig.json"))
+        tests=json.loads(read_text("packages/simulator/tsconfig.test.json"))
+        if production!={"extends":"../../tsconfig.base.json","compilerOptions":{"outDir":"dist","rootDir":"src","types":["node"],"tsBuildInfoFile":"dist/.tsbuildinfo"},"include":["src/**/*.ts"]} or tests!={"extends":"./tsconfig.json","compilerOptions":{"noEmit":True,"rootDir":".","types":["node"]},"include":["src/**/*.ts","test/**/*.ts"]}:
+            errors.append("M05.01 package requires strict production and separately checked test configuration")
+        for rel in ("docs/ACTIVE_DOCS.md","docs/INDEX.md","docs/status/CURRENT_STATE.md"):
+            if M05_ACTIVE_PLAN not in read_text(rel):
+                errors.append(rel+" must identify the active M05.01 plan")
+    except (OSError,ValueError,KeyError,TypeError) as exc:
+        errors.append("M05.01 artifacts invalid: "+str(exc))
+    return errors
+
 def validate_m05_planning_goal(state: dict) -> list[str]:
     # Retain the complete prior approval/provenance checks; outer validation
     # checks original required keys before this historical projection.
@@ -2313,6 +2430,11 @@ def validate_project_completion_goal(goal_state: object) -> list[str]:
         errors.append(
             "PROJECT_COMPLETION_GOAL.json missing required keys: " + ", ".join(missing)
         )
+    if goal_state.get("currentPhase") == M05_SIMULATOR_PACKAGE_PHASE:
+        return errors + validate_m05_simulator_package_goal(goal_state)
+    for field in ("m05PlanningMergeEvidence","m05PlanningQaEvidence","simulatorPackageReviewStatus"):
+        if goal_state.get(field) is not None:
+            errors.append("earlier phases cannot carry M05.01 verified planning merge evidence")
     if goal_state.get("currentPhase") == M05_PLANNING_PHASE:
         return errors + validate_m05_planning_goal(goal_state)
     for field in ("m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
@@ -2613,7 +2735,7 @@ def m04_active_plan_is_authorized() -> bool:
 def m04_account_schema_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE)
         and not validate_project_completion_goal(state)
     )
 
@@ -2621,7 +2743,7 @@ def m04_account_schema_is_authorized() -> bool:
 def m04_transaction_schema_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE)
         and not validate_project_completion_goal(state)
     )
 
@@ -2629,7 +2751,7 @@ def m04_transaction_schema_is_authorized() -> bool:
 def m04_entry_schema_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE)
         and not validate_project_completion_goal(state)
     )
 
@@ -2637,92 +2759,92 @@ def m04_entry_schema_is_authorized() -> bool:
 def m04_balance_validation_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE)
         and not validate_project_completion_goal(state)
     )
 
 
 def m04_storage_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_account_balance_query_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_transaction_query_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_idempotency_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_reversal_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_cash_clearing_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_provider_clearing_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_customer_liability_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_fee_expense_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_revenue_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_balanced_posting_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_invalid_posting_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_reversal_tests_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_ledger_acceptance_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE)
             and not validate_project_completion_goal(state))
 
 
@@ -3015,6 +3137,7 @@ def validate_m03_06_closeout_readiness() -> list[str]:
             and not (row.submilestone_id == "M04.16" and m04_invalid_posting_is_authorized())
             and not (row.submilestone_id == "M04.17" and m04_reversal_tests_is_authorized())
             and not (row.submilestone_id == "M04.18" and m04_ledger_acceptance_is_authorized())
+            and not (row.submilestone_id == "M05.01" and m05_simulator_package_is_authorized())
         )
         if non_not_started:
             errors.append(
@@ -3487,6 +3610,8 @@ def validate_package_scaffolds() -> list[str]:
         if not package_dir.is_dir():
             continue
         files = package_files(package_dir)
+        if package_dir.name == "simulator" and m05_simulator_package_is_authorized():
+            continue  # Exact foundation layout/config is validated separately.
         if package_dir.name not in M02_05_PACKAGE_DIRS:
             if files != {"README.md"}:
                 unexpected = sorted(files - {"README.md"})
@@ -3826,6 +3951,7 @@ def validate() -> list[str]:
     errors.extend(validate_m03_06_closeout_readiness())
     errors.extend(validate_m04_planning())
     errors.extend(validate_m05_planning())
+    errors.extend(validate_m05_simulator_package())
     errors.extend(validate_m03_04_events_runtime_boundary())
     errors.extend(validate_local_infrastructure())
     errors.extend(validate_qa_development_environment())

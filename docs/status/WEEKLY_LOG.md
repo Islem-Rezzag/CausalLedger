@@ -1458,3 +1458,19 @@ QA passed, awaiting merge; sole [PR #81](https://github.com/Islem-Rezzag/CausalL
 This legitimate final handoff binds the actual own PR, records independent candidate acceptance and updates pending review/next-action tracking. All candidate control source/tests, complete M04 plan/packet history and all financial source/tests/migrations/runner/manifests/dependencies/CI remain unchanged. No commit solely copies CI. Root sole editor/main validation owner; existing separate-context reviewer and static auditor reused, no overlapping runtime/new chats/agents/native goals. Native goal stays user-paused. No force/reset/amend/stash/branch deletion/agent merge/auto-merge/install/paidcall/deploy/publication.
 
 Final actual-head independent PASS/rootclean/both CI/primary log and synthetic-merge proof/publication readback/readiness belong in sole PR's SHA-bound body/advisory. CurrentQaEvidence None; prerequisite M04 and candidate evidence do not substitute for final M05 proof. Exact next: HUMAN review/squash merge only after final gates; reply Merged #81. Continue after actual merge. Verify reviewed contents/main provenance before M05.01 Create simulator package. M04 Completed; active M05 planning; all19 implementation rows and M06–21 unstarted/unbound. Future packages/simulator remains proposed, no package/output/financial-write authority. Root ran tests; user none.
+
+
+## M05.01 foundation checkpoint (2026-10-13)
+
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05 planning PR81 is human-merged and verified. M05.01 Create simulator package is Builder in progress on m05-01-create-simulator-package under active plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Current validation NOT RUN; no current PR. Only package foundation/contracts/manifest validation are in scope. M05.02–M05.19 and M06–M21 remain Not started/unbound; provider/bank generation remains unimplemented.
+
+Human PR81 merged at 6b755d57bf0f03f1618aea1096cc99e1876e4bed on 2026-10-13T17:25:57Z by nonbot Islem-Rezzag. Reviewed b18b047fe87ed8eafa6d9756ca7db5c9d569291f and actual merge have tree 4f45bfdfbc063966766f9a347a1fccd3f4d237ca, full diff EMPTY and fetched-main reachability PASS. Root and existing independent reviewer verified primary merge/CI/body/advisory6128785198/reviewer hash bindings. Final planning QA441 lifecycle/2252 controls/rootclean18/0/1/bothCI38273448464 passed;1785 ledger/32files/all14 PostgreSQL1227/THREE recovery/both populated upgrades/schema/DEMO/cleanup passed. No unchanged planning tests rerun to verify merge.
+
+Generic structural/hash validation is not financial payload validation, source authenticity or actual receipt ingestion. Exact UTF8 preservation and explicit unknown source time are required. Future amount/currency/seed/CLI/CSV behavior stays with its owning slice. No material scope expansion or financial-write authority.
+
+
+## M05.01 builder validation checkpoint (2026-10-13)
+
+Builder complete, awaiting QA. Builder fresh simulator107/3files/type/lint/build/format and full2397 controls PASS; workspace frozen install/typecheck/lint/test/build/format/validator/whitespace PASS. Intermediate root QA17 PASS/0 FAIL/2 expected skips (own scoped dirty worktree, optional unavailable local Docker). Scope36/protected339/complete29375-byte planning history/raw19/V1/all prior proofs/append-only weekly/unchanged importers+dependency snapshots PASS. Existing independent static review found no remaining confirmed defect; overall clean-candidate/final independent QA and current actual CI remain pending. Cached tools used; no cold-cache claim/system install/credentials/policy change. Existing glob deprecation/esbuild ignored-script warnings recorded.
+
+Exact next: M05.01 QA/solePR/final gates/human merge; verify before M05.02. User runs no tests. Foundation only, no provider/bank generation or financial authority.

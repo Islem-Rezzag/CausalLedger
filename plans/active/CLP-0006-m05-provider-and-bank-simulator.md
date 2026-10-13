@@ -2,6 +2,150 @@
 
 ## Purpose / Big Picture
 
+Create M05.01 simulator package foundation after verified planning merge. Implement only readonly synthetic descriptor contracts, versioned manifests and deterministic structural/integrity validation. Later provider/bank generation remains unimplemented; synthetic metadata cannot establish financial truth.
+
+## Progress
+
+- [x] 2026-10-13: Verified human planning PR81 merge/main/tree/published bindings; safely synchronized main and passed clean m05-01-create-simulator-package guard.
+- [x] M05.01 package/contracts/tests and scoped control/tracking updates.
+- [x] Builder validation.
+- [ ] Clean candidate publication.
+- [ ] Independent candidate/final QA, actual CI and published readiness.
+- [ ] Human M05.01 merge verified before M05.02.
+
+Current planning review: Completed and merged
+
+Sole merged M05 planning PR #81
+
+Current package review: Builder complete, awaiting QA
+
+## Surprises & Discoveries
+
+Planning PR81 is verified merged; row01 now creates the accepted dedicated owner. Existing app fallback pnpm11 lacked offline policy metadata; the already installed repository-pinned pnpm10.32.1 succeeded offline without downloads. No package/dependency upgrade or policy/configuration change. Node production typing and descriptor typing were corrected before behavioral101 tests passed; a type-negative test's bare expression needed a lint-compatible void expression. Remaining builder/control/workspace/independent QA pending.
+
+## Decision Log
+
+- Preserve all original IDs/names; no consolidation, deferral, renamed acceptance, scope expansion or new V1 approval.
+- Proposed packages/simulator owns offline synthetic source generation; connectors keep external adapters, evidence keeps capture/storage, events keeps canonical validation and ledger keeps financial primitives.
+- Source occurrence, canonical event, delivery/receipt and posting identities are distinct. Duplicates preserve deliveries and original source bytes; faulty duplicate occurrences remain explicit. No inferred exactly-once economic claim.
+- Rows01–15 use explicit deterministic inputs; row16 adds versioned seed support. row17 owns CLI execution and output controls; row18 broadens tests already present for each feature; row19 whole milestone QA; then separate formal closeout.
+- Freeze exact versioned amounts/currencies/IDs/provenance/CSV dialect/supplied clocks and reproducibility in owning implementation briefs. No Number conversion for money, hidden host clock/randomness or ledger/posting dependency.
+
+## Context and Orientation
+
+Human PR81 merged at 6b755d57bf0f03f1618aea1096cc99e1876e4bed on 2026-10-13T17:25:57Z by nonbot Islem-Rezzag. Reviewed b18b047fe87ed8eafa6d9756ca7db5c9d569291f and actual merge have tree 4f45bfdfbc063966766f9a347a1fccd3f4d237ca, full diff EMPTY and fetched-main reachability PASS. Root and existing independent reviewer verified primary merge/CI/body/advisory6128785198/reviewer hash bindings. Final planning QA441 lifecycle/2252 controls/rootclean18/0/1/bothCI38273448464 passed;1785 ledger/32files/all14 PostgreSQL1227/THREE recovery/both populated upgrades/schema/DEMO/cleanup passed. No unchanged planning tests rerun to verify merge.
+
+Completed M04 plan remains plans/completed/CLP-0005-m04-double-entry-ledger-core.md; all18 prior requirements and historical packet are unchanged. One active CLP0006 preserves all19 original M05 rows below.
+
+## Scope
+
+Expected branch m05-01-create-simulator-package; active CLP0006; base 6b755d57bf0f03f1618aea1096cc99e1876e4bed. Before every edit run git branch --show-current; git status --short; git remote -v. Stop for wrong branch/unrelated dirt; own scoped dirt is part of this slice. Root sole editor/main validation owner; existing m04_02_qa independent reviewer and static auditor reused. Reviewer runtime HOLD until root releases a clean committed candidate; never overlap full Python/pnpm. No new chats/agents/native goals; native goal remains user-paused.
+
+Purpose/owner: create private packages/simulator with zero runtime package dependencies. Freeze v1 readonly generic synthetic source/delivery/result/manifest contracts and a strict unknown-input validator; deterministic node:crypto SHA256 is the sole permitted runtime builtin. Supplied simulator-scoped source/occurrence/record/delivery/receipt-descriptor IDs; no durable rcpt/evt allocation. Event time is explicit UTC or null (unknown); supplied observed clocks/cutoff/order, no host clock/randomness. Full checked manifest is returned without cutoff projection, deduplication or missing-evidence verdict.
+
+Raw UTF8 text remains opaque and byte-preserved (BOM/CRLF/Unicode/empty text); reject lone surrogates and hash mismatch. No generic money field: later feature owners validate financial payload values/currencies; current descriptor validation establishes neither payload semantics nor external authenticity. Strict own JSON data fields, exact versions, unique record/delivery/receipt-descriptor IDs, complete source references, independent source-event/observed clocks, bounded arrays/text and stable issues/no partial output. Return detached deeply frozen value/issues. Caller inputs remain unchanged. Repeated occurrence IDs across distinct source records do not establish duplicate economic facts.
+
+Permitted files: PLANS.md, README.md, START_HERE.md, WORKFLOW.md, docs/ACTIVE_DOCS.md, docs/INDEX.md, docs/ARCHITECTURE.md, docs/milestones/M05.md, docs/milestones/SUBMILESTONE_REGISTRY.md, docs/status/CAPABILITY_MATRIX.md, docs/status/CURRENT_STATE.md, docs/status/LOCAL_ENVIRONMENT_READINESS.md, docs/status/NEXT_RECOMMENDED_THREAD.md, docs/status/PROJECT_COMPLETION_GOAL.json, docs/status/PROJECT_COMPLETION_GOAL.md, docs/status/WEEKLY_LOG.md, docs/status/RISK_REGISTER.md, docs/status/TECH_DEBT.md, docs/status/OPEN_QUESTIONS.md, plans/ROADMAP.md, plans/active/CLP-0006-m05-provider-and-bank-simulator.md, scripts/validate-control-plane.py, tests/test_control_plane_bootstrap.py, pnpm-lock.yaml, docs/specs/simulator-package.md, packages/simulator/README.md, packages/simulator/package.json, packages/simulator/tsconfig.json, packages/simulator/tsconfig.test.json, packages/simulator/src/index.ts, packages/simulator/src/contract.ts, packages/simulator/src/validation.ts, packages/simulator/test/contract.test.ts, packages/simulator/test/contract-types.test.ts, packages/simulator/test/ownership.test.ts. Existing financial/event sources/tests/specs/fixtures, completed M04 plan/packet, all14 database runner children/THREE migrations, CI/manifests other than new package+minimal lock importer, existing dependency snapshots and original18/19/V1/proofs/history remain unchanged. No row02+ payment/payout/refund/dispute/fee generators, CSV serialization/parser, seed execution, CLI, connector/evidence-store/database/ingestion/invariant/replay/repair/agent/UI. No money/ledger/raw-event/evidence mutation or approval authority.
+
+Acceptance: exact package scripts/config/export boundary; positive empty and caller-supplied generic descriptors; rejected hash/version/reference/identity/unknown key/class/accessor/sparse input; calendar/leap/UTC precision, UTF8 preservation, future declared deliveries/no projection, no invented event time, repeated occurrence/distinct delivery IDs, immutability/detachment/stable issues. Independent expected bytes/hashes, type-negative tests and runtime import/host API ownership guards. Executable VSCode demonstration: pnpm --filter @causalledger/simulator test -- test/contract.test.ts; root runs for user.
+
+Validation Levels0–5/7/8; Level6 N/A. Package fresh typecheck/test/lint/build/format and workspace frozen install/typecheck/test/lint/build/format; validator/full pytest/whitespace/scope-byteidentity/raw18/raw19/history/V1/cumulative proof audit; clean candidate/final qa-dev without dirty override and actual final CI (all14 unchanged mandatory PostgreSQL suites including recovery/upgrades/schema/cleanup) plus synthetic checkout parents/tree/full diff. Local Docker/PostgreSQL/make unavailable, record actual skips and warm caches; no system installation. New lock importer may reuse repository-pinned dependency resolutions only; frozen install thereafter.
+
+Root updates plan/status before/after builder and QA, records findings/commands/counts/skips/risks/handoff. Existing reviewer inspects complete scoped diff, contracts, prior proof and forbidden scope; independently runs fresh deterministic acceptance/lifecycle/full controls after release. Use same branch/sole draftPR, ordinary scoped commits/push/PR/body/advisory/readiness authorized by continuing instruction. Final actual-head independent PASS/rootclean/bothCI/published SHA-bound readback/readiness required. No force/reset/amend/stash/branch deletion/agent merge/auto-merge/install/paid call/deployment/tag/release. Max3 unsuccessful repairs of same unresolved defect.
+
+Stop at HUMAN MERGE REQUIRED with actual solePR/head/QA/CI/action; user runs no tests. Verify actual merge/main contents before M05.02 Simulate payment authorized.
+
+
+## Plan of Work
+
+| ID | Existing submilestone | Dependencies | Acceptance and deterministic evidence |
+| --- | --- | --- | --- |
+| M05.01 | Create simulator package | Planning PR human-merged; verified M04 closeout; M03/domain/ADR-0008 | Create dedicated packages/simulator with reviewed ownership; freeze synthetic source/delivery/result interfaces and versioned manifests. Package/build/type/lint tests plus forbidden import/network/ledger-write checks; no connectors or evidence-store implementation. |
+| M05.02 | Simulate payment authorized | M05.01 human-merged | Explicit synthetic authorized record, source/object/actor/currency/amount references and supplied event/observed clocks. Stable valid output; reject malformed identity/amount/currency/time without mutating inputs. Authorization metadata cannot establish financial authorization. |
+| M05.03 | Simulate payment captured | M05.02 human-merged | Explicit capture referencing supplied authorization/payment identity. Exact minor-unit amount; preserve raw authorized record and references; test conflicting identity/currency and boundary amounts. No ledger posting or invented provider truth. |
+| M05.04 | Simulate payout created | M05.03 human-merged | Explicit payout-created record with provider/payout references and supplied chronology. Test deterministic valid output and missing/conflicting references; aggregate membership policy must be frozen before implementation. |
+| M05.05 | Simulate payout paid | M05.04 human-merged | Explicit payout-paid source record with stable payout identity and declared status/time. Test exact amounts/currency, stable references and contradictions; provider-paid metadata is not bank receipt or settlement confirmation. |
+| M05.06 | Simulate payout failed | M05.05 human-merged | Explicit failed payout with supplied failure reason and retained original reference. Test failed-versus-paid conflict representation and incomplete evidence; never infer that missing bank evidence proves failure. |
+| M05.07 | Simulate refund created | M05.06 human-merged | Explicit refund-created record with original captured payment/reference. Freeze full/partial/multiple-refund scenario policy using supplied context; exact amounts and no economic inference; reject malformed contexts without modifying originals. |
+| M05.08 | Simulate refund paid | M05.07 human-merged | Explicit refund-paid record with the same declared refund occurrence and source linkage. Test independent raw records, stable amount/currency and contradictory status/time; no ledger reversal or repair approval. |
+| M05.09 | Simulate dispute opened | M05.08 human-merged | Explicit dispute-opened record with original payment, reason and supplied clocks. Test missing/conflicting references and stable record output. An opened dispute does not imply a confirmed chargeback or money movement. |
+| M05.10 | Simulate chargeback fee | M05.09 human-merged | Explicit chargeback-fee source evidence with exact fee amount/currency and declared dispute/payment references. Test chargeback-versus-fee distinction, malformed/large amounts and provenance; no fee inference or financial posting. |
+| M05.11 | Simulate duplicate webhook | M05.10 human-merged | Paired benign and faulty duplicate-delivery scenarios. Distinct delivery/receipt IDs preserve one unchanged source occurrence; a separately declared faulty economic duplicate stays distinct. Test raw-byte/provenance preservation and exact occurrence-versus-delivery identity; no automatic deduplication or exactly-once claim. |
+| M05.12 | Simulate delayed webhook | M05.11 human-merged | Delayed deliveries use explicit event time, observed time, delivery order and observation cutoff. Deterministic out-of-order examples and inclusive boundaries; retain original bytes and uncertainty until later evidence arrives; no sleeps or host clock. |
+| M05.13 | Simulate missing webhook | M05.12 human-merged | Missing-delivery scenario retains explicit expected source occurrence, omission metadata and cutoff without fabricating a webhook. Test genuinely missing versus delayed-at-cutoff cases and unsupported conclusions; no incident verdict or deletion of existing evidence. |
+| M05.14 | Simulate settlement CSV | M05.13 human-merged | Controlled settlement CSV with frozen version/dialect/header/order/encoding/escaping/row identities and exact decimal money. Golden bytes and malformed delimiter/quote/currency/reference/large-amount cases; immutable source rows, no ingestion/parser or bank confirmation. |
+| M05.15 | Simulate bank statement CSV | M05.14 human-merged | Controlled bank statement CSV with independent bank/statement/line/payout references and supplied posting/file times. Golden bytes, quoted/newline/empty-field cases and declared mismatch/ambiguity; no bank credentials or inferred match. |
+| M05.16 | Add deterministic seed support | M05.15 human-merged | Versioned deterministic seed support extends prior explicit-input deterministic scenarios. Same seed/config/version yields byte-identical manifests and outputs independent of host clock/randomness; test zero/bounds/malformed seeds, namespace collisions and version changes. |
+| M05.17 | Add simulator CLI | M05.16 human-merged | Bounded simulator CLI with explicit scenario/version/seed/cutoff/output selection; stdout or newly owned output only. Test help/valid/invalid/unknown/exit codes/path bounds/create-only refusal of existing outputs; no network, credentials, database, ledger or agent tools. |
+| M05.18 | Add fixture tests | M05.17 human-merged | Cross-feature fixtures broaden earlier per-feature tests; all nineteen rows remain separate. Golden independent outputs, paired benign/faulty duplicates, delays/omissions, CSV references, large exact amounts/currency isolation, input immutability and seed reproducibility. Existing M03 fixtures/seeds stay untouched. |
+| M05.19 | QA simulator | M05.18 human-merged | Independent whole-M05 acceptance and executable controlled provider/webhook/settlement/bank demonstration. Verify all original rows, provenance/version/cutoffs, clean setup and exact-head CI. No source integration, financial truth, incident/invariant/replay/repair/agent/UI claim; separate milestone closeout after all nineteen human merges. |
+
+
+## Concrete Steps
+
+Implement only M05.01 after its verified planning dependency. Preserve the original nineteen-row mapping; update only01 lifecycle/branch/PR, run root and independent validation, create solePR and wait for human merge. No M05.02 before actual M05.01 QA PASS/human merge verification.
+
+## Validation and Acceptance
+
+Builder fresh simulator107/3files/type/lint/build/format and full2397 controls PASS; workspace frozen install/typecheck/lint/test/build/format/validator/whitespace PASS. Intermediate root QA17 PASS/0 FAIL/2 expected skips (own scoped dirty worktree, optional unavailable local Docker). Scope36/protected339/complete29375-byte planning history/raw19/V1/all prior proofs/append-only weekly/unchanged importers+dependency snapshots PASS. Existing independent static review found no remaining confirmed defect; overall clean-candidate/final independent QA and current actual CI remain pending. Cached tools used; no cold-cache claim/system install/credentials/policy change. Existing glob deprecation/esbuild ignored-script warnings recorded. Applicable Levels0–5/7/8; Level6 N/A because benchmark unimplemented. Commands and cases in generated brief. Raw payloads are opaque, not validated financial values. Preserve full historical planning contract and complete18/19/proof/V1/history; no shortcut from prerequisite QA to current-head acceptance.
+
+## Idempotence and Recovery
+
+Reuse same branch/solePR for fixes; max3 unsuccessful repairs per unresolved defect. No automatic stash/reset/force/amend/branch deletion, financial-state mutation or evidence overwrite. Future CLI outputs use explicit newly owned paths/create-only refusal and scoped temp fixtures; never delete or rewrite existing raw evidence. No live keys, network provider, production database or model budget.
+
+## Artifacts and Notes
+
+Created current M05.01 brief and post-planning-merge status; original planning record is retained in full after the immutable history marker. No package behavior is claimed before implementation and validation.
+
+## Interfaces and Dependencies
+
+packages/simulator owns generic synthetic source/delivery/result/versioned manifest interfaces and deterministic validation. Zero runtime package dependencies; node:crypto hashing only. No financial-write API or agent tool, source mapping, canonical event creation, evidence receipt ingestion/persistence, CSV/CLI/seed execution or provider generator.
+
+## Outcomes & Retrospective
+
+Builder complete, awaiting QA. Builder fresh simulator107/3files/type/lint/build/format and full2397 controls PASS; workspace frozen install/typecheck/lint/test/build/format/validator/whitespace PASS. Intermediate root QA17 PASS/0 FAIL/2 expected skips (own scoped dirty worktree, optional unavailable local Docker). Scope36/protected339/complete29375-byte planning history/raw19/V1/all prior proofs/append-only weekly/unchanged importers+dependency snapshots PASS. Existing independent static review found no remaining confirmed defect; overall clean-candidate/final independent QA and current actual CI remain pending. Cached tools used; no cold-cache claim/system install/credentials/policy change. Existing glob deprecation/esbuild ignored-script warnings recorded. No current PR/overall QA claim. Safe-to-commit/push/openPR after scoped builder validation; safe-to-merge only independent actual final-head PASS/CI/readback. Exact next: M05.01 QA then human merge; verified merge precedes M05.02.
+
+## Generated M05.01 builder and QA brief (2026-10-13)
+
+Expected branch m05-01-create-simulator-package; active CLP0006; base 6b755d57bf0f03f1618aea1096cc99e1876e4bed. Before every edit run git branch --show-current; git status --short; git remote -v. Stop for wrong branch/unrelated dirt; own scoped dirt is part of this slice. Root sole editor/main validation owner; existing m04_02_qa independent reviewer and static auditor reused. Reviewer runtime HOLD until root releases a clean committed candidate; never overlap full Python/pnpm. No new chats/agents/native goals; native goal remains user-paused.
+
+Purpose/owner: create private packages/simulator with zero runtime package dependencies. Freeze v1 readonly generic synthetic source/delivery/result/manifest contracts and a strict unknown-input validator; deterministic node:crypto SHA256 is the sole permitted runtime builtin. Supplied simulator-scoped source/occurrence/record/delivery/receipt-descriptor IDs; no durable rcpt/evt allocation. Event time is explicit UTC or null (unknown); supplied observed clocks/cutoff/order, no host clock/randomness. Full checked manifest is returned without cutoff projection, deduplication or missing-evidence verdict.
+
+Raw UTF8 text remains opaque and byte-preserved (BOM/CRLF/Unicode/empty text); reject lone surrogates and hash mismatch. No generic money field: later feature owners validate financial payload values/currencies; current descriptor validation establishes neither payload semantics nor external authenticity. Strict own JSON data fields, exact versions, unique record/delivery/receipt-descriptor IDs, complete source references, independent source-event/observed clocks, bounded arrays/text and stable issues/no partial output. Return detached deeply frozen value/issues. Caller inputs remain unchanged. Repeated occurrence IDs across distinct source records do not establish duplicate economic facts.
+
+Permitted files: PLANS.md, README.md, START_HERE.md, WORKFLOW.md, docs/ACTIVE_DOCS.md, docs/INDEX.md, docs/ARCHITECTURE.md, docs/milestones/M05.md, docs/milestones/SUBMILESTONE_REGISTRY.md, docs/status/CAPABILITY_MATRIX.md, docs/status/CURRENT_STATE.md, docs/status/LOCAL_ENVIRONMENT_READINESS.md, docs/status/NEXT_RECOMMENDED_THREAD.md, docs/status/PROJECT_COMPLETION_GOAL.json, docs/status/PROJECT_COMPLETION_GOAL.md, docs/status/WEEKLY_LOG.md, docs/status/RISK_REGISTER.md, docs/status/TECH_DEBT.md, docs/status/OPEN_QUESTIONS.md, plans/ROADMAP.md, plans/active/CLP-0006-m05-provider-and-bank-simulator.md, scripts/validate-control-plane.py, tests/test_control_plane_bootstrap.py, pnpm-lock.yaml, docs/specs/simulator-package.md, packages/simulator/README.md, packages/simulator/package.json, packages/simulator/tsconfig.json, packages/simulator/tsconfig.test.json, packages/simulator/src/index.ts, packages/simulator/src/contract.ts, packages/simulator/src/validation.ts, packages/simulator/test/contract.test.ts, packages/simulator/test/contract-types.test.ts, packages/simulator/test/ownership.test.ts. Existing financial/event sources/tests/specs/fixtures, completed M04 plan/packet, all14 database runner children/THREE migrations, CI/manifests other than new package+minimal lock importer, existing dependency snapshots and original18/19/V1/proofs/history remain unchanged. No row02+ payment/payout/refund/dispute/fee generators, CSV serialization/parser, seed execution, CLI, connector/evidence-store/database/ingestion/invariant/replay/repair/agent/UI. No money/ledger/raw-event/evidence mutation or approval authority.
+
+Acceptance: exact package scripts/config/export boundary; positive empty and caller-supplied generic descriptors; rejected hash/version/reference/identity/unknown key/class/accessor/sparse input; calendar/leap/UTC precision, UTF8 preservation, future declared deliveries/no projection, no invented event time, repeated occurrence/distinct delivery IDs, immutability/detachment/stable issues. Independent expected bytes/hashes, type-negative tests and runtime import/host API ownership guards. Executable VSCode demonstration: pnpm --filter @causalledger/simulator test -- test/contract.test.ts; root runs for user.
+
+Validation Levels0–5/7/8; Level6 N/A. Package fresh typecheck/test/lint/build/format and workspace frozen install/typecheck/test/lint/build/format; validator/full pytest/whitespace/scope-byteidentity/raw18/raw19/history/V1/cumulative proof audit; clean candidate/final qa-dev without dirty override and actual final CI (all14 unchanged mandatory PostgreSQL suites including recovery/upgrades/schema/cleanup) plus synthetic checkout parents/tree/full diff. Local Docker/PostgreSQL/make unavailable, record actual skips and warm caches; no system installation. New lock importer may reuse repository-pinned dependency resolutions only; frozen install thereafter.
+
+Root updates plan/status before/after builder and QA, records findings/commands/counts/skips/risks/handoff. Existing reviewer inspects complete scoped diff, contracts, prior proof and forbidden scope; independently runs fresh deterministic acceptance/lifecycle/full controls after release. Use same branch/sole draftPR, ordinary scoped commits/push/PR/body/advisory/readiness authorized by continuing instruction. Final actual-head independent PASS/rootclean/bothCI/published SHA-bound readback/readiness required. No force/reset/amend/stash/branch deletion/agent merge/auto-merge/install/paid call/deployment/tag/release. Max3 unsuccessful repairs of same unresolved defect.
+
+Stop at HUMAN MERGE REQUIRED with actual solePR/head/QA/CI/action; user runs no tests. Verify actual merge/main contents before M05.02 Simulate payment authorized.
+
+
+
+Current scope includes packages/ledger/README.md current metadata only; all ledger source/tests/migrations and manifest remain unchanged. Frozen install warned that existing esbuild build scripts were ignored; no approve-builds or installation policy change. Existing glob11.1 deprecation warning is recorded. New lock importer alone changed; dependency snapshots remained unchanged.
+
+## M05.01 builder corrections (2026-10-13)
+
+Initial control helper token replacement and undefined JSON-reader spelling were corrected before validator execution passed; narrow explicit01 authorization was added to the original unopened-future registry gate. First focused run343 PASS/2 failed: historical17Q current-progress assertion needed exactly01 exemption, and current status had omitted the completed M04 plan pointer. Both corrected while retaining positive copied fixtures and strict future-stage refusal tests. Independent static P2 found digit-shaped extra array properties silently dropped; arrays now require exact captured indices and regressions cover both arrays/hidden/enumerable/accessor/numeric-tail cases. P3 prefix literals/current planning footers/old open-blocker labels corrected, preserving dated history and all financial bytes. No acceptance weakening, source payload rewrite, later generator, credential/config/policy change or financial action.
+
+The independent reviewer identified a vacuous new own-progress fixture: its synthetic QA/PR binding left registry/detail at builder state, so unrelated errors could make negatives pass. Rebuilt coherent JSON/plan/registry/detail fixture, proved it valid before every mutation, placed duplicate/conflicting markers in owning Progress and asserted specific errors. Nine focused repaired positive/negative cases passed. Current roadmap and future-row notes now reflect verified planning81 and each original per-row predecessor gate; dated records stay unchanged.
+
+Full control run2395 PASS/1 stale exact-package allowance failure was followed by two focused allowance/rejection PASS cases. Intermediate full QA16/1/2 passed all workspace/package checks but seven Progress fixtures failed under child default Windows encoding, due omitted explicitUTF8 reads. A quoted inline repair command failed before changing files; the file-based repair now makes all new fixture reads explicitlyUTF8. Verify under the actual child encoding instead of masking locale; retain raw history/hash assertions and all historical bytes unchanged.
+
+## M05.01 builder handoff (2026-10-13)
+
+Builder fresh simulator107/3files/type/lint/build/format and full2397 controls PASS; workspace frozen install/typecheck/lint/test/build/format/validator/whitespace PASS. Intermediate root QA17 PASS/0 FAIL/2 expected skips (own scoped dirty worktree, optional unavailable local Docker). Scope36/protected339/complete29375-byte planning history/raw19/V1/all prior proofs/append-only weekly/unchanged importers+dependency snapshots PASS. Existing independent static review found no remaining confirmed defect; overall clean-candidate/final independent QA and current actual CI remain pending. Cached tools used; no cold-cache claim/system install/credentials/policy change. Existing glob deprecation/esbuild ignored-script warnings recorded.
+
+Changed: owned foundation package/spec, narrow lifecycle controls/tests, minimal new lock importer and current metadata. Unchanged: all financial/event code/tests/specs/fixtures,14 PostgreSQL children/3migrations/CI/root manifest/existing dependency snapshots/complete M04+planning history/original requirements/explicitV1. Repaired array shape/UTF8 fixture/current-literal/tracking findings without weakening acceptance. Source hash checks are structural integrity only; no financial payload semantic/authenticity or receipt persistence proof. No provider/bank/CSV/seed/CLI/generator or later slice. Safe-to-commit/push/open sole draftPR after whitespace/scope guard; safe-to-merge is QA-only after final actual-head checks/readback. Exact next M05.01 independent QA, human merge and verification before02. Root runs tests; user none. Native goal stays user-paused.
+## Historical merged M05 planning record (immutable)
+
+# CLP-0006 M05 Provider and Bank Simulator
+
+## Purpose / Big Picture
+
 Plan controlled synthetic provider and bank sources after verified M04 closeout. Preserve approved V1_PUBLIC_PRODUCT, all nineteen original M05 tasks and one reviewed human merge per implementation slice. This planning slice adds no simulator, source mapping or financial behavior. Simulator output is labelled synthetic, versioned and reproducible; it cannot establish external economic truth or agent financial authority.
 
 ## Progress

@@ -12,16 +12,16 @@
   ],
   "recommendedImmediateTarget": "V0_6_BENCHMARK_DEMO",
   "recommendedLongTermTarget": "V1_PUBLIC_PRODUCT",
-  "currentPhase": "M05_PLANNING",
+  "currentPhase": "M05_SIMULATOR_PACKAGE",
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
-  "currentMilestone": "M05_PLANNING",
-  "currentBranch": "m05-planning-provider-and-bank-simulator",
-  "currentPr": 81,
-  "latestMergedPr": 80,
-  "latestMergeCommit": "07ae89701eca3f0ee669265c99a3a180b31724ca",
+  "currentMilestone": "M05.01",
+  "currentBranch": "m05-01-create-simulator-package",
+  "currentPr": null,
+  "latestMergedPr": 81,
+  "latestMergeCommit": "6b755d57bf0f03f1618aea1096cc99e1876e4bed",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "M05 planning candidate e833da8ea7df92fcda30c7bfe90f665f08fc5eab / tree 8583055fdeeb714d3b33620d5abb8533eee7edc3: existing independent reviewer PASS_WITH_TRACKING_FIXES, 441 fresh lifecycle probes and all2252 controls; root cleanQA18/0/1/no dirty override. The two P3 current metadata findings (ledger README opening proposed-closeout text and roadmap builder-pending labels) are corrected in this bounded final handoff; independent committed-head confirmation remains required. Both candidate CI38271340279 jobs passed with1785 ledger/32 files and all14 unchanged mandatory PostgreSQL suites1227/no skips, THREE recovery/both populated preservation upgrades/exact schema/DEMO/owned+Compose cleanup. Actual tested merge has expected base/head parents/same tree/full empty diff. Scope28/protected337/full318300-byte M04 historical prefix/original packet/raw18/raw19/V1/prior proof/weekly preserved. Final tracking-head root clean QA/independent fresh lifecycle+controls/both actual CI/published SHA-bound readback/readiness remain required before human merge. No simulator implementation.",
-  "remoteCiStatus": "M05_PLANNING_CANDIDATE_BOTH_PASS_FINAL_HEAD_PENDING",
+  "localTestStatus": "Builder fresh simulator107/3files/type/lint/build/format and full2397 controls PASS; workspace frozen install/typecheck/lint/test/build/format/validator/whitespace PASS. Intermediate root QA17 PASS/0 FAIL/2 expected skips (own scoped dirty worktree, optional unavailable local Docker). Scope36/protected339/complete29375-byte planning history/raw19/V1/all prior proofs/append-only weekly/unchanged importers+dependency snapshots PASS. Existing independent static review found no remaining confirmed defect; overall clean-candidate/final independent QA and current actual CI remain pending. Cached tools used; no cold-cache claim/system install/credentials/policy change. Existing glob deprecation/esbuild ignored-script warnings recorded.",
+  "remoteCiStatus": "M05.01 candidate/final CI pending",
   "dockerStatus": "UNAVAILABLE_LOCALLY_APPROVED_OWNED_POSTGRES17_CI_ROUTE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -51,7 +51,8 @@
     "M04.15 test-only balanced-posting corpus; human PR76 merge/final QA/rootcleanQA18/0/1/CI37777406231 real561 verified",
     "M04.16 tests-only invalid-posting corpus; human PR77 merge/final QA/rootcleanQA18/0/1/CI37785947729 real824 verified",
     "M04.17 reversal test corpus human PR78 merge/final QA/CI/rootcleanQA verified",
-    "M04.18 whole-ledger acceptance and synthetic demonstration; human PR79 merge/final QA/CI37959900408/1227 database tests verified."
+    "M04.18 whole-ledger acceptance and synthetic demonstration; human PR79 merge/final QA/CI37959900408/1227 database tests verified.",
+    "M05.01 private generic simulator manifest contracts and deterministic UTF8/reference validation; builder tested, independent review pending"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -72,7 +73,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "M05 planning independent QA/exact-head CI/human merge remain",
+    "M05.01 independent QA/final exact-head CI/human merge remain",
     "No live-model provider/model/call-count/budget approved"
   ],
   "risks": [
@@ -88,9 +89,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "Finish final actual-head QA/rootclean/CI/publication/readiness, then human squash merge PR #81; verify actual merge before M05.01.",
-  "stopReason": "M05_PLANNING_FINAL_HEAD_CHECKS_PENDING",
-  "lastUpdatedTimestamp": "2026-10-12T15:52:15Z",
+  "exactNextAction": "Publish sole draft M05.01 PR after scoped commit; independent clean candidate/final QA and actual CI/readback; human merge; verify before M05.02.",
+  "stopReason": "M05_01_BUILDER_COMPLETE_AWAITING_QA",
+  "lastUpdatedTimestamp": "2026-10-13T18:51:54Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -536,5 +537,31 @@
     "bodySha256": "338b8471ec54cbe8d1b00bbfd53178359ef9be18c914bbcbe50de39c65a2c5ee",
     "advisorySha256": "40ca6f7da462f328a5c56b82ad47ffdb4be0fe5e84162c11f30accc415886e40"
   },
-  "m05PlanningReviewStatus": "QA passed, awaiting merge"
+  "m05PlanningReviewStatus": "Completed and merged",
+  "m05PlanningMergeEvidence": {
+    "pr": 81,
+    "mergeCommit": "6b755d57bf0f03f1618aea1096cc99e1876e4bed",
+    "reviewedHead": "b18b047fe87ed8eafa6d9756ca7db5c9d569291f",
+    "reviewedTree": "4f45bfdfbc063966766f9a347a1fccd3f4d237ca",
+    "mergedTree": "4f45bfdfbc063966766f9a347a1fccd3f4d237ca",
+    "ciRun": 38273448464,
+    "qaResult": "PASS"
+  },
+  "m05PlanningQaEvidence": {
+    "head": "b18b047fe87ed8eafa6d9756ca7db5c9d569291f",
+    "tree": "4f45bfdfbc063966766f9a347a1fccd3f4d237ca",
+    "base": "07ae89701eca3f0ee669265c99a3a180b31724ca",
+    "result": "PASS",
+    "controlTests": 2252,
+    "lifecycleProbes": 441,
+    "ciRun": 38273448464,
+    "ledgerTests": 1785,
+    "realDatabaseTests": 1227,
+    "reviewer": "m04_02_qa",
+    "reviewRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/81#issuecomment-6128785198",
+    "reviewerResultSha256": "58b9c6f9bac0b770d1dccb9fc4e68738514e6f3aea946a4046d119aa14056a35",
+    "bodySha256": "e971768cd3d192c216b9c57344e9dd4407a436808736f937b94b7614b3154c0c",
+    "advisorySha256": "61178fe2bf587c7910209e882014123b97d82f470362db872b717298dfcfff68"
+  },
+  "simulatorPackageReviewStatus": "Builder complete, awaiting QA"
 }
