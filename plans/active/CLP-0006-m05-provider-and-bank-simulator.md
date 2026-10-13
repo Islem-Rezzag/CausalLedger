@@ -151,6 +151,10 @@ Candidate f0832c0a53420f7fc48817fb9a648febcbc06a28/tree 8ebb8c5dd0e8aff0b1222e34
 This legitimate final handoff binds own PR82 and records independent candidate acceptance. All candidate simulator/spec/control source/tests/config/lock,339 protected financial/event/prior files and full merged planning history remain unchanged. Only scoped current metadata/handoff changed. Existing separate-context reviewer and static auditor reused; root sole editor and runtime serialized. No new chats/agents/goals, force/reset/amend/stash/deletion/agent merge/auto-merge/system install/paid call/deploy/tag/release.
 
 Final exact-head evidence belongs in solePR82 body/advisory with attributed reviewer artifact hash, primary CI/checkout proof and publication readback; no CI-copy-only commit. CurrentQaEvidence stays None. Human alone Squash and merge then Confirm squash and merge after final gates. Reply Merged #82. Continue. Verify actual merged contents/main provenance before M05.02 Simulate payment authorized. Root runs tests; user none.
+
+## M05.01 final metadata corrections (2026-10-13)
+
+Both existing reviewers identified two stale undated stage phrases after the legitimate handoff: the owning M05 Status paragraph and roadmap current stage. Corrected both in this bounded same-PR metadata repair. All accepted candidate source/tests/spec/config/control/lock and protected/history bytes remain unchanged. Root cleanQA18/0/1 for superseded3b1eb5b is intermediate evidence only; corrected actual-head root/independent QA/CI/readback are required before human merge. No final PASS is inferred from candidate or superseded head. Dated checkpoints remain intact; root runs tests, user none.
 ## Historical merged M05 planning record (immutable)
 
 # CLP-0006 M05 Provider and Bank Simulator

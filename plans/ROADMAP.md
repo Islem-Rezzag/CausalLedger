@@ -1,7 +1,7 @@
 # CausalLedger Roadmap
 
 - M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05 planning PR81 is human-merged and verified. M05.01 Create simulator package is QA passed, awaiting merge for sole PR #82 on m05-01-create-simulator-package under active plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent QA and both CI passed; final tracking-head gates remain pending. Generic manifest foundation is implemented; provider/bank generation remains unimplemented. M05.02–M05.19 and M06–M21 remain Not started/unbound.
-Current status: M04 is Completed after verified human PR80 closeout; M05 is In progress with only M05.01 foundation in its pending builder/review stage; later18 rows remain Not started/unbound. M06–M21 remain Not started; prior M02 deferrals unchanged.
+Current status: M04 is Completed after verified human PR80 closeout; M05 is In progress with only M05.01 foundation with candidate QA passed, awaiting final tracking-head checks and human PR82 merge; later18 rows remain Not started/unbound. M06–M21 remain Not started; prior M02 deferrals unchanged.
 
 The table aggregates submilestone statuses and active planning, with a narrow M04 closeout gate: all eighteen merged rows do not bypass the separate human-merged closeout. Verified M05 planning PR81 permits only M05.01 foundation; later implementation still requires each predecessor's independent QA and actual human merge.
 
