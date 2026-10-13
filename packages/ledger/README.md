@@ -1,6 +1,6 @@
 # Ledger Package
 
-`@causalledger/ledger` owns the approved deterministic runtime, all merged M04 test corpora and the combined synthetic demonstration. PR #79 final QA/CI37959900408 passed 1785 ledger tests and 1227 PostgreSQL tests before verified human merge. The formal M04 closeout is human-merged and verified through PR #80. M05 planning PR81 is human-merged and verified. M05.01 generic foundation is implemented and builder-tested, awaiting independent QA; later eighteen implementation rows remain unstarted. This foundation slice changes no financial runtime/API/DDL/authority.
+`@causalledger/ledger` owns the approved deterministic runtime, all merged M04 test corpora and the combined synthetic demonstration. PR #79 final QA/CI37959900408 passed 1785 ledger tests and 1227 PostgreSQL tests before verified human merge. The formal M04 closeout is human-merged and verified through PR #80. M05 planning PR81 is human-merged and verified. M05.01 generic foundation is implemented with candidate independent QA PASS for solePR82; final tracking-head gates/human merge pending; later eighteen implementation rows remain unstarted. This foundation slice changes no financial runtime/API/DDL/authority.
 
 The original M02.05 scaffold supplied:
 
@@ -58,6 +58,6 @@ M04.18 combines balanced posting, ordinary semantic retry, readback/balances, re
 
 ## Current closeout handoff (2026-10-09)
 
-All eighteen M04 rows are human-merged. The formal closeout is human-merged and verified through PR80 in `docs/status/M04_CLOSEOUT.md`; no financial runtime changes occur here. M05 planning PR81 is human-merged and verified; M05.01 generic foundation is implemented and builder-tested, awaiting independent QA and later eighteen implementation rows remain unstarted.
+All eighteen M04 rows are human-merged. The formal closeout is human-merged and verified through PR80 in `docs/status/M04_CLOSEOUT.md`; no financial runtime changes occur here. M05 planning PR81 is human-merged and verified; M05.01 generic foundation is implemented with candidate independent QA PASS for solePR82; final tracking-head gates/human merge pending and later eighteen implementation rows remain unstarted.
 
 M04 formal closeout update (2026-10-12): human PR80/tree/main/final QA+CI verified; completed plan plans/completed/CLP-0005-m04-double-entry-ledger-core.md. M05 planning is active separately, with no simulator implementation or ledger dependency/write authority added. All financial source/tests/runner/migrations remain unchanged.

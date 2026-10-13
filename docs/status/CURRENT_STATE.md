@@ -2,7 +2,7 @@
 
 ## Current phase
 
-M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05 planning PR81 is human-merged and verified. M05.01 Create simulator package is Builder complete, awaiting QA on m05-01-create-simulator-package under active plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Builder validation passed; independent current-head QA/CI pending; no current PR. Only package foundation/contracts/manifest validation are in scope. M05.02–M05.19 and M06–M21 remain Not started/unbound; provider/bank generation remains unimplemented.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05 planning PR81 is human-merged and verified. M05.01 Create simulator package is QA passed, awaiting merge for sole PR #82 on m05-01-create-simulator-package under active plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent QA and both CI passed; final tracking-head gates remain pending. Generic manifest foundation is implemented; provider/bank generation remains unimplemented. M05.02–M05.19 and M06–M21 remain Not started/unbound.
 
 ## Current submilestone and branch
 
@@ -17,7 +17,7 @@ Human PR81 merged at 6b755d57bf0f03f1618aea1096cc99e1876e4bed on 2026-10-13T17:2
 
 ## Current validation
 
-Builder fresh simulator107/3files/type/lint/build/format and full2397 controls PASS; workspace frozen install/typecheck/lint/test/build/format/validator/whitespace PASS. Intermediate root QA17 PASS/0 FAIL/2 expected skips (own scoped dirty worktree, optional unavailable local Docker). Scope36/protected339/complete29375-byte planning history/raw19/V1/all prior proofs/append-only weekly/unchanged importers+dependency snapshots PASS. Existing independent static review found no remaining confirmed defect; overall clean-candidate/final independent QA and current actual CI remain pending. Cached tools used; no cold-cache claim/system install/credentials/policy change. Existing glob deprecation/esbuild ignored-script warnings recorded.
+Candidate f0832c0a53420f7fc48817fb9a648febcbc06a28/tree 8ebb8c5dd0e8aff0b1222e341600ca88ff51e425 independently reviewed PASS: simulator107/3 files/type/lint/build/format,309 behavioral probes,540 lifecycle/provenance probes and full2397 controls. Root clean QA18 PASS/0 FAIL/1 optional Docker skip without dirty override. Both CI38450630391 jobs passed; simulator107, ledger1785/32 files, controls2397, all14 actual mandatory PostgreSQL suites1227/no skips; THREE recovery/both populated preservation upgrades/exact schema/DEMO/owned+Compose cleanup PASS. Both tested checkouts42da634d03ffd9a9e18e07c945c0fcb15afb4334 have expected base/head parents, same tree and full empty diff. Scope36/protected339/complete29375-byte planning history/raw18+19/V1/prior proofs/append-only weekly/old dependency snapshots PASS. Final committed tracking head requires fresh root/independent QA/both actual CI/published SHA-bound readback/readiness before human merge; final proof belongs in sole PR82.
 
 ## Product implementation status
 
@@ -25,4 +25,4 @@ Existing source-neutral MoneyEvent and deterministic M04 ledger implementation r
 
 ## Next action
 
-Implement/test M05.01, independent QA and final actual-head CI/readback, then human merge. Root runs tests; user none. No M05.02 until verified01 merge.
+Verify final tracking-head clean root/independent QA/both CI/publication readback/readiness, then human merge PR82. Root runs tests; user none. No M05.02 until verified01 merge.

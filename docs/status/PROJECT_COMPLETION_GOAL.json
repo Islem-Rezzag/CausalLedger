@@ -16,12 +16,12 @@
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
   "currentMilestone": "M05.01",
   "currentBranch": "m05-01-create-simulator-package",
-  "currentPr": null,
+  "currentPr": 82,
   "latestMergedPr": 81,
   "latestMergeCommit": "6b755d57bf0f03f1618aea1096cc99e1876e4bed",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "Builder fresh simulator107/3files/type/lint/build/format and full2397 controls PASS; workspace frozen install/typecheck/lint/test/build/format/validator/whitespace PASS. Intermediate root QA17 PASS/0 FAIL/2 expected skips (own scoped dirty worktree, optional unavailable local Docker). Scope36/protected339/complete29375-byte planning history/raw19/V1/all prior proofs/append-only weekly/unchanged importers+dependency snapshots PASS. Existing independent static review found no remaining confirmed defect; overall clean-candidate/final independent QA and current actual CI remain pending. Cached tools used; no cold-cache claim/system install/credentials/policy change. Existing glob deprecation/esbuild ignored-script warnings recorded.",
-  "remoteCiStatus": "M05.01 candidate/final CI pending",
+  "localTestStatus": "Candidate f0832c0a53420f7fc48817fb9a648febcbc06a28/tree 8ebb8c5dd0e8aff0b1222e341600ca88ff51e425 independently reviewed PASS: simulator107/3 files/type/lint/build/format,309 behavioral probes,540 lifecycle/provenance probes and full2397 controls. Root clean QA18 PASS/0 FAIL/1 optional Docker skip without dirty override. Both CI38450630391 jobs passed; simulator107, ledger1785/32 files, controls2397, all14 actual mandatory PostgreSQL suites1227/no skips; THREE recovery/both populated preservation upgrades/exact schema/DEMO/owned+Compose cleanup PASS. Both tested checkouts42da634d03ffd9a9e18e07c945c0fcb15afb4334 have expected base/head parents, same tree and full empty diff. Scope36/protected339/complete29375-byte planning history/raw18+19/V1/prior proofs/append-only weekly/old dependency snapshots PASS. Final committed tracking head requires fresh root/independent QA/both actual CI/published SHA-bound readback/readiness before human merge; final proof belongs in sole PR82.",
+  "remoteCiStatus": "Candidate CI38450630391 bothjobs PASS; final actual-head CI pending",
   "dockerStatus": "UNAVAILABLE_LOCALLY_APPROVED_OWNED_POSTGRES17_CI_ROUTE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -52,7 +52,7 @@
     "M04.16 tests-only invalid-posting corpus; human PR77 merge/final QA/rootcleanQA18/0/1/CI37785947729 real824 verified",
     "M04.17 reversal test corpus human PR78 merge/final QA/CI/rootcleanQA verified",
     "M04.18 whole-ledger acceptance and synthetic demonstration; human PR79 merge/final QA/CI37959900408/1227 database tests verified.",
-    "M05.01 private generic simulator manifest contracts and deterministic UTF8/reference validation; builder tested, independent review pending"
+    "M05.01 private generic simulator manifest contracts and deterministic UTF8/reference validation; candidate independent QA PASS, final gates/human merge pending"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -73,7 +73,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "M05.01 independent QA/final exact-head CI/human merge remain",
+    "M05.01 final tracking-head QA/actual CI/readback/human merge remain",
     "No live-model provider/model/call-count/budget approved"
   ],
   "risks": [
@@ -89,9 +89,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "Publish sole draft M05.01 PR after scoped commit; independent clean candidate/final QA and actual CI/readback; human merge; verify before M05.02.",
-  "stopReason": "M05_01_BUILDER_COMPLETE_AWAITING_QA",
-  "lastUpdatedTimestamp": "2026-10-13T18:51:54Z",
+  "exactNextAction": "Verify final tracking-head clean root/independent QA/both CI/published exact-head readback/readiness; human Squash and merge PR82; verify before M05.02.",
+  "stopReason": "M05_01_FINAL_GATES_PENDING_HUMAN_MERGE",
+  "lastUpdatedTimestamp": "2026-10-13T19:17:20Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -563,5 +563,5 @@
     "bodySha256": "e971768cd3d192c216b9c57344e9dd4407a436808736f937b94b7614b3154c0c",
     "advisorySha256": "61178fe2bf587c7910209e882014123b97d82f470362db872b717298dfcfff68"
   },
-  "simulatorPackageReviewStatus": "Builder complete, awaiting QA"
+  "simulatorPackageReviewStatus": "QA passed, awaiting merge"
 }
