@@ -25,3 +25,8 @@ M03 is closed after PR #60 merged. No product implementation defect is confirmed
 ## M04 closeout debt review (2026-10-09)
 
 M04 has implemented and tested durable exact money encoding, bounded per-entry values with BigInt aggregate sums, atomic append, rollback, immutable SQL guards, ordinary retry identity, full linked reversals and explicit account-role validators/configuration wrappers. Earlier future-storage/accounting notes are historical, not current blockers. No confirmed ledger implementation defect remains after M04.18 independent QA. Source-specific mapping, economic-occurrence deduplication, authoritative currency registry, lifecycle authorization and production operations remain future scope. M02-only infrastructure wording is superseded by fourteen mandatory approved owned PostgreSQL17 suites, migration recovery and populated upgrades; local Docker/make limitations persist. Branches are intentionally retained for audit/recovery; no deletion is authorized.
+
+
+## Verified M04 closeout and M05 planning (2026-10-12)
+
+M04 closeout/current source claims reconciled and plan moved after verified human merge. M05 simulator ownership/dialects/seed policy remain planning until owning reviewed implementation; existing Docker/make limits and retained branches unchanged.

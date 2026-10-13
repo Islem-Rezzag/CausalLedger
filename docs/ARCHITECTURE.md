@@ -10,7 +10,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-This document describes planned architecture only. It does not claim product functionality is implemented.
+Architecture combines implemented source-neutral MoneyEvent and human-merged M04 ledger primitives with planned later layers. M05 synthetic provider/bank generation is planning only; no simulator or later integrated public product is claimed.
 
 ## High-level architecture
 
@@ -51,7 +51,7 @@ Human review and evidence bundles
 
 - Evidence capture: future append-only raw evidence, provenance, source identity, and checksums.
 - Canonical events: `packages/events` contains the M03.02 TypeScript type boundary plus M03.04 source-neutral deterministic validation and normalization. The conceptual boundary is documented in `docs/MONEYEVENT_CONTRACT.md`, and `docs/MONEYEVENT_MAPPING_FIXTURES.md` remains M03.03 planning only. Source-specific parsing, ingestion, storage, and downstream MoneyEvent-engine behavior do not exist yet.
-- Ledger primitives: future deterministic double-entry checks, immutable transactions, balances, and reversals.
+- Ledger primitives: packages/ledger implements deterministic schemas/journal equality, immutable SQL storage, exact balances/readback, scoped durable retry identity, full linked reversals and explicit account-role validation. Structural software checks do not establish economic truth or investigator posting authority.
 - Invariants: future deterministic financial correctness checks.
 - Incidents: future incident records created from failed deterministic checks.
 - Causal graph: future traceable relationships between events, ledger entries, payouts, bank lines, settlements, and repairs.
@@ -132,6 +132,11 @@ Agents may inspect, summarize, explain, and propose. They may not mutate money, 
 
 ## Non-claims
 
-The repository implements only the M03.04 source-neutral MoneyEvent candidate validator and normalizer in `packages/events`, alongside the earlier compile-time types. It does not implement source-specific parsing, ingestion, storage, database or API behavior, financial validation, ledger logic, invariants, incidents, graph traversal, replay, repair planning, agent runtime, UI, or external connectors. Structural validation is not financial truth.
+Implemented runtime includes source-neutral MoneyEvent candidate validation/normalization and reviewed deterministic M04 ledger schemas, exact journal checks, immutable PostgreSQL storage, read-only queries, scoped retry identity, full linked reversals and account-role validators. Simulator generation remains planning only. Source-specific ingestion/mapping/evidence persistence, general invariant/incident/graph/replay/repair/agent engines, product UI and external connectors are unimplemented. Structural software validation is not external financial truth or agent posting authority.
 
 It also does not implement AML/KYC, sanctions screening, fraud scoring, credit decisions, legal or tax advice, investment advice, accounting close, ERP, treasury, banking, payment processing, autonomous repair execution, or autonomous money movement. See `docs/domain/out-of-scope-domains.md` for the M01.09 domain boundary.
+
+
+## M05 synthetic source ownership (2026-10-12)
+
+Proposed dedicated packages/simulator owns offline deterministic synthetic provider/webhook/settlement/bank generation, distinct source-occurrence and delivery identities, explicit clocks, versioned manifests/seed/CSV output. This planning slice creates no package, output, parser, connector, evidence store or financial-write API. Connectors retain external source adapters; evidence retains append-only capture/receipt/storage; events retains source-neutral canonical validation; ledger retains deterministic financial primitives. No direct ledger write or agent authority is introduced. Active plan: plans/active/CLP-0006-m05-provider-and-bank-simulator.md.

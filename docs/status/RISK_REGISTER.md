@@ -25,3 +25,8 @@
 ## M04 closeout risk review (2026-10-09)
 
 Synthetic software and owned database tests prove declared accounting behavior, not economic occurrence, authorization, settlement, revenue recognition, posting eligibility or repair approval. Unknown acknowledgements remain unknown. Local Docker is unavailable; approved owned PostgreSQL17 CI provides database acceptance. Source integration, authentication/authorization, retention, production operations and later benchmark/agent safety remain separately scoped risks.
+
+
+## Verified M04 closeout and M05 planning (2026-10-12)
+
+M05 planned synthetic evidence could be mistaken for authentic provider/bank truth. Keep synthetic labels/version/provenance, distinct occurrence versus delivery IDs, explicit clocks/cutoffs and paired duplicates; no ledger/agent write or inferred financial verdict.

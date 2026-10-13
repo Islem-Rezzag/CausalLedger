@@ -1,6 +1,6 @@
 # Local Environment Readiness
 
-Current delivery (2026-10-08): historical marker; current2026-10-09: M00–M03 are closed and V1_PUBLIC_PRODUCT remains approved. M04.01–M04.18 are Completed and merged, including verified [PR #79](https://github.com/Islem-Rezzag/CausalLedger/pull/79). Formal M04 closeout is proposed on `m04-closeout-double-entry-ledger-core` under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; candidate independent QA and both CI jobs passed for sole PR #80; final tracking-head checks and human merge remain pending. M04 remains In progress until this separate closeout's human merge is verified. M05–M21 remain Not started. Current evidence and conditions are in `docs/status/M04_CLOSEOUT.md`. Clean setup is fresh CI checkout/frozen install/owned disposable17; local caches warm.
+M00–M04 are closed and V1_PUBLIC_PRODUCT remains approved. Human M04 closeout PR #80 merge 07ae89701eca3f0ee669265c99a3a180b31724ca matches reviewed edf6a873ffb7d9d46097f4646d960369f5d3c937/tree c0a4573497f2a38cdbf65ad6334fd0a542abf30d with final QA/CI and main provenance verified. Completed M04 plan: plans/completed/CLP-0005-m04-double-entry-ledger-core.md. M05 Planning - Provider and bank simulator is active on m05-planning-provider-and-bank-simulator under plans/active/CLP-0006-m05-provider-and-bank-simulator.md; candidate independent QA/both CI passed for sole planning PR #81; final tracking-head checks and human merge pending. All19 M05 implementation rows remain Not started with blank branches/PRs; M06–M21 remain Not started. No simulator is implemented.
 
 ## Audit scope
 
@@ -184,3 +184,8 @@ Builder complete, awaiting QA; sole [PR #68](https://github.com/Islem-Rezzag/Cau
 ## 2026-10-06 - M04.07 final checkpoint
 
 QA passed, awaiting merge; sole [PR #68](https://github.com/Islem-Rezzag/CausalLedger/pull/68). Fresh ledger655/15files and control614/type/lint/build/format PASS; root intermediate full QA17/0/2 PASS. Actual CI37467329970 both jobs and real Postgres17 storage64/balance22/transaction-query27, migration UP/DOWN/UP, exact schema/functions, owned database/roles and Compose cleanup PASS. Existing separate-context overall m04_02_qa PASS, no remaining findings. Actual final-head re-review/clean QA/CI required; final proof maintained in this sole PR. Scope29/prior127/all18 PASS; exact-head QA/CI and human merge gate remain.
+
+
+## Current M05 planning environment (2026-10-12)
+
+M04 final closeout QA/CI/human merge verified; current M05 planning checks remain separate. Local caches warm; optional Docker/PostgreSQL/make unavailable. Approved fresh-owned PostgreSQL17 CI remains required; no system installation or new credentials.

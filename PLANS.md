@@ -32,11 +32,11 @@ Use `CLP-0001-short-name.md`. Increment the number monotonically and keep the sh
 - Completed plans move to `plans/completed/`.
 - Archived or stale plans move to `plans/archived/`.
 
-Current active milestone plan: `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; all eighteen rows are merged and formal M04 closeout is proposed. The plan remains active until the closeout human merge and provenance are verified.
+Current active milestone plan: plans/active/CLP-0006-m05-provider-and-bank-simulator.md; M05 planning only. M04 is completed at plans/completed/CLP-0005-m04-double-entry-ledger-core.md.
 
 The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M00–M03 are closed and V1_PUBLIC_PRODUCT remains approved. M04.01–M04.18 are Completed and merged, including verified [PR #79](https://github.com/Islem-Rezzag/CausalLedger/pull/79). Formal M04 closeout is proposed on `m04-closeout-double-entry-ledger-core` under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; candidate independent QA and both CI jobs passed for sole PR #80; final tracking-head checks and human merge remain pending. M04 remains In progress until this separate closeout's human merge is verified. M05–M21 remain Not started. Current evidence and conditions are in `docs/status/M04_CLOSEOUT.md`.
+M00–M04 are closed and V1_PUBLIC_PRODUCT remains approved. Human M04 closeout PR #80 merge 07ae89701eca3f0ee669265c99a3a180b31724ca matches reviewed edf6a873ffb7d9d46097f4646d960369f5d3c937/tree c0a4573497f2a38cdbf65ad6334fd0a542abf30d with final QA/CI and main provenance verified. Completed M04 plan: plans/completed/CLP-0005-m04-double-entry-ledger-core.md. M05 Planning - Provider and bank simulator is active on m05-planning-provider-and-bank-simulator under plans/active/CLP-0006-m05-provider-and-bank-simulator.md; candidate independent QA/both CI passed for sole planning PR #81; final tracking-head checks and human merge pending. All19 M05 implementation rows remain Not started with blank branches/PRs; M06–M21 remain Not started. No simulator is implemented.
 
 Progress is recorded in the active plan during the slice. Submilestone status is recorded in `docs/milestones/SUBMILESTONE_REGISTRY.md`, reflected in the relevant milestone doc, and summarized in `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md`.
 
@@ -98,3 +98,6 @@ Do not move an active plan to `plans/completed/` until milestone closeout is com
 ## Plan truthfulness rules
 
 Plans must describe only implemented or explicitly planned work. Do not mark a submilestone fully complete until required validation has passed, QA has recorded PASS, and the PR has merged. Do not claim placeholder directories, future modules, or roadmap items as working features.
+
+
+Current active M05 planning: plans/active/CLP-0006-m05-provider-and-bank-simulator.md; completed M04: plans/completed/CLP-0005-m04-double-entry-ledger-core.md. No simulator package or output is created; M05.01 waits for planning QA and human merge.

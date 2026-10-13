@@ -40,3 +40,8 @@ The versioned entry wire amount is a canonical positive decimal string, parsed e
 ## M04 closeout resolutions and remaining questions (2026-10-09)
 
 Resolved: the existing approved disposable owned PostgreSQL17 CI route supports storage acceptance without a local Docker installation. M04.05–09 specified and tested exact durable encoding/range, atomicity, rollback, immutable history, ordinary retry and full reversal linkage. The earlier M04.05 future-tense note is historical. Still open for separately scoped work: source-specific mapping and economic-occurrence identity, authoritative currency registry, ownership/lifecycle authorization, retention, observability, production operations, simulator priority, and future model/evaluation budgets. No new paid calls or release approval is inferred.
+
+
+## Verified M04 closeout and M05 planning (2026-10-12)
+
+M05 proposes dedicated packages/simulator owner under original package task. Freeze exact raw envelope/IDs, currency/amount policy, CSV dialect and seed/version semantics in owning implementation briefs before dependent rows. No live integration/financial authority/material amendment assumed.

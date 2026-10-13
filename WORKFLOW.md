@@ -54,7 +54,7 @@ Use `docs/ops/repo-operating-system-freeze.md` and `docs/status/M00_FREEZE_READI
 
 Use `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md` for release versioning, release-scope, and overclaim-prevention guidance.
 
-M00–M03 are closed and V1_PUBLIC_PRODUCT remains approved. M04.01–M04.18 are Completed and merged, including verified [PR #79](https://github.com/Islem-Rezzag/CausalLedger/pull/79). Formal M04 closeout is proposed on `m04-closeout-double-entry-ledger-core` under active `plans/active/CLP-0005-m04-double-entry-ledger-core.md`; candidate independent QA and both CI jobs passed for sole PR #80; final tracking-head checks and human merge remain pending. M04 remains In progress until this separate closeout's human merge is verified. M05–M21 remain Not started. Current evidence and conditions are in `docs/status/M04_CLOSEOUT.md`.
+M00–M04 are closed and V1_PUBLIC_PRODUCT remains approved. Human M04 closeout PR #80 merge 07ae89701eca3f0ee669265c99a3a180b31724ca matches reviewed edf6a873ffb7d9d46097f4646d960369f5d3c937/tree c0a4573497f2a38cdbf65ad6334fd0a542abf30d with final QA/CI and main provenance verified. Completed M04 plan: plans/completed/CLP-0005-m04-double-entry-ledger-core.md. M05 Planning - Provider and bank simulator is active on m05-planning-provider-and-bank-simulator under plans/active/CLP-0006-m05-provider-and-bank-simulator.md; candidate independent QA/both CI passed for sole planning PR #81; final tracking-head checks and human merge pending. All19 M05 implementation rows remain Not started with blank branches/PRs; M06–M21 remain Not started. No simulator is implemented.
 
 ## Sandbox assumptions
 
@@ -115,3 +115,6 @@ Raw evidence must be preserved, provenance must be explicit, and future evidence
 ## Acceptance defaults
 
 A slice is acceptable only when scope is contained, active docs stay consistent, validation passes or limitations are recorded, and the handoff packet is clear enough for the next Codex thread.
+
+
+Current active M05 planning: plans/active/CLP-0006-m05-provider-and-bank-simulator.md; completed M04: plans/completed/CLP-0005-m04-double-entry-ledger-core.md. No simulator package or output is created; M05.01 waits for planning QA and human merge.
