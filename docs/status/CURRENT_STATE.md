@@ -2,27 +2,27 @@
 
 ## Current phase
 
-M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05 planning PR81 is human-merged and verified. M05.01 Create simulator package is QA passed, awaiting merge for sole PR #82 on m05-01-create-simulator-package under active plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent QA and both CI passed; final tracking-head gates remain pending. Generic manifest foundation is implemented; provider/bank generation remains unimplemented. M05.02–M05.19 and M06–M21 remain Not started/unbound.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 is Completed and merged in verified human PR82. M05.02 Simulate payment authorized is Builder complete, awaiting QA on m05-02-simulate-payment-authorized under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Only the synthetic authorization generator is implemented. Clean candidate independent QA/current CI remain pending. M05.03–M05.19 and M06–M21 remain Not started/unbound.
 
 ## Current submilestone and branch
 
-Current slice: M05.01 Create simulator package.
-Current branch: m05-01-create-simulator-package.
-Under active plan plans/active/CLP-0006-m05-provider-and-bank-simulator.md.
+Current slice: M05.02 Simulate payment authorized.
+Current branch: m05-02-simulate-payment-authorized.
+Active milestone plan: plans/active/CLP-0006-m05-provider-and-bank-simulator.md.
 Completed M04 plan: plans/completed/CLP-0005-m04-double-entry-ledger-core.md.
 
 ## Verified prerequisite evidence
 
-Human PR81 merged at 6b755d57bf0f03f1618aea1096cc99e1876e4bed on 2026-10-13T17:25:57Z by nonbot Islem-Rezzag. Reviewed b18b047fe87ed8eafa6d9756ca7db5c9d569291f and actual merge have tree 4f45bfdfbc063966766f9a347a1fccd3f4d237ca, full diff EMPTY and fetched-main reachability PASS. Root and existing independent reviewer verified primary merge/CI/body/advisory6128785198/reviewer hash bindings. Final planning QA441 lifecycle/2252 controls/rootclean18/0/1/bothCI38273448464 passed;1785 ledger/32files/all14 PostgreSQL1227/THREE recovery/both populated upgrades/schema/DEMO/cleanup passed. No unchanged planning tests rerun to verify merge.
+Human PR82 merged ac092fcb7b0ee16459b1ca1177d4b9b10e0df5ce at 2026-10-16T14:20:14Z by nonbot Islem-Rezzag. Reviewed b0c0e32daf91d95cd9bff555a766dadc0cfc7501 and squash have identical tree 0d2f821264fc0c55ae6ed77eb4ebc65729776014, full diff EMPTY and fetched-main reachability PASS. Root and existing independent reviewer verified primary merge/CI/body/advisory6153826833/canonical reviewer hash bindings. Final simulator107, lifecycle540, controls2397, root clean18/0/1 and both CI38455025292 PASS; ledger1785 and all14 real PostgreSQL suites1227/no skips, recovery/upgrades/schema/DEMO/cleanup PASS. Prior candidate309 behavior probes were carried through356 byte-identical nontracking files, not rerun as fresh final probes. No unchanged01 tests rerun merely to verify merge.
 
 ## Current validation
 
-Candidate f0832c0a53420f7fc48817fb9a648febcbc06a28/tree 8ebb8c5dd0e8aff0b1222e341600ca88ff51e425 independently reviewed PASS: simulator107/3 files/type/lint/build/format,309 behavioral probes,540 lifecycle/provenance probes and full2397 controls. Root clean QA18 PASS/0 FAIL/1 optional Docker skip without dirty override. Both CI38450630391 jobs passed; simulator107, ledger1785/32 files, controls2397, all14 actual mandatory PostgreSQL suites1227/no skips; THREE recovery/both populated preservation upgrades/exact schema/DEMO/owned+Compose cleanup PASS. Both tested checkouts42da634d03ffd9a9e18e07c945c0fcb15afb4334 have expected base/head parents, same tree and full empty diff. Scope36/protected339/complete29375-byte planning history/raw18+19/V1/prior proofs/append-only weekly/old dependency snapshots PASS. Final committed tracking head requires fresh root/independent QA/both actual CI/published SHA-bound readback/readiness before human merge; final proof belongs in sole PR82.
+Builder simulator293/5files/typecheck/lint/build/format PASS; fresh corrected capture regression and executable authorization demonstration PASS. Full2559 controls, validator/whitespace and workspace frozen install/type/lint/tests/build PASS. Intermediate dirty-override root QA16 PASS/1 formatting FAIL/2 expected skips; scoped ledger README formatting then corrected and its full package format check PASS. Clean committed candidate root QA still required. Existing separate-context static reviewer/auditor verified33 scoped/346 protected files/full61000-byte merged01 history/nested29375 planning/raw19/V1/prior proofs/weekly prefix/generic validator+tests/config/lock; no source defect, current GoalMD P3 corrected in this handoff. Independent runtime/current CI pending. Warm caches; optional local Docker/PostgreSQL/make unavailable; existing glob deprecation/esbuild ignored build-script warnings, no policy/install changes. Mandatory real database proof remains in unchanged CI route.
 
 ## Product implementation status
 
-Existing source-neutral MoneyEvent and deterministic M04 ledger implementation remains unchanged. Generic simulator manifest foundation is implemented and builder-tested; no simulator generation/source mapping/ingestion/evidence persistence/invariant/incident/graph/replay/repair/agent/benchmark/UI/production implementation is claimed. Financial authority remains forbidden.
+Existing source-neutral MoneyEvent/M04 ledger and generic simulator validator remain unchanged. M05.02 now implements one strict deterministic synthetic payment_authorized generator; positive exact money/caller-context/time/identity/byte/hash checks do not authorize an actual payment or establish financial truth. Other17 rows/ingestion/evidence storage/invariants/replay/repair/agents/UI remain unimplemented.
 
 ## Next action
 
-Verify final tracking-head clean root/independent QA/both CI/publication readback/readiness, then human merge PR82. Root runs tests; user none. No M05.02 until verified01 merge.
+Verify clean committed candidate root/independent QA, actual CI and sole PR; record final handoff before human merge. Root runs tests; user none. Native goal stays user-paused.

@@ -1,24 +1,17 @@
 # Next Recommended Thread
 
 Thread name:
-M05.01 Final QA and human merge - Create simulator package
+M05.02 Independent QA - Simulate payment authorized
+
+Expected branch: m05-02-simulate-payment-authorized.
+Active plan: plans/active/CLP-0006-m05-provider-and-bank-simulator.md.
 
 Precondition:
-Human PR81 merged at 6b755d57bf0f03f1618aea1096cc99e1876e4bed on 2026-10-13T17:25:57Z by nonbot Islem-Rezzag. Reviewed b18b047fe87ed8eafa6d9756ca7db5c9d569291f and actual merge have tree 4f45bfdfbc063966766f9a347a1fccd3f4d237ca, full diff EMPTY and fetched-main reachability PASS. Root and existing independent reviewer verified primary merge/CI/body/advisory6128785198/reviewer hash bindings. Final planning QA441 lifecycle/2252 controls/rootclean18/0/1/bothCI38273448464 passed;1785 ledger/32files/all14 PostgreSQL1227/THREE recovery/both populated upgrades/schema/DEMO/cleanup passed. No unchanged planning tests rerun to verify merge.
+Verified human PR82 merge ac092fcb7b0ee16459b1ca1177d4b9b10e0df5ce; final QA/CI/main provenance PASS.
 
 Scope:
-Candidate independent QA passed for solePR82. Verify final tracking-head root/independent QA/both CI/published readiness on m05-01-create-simulator-package, then human merge. Verify package/contracts/deterministic behavior/forbidden imports and complete prior financial/history/proof preservation. No later provider/bank features. Root runs tests, user none. Next after actual01 merge verification: M05.02 Simulate payment authorized.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 is Completed and merged in verified human PR82. M05.02 Simulate payment authorized is Builder complete, awaiting QA on m05-02-simulate-payment-authorized under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Only the synthetic authorization generator is implemented. Clean candidate independent QA/current CI remain pending. M05.03–M05.19 and M06–M21 remain Not started/unbound.
 
+Builder simulator293/5files/typecheck/lint/build/format PASS; fresh corrected capture regression and executable authorization demonstration PASS. Full2559 controls, validator/whitespace and workspace frozen install/type/lint/tests/build PASS. Intermediate dirty-override root QA16 PASS/1 formatting FAIL/2 expected skips; scoped ledger README formatting then corrected and its full package format check PASS. Clean committed candidate root QA still required. Existing separate-context static reviewer/auditor verified33 scoped/346 protected files/full61000-byte merged01 history/nested29375 planning/raw19/V1/prior proofs/weekly prefix/generic validator+tests/config/lock; no source defect, current GoalMD P3 corrected in this handoff. Independent runtime/current CI pending. Warm caches; optional local Docker/PostgreSQL/make unavailable; existing glob deprecation/esbuild ignored build-script warnings, no policy/install changes. Mandatory real database proof remains in unchanged CI route.
 
-## M05.01 builder validation checkpoint (2026-10-13)
-
-Builder complete, awaiting QA. Builder fresh simulator107/3files/type/lint/build/format and full2397 controls PASS; workspace frozen install/typecheck/lint/test/build/format/validator/whitespace PASS. Intermediate root QA17 PASS/0 FAIL/2 expected skips (own scoped dirty worktree, optional unavailable local Docker). Scope36/protected339/complete29375-byte planning history/raw19/V1/all prior proofs/append-only weekly/unchanged importers+dependency snapshots PASS. Existing independent static review found no remaining confirmed defect; overall clean-candidate/final independent QA and current actual CI remain pending. Cached tools used; no cold-cache claim/system install/credentials/policy change. Existing glob deprecation/esbuild ignored-script warnings recorded.
-
-Exact next: M05.01 QA/solePR/final gates/human merge; verify before M05.02. User runs no tests. Foundation only, no provider/bank generation or financial authority.
-
-
-## Current final handoff (2026-10-13)
-
-Candidate f0832c0a53420f7fc48817fb9a648febcbc06a28/tree 8ebb8c5dd0e8aff0b1222e341600ca88ff51e425 independently reviewed PASS: simulator107/3 files/type/lint/build/format,309 behavioral probes,540 lifecycle/provenance probes and full2397 controls. Root clean QA18 PASS/0 FAIL/1 optional Docker skip without dirty override. Both CI38450630391 jobs passed; simulator107, ledger1785/32 files, controls2397, all14 actual mandatory PostgreSQL suites1227/no skips; THREE recovery/both populated preservation upgrades/exact schema/DEMO/owned+Compose cleanup PASS. Both tested checkouts42da634d03ffd9a9e18e07c945c0fcb15afb4334 have expected base/head parents, same tree and full empty diff. Scope36/protected339/complete29375-byte planning history/raw18+19/V1/prior proofs/append-only weekly/old dependency snapshots PASS. Final committed tracking head requires fresh root/independent QA/both actual CI/published SHA-bound readback/readiness before human merge; final proof belongs in sole PR82.
-
-Human alone merges PR82 after final proof; verify before02. Root runs tests; user none.
+Verify clean committed candidate root/independent QA, actual CI and sole PR; record final handoff before human merge. Root runs tests; user none.

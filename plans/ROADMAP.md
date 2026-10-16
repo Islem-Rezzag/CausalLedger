@@ -1,9 +1,9 @@
 # CausalLedger Roadmap
 
-- M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05 planning PR81 is human-merged and verified. M05.01 Create simulator package is QA passed, awaiting merge for sole PR #82 on m05-01-create-simulator-package under active plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent QA and both CI passed; final tracking-head gates remain pending. Generic manifest foundation is implemented; provider/bank generation remains unimplemented. M05.02–M05.19 and M06–M21 remain Not started/unbound.
-Current status: M04 is Completed after verified human PR80 closeout; M05 is In progress with only M05.01 foundation with candidate QA passed, awaiting final tracking-head checks and human PR82 merge; later18 rows remain Not started/unbound. M06–M21 remain Not started; prior M02 deferrals unchanged.
+- M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 is Completed and merged in verified human PR82. M05.02 Simulate payment authorized is Builder complete, awaiting QA on m05-02-simulate-payment-authorized under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Only the synthetic authorization generator is implemented. Clean candidate independent QA/current CI remain pending. M05.03–M05.19 and M06–M21 remain Not started/unbound.
+Current status: M04 is Completed after verified human PR80 closeout; M05 is In progress with01 completed/merged#82 and only02 authorized. Later17 rows and M06–M21 remain Not started/unbound; prior M02 deferrals unchanged.
 
-The table aggregates submilestone statuses and active planning, with a narrow M04 closeout gate: all eighteen merged rows do not bypass the separate human-merged closeout. Verified M05 planning PR81 permits only M05.01 foundation; later implementation still requires each predecessor's independent QA and actual human merge.
+The table aggregates submilestone statuses and active planning, with a narrow M04 closeout gate: all eighteen merged rows do not bypass the separate human-merged closeout. Verified planning81 and package82 merges permit only M05.02 authorization; later implementation still requires each predecessor's independent QA and actual human merge.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 
@@ -51,8 +51,17 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 - `apps/agent-runtime` creation is deferred to the M10 era because agent runtime should not exist before deterministic evidence, MoneyEvent, invariant, incident, graph, replay, and repair boundaries exist.
 - Redis is deferred until needed because no queue or scheduler should be added before the worker or orchestration design proves the need.
 - M03 planning and M03.01 through M03.06 are completed and merged. PR #55 merged M03.05 at `89874bca2525a423d773548c61f9655f09642575`; PR #56/#57 are the documented identical-tree finalization deviation; PR #58 merged recovery QA at `721bd60eba04cdf71765660727132d0d6aed97bc`. PR #59 merged M03.06 after independent QA at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`, sharing reviewed tree `a5f52604955f8a8925728a2cb7b5c8900aefd87a`. Formal M03 closeout merged through PR #60 at `3df6f88b1b64b5456554654b7e27adcfa99c3ff6`.
-- M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05 planning PR81 is human-merged and verified. M05.01 Create simulator package is QA passed, awaiting merge for sole PR #82 on m05-01-create-simulator-package under active plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent QA and both CI passed; final tracking-head gates remain pending. Generic manifest foundation is implemented; provider/bank generation remains unimplemented. M05.02–M05.19 and M06–M21 remain Not started/unbound.
+- M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 is Completed and merged in verified human PR82. M05.02 Simulate payment authorized is Builder complete, awaiting QA on m05-02-simulate-payment-authorized under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Only the synthetic authorization generator is implemented. Clean candidate independent QA/current CI remain pending. M05.03–M05.19 and M06–M21 remain Not started/unbound.
 - Source-neutral MoneyEvent and the approved ledger contracts/storage/readers/idempotency/full reversals/account-role validation and test corpora are implemented. The test-only M04.18 demonstration is human-merged. Closeout adds no financial runtime/API/DDL/authority.
-- V1/all18 M04 and19 M05 requirements are preserved. Current gate: M05.01 independent review/final-head CI/human merge before M05.02.
+- V1/all18 M04 and19 M05 requirements are preserved. Current gate: M05.02 independent review/final-head CI/human merge before M05.03.
 - Versioning strategy is documented in `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed registry.
+
+
+## M05.02 current checkpoint (2026-10-16)
+
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 is Completed and merged in verified human PR82. M05.02 Simulate payment authorized is Builder complete, awaiting QA on m05-02-simulate-payment-authorized under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Only the synthetic authorization generator is implemented. Clean candidate independent QA/current CI remain pending. M05.03–M05.19 and M06–M21 remain Not started/unbound.
+
+Human PR82 merged ac092fcb7b0ee16459b1ca1177d4b9b10e0df5ce at 2026-10-16T14:20:14Z by nonbot Islem-Rezzag. Reviewed b0c0e32daf91d95cd9bff555a766dadc0cfc7501 and squash have identical tree 0d2f821264fc0c55ae6ed77eb4ebc65729776014, full diff EMPTY and fetched-main reachability PASS. Root and existing independent reviewer verified primary merge/CI/body/advisory6153826833/canonical reviewer hash bindings. Final simulator107, lifecycle540, controls2397, root clean18/0/1 and both CI38455025292 PASS; ledger1785 and all14 real PostgreSQL suites1227/no skips, recovery/upgrades/schema/DEMO/cleanup PASS. Prior candidate309 behavior probes were carried through356 byte-identical nontracking files, not rerun as fresh final probes. No unchanged01 tests rerun merely to verify merge.
+
+Current02 generator validation is recorded in CURRENT_STATE.md and active CLP0006. Root runs tests; user none. No future feature or financial authority.

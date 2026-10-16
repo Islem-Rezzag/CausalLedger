@@ -1,6 +1,6 @@
 # Ledger Package
 
-`@causalledger/ledger` owns the approved deterministic runtime, all merged M04 test corpora and the combined synthetic demonstration. PR #79 final QA/CI37959900408 passed 1785 ledger tests and 1227 PostgreSQL tests before verified human merge. The formal M04 closeout is human-merged and verified through PR #80. M05 planning PR81 is human-merged and verified. M05.01 generic foundation is implemented with candidate independent QA PASS for solePR82; final tracking-head gates/human merge pending; later eighteen implementation rows remain unstarted. This foundation slice changes no financial runtime/API/DDL/authority.
+`@causalledger/ledger` owns the approved deterministic runtime, all merged M04 test corpora and the combined synthetic demonstration. PR #79 final QA/CI37959900408 passed 1785 ledger tests and 1227 PostgreSQL tests before verified human merge. The formal M04 closeout is human-merged and verified through PR #80. M05 planning PR81 is human-merged and verified. M05.01 human PR82 merge is verified; M05.02 synthetic authorization is being validated and later seventeen rows remain unstarted. This slice changes no financial runtime/API/DDL/authority.
 
 The original M02.05 scaffold supplied:
 
@@ -58,6 +58,14 @@ M04.18 combines balanced posting, ordinary semantic retry, readback/balances, re
 
 ## Current closeout handoff (2026-10-09)
 
-All eighteen M04 rows are human-merged. The formal closeout is human-merged and verified through PR80 in `docs/status/M04_CLOSEOUT.md`; no financial runtime changes occur here. M05 planning PR81 is human-merged and verified; M05.01 generic foundation is implemented with candidate independent QA PASS for solePR82; final tracking-head gates/human merge pending and later eighteen implementation rows remain unstarted.
+All eighteen M04 rows are human-merged. The formal closeout is human-merged and verified through PR80 in `docs/status/M04_CLOSEOUT.md`; no financial runtime changes occur here. M05 planning PR81 is human-merged and verified; M05.01 human PR82 merge is verified; only M05.02 synthetic authorization is active and later seventeen rows remain unstarted.
 
 M04 formal closeout update (2026-10-12): human PR80/tree/main/final QA+CI verified; completed plan plans/completed/CLP-0005-m04-double-entry-ledger-core.md. M05 planning is active separately, with no simulator implementation or ledger dependency/write authority added. All financial source/tests/runner/migrations remain unchanged.
+
+## M05.02 current checkpoint (2026-10-16)
+
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 is Completed and merged in verified human PR82. M05.02 Simulate payment authorized is Builder complete, awaiting QA on m05-02-simulate-payment-authorized under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Only the synthetic authorization generator is implemented. Clean candidate independent QA/current CI remain pending. M05.03–M05.19 and M06–M21 remain Not started/unbound.
+
+Human PR82 merged ac092fcb7b0ee16459b1ca1177d4b9b10e0df5ce at 2026-10-16T14:20:14Z by nonbot Islem-Rezzag. Reviewed b0c0e32daf91d95cd9bff555a766dadc0cfc7501 and squash have identical tree 0d2f821264fc0c55ae6ed77eb4ebc65729776014, full diff EMPTY and fetched-main reachability PASS. Root and existing independent reviewer verified primary merge/CI/body/advisory6153826833/canonical reviewer hash bindings. Final simulator107, lifecycle540, controls2397, root clean18/0/1 and both CI38455025292 PASS; ledger1785 and all14 real PostgreSQL suites1227/no skips, recovery/upgrades/schema/DEMO/cleanup PASS. Prior candidate309 behavior probes were carried through356 byte-identical nontracking files, not rerun as fresh final probes. No unchanged01 tests rerun merely to verify merge.
+
+Current02 generator validation is recorded in CURRENT_STATE.md and active CLP0006. Root runs tests; user none. No future feature or financial authority.

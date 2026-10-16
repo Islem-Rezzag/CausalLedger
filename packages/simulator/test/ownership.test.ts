@@ -26,9 +26,12 @@ it("runtime imports only owned modules and deterministic SHA256", () => {
       ) {
         expect(ts.isStringLiteral(node.moduleSpecifier)).toBe(true);
         const value = (node.moduleSpecifier as ts.StringLiteral).text;
-        expect(["./contract.js", "./validation.js", "node:crypto"]).toContain(
-          value,
-        );
+        expect([
+          "./contract.js",
+          "./validation.js",
+          "./payment-authorized.js",
+          "node:crypto",
+        ]).toContain(value);
         if (value === "node:crypto" && ts.isImportDeclaration(node)) {
           const bindings = node.importClause?.namedBindings;
           expect(bindings && ts.isNamedImports(bindings)).toBe(true);
