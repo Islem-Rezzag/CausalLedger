@@ -26,11 +26,12 @@ function readonlyTypes(
   void known;
 }
 void readonlyTypes;
-it("exports a precise foundation-only boundary", () => {
+it("exports precise foundation and payment-authorization boundaries", () => {
   expect(simulatorPackageBoundary).toMatchObject({
     manifestValidationImplemented: true,
     exactUtf8IntegrityValidationImplemented: true,
-    providerGenerationImplemented: false,
+    providerGenerationImplemented: true,
+    paymentAuthorizedGenerationImplemented: true,
     bankGenerationImplemented: false,
     evidenceStorageImplemented: false,
     ledgerWritesImplemented: false,
