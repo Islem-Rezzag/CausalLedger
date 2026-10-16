@@ -16,12 +16,12 @@
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
   "currentMilestone": "M05.02",
   "currentBranch": "m05-02-simulate-payment-authorized",
-  "currentPr": null,
+  "currentPr": 83,
   "latestMergedPr": 82,
   "latestMergeCommit": "ac092fcb7b0ee16459b1ca1177d4b9b10e0df5ce",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "Builder simulator293/5files/typecheck/lint/build/format PASS; fresh corrected capture regression and executable authorization demonstration PASS. Full2559 controls, validator/whitespace and workspace frozen install/type/lint/tests/build PASS. Intermediate dirty-override root QA16 PASS/1 formatting FAIL/2 expected skips; scoped ledger README formatting then corrected and its full package format check PASS. Clean committed candidate root QA still required. Existing separate-context static reviewer/auditor verified33 scoped/346 protected files/full61000-byte merged01 history/nested29375 planning/raw19/V1/prior proofs/weekly prefix/generic validator+tests/config/lock; no source defect, current GoalMD P3 corrected in this handoff. Independent runtime/current CI pending. Warm caches; optional local Docker/PostgreSQL/make unavailable; existing glob deprecation/esbuild ignored build-script warnings, no policy/install changes. Mandatory real database proof remains in unchanged CI route.",
-  "remoteCiStatus": "Current M05.02 CI pending",
+  "localTestStatus": "Candidate48268c1b51a7d6a48f51d53eb6315d286af8e19f/treeedf15f43c0de2cff8828285709ac5dea3a1fd1b6 independently reviewed PASS_WITH_TRACKING_FIXES (two bounded P3 current-wording corrections, resolved in this handoff). Fresh simulator293/5files/typecheck/lint/build/format,412 behavioral probes,607 lifecycle/provenance probes and full2559 controls in341.69s PASS. Canonical reviewer JSON SHA25672d69b22d1f6e3ad9d5ffa84fa0d9c16c08e035c371a5c185ac0d6280d337765. Root cleanQA18 PASS/0 FAIL/1 optional Docker skip, no dirty override. Both actual CI38918731251 jobs PASS: simulator293, ledger1785/32files, controls2559 and all14 real PostgreSQL suites1227/no skips; THREE recovery/both populated preservation upgrades/exact schema/DEMO/owned+Compose cleanup PASS. Both tested checkouts1bc248dfc78d4944e16bcc49b71799919bdc23ff have expectedac092+48268parents/sameedf15tree/full localdiff EMPTY. Scope33/protected346/full61000-byte merged01 and nested29375-byte planning history/raw18+19/V1/prior proofs/weekly prefix/generic validator+tests/config/lock PASS. Final actual tracking-head root/independent acceptance/current CI/published SHA-bound readback/readiness still required before human merge. Warm caches; local Docker/PostgreSQL/make unavailable; no install/policy/live-model changes. Root runs tests; user none.",
+  "remoteCiStatus": "Candidate actual CI passed; final tracking-head CI pending",
   "dockerStatus": "UNAVAILABLE_LOCALLY_APPROVED_OWNED_POSTGRES17_CI_ROUTE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -53,7 +53,7 @@
     "M04.17 reversal test corpus human PR78 merge/final QA/CI/rootcleanQA verified",
     "M04.18 whole-ledger acceptance and synthetic demonstration; human PR79 merge/final QA/CI37959900408/1227 database tests verified.",
     "M05.01 private generic simulator manifest contracts and deterministic UTF8/reference validation; human PR82 merge and final exact-head QA/CI verified",
-    "M05.02 synthetic payment_authorized generator with explicit caller context, exact amount/time/identity validation and deterministic raw JSON/SHA256; package293/type/lint/build PASS, final gates pending"
+    "M05.02 synthetic payment_authorized generator: explicit caller context, exact money/time/identity/rawJSON/SHA256; candidate independent QA/workspace/currentCI passed, final tracking-head gates/human merge pending"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -90,9 +90,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "Verify clean committed candidate root/independent QA, actual CI and sole PR; record final handoff before human merge.",
-  "stopReason": "M05_02_BUILDER_COMPLETE_AWAITING_QA",
-  "lastUpdatedTimestamp": "2026-10-16T14:47:00Z",
+  "exactNextAction": "Verify final committed tracking-head root/independent QA/both actual CI/published SHA-bound readback/readiness; human Squash and merge PR83; verify actual merge before M05.03 Simulate payment captured.",
+  "stopReason": "M05_02_FINAL_GATES_PENDING_HUMAN_MERGE",
+  "lastUpdatedTimestamp": "2026-10-16T15:04:02Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -591,5 +591,5 @@
     "bodySha256": "3a5e81e46dbaaa2124c155a4652b65de37162ffbcf8aaba49b4f8c9bd5748b35",
     "advisorySha256": "99250c30da8fcd50d57a75c6fadd238b563e0851ddd64e828cd594554aaed520"
   },
-  "paymentAuthorizedReviewStatus": "Builder complete, awaiting QA"
+  "paymentAuthorizedReviewStatus": "QA passed, awaiting merge"
 }

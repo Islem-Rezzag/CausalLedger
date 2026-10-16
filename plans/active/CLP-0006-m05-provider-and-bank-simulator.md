@@ -8,7 +8,8 @@ Generate exactly one labelled synthetic payment_authorized occurrence and delive
 
 - [x] Verified human PR82 merge/main/tree and published exact-head bindings.
 - [x] M05.02 implementation and builder validation.
-- [ ] Independent QA, sole PR and actual CI.
+- [x] Independent candidate QA, sole PR and actual CI.
+- [ ] Final tracking-head gates and human merge.
 - [ ] Human02 merge verified before03.
 
 Current planning review: Completed and merged
@@ -19,11 +20,13 @@ Current package review: Completed and merged
 
 Sole merged M05.01 PR #82
 
-Current authorization review: Builder complete, awaiting QA
+Current authorization review: QA passed, awaiting merge
+
+Sole proposed M05.02 PR #83
 
 ## Surprises & Discoveries
 
-No current02 runtime results yet. Design audit found no material scope issue; capture all own properties once and serialize validated primitives only.
+The initial design checkpoint had no runtime results. Builder293 simulator/full2559 controls, clean candidate QA18/0/1, independent412 behavioral/607 lifecycle/full2559 and actual candidate CI now passed. Final tracking-head gates/human merge remain. Capture all own properties once and serialize validated primitives only.
 
 ## Decision Log
 
@@ -83,7 +86,7 @@ Implement only02; validate/fix scoped findings, independent QA, sole PR, exact-h
 
 ## Validation and Acceptance
 
-Builder simulator293/5files/typecheck/lint/build/format PASS; fresh corrected capture regression and executable authorization demonstration PASS. Full2559 controls, validator/whitespace and workspace frozen install/type/lint/tests/build PASS. Intermediate dirty-override root QA16 PASS/1 formatting FAIL/2 expected skips; scoped ledger README formatting then corrected and its full package format check PASS. Clean committed candidate root QA still required. Existing separate-context static reviewer/auditor verified33 scoped/346 protected files/full61000-byte merged01 history/nested29375 planning/raw19/V1/prior proofs/weekly prefix/generic validator+tests/config/lock; no source defect, current GoalMD P3 corrected in this handoff. Independent runtime/current CI pending. Warm caches; optional local Docker/PostgreSQL/make unavailable; existing glob deprecation/esbuild ignored build-script warnings, no policy/install changes. Mandatory real database proof remains in unchanged CI route. Applicable Levels0–5/7/8; Level6 N/A. Clean final exact-head acceptance/readiness remains required.
+Candidate48268c1b51a7d6a48f51d53eb6315d286af8e19f/treeedf15f43c0de2cff8828285709ac5dea3a1fd1b6 independently reviewed PASS_WITH_TRACKING_FIXES (two bounded P3 current-wording corrections, resolved in this handoff). Fresh simulator293/5files/typecheck/lint/build/format,412 behavioral probes,607 lifecycle/provenance probes and full2559 controls in341.69s PASS. Canonical reviewer JSON SHA25672d69b22d1f6e3ad9d5ffa84fa0d9c16c08e035c371a5c185ac0d6280d337765. Root cleanQA18 PASS/0 FAIL/1 optional Docker skip, no dirty override. Both actual CI38918731251 jobs PASS: simulator293, ledger1785/32files, controls2559 and all14 real PostgreSQL suites1227/no skips; THREE recovery/both populated preservation upgrades/exact schema/DEMO/owned+Compose cleanup PASS. Both tested checkouts1bc248dfc78d4944e16bcc49b71799919bdc23ff have expectedac092+48268parents/sameedf15tree/full localdiff EMPTY. Scope33/protected346/full61000-byte merged01 and nested29375-byte planning history/raw18+19/V1/prior proofs/weekly prefix/generic validator+tests/config/lock PASS. Final actual tracking-head root/independent acceptance/current CI/published SHA-bound readback/readiness still required before human merge. Warm caches; local Docker/PostgreSQL/make unavailable; no install/policy/live-model changes. Root runs tests; user none. Applicable Levels0–5/7/8; Level6 N/A. Clean final exact-head acceptance/readiness remains required.
 
 ## Idempotence and Recovery
 
@@ -99,7 +102,7 @@ Private @causalledger/simulator; zero runtime dependencies. Fixed20-field unknow
 
 ## Outcomes & Retrospective
 
-Builder complete, awaiting QA. Builder simulator293/5files/typecheck/lint/build/format PASS; fresh corrected capture regression and executable authorization demonstration PASS. Full2559 controls, validator/whitespace and workspace frozen install/type/lint/tests/build PASS. Intermediate dirty-override root QA16 PASS/1 formatting FAIL/2 expected skips; scoped ledger README formatting then corrected and its full package format check PASS. Clean committed candidate root QA still required. Existing separate-context static reviewer/auditor verified33 scoped/346 protected files/full61000-byte merged01 history/nested29375 planning/raw19/V1/prior proofs/weekly prefix/generic validator+tests/config/lock; no source defect, current GoalMD P3 corrected in this handoff. Independent runtime/current CI pending. Warm caches; optional local Docker/PostgreSQL/make unavailable; existing glob deprecation/esbuild ignored build-script warnings, no policy/install changes. Mandatory real database proof remains in unchanged CI route. Root runs tests; user none. Native goal remains user-paused.
+QA passed, awaiting merge. Candidate48268c1b51a7d6a48f51d53eb6315d286af8e19f/treeedf15f43c0de2cff8828285709ac5dea3a1fd1b6 independently reviewed PASS_WITH_TRACKING_FIXES (two bounded P3 current-wording corrections, resolved in this handoff). Fresh simulator293/5files/typecheck/lint/build/format,412 behavioral probes,607 lifecycle/provenance probes and full2559 controls in341.69s PASS. Canonical reviewer JSON SHA25672d69b22d1f6e3ad9d5ffa84fa0d9c16c08e035c371a5c185ac0d6280d337765. Root cleanQA18 PASS/0 FAIL/1 optional Docker skip, no dirty override. Both actual CI38918731251 jobs PASS: simulator293, ledger1785/32files, controls2559 and all14 real PostgreSQL suites1227/no skips; THREE recovery/both populated preservation upgrades/exact schema/DEMO/owned+Compose cleanup PASS. Both tested checkouts1bc248dfc78d4944e16bcc49b71799919bdc23ff have expectedac092+48268parents/sameedf15tree/full localdiff EMPTY. Scope33/protected346/full61000-byte merged01 and nested29375-byte planning history/raw18+19/V1/prior proofs/weekly prefix/generic validator+tests/config/lock PASS. Final actual tracking-head root/independent acceptance/current CI/published SHA-bound readback/readiness still required before human merge. Warm caches; local Docker/PostgreSQL/make unavailable; no install/policy/live-model changes. Root runs tests; user none. Root runs tests; user none. Native goal remains user-paused.
 
 ## Generated M05.02 builder and QA brief (2026-10-16)
 
@@ -133,6 +136,20 @@ Safe-to-commit/push/open sole draftPR after scope/whitespace guard; overall QA/s
 
 
 Learning objective: distinguish an exact synthetic authorization occurrence from a real payment approval, and distinguish stable source bytes from independently declared delivery metadata. Current handoff next-thread labels were restored after validator identified missing Precondition/Scope headings.
+
+
+## M05.02 independent candidate QA and final handoff (2026-10-16)
+
+Candidate48268c1b51a7d6a48f51d53eb6315d286af8e19f/treeedf15f43c0de2cff8828285709ac5dea3a1fd1b6 independently reviewed PASS_WITH_TRACKING_FIXES (two bounded P3 current-wording corrections, resolved in this handoff). Fresh simulator293/5files/typecheck/lint/build/format,412 behavioral probes,607 lifecycle/provenance probes and full2559 controls in341.69s PASS. Canonical reviewer JSON SHA25672d69b22d1f6e3ad9d5ffa84fa0d9c16c08e035c371a5c185ac0d6280d337765. Root cleanQA18 PASS/0 FAIL/1 optional Docker skip, no dirty override. Both actual CI38918731251 jobs PASS: simulator293, ledger1785/32files, controls2559 and all14 real PostgreSQL suites1227/no skips; THREE recovery/both populated preservation upgrades/exact schema/DEMO/owned+Compose cleanup PASS. Both tested checkouts1bc248dfc78d4944e16bcc49b71799919bdc23ff have expectedac092+48268parents/sameedf15tree/full localdiff EMPTY. Scope33/protected346/full61000-byte merged01 and nested29375-byte planning history/raw18+19/V1/prior proofs/weekly prefix/generic validator+tests/config/lock PASS. Final actual tracking-head root/independent acceptance/current CI/published SHA-bound readback/readiness still required before human merge. Warm caches; local Docker/PostgreSQL/make unavailable; no install/policy/live-model changes. Root runs tests; user none.
+
+Changed33 scoped files: owned generator/type/unit tests/spec plus narrow lifecycle controls and current metadata. All346 protected tracked files, entire61000-byte merged01 plan/nested29375 planning record/raw18+19/V1/prior proofs and append-only weekly preserved. Generic validator/tests/package manifests/config/lock unchanged. No financial/event/runner/DDL/CI/fixtures/source integration/future03+ work.
+
+Candidate independent QA PASS; own PR83 is now bound in tracking. Candidate source/tests/spec/control/config/lock and all protected/history bytes must remain unchanged through this legitimate final metadata handoff. Final actual-head root/independent checks/both CI/published readback/readiness remain required before human merge; final evidence belongs in sole PR, no CI-copy-only commit. Verify final committed tracking-head root/independent QA/both actual CI/published SHA-bound readback/readiness; human Squash and merge PR83; verify actual merge before M05.03 Simulate payment captured. Root runs tests; user none.
+
+
+## M05.02 bounded final tracking corrections (2026-10-16)
+
+Candidate reviewer PASS_WITH_TRACKING_FIXES identified two P3 current-wording findings: owning Surprises still described initial no-runtime state, and seven current navigation/architecture paragraphs still said full workspace pending. Both corrected in this legitimate final handoff, preserving dated records and complete immutable merged01 history. No source/tests/spec/control/config/lock or protected financial bytes changed. Final root/independent/currentCI/readback required.
 
 ## Historical merged M05.01 record (immutable)
 
