@@ -1137,7 +1137,7 @@ def test_17k_m03_06_closeout_readiness_rejects_relocated_lifecycle_coverage():
 def _pending_completion_goal() -> dict:
     """Preserve the pre-approval lifecycle as a regression fixture."""
     state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(
         approvedReleaseTarget="PENDING_HUMAN_APPROVAL",
@@ -1349,13 +1349,17 @@ def test_17pc_final_closeout_rejects_failed_merged_or_conflicting_result(
     )
 
 
-def test_17q_later_m04_rows_and_m05_through_m21_remain_not_started():
+def test_17q_only_started_m04_and_m0501_rows_are_exempt_from_future_guard():
     rows = validator.registry_by_id()
+    state=json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
+    assert validator.validate_project_completion_goal(state)==[]
+    assert rows["M05.01"].status==state["simulatorPackageReviewStatus"]
+    assert rows["M05.01"].branch==validator.M05_SIMULATOR_PACKAGE_BRANCH
     for milestone_number in range(4, 22):
         prefix = f"M{milestone_number:02d}."
         milestone_rows = [
             row for row in rows.values() if row.submilestone_id.startswith(prefix)
-            and row.submilestone_id not in {"M04.01", "M04.02", "M04.03", "M04.04", "M04.05", "M04.06", "M04.07", "M04.08", "M04.09", "M04.10", "M04.11", "M04.12", "M04.13", "M04.14", "M04.15", "M04.16", "M04.17", "M04.18"}
+            and row.submilestone_id not in {"M04.01", "M04.02", "M04.03", "M04.04", "M04.05", "M04.06", "M04.07", "M04.08", "M04.09", "M04.10", "M04.11", "M04.12", "M04.13", "M04.14", "M04.15", "M04.16", "M04.17", "M04.18", "M05.01"}
         ]
         if milestone_number == 4:
             assert not milestone_rows
@@ -1422,7 +1426,7 @@ def test_17w_goal_validation_refuses_non_object_state(state):
 
 def _planning_completion_goal():
     state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase="M04_PLANNING", currentMilestone="M04_PLANNING",
                  currentBranch=validator.M04_PLANNING_BRANCH, currentPr=61,
@@ -1450,7 +1454,7 @@ def _planning_completion_goal():
 
 def _account_completion_goal():
     state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase=validator.M04_ACCOUNT_PHASE, currentMilestone="M04.01",
                  currentBranch=validator.M04_ACCOUNT_BRANCH, currentPr=62,
@@ -1477,7 +1481,7 @@ def _account_completion_goal():
 
 def _transaction_completion_goal():
     state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase=validator.M04_TRANSACTION_PHASE, currentMilestone="M04.02",
                  currentBranch=validator.M04_TRANSACTION_BRANCH, currentPr=None,
@@ -1503,7 +1507,7 @@ def _transaction_completion_goal():
 
 def _entry_completion_goal():
     state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase=validator.M04_ENTRY_PHASE, currentMilestone="M04.03",
                  currentBranch=validator.M04_ENTRY_BRANCH, currentPr=None,
@@ -1533,7 +1537,10 @@ def _historical_m04_document(rel):
         for index, line in enumerate(lines):
             if line.startswith("| M05."):
                 cells = [cell.strip() for cell in line.split("|")[1:-1]]
+                cells[3] = "Not started"
                 cells[4] = ""
+                cells[5] = ""
+                cells[6] = ""
                 lines[index] = "| " + " | ".join(cells) + " |"
         content = "\n".join(lines) + "\n"
     return content
@@ -1725,6 +1732,9 @@ def test_29_package_scaffolds_are_exactly_allowlisted():
                 assert files == expected_scaffold | validator.M04_ACCOUNT_FILES | validator.M04_TRANSACTION_FILES | validator.M04_ENTRY_FILES | validator.M04_BALANCE_FILES | validator.M04_STORAGE_FILES | validator.M04_QUERY_FILES | validator.M04_LOOKUP_FILES | validator.M04_IDEMPOTENCY_FILES | validator.M04_REVERSAL_FILES | validator.M04_CASH_FILES | validator.M04_PROVIDER_FILES | validator.M04_CUSTOMER_FILES | validator.M04_FEE_FILES | validator.M04_REVENUE_FILES | validator.M04_BALANCED_POSTING_FILES | validator.M04_INVALID_POSTING_FILES | validator.M04_REVERSAL_TESTS_FILES | validator.M04_ACCEPTANCE_FILES
             elif package_dir.name in validator.M02_05_PACKAGE_DIRS:
                 assert files == expected_scaffold
+            elif package_dir.name == "simulator":
+                assert validator.m05_simulator_package_is_authorized()
+                assert files == set(validator.M05_SIMULATOR_PACKAGE_FILES)
             else:
                 assert files == {"README.md"}
 
@@ -2752,7 +2762,7 @@ def test_entry_owner_guard_keeps_balancing_and_other_packages_forbidden(tmp_path
 
 def _journal_completion_goal():
     state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase=validator.M04_BALANCE_PHASE, currentMilestone="M04.04",
                  currentBranch=validator.M04_BALANCE_BRANCH, currentPr=None,
@@ -2923,7 +2933,7 @@ def test_journal_owner_allowlist_does_not_admit_storage_or_queries(tmp_path, mon
 # M04.05 transition and isolated acceptance regressions; historical factories remain explicit.
 def _storage_completion_goal():
     state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase=validator.M04_STORAGE_PHASE, currentMilestone="M04.05",
                  currentBranch=validator.M04_STORAGE_BRANCH, currentPr=None,
@@ -2946,7 +2956,7 @@ def _storage_completion_goal():
 
 def _query_completion_goal():
     state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase=validator.M04_QUERY_PHASE, currentMilestone="M04.06",
                  currentBranch=validator.M04_QUERY_BRANCH, currentPr=None,
@@ -3269,7 +3279,7 @@ def test_query_does_not_authorize_another_migration(tmp_path, monkeypatch):
 
 def _lookup_completion_goal():
     state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase=validator.M04_LOOKUP_PHASE,currentMilestone="M04.07",currentBranch=validator.M04_LOOKUP_BRANCH,currentPr=None,
                  latestMergedPr=67,latestMergeCommit=validator.M04_BALANCE_QUERY_MERGE_EVIDENCE["mergeCommit"])
@@ -3440,7 +3450,7 @@ def test_lookup_latest_merge_requires_exact_integer(pr):
 
 def _idempotency_completion_goal():
     state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase=validator.M04_IDEMPOTENCY_PHASE,currentMilestone="M04.08",currentBranch=validator.M04_IDEMPOTENCY_BRANCH,currentPr=None,
                  latestMergedPr=68,latestMergeCommit=validator.M04_TRANSACTION_QUERY_MERGE_EVIDENCE["mergeCommit"])
@@ -3626,7 +3636,7 @@ def test_idempotency_requires_exact_additive_migration(tmp_path,monkeypatch):
 
 def _reversal_completion_goal():
     state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase=validator.M04_REVERSAL_PHASE,currentMilestone="M04.09",currentBranch=validator.M04_REVERSAL_BRANCH,currentPr=None,
                  latestMergedPr=69,latestMergeCommit=validator.M04_IDEMPOTENCY_MERGE_EVIDENCE["mergeCommit"])
@@ -3811,7 +3821,7 @@ def test_reversal_requires_exact_additive_migration(tmp_path,monkeypatch):
 
 def _cash_completion_goal():
     state=json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase=validator.M04_CASH_PHASE,currentMilestone="M04.10",currentBranch=validator.M04_CASH_BRANCH,currentPr=None,
                  latestMergedPr=70,latestMergeCommit=validator.M04_REVERSAL_MERGE_EVIDENCE["mergeCommit"])
@@ -3979,7 +3989,7 @@ def test_cash_latest_merge_requires_exact_integer(pr):
 
 def _provider_completion_goal():
     state=json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase=validator.M04_PROVIDER_PHASE,currentMilestone="M04.11",currentBranch=validator.M04_PROVIDER_BRANCH,currentPr=None,
                  latestMergedPr=71,latestMergeCommit=validator.M04_CASH_MERGE_EVIDENCE["mergeCommit"])
@@ -4153,7 +4163,7 @@ def test_provider_latest_merge_requires_exact_integer(pr):
 
 def _customer_completion_goal():
     state=json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase=validator.M04_CUSTOMER_PHASE,currentMilestone="M04.12",currentBranch=validator.M04_CUSTOMER_BRANCH,currentPr=None,
                  latestMergedPr=72,latestMergeCommit=validator.M04_PROVIDER_MERGE_EVIDENCE["mergeCommit"])
@@ -4325,7 +4335,7 @@ def test_customer_latest_merge_requires_exact_integer(pr):
 
 def _fee_completion_goal():
     state=json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase=validator.M04_FEE_PHASE,currentMilestone="M04.13",currentBranch=validator.M04_FEE_BRANCH,currentPr=None,
                  latestMergedPr=73,latestMergeCommit=validator.M04_CUSTOMER_MERGE_EVIDENCE["mergeCommit"])
@@ -4495,7 +4505,7 @@ def test_fee_latest_merge_requires_exact_integer(pr):
 
 def _revenue_completion_goal():
     state=json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase=validator.M04_REVENUE_PHASE,currentMilestone="M04.14",currentBranch=validator.M04_REVENUE_BRANCH,currentPr=None,
                  latestMergedPr=74,latestMergeCommit=validator.M04_FEE_MERGE_EVIDENCE["mergeCommit"])
@@ -4663,7 +4673,7 @@ def test_revenue_latest_merge_requires_exact_integer(pr):
 
 def _balanced_posting_completion_goal():
     state=json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase=validator.M04_BALANCED_POSTING_PHASE,currentMilestone="M04.15",currentBranch=validator.M04_BALANCED_POSTING_BRANCH,currentPr=None,
                  latestMergedPr=75,latestMergeCommit=validator.M04_REVENUE_MERGE_EVIDENCE["mergeCommit"])
@@ -4847,7 +4857,7 @@ def test_balanced_posting_latest_merge_requires_exact_integer(pr):
 
 def _invalid_posting_completion_goal():
     state=json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase=validator.M04_INVALID_POSTING_PHASE,currentMilestone="M04.16",currentBranch=validator.M04_INVALID_POSTING_BRANCH,currentPr=None,
                  latestMergedPr=76,latestMergeCommit=validator.M04_BALANCED_POSTING_MERGE_EVIDENCE["mergeCommit"])
@@ -5029,7 +5039,7 @@ def test_invalid_posting_latest_merge_requires_exact_integer(pr):
 
 def _reversal_tests_completion_goal():
     state=json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase=validator.M04_REVERSAL_TESTS_PHASE,currentMilestone="M04.17",currentBranch=validator.M04_REVERSAL_TESTS_BRANCH,currentPr=None,
                  latestMergedPr=77,latestMergeCommit=validator.M04_INVALID_POSTING_MERGE_EVIDENCE["mergeCommit"])
@@ -5209,7 +5219,7 @@ def test_reversal_tests_latest_merge_requires_exact_integer(pr):
 
 def _acceptance_completion_goal():
     state=json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
-    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus"):
+    for field in ("ledgerAcceptanceMergeEvidence", "ledgerAcceptanceQaEvidence", "closeoutDisposition", "closeoutReviewStatus", "m04MilestoneCloseoutMergeEvidence", "m04MilestoneCloseoutQaEvidence", "m05PlanningReviewStatus", "m05PlanningMergeEvidence", "m05PlanningQaEvidence", "simulatorPackageReviewStatus"):
         state.pop(field, None)
     state.update(currentPhase=validator.M04_ACCEPTANCE_PHASE,currentMilestone="M04.18",currentBranch=validator.M04_ACCEPTANCE_BRANCH,currentPr=None,
                  latestMergedPr=78,latestMergeCommit=validator.M04_REVERSAL_TESTS_MERGE_EVIDENCE["mergeCommit"])
@@ -5607,6 +5617,8 @@ def test_closeout_packet_accepts_exact_own_gate_binding(tmp_path, monkeypatch):
 
 def _m05_planning_goal():
     state = json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
+    for key in ("m05PlanningMergeEvidence","m05PlanningQaEvidence","simulatorPackageReviewStatus"):
+        state.pop(key,None)
     state.update(currentPhase=validator.M05_PLANNING_PHASE, currentMilestone=validator.M05_PLANNING_PHASE,
                  currentBranch=validator.M05_PLANNING_BRANCH, currentPr=None,
                  latestMergedPr=80, latestMergeCommit=validator.M04_MILESTONE_CLOSEOUT_MERGE_EVIDENCE["mergeCommit"],
@@ -5623,6 +5635,18 @@ def _prepare_m05_tree(tmp_path, monkeypatch):
                 "docs/milestones/M04.md", "docs/milestones/M05.md", "docs/ACTIVE_DOCS.md", "docs/INDEX.md", "docs/status/CURRENT_STATE.md"):
         target = tmp_path / rel;target.parent.mkdir(parents=True,exist_ok=True)
         content = text(rel)
+        if rel == validator.M05_ACTIVE_PLAN and validator.M05_PLANNING_HISTORY_MARKER in content:
+            content = content.split(validator.M05_PLANNING_HISTORY_MARKER,1)[1]
+        if rel.endswith("SUBMILESTONE_REGISTRY.md"):
+            lines=content.splitlines()
+            for n,line in enumerate(lines):
+                if line.startswith("| M05."):
+                    cells=[x.strip() for x in line.split("|")[1:-1]]
+                    cells[3]="Not started";cells[5]="";cells[6]=""
+                    lines[n]="| "+" | ".join(cells)+" |"
+            content="\n".join(lines)+"\n"
+        if rel=="docs/milestones/M05.md":
+            content=re.sub(r"(\| M05\.01 \| Create simulator package \| )[^|]+",r"\g<1>Not started ",content)
         if rel == validator.PROJECT_COMPLETION_GOAL_STATE:content = json.dumps(_m05_planning_goal())
         elif rel == validator.M05_ACTIVE_PLAN:
             content = re.sub(r"^Current planning review: .+$", "Current planning review: Builder in progress", content, flags=re.M)
@@ -5758,3 +5782,196 @@ def test_m05_extra_completed_m04_row_returns_errors_without_exception(tmp_path,m
     content=content.replace(row,row+"\n"+row.replace("M04.18","M04.19").replace("#79","#80"))
     path.write_text(content,encoding="utf-8",newline="\n")
     assert any("all18 original merged rows" in error for error in validator.validate_completed_m04_for_m05())
+
+
+def _m0501_goal():
+    state=json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
+    state.update(currentPhase=validator.M05_SIMULATOR_PACKAGE_PHASE,currentMilestone="M05.01",
+        currentBranch=validator.M05_SIMULATOR_PACKAGE_BRANCH,currentPr=None,
+        latestMergedPr=81,latestMergeCommit=validator.M05_PLANNING_MERGE_EVIDENCE["mergeCommit"],
+        m05PlanningReviewStatus="Completed and merged",simulatorPackageReviewStatus="Builder in progress",
+        m05PlanningMergeEvidence=dict(validator.M05_PLANNING_MERGE_EVIDENCE),
+        m05PlanningQaEvidence=dict(validator.M05_PLANNING_QA_EVIDENCE),currentQaEvidence=None)
+    return state
+
+
+def _prepare_m0501_tree(tmp_path,monkeypatch):
+    files=[validator.M05_ACTIVE_PLAN,validator.M04_COMPLETED_PLAN,validator.M04_CLOSEOUT_DOC,
+        validator.PROJECT_COMPLETION_GOAL_STATE,"docs/milestones/SUBMILESTONE_REGISTRY.md",
+        "docs/milestones/M04.md","docs/milestones/M05.md","docs/ACTIVE_DOCS.md",
+        "docs/INDEX.md","docs/status/CURRENT_STATE.md"]
+    files += ["packages/simulator/"+rel for rel in validator.M05_SIMULATOR_PACKAGE_FILES]
+    for rel in files:
+        target=tmp_path/rel;target.parent.mkdir(parents=True,exist_ok=True)
+        content=text(rel)
+        if rel==validator.PROJECT_COMPLETION_GOAL_STATE:content=json.dumps(_m0501_goal())
+        if rel==validator.M05_ACTIVE_PLAN:
+            front,marker,history=content.partition(validator.M05_PLANNING_HISTORY_MARKER)
+            front=re.sub(r"^Current package review:.*$","Current package review: Builder in progress",front,flags=re.M)
+            front=re.sub(r"^Sole proposed M05\.01 PR.*\n","",front,flags=re.M)
+            content=front+marker+history
+        if rel.endswith("SUBMILESTONE_REGISTRY.md"):
+            lines=content.splitlines()
+            for n,line in enumerate(lines):
+                if line.startswith("| M05.01 |"):
+                    cells=[x.strip() for x in line.split("|")[1:-1]]
+                    cells[3]="Builder in progress";cells[6]="";lines[n]="| "+" | ".join(cells)+" |"
+            content="\n".join(lines)+"\n"
+        if rel=="docs/milestones/M05.md":
+            content=re.sub(r"(\| M05\.01 \| Create simulator package \| )[^|]+",r"\g<1>Builder in progress ",content)
+        target.write_text(content,encoding="utf-8",newline="\n")
+    monkeypatch.setattr(validator,"ROOT",tmp_path)
+
+
+def test_m0501_positive_current_and_copied_fixture(tmp_path,monkeypatch):
+    assert validator.validate_project_completion_goal(_m0501_goal())==[]
+    _prepare_m0501_tree(tmp_path,monkeypatch)
+    assert validator.validate_m05_simulator_package()==[]
+
+
+def test_m0501_foundation_cannot_be_enabled_by_earlier_planning(tmp_path,monkeypatch):
+    _prepare_m0501_tree(tmp_path,monkeypatch)
+    (tmp_path/validator.PROJECT_COMPLETION_GOAL_STATE).write_text(json.dumps(_m05_planning_goal()),encoding="utf-8")
+    assert not validator.m05_simulator_package_is_authorized()
+    assert any("simulator" in error and "non-README" in error for error in validator.validate_package_scaffolds())
+
+
+@pytest.mark.parametrize("field",list(validator.M05_PLANNING_MERGE_EVIDENCE))
+def test_m0501_requires_every_actual_planning_merge_field(field):
+    state=_m0501_goal();state["m05PlanningMergeEvidence"][field]="invented"
+    assert validator.validate_project_completion_goal(state)
+
+
+@pytest.mark.parametrize("field",list(validator.M05_PLANNING_QA_EVIDENCE))
+def test_m0501_requires_every_exact_final_planning_qa_binding(field):
+    state=_m0501_goal();state["m05PlanningQaEvidence"][field]="unverified"
+    assert validator.validate_project_completion_goal(state)
+
+
+@pytest.mark.parametrize("field",["pr","ciRun"])
+def test_m0501_refuses_numeric_merge_proof_coercion(field):
+    state=_m0501_goal();state["m05PlanningMergeEvidence"][field]=float(state["m05PlanningMergeEvidence"][field])
+    assert validator.validate_project_completion_goal(state)
+
+
+@pytest.mark.parametrize("field",["controlTests","lifecycleProbes","ciRun","ledgerTests","realDatabaseTests"])
+def test_m0501_refuses_numeric_qa_coercion(field):
+    state=_m0501_goal();state["m05PlanningQaEvidence"][field]=float(state["m05PlanningQaEvidence"][field])
+    assert validator.validate_project_completion_goal(state)
+
+
+@pytest.mark.parametrize(("field","value"),[
+    ("currentBranch",validator.M05_PLANNING_BRANCH),("currentMilestone","M05.02"),
+    ("currentPr",81),("currentPr",82.0),("currentPr",True),
+    ("latestMergedPr",81.0),("latestMergeCommit","invented"),
+    ("m05PlanningReviewStatus","QA passed, awaiting merge"),
+    ("simulatorPackageReviewStatus",[]),("simulatorPackageReviewStatus",{}),
+    ("simulatorPackageReviewStatus","Completed and merged"),
+    ("simulatorPackageReviewStatus","QA passed, awaiting merge"),
+    ("currentQaEvidence",{"result":"PASS"}),("approvedReleaseTarget","V0_6_BENCHMARK_DEMO"),
+    ("releaseTargetApproval",{}),("m05PlanningMergeEvidence",{}),("m05PlanningQaEvidence",None)])
+def test_m0501_rejects_unapproved_or_unbound_states(field,value):
+    state=_m0501_goal();state[field]=value;assert validator.validate_project_completion_goal(state)
+
+
+@pytest.mark.parametrize("key",["currentPr","goalId","latestMergedPr","approvedReleaseTarget"])
+def test_m0501_preserves_original_required_fields(key):
+    state=_m0501_goal();state.pop(key)
+    assert validator.validate_project_completion_goal(state)
+
+
+@pytest.mark.parametrize("field",["m05PlanningMergeEvidence","m05PlanningQaEvidence","simulatorPackageReviewStatus"])
+def test_m0501_evidence_cannot_authorize_earlier_planning(field):
+    state=_m05_planning_goal();state[field]=_m0501_goal()[field]
+    assert validator.validate_project_completion_goal(state)
+
+
+@pytest.mark.parametrize("key",["m04MilestoneCloseoutMergeEvidence","ledgerAcceptanceMergeEvidence","accountMergeEvidence"])
+def test_m0501_keeps_the_complete_prior_chain(key):
+    state=_m0501_goal();state[key]={}
+    assert validator.validate_project_completion_goal(state)
+
+
+@pytest.mark.parametrize("mutation",["missing_package","extra_source","alternative_owner","missing_plan",
+    "history_changed","frozen_rows_changed","completed_m04_changed","runtime_dependency","manifest_array",
+    "script_weakened","test_types_removed"])
+def test_m0501_rejects_scope_history_and_configuration_shortcuts(tmp_path,monkeypatch,mutation):
+    _prepare_m0501_tree(tmp_path,monkeypatch)
+    assert validator.validate_m05_simulator_package()==[]
+    pkg=tmp_path/"packages/simulator";plan=tmp_path/validator.M05_ACTIVE_PLAN
+    if mutation=="missing_package":
+        for rel in validator.M05_SIMULATOR_PACKAGE_FILES:(pkg/rel).unlink()
+        for sub in ("src","test"):(pkg/sub).rmdir()
+        pkg.rmdir()
+    elif mutation=="extra_source":(pkg/"src/provider.ts").write_text("export const generate=()=>null;")
+    elif mutation=="alternative_owner":(tmp_path/"packages/simulators").mkdir()
+    elif mutation=="missing_plan":plan.unlink()
+    elif mutation=="history_changed":plan.write_bytes(plan.read_bytes()+b"tampered\n")
+    elif mutation=="frozen_rows_changed":plan.write_text(plan.read_text(encoding="utf-8").replace("Create simulator package","Create all generators",1),encoding="utf-8",newline="\n")
+    elif mutation=="completed_m04_changed":
+        old=tmp_path/validator.M04_COMPLETED_PLAN;old.write_bytes(b"tampered"+old.read_bytes())
+    elif mutation in ("runtime_dependency","manifest_array","script_weakened"):
+        path=pkg/"package.json";data=json.loads(path.read_text(encoding="utf-8"))
+        if mutation=="runtime_dependency":data["dependencies"]={"@causalledger/ledger":"workspace:*"}
+        elif mutation=="manifest_array":data=[]
+        else:data["scripts"]["test"]="echo success"
+        path.write_text(json.dumps(data),encoding="utf-8")
+    else:
+        path=pkg/"tsconfig.test.json";data=json.loads(path.read_text(encoding="utf-8"));data["compilerOptions"].pop("types");path.write_text(json.dumps(data))
+    assert validator.validate_m05_simulator_package()
+
+
+@pytest.mark.parametrize("number",range(2,20))
+@pytest.mark.parametrize("column",[3,5,6])
+def test_m0501_cannot_activate_or_bind_later_implementation(tmp_path,monkeypatch,number,column):
+    _prepare_m0501_tree(tmp_path,monkeypatch)
+    path=tmp_path/"docs/milestones/SUBMILESTONE_REGISTRY.md";content=path.read_text(encoding="utf-8")
+    line=next(x for x in content.splitlines() if x.startswith("| M05."+f"{number:02d}"+" |"))
+    cells=[x.strip() for x in line.split("|")[1:-1]]
+    cells[column]={3:"Builder in progress",5:"m05-later",6:"#90"}[column]
+    path.write_text(content.replace(line,"| "+" | ".join(cells)+" |"),encoding="utf-8")
+    assert validator.validate_m05_simulator_package()
+
+
+@pytest.mark.parametrize("milestone",range(6,22))
+def test_m0501_cannot_open_future_milestones(tmp_path,monkeypatch,milestone):
+    _prepare_m0501_tree(tmp_path,monkeypatch)
+    path=tmp_path/"docs/milestones/SUBMILESTONE_REGISTRY.md";content=path.read_text(encoding="utf-8")
+    line=next(x for x in content.splitlines() if x.startswith("| M"+f"{milestone:02d}"+"."))
+    cells=[x.strip() for x in line.split("|")[1:-1]];cells[3]="Builder in progress"
+    path.write_text(content.replace(line,"| "+" | ".join(cells)+" |"),encoding="utf-8")
+    assert any("M06–M21" in e for e in validator.validate_m05_simulator_package())
+
+
+@pytest.mark.parametrize("mutation",["duplicate_status","suffix_status","conflicting_status",
+    "prefix_pr","duplicate_pr","unbound_pr","registry_pr"])
+def test_m0501_requires_exact_own_progress_binding(tmp_path,monkeypatch,mutation):
+    _prepare_m0501_tree(tmp_path,monkeypatch)
+    state=_m0501_goal();state.update(currentPr=82,simulatorPackageReviewStatus="QA passed, awaiting merge")
+    plan=tmp_path/validator.M05_ACTIVE_PLAN;front,marker,history=plan.read_text(encoding="utf-8").partition(validator.M05_PLANNING_HISTORY_MARKER)
+    front=front.replace("Current package review: Builder in progress","Current package review: QA passed, awaiting merge\n\nSole proposed M05.01 PR #82")
+    plan.write_text(front+marker+history,encoding="utf-8",newline="\n")
+    state_path=tmp_path/validator.PROJECT_COMPLETION_GOAL_STATE
+    state_path.write_text(json.dumps(state),encoding="utf-8")
+    registry=tmp_path/"docs/milestones/SUBMILESTONE_REGISTRY.md";content=registry.read_text(encoding="utf-8")
+    line=next(x for x in content.splitlines() if x.startswith("| M05.01 |"))
+    cells=[x.strip() for x in line.split("|")[1:-1]]
+    cells[3]="QA passed, awaiting merge";cells[6]="#82"
+    registry.write_text(content.replace(line,"| "+" | ".join(cells)+" |"),encoding="utf-8")
+    detail=tmp_path/"docs/milestones/M05.md"
+    detail.write_text(re.sub(r"(\| M05\.01 \| Create simulator package \| )[^|]+",
+        r"\g<1>QA passed, awaiting merge ",detail.read_text(encoding="utf-8")),encoding="utf-8")
+    assert validator.validate_m05_simulator_package()==[]
+    if mutation=="duplicate_status":front=front.replace("Current package review: QA passed, awaiting merge","Current package review: QA passed, awaiting merge\nCurrent package review: QA passed, awaiting merge")
+    elif mutation=="suffix_status":front=front.replace("Current package review: QA passed, awaiting merge","Current package review: QA passed, awaiting merge suffix")
+    elif mutation=="conflicting_status":front=front.replace("Current package review: QA passed, awaiting merge","Current package review: QA passed, awaiting merge\nCurrent package review: Blocked")
+    elif mutation=="prefix_pr":front=front.replace("Sole proposed M05.01 PR #82","Sole proposed M05.01 PR #820")
+    elif mutation=="duplicate_pr":front=front.replace("Sole proposed M05.01 PR #82","Sole proposed M05.01 PR #82\nSole proposed M05.01 PR #82")
+    elif mutation=="unbound_pr":state.update(currentPr=None)
+    elif mutation=="registry_pr":
+        registry.write_text(registry.read_text(encoding="utf-8").replace("| #82 |","| #83 |"),encoding="utf-8")
+    plan.write_text(front+marker+history,encoding="utf-8",newline="\n")
+    (tmp_path/validator.PROJECT_COMPLETION_GOAL_STATE).write_text(json.dumps(state),encoding="utf-8")
+    errors=validator.validate_m05_simulator_package()
+    expected="registry requires exact own branch/PR" if mutation=="registry_pr" else "own PR" if mutation=="unbound_pr" else "gate marker" if mutation.endswith("status") else "bind only its own PR"
+    assert any(expected in error for error in errors),errors

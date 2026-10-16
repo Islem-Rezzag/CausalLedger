@@ -1,0 +1,52 @@
+# Simulator Package
+
+M05.01 implements a private package foundation with readonly synthetic source, delivery, validation-result and versioned manifest contracts. validateSimulatorManifest checks unknown caller input, references and exact UTF-8 integrity and returns a detached, deeply frozen manifest or stable issues with no partial value.
+
+This package does not generate payment/provider/bank events, execute a seed, schedule deliveries, serialize CSV, run a CLI, connect to a provider, ingest receipts or store evidence. It has no financial-write API, ledger dependency or agent tool. Source payloads are opaque; a valid description does not validate financial amounts/currency, source authenticity or economic truth.
+
+## Contract
+
+Version: m05.01-simulator-manifest.v1. Every manifest declares synthetic:true, a caller-supplied scenarioId, generatorVersion, UTC observationCutoff, sourceRecords and deliveries. Empty lists are valid and do not invent missing observations. The entire checked manifest is returned; no cutoff filtering, deduplication, chronology correction or missing-evidence verdict is performed.
+
+Identifiers use a simulator-local prefix and a 1–64 character ASCII token starting with a letter/digit, then letters/digits/underscores/hyphens:
+
+| Field               | Prefix          | Meaning                                                                  |
+| ------------------- | --------------- | ------------------------------------------------------------------------ |
+| scenarioId          | `sim_scenario_` | Supplied scenario description identity                                   |
+| sourceId            | `sim_source_`   | Supplied synthetic source; one provider/bank type per source             |
+| sourceOccurrenceId  | `sim_occ_`      | Declared source occurrence, possibly represented by multiple raw records |
+| sourceRecordId      | `sim_record_`   | Unique raw record descriptor within the manifest                         |
+| deliveryId          | `sim_delivery_` | Unique delivery description                                              |
+| receiptDescriptorId | `sim_receipt_`  | Unique synthetic receipt description; no actual durable receipt          |
+
+No IDs, clocks or source events are generated. These local descriptors do not allocate ADR-0008 durable `rcpt_`/`evt_` IDs and do not establish actual evidence receipt ingestion.
+
+Each source has sourceType provider/bank, eventTime (UTC string or null for explicitly unknown time), and payload: encoding utf-8; mediaType application/json, text/csv or text/plain; text; lowercase 64-character SHA256. Hashing covers exact supplied UTF-8 bytes. BOM, CRLF, whitespace, composed/decomposed Unicode and empty text are preserved. Lone UTF-16 surrogates are refused rather than silently replaced. Payload text is not parsed or reserialized.
+
+Delivery descriptions cite a complete matching source/occurrence/record tuple, supplied observedAt and deliveryOrder. Orders are unique nonnegative safe integers through 9007199254740991; negative zero is refused. Noncontiguous orders are valid; arrays are retained without sorting. Repeated delivery descriptions can reference one source record; distinct records can share an occurrence. This is identity consistency, not duplicate economic occurrence detection.
+
+UTC strings use real calendar dates in years 0001–9999 and either whole seconds or exactly three fractional digits, ending in Z. Offsets, leap seconds and trailing whitespace are refused. Source event time is independent of observed time. Declared delivery times may precede source time or exceed cutoff; they remain synthetic declarations in the full manifest, with no claim that a future delivery is visible or actually received.
+
+Limits: 256 source records, 1024 deliveries and 65536 UTF-16 code units per payload. generatorVersion is a 1–64 character lowercase ASCII token starting with a letter, then letters/digits/dot/hyphen; it is declared metadata, not a compatibility/authenticity verdict.
+
+Inputs must use plain or null-prototype own-data objects and dense ordinary arrays. Unknown/missing fields, accessors, hidden/symbol fields, classes, decorated arrays, bad identities/references/hash/version/time and duplicate record/delivery/receipt/order identities are refused. Ordinary getters are not evaluated. This is a data contract, not an isolation sandbox for arbitrary JavaScript Proxy code. Unexpected descriptor/prototype traps return invalid_object.
+
+## Executable synthetic example
+
+The demonstration supplies opaque text abc with the independently computed SHA256:
+
+    ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
+
+The supplied generic manifest validates. Changing its text to abd while retaining the original hash is refused as hash_mismatch, with no accepted value. No payment event, evidence store or ledger is involved.
+
+Run from the repository terminal in VS Code:
+
+    pnpm --filter @causalledger/simulator test -- test/contract.test.ts
+
+The coordinator runs this test for the user. Unit tests also check independent Unicode/CRLF/BOM hashes, calendars, strict unknown input, identity/reference errors, count limits, immutable detached results and no host clock/random/network dependence. Type-negative tests enforce readonly contracts; AST ownership tests restrict runtime imports to owned modules and deterministic node:crypto SHA256.
+
+## Ownership and next slice
+
+packages/simulator owns this offline foundation. Connectors, evidence, canonical events and ledger retain their separate boundaries. All previous source/tests/migrations/runner/fixtures are preserved. Later amount/currency/event-kind/seed/CSV/CLI rules belong to their original M05 owners and require versioned compatibility decisions.
+
+Active plan: plans/active/CLP-0006-m05-provider-and-bank-simulator.md. M05.02 Simulate payment authorized starts only after independent M05.01 QA, its human merge and actual merge verification.

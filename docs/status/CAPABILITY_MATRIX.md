@@ -14,6 +14,7 @@
 | Continuous lifecycle observer alignment | Planned direction | Documentation-only language for living causal timeline, live/replay input timing, and progressive incident certainty; no runtime implementation |
 | MoneyEvent engine | Completed | PR #59 merged after independent QA at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`; formal closeout PR #60 is merged and recorded in `docs/status/M03_CLOSEOUT.md`. `packages/events` contains compile-time types plus deterministic source-neutral candidate validation and normalization. M03.05 contains 21 controlled synthetic fixtures, seven early MoneyFlowBench seed metadata records, and strict test-only verification. Structural and fixture success is not financial truth. No source-specific parser or mapper, ingestion, storage, database, API, ledger posting, invariant, incident, graph, replay, repair, agent, connector, UI, benchmark scoring, or money mutation exists. |
 | Ledger core | Partial - schemas and pure journal validation, immutable synthetic storage/read-only queries/scoped idempotency/full reversals/account roles | All eighteen M04 rows are human-merged, including whole-ledger QA and the synthetic demonstration. Final PR79 QA/CI37959900408 verified 1785 ledger/1882 control/1227 PostgreSQL tests. Formal closeout PR80 is human-merged and verified; no autonomous financial authority or later features. |
+| Simulator manifest foundation | QA passed, awaiting merge | M05.01 owns strict generic synthetic manifest types and deterministic UTF8 hash/reference validation;107 package tests passed. No provider/bank generation, seed runner, CLI or ingestion. |
 | Invariant engine | Not started | No product logic |
 | Incident engine | Not started | No product logic |
 | Causal graph | Not started | No product logic |
@@ -26,3 +27,26 @@
 ## Verified M04 closeout and M05 planning (2026-10-12)
 
 M04 formal closeout human-merged/verified, all financial behavior unchanged. M05 planning only; packages/simulator and its output/CLI remain unimplemented.
+
+
+## M05.01 foundation checkpoint (2026-10-13)
+
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05 planning PR81 is human-merged and verified. M05.01 Create simulator package is QA passed, awaiting merge for sole PR #82 on m05-01-create-simulator-package under active plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent QA and both CI passed; final tracking-head gates remain pending. Generic manifest foundation is implemented; provider/bank generation remains unimplemented. M05.02–M05.19 and M06–M21 remain Not started/unbound.
+
+Human PR81 merged at 6b755d57bf0f03f1618aea1096cc99e1876e4bed on 2026-10-13T17:25:57Z by nonbot Islem-Rezzag. Reviewed b18b047fe87ed8eafa6d9756ca7db5c9d569291f and actual merge have tree 4f45bfdfbc063966766f9a347a1fccd3f4d237ca, full diff EMPTY and fetched-main reachability PASS. Root and existing independent reviewer verified primary merge/CI/body/advisory6128785198/reviewer hash bindings. Final planning QA441 lifecycle/2252 controls/rootclean18/0/1/bothCI38273448464 passed;1785 ledger/32files/all14 PostgreSQL1227/THREE recovery/both populated upgrades/schema/DEMO/cleanup passed. No unchanged planning tests rerun to verify merge.
+
+Generic structural/hash validation is not financial payload validation, source authenticity or actual receipt ingestion. Exact UTF8 preservation and explicit unknown source time are required. Future amount/currency/seed/CLI/CSV behavior stays with its owning slice. No material scope expansion or financial-write authority.
+
+
+## M05.01 builder validation checkpoint (2026-10-13)
+
+Builder complete, awaiting QA. Builder fresh simulator107/3files/type/lint/build/format and full2397 controls PASS; workspace frozen install/typecheck/lint/test/build/format/validator/whitespace PASS. Intermediate root QA17 PASS/0 FAIL/2 expected skips (own scoped dirty worktree, optional unavailable local Docker). Scope36/protected339/complete29375-byte planning history/raw19/V1/all prior proofs/append-only weekly/unchanged importers+dependency snapshots PASS. Existing independent static review found no remaining confirmed defect; overall clean-candidate/final independent QA and current actual CI remain pending. Cached tools used; no cold-cache claim/system install/credentials/policy change. Existing glob deprecation/esbuild ignored-script warnings recorded.
+
+Exact next: M05.01 QA/solePR/final gates/human merge; verify before M05.02. User runs no tests. Foundation only, no provider/bank generation or financial authority.
+
+
+## M05.01 independent candidate QA and final handoff (2026-10-13)
+
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05 planning PR81 is human-merged and verified. M05.01 Create simulator package is QA passed, awaiting merge for sole PR #82 on m05-01-create-simulator-package under active plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent QA and both CI passed; final tracking-head gates remain pending. Generic manifest foundation is implemented; provider/bank generation remains unimplemented. M05.02–M05.19 and M06–M21 remain Not started/unbound.
+
+Candidate f0832c0a53420f7fc48817fb9a648febcbc06a28/tree 8ebb8c5dd0e8aff0b1222e341600ca88ff51e425 independently reviewed PASS: simulator107/3 files/type/lint/build/format,309 behavioral probes,540 lifecycle/provenance probes and full2397 controls. Root clean QA18 PASS/0 FAIL/1 optional Docker skip without dirty override. Both CI38450630391 jobs passed; simulator107, ledger1785/32 files, controls2397, all14 actual mandatory PostgreSQL suites1227/no skips; THREE recovery/both populated preservation upgrades/exact schema/DEMO/owned+Compose cleanup PASS. Both tested checkouts42da634d03ffd9a9e18e07c945c0fcb15afb4334 have expected base/head parents, same tree and full empty diff. Scope36/protected339/complete29375-byte planning history/raw18+19/V1/prior proofs/append-only weekly/old dependency snapshots PASS. Final committed tracking head requires fresh root/independent QA/both actual CI/published SHA-bound readback/readiness before human merge; final proof belongs in sole PR82.

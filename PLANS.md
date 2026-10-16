@@ -32,11 +32,11 @@ Use `CLP-0001-short-name.md`. Increment the number monotonically and keep the sh
 - Completed plans move to `plans/completed/`.
 - Archived or stale plans move to `plans/archived/`.
 
-Current active milestone plan: plans/active/CLP-0006-m05-provider-and-bank-simulator.md; M05 planning only. M04 is completed at plans/completed/CLP-0005-m04-double-entry-ledger-core.md.
+Current active milestone plan: plans/active/CLP-0006-m05-provider-and-bank-simulator.md; M05.01 package foundation. M04 is completed at plans/completed/CLP-0005-m04-double-entry-ledger-core.md.
 
 The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M00–M04 are closed and V1_PUBLIC_PRODUCT remains approved. Human M04 closeout PR #80 merge 07ae89701eca3f0ee669265c99a3a180b31724ca matches reviewed edf6a873ffb7d9d46097f4646d960369f5d3c937/tree c0a4573497f2a38cdbf65ad6334fd0a542abf30d with final QA/CI and main provenance verified. Completed M04 plan: plans/completed/CLP-0005-m04-double-entry-ledger-core.md. M05 Planning - Provider and bank simulator is active on m05-planning-provider-and-bank-simulator under plans/active/CLP-0006-m05-provider-and-bank-simulator.md; candidate independent QA/both CI passed for sole planning PR #81; final tracking-head checks and human merge pending. All19 M05 implementation rows remain Not started with blank branches/PRs; M06–M21 remain Not started. No simulator is implemented.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05 planning PR81 is human-merged and verified. M05.01 Create simulator package is QA passed, awaiting merge for sole PR #82 on m05-01-create-simulator-package under active plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent QA and both CI passed; final tracking-head gates remain pending. Generic manifest foundation is implemented; provider/bank generation remains unimplemented. M05.02–M05.19 and M06–M21 remain Not started/unbound.
 
 Progress is recorded in the active plan during the slice. Submilestone status is recorded in `docs/milestones/SUBMILESTONE_REGISTRY.md`, reflected in the relevant milestone doc, and summarized in `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md`.
 
@@ -100,4 +100,4 @@ Do not move an active plan to `plans/completed/` until milestone closeout is com
 Plans must describe only implemented or explicitly planned work. Do not mark a submilestone fully complete until required validation has passed, QA has recorded PASS, and the PR has merged. Do not claim placeholder directories, future modules, or roadmap items as working features.
 
 
-Current active M05 planning: plans/active/CLP-0006-m05-provider-and-bank-simulator.md; completed M04: plans/completed/CLP-0005-m04-double-entry-ledger-core.md. No simulator package or output is created; M05.01 waits for planning QA and human merge.
+Current M05.01 foundation: plans/active/CLP-0006-m05-provider-and-bank-simulator.md; completed M04: plans/completed/CLP-0005-m04-double-entry-ledger-core.md. Planning PR81 is human-merged and verified. The generic simulator package/contracts are being validated; no provider/bank generation is implemented. M05.02 waits for M05.01 independent QA and verified human merge.

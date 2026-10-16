@@ -2,26 +2,27 @@
 
 ## Current phase
 
-M00–M04 are closed and V1_PUBLIC_PRODUCT remains approved. Human M04 closeout PR #80 merge 07ae89701eca3f0ee669265c99a3a180b31724ca matches reviewed edf6a873ffb7d9d46097f4646d960369f5d3c937/tree c0a4573497f2a38cdbf65ad6334fd0a542abf30d with final QA/CI and main provenance verified. Completed M04 plan: plans/completed/CLP-0005-m04-double-entry-ledger-core.md. M05 Planning - Provider and bank simulator is active on m05-planning-provider-and-bank-simulator under plans/active/CLP-0006-m05-provider-and-bank-simulator.md; candidate independent QA/both CI passed for sole planning PR #81; final tracking-head checks and human merge pending. All19 M05 implementation rows remain Not started with blank branches/PRs; M06–M21 remain Not started. No simulator is implemented.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05 planning PR81 is human-merged and verified. M05.01 Create simulator package is QA passed, awaiting merge for sole PR #82 on m05-01-create-simulator-package under active plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent QA and both CI passed; final tracking-head gates remain pending. Generic manifest foundation is implemented; provider/bank generation remains unimplemented. M05.02–M05.19 and M06–M21 remain Not started/unbound.
 
 ## Current submilestone and branch
 
-Current slice: M05 Planning - Provider and bank simulator.
-Current branch: m05-planning-provider-and-bank-simulator.
-Under active plan plans/active/CLP-0006-m05-provider-and-bank-simulator.md; completed M04 plan: plans/completed/CLP-0005-m04-double-entry-ledger-core.md.
+Current slice: M05.01 Create simulator package.
+Current branch: m05-01-create-simulator-package.
+Under active plan plans/active/CLP-0006-m05-provider-and-bank-simulator.md.
+Completed M04 plan: plans/completed/CLP-0005-m04-double-entry-ledger-core.md.
 
 ## Verified prerequisite evidence
 
-Human PR #80 merged at 07ae89701eca3f0ee669265c99a3a180b31724ca on 2026-10-12T14:58:48Z by nonbot Islem-Rezzag. Reviewed edf6a873ffb7d9d46097f4646d960369f5d3c937 and merged contents share tree c0a4573497f2a38cdbf65ad6334fd0a542abf30d; full diff empty and fetched-main reachability verified. Final independent closeout QA/354 lifecycle/full2055 controls/rootclean18/0/1 and bothCI38239309974 passed; actual1785 ledger/32 files and14 PostgreSQL suites1227, THREE recovery/both populated preservation upgrades/exact schema/DEMO/cleanup passed. Published body/advisory6123224889/reviewer SHA256 bindings were read back. No unchanged M04 QA was repeated for merge verification.
+Human PR81 merged at 6b755d57bf0f03f1618aea1096cc99e1876e4bed on 2026-10-13T17:25:57Z by nonbot Islem-Rezzag. Reviewed b18b047fe87ed8eafa6d9756ca7db5c9d569291f and actual merge have tree 4f45bfdfbc063966766f9a347a1fccd3f4d237ca, full diff EMPTY and fetched-main reachability PASS. Root and existing independent reviewer verified primary merge/CI/body/advisory6128785198/reviewer hash bindings. Final planning QA441 lifecycle/2252 controls/rootclean18/0/1/bothCI38273448464 passed;1785 ledger/32files/all14 PostgreSQL1227/THREE recovery/both populated upgrades/schema/DEMO/cleanup passed. No unchanged planning tests rerun to verify merge.
 
-## Current planning validation
+## Current validation
 
-M05 planning candidate e833da8ea7df92fcda30c7bfe90f665f08fc5eab / tree 8583055fdeeb714d3b33620d5abb8533eee7edc3: existing independent reviewer PASS_WITH_TRACKING_FIXES, 441 fresh lifecycle probes and all2252 controls; root cleanQA18/0/1/no dirty override. The two P3 current metadata findings (ledger README opening proposed-closeout text and roadmap builder-pending labels) are corrected in this bounded final handoff; independent committed-head confirmation remains required. Both candidate CI38271340279 jobs passed with1785 ledger/32 files and all14 unchanged mandatory PostgreSQL suites1227/no skips, THREE recovery/both populated preservation upgrades/exact schema/DEMO/owned+Compose cleanup. Actual tested merge has expected base/head parents/same tree/full empty diff. Scope28/protected337/full318300-byte M04 historical prefix/original packet/raw18/raw19/V1/prior proof/weekly preserved. Final tracking-head root clean QA/independent fresh lifecycle+controls/both actual CI/published SHA-bound readback/readiness remain required before human merge. No simulator implementation.
+Candidate f0832c0a53420f7fc48817fb9a648febcbc06a28/tree 8ebb8c5dd0e8aff0b1222e341600ca88ff51e425 independently reviewed PASS: simulator107/3 files/type/lint/build/format,309 behavioral probes,540 lifecycle/provenance probes and full2397 controls. Root clean QA18 PASS/0 FAIL/1 optional Docker skip without dirty override. Both CI38450630391 jobs passed; simulator107, ledger1785/32 files, controls2397, all14 actual mandatory PostgreSQL suites1227/no skips; THREE recovery/both populated preservation upgrades/exact schema/DEMO/owned+Compose cleanup PASS. Both tested checkouts42da634d03ffd9a9e18e07c945c0fcb15afb4334 have expected base/head parents, same tree and full empty diff. Scope36/protected339/complete29375-byte planning history/raw18+19/V1/prior proofs/append-only weekly/old dependency snapshots PASS. Final committed tracking head requires fresh root/independent QA/both actual CI/published SHA-bound readback/readiness before human merge; final proof belongs in sole PR82.
 
 ## Product implementation status
 
-The source-neutral MoneyEvent validator/normalizer and human-merged deterministic ledger schemas/journal validation/immutable storage/exact queries/durable ordinary idempotency/full linked reversals/account-role validation and tests remain implemented. M05 is planning only; no simulator, source-specific ingestion/mapping, invariant/incident/graph/replay/repair/agent/benchmark/UI or production capabilities are implemented. Agent financial-write authority remains forbidden; postingImplemented:false unchanged.
+Existing source-neutral MoneyEvent and deterministic M04 ledger implementation remains unchanged. Generic simulator manifest foundation is implemented and builder-tested; no simulator generation/source mapping/ingestion/evidence persistence/invariant/incident/graph/replay/repair/agent/benchmark/UI/production implementation is claimed. Financial authority remains forbidden.
 
 ## Next action
 
-Finish final actual-head review/rootclean/both CI/publication/readiness gates, then human squash merge sole M05 planning PR #81. Verify that merge before M05.01 Create simulator package. Root runs tests; user need not run them.
+Verify final tracking-head clean root/independent QA/both CI/publication readback/readiness, then human merge PR82. Root runs tests; user none. No M05.02 until verified01 merge.
