@@ -2,6 +2,161 @@
 
 ## Purpose / Big Picture
 
+Generate exactly one labelled synthetic payment_authorized occurrence and delivery from explicit validated input. This is offline evidence simulation; it cannot authorize, capture, settle or post money.
+
+## Progress
+
+- [x] Verified human PR82 merge/main/tree and published exact-head bindings.
+- [x] M05.02 implementation and builder validation.
+- [x] Independent candidate QA, sole PR and actual CI.
+- [ ] Final tracking-head gates and human merge.
+- [ ] Human02 merge verified before03.
+
+Current planning review: Completed and merged
+
+Sole merged M05 planning PR #81
+
+Current package review: Completed and merged
+
+Sole merged M05.01 PR #82
+
+Current authorization review: QA passed, awaiting merge
+
+Sole proposed M05.02 PR #83
+
+## Surprises & Discoveries
+
+The initial design checkpoint had no runtime results. Builder293 simulator/full2559 controls, clean candidate QA18/0/1, independent412 behavioral/607 lifecycle/full2559 and actual candidate CI now passed. Final tracking-head gates/human merge remain. Capture all own properties once and serialize validated primitives only.
+
+## Decision Log
+
+Preserve all original IDs/names/acceptance and V1 approval. Reuse unchanged generic manifest validator; synthetic role IDs and per-call context equality confer no ownership or financial authorization. Positive canonical amount1–128digits and known UTC event time are explicit02 restrictions.
+
+## Context and Orientation
+
+Human PR82 merged ac092fcb7b0ee16459b1ca1177d4b9b10e0df5ce at 2026-10-16T14:20:14Z by nonbot Islem-Rezzag. Reviewed b0c0e32daf91d95cd9bff555a766dadc0cfc7501 and squash have identical tree 0d2f821264fc0c55ae6ed77eb4ebc65729776014, full diff EMPTY and fetched-main reachability PASS. Root and existing independent reviewer verified primary merge/CI/body/advisory6153826833/canonical reviewer hash bindings. Final simulator107, lifecycle540, controls2397, root clean18/0/1 and both CI38455025292 PASS; ledger1785 and all14 real PostgreSQL suites1227/no skips, recovery/upgrades/schema/DEMO/cleanup PASS. Prior candidate309 behavior probes were carried through356 byte-identical nontracking files, not rerun as fresh final probes. No unchanged01 tests rerun merely to verify merge.
+
+Completed M04 plan remains plans/completed/CLP-0005-m04-double-entry-ledger-core.md. Full merged01 plan and nested original planning history follow the immutable marker.
+
+## Scope
+
+Expected branch m05-02-simulate-payment-authorized; base ac092fcb7b0ee16459b1ca1177d4b9b10e0df5ce; active CLP0006. Before every edit run git branch --show-current, git status --short, git remote -v. Stop for wrong branch/unrelated dirt; own scoped dirt belongs to this slice. Root sole editor/runtime owner; existing m04_02_qa independent reviewer and static auditor reused. Reviewer runtime HOLD until clean committed candidate release; serialize Python/pnpm. No new chats/agents/native goals; native goal remains user-paused.
+
+Implement only generatePaymentAuthorized(unknown): strict 20-field request and6-field declared context, fixed request/record/generator versions, supplied simulator-scoped role IDs and source/occurrence/descriptor/delivery identities, exact positive decimal string1–128digits, uppercase3ASCII currency with exact caller context equality, required known canonical UTC event time and independent declared observed time/cutoff/order. Positive-only/known-time/resource bounds are feature policies, not external financial rules. No normalization, defaulting, Number money conversion, authoritative ISO catalogue or owner/authenticity inference.
+
+Capture own enumerable data once without invoking getters. Validate body primitives/context, delegate source/delivery/clock semantics to unchanged generic validator using safe placeholder payload, then serialize validated primitives only. Fixed compact JSON key order/no newline/BOM, payment_authorized/synthetic marker, exact UTF8 SHA256. Raw occurrence excludes scenario/descriptor/delivery/observed/order/cutoff. One source record and one declared delivery; full manifest returned frozen/detached. Stable ordered code/path issues and no partial output. Metadata-only changes must preserve raw bytes/hash. No host clock/randomness/network/process or financial dependencies.
+
+Acceptance: independent literal golden bytes/hash, repeated calls/key order, huge exact amounts and128/129digit bounds, role/context/currency/identity/full-span UTC failures, hostile own descriptors/classes/symbols/hidden fields/Proxy errors, no getter/toJSON execution, unchanged caller input, frozen detached results, type-negative union/readonly checks and expanded exact-owned import guard. Generic validator behavior and original tests remain intact except truthful provider boundary flags/import ownership allowlist. Narrow lifecycle gate/history/proof/package-footprint controls and positive-before-negative historical fixtures.
+
+Validation applicable Levels0–5/7/8; Level6 N/A (benchmark unimplemented). Fresh package type/test/lint/build/format; full workspace tracked QA/frozen lock install and full controls/whitespace/scope hash audit. Clean candidate/final QA without dirty override; final actual CI bothjobs/all14 unchanged mandatory PostgreSQL suites, migration recovery/populated upgrades/schema/DEMO/owned+Compose cleanup and actual synthetic checkout parent/tree/full diff. Local Docker/PostgreSQL/make unavailable; record actual skips/warm caches and warnings. No installs/policy changes/live model calls. Root runs tests; user none.
+
+Preserve full merged M05.01 active plan including original29375-byte planning record, original18/19 rows, all prior proof/V1, financial/events source/tests/specs/fixtures, runner/THREE migrations/CI/root manifests/config/lock/dependency snapshots. No future captured/payout/refund/dispute/fee/duplicate/delay/missing/CSV/seed/CLI implementation. No ledger/evidence/raw-event mutation, approval, provider call or authenticity claim.
+
+Scoped ordinary commits/push/sole draftPR/body/advisory/readiness authorized by continuing instruction. Root records builder and independent findings/commands/results/skips/risks/current status. Final exact-head root+independent QA/both actual CI and published SHA-bound readback/readiness required. Human alone merges; no auto-merge/force/amend/reset/stash/branch deletion/deploy/tag/release. Max3 unsuccessful repairs per same unresolved defect. Stop HUMAN MERGE REQUIRED; verify actual merge before M05.03 Simulate payment captured.
+
+Permitted files: PLANS.md, README.md, START_HERE.md, WORKFLOW.md, docs/ACTIVE_DOCS.md, docs/INDEX.md, docs/ARCHITECTURE.md, docs/milestones/M05.md, docs/milestones/SUBMILESTONE_REGISTRY.md, docs/status/CAPABILITY_MATRIX.md, docs/status/CURRENT_STATE.md, docs/status/LOCAL_ENVIRONMENT_READINESS.md, docs/status/NEXT_RECOMMENDED_THREAD.md, docs/status/PROJECT_COMPLETION_GOAL.json, docs/status/PROJECT_COMPLETION_GOAL.md, docs/status/WEEKLY_LOG.md, docs/status/RISK_REGISTER.md, docs/status/TECH_DEBT.md, docs/status/OPEN_QUESTIONS.md, plans/ROADMAP.md, plans/active/CLP-0006-m05-provider-and-bank-simulator.md, packages/ledger/README.md, scripts/validate-control-plane.py, tests/test_control_plane_bootstrap.py, docs/specs/simulator-payment-authorized.md, packages/simulator/README.md, packages/simulator/src/index.ts, packages/simulator/src/contract.ts, packages/simulator/src/payment-authorized.ts, packages/simulator/test/ownership.test.ts, packages/simulator/test/contract-types.test.ts, packages/simulator/test/payment-authorized.test.ts, packages/simulator/test/payment-authorized-types.test.ts.
+
+## Plan of Work
+
+| ID | Existing submilestone | Dependencies | Acceptance and deterministic evidence |
+| --- | --- | --- | --- |
+| M05.01 | Create simulator package | Planning PR human-merged; verified M04 closeout; M03/domain/ADR-0008 | Create dedicated packages/simulator with reviewed ownership; freeze synthetic source/delivery/result interfaces and versioned manifests. Package/build/type/lint tests plus forbidden import/network/ledger-write checks; no connectors or evidence-store implementation. |
+| M05.02 | Simulate payment authorized | M05.01 human-merged | Explicit synthetic authorized record, source/object/actor/currency/amount references and supplied event/observed clocks. Stable valid output; reject malformed identity/amount/currency/time without mutating inputs. Authorization metadata cannot establish financial authorization. |
+| M05.03 | Simulate payment captured | M05.02 human-merged | Explicit capture referencing supplied authorization/payment identity. Exact minor-unit amount; preserve raw authorized record and references; test conflicting identity/currency and boundary amounts. No ledger posting or invented provider truth. |
+| M05.04 | Simulate payout created | M05.03 human-merged | Explicit payout-created record with provider/payout references and supplied chronology. Test deterministic valid output and missing/conflicting references; aggregate membership policy must be frozen before implementation. |
+| M05.05 | Simulate payout paid | M05.04 human-merged | Explicit payout-paid source record with stable payout identity and declared status/time. Test exact amounts/currency, stable references and contradictions; provider-paid metadata is not bank receipt or settlement confirmation. |
+| M05.06 | Simulate payout failed | M05.05 human-merged | Explicit failed payout with supplied failure reason and retained original reference. Test failed-versus-paid conflict representation and incomplete evidence; never infer that missing bank evidence proves failure. |
+| M05.07 | Simulate refund created | M05.06 human-merged | Explicit refund-created record with original captured payment/reference. Freeze full/partial/multiple-refund scenario policy using supplied context; exact amounts and no economic inference; reject malformed contexts without modifying originals. |
+| M05.08 | Simulate refund paid | M05.07 human-merged | Explicit refund-paid record with the same declared refund occurrence and source linkage. Test independent raw records, stable amount/currency and contradictory status/time; no ledger reversal or repair approval. |
+| M05.09 | Simulate dispute opened | M05.08 human-merged | Explicit dispute-opened record with original payment, reason and supplied clocks. Test missing/conflicting references and stable record output. An opened dispute does not imply a confirmed chargeback or money movement. |
+| M05.10 | Simulate chargeback fee | M05.09 human-merged | Explicit chargeback-fee source evidence with exact fee amount/currency and declared dispute/payment references. Test chargeback-versus-fee distinction, malformed/large amounts and provenance; no fee inference or financial posting. |
+| M05.11 | Simulate duplicate webhook | M05.10 human-merged | Paired benign and faulty duplicate-delivery scenarios. Distinct delivery/receipt IDs preserve one unchanged source occurrence; a separately declared faulty economic duplicate stays distinct. Test raw-byte/provenance preservation and exact occurrence-versus-delivery identity; no automatic deduplication or exactly-once claim. |
+| M05.12 | Simulate delayed webhook | M05.11 human-merged | Delayed deliveries use explicit event time, observed time, delivery order and observation cutoff. Deterministic out-of-order examples and inclusive boundaries; retain original bytes and uncertainty until later evidence arrives; no sleeps or host clock. |
+| M05.13 | Simulate missing webhook | M05.12 human-merged | Missing-delivery scenario retains explicit expected source occurrence, omission metadata and cutoff without fabricating a webhook. Test genuinely missing versus delayed-at-cutoff cases and unsupported conclusions; no incident verdict or deletion of existing evidence. |
+| M05.14 | Simulate settlement CSV | M05.13 human-merged | Controlled settlement CSV with frozen version/dialect/header/order/encoding/escaping/row identities and exact decimal money. Golden bytes and malformed delimiter/quote/currency/reference/large-amount cases; immutable source rows, no ingestion/parser or bank confirmation. |
+| M05.15 | Simulate bank statement CSV | M05.14 human-merged | Controlled bank statement CSV with independent bank/statement/line/payout references and supplied posting/file times. Golden bytes, quoted/newline/empty-field cases and declared mismatch/ambiguity; no bank credentials or inferred match. |
+| M05.16 | Add deterministic seed support | M05.15 human-merged | Versioned deterministic seed support extends prior explicit-input deterministic scenarios. Same seed/config/version yields byte-identical manifests and outputs independent of host clock/randomness; test zero/bounds/malformed seeds, namespace collisions and version changes. |
+| M05.17 | Add simulator CLI | M05.16 human-merged | Bounded simulator CLI with explicit scenario/version/seed/cutoff/output selection; stdout or newly owned output only. Test help/valid/invalid/unknown/exit codes/path bounds/create-only refusal of existing outputs; no network, credentials, database, ledger or agent tools. |
+| M05.18 | Add fixture tests | M05.17 human-merged | Cross-feature fixtures broaden earlier per-feature tests; all nineteen rows remain separate. Golden independent outputs, paired benign/faulty duplicates, delays/omissions, CSV references, large exact amounts/currency isolation, input immutability and seed reproducibility. Existing M03 fixtures/seeds stay untouched. |
+| M05.19 | QA simulator | M05.18 human-merged | Independent whole-M05 acceptance and executable controlled provider/webhook/settlement/bank demonstration. Verify all original rows, provenance/version/cutoffs, clean setup and exact-head CI. No source integration, financial truth, incident/invariant/replay/repair/agent/UI claim; separate milestone closeout after all nineteen human merges. |
+
+## Concrete Steps
+
+Implement only02; validate/fix scoped findings, independent QA, sole PR, exact-head CI/readback and human merge. Do not begin03 before verified02 merge.
+
+## Validation and Acceptance
+
+Candidate48268c1b51a7d6a48f51d53eb6315d286af8e19f/treeedf15f43c0de2cff8828285709ac5dea3a1fd1b6 independently reviewed PASS_WITH_TRACKING_FIXES (two bounded P3 current-wording corrections, resolved in this handoff). Fresh simulator293/5files/typecheck/lint/build/format,412 behavioral probes,607 lifecycle/provenance probes and full2559 controls in341.69s PASS. Canonical reviewer JSON SHA25672d69b22d1f6e3ad9d5ffa84fa0d9c16c08e035c371a5c185ac0d6280d337765. Root cleanQA18 PASS/0 FAIL/1 optional Docker skip, no dirty override. Both actual CI38918731251 jobs PASS: simulator293, ledger1785/32files, controls2559 and all14 real PostgreSQL suites1227/no skips; THREE recovery/both populated preservation upgrades/exact schema/DEMO/owned+Compose cleanup PASS. Both tested checkouts1bc248dfc78d4944e16bcc49b71799919bdc23ff have expectedac092+48268parents/sameedf15tree/full localdiff EMPTY. Scope33/protected346/full61000-byte merged01 and nested29375-byte planning history/raw18+19/V1/prior proofs/weekly prefix/generic validator+tests/config/lock PASS. Final actual tracking-head root/independent acceptance/current CI/published SHA-bound readback/readiness still required before human merge. Warm caches; local Docker/PostgreSQL/make unavailable; no install/policy/live-model changes. Root runs tests; user none. Applicable Levels0–5/7/8; Level6 N/A. Clean final exact-head acceptance/readiness remains required.
+
+## Idempotence and Recovery
+
+Pure deterministic function; no writes or side effects. Same branch/sole PR for bounded corrections; max3 unsuccessful repairs per same unresolved defect. Preserve caller input and immutable history.
+
+## Artifacts and Notes
+
+Ignored root-owned scope/base/hash snapshots and primary merge proofs retained. Product spec owns versioned input/output/error examples; actual candidate/final evidence belongs in sole PR.
+
+## Interfaces and Dependencies
+
+Private @causalledger/simulator; zero runtime dependencies. Fixed20-field unknown request and6-field context; frozen manifest result. Only owned modules and node:crypto createHash. Generic manifest version unchanged.
+
+## Outcomes & Retrospective
+
+QA passed, awaiting merge. Candidate48268c1b51a7d6a48f51d53eb6315d286af8e19f/treeedf15f43c0de2cff8828285709ac5dea3a1fd1b6 independently reviewed PASS_WITH_TRACKING_FIXES (two bounded P3 current-wording corrections, resolved in this handoff). Fresh simulator293/5files/typecheck/lint/build/format,412 behavioral probes,607 lifecycle/provenance probes and full2559 controls in341.69s PASS. Canonical reviewer JSON SHA25672d69b22d1f6e3ad9d5ffa84fa0d9c16c08e035c371a5c185ac0d6280d337765. Root cleanQA18 PASS/0 FAIL/1 optional Docker skip, no dirty override. Both actual CI38918731251 jobs PASS: simulator293, ledger1785/32files, controls2559 and all14 real PostgreSQL suites1227/no skips; THREE recovery/both populated preservation upgrades/exact schema/DEMO/owned+Compose cleanup PASS. Both tested checkouts1bc248dfc78d4944e16bcc49b71799919bdc23ff have expectedac092+48268parents/sameedf15tree/full localdiff EMPTY. Scope33/protected346/full61000-byte merged01 and nested29375-byte planning history/raw18+19/V1/prior proofs/weekly prefix/generic validator+tests/config/lock PASS. Final actual tracking-head root/independent acceptance/current CI/published SHA-bound readback/readiness still required before human merge. Warm caches; local Docker/PostgreSQL/make unavailable; no install/policy/live-model changes. Root runs tests; user none. Root runs tests; user none. Native goal remains user-paused.
+
+## Generated M05.02 builder and QA brief (2026-10-16)
+
+Expected branch m05-02-simulate-payment-authorized; base ac092fcb7b0ee16459b1ca1177d4b9b10e0df5ce; active CLP0006. Before every edit run git branch --show-current, git status --short, git remote -v. Stop for wrong branch/unrelated dirt; own scoped dirt belongs to this slice. Root sole editor/runtime owner; existing m04_02_qa independent reviewer and static auditor reused. Reviewer runtime HOLD until clean committed candidate release; serialize Python/pnpm. No new chats/agents/native goals; native goal remains user-paused.
+
+Implement only generatePaymentAuthorized(unknown): strict 20-field request and6-field declared context, fixed request/record/generator versions, supplied simulator-scoped role IDs and source/occurrence/descriptor/delivery identities, exact positive decimal string1–128digits, uppercase3ASCII currency with exact caller context equality, required known canonical UTC event time and independent declared observed time/cutoff/order. Positive-only/known-time/resource bounds are feature policies, not external financial rules. No normalization, defaulting, Number money conversion, authoritative ISO catalogue or owner/authenticity inference.
+
+Capture own enumerable data once without invoking getters. Validate body primitives/context, delegate source/delivery/clock semantics to unchanged generic validator using safe placeholder payload, then serialize validated primitives only. Fixed compact JSON key order/no newline/BOM, payment_authorized/synthetic marker, exact UTF8 SHA256. Raw occurrence excludes scenario/descriptor/delivery/observed/order/cutoff. One source record and one declared delivery; full manifest returned frozen/detached. Stable ordered code/path issues and no partial output. Metadata-only changes must preserve raw bytes/hash. No host clock/randomness/network/process or financial dependencies.
+
+Acceptance: independent literal golden bytes/hash, repeated calls/key order, huge exact amounts and128/129digit bounds, role/context/currency/identity/full-span UTC failures, hostile own descriptors/classes/symbols/hidden fields/Proxy errors, no getter/toJSON execution, unchanged caller input, frozen detached results, type-negative union/readonly checks and expanded exact-owned import guard. Generic validator behavior and original tests remain intact except truthful provider boundary flags/import ownership allowlist. Narrow lifecycle gate/history/proof/package-footprint controls and positive-before-negative historical fixtures.
+
+Validation applicable Levels0–5/7/8; Level6 N/A (benchmark unimplemented). Fresh package type/test/lint/build/format; full workspace tracked QA/frozen lock install and full controls/whitespace/scope hash audit. Clean candidate/final QA without dirty override; final actual CI bothjobs/all14 unchanged mandatory PostgreSQL suites, migration recovery/populated upgrades/schema/DEMO/owned+Compose cleanup and actual synthetic checkout parent/tree/full diff. Local Docker/PostgreSQL/make unavailable; record actual skips/warm caches and warnings. No installs/policy changes/live model calls. Root runs tests; user none.
+
+Preserve full merged M05.01 active plan including original29375-byte planning record, original18/19 rows, all prior proof/V1, financial/events source/tests/specs/fixtures, runner/THREE migrations/CI/root manifests/config/lock/dependency snapshots. No future captured/payout/refund/dispute/fee/duplicate/delay/missing/CSV/seed/CLI implementation. No ledger/evidence/raw-event mutation, approval, provider call or authenticity claim.
+
+Scoped ordinary commits/push/sole draftPR/body/advisory/readiness authorized by continuing instruction. Root records builder and independent findings/commands/results/skips/risks/current status. Final exact-head root+independent QA/both actual CI and published SHA-bound readback/readiness required. Human alone merges; no auto-merge/force/amend/reset/stash/branch deletion/deploy/tag/release. Max3 unsuccessful repairs per same unresolved defect. Stop HUMAN MERGE REQUIRED; verify actual merge before M05.03 Simulate payment captured.
+
+
+## M05.02 builder corrections (2026-10-16)
+
+Initial generated control constant token replacement caused syntax failure and was corrected before validator PASS. Scoped status vocabulary/current-state active-plan/source-neutral wording were corrected without changing old controls. Simulator293 runtime tests passed; initial test-only callback/record typing was corrected and package type/lint/build passed. Focused lifecycle309PASS/1 failed found a row-mutation test targeted an earlier brief phrase rather than the owning matrix; now mutates the exact row. Static auditor found the capture regression mutated a separate object; it now passes the same caller object changed by the context trap. No contract weakening or financial scope expansion. Full controls/workspace and independent acceptance pending.
+
+
+## M05.02 builder handoff (2026-10-16)
+
+Builder simulator293/5files/typecheck/lint/build/format PASS; fresh corrected capture regression and executable authorization demonstration PASS. Full2559 controls, validator/whitespace and workspace frozen install/type/lint/tests/build PASS. Intermediate dirty-override root QA16 PASS/1 formatting FAIL/2 expected skips; scoped ledger README formatting then corrected and its full package format check PASS. Clean committed candidate root QA still required. Existing separate-context static reviewer/auditor verified33 scoped/346 protected files/full61000-byte merged01 history/nested29375 planning/raw19/V1/prior proofs/weekly prefix/generic validator+tests/config/lock; no source defect, current GoalMD P3 corrected in this handoff. Independent runtime/current CI pending. Warm caches; optional local Docker/PostgreSQL/make unavailable; existing glob deprecation/esbuild ignored build-script warnings, no policy/install changes. Mandatory real database proof remains in unchanged CI route.
+
+Changed33 scoped files: owned generator/type/unit tests/spec plus narrow lifecycle controls and current metadata. All346 protected tracked files, entire61000-byte merged01 plan/nested29375 planning record/raw18+19/V1/prior proofs and append-only weekly preserved. Generic validator/tests/package manifests/config/lock unchanged. No financial/event/runner/DDL/CI/fixtures/source integration/future03+ work.
+
+Safe-to-commit/push/open sole draftPR after scope/whitespace guard; overall QA/safe-to-merge pending. Verify clean committed candidate root/independent QA, actual CI and sole PR; record final handoff before human merge. Root runs tests; user none.
+
+
+Learning objective: distinguish an exact synthetic authorization occurrence from a real payment approval, and distinguish stable source bytes from independently declared delivery metadata. Current handoff next-thread labels were restored after validator identified missing Precondition/Scope headings.
+
+
+## M05.02 independent candidate QA and final handoff (2026-10-16)
+
+Candidate48268c1b51a7d6a48f51d53eb6315d286af8e19f/treeedf15f43c0de2cff8828285709ac5dea3a1fd1b6 independently reviewed PASS_WITH_TRACKING_FIXES (two bounded P3 current-wording corrections, resolved in this handoff). Fresh simulator293/5files/typecheck/lint/build/format,412 behavioral probes,607 lifecycle/provenance probes and full2559 controls in341.69s PASS. Canonical reviewer JSON SHA25672d69b22d1f6e3ad9d5ffa84fa0d9c16c08e035c371a5c185ac0d6280d337765. Root cleanQA18 PASS/0 FAIL/1 optional Docker skip, no dirty override. Both actual CI38918731251 jobs PASS: simulator293, ledger1785/32files, controls2559 and all14 real PostgreSQL suites1227/no skips; THREE recovery/both populated preservation upgrades/exact schema/DEMO/owned+Compose cleanup PASS. Both tested checkouts1bc248dfc78d4944e16bcc49b71799919bdc23ff have expectedac092+48268parents/sameedf15tree/full localdiff EMPTY. Scope33/protected346/full61000-byte merged01 and nested29375-byte planning history/raw18+19/V1/prior proofs/weekly prefix/generic validator+tests/config/lock PASS. Final actual tracking-head root/independent acceptance/current CI/published SHA-bound readback/readiness still required before human merge. Warm caches; local Docker/PostgreSQL/make unavailable; no install/policy/live-model changes. Root runs tests; user none.
+
+Changed33 scoped files: owned generator/type/unit tests/spec plus narrow lifecycle controls and current metadata. All346 protected tracked files, entire61000-byte merged01 plan/nested29375 planning record/raw18+19/V1/prior proofs and append-only weekly preserved. Generic validator/tests/package manifests/config/lock unchanged. No financial/event/runner/DDL/CI/fixtures/source integration/future03+ work.
+
+Candidate independent QA PASS; own PR83 is now bound in tracking. Candidate source/tests/spec/control/config/lock and all protected/history bytes must remain unchanged through this legitimate final metadata handoff. Final actual-head root/independent checks/both CI/published readback/readiness remain required before human merge; final evidence belongs in sole PR, no CI-copy-only commit. Verify final committed tracking-head root/independent QA/both actual CI/published SHA-bound readback/readiness; human Squash and merge PR83; verify actual merge before M05.03 Simulate payment captured. Root runs tests; user none.
+
+
+## M05.02 bounded final tracking corrections (2026-10-16)
+
+Candidate reviewer PASS_WITH_TRACKING_FIXES identified two P3 current-wording findings: owning Surprises still described initial no-runtime state, and seven current navigation/architecture paragraphs still said full workspace pending. Both corrected in this legitimate final handoff, preserving dated records and complete immutable merged01 history. No source/tests/spec/control/config/lock or protected financial bytes changed. Final root/independent/currentCI/readback required.
+
+## Historical merged M05.01 record (immutable)
+
+# CLP-0006 M05 Provider and Bank Simulator
+
+## Purpose / Big Picture
+
 Create M05.01 simulator package foundation after verified planning merge. Implement only readonly synthetic descriptor contracts, versioned manifests and deterministic structural/integrity validation. Later provider/bank generation remains unimplemented; synthetic metadata cannot establish financial truth.
 
 ## Progress
