@@ -2,6 +2,145 @@
 
 ## Purpose / Big Picture
 
+Generate one declared full or partial capture linked to a supplied synthetic authorization, preserving raw authorization evidence and returning a deterministic two-record/two-delivery composition. No real payment, settlement, ledger or evidence-store action.
+
+## Progress
+
+- [x] Verified human PR83 merge/final evidence and safe clean03 branch.
+- [x] M05.03 implementation/builder validation.
+- [ ] Independent local QA/sole PR/current CI.
+- [ ] Final exact-head gates and human03 merge.
+
+Current planning review: Completed and merged
+
+Sole merged M05 planning PR #81
+
+Current package review: Completed and merged
+
+Sole merged M05.01 PR #82
+
+Current authorization review: Completed and merged
+
+Sole merged M05.02 PR #83
+
+Current capture review: Builder complete, awaiting QA
+
+## Surprises & Discoveries
+
+Initial type-test callback/directive errors and three static test-quality findings fixed. Full regression exposed a dropped completed-M04 navigation link and ledger README formatting; restored/formatted without assertion changes and all78 failed cases rechecked PASS. No confirmed runtime source defect. Independent reviewer remote recheck was auto-review rejected after network denial; local QA remains available; no route retried.
+
+## Decision Log
+
+Freeze one auth-backed full/partial capture per returned scenario; no global consumption/multi-capture, expiry or provider truth. Reuse unchanged02 reconstruction and generic validation. Padded UTC keys compare known event times only; observations remain independent. Keep all original IDs/names/dependencies and V1.
+
+## Context and Orientation
+
+Human PR83 merged b41efac2cad75ef3dda986d3ccdb1d620ebc68c2 at 2026-10-18T13:43:57Z by nonbot Islem-Rezzag. Reviewed0b1676437ffd086730032a1b27ac8b369eda4ca0 and squash share treee5f989f451e918235d407c81ff8b8ef7fbd7f884, parentac092 and full diff EMPTY; fetched-main reachability PASS. Root re-read primary human merge/body/advisory6218664786/canonical reviewer/finalCI38920946457 and exact hashes. Prior final independent fresh293 package/412 behavior/607 lifecycle/2559 controls, root clean18/0/1 and all14 realPostgreSQL1227/ledger1785/recovery/upgrades/schema/DEMO/cleanup PASS. This turn reviewer independently verified local merge/tree/diff/reachability; its live GitHub escalation was auto-review rejected after network denial. Current primary metadata is root-verified, not newly independently fetched; prior independent publication evidence remains historical. No denied route retried or bypassed; no unchanged83 tests rerun merely to verify merge.
+
+Completed M04 plan remains plans/completed/CLP-0005-m04-double-entry-ledger-core.md. Full merged02 history follows the immutable marker.
+
+## Scope
+
+Expected branch m05-03-simulate-payment-captured; base b41efac2cad75ef3dda986d3ccdb1d620ebc68c2; active CLP0006. Before edits run git branch --show-current, git status --short, git remote -v. Stop for wrong branch/unrelated dirt; root owns same-slice scoped dirt. Root sole editor/runtime owner; existing m04_02_qa independent local reviewer and static auditor reused. Serialize Python/pnpm; reviewer runtime HOLD until clean committed candidate release. No new agents/chats/native goals; native goal stays user-paused.
+
+Own generatePaymentCaptured(unknown), strict21-field request: schemaVersion, synthetic, scenarioId, observationCutoff, sourceId, sourceOccurrenceId, sourceRecordId, eventTime, deliveryId, receiptDescriptorId, observedAt, deliveryOrder, providerId, merchantId, payerId, paymentId, authorizationId, captureId, amountMinorUnits, currency, authorizationManifest. Fixed m05.03-payment-captured-request.v1/record.v1 and m05.03-payment-captured.v1 generator. New sim_capture_ identity, prior simulator grammar unchanged. Capture context is the supplied prior generated02 manifest: generic validation/snapshot first, exactly1 provider source/1 delivery, fixed02 generator and application/json; parse only owned02 wire and reconstruct with unchanged generatePaymentAuthorized, require exact full checked manifest/rawtext/hash. Generic hash validity alone is not semantic authorization validation. Input snapshots captured once; no caller rereads, getters/toJSON execution or partial output.
+
+Capture body/metadata uses unchanged02 generator as a safe throwaway probe with context derived from validated ORIGINAL authorization roles/source/currency. Matching authorizationId and all context; distinct capture occurrence and descriptor/delivery/receipt/order identities. Positive canonical1–128digit exact strings, no Number conversion; compare BigInt only after validation, single full or partial capture<=supplied authorized amount. Known canonical UTC capture eventTime must be>=authorization eventTime using padded comparison keys only; original raw timestamps unchanged. This is the bounded fixture policy, not a universal provider rule, authenticity/ownership/funds/expiry/real chronology proof. No cumulative multi-capture budget or consumed authorization across calls. Independent observed clocks/order/cutoff remain supplied declarations, including out-of-order/future observations; no filtering, sorting or inferred receipts.
+
+Success same frozen manifest result shape: NEW composition with original authorized source and delivery first, capture second; source text/hash/IDs/eventTime and delivery metadata preserved exactly. New top scenario/cutoff/generator describe03 composition, not unchanged prior whole manifest. Fixed compact UTF8 raw capture keys: schemaVersion, synthetic, eventType payment_captured, sourceId, sourceOccurrenceId, providerId, paymentId, authorizationId, captureId, merchantId, payerId, amount{minorUnits,currency,representation}, authorizationReference{sourceId,sourceOccurrenceId,payloadSha256}, eventTime. Citation hash comes from validated ORIGINAL prior source, never throwaway probe. Descriptor/scenario/delivery/observed/order/cutoff excluded from raw occurrence bytes; original descriptor references retained in composed manifest. Exact SHA256/no BOM/newline. Stable issues/no partial value. Prior issues prefixed $.authorizationManifest; current context/index1 paths mapped to request fields. Prior shape/owned wire, capture body and relational phases short-circuit with deterministic ordering.
+
+Acceptance: independent literal auth/capture golden bytes+hashes; full/partial/equal/max128digits/overcapture and lexical-vs-numeric boundaries; wrong refs/currency/kind/schema/metadata/payload with recomputed valid hash; noncanonical/duplicate/unknown owned-wire fields; strict root shape/hostile descriptors/actual caller mutation via prior traps; frozen detached input/output; exact original source+delivery preservation; current/prior descriptor and observation-only changes preserve raw bytes; strict UTC equality Z/.000Z,+/-1ms/year boundaries, no observed-order inference; types/import ownership; prior02/generic tests retained unchanged except truthful boundary flag/assertion/import allowlist.
+
+Preserve full merged02 plan including nested01/planning histories; raw18/19 acceptance rows, V1/prior proofs, financial/event sources/tests/specs/fixtures, all14 database children/THREE DDL/CI/root and package manifests/config/lock. No M05.04+ payout/refund/dispute/fee/duplicate/delay/missing/CSV/seed/CLI or financial-write/ingestion/parser integration. Internal02 wire reconstruction is not an external provider adapter or canonical mapping.
+
+Validation Levels0–5/7/8; Level6 N/A. Fresh package type/test/lint/build/format and tracked workspace/frozen install/validator/full controls/whitespace/scope hashes. Clean candidate/final qa-dev without dirty override; exact final actualCI both jobs/all14 real PostgreSQL suites, THREE recovery/both populated upgrades/exact schema/DEMO/owned+Compose cleanup and actual checkout parents/tree/full empty diff. Independent local acceptance/lifecycle/full controls and source/history audit; reviewer live GitHub readback blocked by explicit auto-review rejection, never retry or route around it. Root independently owns its authorized primary GitHub operations; attribute that evidence honestly. Local Docker/PostgreSQL/make unavailable unless fresh inventory proves otherwise; no system install/credentials/policy changes/paid calls.
+
+Record actual results, cache/skips/warnings/findings and safe-to-commit/push/open/QA-only merge readiness. Ordinary scoped commit/push/sole draftPR/body/advisory/readiness authorized by continuing request. Final exact-head local QA/independent local acceptance/root actualCI/publication readback required. Human alone merges, no auto-merge/force/reset/amend/stash/branch deletion/deploy/tag/release. Max3 unsuccessful repairs per same unresolved defect. Root runs tests; user none. Learning objective: distinguish preserved authorization evidence from a newly simulated capture, single-capture arithmetic from a global funds budget, and capture from settlement. Stop HUMAN MERGE REQUIRED; verify actual03 merge before M05.04 Simulate payout created.
+
+Permitted files: PLANS.md, README.md, START_HERE.md, WORKFLOW.md, docs/ACTIVE_DOCS.md, docs/INDEX.md, docs/ARCHITECTURE.md, docs/milestones/M05.md, docs/milestones/SUBMILESTONE_REGISTRY.md, docs/status/CAPABILITY_MATRIX.md, docs/status/CURRENT_STATE.md, docs/status/LOCAL_ENVIRONMENT_READINESS.md, docs/status/NEXT_RECOMMENDED_THREAD.md, docs/status/PROJECT_COMPLETION_GOAL.json, docs/status/PROJECT_COMPLETION_GOAL.md, docs/status/WEEKLY_LOG.md, docs/status/RISK_REGISTER.md, docs/status/TECH_DEBT.md, docs/status/OPEN_QUESTIONS.md, plans/ROADMAP.md, plans/active/CLP-0006-m05-provider-and-bank-simulator.md, packages/ledger/README.md, scripts/validate-control-plane.py, tests/test_control_plane_bootstrap.py, docs/specs/simulator-payment-captured.md, packages/simulator/README.md, packages/simulator/src/index.ts, packages/simulator/src/contract.ts, packages/simulator/src/payment-captured.ts, packages/simulator/test/ownership.test.ts, packages/simulator/test/contract-types.test.ts, packages/simulator/test/payment-captured.test.ts, packages/simulator/test/payment-captured-types.test.ts.
+
+## Plan of Work
+
+| ID | Existing submilestone | Dependencies | Acceptance and deterministic evidence |
+| --- | --- | --- | --- |
+| M05.01 | Create simulator package | Planning PR human-merged; verified M04 closeout; M03/domain/ADR-0008 | Create dedicated packages/simulator with reviewed ownership; freeze synthetic source/delivery/result interfaces and versioned manifests. Package/build/type/lint tests plus forbidden import/network/ledger-write checks; no connectors or evidence-store implementation. |
+| M05.02 | Simulate payment authorized | M05.01 human-merged | Explicit synthetic authorized record, source/object/actor/currency/amount references and supplied event/observed clocks. Stable valid output; reject malformed identity/amount/currency/time without mutating inputs. Authorization metadata cannot establish financial authorization. |
+| M05.03 | Simulate payment captured | M05.02 human-merged | Explicit capture referencing supplied authorization/payment identity. Exact minor-unit amount; preserve raw authorized record and references; test conflicting identity/currency and boundary amounts. No ledger posting or invented provider truth. |
+| M05.04 | Simulate payout created | M05.03 human-merged | Explicit payout-created record with provider/payout references and supplied chronology. Test deterministic valid output and missing/conflicting references; aggregate membership policy must be frozen before implementation. |
+| M05.05 | Simulate payout paid | M05.04 human-merged | Explicit payout-paid source record with stable payout identity and declared status/time. Test exact amounts/currency, stable references and contradictions; provider-paid metadata is not bank receipt or settlement confirmation. |
+| M05.06 | Simulate payout failed | M05.05 human-merged | Explicit failed payout with supplied failure reason and retained original reference. Test failed-versus-paid conflict representation and incomplete evidence; never infer that missing bank evidence proves failure. |
+| M05.07 | Simulate refund created | M05.06 human-merged | Explicit refund-created record with original captured payment/reference. Freeze full/partial/multiple-refund scenario policy using supplied context; exact amounts and no economic inference; reject malformed contexts without modifying originals. |
+| M05.08 | Simulate refund paid | M05.07 human-merged | Explicit refund-paid record with the same declared refund occurrence and source linkage. Test independent raw records, stable amount/currency and contradictory status/time; no ledger reversal or repair approval. |
+| M05.09 | Simulate dispute opened | M05.08 human-merged | Explicit dispute-opened record with original payment, reason and supplied clocks. Test missing/conflicting references and stable record output. An opened dispute does not imply a confirmed chargeback or money movement. |
+| M05.10 | Simulate chargeback fee | M05.09 human-merged | Explicit chargeback-fee source evidence with exact fee amount/currency and declared dispute/payment references. Test chargeback-versus-fee distinction, malformed/large amounts and provenance; no fee inference or financial posting. |
+| M05.11 | Simulate duplicate webhook | M05.10 human-merged | Paired benign and faulty duplicate-delivery scenarios. Distinct delivery/receipt IDs preserve one unchanged source occurrence; a separately declared faulty economic duplicate stays distinct. Test raw-byte/provenance preservation and exact occurrence-versus-delivery identity; no automatic deduplication or exactly-once claim. |
+| M05.12 | Simulate delayed webhook | M05.11 human-merged | Delayed deliveries use explicit event time, observed time, delivery order and observation cutoff. Deterministic out-of-order examples and inclusive boundaries; retain original bytes and uncertainty until later evidence arrives; no sleeps or host clock. |
+| M05.13 | Simulate missing webhook | M05.12 human-merged | Missing-delivery scenario retains explicit expected source occurrence, omission metadata and cutoff without fabricating a webhook. Test genuinely missing versus delayed-at-cutoff cases and unsupported conclusions; no incident verdict or deletion of existing evidence. |
+| M05.14 | Simulate settlement CSV | M05.13 human-merged | Controlled settlement CSV with frozen version/dialect/header/order/encoding/escaping/row identities and exact decimal money. Golden bytes and malformed delimiter/quote/currency/reference/large-amount cases; immutable source rows, no ingestion/parser or bank confirmation. |
+| M05.15 | Simulate bank statement CSV | M05.14 human-merged | Controlled bank statement CSV with independent bank/statement/line/payout references and supplied posting/file times. Golden bytes, quoted/newline/empty-field cases and declared mismatch/ambiguity; no bank credentials or inferred match. |
+| M05.16 | Add deterministic seed support | M05.15 human-merged | Versioned deterministic seed support extends prior explicit-input deterministic scenarios. Same seed/config/version yields byte-identical manifests and outputs independent of host clock/randomness; test zero/bounds/malformed seeds, namespace collisions and version changes. |
+| M05.17 | Add simulator CLI | M05.16 human-merged | Bounded simulator CLI with explicit scenario/version/seed/cutoff/output selection; stdout or newly owned output only. Test help/valid/invalid/unknown/exit codes/path bounds/create-only refusal of existing outputs; no network, credentials, database, ledger or agent tools. |
+| M05.18 | Add fixture tests | M05.17 human-merged | Cross-feature fixtures broaden earlier per-feature tests; all nineteen rows remain separate. Golden independent outputs, paired benign/faulty duplicates, delays/omissions, CSV references, large exact amounts/currency isolation, input immutability and seed reproducibility. Existing M03 fixtures/seeds stay untouched. |
+| M05.19 | QA simulator | M05.18 human-merged | Independent whole-M05 acceptance and executable controlled provider/webhook/settlement/bank demonstration. Verify all original rows, provenance/version/cutoffs, clean setup and exact-head CI. No source integration, financial truth, incident/invariant/replay/repair/agent/UI claim; separate milestone closeout after all nineteen human merges. |
+
+## Concrete Steps
+
+Implement only03 after verified83 merge; deterministic builder checks, independent local QA, sole PR/current actualCI, final tracking handoff/readback then human merge. No04 before verified03 merge.
+
+## Validation and Acceptance
+
+Builder checks: simulator470/7files and typecheck/lint/build/format PASS; workspace frozen install/typecheck/lint/test/build/format/validator/whitespace PASS using warm dependencies/Turbo cache. Focused historical/current lifecycle475 PASS. Initial full2727 controls:2649 PASS/78 FAIL (dropped completed-M04 navigation link), then all78 failed cases freshly rechecked PASS in69+9 runs after restoring that link, without weakening assertions. Initial intermediate QA15 PASS/2 FAIL/2 skips (format plus navigation regression); both failures repaired and their checks passed. A fresh complete clean-commit QA remains pending; do not label the initial full run PASS. Scope33/protected350, exact88549-byte merged02 and nested histories/raw19/V1/prior proofs/append-only weekly/unchanged financial+02/generic/config/lock/CI PASS. Independent static reviewers found no remaining substantive defect; three test-quality findings repaired. Local Docker/make unavailable; actual PostgreSQL CI/current independent runtime/final gates pending.
+
+Applicable Levels0–5/7/8; Level6 N/A. Root actual current CI and independent local exact-head QA are separate gates; no local PostgreSQL or cold-cache claim.
+
+## Idempotence and Recovery
+
+Pure deterministic memory-only generator; no input/raw evidence modification, storage, real capture or ledger mutation. Same branch/solePR for bounded fixes; max3 unsuccessful attempts per same unresolved defect. No denied-route retries or alternative credentials.
+
+## Artifacts and Notes
+
+Root-owned ignored base/scope/hash snapshots and verified83 proofs retained. New spec will pin request/output/error/byte contracts. Actual final QA/CI evidence belongs in sole PR.
+
+## Interfaces and Dependencies
+
+Private @causalledger/simulator; zero runtime package dependencies. New21-field captured request and same readonly frozen generic manifest result. Only owned modules and deterministic node:crypto createHash. Existing02/generic source behavior unchanged.
+
+## Outcomes & Retrospective
+
+Builder complete, awaiting QA. Run clean committed candidate QA, existing independent local behavioral/lifecycle/full controls and root actual CI for the sole03 PR, then final exact-head gates and human merge. No04 before verified03 merge. Root runs tests; user none. Native goal remains user-paused.
+
+## Generated M05.03 builder and QA brief (2026-10-18)
+
+Expected branch m05-03-simulate-payment-captured; base b41efac2cad75ef3dda986d3ccdb1d620ebc68c2; active CLP0006. Before edits run git branch --show-current, git status --short, git remote -v. Stop for wrong branch/unrelated dirt; root owns same-slice scoped dirt. Root sole editor/runtime owner; existing m04_02_qa independent local reviewer and static auditor reused. Serialize Python/pnpm; reviewer runtime HOLD until clean committed candidate release. No new agents/chats/native goals; native goal stays user-paused.
+
+Own generatePaymentCaptured(unknown), strict21-field request: schemaVersion, synthetic, scenarioId, observationCutoff, sourceId, sourceOccurrenceId, sourceRecordId, eventTime, deliveryId, receiptDescriptorId, observedAt, deliveryOrder, providerId, merchantId, payerId, paymentId, authorizationId, captureId, amountMinorUnits, currency, authorizationManifest. Fixed m05.03-payment-captured-request.v1/record.v1 and m05.03-payment-captured.v1 generator. New sim_capture_ identity, prior simulator grammar unchanged. Capture context is the supplied prior generated02 manifest: generic validation/snapshot first, exactly1 provider source/1 delivery, fixed02 generator and application/json; parse only owned02 wire and reconstruct with unchanged generatePaymentAuthorized, require exact full checked manifest/rawtext/hash. Generic hash validity alone is not semantic authorization validation. Input snapshots captured once; no caller rereads, getters/toJSON execution or partial output.
+
+Capture body/metadata uses unchanged02 generator as a safe throwaway probe with context derived from validated ORIGINAL authorization roles/source/currency. Matching authorizationId and all context; distinct capture occurrence and descriptor/delivery/receipt/order identities. Positive canonical1–128digit exact strings, no Number conversion; compare BigInt only after validation, single full or partial capture<=supplied authorized amount. Known canonical UTC capture eventTime must be>=authorization eventTime using padded comparison keys only; original raw timestamps unchanged. This is the bounded fixture policy, not a universal provider rule, authenticity/ownership/funds/expiry/real chronology proof. No cumulative multi-capture budget or consumed authorization across calls. Independent observed clocks/order/cutoff remain supplied declarations, including out-of-order/future observations; no filtering, sorting or inferred receipts.
+
+Success same frozen manifest result shape: NEW composition with original authorized source and delivery first, capture second; source text/hash/IDs/eventTime and delivery metadata preserved exactly. New top scenario/cutoff/generator describe03 composition, not unchanged prior whole manifest. Fixed compact UTF8 raw capture keys: schemaVersion, synthetic, eventType payment_captured, sourceId, sourceOccurrenceId, providerId, paymentId, authorizationId, captureId, merchantId, payerId, amount{minorUnits,currency,representation}, authorizationReference{sourceId,sourceOccurrenceId,payloadSha256}, eventTime. Citation hash comes from validated ORIGINAL prior source, never throwaway probe. Descriptor/scenario/delivery/observed/order/cutoff excluded from raw occurrence bytes; original descriptor references retained in composed manifest. Exact SHA256/no BOM/newline. Stable issues/no partial value. Prior issues prefixed $.authorizationManifest; current context/index1 paths mapped to request fields. Prior shape/owned wire, capture body and relational phases short-circuit with deterministic ordering.
+
+Acceptance: independent literal auth/capture golden bytes+hashes; full/partial/equal/max128digits/overcapture and lexical-vs-numeric boundaries; wrong refs/currency/kind/schema/metadata/payload with recomputed valid hash; noncanonical/duplicate/unknown owned-wire fields; strict root shape/hostile descriptors/actual caller mutation via prior traps; frozen detached input/output; exact original source+delivery preservation; current/prior descriptor and observation-only changes preserve raw bytes; strict UTC equality Z/.000Z,+/-1ms/year boundaries, no observed-order inference; types/import ownership; prior02/generic tests retained unchanged except truthful boundary flag/assertion/import allowlist.
+
+Preserve full merged02 plan including nested01/planning histories; raw18/19 acceptance rows, V1/prior proofs, financial/event sources/tests/specs/fixtures, all14 database children/THREE DDL/CI/root and package manifests/config/lock. No M05.04+ payout/refund/dispute/fee/duplicate/delay/missing/CSV/seed/CLI or financial-write/ingestion/parser integration. Internal02 wire reconstruction is not an external provider adapter or canonical mapping.
+
+Validation Levels0–5/7/8; Level6 N/A. Fresh package type/test/lint/build/format and tracked workspace/frozen install/validator/full controls/whitespace/scope hashes. Clean candidate/final qa-dev without dirty override; exact final actualCI both jobs/all14 real PostgreSQL suites, THREE recovery/both populated upgrades/exact schema/DEMO/owned+Compose cleanup and actual checkout parents/tree/full empty diff. Independent local acceptance/lifecycle/full controls and source/history audit; reviewer live GitHub readback blocked by explicit auto-review rejection, never retry or route around it. Root independently owns its authorized primary GitHub operations; attribute that evidence honestly. Local Docker/PostgreSQL/make unavailable unless fresh inventory proves otherwise; no system install/credentials/policy changes/paid calls.
+
+Record actual results, cache/skips/warnings/findings and safe-to-commit/push/open/QA-only merge readiness. Ordinary scoped commit/push/sole draftPR/body/advisory/readiness authorized by continuing request. Final exact-head local QA/independent local acceptance/root actualCI/publication readback required. Human alone merges, no auto-merge/force/reset/amend/stash/branch deletion/deploy/tag/release. Max3 unsuccessful repairs per same unresolved defect. Root runs tests; user none. Learning objective: distinguish preserved authorization evidence from a newly simulated capture, single-capture arithmetic from a global funds budget, and capture from settlement. Stop HUMAN MERGE REQUIRED; verify actual03 merge before M05.04 Simulate payout created.
+
+## M05.03 current checkpoint (2026-10-18)
+
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are Completed and merged in verified PR82/PR83. M05.03 Simulate payment captured is Builder complete, awaiting QA on m05-03-simulate-payment-captured under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Synthetic capture composition is implemented; M05.04–M05.19 and M06–M21 remain Not started/unbound.
+
+Builder checks: simulator470/7files and typecheck/lint/build/format PASS; workspace frozen install/typecheck/lint/test/build/format/validator/whitespace PASS using warm dependencies/Turbo cache. Focused historical/current lifecycle475 PASS. Initial full2727 controls:2649 PASS/78 FAIL (dropped completed-M04 navigation link), then all78 failed cases freshly rechecked PASS in69+9 runs after restoring that link, without weakening assertions. Initial intermediate QA15 PASS/2 FAIL/2 skips (format plus navigation regression); both failures repaired and their checks passed. A fresh complete clean-commit QA remains pending; do not label the initial full run PASS. Scope33/protected350, exact88549-byte merged02 and nested histories/raw19/V1/prior proofs/append-only weekly/unchanged financial+02/generic/config/lock/CI PASS. Independent static reviewers found no remaining substantive defect; three test-quality findings repaired. Local Docker/make unavailable; actual PostgreSQL CI/current independent runtime/final gates pending.
+
+Run clean committed candidate QA, existing independent local behavioral/lifecycle/full controls and root actual CI for the sole03 PR, then final exact-head gates and human merge. No04 before verified03 merge. Root runs tests; user none. Native goal remains user-paused.
+
+## Historical merged M05.02 record (immutable)
+
+# CLP-0006 M05 Provider and Bank Simulator
+
+## Purpose / Big Picture
+
 Generate exactly one labelled synthetic payment_authorized occurrence and delivery from explicit validated input. This is offline evidence simulation; it cannot authorize, capture, settle or post money.
 
 ## Progress

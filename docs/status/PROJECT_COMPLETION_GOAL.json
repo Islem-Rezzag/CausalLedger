@@ -12,16 +12,16 @@
   ],
   "recommendedImmediateTarget": "V0_6_BENCHMARK_DEMO",
   "recommendedLongTermTarget": "V1_PUBLIC_PRODUCT",
-  "currentPhase": "M05_PAYMENT_AUTHORIZED",
+  "currentPhase": "M05_PAYMENT_CAPTURED",
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
-  "currentMilestone": "M05.02",
-  "currentBranch": "m05-02-simulate-payment-authorized",
-  "currentPr": 83,
-  "latestMergedPr": 82,
-  "latestMergeCommit": "ac092fcb7b0ee16459b1ca1177d4b9b10e0df5ce",
+  "currentMilestone": "M05.03",
+  "currentBranch": "m05-03-simulate-payment-captured",
+  "currentPr": null,
+  "latestMergedPr": 83,
+  "latestMergeCommit": "b41efac2cad75ef3dda986d3ccdb1d620ebc68c2",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "Candidate48268c1b51a7d6a48f51d53eb6315d286af8e19f/treeedf15f43c0de2cff8828285709ac5dea3a1fd1b6 independently reviewed PASS_WITH_TRACKING_FIXES (two bounded P3 current-wording corrections, resolved in this handoff). Fresh simulator293/5files/typecheck/lint/build/format,412 behavioral probes,607 lifecycle/provenance probes and full2559 controls in341.69s PASS. Canonical reviewer JSON SHA25672d69b22d1f6e3ad9d5ffa84fa0d9c16c08e035c371a5c185ac0d6280d337765. Root cleanQA18 PASS/0 FAIL/1 optional Docker skip, no dirty override. Both actual CI38918731251 jobs PASS: simulator293, ledger1785/32files, controls2559 and all14 real PostgreSQL suites1227/no skips; THREE recovery/both populated preservation upgrades/exact schema/DEMO/owned+Compose cleanup PASS. Both tested checkouts1bc248dfc78d4944e16bcc49b71799919bdc23ff have expectedac092+48268parents/sameedf15tree/full localdiff EMPTY. Scope33/protected346/full61000-byte merged01 and nested29375-byte planning history/raw18+19/V1/prior proofs/weekly prefix/generic validator+tests/config/lock PASS. Final actual tracking-head root/independent acceptance/current CI/published SHA-bound readback/readiness still required before human merge. Warm caches; local Docker/PostgreSQL/make unavailable; no install/policy/live-model changes. Root runs tests; user none.",
-  "remoteCiStatus": "Candidate actual CI passed; final tracking-head CI pending",
+  "localTestStatus": "Builder checks: simulator470/7files and typecheck/lint/build/format PASS; workspace frozen install/typecheck/lint/test/build/format/validator/whitespace PASS using warm dependencies/Turbo cache. Focused historical/current lifecycle475 PASS. Initial full2727 controls:2649 PASS/78 FAIL (dropped completed-M04 navigation link), then all78 failed cases freshly rechecked PASS in69+9 runs after restoring that link, without weakening assertions. Initial intermediate QA15 PASS/2 FAIL/2 skips (format plus navigation regression); both failures repaired and their checks passed. A fresh complete clean-commit QA remains pending; do not label the initial full run PASS. Scope33/protected350, exact88549-byte merged02 and nested histories/raw19/V1/prior proofs/append-only weekly/unchanged financial+02/generic/config/lock/CI PASS. Independent static reviewers found no remaining substantive defect; three test-quality findings repaired. Local Docker/make unavailable; actual PostgreSQL CI/current independent runtime/final gates pending.",
+  "remoteCiStatus": "Current03 CI/final gates pending",
   "dockerStatus": "UNAVAILABLE_LOCALLY_APPROVED_OWNED_POSTGRES17_CI_ROUTE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -53,7 +53,8 @@
     "M04.17 reversal test corpus human PR78 merge/final QA/CI/rootcleanQA verified",
     "M04.18 whole-ledger acceptance and synthetic demonstration; human PR79 merge/final QA/CI37959900408/1227 database tests verified.",
     "M05.01 private generic simulator manifest contracts and deterministic UTF8/reference validation; human PR82 merge and final exact-head QA/CI verified",
-    "M05.02 synthetic payment_authorized generator: explicit caller context, exact money/time/identity/rawJSON/SHA256; candidate independent QA/workspace/currentCI passed, final tracking-head gates/human merge pending"
+    "M05.02 synthetic authorization generator; human PR83 merge/final QA/CI verified",
+    "M05.03 synthetic single full/partial capture composition with exact authorization preservation; current review only, no real funds or ledger action"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -74,7 +75,8 @@
     "production deployment"
   ],
   "openBlockers": [
-    "M05.02 final exact-head QA/CI/readback/human merge pending",
+    "Independent03 QA/currentCI/final gates/human merge pending",
+    "Separate reviewer live GitHub readback denied by automatic approval review; root primary checks and independent local QA remain available",
     "No live-model provider/model/call-count/budget approved"
   ],
   "risks": [
@@ -90,9 +92,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "Verify final committed tracking-head root/independent QA/both actual CI/published SHA-bound readback/readiness; human Squash and merge PR83; verify actual merge before M05.03 Simulate payment captured.",
-  "stopReason": "M05_02_FINAL_GATES_PENDING_HUMAN_MERGE",
-  "lastUpdatedTimestamp": "2026-10-16T15:04:02Z",
+  "exactNextAction": "Run clean committed candidate QA, existing independent local behavioral/lifecycle/full controls and root actual CI for the sole03 PR, then final exact-head gates and human merge. No04 before verified03 merge.",
+  "stopReason": "M05_03_BUILDER_COMPLETE_AWAITING_QA",
+  "lastUpdatedTimestamp": "2026-10-18T14:05:31Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -591,5 +593,33 @@
     "bodySha256": "3a5e81e46dbaaa2124c155a4652b65de37162ffbcf8aaba49b4f8c9bd5748b35",
     "advisorySha256": "99250c30da8fcd50d57a75c6fadd238b563e0851ddd64e828cd594554aaed520"
   },
-  "paymentAuthorizedReviewStatus": "QA passed, awaiting merge"
+  "paymentAuthorizedReviewStatus": "Completed and merged",
+  "paymentAuthorizedMergeEvidence": {
+    "pr": 83,
+    "mergeCommit": "b41efac2cad75ef3dda986d3ccdb1d620ebc68c2",
+    "reviewedHead": "0b1676437ffd086730032a1b27ac8b369eda4ca0",
+    "reviewedTree": "e5f989f451e918235d407c81ff8b8ef7fbd7f884",
+    "mergedTree": "e5f989f451e918235d407c81ff8b8ef7fbd7f884",
+    "ciRun": 38920946457,
+    "qaResult": "PASS"
+  },
+  "paymentAuthorizedQaEvidence": {
+    "head": "0b1676437ffd086730032a1b27ac8b369eda4ca0",
+    "tree": "e5f989f451e918235d407c81ff8b8ef7fbd7f884",
+    "base": "ac092fcb7b0ee16459b1ca1177d4b9b10e0df5ce",
+    "result": "PASS",
+    "simulatorTests": 293,
+    "controlTests": 2559,
+    "behaviorProbes": 412,
+    "lifecycleProbes": 607,
+    "ciRun": 38920946457,
+    "ledgerTests": 1785,
+    "realDatabaseTests": 1227,
+    "reviewer": "m04_02_qa",
+    "reviewRecord": "https://github.com/Islem-Rezzag/CausalLedger/pull/83#issuecomment-6218664786",
+    "reviewerResultSha256": "6048e54b2ed979c253fb8dae77fdfb605d6c648bc5d52fc2c7d84fd0364160ab",
+    "bodySha256": "4242b122028c16c903ab39ccee6a9f874c35a36cf0b9dfb73565c94ee5730d6c",
+    "advisorySha256": "b6ed83cd95ee5e7a90bde949a711b50afad781a8a7ab705863bea5bb257f150a"
+  },
+  "paymentCapturedReviewStatus": "Builder complete, awaiting QA"
 }
