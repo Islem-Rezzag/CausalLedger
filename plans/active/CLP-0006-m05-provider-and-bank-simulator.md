@@ -8,7 +8,7 @@ Generate one declared full or partial capture linked to a supplied synthetic aut
 
 - [x] Verified human PR83 merge/final evidence and safe clean03 branch.
 - [x] M05.03 implementation/builder validation.
-- [ ] Independent local QA/sole PR/current CI.
+- [x] Independent local QA/sole PR/current CI.
 - [ ] Final exact-head gates and human03 merge.
 
 Current planning review: Completed and merged
@@ -23,11 +23,13 @@ Current authorization review: Completed and merged
 
 Sole merged M05.02 PR #83
 
-Current capture review: Builder complete, awaiting QA
+Current capture review: QA passed, awaiting merge
+
+Sole proposed M05.03 PR #84
 
 ## Surprises & Discoveries
 
-Initial type-test callback/directive errors and three static test-quality findings fixed. Full regression exposed a dropped completed-M04 navigation link and ledger README formatting; restored/formatted without assertion changes and all78 failed cases rechecked PASS. No confirmed runtime source defect. Independent reviewer remote recheck was auto-review rejected after network denial; local QA remains available; no route retried.
+All candidate findings resolved: initial type-test callback/directive errors; precise duplicate-marker/type-negative fixtures; restored completed-M04 navigation link and formatted ledger README. Initial full controls2649/78 and intermediate15/2/2 were failed runs, followed by all78 focused repair rechecks and fresh clean/independent full2727 PASS; history remains recorded honestly. Reviewer plain sandbox could not access pinnedpnpm/pytest; one normal platform approval granted exact existing tools and all required fresh checks passed without install/alternate runner/configuration change. Prior reviewer GitHub automatic-review rejection remains binding; independent review is local and root primary CI separately attributed.
 
 ## Decision Log
 
@@ -89,7 +91,7 @@ Implement only03 after verified83 merge; deterministic builder checks, independe
 
 ## Validation and Acceptance
 
-Builder checks: simulator470/7files and typecheck/lint/build/format PASS; workspace frozen install/typecheck/lint/test/build/format/validator/whitespace PASS using warm dependencies/Turbo cache. Focused historical/current lifecycle475 PASS. Initial full2727 controls:2649 PASS/78 FAIL (dropped completed-M04 navigation link), then all78 failed cases freshly rechecked PASS in69+9 runs after restoring that link, without weakening assertions. Initial intermediate QA15 PASS/2 FAIL/2 skips (format plus navigation regression); both failures repaired and their checks passed. A fresh complete clean-commit QA remains pending; do not label the initial full run PASS. Scope33/protected350, exact88549-byte merged02 and nested histories/raw19/V1/prior proofs/append-only weekly/unchanged financial+02/generic/config/lock/CI PASS. Independent static reviewers found no remaining substantive defect; three test-quality findings repaired. Local Docker/make unavailable; actual PostgreSQL CI/current independent runtime/final gates pending.
+Candidate independent QA PASS on e8aa4daa4a824b8d18b80046912a7695f89f1f4a/tree3f2e7ee7aa1fb6a12df5da107dd69c108164bb5a: fresh470 simulator/7files,366 behavior,702 lifecycle and2727 controls in353.77s, package type/lint/build/format/validator/whitespace PASS; no findings. Canonical reviewer SHA2567569ac2ccb622e8f8030df7b5ee8ea1bf8ab4e7981575ace142e221536061b7d. Root clean candidate QA18 PASS/0 FAIL/1 optional localDocker skip, no dirtyoverride. Root primary CI39134527410 both jobs SUCCESS:470 simulator/1785 ledger/2727 controls and all14 realPostgreSQL1227/no skips; THREE migrations recovery, both populated upgrades, exactschema/DEMO and owned+Composecleanup PASS. Actual tested d106060952e6da93321f6b66014ddbc3ba5ea4a4 parentsb41+e8aa/tree3f2/full localdiffEMPTY independently checked locally. Source/control/tests/spec remain byte-identical through361 nontracking paths; only22 legitimate handoff/navigation/status files change. Final-head clean QA/currentCI/independent local acceptance/publication/readback are required external gates after this handoff commit, with no further CI-copy-only commit. Warm dependencies/Turbocache; no cold-cache, systeminstall, live-model or localPostgreSQL claim. Reviewer primary-network denial remains respected; actual current GitHub/CI evidence is root-verified and explicitly attributed.
 
 Applicable Levels0–5/7/8; Level6 N/A. Root actual current CI and independent local exact-head QA are separate gates; no local PostgreSQL or cold-cache claim.
 
@@ -99,7 +101,7 @@ Pure deterministic memory-only generator; no input/raw evidence modification, st
 
 ## Artifacts and Notes
 
-Root-owned ignored base/scope/hash snapshots and verified83 proofs retained. New spec will pin request/output/error/byte contracts. Actual final QA/CI evidence belongs in sole PR.
+Root-owned ignored base/scope/hash snapshots and verified83 proofs retained. New spec pins request/output/error/byte contracts. Actual final QA/CI evidence belongs in sole PR.
 
 ## Interfaces and Dependencies
 
@@ -107,7 +109,7 @@ Private @causalledger/simulator; zero runtime package dependencies. New21-field 
 
 ## Outcomes & Retrospective
 
-Builder complete, awaiting QA. Run clean committed candidate QA, existing independent local behavioral/lifecycle/full controls and root actual CI for the sole03 PR, then final exact-head gates and human merge. No04 before verified03 merge. Root runs tests; user none. Native goal remains user-paused.
+QA passed, awaiting merge. Complete exact-final-head clean QA, actual CI and independent local acceptance; publish canonical report/body/advisory and verify readiness, then PAUSED: HUMAN MERGE REQUIRED for sole PR84. Human alone Squash and merges. Verify actual84 merge before M05.04 Simulate payout created; later16 rows/M06–M21 remain closed. Root runs tests; user none. Native goal remains user-paused.
 
 ## Generated M05.03 builder and QA brief (2026-10-18)
 
@@ -129,11 +131,11 @@ Record actual results, cache/skips/warnings/findings and safe-to-commit/push/ope
 
 ## M05.03 current checkpoint (2026-10-18)
 
-M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are Completed and merged in verified PR82/PR83. M05.03 Simulate payment captured is Builder complete, awaiting QA on m05-03-simulate-payment-captured under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Synthetic capture composition is implemented; M05.04–M05.19 and M06–M21 remain Not started/unbound.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are Completed and merged in verified PR82/PR83. M05.03 Simulate payment captured is QA passed, awaiting merge for sole PR #84 on m05-03-simulate-payment-captured under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Synthetic capture composition is implemented; M05.04–M05.19 and M06–M21 remain Not started/unbound.
 
-Builder checks: simulator470/7files and typecheck/lint/build/format PASS; workspace frozen install/typecheck/lint/test/build/format/validator/whitespace PASS using warm dependencies/Turbo cache. Focused historical/current lifecycle475 PASS. Initial full2727 controls:2649 PASS/78 FAIL (dropped completed-M04 navigation link), then all78 failed cases freshly rechecked PASS in69+9 runs after restoring that link, without weakening assertions. Initial intermediate QA15 PASS/2 FAIL/2 skips (format plus navigation regression); both failures repaired and their checks passed. A fresh complete clean-commit QA remains pending; do not label the initial full run PASS. Scope33/protected350, exact88549-byte merged02 and nested histories/raw19/V1/prior proofs/append-only weekly/unchanged financial+02/generic/config/lock/CI PASS. Independent static reviewers found no remaining substantive defect; three test-quality findings repaired. Local Docker/make unavailable; actual PostgreSQL CI/current independent runtime/final gates pending.
+Candidate independent QA PASS on e8aa4daa4a824b8d18b80046912a7695f89f1f4a/tree3f2e7ee7aa1fb6a12df5da107dd69c108164bb5a: fresh470 simulator/7files,366 behavior,702 lifecycle and2727 controls in353.77s, package type/lint/build/format/validator/whitespace PASS; no findings. Canonical reviewer SHA2567569ac2ccb622e8f8030df7b5ee8ea1bf8ab4e7981575ace142e221536061b7d. Root clean candidate QA18 PASS/0 FAIL/1 optional localDocker skip, no dirtyoverride. Root primary CI39134527410 both jobs SUCCESS:470 simulator/1785 ledger/2727 controls and all14 realPostgreSQL1227/no skips; THREE migrations recovery, both populated upgrades, exactschema/DEMO and owned+Composecleanup PASS. Actual tested d106060952e6da93321f6b66014ddbc3ba5ea4a4 parentsb41+e8aa/tree3f2/full localdiffEMPTY independently checked locally. Source/control/tests/spec remain byte-identical through361 nontracking paths; only22 legitimate handoff/navigation/status files change. Final-head clean QA/currentCI/independent local acceptance/publication/readback are required external gates after this handoff commit, with no further CI-copy-only commit. Warm dependencies/Turbocache; no cold-cache, systeminstall, live-model or localPostgreSQL claim. Reviewer primary-network denial remains respected; actual current GitHub/CI evidence is root-verified and explicitly attributed.
 
-Run clean committed candidate QA, existing independent local behavioral/lifecycle/full controls and root actual CI for the sole03 PR, then final exact-head gates and human merge. No04 before verified03 merge. Root runs tests; user none. Native goal remains user-paused.
+Complete exact-final-head clean QA, actual CI and independent local acceptance; publish canonical report/body/advisory and verify readiness, then PAUSED: HUMAN MERGE REQUIRED for sole PR84. Human alone Squash and merges. Verify actual84 merge before M05.04 Simulate payout created; later16 rows/M06–M21 remain closed. Root runs tests; user none. Native goal remains user-paused.
 
 ## Historical merged M05.02 record (immutable)
 
