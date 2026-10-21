@@ -2,7 +2,7 @@
 
 M05.01 implements a private package foundation with readonly synthetic source, delivery, validation-result and versioned manifest contracts. validateSimulatorManifest checks unknown caller input, references and exact UTF-8 integrity and returns a detached, deeply frozen manifest or stable issues with no partial value.
 
-M05.02 adds only generatePaymentAuthorized: one labelled synthetic payment_authorized occurrence and declared delivery from explicit validated inputs. Other payment/provider/bank generators, seed execution, delivery scheduling, CSV and CLI remain unimplemented. This package does not connect to a provider, ingest receipts or store evidence. It has no financial-write API, ledger dependency or agent tool. Source payloads are opaque; a valid description does not validate financial amounts/currency, source authenticity or economic truth.
+M05.02 adds only generatePaymentAuthorized: one labelled synthetic payment_authorized occurrence and declared delivery from explicit validated inputs. M05.03 adds generatePaymentCaptured: one full or partial capture backed by an exact generated authorization, preserving its source/delivery. Other provider/bank generators, seed execution, delivery scheduling, CSV and CLI remain unimplemented. This package does not connect to a provider, ingest receipts or store evidence. It has no financial-write API, ledger dependency or agent tool. The generic validator treats payloads as opaque; authorization/capture generators validate their owned wire and exact amount/currency relations. Neither establishes source authenticity or economic truth.
 
 ## Contract
 
@@ -19,7 +19,7 @@ Identifiers use a simulator-local prefix and a 1–64 character ASCII token star
 | deliveryId          | `sim_delivery_` | Unique delivery description                                              |
 | receiptDescriptorId | `sim_receipt_`  | Unique synthetic receipt description; no actual durable receipt          |
 
-The generic validator generates no IDs, clocks or source events; the authorized generator creates its declared synthetic raw occurrence only. These local descriptors do not allocate ADR-0008 durable `rcpt_`/`evt_` IDs and do not establish actual evidence receipt ingestion.
+The generic validator generates no IDs, clocks or source events; the authorization and capture generators create their declared synthetic raw occurrences only. These local descriptors do not allocate ADR-0008 durable `rcpt_`/`evt_` IDs and do not establish actual evidence receipt ingestion.
 
 Each source has sourceType provider/bank, eventTime (UTC string or null for explicitly unknown time), and payload: encoding utf-8; mediaType application/json, text/csv or text/plain; text; lowercase 64-character SHA256. Hashing covers exact supplied UTF-8 bytes. BOM, CRLF, whitespace, composed/decomposed Unicode and empty text are preserved. Lone UTF-16 surrogates are refused rather than silently replaced. Payload text is not parsed or reserialized.
 
@@ -49,10 +49,16 @@ The coordinator runs this test for the user. Unit tests also check independent U
 
 packages/simulator owns this offline foundation. Connectors, evidence, canonical events and ledger retain their separate boundaries. All previous source/tests/migrations/runner/fixtures are preserved. Later amount/currency/event-kind/seed/CSV/CLI rules belong to their original M05 owners and require versioned compatibility decisions.
 
-Active plan: plans/active/CLP-0006-m05-provider-and-bank-simulator.md. M05.01 human PR82 merge is verified; M05.02 implements payment authorization only. See ../../docs/specs/simulator-payment-authorized.md for complete request/context/error/byte contracts. M05.03 Simulate payment captured remains gated on02 independent QA and verified human merge.
+Active plan: plans/active/CLP-0006-m05-provider-and-bank-simulator.md. M05.01 human PR82 merge is verified; M05.02 payment authorization is human-merged in PR83; M05.03 adds one synthetic authorization-backed capture. See ../../docs/specs/simulator-payment-authorized.md for complete request/context/error/byte contracts. See ../../docs/specs/simulator-payment-captured.md for the capture contract. M05.04 Simulate payout created remains gated on03 independent QA and verified human merge.
 
 ## Payment authorization example
 
 Supply all20 explicit request fields and matching6-field context. amountMinorUnits "1250" with USD produces a synthetic authorization record; "12.50" is rejected as invalid_amount without a partial value. Positive canonical strings through128digits are exact; currency is3 uppercase ASCII letters with per-call equality, not an ISO catalogue lookup. Required known UTC event time and independent declared observation clocks are preserved. The result is frozen and hashed, with no actual payment authorization or ledger action.
 
     pnpm --filter @causalledger/simulator test -- test/payment-authorized.test.ts
+
+## Payment capture example
+
+Supply the21-field capture request with a valid generated02 authorizationManifest, matching identities/currency, a distinct capture occurrence, known event time at/after authorization and exact positive amount. A1250 USD authorization accepts a1000 USD partial capture and refuses1251 USD. Output preserves the original source/delivery exactly and appends the capture citing the original raw SHA256. It has no cumulative remaining-budget or real money authority. Full contract: ../../docs/specs/simulator-payment-captured.md.
+
+    pnpm --filter @causalledger/simulator test -- test/payment-captured.test.ts

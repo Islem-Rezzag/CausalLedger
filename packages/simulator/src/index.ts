@@ -26,3 +26,14 @@ export type {
   PaymentAuthorizedIssue,
   PaymentAuthorizedResult,
 } from "./payment-authorized.js";
+export {
+  PAYMENT_CAPTURED_REQUEST_VERSION,
+  PAYMENT_CAPTURED_RECORD_VERSION,
+  PAYMENT_CAPTURED_GENERATOR_VERSION,
+  generatePaymentCaptured,
+} from "./payment-captured.js";
+export type {
+  PaymentCapturedRequest,
+  PaymentCapturedIssue,
+  PaymentCapturedResult,
+} from "./payment-captured.js";

@@ -72,6 +72,7 @@ export const simulatorPackageBoundary = Object.freeze({
   exactUtf8IntegrityValidationImplemented: true,
   providerGenerationImplemented: true,
   paymentAuthorizedGenerationImplemented: true,
+  paymentCapturedGenerationImplemented: true,
   bankGenerationImplemented: false,
   seedExecutionImplemented: false,
   cliImplemented: false,
