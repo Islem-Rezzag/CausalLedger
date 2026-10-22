@@ -41,7 +41,7 @@ Safe to commit/push/update sole PR after pending candidate database cleanup; tec
 
 ### Final handoff historical-record repair
 
-Independent delta review found three unintended changes in old2026-10-12/13 goal checkpoints caused by a broad status replacement. Root restored the entire historical goal tail from accepted candidate1814a5be, preserving only the current learning/PR87 update. Prior recorded builder status is truthful again. No product/test/validator/spec/config/CI bytes changed; independent corrected-head verification and affected state tests remain required. This is a scoped confirmed-review repair, not a CI-copy commit.
+Independent delta review found a broad status replacement had changed three old2026-10-12/13 goal checkpoints, one historical capability-matrix paragraph and the registry status legend. First repair restored the complete historical goal tail; follow-up restored the old capability paragraph and canonical pending/QA status legend. Root inspected the full aggregate status delta, preserving only intended current07/08 transitions. Historical goal/capability records match accepted candidate1814a5be again; the registry legend retains builder and QA states. No product/test/validator/spec/config/CI bytes changed; independent corrected-head verification and affected state tests remain required. This is a scoped confirmed-review repair, not a CI-copy commit.
 
 ## Historical payout delivery checkpoint
 

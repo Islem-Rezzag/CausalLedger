@@ -2,7 +2,7 @@
 
 This is the canonical M00-M21 submilestone registry for CausalLedger.
 
-Status values: Not started, QA passed, awaiting merge, QA passed, awaiting merge, QA passed, awaiting merge, Completed and merged, Blocked, Deferred.
+Status values: Not started, Builder in progress, Builder complete, awaiting QA, QA passed, awaiting merge, Completed and merged, Blocked, Deferred.
 
 | ID | Name | Milestone | Status | Active Plan | Branch | PR | Last Validation | Last Updated | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
