@@ -39,6 +39,10 @@ Sole draft [PR87](https://github.com/Islem-Rezzag/CausalLedger/pull/87); initial
 
 Safe to commit/push/update sole PR after pending candidate database cleanup; technical merge readiness remains pending final gates. PR stays draft for mandatory A–F learning: refund understanding/personal exercise not yet claimed. Human alone merges; no09 until verified merge and required learning. Root runtime idle while independent checks execute; no local PostgreSQL/install/paidcall/settings/native Goal changes.
 
+### Final handoff historical-record repair
+
+Independent delta review found three unintended changes in old2026-10-12/13 goal checkpoints caused by a broad status replacement. Root restored the entire historical goal tail from accepted candidate1814a5be, preserving only the current learning/PR87 update. Prior recorded builder status is truthful again. No product/test/validator/spec/config/CI bytes changed; independent corrected-head verification and affected state tests remain required. This is a scoped confirmed-review repair, not a CI-copy commit.
+
 ## Historical payout delivery checkpoint
 
 The following payout/amendment/capture sections are retained historical checkpoints. Current refund scope above supersedes their pending gates; original acceptance criteria remain authoritative.
