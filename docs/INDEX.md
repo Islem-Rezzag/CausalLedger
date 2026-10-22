@@ -139,7 +139,7 @@ M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.03 are Co
 Current formal-closeout packet: `docs/status/M04_CLOSEOUT.md`; M04 is completed; current planning uses plans/active/CLP-0006-m05-provider-and-bank-simulator.md.
 
 
-Current M05.03 capture: M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are Completed and merged in verified PR82/PR83. M05.03 Simulate payment captured is QA passed, awaiting merge for sole PR #84 on m05-03-simulate-payment-captured under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Synthetic capture composition is implemented; M05.04–M05.19 and M06–M21 remain Not started/unbound.
+Historical M05.03 capture snapshot (superseded by current payout state above): M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are Completed and merged in verified PR82/PR83. M05.03 Simulate payment captured is QA passed, awaiting merge for sole PR #84 on m05-03-simulate-payment-captured under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Synthetic capture composition is implemented; M05.04–M05.19 and M06–M21 remain Not started/unbound.
 
 
 ## M05.02 current checkpoint (2026-10-16)

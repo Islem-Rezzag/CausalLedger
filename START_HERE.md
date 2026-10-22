@@ -63,7 +63,7 @@ The handoff packet must include files created, files changed, files intentionall
 
 - Do not implement product functionality outside the active submilestone.
 - Do not extend MoneyEvent logic beyond the active source-neutral boundary.
-- Keep current work inside M05.03 synthetic capture. Human PR83 authorization merge is verified; later sixteen rows wait for their own dependencies/human merges. No financial authority is added.
+- Keep current work inside the mapped M05.04–M05.06 synthetic payout unit in CLP0006. Capture84 and workflow85 human merges are verified; the next unit waits for independent review/final CI, required learning and human merge. No financial authority is added.
 - Do not implement invariants.
 - Do not implement the agent runtime.
 - Do not implement UI features.
@@ -75,7 +75,7 @@ The handoff packet must include files created, files changed, files intentionall
 The correct first success is that Codex can read the repo, understand current project state, and safely continue from active docs without chat memory.
 
 
-Current M05.03 capture: M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are Completed and merged in verified PR82/PR83. M05.03 Simulate payment captured is QA passed, awaiting merge for sole PR #84 on m05-03-simulate-payment-captured under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Synthetic capture composition is implemented; M05.04–M05.19 and M06–M21 remain Not started/unbound.
+Historical M05.03 capture snapshot (superseded by current payout state above): M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are Completed and merged in verified PR82/PR83. M05.03 Simulate payment captured is QA passed, awaiting merge for sole PR #84 on m05-03-simulate-payment-captured under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Synthetic capture composition is implemented; M05.04–M05.19 and M06–M21 remain Not started/unbound.
 
 
 ## M05.02 current checkpoint (2026-10-16)

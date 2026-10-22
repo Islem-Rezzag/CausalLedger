@@ -40,6 +40,10 @@ Sole draft [PR86](https://github.com/Islem-Rezzag/CausalLedger/pull/86), real pu
 
 This legitimate handoff binds actual own PR and accepted candidate QA in existing state/registry/current goal/navigation; all product, test, validator, spec, config/dependency/CI and historical data bytes remain unchanged from accepted candidate. Independently review final tracking delta/exact head and affected state tests, then verify both actual final CI jobs and tested checkout tree/diff. Carry candidate626/full2751/162probes by verified byte identity; do not call them fresh final-head reruns. Detailed final proof/report/body/advisory/readiness belongs in this sole PR with no CI-copy-only commit. Safe to commit/push/update the same PR; final technical merge readiness still pending those exact-state gates. Draft stays for mandatory A–F learning; no payout understanding/personal run claimed. Human alone merges; no07 before verified merge and required learning. Native Goal remains user-paused.
 
+### Final navigation review repair (2026-10-22)
+
+Independent final-delta review found stale active ROADMAP03-only status/gating text missed by the earlier candidate review. Root repaired current roadmap status/unit/guardrails and START_HERE active guard to03merged/04–06PR86, labeled retained capture navigation paragraphs historical/superseded, and updated the active contract catalogue. No acceptance/history/financial source/test/validator/spec/config/CI bytes changed. Separate static re-review PASS, no further active navigation conflict found. Existing validator/whitespace PASS; corrected clean head still requires independent affected state tests and actual final-head CI. Prior in-progress CI is allowed to complete database acceptance/cleanup before pushing this scoped metadata fix; never cancel or abandon it. This is a confirmed scoped review repair, not a CI-copy-only commit. Detailed final proof remains in PR86.
+
 All amendment setup and03 handoff sections below are retained historical snapshots; the current payout unit above governs this delivery. Original acceptance criteria remain authoritative.
 
 ## Delivery-workflow amendment setup (2026-10-22)
