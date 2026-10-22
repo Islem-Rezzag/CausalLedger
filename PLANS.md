@@ -32,11 +32,11 @@ Use `CLP-0001-short-name.md`. Increment the number monotonically and keep the sh
 - Completed plans move to `plans/completed/`.
 - Archived or stale plans move to `plans/archived/`.
 
-Current active milestone plan: plans/active/CLP-0006-m05-provider-and-bank-simulator.md; M05.04–M05.06 synthetic payout lifecycle. M04 is completed at plans/completed/CLP-0005-m04-double-entry-ledger-core.md.
+Current active milestone plan: plans/active/CLP-0006-m05-provider-and-bank-simulator.md; M05.07–M05.08 synthetic refund lifecycle. M04 is completed at plans/completed/CLP-0005-m04-double-entry-ledger-core.md.
 
 The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.03 are Completed and merged in verified PR82/83/84. M05.04–M05.06 synthetic payout lifecycle is QA passed, awaiting merge for sole PR #86 on codex/m05-payout-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Creation/paid/failed compositions are implemented and builder-tested; Candidate independent QA/CI passed; final reviewed-head confirmation/CI, learning and human merge remain pending. M05.07–M05.19 and M06–M21 remain Not started/unbound.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.06 are Completed and merged, including verified human PR86. M05.07–M05.08 synthetic refund lifecycle is Builder complete, awaiting QA on codex/m05-refund-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Full/partial/multiple refund creation and paid evidence are implemented and builder-tested; independent QA, current CI, learning and human merge remain pending. M05.09–M05.19 and M06–M21 remain Not started/unbound.
 
 Progress is recorded in the active plan during the slice. Submilestone status is recorded in `docs/milestones/SUBMILESTONE_REGISTRY.md`, reflected in the relevant milestone doc, and summarized in `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md`.
 
@@ -100,7 +100,7 @@ Do not move an active plan to `plans/completed/` until milestone closeout is com
 Plans must describe only implemented or explicitly planned work. Do not mark a submilestone fully complete until required validation has passed, QA has recorded PASS, and the PR has merged. Do not claim placeholder directories, future modules, or roadmap items as working features.
 
 
-Historical M05.03 capture snapshot (superseded by current payout state above): M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are Completed and merged in verified PR82/PR83. M05.03 Simulate payment captured is QA passed, awaiting merge for sole PR #84 on m05-03-simulate-payment-captured under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Synthetic capture composition is implemented; M05.04–M05.19 and M06–M21 remain Not started/unbound.
+Historical M05.03 capture snapshot (superseded by current refund state above): M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are Completed and merged in verified PR82/PR83. M05.03 Simulate payment captured is QA passed, awaiting merge for sole PR #84 on m05-03-simulate-payment-captured under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Synthetic capture composition is implemented; M05.04–M05.19 and M06–M21 remain Not started/unbound.
 
 
 ## M05.02 current checkpoint (2026-10-16)

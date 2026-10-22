@@ -17,7 +17,8 @@
 | Simulator manifest foundation | Completed and merged | Human PR82/final QA/CI verified; strict generic synthetic manifest types and deterministic UTF8 hash/reference validation. |
 | Synthetic payment authorization | Completed and merged | Human PR83 final QA/CI/merge verified. |
 | Synthetic payment capture | Completed and merged | Human PR84 merge/final QA verified; synthetic only. |
-| Synthetic payout lifecycle | QA passed, awaiting merge | M05.04–06 full gross capture aggregation and created/paid/failed evidence; Sole PR86 candidate QA/CI PASS; final reviewed-head gates/learning/human merge pending. |
+| Synthetic payout lifecycle | Completed and merged | Human PR86, exact reviewed-tree merge and final QA/CI verified; provider assertions preserve original evidence. |
+| Synthetic refund lifecycle | Builder complete, awaiting QA | M05.07–08 bounded full/partial/multiple refund creation and paid evidence implemented; validation/review/CI/human gates pending. |
 | Invariant engine | Not started | No product logic |
 | Incident engine | Not started | No product logic |
 | Causal graph | Not started | No product logic |
@@ -64,7 +65,7 @@ Current02 generator validation is recorded in CURRENT_STATE.md and active CLP000
 
 ## M05.03 current checkpoint (2026-10-18)
 
-M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.03 are Completed and merged in verified PR82/83/84. M05.04–M05.06 synthetic payout lifecycle is QA passed, awaiting merge for sole PR #86 on codex/m05-payout-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Creation/paid/failed compositions are implemented and builder-tested; Candidate independent QA/CI passed; final reviewed-head confirmation/CI, learning and human merge remain pending. M05.07–M05.19 and M06–M21 remain Not started/unbound.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.06 are Completed and merged, including verified human PR86. M05.07–M05.08 synthetic refund lifecycle is Builder complete, awaiting QA on codex/m05-refund-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Full/partial/multiple refund creation and paid evidence are implemented and builder-tested; independent QA, current CI, learning and human merge remain pending. M05.09–M05.19 and M06–M21 remain Not started/unbound.
 
 Candidate independent QA PASS on e8aa4daa4a824b8d18b80046912a7695f89f1f4a/tree3f2e7ee7aa1fb6a12df5da107dd69c108164bb5a: fresh470 simulator/7files,366 behavior,702 lifecycle and2727 controls in353.77s, package type/lint/build/format/validator/whitespace PASS; no findings. Canonical reviewer SHA2567569ac2ccb622e8f8030df7b5ee8ea1bf8ab4e7981575ace142e221536061b7d. Root clean candidate QA18 PASS/0 FAIL/1 optional localDocker skip, no dirtyoverride. Root primary CI39134527410 both jobs SUCCESS:470 simulator/1785 ledger/2727 controls and all14 realPostgreSQL1227/no skips; THREE migrations recovery, both populated upgrades, exactschema/DEMO and owned+Composecleanup PASS. Actual tested d106060952e6da93321f6b66014ddbc3ba5ea4a4 parentsb41+e8aa/tree3f2/full localdiffEMPTY independently checked locally. Source/control/tests/spec remain byte-identical through361 nontracking paths; only22 legitimate handoff/navigation/status files change. Final-head clean QA/currentCI/independent local acceptance/publication/readback are required external gates after this handoff commit, with no further CI-copy-only commit. Warm dependencies/Turbocache; no cold-cache, systeminstall, live-model or localPostgreSQL claim. Reviewer primary-network denial remains respected; actual current GitHub/CI evidence is root-verified and explicitly attributed.
 
