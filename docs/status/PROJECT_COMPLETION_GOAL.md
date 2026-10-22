@@ -8,15 +8,14 @@ Human approval received on 2026-09-24 in Codex task `01a0d3ba-f6d3-7322-92b5-810
 
 ## Delivery and learning checkpoint (2026-10-22)
 
-- Current capability/milestone: M05.03 authorization-backed synthetic capture; M00–M04 closed. No M05.04 or later capability has started.
-- Actual source checkpoint: human PR [#84](https://github.com/Islem-Rezzag/CausalLedger/pull/84) merged on 2026-10-21 at `55964ee726abc13793ef9c5fe25f058afe81bc94`; reviewed tree matches, full diff empty, fetched-main reachability verified. No open PR existed at setup discovery; #85 was not assumed to be a feature.
-- Current branch/PR: `codex/delivery-learning-workflow`; preparing the sole workflow-only amendment PR. Its actual final head, review, CI and PR URL belong in the review record. Product progression remains paused.
-- Last capability personally reviewed: no completed learning checkpoint is recorded. User reported feeling behind; no personal demonstration run has been reported. Understanding and hands-on execution remain pending, not inferred from past merge/continue messages.
-- Fresh coordinator demonstration: existing capture suite 176/176 PASS; authorization `1250` USD minor units + capture `1000` returns two source records/two deliveries, preserves original authorization and cites its hash. `1251` returns `invalid_amount` at `$.amountMinorUnits`. No real money, posting, settlement or cumulative remaining-balance claim.
-- Outstanding prerequisite: A–F capture walkthrough and up to three teach-back answers; do not mark understood or run on the user's behalf. Explicit deferral remains deferred.
-- Next checkpoint/reason: capture learning plus review of this delivery-policy amendment, before any dependent product capability.
-- Next gate: independent amendment review/validation/final-state CI, user responses and human merge. Afterwards reread changed instructions, verify squash merge and obtain prerequisite understanding before generating the first authorized capability brief. No bundle, product scope or sequencing change is selected here.
-- Persistent state note: JSON and registry retain the validated M05.03 pre-merge feature snapshot. This current Markdown overlay records verified post-merge/setup facts without inventing a new schema; update machine-consumed feature state in the next legitimate capability change with its consumer/tests. Older feature handoff/next-gate paragraphs below are historical snapshots, superseded for current coordinator action by this section.
+- Current capability/milestone: M05.04–M05.06 synthetic payout lifecycle under existing CLP0006; M00–M04 closed, M05.01–03 human-merged. Branch `codex/m05-payout-lifecycle`, sole PR not created yet; separate review/CI/learning/human merge pending.
+- Verified predecessor: human PR85 squash `9ef19fadb1263a182ed1ccb33c6e07229711fa4b`, parent55964ee726abc13793ef9c5fe25f058afe81bc94, reviewed treea1d7c4254f34f0fb955947cfbc835fbfa2086fda, source diff empty/main reachable. Merged AGENTS/WORKFLOW explicitly reread; delivery amendment now effective.
+- Last user-reviewed capability: introductory03 capture walkthrough complete. User identified synthetic output, refusal above authorization and retaining original evidence. Coordinator clarified that authorized and captured records can both accurately describe different stages; no broader mastery claimed.
+- User-reported execution: user says all176 capture tests passed and they tried it. Personal execution is user-reported, not independently observed. No payout exercise or understanding yet reported.
+- Current scope: one bounded payout unit groups1–16 full gross captures, then preserves created/paid/failed provider assertions; no bank/settlement truth, global funds budget, financial writes or later milestone work.
+- Next checkpoint/reason: A–F payout walkthrough after actual tests and independent review; aggregate membership and contradictory outcomes are new concepts. No repeated capture exam.
+- Next technical/human gate: implement mapped04→05→06 with deterministic checks, independent review and actual final-state CI; present actual I/O, then wait for learning response and human merge. M05.07+ stays unstarted. Native Goal stays user-paused.
+- Earlier handoff paragraphs below are historical snapshots. Current machine state is updated with its existing consumers/tests as part of this legitimate capability change; detailed exact-head proof belongs in the sole PR review record.
 
 ## Verified checkpoint
 
