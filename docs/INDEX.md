@@ -127,7 +127,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.03 are Completed and merged in verified PR82/83/84. M05.04–M05.06 synthetic payout lifecycle is Builder complete, awaiting QA on codex/m05-payout-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Creation/paid/failed compositions are implemented and builder-tested; independent review/current CI/learning/human merge remain pending. M05.07–M05.19 and M06–M21 remain Not started/unbound.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.03 are Completed and merged in verified PR82/83/84. M05.04–M05.06 synthetic payout lifecycle is QA passed, awaiting merge for sole PR #86 on codex/m05-payout-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Creation/paid/failed compositions are implemented and builder-tested; Candidate independent QA/CI passed; final reviewed-head confirmation/CI, learning and human merge remain pending. M05.07–M05.19 and M06–M21 remain Not started/unbound.
 
 - `docs/specs/ledger-account-balance-query.md` - M04.06 read-only exact account/currency totals, sign, cutoff and committed-snapshot semantics.
 - `docs/specs/ledger-transaction-query.md` - M04.07 complete journal identity/reference/account-currency queries and explicit page boundaries.

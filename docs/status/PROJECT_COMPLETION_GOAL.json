@@ -16,12 +16,12 @@
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
   "currentMilestone": "M05.04\u2013M05.06",
   "currentBranch": "codex/m05-payout-lifecycle",
-  "currentPr": null,
+  "currentPr": 86,
   "latestMergedPr": 85,
   "latestMergeCommit": "9ef19fadb1263a182ed1ccb33c6e07229711fa4b",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "Builder PASS:2751 controls in520.69s;626 simulator tests/9files; workspace type/lint/test/build/format; actual stdin payout demo; whitespace/scope/history/links. Independent exact-state QA pending.",
-  "remoteCiStatus": "Current payout CI pending; historical85 CI39760521576 passed",
+  "localTestStatus": "Candidate independent PASS c6351c49/tree7371c5d:626 simulator/2751 controls/162 separate API probes; root workspace/scope/demo PASS. Final tracking delta confirmation pending.",
+  "remoteCiStatus": "Candidate39771472602 bothSUCCESS:626 simulator/2751 controls/1785 ledger/all14 realPostgreSQL1227/0skips; final reviewed-head CI pending.",
   "dockerStatus": "UNAVAILABLE_LOCALLY_APPROVED_OWNED_POSTGRES17_CI_ROUTE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -92,9 +92,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "Complete mapped04\u201306 payout lifecycle checks and independent review; actual final PR CI then A\u2013F learning and human review/merge. M05.07+ unstarted.",
-  "stopReason": "CAPABILITY_DELIVERY_IN_PROGRESS",
-  "lastUpdatedTimestamp": "2026-10-22T11:32:07Z",
+  "exactNextAction": "Confirm scoped final PR86 binding/handoff delta independently and actual final-head CI; then A\u2013F payout learning and human review/merge. PR86 remains draft until learning response. M05.07+ unstarted.",
+  "stopReason": "FINAL_REVIEW_AND_CI_PENDING",
+  "lastUpdatedTimestamp": "2026-10-22T11:44:33Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -622,7 +622,7 @@
     "advisorySha256": "b6ed83cd95ee5e7a90bde949a711b50afad781a8a7ab705863bea5bb257f150a"
   },
   "paymentCapturedReviewStatus": "Completed and merged",
-  "payoutLifecycleReviewStatus": "Builder complete, awaiting QA",
+  "payoutLifecycleReviewStatus": "QA passed, awaiting merge",
   "payoutPrerequisites": {
     "capturePr": 84,
     "captureMerge": "55964ee726abc13793ef9c5fe25f058afe81bc94",

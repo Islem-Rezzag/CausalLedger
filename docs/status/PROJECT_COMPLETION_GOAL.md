@@ -8,13 +8,13 @@ Human approval received on 2026-09-24 in Codex task `01a0d3ba-f6d3-7322-92b5-810
 
 ## Delivery and learning checkpoint (2026-10-22)
 
-- Current capability/milestone: M05.04–M05.06 synthetic payout lifecycle under existing CLP0006; M00–M04 closed, M05.01–03 human-merged. Branch `codex/m05-payout-lifecycle`, sole PR not created yet; separate review/CI/learning/human merge pending.
+- Current capability/milestone: M05.04–M05.06 synthetic payout lifecycle under existing CLP0006; M00–M04 closed, M05.01–03 human-merged. Branch `codex/m05-payout-lifecycle`, sole draft [PR86](https://github.com/Islem-Rezzag/CausalLedger/pull/86). Candidate independent QA/CI passed; final reviewed-head gates, learning and human merge pending.
 - Verified predecessor: human PR85 squash `9ef19fadb1263a182ed1ccb33c6e07229711fa4b`, parent55964ee726abc13793ef9c5fe25f058afe81bc94, reviewed treea1d7c4254f34f0fb955947cfbc835fbfa2086fda, source diff empty/main reachable. Merged AGENTS/WORKFLOW explicitly reread; delivery amendment now effective.
 - Last user-reviewed capability: introductory03 capture walkthrough complete. User identified synthetic output, refusal above authorization and retaining original evidence. Coordinator clarified that authorized and captured records can both accurately describe different stages; no broader mastery claimed.
 - User-reported execution: user says all176 capture tests passed and they tried it. Personal execution is user-reported, not independently observed. No payout exercise or understanding yet reported.
 - Current scope: one bounded payout unit groups1–16 full gross captures, then preserves created/paid/failed provider assertions; no bank/settlement truth, global funds budget, financial writes or later milestone work.
 - Next checkpoint/reason: A–F payout walkthrough after actual tests and independent review; aggregate membership and contradictory outcomes are new concepts. No repeated capture exam.
-- Next technical/human gate: implement mapped04→05→06 with deterministic checks, independent review and actual final-state CI; present actual I/O, then wait for learning response and human merge. M05.07+ stays unstarted. Native Goal stays user-paused.
+- Next technical/human gate: confirm final PR86 tracking delta and final reviewed-state CI after candidate independent626/2751/162probes and CI39771472602 realPG1227 PASS; present actual I/O, then wait for payout learning response and human merge. PR86 remains draft during learning. M05.07+ stays unstarted. Native Goal stays user-paused.
 - Earlier handoff paragraphs below are historical snapshots. Current machine state is updated with its existing consumers/tests as part of this legitimate capability change; detailed exact-head proof belongs in the sole PR review record.
 
 ## Verified checkpoint
