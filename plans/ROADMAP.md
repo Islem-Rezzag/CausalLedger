@@ -1,9 +1,9 @@
 # CausalLedger Roadmap
 
-- M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.03 are Completed and merged in verified PR82/83/84. M05.04–M05.06 synthetic payout lifecycle is QA passed, awaiting merge for sole PR #86 on codex/m05-payout-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Creation/paid/failed compositions are implemented and builder-tested; Candidate independent QA/CI passed; final reviewed-head confirmation/CI, learning and human merge remain pending. M05.07–M05.19 and M06–M21 remain Not started/unbound.
-Current status: M04 is Completed after human PR80 closeout. M05 is In progress:01–03 Completed and merged in PR82/83/84; mapped04–06 payout unit has candidate QA/CI PASS in sole draftPR86, with final reviewed-head gates/learning/human merge pending. Rows07–19 and M06–M21 remain Not started/unbound; M02 deferrals unchanged.
+- M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.06 are Completed and merged, including verified human PR86. M05.07–M05.08 synthetic refund lifecycle is QA passed, awaiting merge for sole draft PR #87 on codex/m05-refund-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Full/partial/multiple refund creation and paid evidence are implemented and independently reviewed; final handoff confirmation, current CI, learning and human merge remain pending. M05.09–M05.19 and M06–M21 remain Not started/unbound.
+Current status: M04 is Completed after human PR80 closeout. M05 is In progress:01–06 Completed and merged; mapped07–08 refund unit is QA passed, awaiting merge. Rows09–19 and M06–M21 remain Not started/unbound; M02 deferrals unchanged.
 
-The table aggregates original submilestone statuses. Verified capture84 and workflow85 human merges permit the mapped04–06 payout unit in CLP0006. Internal technical dependencies stay ordered; the next delivery unit requires independent QA, required learning and verified human merge under WORKFLOW.md. Separate whole-M05 QA and milestone closeout remain mandatory.
+The table aggregates original submilestone statuses. Verified payout86 and capture84 human merges permit the mapped07–08 refund unit in CLP0006. Internal technical dependencies stay ordered; the next delivery unit requires independent QA, required learning and verified human merge under WORKFLOW.md. Separate whole-M05 QA and milestone closeout remain mandatory.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 
@@ -51,9 +51,9 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 - `apps/agent-runtime` creation is deferred to the M10 era because agent runtime should not exist before deterministic evidence, MoneyEvent, invariant, incident, graph, replay, and repair boundaries exist.
 - Redis is deferred until needed because no queue or scheduler should be added before the worker or orchestration design proves the need.
 - M03 planning and M03.01 through M03.06 are completed and merged. PR #55 merged M03.05 at `89874bca2525a423d773548c61f9655f09642575`; PR #56/#57 are the documented identical-tree finalization deviation; PR #58 merged recovery QA at `721bd60eba04cdf71765660727132d0d6aed97bc`. PR #59 merged M03.06 after independent QA at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`, sharing reviewed tree `a5f52604955f8a8925728a2cb7b5c8900aefd87a`. Formal M03 closeout merged through PR #60 at `3df6f88b1b64b5456554654b7e27adcfa99c3ff6`.
-- M05.01–03 are human-merged; the only current unit is04–06 payout in sole draftPR86. Candidate QA/CI passed; final-state checks/learning/human merge pending. Rows07–19 and M06–M21 stay unstarted.
+- M05.01–06 are human-merged; the only current unit is07–08 refund in CLP0006. Independent QA/CI/learning/human merge are required. Rows09–19 and M06–M21 stay unstarted.
 - Source-neutral MoneyEvent and the approved ledger contracts/storage/readers/idempotency/full reversals/account-role validation and test corpora are implemented. The test-only M04.18 demonstration is human-merged. Closeout adds no financial runtime/API/DDL/authority.
-- V1/all18 M04 and19 M05 requirements are preserved. Current gate: PR86 final reviewed-state CI, payout learning and human merge before the next eligible unit. M05.19 whole-simulator QA and milestone closeout remain separate.
+- V1/all18 M04 and19 M05 requirements are preserved. Current gate:07–08 refund final metadata-delta confirmation, reviewed-state CI, learning and human merge before the next eligible unit. M05.19 whole-simulator QA and milestone closeout remain separate.
 - Versioning strategy is documented in `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed registry.
 
