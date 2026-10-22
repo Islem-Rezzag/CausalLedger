@@ -31,6 +31,7 @@ it("runtime imports only owned modules and deterministic SHA256", () => {
           "./validation.js",
           "./payment-authorized.js",
           "./payment-captured.js",
+          "./payout.js",
           "node:crypto",
         ]).toContain(value);
         if (value === "node:crypto" && ts.isImportDeclaration(node)) {

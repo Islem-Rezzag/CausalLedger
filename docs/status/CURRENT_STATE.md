@@ -1,8 +1,12 @@
 # Current State
 
-## Current coordinator gate (2026-10-22)
+## Current payout capability gate (2026-10-22)
 
-Human PR84 is verified merged at `55964ee726abc13793ef9c5fe25f058afe81bc94`, with unchanged reviewed tree and main reachability; no open feature PR was found. Product progression is paused. Current branch `codex/delivery-learning-workflow` prepares one workflow-only amendment, not M05.04. Read the compact current learning record in [PROJECT_COMPLETION_GOAL.md](PROJECT_COMPLETION_GOAL.md#delivery-and-learning-checkpoint-2026-10-22) and the amendment section in [CLP-0006](../../plans/active/CLP-0006-m05-provider-and-bank-simulator.md#delivery-workflow-amendment-setup-2026-10-22). Exact next: independent amendment review/validation, capture learning checkpoint and human amendment merge; no new product capability. The retained feature handoff below is the historical pre-merge snapshot, not current remote readiness.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.03 are Completed and merged in verified PR82/83/84. M05.04–M05.06 synthetic payout lifecycle is QA passed, awaiting merge for sole PR #86 on codex/m05-payout-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Creation/paid/failed compositions are implemented and builder-tested; Candidate independent QA/CI passed; final reviewed-head confirmation/CI, learning and human merge remain pending. M05.07–M05.19 and M06–M21 remain Not started/unbound.
+
+Verified human PR85 squash9ef19fadb1263a182ed1ccb33c6e07229711fa4b matches reviewed treea1d7c4254f34f0fb955947cfbc835fbfa2086fda with empty diff/main reachability. Merged delivery/learning rules reread; introductory03 learning complete, personal176pass user-reported. Current source: packages/simulator/src/payout.ts; actual scope/acceptance: plans/active/CLP-0006-m05-provider-and-bank-simulator.md; contract: docs/specs/simulator-payout-lifecycle.md. Root sole editor/test owner, delivery_learning_review sole independent reviewer. Candidate c6351c49 independent626 simulator/2751 controls/162 API probes PASS; root workspace/demo/scope/history PASS. Candidate CI39771472602 bothSUCCESS, actual14 PostgreSQL1227/0mandatoryskips. Final reviewed-head/CI gates remain external and pending. No local PostgreSQL claim, installs, paid calls or settings changes. Native Goal stays user-paused.
+
+Exact next: independently confirm final scoped PR86 binding/handoff delta and final-head CI; present A–F payout learning and human review checkpoint. PR86 stays draft until the learning response. Never merge automatically or start07 while current gates are unresolved. Older handoffs below are historical and do not supersede this gate.
 
 ## Retained feature handoff
 

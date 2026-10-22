@@ -127,7 +127,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are Completed and merged in verified PR82/PR83. M05.03 Simulate payment captured is QA passed, awaiting merge for sole PR #84 on m05-03-simulate-payment-captured under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Synthetic capture composition is implemented; M05.04–M05.19 and M06–M21 remain Not started/unbound.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.03 are Completed and merged in verified PR82/83/84. M05.04–M05.06 synthetic payout lifecycle is QA passed, awaiting merge for sole PR #86 on codex/m05-payout-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Creation/paid/failed compositions are implemented and builder-tested; Candidate independent QA/CI passed; final reviewed-head confirmation/CI, learning and human merge remain pending. M05.07–M05.19 and M06–M21 remain Not started/unbound.
 
 - `docs/specs/ledger-account-balance-query.md` - M04.06 read-only exact account/currency totals, sign, cutoff and committed-snapshot semantics.
 - `docs/specs/ledger-transaction-query.md` - M04.07 complete journal identity/reference/account-currency queries and explicit page boundaries.
@@ -139,7 +139,7 @@ M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are 
 Current formal-closeout packet: `docs/status/M04_CLOSEOUT.md`; M04 is completed; current planning uses plans/active/CLP-0006-m05-provider-and-bank-simulator.md.
 
 
-Current M05.03 capture: M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are Completed and merged in verified PR82/PR83. M05.03 Simulate payment captured is QA passed, awaiting merge for sole PR #84 on m05-03-simulate-payment-captured under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Synthetic capture composition is implemented; M05.04–M05.19 and M06–M21 remain Not started/unbound.
+Historical M05.03 capture snapshot (superseded by current payout state above): M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are Completed and merged in verified PR82/PR83. M05.03 Simulate payment captured is QA passed, awaiting merge for sole PR #84 on m05-03-simulate-payment-captured under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Synthetic capture composition is implemented; M05.04–M05.19 and M06–M21 remain Not started/unbound.
 
 
 ## M05.02 current checkpoint (2026-10-16)
@@ -150,6 +150,10 @@ Human PR82 merged ac092fcb7b0ee16459b1ca1177d4b9b10e0df5ce at 2026-10-16T14:20:1
 
 Current02 generator validation is recorded in CURRENT_STATE.md and active CLP0006. Root runs tests; user none. No future feature or financial authority.
 
+
+## Current payout contract
+
+- [M05.04–M05.06 synthetic payout lifecycle](specs/simulator-payout-lifecycle.md) — exact capture aggregation and preserved provider outcome reports; current review/CI/learning/merge pending.
 
 ## M05.03 current checkpoint (2026-10-18)
 
