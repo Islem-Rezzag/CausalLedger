@@ -1,5 +1,9 @@
 # Validation and Handoff Workflow
 
+## Delivery-unit and learning amendment
+
+After human merge of this amendment, apply [WORKFLOW.md](../../WORKFLOW.md#delivery-and-learning-policy) to the review boundary. Every mapped original acceptance criterion still needs its deterministic evidence; combined risk may require splitting a unit. Independent review and required final-state CI are unchanged. Report technical readiness separately from user understanding and personally reported demonstration runs. The A–F learning checkpoint supplements this ladder; it does not replace behavioral tests, actual PostgreSQL checks or human review.
+
 ## Purpose
 
 Validation and handoff keep CausalLedger work reproducible, reviewable, and safe across Codex threads. Validation proves the slice matched its scope with the strongest checks currently available. Handoff records what changed, what did not change, what validation ran, what did not run, and what the next thread should do.

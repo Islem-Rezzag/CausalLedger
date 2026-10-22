@@ -1,5 +1,9 @@
 # Planning and Tracking System
 
+## Delivery-unit amendment
+
+After human merge of this amendment, [WORKFLOW.md](../../WORKFLOW.md#delivery-and-learning-policy) explicitly replaces per-row human interruption gates below with the eligible delivery-unit gate. Preserve each original ID, status, technical dependency and acceptance mapping; a shared PR never completes unimplemented criteria. Internal dependencies are implemented/tested in order, external prerequisites are verified merged. Record post-merge facts in the next legitimate scoped update or established review record; no routine finalization-only PR is needed. Genuine milestone closeouts remain separate and mandatory. Read the current learning overlay in the completion-goal Markdown alongside actual Git; retained machine-readable feature snapshots are not proof of current remote state.
+
 ## Purpose
 
 The planning and tracking system keeps CausalLedger submilestones durable in repo files from branch creation through builder, QA, PR merge, and next-thread handoff. It prevents Codex threads from relying on chat memory and prevents ambiguous completion claims before QA PASS and PR merge.

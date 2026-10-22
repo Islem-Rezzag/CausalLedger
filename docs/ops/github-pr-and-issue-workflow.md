@@ -1,5 +1,9 @@
 # GitHub PR and Issue Workflow
 
+## Delivery-unit amendment
+
+After human merge of this amendment, [WORKFLOW.md](../../WORKFLOW.md#delivery-and-learning-policy) replaces the one-branch/PR-per-submilestone naming and next-submilestone interruption clauses below for eligible mapped delivery units. Use the declared unit branch (default `codex/<capability-name>`) and one PR naming its capability and mapped original IDs; each registry row retains its own acceptance evidence and shares that branch/PR only when covered. Independent review, final-state CI, resolved review findings and human-only merge remain mandatory. Never enable auto-merge or create routine finalization-of-finalization PRs.
+
 ## Purpose
 
 The GitHub PR and issue workflow gives every CausalLedger submilestone a consistent remote review container, traceable scope record, validation record, QA handoff path, and merge discipline. It connects file-first repo tracking with GitHub review mechanics without making GitHub the source of financial truth.

@@ -1,5 +1,11 @@
 # Next Recommended Thread
 
+## Current coordinator gate (2026-10-22)
+
+Human PR84 is verified merged at `55964ee726abc13793ef9c5fe25f058afe81bc94`, with unchanged reviewed tree and main reachability; no open feature PR was found. Product progression is paused. Current branch `codex/delivery-learning-workflow` prepares one workflow-only amendment, not M05.04. Read the compact current learning record in [PROJECT_COMPLETION_GOAL.md](PROJECT_COMPLETION_GOAL.md#delivery-and-learning-checkpoint-2026-10-22) and the amendment section in [CLP-0006](../../plans/active/CLP-0006-m05-provider-and-bank-simulator.md#delivery-workflow-amendment-setup-2026-10-22). Exact next: independent amendment review/validation, capture learning checkpoint and human amendment merge; no new product capability. The retained feature handoff below is the historical pre-merge snapshot, not current remote readiness.
+
+## Retained feature handoff
+
 Thread name:
 M05.03 Final QA then human merge - Simulate payment captured
 

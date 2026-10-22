@@ -34,11 +34,66 @@ hooks:
 
 # Workflow
 
+## Delivery and learning policy
+
+This amendment becomes effective only after its independent review and human merge. Product progression is paused during setup and while the learning prerequisite is unresolved. Preserve V1_PUBLIC_PRODUCT, architecture, original milestone acceptance criteria and deterministic financial controls. This is a delivery-policy amendment, not a scope or sequencing approval.
+
+### Delivery unit and explicit precedence
+
+A delivery unit may contain related original subtasks within one existing milestone when external dependencies are verified human-merged, internal technical dependencies are implemented and tested in order, every original acceptance criterion maps to evidence, and implementation, demonstration, rollback and failure boundaries remain reasonably reviewable. Keep each original ID and its individual completion evidence; shared branch/PR references do not complete unfinished requirements.
+
+Use one active implementation branch, one PR, one coordinator/editor and one separate-context independent reviewer for the current unit, unless a separately approved exception exists. Split a bundle when its combined risk cannot be reasonably reviewed. Storage migrations, posting semantics, concurrency, authorization and agent financial-access boundaries must remain independently reviewable. Do not combine unrelated features, place an entire milestone or multiple milestones into an uncontrolled PR, remove independent review, or skip formal QA and milestone closeouts.
+
+This explicitly replaces the one-PR/branch/builder/QA-per-microtask requirement and the need for a human merge between internal subtasks of an approved unit in:
+
+- this file's workspace/thread rules;
+- `docs/ops/builder-qa-prompt-protocol.md` and existing builder/QA templates;
+- `docs/ops/github-pr-and-issue-workflow.md` branch/PR naming and next-submilestone clauses;
+- `docs/ops/planning-and-tracking-system.md` per-row progression/finalization clauses;
+- the active M05 plan's delivery-container wording, as identified in its workflow-amendment section.
+
+For those clauses, the unit boundary replaces the microtask interruption boundary; original IDs remain acceptance traceability. Human-merged prerequisites between units, financial correctness, formal milestone gates and human-only merging remain mandatory. No future bundle is selected by this amendment: its mapped IDs, dependencies, tests, demonstration and rollback must first be recorded in the existing active plan within authorized scope.
+
+### Normal implementation cycle
+
+1. Read the current goal, actual Git/PR state and approved requirements. Resolve stale handoffs before editing.
+2. Briefly explain the intended outcome, scope and demonstration; generate the unit brief in the existing active plan, including all mapped IDs and criteria.
+3. Implement and run relevant deterministic checks. Obtain separate-context independent review, fix confirmed findings and re-review the corrected state. Stop after three unsuccessful repairs of the same unresolved defect and report the blocker.
+4. Commit and push scoped work; verify required CI on the final reviewed PR state. If behavior materially changes after review or walkthrough, refresh affected review, tests and explanation.
+5. Present the learning and human-review checkpoint. Wait for the user's response and actual human merge; do not start the next dependent unit while this PR awaits merge or a required prerequisite explanation remains unresolved.
+6. Accept natural-language merge reports, discover the actual merge SHA, and verify reviewed contents using squash-aware tree/diff checks and main reachability. Do not require the source commit to be an ancestor of main. If merged early, explain outstanding learning and pause before more product work.
+
+Routine navigation, safe branch operations, scoped edits/commits/pushes, PR preparation, reviewer coordination and CI checks already authorized by the unit do not need repeated approval. Technical readiness, independent review and user understanding are separate: model self-scoring, governance checks and action-permission approvals replace none of them. Codex never merges or enables auto-merge.
+
+### Learning checkpoints
+
+A substantial checkpoint is mandatory for a new core capability; changes to money representation, posting, idempotency, persistence, access control, evidence integrity or agent authority; a major integration; milestone completion or a materially different domain; and whenever the user is lost or asks to catch up. Mechanical changes without behavior or policy changes need only a brief explanation. Consolidate repeated novelty around its capability rather than repeating lessons. Before depending on a capability the user has not understood, pause and explain it.
+
+Use the heading **PAUSED: LEARNING AND REVIEW CHECKPOINT**. Keep a substantial walkthrough to approximately 10–20 minutes:
+
+- **A. Purpose:** the business or engineering problem.
+- **B. Real behavior:** one actual synthetic input/output and the short component path; distinguish fresh execution from historical evidence.
+- **C. Reading:** at most three current files or selected functions, each with a reason.
+- **D. Exercise:** one safe existing test/demo command, expected behavior and setup recovery. Use disposable synthetic inputs; no production/shared data edits or changed committed expectations.
+- **E. Failure and limitation:** one detected failure and one thing success does not prove.
+- **F. Teach-back:** ask up to three short questions about input/output, the boundary and failure; wait for answers. Explain misunderstandings from the implementation, without artificial grades or an endless exam. Never supply answers on the user's behalf and mark the checkpoint complete.
+
+An explicitly deferred lesson remains deferred, not understood. A message saying "continue" does not prove the user ran a demonstration. Attribute personal execution only to the user's report.
+
+### Persistent context and safe settings
+
+Keep one short learning section in `docs/status/PROJECT_COMPLETION_GOAL.md`: current capability/milestone; actual branch/PR state; last capability reviewed by the user; user-reported runs; unresolved/deferred understanding; next checkpoint/reason; next technical action or human gate. Keep detailed execution evidence in existing plans/tests/PRs. Carry conversational learning updates into the next legitimate scoped commit or established review record; no checkbox-only commits or routine finalization-of-finalization PRs. Record verified post-merge facts in that next update, retaining genuine milestone closeouts. Preserve a truthful checkpoint before interruption; a new session reads the goal and actual Git state, not an assumed transferred native Goal.
+
+The front matter is repository workflow metadata, not the installed client's effective permission configuration. Inspect the actual client/configuration before recommending settings changes. Prefer workspace writes and on-request additional permissions; keep sandbox/network restrictions, the selected model and human merge. Do not automatically widen permissions, change global settings, disable the sandbox or bypass denials. Learning pauses belong here, not in an invented client setting. Paid model calls, installations, deployment, release tags and public publication still require explicit approval.
+
+Actual PostgreSQL claims require actual PostgreSQL tests; benchmark actor inputs remain separate from grader-only information. Preserve provenance, uncertainty and distinct delivery/event/posting identity, bounded read-only/proposal-only AI authority and human authorization of consequential actions. Paired benign duplicate delivery, faulty external duplicate posting and delayed evidence remain the approved integration thread where applicable. A thin demo cannot silently complete later UI/benchmark requirements or authorize new sequencing/scope.
+
+
 ## Workspace strategy
 
 Use a file-first workflow. Treat docs, plans, validation evidence, and handoff packets as the durable project state.
 
-Use one branch per submilestone. Builder and QA threads for that submilestone must use the same branch and the same PR.
+Use one active branch and one PR per delivery unit under the activation and eligibility rules above. Builder and independent QA use that same branch and PR; all original subtask IDs remain mapped.
 
 Use `docs/ops/planning-and-tracking-system.md` for canonical submilestone statuses and required tracking updates before builder, after builder, after QA, after PR merge, and when blocked.
 
@@ -74,7 +129,7 @@ Agents may investigate, summarize, and propose. Agents may not own financial tru
 
 ## Thread policy
 
-Use one planning thread per milestone, one builder thread per submilestone, one QA thread per submilestone, and one closeout thread per milestone.
+Retain milestone planning and formal closeout gates. Use one coordinator/editor and one separate-context independent reviewer per delivery unit, under the policy above; extra user-owned chats are not required for routine internal subtasks.
 
 Milestone closeout threads must verify all required submilestones are completed and merged or explicitly deferred before recommending the next milestone.
 

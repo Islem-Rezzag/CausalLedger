@@ -50,8 +50,12 @@ Use `docs/ops/builder-qa-prompt-protocol.md`, `docs/ops/github-pr-and-issue-work
 - Prefer deterministic logic for financial correctness.
 - Prefer explicit schemas and provenance fields over inferred meaning.
 - Prefer append-only evidence behavior.
-- Prefer small submilestones with strict validation.
+- Prefer coherent, reviewable capability deliveries with strict validation under WORKFLOW.md.
 - Prefer file-first handoff over relying on chat memory.
+
+## Delivery and learning
+
+Follow [WORKFLOW.md](WORKFLOW.md#delivery-and-learning-policy) for delivery-unit eligibility, original-ID traceability, independent review and human merge. Its replacement of per-microtask PR gates activates only after this amendment is human-merged. Pause for the prescribed learning checkpoint on new capabilities, sensitive changes or user confusion; never infer understanding or personal execution from "continue". Keep the compact learning record in the existing completion-goal Markdown; no new machinery or checkbox-only commits.
 
 ## Commands
 
@@ -120,7 +124,7 @@ Available local CausalLedger skills:
 - Do not conflate proposal generation with repair approval.
 - Do not mark milestones complete without closeout.
 - Do not claim placeholder directories contain working features.
-- Do not start the next submilestone before QA PASS and PR merge for the current submilestone.
+- Do not start the next delivery unit before independent QA PASS, required learning checkpoint and human PR merge for the current unit; activation and grouping limits are in WORKFLOW.md.
 
 ## Progress reporting rules
 

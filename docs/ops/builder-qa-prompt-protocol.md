@@ -1,5 +1,9 @@
 # Builder and QA Prompt Protocol
 
+## Delivery-unit amendment
+
+After human merge of this amendment, [WORKFLOW.md](../../WORKFLOW.md#delivery-and-learning-policy) explicitly supersedes this protocol's per-submilestone thread/branch/PR counts and next-submilestone gate for mapped internal subtasks of an eligible unit. Generate one brief in the active plan with every original ID, criterion, dependency, demonstration, test and review boundary. Builder and separate-context QA still share one branch/PR; the next unit still waits for review, learning and human merge. No entire-milestone or unrelated-feature bundle is authorized.
+
 ## Purpose
 
 This protocol defines the reusable prompt shape for every CausalLedger submilestone builder thread and QA thread. It keeps future work file-first, branch-safe, validation-backed, and scoped to one submilestone at a time.
