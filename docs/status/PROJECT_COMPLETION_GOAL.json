@@ -16,12 +16,12 @@
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
   "currentMilestone": "M05.07\u2013M05.08",
   "currentBranch": "codex/m05-refund-lifecycle",
-  "currentPr": null,
+  "currentPr": 87,
   "latestMergedPr": 86,
   "latestMergeCommit": "7100ca162962744be7f6fe3d65172d744a12c197",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "Builder744 simulator/2783 controls in325.67s; type/lint/build/format/workspace/scope/history/demo PASS. Independent candidate/final review pending.",
-  "remoteCiStatus": "Human-merged predecessor86 final39774029083 bothSUCCESS verified; current refund CI pending.",
+  "localTestStatus": "Independent candidate1814a5be/treee8fae30 PASS:744 simulator/2783 controls(378.75s)/182 API probes; root workspace/demo/scope/history PASS. Final tracking delta confirmation pending.",
+  "remoteCiStatus": "Candidate39800681425 in progress at handoff; final reviewed-head actualCI remains required. No local PostgreSQL claim.",
   "dockerStatus": "UNAVAILABLE_LOCALLY_APPROVED_OWNED_POSTGRES17_CI_ROUTE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -632,7 +632,7 @@
     "workflowMerge": "9ef19fadb1263a182ed1ccb33c6e07229711fa4b",
     "workflowReviewedTree": "a1d7c4254f34f0fb955947cfbc835fbfa2086fda"
   },
-  "refundLifecycleReviewStatus": "Builder complete, awaiting QA",
+  "refundLifecycleReviewStatus": "QA passed, awaiting merge",
   "refundPrerequisites": {
     "pr": 86,
     "mergeCommit": "7100ca162962744be7f6fe3d65172d744a12c197",

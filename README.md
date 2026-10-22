@@ -12,7 +12,7 @@ CausalLedger helps fintech teams prove, replay, and safely repair money-movement
 
 ## Current status
 
-M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.06 are Completed and merged, including verified human PR86. M05.07–M05.08 synthetic refund lifecycle is Builder complete, awaiting QA on codex/m05-refund-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Full/partial/multiple refund creation and paid evidence are implemented and builder-tested; independent QA, current CI, learning and human merge remain pending. M05.09–M05.19 and M06–M21 remain Not started/unbound.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.06 are Completed and merged, including verified human PR86. M05.07–M05.08 synthetic refund lifecycle is QA passed, awaiting merge for sole draft PR #87 on codex/m05-refund-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Full/partial/multiple refund creation and paid evidence are implemented and independently reviewed; final handoff confirmation, current CI, learning and human merge remain pending. M05.09–M05.19 and M06–M21 remain Not started/unbound.
 
 Implemented runtime includes source-neutral MoneyEvent and deterministic ledger schemas, journal checks, immutable storage, exact readers, durable retry identity, full linked reversals and account-role validation, with property/adversarial corpora and a synthetic demonstration. Formal M04 closeout is verified and complete. Source-specific ingestion, invariant/incident/graph/replay/repair/agent engines, benchmark and product UI remain unimplemented.
 

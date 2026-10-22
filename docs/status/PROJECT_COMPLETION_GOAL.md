@@ -8,13 +8,13 @@ Human approval received on 2026-09-24 in Codex task `01a0d3ba-f6d3-7322-92b5-810
 
 ## Delivery and learning checkpoint (2026-10-22)
 
-- Current capability: M05.07–M05.08 synthetic refund lifecycle, branch `codex/m05-refund-lifecycle`, no current PR; builder744 simulator/2783 controls PASS; independent QA pending. M05.01–06 are human-merged; M00–M04 closed, V1_PUBLIC_PRODUCT unchanged.
+- Current capability: M05.07–M05.08 synthetic refund lifecycle, branch `codex/m05-refund-lifecycle`, sole draft [PR87](https://github.com/Islem-Rezzag/CausalLedger/pull/87); independent candidate744/2783/182probes PASS; final reviewed-state gates pending. M05.01–06 are human-merged; M00–M04 closed, V1_PUBLIC_PRODUCT unchanged.
 - Verified predecessor: PR86 human squash `7100ca162962744be7f6fe3d65172d744a12c197` matches final reviewed tree `28f8d1ccd867773d2e4f1457314eab9561c4c5ae`; empty diff/main reachable. Final CI39774029083 and sole published evidence bindings rechecked. See CLP0006 for exact primary/local attribution.
 - Last user-reviewed capability: payout introductory checkpoint covered with clarification. Both no answers were correct. Keeping both reports supports tracing and investigation; it does not establish error cause or which report is true. No broad mastery claim.
 - Personal execution: user reports176 capture tests passed. Later supplied PowerShell screenshot visibly shows payout demonstration1 passed/154 intentional name-filter skips; root inspected it. Direct terminal execution was not observed, screenshot commit is not visible, and no personal full-suite payout pass is claimed.
 - Current scope: full/partial/multiple refunds in explicitly supplied one-capture history, at most16; created amounts count once, paid report links to its original creation and never proves customer receipt or ledger reversal.
 - Next checkpoint/reason: A–F refund walkthrough after technical review/CI, covering cumulative contextual limits and created-versus-paid evidence. Refund understanding remains pending; no repeated payout exam.
-- Next technical gate: complete independent review and one PR/final CI; then wait for learning response and human merge. No09 before those gates. Native Goal stays user-paused.
+- Next technical gate: confirm the final PR87 metadata delta and final reviewed-state CI; then wait for learning response and human merge. No09 before those gates. Native Goal stays user-paused.
 - Earlier sections below are historical snapshots. Detailed final-state proof belongs in the sole PR, and later conversational learning/merge facts enter the next legitimate scoped commit; no checkbox-only PR.
 
 ## Verified checkpoint
@@ -70,7 +70,7 @@ M05 planning review is QA passed, awaiting merge for sole PR #81; candidate inde
 
 ## M05 planning builder checkpoint (2026-10-12)
 
-Builder complete, awaiting QA. Builder validator/full2,252 controls/expanded411 focused/workspace frozen install/typecheck/test/lint/build/format/whitespace PASS. Intermediate qa-dev --allow-dirty17/0/2 PASS; scoped28/protected337/full318300-byte M04 plan prefix/historical packet/raw18/all19 frozen M05 rows/V1/prior proofs/append-only weekly PASS. Existing independent static reviewers confirmed findings resolved; overall clean-candidate and final independent QA/actual CI remain pending. Local caches warm; Docker/PostgreSQL/make unavailable locally; approved owned17 CI remains mandatory.
+QA passed, awaiting merge. Builder validator/full2,252 controls/expanded411 focused/workspace frozen install/typecheck/test/lint/build/format/whitespace PASS. Intermediate qa-dev --allow-dirty17/0/2 PASS; scoped28/protected337/full318300-byte M04 plan prefix/historical packet/raw18/all19 frozen M05 rows/V1/prior proofs/append-only weekly PASS. Existing independent static reviewers confirmed findings resolved; overall clean-candidate and final independent QA/actual CI remain pending. Local caches warm; Docker/PostgreSQL/make unavailable locally; approved owned17 CI remains mandatory.
 
 No simulator implementation or M05.01 before planning QA/human merge. Root runs tests; user no tests.
 
@@ -86,14 +86,14 @@ Final actual-head independent PASS/rootclean/both CI/primary log and synthetic-m
 
 ## Verified M05 planning merge and M05.01 (2026-10-13)
 
-M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05 planning PR81 is human-merged and verified. M05.01 Create simulator package is Builder complete, awaiting QA on m05-01-create-simulator-package under active plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Builder validation passed; independent clean candidate/final QA and actual CI pending; no current PR. Generic package/contracts/manifest validation are implemented and builder-tested. M05.02–M05.19 and M06–M21 remain Not started/unbound; provider/bank generation remains unimplemented.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05 planning PR81 is human-merged and verified. M05.01 Create simulator package is QA passed, awaiting merge on m05-01-create-simulator-package under active plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Builder validation passed; independent clean candidate/final QA and actual CI pending; no current PR. Generic package/contracts/manifest validation are implemented and builder-tested. M05.02–M05.19 and M06–M21 remain Not started/unbound; provider/bank generation remains unimplemented.
 
 Human PR81 merged at 6b755d57bf0f03f1618aea1096cc99e1876e4bed on 2026-10-13T17:25:57Z by nonbot Islem-Rezzag. Reviewed b18b047fe87ed8eafa6d9756ca7db5c9d569291f and actual merge have tree 4f45bfdfbc063966766f9a347a1fccd3f4d237ca, full diff EMPTY and fetched-main reachability PASS. Root and existing independent reviewer verified primary merge/CI/body/advisory6128785198/reviewer hash bindings. Final planning QA441 lifecycle/2252 controls/rootclean18/0/1/bothCI38273448464 passed;1785 ledger/32files/all14 PostgreSQL1227/THREE recovery/both populated upgrades/schema/DEMO/cleanup passed. No unchanged planning tests rerun to verify merge.
 
 
 ## M05.01 builder validation checkpoint (2026-10-13)
 
-Builder complete, awaiting QA. Builder fresh simulator107/3files/type/lint/build/format and full2397 controls PASS; workspace frozen install/typecheck/lint/test/build/format/validator/whitespace PASS. Intermediate root QA17 PASS/0 FAIL/2 expected skips (own scoped dirty worktree, optional unavailable local Docker). Scope36/protected339/complete29375-byte planning history/raw19/V1/all prior proofs/append-only weekly/unchanged importers+dependency snapshots PASS. Existing independent static review found no remaining confirmed defect; overall clean-candidate/final independent QA and current actual CI remain pending. Cached tools used; no cold-cache claim/system install/credentials/policy change. Existing glob deprecation/esbuild ignored-script warnings recorded.
+QA passed, awaiting merge. Builder fresh simulator107/3files/type/lint/build/format and full2397 controls PASS; workspace frozen install/typecheck/lint/test/build/format/validator/whitespace PASS. Intermediate root QA17 PASS/0 FAIL/2 expected skips (own scoped dirty worktree, optional unavailable local Docker). Scope36/protected339/complete29375-byte planning history/raw19/V1/all prior proofs/append-only weekly/unchanged importers+dependency snapshots PASS. Existing independent static review found no remaining confirmed defect; overall clean-candidate/final independent QA and current actual CI remain pending. Cached tools used; no cold-cache claim/system install/credentials/policy change. Existing glob deprecation/esbuild ignored-script warnings recorded.
 
 Exact next: M05.01 QA/solePR/final gates/human merge; verify before M05.02. User runs no tests. Foundation only, no provider/bank generation or financial authority.
 

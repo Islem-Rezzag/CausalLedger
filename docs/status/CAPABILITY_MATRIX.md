@@ -18,7 +18,7 @@
 | Synthetic payment authorization | Completed and merged | Human PR83 final QA/CI/merge verified. |
 | Synthetic payment capture | Completed and merged | Human PR84 merge/final QA verified; synthetic only. |
 | Synthetic payout lifecycle | Completed and merged | Human PR86, exact reviewed-tree merge and final QA/CI verified; provider assertions preserve original evidence. |
-| Synthetic refund lifecycle | Builder complete, awaiting QA | M05.07–08 bounded full/partial/multiple refund creation and paid evidence implemented; validation/review/CI/human gates pending. |
+| Synthetic refund lifecycle | QA passed, awaiting merge | M05.07–08 bounded full/partial/multiple refund creation and paid evidence implemented; candidate independent QA PASS in PR87, final metadata/CI/learning/human gates pending. |
 | Invariant engine | Not started | No product logic |
 | Incident engine | Not started | No product logic |
 | Causal graph | Not started | No product logic |
@@ -44,7 +44,7 @@ Generic structural/hash validation is not financial payload validation, source a
 
 ## M05.01 builder validation checkpoint (2026-10-13)
 
-Builder complete, awaiting QA. Builder fresh simulator107/3files/type/lint/build/format and full2397 controls PASS; workspace frozen install/typecheck/lint/test/build/format/validator/whitespace PASS. Intermediate root QA17 PASS/0 FAIL/2 expected skips (own scoped dirty worktree, optional unavailable local Docker). Scope36/protected339/complete29375-byte planning history/raw19/V1/all prior proofs/append-only weekly/unchanged importers+dependency snapshots PASS. Existing independent static review found no remaining confirmed defect; overall clean-candidate/final independent QA and current actual CI remain pending. Cached tools used; no cold-cache claim/system install/credentials/policy change. Existing glob deprecation/esbuild ignored-script warnings recorded.
+QA passed, awaiting merge. Builder fresh simulator107/3files/type/lint/build/format and full2397 controls PASS; workspace frozen install/typecheck/lint/test/build/format/validator/whitespace PASS. Intermediate root QA17 PASS/0 FAIL/2 expected skips (own scoped dirty worktree, optional unavailable local Docker). Scope36/protected339/complete29375-byte planning history/raw19/V1/all prior proofs/append-only weekly/unchanged importers+dependency snapshots PASS. Existing independent static review found no remaining confirmed defect; overall clean-candidate/final independent QA and current actual CI remain pending. Cached tools used; no cold-cache claim/system install/credentials/policy change. Existing glob deprecation/esbuild ignored-script warnings recorded.
 
 Exact next: M05.01 QA/solePR/final gates/human merge; verify before M05.02. User runs no tests. Foundation only, no provider/bank generation or financial authority.
 
@@ -65,7 +65,7 @@ Current02 generator validation is recorded in CURRENT_STATE.md and active CLP000
 
 ## M05.03 current checkpoint (2026-10-18)
 
-M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.06 are Completed and merged, including verified human PR86. M05.07–M05.08 synthetic refund lifecycle is Builder complete, awaiting QA on codex/m05-refund-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Full/partial/multiple refund creation and paid evidence are implemented and builder-tested; independent QA, current CI, learning and human merge remain pending. M05.09–M05.19 and M06–M21 remain Not started/unbound.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.06 are Completed and merged, including verified human PR86. M05.07–M05.08 synthetic refund lifecycle is QA passed, awaiting merge for sole draft PR #87 on codex/m05-refund-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Full/partial/multiple refund creation and paid evidence are implemented and independently reviewed; final handoff confirmation, current CI, learning and human merge remain pending. M05.09–M05.19 and M06–M21 remain Not started/unbound.
 
 Candidate independent QA PASS on e8aa4daa4a824b8d18b80046912a7695f89f1f4a/tree3f2e7ee7aa1fb6a12df5da107dd69c108164bb5a: fresh470 simulator/7files,366 behavior,702 lifecycle and2727 controls in353.77s, package type/lint/build/format/validator/whitespace PASS; no findings. Canonical reviewer SHA2567569ac2ccb622e8f8030df7b5ee8ea1bf8ab4e7981575ace142e221536061b7d. Root clean candidate QA18 PASS/0 FAIL/1 optional localDocker skip, no dirtyoverride. Root primary CI39134527410 both jobs SUCCESS:470 simulator/1785 ledger/2727 controls and all14 realPostgreSQL1227/no skips; THREE migrations recovery, both populated upgrades, exactschema/DEMO and owned+Composecleanup PASS. Actual tested d106060952e6da93321f6b66014ddbc3ba5ea4a4 parentsb41+e8aa/tree3f2/full localdiffEMPTY independently checked locally. Source/control/tests/spec remain byte-identical through361 nontracking paths; only22 legitimate handoff/navigation/status files change. Final-head clean QA/currentCI/independent local acceptance/publication/readback are required external gates after this handoff commit, with no further CI-copy-only commit. Warm dependencies/Turbocache; no cold-cache, systeminstall, live-model or localPostgreSQL claim. Reviewer primary-network denial remains respected; actual current GitHub/CI evidence is root-verified and explicitly attributed.
 

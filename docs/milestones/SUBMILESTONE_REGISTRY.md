@@ -2,7 +2,7 @@
 
 This is the canonical M00-M21 submilestone registry for CausalLedger.
 
-Status values: Not started, Builder complete, awaiting QA, Builder complete, awaiting QA, QA passed, awaiting merge, Completed and merged, Blocked, Deferred.
+Status values: Not started, QA passed, awaiting merge, QA passed, awaiting merge, QA passed, awaiting merge, Completed and merged, Blocked, Deferred.
 
 | ID | Name | Milestone | Status | Active Plan | Branch | PR | Last Validation | Last Updated | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -77,8 +77,8 @@ Status values: Not started, Builder complete, awaiting QA, Builder complete, awa
 | M05.04 | Simulate payout created | M05 Provider and bank simulator | Completed and merged | plans/active/CLP-0006-m05-provider-and-bank-simulator.md | codex/m05-payout-lifecycle | #86 | Final PR86 QA/CI PASS | 2026-10-22 | Human PR86 merge7100ca1/tree28f8d1c verified; final QA/CI and introductory learning covered. |
 | M05.05 | Simulate payout paid | M05 Provider and bank simulator | Completed and merged | plans/active/CLP-0006-m05-provider-and-bank-simulator.md | codex/m05-payout-lifecycle | #86 | Final PR86 QA/CI PASS | 2026-10-22 | Human PR86 merge7100ca1/tree28f8d1c verified; final QA/CI and introductory learning covered. |
 | M05.06 | Simulate payout failed | M05 Provider and bank simulator | Completed and merged | plans/active/CLP-0006-m05-provider-and-bank-simulator.md | codex/m05-payout-lifecycle | #86 | Final PR86 QA/CI PASS | 2026-10-22 | Human PR86 merge7100ca1/tree28f8d1c verified; final QA/CI and introductory learning covered. |
-| M05.07 | Simulate refund created | M05 Provider and bank simulator | Builder complete, awaiting QA | plans/active/CLP-0006-m05-provider-and-bank-simulator.md | codex/m05-refund-lifecycle |  | 744 simulator/2783 controls PASS | 2026-10-22 | Mapped07–08 refund unit in CLP0006; builder744 simulator/2783 controls PASS; independent QA pending. |
-| M05.08 | Simulate refund paid | M05 Provider and bank simulator | Builder complete, awaiting QA | plans/active/CLP-0006-m05-provider-and-bank-simulator.md | codex/m05-refund-lifecycle |  | 744 simulator/2783 controls PASS | 2026-10-22 | Mapped07–08 refund unit in CLP0006; builder744 simulator/2783 controls PASS; independent QA pending. |
+| M05.07 | Simulate refund created | M05 Provider and bank simulator | QA passed, awaiting merge | plans/active/CLP-0006-m05-provider-and-bank-simulator.md | codex/m05-refund-lifecycle | #87 | Independent744/2783/182 probes PASS | 2026-10-22 | Sole PR87; independent candidate PASS, final-head/CI/learning/human merge pending. |
+| M05.08 | Simulate refund paid | M05 Provider and bank simulator | QA passed, awaiting merge | plans/active/CLP-0006-m05-provider-and-bank-simulator.md | codex/m05-refund-lifecycle | #87 | Independent744/2783/182 probes PASS | 2026-10-22 | Sole PR87; independent candidate PASS, final-head/CI/learning/human merge pending. |
 | M05.09 | Simulate dispute opened | M05 Provider and bank simulator | Not started | plans/active/CLP-0006-m05-provider-and-bank-simulator.md |  |  |  |  | Not started; original predecessor QA and verified human merge required. |
 | M05.10 | Simulate chargeback fee | M05 Provider and bank simulator | Not started | plans/active/CLP-0006-m05-provider-and-bank-simulator.md |  |  |  |  | Not started; original predecessor QA and verified human merge required. |
 | M05.11 | Simulate duplicate webhook | M05 Provider and bank simulator | Not started | plans/active/CLP-0006-m05-provider-and-bank-simulator.md |  |  |  |  | Not started; original predecessor QA and verified human merge required. |

@@ -128,7 +128,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.06 are Completed and merged, including verified human PR86. M05.07–M05.08 synthetic refund lifecycle is Builder complete, awaiting QA on codex/m05-refund-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Full/partial/multiple refund creation and paid evidence are implemented and builder-tested; independent QA, current CI, learning and human merge remain pending. M05.09–M05.19 and M06–M21 remain Not started/unbound.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.06 are Completed and merged, including verified human PR86. M05.07–M05.08 synthetic refund lifecycle is QA passed, awaiting merge for sole draft PR #87 on codex/m05-refund-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Full/partial/multiple refund creation and paid evidence are implemented and independently reviewed; final handoff confirmation, current CI, learning and human merge remain pending. M05.09–M05.19 and M06–M21 remain Not started/unbound.
 
 - `docs/specs/ledger-account-balance-query.md` - M04.06 read-only exact account/currency totals, sign, cutoff and committed-snapshot semantics.
 - `docs/specs/ledger-transaction-query.md` - M04.07 complete journal identity/reference/account-currency queries and explicit page boundaries.
@@ -155,7 +155,7 @@ Current02 generator validation is recorded in CURRENT_STATE.md and active CLP000
 ## Simulator payout and refund contracts
 
 - [Payout lifecycle](specs/simulator-payout-lifecycle.md): M05.04–06 human-merged in PR86, with final QA/CI and introductory learning verified.
-- [Refund lifecycle](specs/simulator-refund-lifecycle.md): current M05.07–08 bounded full/partial/multiple refunds and distinct paid reports; builder validation, independent QA, final CI, learning and human merge gates remain.
+- [Refund lifecycle](specs/simulator-refund-lifecycle.md): current M05.07–08 bounded full/partial/multiple refunds and distinct paid reports; candidate independent QA passed; final metadata confirmation, CI, learning and human merge gates remain.
 
 ## M05.03 current checkpoint (2026-10-18)
 
