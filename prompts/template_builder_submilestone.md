@@ -1,5 +1,9 @@
 # Builder Submilestone Prompt
 
+## Delivery unit and learning
+
+After the workflow amendment is human-merged, use [WORKFLOW.md](../WORKFLOW.md#delivery-and-learning-policy) as the explicit exception to singular-target/per-next-submilestone wording below. Declare the capability, all mapped original IDs/criteria, satisfied external and ordered internal dependencies, expected branch, review/rollback boundary and safe demonstration in the existing active plan. The single-target placeholders denote that unit; unrelated work stays forbidden. Preserve same-branch separate-context review, deterministic tests, final reviewed-state CI, required A–F learning checkpoint and human-only merge. Refresh affected review/tests/explanation after material changes; stop after three unsuccessful repairs of one unresolved defect.
+
 ## Thread name
 
 `<MXX.YY Builder - Submilestone Title>`

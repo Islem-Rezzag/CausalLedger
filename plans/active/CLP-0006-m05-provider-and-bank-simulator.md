@@ -1,5 +1,25 @@
 # CLP-0006 M05 Provider and Bank Simulator
 
+## Delivery-workflow amendment setup (2026-10-22)
+
+Human instruction authorizes only current-state recovery, catch-up and a narrow workflow amendment; no new product implementation. Expected branch `codex/delivery-learning-workflow`, base `55964ee726abc13793ef9c5fe25f058afe81bc94`; one coordinator/editor and one separate-context independent reviewer. Branch/status/remote guard before edits. Preserve all 19 original rows and every acceptance criterion, V1_PUBLIC_PRODUCT, immutable history, machine-readable feature state and all product/test/config/dependency/CI files.
+
+Verified human PR84 squash merge has reviewed tree `b6e9ccfac13c11ec9d0ce979291949bee38375e2`, full diff empty and fetched-main reachability. Primary published body/advisory/canonical QA hashes and successful CI39136007771 were re-read; its 470 simulator/2727 controls/1227 PostgreSQL results are historical, not fresh database execution. No open PR at discovery. Fresh catch-up: existing capture suite176 PASS plus actual synthetic1000-of1250 output and1251 refusal. User learning and personal execution remain unconfirmed.
+
+The proposed [WORKFLOW.md](../../WORKFLOW.md#delivery-and-learning-policy) rule activates only after independent review and human merge. It explicitly amends procedural delivery-container phrases in retained rows: a predecessor's "human-merged" gate is mandatory between delivery units; internal technical dependencies of an eligible mapped unit are implemented and tested in order before its shared review/merge. "All nineteen rows remain separate" preserves separate IDs/acceptance evidence, not nineteen compulsory PRs. "All nineteen human merges" requires all original IDs covered by accepted human-merged units, not a fixed merge count. M05.19 whole-simulator QA and formal milestone closeout remain distinct mandatory gates. The original table/history bytes stay intact; no future bundle is authorized by this setup.
+
+Scope: AGENTS/WORKFLOW, four existing operational guides, two existing builder/QA templates, completion-goal Markdown, this narrow plan section and current/next/weekly records only. No new scheduler, hierarchy, schema, governance wording tests, paid call, installation, deployment, release or settings/model change. Current managed workspace/network/request boundary supports the task; exact desktop build was not readable from the local inventory, so no version-specific reload claim. After merge explicitly reread instructions; startup-only guidance may require a fresh session, but this coordinator follows the read instructions directly.
+
+Validation: Levels0–4/7/8; existing control validator/full bootstrap tests, diff/scope/history/link and independent compatibility review. Capture execution is fresh catch-up evidence, not a claim of new functionality. Root runtime first, reviewer runtime only after clean candidate release; no overlapping suites or interruption of unrelated processes. Validation, findings and exact final head/CI are recorded in this plan and the sole PR review record. Stop at PAUSED: LEARNING AND REVIEW CHECKPOINT; no further product work before human responses and amendment merge.
+
+### Setup builder validation
+
+2026-10-22: existing control validator PASS; complete bootstrap suite2727 PASS in488.01s; existing capture build and176 tests PASS (1.83s); actual stdin input/output and overcapture refusal verified. Scope13 existing Markdown files; other370 tracked paths, original19-row table, complete merged02 history (SHA2561126f2feb3b7e3dd2947087d1b277e2726a4286e370c396d3a02e60f4b067b81), weekly prefix, V1/JSON/source/tests/config/CI unchanged. Whitespace and relative link/anchor checks PASS. make unavailable; direct existing Python commands used. No local PostgreSQL run or changed PostgreSQL guarantee. Native Goal independently read as paused; no goal/config/model change. Pre-candidate separate-context static review found no defect; exact committed-state independent QA and CI remain external PR gates, not claimed complete in this builder record.
+
+## Retained M05.03 feature handoff
+
+The following feature checkpoint predates the verified PR84 merge. Its machine-consumed markers, original rows and immutable history are retained; the amendment setup above governs the current coordinator action.
+
 ## Purpose / Big Picture
 
 Generate one declared full or partial capture linked to a supplied synthetic authorization, preserving raw authorization evidence and returning a deterministic two-record/two-delivery composition. No real payment, settlement, ledger or evidence-store action.
