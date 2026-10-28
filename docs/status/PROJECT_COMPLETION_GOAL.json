@@ -16,12 +16,12 @@
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
   "currentMilestone": "M05.09\u2013M05.10",
   "currentBranch": "codex/m05-dispute-and-fee",
-  "currentPr": null,
+  "currentPr": 88,
   "latestMergedPr": 87,
   "latestMergeCommit": "1792b7e33cd3b0f20abdfba17c3d0ba9da4de22a",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "Root919 simulator/2815 controls PASS; package type/lint/build/format, demo, scope/history/links PASS; independent runtime QA pending.",
-  "remoteCiStatus": "Current unit not pushed; predecessor CI39803568146 verified SUCCESS.",
+  "localTestStatus": "Independent candidate919 simulator/172 API cases (733 assertions)/90 affected controls PASS; root2815 full controls and clean QA18/0/1 PASS. Final metadata confirmation pending.",
+  "remoteCiStatus": "Candidate CI40753871814 both jobs/all steps PASS:919 simulator/2815 controls/1785 ledger/14 actual PostgreSQL suites1227 and cleanup; final tracking-head CI pending.",
   "dockerStatus": "UNAVAILABLE_LOCALLY_APPROVED_OWNED_POSTGRES17_CI_ROUTE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -57,7 +57,7 @@
     "M05.03 synthetic single full/partial capture composition with exact authorization preservation; human PR84 merged, no real funds or ledger action",
     "M05.04\u2013M05.06 synthetic payout composition; human PR86 merge/final QA/CI and introductory learning verified",
     "M05.07\u2013M05.08 synthetic bounded refund creation/paid composition human PR87 merge/final QA/CI and introductory learning verified",
-    "M05.09\u2013M05.10 synthetic bounded dispute opened and explicit independent fee; builder validated, independent QA/CI/human merge pending"
+    "M05.09\u2013M05.10 synthetic bounded dispute opened and explicit independent fee; candidate QA PASS, sole PR88 final CI/learning/human merge pending"
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -78,7 +78,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "Independent dispute/fee QA, final CI, learning and human merge pending",
+    "Final PR88 tracking confirmation/CI, learning and human merge pending",
     "No live-model calls/budget approved"
   ],
   "risks": [
@@ -94,8 +94,8 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "Independent runtime QA for M05.09\u2013M05.10, final reviewed-state CI, A\u2013F learning and human review; no11 before verified human merge.",
-  "stopReason": "AWAITING_INDEPENDENT_QA",
+  "exactNextAction": "Confirm final PR88 tracking delta and reviewed-state CI, then A\u2013F learning and human review; no11 before verified human merge.",
+  "stopReason": "AWAITING_FINAL_CI_LEARNING_AND_HUMAN_MERGE",
   "lastUpdatedTimestamp": "2026-10-28T19:09:32Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
@@ -645,7 +645,7 @@
     "bodySha256": "3799ed7411530f4a83e7dfa879cb99c594311bbd0139e3df8ffb45e0b998369e",
     "advisorySha256": "73d88b88b6234cfc9bfae596471b1fb913fe78d2a6b2f1f69c4e9049eb4bd84e"
   },
-  "disputeFeeReviewStatus": "Builder complete, awaiting QA",
+  "disputeFeeReviewStatus": "QA passed, awaiting merge",
   "disputeFeePrerequisites": {
     "pr": 87,
     "mergeCommit": "1792b7e33cd3b0f20abdfba17c3d0ba9da4de22a",

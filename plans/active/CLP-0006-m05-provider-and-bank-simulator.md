@@ -2,7 +2,7 @@
 
 ## Current delivery unit: M05.09–M05.10 synthetic dispute and fee (2026-10-28)
 
-Builder complete, awaiting QA on `codex/m05-dispute-and-fee`, based on verified human PR87 squash `1792b7e33cd3b0f20abdfba17c3d0ba9da4de22a`. One coordinator/editor and existing separate-context `delivery_learning_review`; reviewer read-only and runtime serialized. M05.09 and M05.10 form one bounded provider-evidence unit: external08 prerequisite human-merged, internal09 implemented and tested before10. Original19 acceptance criteria stay intact;11–19 and M06–M21 remain unstarted. Separate whole-M05 QA and closeout remain mandatory. Independent preimplementation review accepted this scope and its fixed-depth boundary.
+QA passed, awaiting merge for sole draft PR88 on `codex/m05-dispute-and-fee`, based on verified human PR87 squash `1792b7e33cd3b0f20abdfba17c3d0ba9da4de22a`. One coordinator/editor and existing separate-context `delivery_learning_review`; reviewer read-only and runtime coordinated. M05.09 and M05.10 form one bounded provider-evidence unit: external08 prerequisite human-merged, internal09 implemented and tested before10. Original19 acceptance criteria stay intact;11–19 and M06–M21 remain unstarted. Separate whole-M05 QA and closeout remain mandatory. Independent preimplementation review accepted this scope and its fixed-depth boundary.
 
 ### Verified predecessor and learning
 
@@ -36,6 +36,16 @@ Full control-plane tests 2815 PASS in397.60s. Validator, whitespace and3 package
 Scope25 paths:21 existing tracking/public-boundary/consumer files and4 new source/test/type-test/spec files. All370 other prior tracked paths,44 prior typed proof objects,144708-byte prior plan body (including88549-byte merged02 history), original19 acceptance rows, V1 and weekly prefix preserved. Prior generic/auth/capture/payout/refund product and tests, dependencies/configuration, migrations and CI remain untouched. Retained phase fixtures preserve earlier positive/negative state checks; only finite09/10 gate is added, with11+ unstarted.
 
 Root sole editor; delivery_learning_review independent read-only reviewer. Safe to commit/push/open one draft PR for QA; not yet safe to merge. Exact next: independent candidate runtime QA, final reviewed-state CI and A–F learning/human review. No11 progression or agent merge/auto-merge. Learning is pending; no user personal execution inferred. Final proof belongs in the sole PR, with no CI-copy-only commit.
+
+### Independent candidate acceptance and sole PR88 handoff (2026-10-28)
+
+Candidate8e7a0aec9445765f4c17ba0736a994c6c3d02346/treeb5ba4520787c03726b9572a2be0ffdfd9f9f6d14 independently passed implementation/runtime review: fresh919 simulator/13 files, package type/lint/format/build,172 freshly built public-API cases/733 assertions,90 affected controls/2725 deselected (0.85s), validator/whitespace/literal hashes/3 links. Root full2815 controls and clean candidate QA18 PASS/0 FAIL/1 optional Docker skip passed without dirty override. Independent probes cover exact preservation, fee independence, strict snapshots, all prior collisions, generic-valid excess/reordered contexts, hash-valid noncanonical wires and declaration-versus-authenticity limits. Initial pure simulator/probe/no-emit checks overlapped only root read-only Python tests under explicit release; build and affected controls ran after root completion. No claim of fully serialized execution.
+
+Root verified both candidate CI40753871814 jobs/all steps SUCCESS:919 simulator,2815 controls,1785 ledger,14 actual PostgreSQL suites1227/no mandatory skips; THREE-migration recovery, populated upgrades, schema, demo and owned/Compose cleanup PASS. Normalized logs542033 bytes SHA66fb9ef42076af195be8f8fb221b51b9b5f7d16d688b2b3b027c6cf298e68803. Actual tested441e16b7972c088d5c51a86998f75fd13611ad85 has exact1792+8e7 parents, sameb5ba tree and full source-to-tested diff EMPTY, independently verified locally. Remote facts are root-verified and attributed; no local PostgreSQL execution claim.
+
+Sole draft [PR88](https://github.com/Islem-Rezzag/CausalLedger/pull/88). This legitimate handoff binds own PR and independent acceptance, and repairs review findings in current ROADMAP/CAPABILITY_MATRIX navigation. Entire product/test/validator/spec/config/CI contents remain byte-identical to accepted candidate; only current tracking changes. Reviewer must confirm corrected final delta/head and affected state checks; full candidate runtime evidence carries only by verified byte identity. Final CI and publication/readback remain pending at this saved checkpoint and belong in the PR, with no CI-copy-only commit.
+
+Safe to commit/push this scoped tracking correction; final technical merge readiness requires final gates. PR stays draft for required dispute/fee A–F learning and human review. User understanding/personal exercise are not claimed. Human alone merges; no11 progression, auto-merge, new financial authority, settings change or native Goal change. Next: independent final tracking confirmation, actual final reviewed-state CI, learning and human merge.
 
 ## Retained refund delivery checkpoint
 

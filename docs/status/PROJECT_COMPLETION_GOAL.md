@@ -8,13 +8,13 @@ Human approval received on 2026-09-24 in Codex task `01a0d3ba-f6d3-7322-92b5-810
 
 ## Delivery and learning checkpoint (2026-10-28)
 
-- Current capability: M05.09–M05.10 synthetic dispute and fee, Builder complete, awaiting QA on `codex/m05-dispute-and-fee`; no own PR yet. M05.01–08 human-merged; M00–M04 closed, V1_PUBLIC_PRODUCT unchanged.
+- Current capability: M05.09–M05.10 synthetic dispute and fee, QA passed, awaiting merge on `codex/m05-dispute-and-fee`; sole draft PR88. M05.01–08 human-merged; M00–M04 closed, V1_PUBLIC_PRODUCT unchanged.
 - Verified predecessor: PR87 human squash1792b7e equals reviewed tree47df2d4; empty full diff and fetched-main reachable. Root rechecked primary final CI39803568146 and published QA/body/advisory bindings; detailed proof in current CLP0006 brief and PR87.
 - Last user-reviewed capability: refund introductory checkpoint covered with clarification. User identified refusal of excess1p and synthetic-paid limitation; distinguished failing test from correct generator rejection after wording correction. Simulator versus future investigation/evaluation harness explained. User explicitly confirmed understanding on2026-10-28; no broad mastery claim.
 - Personal execution: prior user-reported176 capture tests and inspected payout screenshot1 pass/154 filtered skips retain their attribution. No personal refund demonstration run reported.
 - Current contract: one captured-payment reference → one opened dispute with explicit reason → one separately supplied fee. No inferred disputed principal, confirmed chargeback, bank debit, ledger posting or financial authority.
 - Next checkpoint: new dispute-versus-chargeback-versus-fee concepts, after independent QA and final CI. Current unit understanding remains pending.
-- Next action: independent runtime review of implemented09/10 with root919 simulator/2815 controls passed, A–F checkpoint and human merge. No11 until those gates. Native Goal stays user-paused.
+- Next action: confirm final PR88 tracking/CI after candidate independent919 simulator/172 API cases/90 affected controls and root2815/clean QA18/0/1 PASS, then A–F checkpoint and human merge. No11 until those gates. Native Goal stays user-paused.
 - Earlier sections below are historical snapshots. Conversation/merge facts enter this legitimate scoped update; detailed final proof belongs in the sole PR, without checkbox-only commits.
 
 ## Verified checkpoint

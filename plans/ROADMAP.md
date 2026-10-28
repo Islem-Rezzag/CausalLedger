@@ -1,7 +1,7 @@
 # CausalLedger Roadmap
 
-- M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.08 are Completed and merged, including verified human PR87. M05.09–M05.10 synthetic dispute and fee is Builder complete, awaiting QA on codex/m05-dispute-and-fee under plans/active/CLP-0006-m05-provider-and-bank-simulator.md; no own PR yet. Synthetic generation implemented; root919 simulator/2815 control tests passed. Independent runtime QA, final CI, learning and human merge remain. M05.11–M05.19 and M06–M21 remain Not started/unbound.
-Current status: M04 is Completed after human PR80 closeout. M05 is In progress:01–08 Completed and merged; mapped09–10 dispute/fee unit is Builder in progress. Rows11–19 and M06–M21 remain Not started/unbound; M02 deferrals unchanged.
+- M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.08 are Completed and merged, including verified human PR87. M05.09–M05.10 synthetic dispute and fee is QA passed, awaiting merge for sole draft PR #88 on codex/m05-dispute-and-fee under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Independent candidate919 simulator/172 API cases and affected90 controls passed; root2815 controls and clean QA18/0/1 passed. Final tracking confirmation, current CI, learning and human merge remain. M05.11–M05.19 and M06–M21 remain Not started/unbound.
+Current status: M04 is Completed after human PR80 closeout. M05 is In progress:01–08 Completed and merged; mapped09–10 dispute/fee unit is QA passed, awaiting merge in sole PR88. Rows11–19 and M06–M21 remain Not started/unbound; M02 deferrals unchanged.
 
 The table aggregates original submilestone statuses. Verified refund87 human merge permits the mapped09–10 dispute/fee unit in CLP0006. Internal technical dependencies stay ordered; the next delivery unit requires independent QA, required learning and verified human merge under WORKFLOW.md. Separate whole-M05 QA and milestone closeout remain mandatory.
 
@@ -53,7 +53,7 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 - M03 planning and M03.01 through M03.06 are completed and merged. PR #55 merged M03.05 at `89874bca2525a423d773548c61f9655f09642575`; PR #56/#57 are the documented identical-tree finalization deviation; PR #58 merged recovery QA at `721bd60eba04cdf71765660727132d0d6aed97bc`. PR #59 merged M03.06 after independent QA at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`, sharing reviewed tree `a5f52604955f8a8925728a2cb7b5c8900aefd87a`. Formal M03 closeout merged through PR #60 at `3df6f88b1b64b5456554654b7e27adcfa99c3ff6`.
 - M05.01–08 are human-merged; the only current unit is09–10 dispute/fee in CLP0006. Independent QA/CI/learning/human merge are required. Rows11–19 and M06–M21 stay unstarted.
 - Source-neutral MoneyEvent and the approved ledger contracts/storage/readers/idempotency/full reversals/account-role validation and test corpora are implemented. The test-only M04.18 demonstration is human-merged. Closeout adds no financial runtime/API/DDL/authority.
-- V1/all18 M04 and19 M05 requirements are preserved. Current gate:07–08 refund final metadata-delta confirmation, reviewed-state CI, learning and human merge before the next eligible unit. M05.19 whole-simulator QA and milestone closeout remain separate.
+- V1/all18 M04 and19 M05 requirements are preserved. Current gate:09–10 dispute/fee final tracking confirmation, reviewed-state CI, learning and human merge before11. M05.19 whole-simulator QA and milestone closeout remain separate.
 - Versioning strategy is documented in `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed registry.
 
