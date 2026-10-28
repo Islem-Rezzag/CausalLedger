@@ -1546,3 +1546,9 @@ Human PR86 squash7100ca162962744be7f6fe3d65172d744a12c197/tree28f8d1ccd867773d2e
 Refund builder completion: final744 simulator/2783 controls(325.67s)/workspace/type/lint/build/format/validator/scope/history PASS. Actual demo2→3→4→5→6 records and extra1p refusal; full117 refund cases plus type boundary. Static test-proof/navigation findings repaired; independent clean-candidate/final QA and currentCI/learning/human merge pending. No local PostgreSQL claim.
 
 Refund candidate1814a5be independently PASS:744 simulator/2783 controls(378.75s)/182 independent API probes, no findings. Sole draftPR87 bound in15 tracking files; product/test/validator/spec/config/CI bytes unchanged. Candidate CI39800681425 still running at checkpoint; final-head confirmation/CI/learning/human merge remain external gates.
+
+## 2026-10-28 — M05.09–M05.10 dispute and fee started
+
+Verified human PR87 merge1792b7e/tree47df2d4, empty reviewed diff/main reachability and final primary QA/CI publication. Refund learning covered with clarification and user confirmation; no personal refund run claim. Frozen bounded09/10 contract in CLP0006, root sole editor/existing independent reviewer; validation pending. No11+ or financial authority.
+
+Builder09/10 validated:919 simulator,2815 controls (397.60s), package/workspace/demo/scope/history checks passed; static QA findings corrected. Independent runtime QA and final CI/learning/human merge pending. Full evidence in current CLP0006 handoff.

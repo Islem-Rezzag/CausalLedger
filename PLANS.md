@@ -36,7 +36,7 @@ Current active milestone plan: plans/active/CLP-0006-m05-provider-and-bank-simul
 
 The completed M01 plan lives at `plans/completed/CLP-0002-m01-domain-model-and-scope-freeze.md`.
 
-M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.06 are Completed and merged, including verified human PR86. M05.07–M05.08 synthetic refund lifecycle is QA passed, awaiting merge for sole draft PR #87 on codex/m05-refund-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Full/partial/multiple refund creation and paid evidence are implemented and independently reviewed; final handoff confirmation, current CI, learning and human merge remain pending. M05.09–M05.19 and M06–M21 remain Not started/unbound.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.08 are Completed and merged, including verified human PR87. M05.09–M05.10 synthetic dispute and fee is Builder complete, awaiting QA on codex/m05-dispute-and-fee under plans/active/CLP-0006-m05-provider-and-bank-simulator.md; no own PR yet. Synthetic generation implemented; root919 simulator/2815 control tests passed. Independent runtime QA, final CI, learning and human merge remain. M05.11–M05.19 and M06–M21 remain Not started/unbound.
 
 Progress is recorded in the active plan during the slice. Submilestone status is recorded in `docs/milestones/SUBMILESTONE_REGISTRY.md`, reflected in the relevant milestone doc, and summarized in `docs/status/CURRENT_STATE.md` and `docs/status/NEXT_RECOMMENDED_THREAD.md`.
 
