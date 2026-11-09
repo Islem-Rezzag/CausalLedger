@@ -12,16 +12,16 @@
   ],
   "recommendedImmediateTarget": "V0_6_BENCHMARK_DEMO",
   "recommendedLongTermTarget": "V1_PUBLIC_PRODUCT",
-  "currentPhase": "M05_DISPUTE_FEE",
+  "currentPhase": "M05_WEBHOOK_DELIVERY",
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
-  "currentMilestone": "M05.09\u2013M05.10",
-  "currentBranch": "codex/m05-dispute-and-fee",
-  "currentPr": 88,
-  "latestMergedPr": 87,
-  "latestMergeCommit": "1792b7e33cd3b0f20abdfba17c3d0ba9da4de22a",
+  "currentMilestone": "M05.11\u2013M05.13",
+  "currentBranch": "codex/m05-webhook-delivery",
+  "currentPr": null,
+  "latestMergedPr": 88,
+  "latestMergeCommit": "34cf2cf5921aa71299aefd7a8d5b9ff53eced7e2",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "Independent candidate919 simulator/172 API cases (733 assertions)/90 affected controls PASS; root2815 full controls and clean QA18/0/1 PASS. Final metadata confirmation pending.",
-  "remoteCiStatus": "Candidate CI40753871814 both jobs/all steps PASS:919 simulator/2815 controls/1785 ledger/14 actual PostgreSQL suites1227 and cleanup; final tracking-head CI pending.",
+  "localTestStatus": "New webhook unit validation pending; predecessor results retained in PR88.",
+  "remoteCiStatus": "PR88 final CI40755732584 passed; new unit CI pending.",
   "dockerStatus": "UNAVAILABLE_LOCALLY_APPROVED_OWNED_POSTGRES17_CI_ROUTE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -57,7 +57,7 @@
     "M05.03 synthetic single full/partial capture composition with exact authorization preservation; human PR84 merged, no real funds or ledger action",
     "M05.04\u2013M05.06 synthetic payout composition; human PR86 merge/final QA/CI and introductory learning verified",
     "M05.07\u2013M05.08 synthetic bounded refund creation/paid composition human PR87 merge/final QA/CI and introductory learning verified",
-    "M05.09\u2013M05.10 synthetic bounded dispute opened and explicit independent fee; candidate QA PASS, sole PR88 final CI/learning/human merge pending"
+    "M05.09\u2013M05.10 synthetic dispute and separate fee; PR88 human merge, reviewed tree and introductory learning verified."
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -78,7 +78,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "Final PR88 tracking confirmation/CI, learning and human merge pending",
+    "Current webhook delivery unit implementation and independent validation pending",
     "No live-model calls/budget approved"
   ],
   "risks": [
@@ -94,9 +94,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "Confirm final PR88 tracking delta and reviewed-state CI, then A\u2013F learning and human review; no11 before verified human merge.",
-  "stopReason": "AWAITING_FINAL_CI_LEARNING_AND_HUMAN_MERGE",
-  "lastUpdatedTimestamp": "2026-10-28T19:09:32Z",
+  "exactNextAction": "Implement/test M05.11 then12 then13, independent review and final CI, learning and human merge.",
+  "stopReason": "IMPLEMENTATION_IN_PROGRESS",
+  "lastUpdatedTimestamp": "2026-11-09T12:45:00Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -645,7 +645,7 @@
     "bodySha256": "3799ed7411530f4a83e7dfa879cb99c594311bbd0139e3df8ffb45e0b998369e",
     "advisorySha256": "73d88b88b6234cfc9bfae596471b1fb913fe78d2a6b2f1f69c4e9049eb4bd84e"
   },
-  "disputeFeeReviewStatus": "QA passed, awaiting merge",
+  "disputeFeeReviewStatus": "Completed and merged",
   "disputeFeePrerequisites": {
     "pr": 87,
     "mergeCommit": "1792b7e33cd3b0f20abdfba17c3d0ba9da4de22a",
@@ -656,5 +656,17 @@
     "qaResult": "PASS",
     "bodySha256": "54e8ceba5f85ce160dcc7a751e829076bd31a3d92dd072d5a555110be634e3d5",
     "advisorySha256": "90a036761356c5b115c6de34488a8b093e0a1bc592329d2e88d0c93185fc3064"
+  },
+  "webhookDeliveryReviewStatus": "Builder in progress",
+  "webhookPrerequisites": {
+    "pr": 88,
+    "mergeCommit": "34cf2cf5921aa71299aefd7a8d5b9ff53eced7e2",
+    "reviewedHead": "d1b24a365e2bc697d45e9f0314d19616eb8eb90c",
+    "reviewedTree": "25e368c33a7ede3a00879f26e1f5cf6890b2ba7e",
+    "mergedTree": "25e368c33a7ede3a00879f26e1f5cf6890b2ba7e",
+    "ciRun": 40755732584,
+    "qaResult": "PASS",
+    "bodySha256": "1fd1c218837508ca8dc7450438d0c14da19bc4b9b0bf95e63304118f5581d668",
+    "advisorySha256": "92d2e638f45a84d2c5bc8f786e8eb55cdbb81cbdc6b46e572e868b7be94b8193"
   }
 }

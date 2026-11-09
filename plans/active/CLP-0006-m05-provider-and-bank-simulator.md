@@ -1,5 +1,31 @@
 # CLP-0006 M05 Provider and Bank Simulator
 
+## Current delivery unit: M05.11–M05.13 webhook delivery scenarios (2026-11-09)
+
+Builder in progress on `codex/m05-webhook-delivery`, base human PR88 squash `34cf2cf5921aa71299aefd7a8d5b9ff53eced7e2`. Before edits require git branch --show-current, git status --short, git remote -v; stop for unexpected branch/dirt. Root sole editor; delivery_learning_review separate-context read-only reviewer. One coherent delivery-notification unit; implement/test11 before12 before13, preserve every original acceptance row. M05.14 onward remains unstarted. No whole-milestone completion.
+
+PR88 merged by nonbot Islem-Rezzag at2026-11-09T12:40:52Z. Reviewed d1b24a365e2bc697d45e9f0314d19616eb8eb90c and squash share tree25e368c33a7ede3a00879f26e1f5cf6890b2ba7e, full diff empty, fetched-main reachability verified. Prior independent QA and CI40755732584 passed; these are historical results. User correctly explained challenge does not prove loss and fee is a separate charge; introductory learning complete after clarification, no personal demo execution claimed.
+
+### Scoped contract and original-ID acceptance
+
+- M05.11: pure duplicate delivery builder retains all original sources/bytes/hash/order and appends a new delivery/receipt for an already delivered provider source. A paired faulty scenario separately declares a new provider source occurrence and delivery; explicit scenario metadata links the pair, without interpreting payloads or inferring economic equality. Reject reused delivery/receipt/order, occurrence collision, wrong source tuple, bank targets and malformed context. No deduplication/exactly-once/ledger action.
+- M05.12: pure delayed delivery builder appends an explicit provider delivery with known eventTime and observedAt at/after eventTime. Supplied cutoff uses inclusive comparison; preserve all sources and deliveries, including future supplied observations, in input order. Snapshot metadata reports observed_by_cutoff or after_cutoff. No filtering, sorting, clock, sleeping, incident verdict or actor-visible benchmark output.
+- M05.13: pure missing-delivery scenario references an existing expected provider source, preserving its raw bytes and all existing deliveries. Refuse any selected delivery observed at/before cutoff. Explicit omission metadata distinguishes no_declared_delivery from declared_after_cutoff, without fabricating a receipt or removing evidence. Missing is relative to supplied finite context, never proof of permanent absence.
+
+Exact versioned own-data request roots, generic manifest validation/deep immutable snapshots, bounded existing256 sources/1024 deliveries, stable frozen issues/no partial result. New module/spec and behavior/type tests; existing financial generators unchanged. New result wraps preserved/generated manifest and explicit synthetic scenario metadata, which is test-author information and not an incident or grader verdict. Foreign provider payloads remain opaque; integrity is not authenticity. Reject ambiguous source occurrence aliases for selected/faulty targets.
+
+Demo: one captured payment delivered twice retains one occurrence; explicit faulty second occurrence stays distinct. Same event supplied after cutoff is absent at that cutoff and observed at equality; source with no delivery remains explicitly omitted. No live requests, storage or money changes. Safe pure in-memory tests; recovery is rerun; rollback by human-reviewed revert.
+
+Validation Levels0–5/7 and independent8, Level6 N/A: simulator behavior/type/lint/build/format, finite state/registry controls, full control suite, whitespace/scope/history, clean QA wrapper and actual final CI including existing PostgreSQL acceptance. Root runs tests; separate reviewer runtime coordinated. No installations/settings/paid calls/native Goal changes. Final technical readiness then concise learning and human merge; no14 before these gates. Carry final CI evidence in PR, no checkbox-only commits.
+
+### Candidate implementation and review checkpoint
+
+All four public builders implemented. M05.11 initial13 tests passed before12;22 passed before13; full961 simulator/15files, typecheck/lint/build/format and demonstration1 pass/40 intentional filtered cases passed. Three independent test-proof findings were fixed: public export exercise, valid readonly element, later-first mixed visibility, explicit caller mutation/getter count assertions. Independent fresh961/type/lint and98 public API cases/457 assertions PASS, no product findings. Independent probes used root-built dist with unchanged source; build and Python checks remain held until coordinated release.
+
+Root control validator and122 affected state/registry checks pass. Initial full control run had two old current-phase expectation failures; both corrected and targeted checks passed. A complete clean-candidate rerun is required; no full-suite pass yet claimed. All45 prior nested proof objects, complete prior plan body, original19 rows and weekly prefix preserved; prior PR88 body/advisory hashes match recorded bindings. Scope25 paths (21 existing,4 new); old financial generators/tests, generic validation, dependencies, migrations, CI and permissions unchanged. UTF8 editing was corrected immediately before validation; all edited paths decode as UTF8. Final independent commit binding, clean QA and actual CI remain pending. Safe scoped candidate commit/push/draft PR; not safe to merge. User learning for this new unit remains pending, no14 progression.
+
+## Historical dispute and fee checkpoint
+
 ## Current delivery unit: M05.09–M05.10 synthetic dispute and fee (2026-10-28)
 
 QA passed, awaiting merge for sole draft PR88 on `codex/m05-dispute-and-fee`, based on verified human PR87 squash `1792b7e33cd3b0f20abdfba17c3d0ba9da4de22a`. One coordinator/editor and existing separate-context `delivery_learning_review`; reviewer read-only and runtime coordinated. M05.09 and M05.10 form one bounded provider-evidence unit: external08 prerequisite human-merged, internal09 implemented and tested before10. Original19 acceptance criteria stay intact;11–19 and M06–M21 remain unstarted. Separate whole-M05 QA and closeout remain mandatory. Independent preimplementation review accepted this scope and its fixed-depth boundary.

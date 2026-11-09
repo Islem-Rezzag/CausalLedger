@@ -1554,3 +1554,7 @@ Verified human PR87 merge1792b7e/tree47df2d4, empty reviewed diff/main reachabil
 Builder09/10 validated:919 simulator,2815 controls (397.60s), package/workspace/demo/scope/history checks passed; static QA findings corrected. Independent runtime QA and final CI/learning/human merge pending. Full evidence in current CLP0006 handoff.
 
 Sole draft PR88 opened. Candidate8e7a0aec independent919 simulator/172 public API cases/90 affected controls PASS; root clean QA18/0/1 and both candidate CI40753871814 jobs (14 actual PostgreSQL suites1227) PASS. Final tracking handoff corrects stale navigation and binds88; final-head verification/learning/human merge pending, no11 progression.
+
+## 2026-11-09 — webhook delivery scenarios M05.11–M05.13
+
+Verified human PR88 merge34cf2cf matches reviewed tree25e368c, empty full diff/main reachable; user dispute/fee teach-back complete, no personal run claimed. New codex/m05-webhook-delivery unit keeps original IDs and finite11→12→13 implementation order:13 duplicate tests passed before delayed,22 before missing, final961 simulator15files/type/lint/build/format PASS. Independent static review accepted contract, requested three test-proof improvements; corrected and961/type checks passed again. Full controls initially exposed two prior-phase expectations; targeted122 affected controls now pass after updates. Full current-state controls and independent runtime/CI remain pending. No financial writes, source-byte edits, live delivery, storage, settings change or native Goal action.

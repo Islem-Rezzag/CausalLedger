@@ -1,5 +1,13 @@
 # Next Recommended Thread
 
+## Current webhook delivery unit (2026-11-09)
+
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.10 are Completed and merged, including verified human PR88. M05.11–M05.13 webhook delivery scenarios are Builder in progress on codex/m05-webhook-delivery under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Validation and independent review pending. M05.14–M05.19 and M06–M21 remain Not started/unbound.
+
+PR88 human merge34cf2cf equals reviewed tree25e368c; empty full diff/main reachability verified. Dispute/fee introductory learning complete after user responses; no personal execution claimed. Root sole editor, delivery_learning_review independent reviewer. Next: implement and validate11–13 then independent QA/CI/learning/human merge. Native Goal remains user-paused.
+
+## Historical records
+
 ## Current dispute and fee capability gate (2026-10-28)
 
 M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.08 are Completed and merged, including verified human PR87. M05.09–M05.10 synthetic dispute and fee is QA passed, awaiting merge for sole draft PR #88 on codex/m05-dispute-and-fee under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Independent candidate919 simulator/172 API cases and affected90 controls passed; root2815 controls and clean QA18/0/1 passed. Final tracking confirmation, current CI, learning and human merge remain. M05.11–M05.19 and M06–M21 remain Not started/unbound.

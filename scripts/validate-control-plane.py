@@ -1119,7 +1119,7 @@ def validate_m03_plan_location() -> list[str]:
         errors.append("completed M03 plan must not remain in plans/active")
     if not completed_m03.is_file():
         errors.append("completed M03 plan is missing from plans/completed")
-    if active_plan_files() and not (m04_active_plan_is_authorized() or m05_planning_is_authorized() or m05_simulator_package_is_authorized() or m05_payment_authorized_is_authorized() or m05_payment_captured_is_authorized() or m05_payout_is_authorized() or m05_refund_is_authorized() or m05_dispute_is_authorized()):
+    if active_plan_files() and not (m04_active_plan_is_authorized() or m05_planning_is_authorized() or m05_simulator_package_is_authorized() or m05_payment_authorized_is_authorized() or m05_payment_captured_is_authorized() or m05_payout_is_authorized() or m05_refund_is_authorized() or m05_dispute_is_authorized() or m05_webhook_is_authorized()):
         errors.append("plans/active must remain empty while target approval is pending")
     return errors
 
@@ -2618,6 +2618,100 @@ def validate_m05_dispute_lifecycle() -> list[str]:
     return errors
 
 
+M05_WEBHOOK_PHASE = "M05_WEBHOOK_DELIVERY"
+M05_WEBHOOK_BRANCH = "codex/m05-webhook-delivery"
+M05_WEBHOOK_IDS = ("M05.11", "M05.12", "M05.13")
+M05_WEBHOOK_FILES = M05_DISPUTE_FILES + ["src/webhook.ts", "test/webhook.test.ts", "test/webhook-types.test.ts"]
+M05_WEBHOOK_PREREQUISITES = {'pr': 88, 'mergeCommit': '34cf2cf5921aa71299aefd7a8d5b9ff53eced7e2', 'reviewedHead': 'd1b24a365e2bc697d45e9f0314d19616eb8eb90c', 'reviewedTree': '25e368c33a7ede3a00879f26e1f5cf6890b2ba7e', 'mergedTree': '25e368c33a7ede3a00879f26e1f5cf6890b2ba7e', 'ciRun': 40755732584, 'qaResult': 'PASS', 'bodySha256': '1fd1c218837508ca8dc7450438d0c14da19bc4b9b0bf95e63304118f5581d668', 'advisorySha256': '92d2e638f45a84d2c5bc8f786e8eb55cdbb81cbdc6b46e572e868b7be94b8193'}
+
+
+def validate_m05_webhook_goal(state: dict) -> list[str]:
+    prior = dict(state)
+    for key in ("webhookDeliveryReviewStatus", "webhookPrerequisites"):
+        prior.pop(key, None)
+    prior.update(currentPhase=M05_DISPUTE_PHASE, currentMilestone="M05.09–M05.10",
+                 currentBranch=M05_DISPUTE_BRANCH, currentPr=None,
+                 latestMergedPr=87, latestMergeCommit=M05_DISPUTE_PREREQUISITES["mergeCommit"],
+                 disputeFeeReviewStatus="Builder in progress")
+    errors = validate_project_completion_goal(prior)
+    if not exact_typed_proof(state.get("webhookPrerequisites"), M05_WEBHOOK_PREREQUISITES):
+        errors.append("webhook delivery unit requires exact typed verified dispute88 merge and review binding")
+    if state.get("currentMilestone") != "M05.11–M05.13" or state.get("currentBranch") != M05_WEBHOOK_BRANCH:
+        errors.append("webhook delivery unit requires its finite mapped IDs and expected branch")
+    if type(state.get("latestMergedPr")) is not int or state.get("latestMergedPr") != 88 or state.get("latestMergeCommit") != M05_WEBHOOK_PREREQUISITES["mergeCommit"]:
+        errors.append("webhook delivery unit requires actual latest human merge88")
+    if state.get("disputeFeeReviewStatus") != "Completed and merged":
+        errors.append("webhook delivery unit requires completed human-merged dispute/fee")
+    status=state.get("webhookDeliveryReviewStatus")
+    if not isinstance(status, str) or status not in M05_PACKAGE_REVIEW_STATUSES:
+        errors.append("webhook delivery unit requires a pending independent review status")
+    pr=state.get("currentPr")
+    if pr is not None and (type(pr) is not int or pr <= 88):
+        errors.append("webhook delivery unit requires its own integer PR after88")
+    if status == "QA passed, awaiting merge" and pr is None:
+        errors.append("webhook delivery QA requires its own PR")
+    if state.get("currentQaEvidence") is not None:
+        errors.append("webhook delivery current QA remains external and exact-head bound")
+    return errors
+
+
+def m05_webhook_is_authorized() -> bool:
+    state, errors=read_project_completion_goal()
+    return not errors and isinstance(state,dict) and state.get("currentPhase")==M05_WEBHOOK_PHASE and not validate_project_completion_goal(state)
+
+
+def validate_m05_webhook_lifecycle() -> list[str]:
+    state,_=read_project_completion_goal()
+    if not isinstance(state,dict) or state.get("currentPhase")!=M05_WEBHOOK_PHASE:
+        return []
+    errors=validate_project_completion_goal(state)+validate_completed_m04_for_m05()
+    if active_plan_files()!=[ROOT/M05_ACTIVE_PLAN]:
+        errors.append("webhook delivery unit requires exactly one active CLP0006")
+    try:
+        raw=(ROOT/M05_ACTIVE_PLAN).read_bytes()
+        front,marker,history=raw.partition(M05_AUTHORIZATION_HISTORY_MARKER.encode())
+        if not marker or hashlib.sha256(history).hexdigest()!=M05_AUTHORIZATION_HISTORY_SHA256:
+            errors.append("webhook delivery unit must preserve complete merged02 history")
+        sections=markdown_sections(front.decode("utf-8"))
+        if parse_markdown_table(sections.get("plan of work",""),["ID","Existing submilestone","Dependencies","Acceptance and deterministic evidence"])!=M05_PLAN_ROWS:
+            errors.append("webhook delivery unit must preserve all19 original acceptance rows")
+        if not sections.get("current delivery unit: m05.11–m05.13 webhook delivery scenarios (2026-11-09)"):
+            errors.append("webhook delivery unit requires its current scoped active plan")
+        registry=parse_registry(); rows=[r for r in registry if r.submilestone_id.startswith("M05.")]
+        detail=parse_milestone_submilestone_table(read_text("docs/milestones/M05.md"))
+        expected={r["ID"]:r["Existing submilestone"] for r in M05_PLAN_ROWS}
+        for source in (rows,detail):
+            if len(source)!=19 or {r.submilestone_id:r.name for r in source}!=expected:
+                errors.append("webhook delivery unit requires all19 original registry/detail rows")
+            for row in source:
+                wanted="Completed and merged" if row.submilestone_id in ("M05.01","M05.02","M05.03",*M05_PAYOUT_IDS,*M05_REFUND_IDS,*M05_DISPUTE_IDS) else state.get("webhookDeliveryReviewStatus") if row.submilestone_id in M05_WEBHOOK_IDS else "Not started"
+                if row.status!=wanted:
+                    errors.append("webhook delivery unit may advance only mapped11–13 rows")
+        for row in rows:
+            if row.active_plan!=M05_ACTIVE_PLAN: errors.append("webhook delivery rows require active CLP0006")
+            if row.submilestone_id in M05_WEBHOOK_IDS:
+                if row.branch!=M05_WEBHOOK_BRANCH or row.pr!=("" if state.get("currentPr") is None else "#"+str(state["currentPr"])):
+                    errors.append("webhook delivery mapped rows require one shared branch/PR")
+            elif row.submilestone_id in ("M05.01","M05.02","M05.03",*M05_PAYOUT_IDS,*M05_REFUND_IDS,*M05_DISPUTE_IDS):
+                branch,pr={"M05.01":(M05_SIMULATOR_PACKAGE_BRANCH,"#82"),"M05.02":(M05_PAYMENT_AUTHORIZED_BRANCH,"#83"),"M05.03":(M05_PAYMENT_CAPTURED_BRANCH,"#84"),**{id:(M05_PAYOUT_BRANCH,"#86") for id in M05_PAYOUT_IDS},**{id:(M05_REFUND_BRANCH,"#87") for id in M05_REFUND_IDS},**{id:(M05_DISPUTE_BRANCH,"#88") for id in M05_DISPUTE_IDS}}[row.submilestone_id]
+                if (row.branch,row.pr)!=(branch,pr): errors.append("webhook delivery unit must retain completed predecessor branches/PRs")
+            elif row.branch or row.pr: errors.append("webhook delivery unit cannot bind later rows")
+        if any(r.status!="Not started" or r.active_plan or r.branch or r.pr for r in registry if r.submilestone_id[:3] in {f"M{n:02d}" for n in range(6,22)}):
+            errors.append("webhook delivery unit cannot activate M06–M21")
+        package=ROOT/"packages/simulator"
+        if not package.is_dir() or package_files(package)!=set(M05_WEBHOOK_FILES) or (ROOT/"packages/simulators").exists():
+            errors.append("webhook delivery unit requires exactly the owned simulator files")
+        manifest=json.loads(read_text("packages/simulator/package.json"))
+        expected_scripts={"build":"tsc -p tsconfig.json","typecheck":"tsc -p tsconfig.json --noEmit --pretty false && tsc -p tsconfig.test.json --noEmit --pretty false","typecheck:test":"tsc -p tsconfig.test.json --noEmit --pretty false","test":'vitest run --exclude "dist/**"',"lint":"eslint . --max-warnings=0","format:check":'prettier --check "src/**/*.ts" "test/**/*.ts" "README.md" "package.json" "tsconfig*.json"'}
+        if not isinstance(manifest,dict) or set(manifest)!={"name","version","private","type","scripts","devDependencies"} or manifest.get("name")!="@causalledger/simulator" or manifest.get("version")!="0.0.0" or manifest.get("private") is not True or manifest.get("type")!="module" or manifest.get("scripts")!=expected_scripts or manifest.get("devDependencies")!={"@types/node":"^22.0.0","prettier":"^3.8.3","typescript":"^6.0.3","vitest":"^4.1.8"}:
+            errors.append("webhook delivery unit must retain private dependency-free package/tool scripts")
+        if json.loads(read_text("packages/simulator/tsconfig.json"))!={"extends":"../../tsconfig.base.json","compilerOptions":{"outDir":"dist","rootDir":"src","types":["node"],"tsBuildInfoFile":"dist/.tsbuildinfo"},"include":["src/**/*.ts"]} or json.loads(read_text("packages/simulator/tsconfig.test.json"))!={"extends":"./tsconfig.json","compilerOptions":{"noEmit":True,"rootDir":".","types":["node"]},"include":["src/**/*.ts","test/**/*.ts"]}:
+            errors.append("webhook delivery unit must retain strict production/test configurations")
+    except (OSError,ValueError,KeyError,TypeError) as exc:
+        errors.append("webhook delivery artifacts invalid: "+str(exc))
+    return errors
+
+
 def validate_m05_planning_goal(state: dict) -> list[str]:
     # Retain the complete prior approval/provenance checks; outer validation
     # checks original required keys before this historical projection.
@@ -2966,6 +3060,10 @@ def validate_project_completion_goal(goal_state: object) -> list[str]:
         errors.append(
             "PROJECT_COMPLETION_GOAL.json missing required keys: " + ", ".join(missing)
         )
+    if goal_state.get("currentPhase") == M05_WEBHOOK_PHASE:
+        return errors + validate_m05_webhook_goal(goal_state)
+    if any(goal_state.get(k) is not None for k in ("webhookPrerequisites", "webhookDeliveryReviewStatus")):
+        errors.append("webhook state cannot leak into an earlier phase")
     if goal_state.get("currentPhase") == M05_DISPUTE_PHASE:
         return errors + validate_m05_dispute_goal(goal_state)
     if any(goal_state.get(k) is not None for k in ("disputeFeePrerequisites", "disputeFeeReviewStatus")):
@@ -3293,7 +3391,7 @@ def m04_active_plan_is_authorized() -> bool:
 def m04_account_schema_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_ACCOUNT_PHASE, M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE, M05_WEBHOOK_PHASE)
         and not validate_project_completion_goal(state)
     )
 
@@ -3301,7 +3399,7 @@ def m04_account_schema_is_authorized() -> bool:
 def m04_transaction_schema_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_TRANSACTION_PHASE, M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE, M05_WEBHOOK_PHASE)
         and not validate_project_completion_goal(state)
     )
 
@@ -3309,7 +3407,7 @@ def m04_transaction_schema_is_authorized() -> bool:
 def m04_entry_schema_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_ENTRY_PHASE, M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE, M05_WEBHOOK_PHASE)
         and not validate_project_completion_goal(state)
     )
 
@@ -3317,92 +3415,92 @@ def m04_entry_schema_is_authorized() -> bool:
 def m04_balance_validation_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
     return (
-        not errors and state is not None and state.get("currentPhase") in (M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE)
+        not errors and state is not None and state.get("currentPhase") in (M04_BALANCE_PHASE, M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE, M05_WEBHOOK_PHASE)
         and not validate_project_completion_goal(state)
     )
 
 
 def m04_storage_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_STORAGE_PHASE, M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE, M05_WEBHOOK_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_account_balance_query_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_QUERY_PHASE, M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE, M05_WEBHOOK_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_transaction_query_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_LOOKUP_PHASE, M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE, M05_WEBHOOK_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_idempotency_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_IDEMPOTENCY_PHASE, M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE, M05_WEBHOOK_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_reversal_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_REVERSAL_PHASE, M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE, M05_WEBHOOK_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_cash_clearing_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_CASH_PHASE, M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE, M05_WEBHOOK_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_provider_clearing_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_PROVIDER_PHASE, M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE, M05_WEBHOOK_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_customer_liability_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_CUSTOMER_PHASE, M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE, M05_WEBHOOK_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_fee_expense_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_FEE_PHASE, M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE, M05_WEBHOOK_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_revenue_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_REVENUE_PHASE, M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE, M05_WEBHOOK_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_balanced_posting_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_BALANCED_POSTING_PHASE, M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE, M05_WEBHOOK_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_invalid_posting_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_INVALID_POSTING_PHASE, M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE, M05_WEBHOOK_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_reversal_tests_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_REVERSAL_TESTS_PHASE, M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE, M05_WEBHOOK_PHASE)
             and not validate_project_completion_goal(state))
 
 
 def m04_ledger_acceptance_is_authorized() -> bool:
     state, errors = read_project_completion_goal()
-    return (not errors and state is not None and state.get("currentPhase") in (M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE)
+    return (not errors and state is not None and state.get("currentPhase") in (M04_ACCEPTANCE_PHASE, M04_CLOSEOUT_PHASE, M05_PLANNING_PHASE, M05_SIMULATOR_PACKAGE_PHASE, M05_PAYMENT_AUTHORIZED_PHASE, M05_PAYMENT_CAPTURED_PHASE, M05_PAYOUT_PHASE, M05_REFUND_PHASE, M05_DISPUTE_PHASE, M05_WEBHOOK_PHASE)
             and not validate_project_completion_goal(state))
 
 
@@ -3697,6 +3795,7 @@ def validate_m03_06_closeout_readiness() -> list[str]:
             and not (row.submilestone_id == "M04.18" and m04_ledger_acceptance_is_authorized())
             and not (row.submilestone_id in ("M05.01", "M05.02", "M05.03", *M05_PAYOUT_IDS, *M05_REFUND_IDS) and m05_refund_is_authorized())
             and not (row.submilestone_id in ("M05.01", "M05.02", "M05.03", *M05_PAYOUT_IDS, *M05_REFUND_IDS, *M05_DISPUTE_IDS) and m05_dispute_is_authorized())
+            and not (row.submilestone_id in ("M05.01", "M05.02", "M05.03", *M05_PAYOUT_IDS, *M05_REFUND_IDS, *M05_DISPUTE_IDS, *M05_WEBHOOK_IDS) and m05_webhook_is_authorized())
             and not (row.submilestone_id in ("M05.01", "M05.02", "M05.03", *M05_PAYOUT_IDS) and m05_payout_is_authorized())
             and not (row.submilestone_id == "M05.01" and (m05_simulator_package_is_authorized() or m05_payment_authorized_is_authorized() or m05_payment_captured_is_authorized()))
             and not (row.submilestone_id == "M05.02" and (m05_payment_authorized_is_authorized() or m05_payment_captured_is_authorized()))
@@ -4173,7 +4272,7 @@ def validate_package_scaffolds() -> list[str]:
         if not package_dir.is_dir():
             continue
         files = package_files(package_dir)
-        if package_dir.name == "simulator" and (m05_simulator_package_is_authorized() or m05_payment_authorized_is_authorized() or m05_payment_captured_is_authorized() or m05_payout_is_authorized() or m05_refund_is_authorized() or m05_dispute_is_authorized()):
+        if package_dir.name == "simulator" and (m05_simulator_package_is_authorized() or m05_payment_authorized_is_authorized() or m05_payment_captured_is_authorized() or m05_payout_is_authorized() or m05_refund_is_authorized() or m05_dispute_is_authorized() or m05_webhook_is_authorized()):
             continue  # Exact foundation layout/config is validated separately.
         if package_dir.name not in M02_05_PACKAGE_DIRS:
             if files != {"README.md"}:
@@ -4520,6 +4619,7 @@ def validate() -> list[str]:
     errors.extend(validate_m05_payout_lifecycle())
     errors.extend(validate_m05_refund_lifecycle())
     errors.extend(validate_m05_dispute_lifecycle())
+    errors.extend(validate_m05_webhook_lifecycle())
     errors.extend(validate_m03_04_events_runtime_boundary())
     errors.extend(validate_local_infrastructure())
     errors.extend(validate_qa_development_environment())
