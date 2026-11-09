@@ -73,3 +73,18 @@ export type {
   RefundResult,
   RefundIssue,
 } from "./refund.js";
+
+export {
+  generateDisputeOpened,
+  generateChargebackFee,
+  DISPUTE_OPENED_REQUEST_VERSION,
+  DISPUTE_OPENED_GENERATOR_VERSION,
+  CHARGEBACK_FEE_REQUEST_VERSION,
+  CHARGEBACK_FEE_GENERATOR_VERSION,
+} from "./dispute.js";
+export type {
+  DisputeOpenedRequest,
+  ChargebackFeeRequest,
+  DisputeResult,
+  DisputeIssue,
+} from "./dispute.js";

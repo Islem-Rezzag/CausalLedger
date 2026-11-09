@@ -1,5 +1,15 @@
 # Current State
 
+## Current dispute and fee capability gate (2026-10-28)
+
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.08 are Completed and merged, including verified human PR87. M05.09–M05.10 synthetic dispute and fee is QA passed, awaiting merge for sole draft PR #88 on codex/m05-dispute-and-fee under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Independent candidate919 simulator/172 API cases and affected90 controls passed; root2815 controls and clean QA18/0/1 passed. Final tracking confirmation, current CI, learning and human merge remain. M05.11–M05.19 and M06–M21 remain Not started/unbound.
+
+PR87 human squash1792b7e matches reviewed tree47df2d4, full diff EMPTY and fetched-main reachable; root primary final CI39803568146 and published review hashes rechecked. Refund introductory learning covered with clarification and user confirmation; no personal refund run claimed. Root sole editor, delivery_learning_review independent read-only reviewer. See current CLP0006 brief for exact contract and validation.
+
+Exact next: confirm final PR88 tracking delta and reviewed-head CI, then A–F learning and human merge. No11 progression. Native Goal remains user-paused.
+
+## Historical checkpoints below
+
 ## Current refund capability gate (2026-10-22)
 
 M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.06 are Completed and merged, including verified human PR86. M05.07–M05.08 synthetic refund lifecycle is QA passed, awaiting merge for sole draft PR #87 on codex/m05-refund-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Full/partial/multiple refund creation and paid evidence are implemented and independently reviewed; final handoff confirmation, current CI, learning and human merge remain pending. M05.09–M05.19 and M06–M21 remain Not started/unbound.

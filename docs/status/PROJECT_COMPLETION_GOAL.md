@@ -6,16 +6,16 @@ Goal ID: `CLG-COMPLETION-001`. Deliver the repository-defined public product, th
 
 Human approval received on 2026-09-24 in Codex task `01a0d3ba-f6d3-7322-92b5-8109df0f82d7`: “Merged #60. I approve V1_PUBLIC_PRODUCT. Continue.” This explicit user message, not a generated brief or changed target string, authorizes the selection. The existing JSON now records `releaseTargetApproval` and `closeoutMergeEvidence`; these two additive provenance objects are validated against the observed decision/merge. Local validation checks consistency, not authenticity of arbitrary repository edits or financial truth.
 
-## Delivery and learning checkpoint (2026-10-22)
+## Delivery and learning checkpoint (2026-10-28)
 
-- Current capability: M05.07–M05.08 synthetic refund lifecycle, branch `codex/m05-refund-lifecycle`, sole draft [PR87](https://github.com/Islem-Rezzag/CausalLedger/pull/87); independent candidate744/2783/182probes PASS; final reviewed-state gates pending. M05.01–06 are human-merged; M00–M04 closed, V1_PUBLIC_PRODUCT unchanged.
-- Verified predecessor: PR86 human squash `7100ca162962744be7f6fe3d65172d744a12c197` matches final reviewed tree `28f8d1ccd867773d2e4f1457314eab9561c4c5ae`; empty diff/main reachable. Final CI39774029083 and sole published evidence bindings rechecked. See CLP0006 for exact primary/local attribution.
-- Last user-reviewed capability: payout introductory checkpoint covered with clarification. Both no answers were correct. Keeping both reports supports tracing and investigation; it does not establish error cause or which report is true. No broad mastery claim.
-- Personal execution: user reports176 capture tests passed. Later supplied PowerShell screenshot visibly shows payout demonstration1 passed/154 intentional name-filter skips; root inspected it. Direct terminal execution was not observed, screenshot commit is not visible, and no personal full-suite payout pass is claimed.
-- Current scope: full/partial/multiple refunds in explicitly supplied one-capture history, at most16; created amounts count once, paid report links to its original creation and never proves customer receipt or ledger reversal.
-- Next checkpoint/reason: A–F refund walkthrough after technical review/CI, covering cumulative contextual limits and created-versus-paid evidence. Refund understanding remains pending; no repeated payout exam.
-- Next technical gate: confirm the final PR87 metadata delta and final reviewed-state CI; then wait for learning response and human merge. No09 before those gates. Native Goal stays user-paused.
-- Earlier sections below are historical snapshots. Detailed final-state proof belongs in the sole PR, and later conversational learning/merge facts enter the next legitimate scoped commit; no checkbox-only PR.
+- Current capability: M05.09–M05.10 synthetic dispute and fee, QA passed, awaiting merge on `codex/m05-dispute-and-fee`; sole draft PR88. M05.01–08 human-merged; M00–M04 closed, V1_PUBLIC_PRODUCT unchanged.
+- Verified predecessor: PR87 human squash1792b7e equals reviewed tree47df2d4; empty full diff and fetched-main reachable. Root rechecked primary final CI39803568146 and published QA/body/advisory bindings; detailed proof in current CLP0006 brief and PR87.
+- Last user-reviewed capability: refund introductory checkpoint covered with clarification. User identified refusal of excess1p and synthetic-paid limitation; distinguished failing test from correct generator rejection after wording correction. Simulator versus future investigation/evaluation harness explained. User explicitly confirmed understanding on2026-10-28; no broad mastery claim.
+- Personal execution: prior user-reported176 capture tests and inspected payout screenshot1 pass/154 filtered skips retain their attribution. No personal refund demonstration run reported.
+- Current contract: one captured-payment reference → one opened dispute with explicit reason → one separately supplied fee. No inferred disputed principal, confirmed chargeback, bank debit, ledger posting or financial authority.
+- Next checkpoint: new dispute-versus-chargeback-versus-fee concepts, after independent QA and final CI. Current unit understanding remains pending.
+- Next action: confirm final PR88 tracking/CI after candidate independent919 simulator/172 API cases/90 affected controls and root2815/clean QA18/0/1 PASS, then A–F checkpoint and human merge. No11 until those gates. Native Goal stays user-paused.
+- Earlier sections below are historical snapshots. Conversation/merge facts enter this legitimate scoped update; detailed final proof belongs in the sole PR, without checkbox-only commits.
 
 ## Verified checkpoint
 

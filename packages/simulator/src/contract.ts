@@ -78,6 +78,8 @@ export const simulatorPackageBoundary = Object.freeze({
   payoutFailedGenerationImplemented: true,
   refundCreatedGenerationImplemented: true,
   refundPaidGenerationImplemented: true,
+  disputeOpenedGenerationImplemented: true,
+  chargebackFeeGenerationImplemented: true,
   bankGenerationImplemented: false,
   seedExecutionImplemented: false,
   cliImplemented: false,

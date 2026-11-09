@@ -24,7 +24,8 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Active execution links
 
-- `docs/specs/simulator-refund-lifecycle.md` - current07–08 bounded refund request/output/provenance and demonstration contract.
+- `docs/specs/simulator-refund-lifecycle.md` - human-merged07–08 bounded refund contract.
+- `docs/specs/simulator-dispute-and-fee.md` - current09–10 bounded dispute and explicit fee contract.
 - `docs/specs/simulator-payment-authorized.md` - human-merged02 synthetic authorization contract.
 - `docs/specs/simulator-payment-captured.md` - current03 synthetic capture request/output/error/byte contract and optional VS Code demonstration.
 - `START_HERE.md` - required first read, active-plan detection, wrong-branch recovery, and handoff rules.
@@ -128,7 +129,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.06 are Completed and merged, including verified human PR86. M05.07–M05.08 synthetic refund lifecycle is QA passed, awaiting merge for sole draft PR #87 on codex/m05-refund-lifecycle under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Full/partial/multiple refund creation and paid evidence are implemented and independently reviewed; final handoff confirmation, current CI, learning and human merge remain pending. M05.09–M05.19 and M06–M21 remain Not started/unbound.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.08 are Completed and merged, including verified human PR87. M05.09–M05.10 synthetic dispute and fee is QA passed, awaiting merge for sole draft PR #88 on codex/m05-dispute-and-fee under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Independent candidate919 simulator/172 API cases and affected90 controls passed; root2815 controls and clean QA18/0/1 passed. Final tracking confirmation, current CI, learning and human merge remain. M05.11–M05.19 and M06–M21 remain Not started/unbound.
 
 - `docs/specs/ledger-account-balance-query.md` - M04.06 read-only exact account/currency totals, sign, cutoff and committed-snapshot semantics.
 - `docs/specs/ledger-transaction-query.md` - M04.07 complete journal identity/reference/account-currency queries and explicit page boundaries.
@@ -140,7 +141,7 @@ M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.06 are Co
 Current formal-closeout packet: `docs/status/M04_CLOSEOUT.md`; M04 is completed; current planning uses plans/active/CLP-0006-m05-provider-and-bank-simulator.md.
 
 
-Historical M05.03 capture snapshot (superseded by current refund state above): M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are Completed and merged in verified PR82/PR83. M05.03 Simulate payment captured is QA passed, awaiting merge for sole PR #84 on m05-03-simulate-payment-captured under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Synthetic capture composition is implemented; M05.04–M05.19 and M06–M21 remain Not started/unbound.
+Historical M05.03 capture snapshot (superseded by current dispute/fee state above): M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are Completed and merged in verified PR82/PR83. M05.03 Simulate payment captured is QA passed, awaiting merge for sole PR #84 on m05-03-simulate-payment-captured under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Synthetic capture composition is implemented; M05.04–M05.19 and M06–M21 remain Not started/unbound.
 
 
 ## M05.02 current checkpoint (2026-10-16)
@@ -155,7 +156,7 @@ Current02 generator validation is recorded in CURRENT_STATE.md and active CLP000
 ## Simulator payout and refund contracts
 
 - [Payout lifecycle](specs/simulator-payout-lifecycle.md): M05.04–06 human-merged in PR86, with final QA/CI and introductory learning verified.
-- [Refund lifecycle](specs/simulator-refund-lifecycle.md): current M05.07–08 bounded full/partial/multiple refunds and distinct paid reports; candidate independent QA passed; final metadata confirmation, CI, learning and human merge gates remain.
+- [Refund lifecycle](specs/simulator-refund-lifecycle.md): human-merged M05.07–08 bounded full/partial/multiple refunds and distinct paid reports.
 
 ## M05.03 current checkpoint (2026-10-18)
 

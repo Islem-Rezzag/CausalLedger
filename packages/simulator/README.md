@@ -2,7 +2,7 @@
 
 M05.01 implements a private package foundation with readonly synthetic source, delivery, validation-result and versioned manifest contracts. validateSimulatorManifest checks unknown caller input, references and exact UTF-8 integrity and returns a detached, deeply frozen manifest or stable issues with no partial value.
 
-M05.02 adds only generatePaymentAuthorized: one labelled synthetic payment_authorized occurrence and declared delivery from explicit validated inputs. M05.03 adds generatePaymentCaptured: one full or partial capture backed by an exact generated authorization, preserving its source/delivery. M05.04–06 add generatePayoutCreated/Paid/Failed with full gross capture membership and preserved contradictory provider reports. M05.07–08 add generateRefundCreated/Paid for bounded full/partial/multiple refund histories against one supplied capture. Other provider/bank generators, seed execution, delivery scheduling, CSV and CLI remain unimplemented. This package does not connect to a provider, ingest receipts or store evidence. It has no financial-write API, ledger dependency or agent tool. The generic validator treats payloads as opaque; authorization/capture generators validate their owned wire and exact amount/currency relations. Neither establishes source authenticity or economic truth.
+M05.02 adds only generatePaymentAuthorized: one labelled synthetic payment_authorized occurrence and declared delivery from explicit validated inputs. M05.03 adds generatePaymentCaptured: one full or partial capture backed by an exact generated authorization, preserving its source/delivery. M05.04–06 add generatePayoutCreated/Paid/Failed with full gross capture membership and preserved contradictory provider reports. M05.07–08 add generateRefundCreated/Paid for bounded full/partial/multiple refund histories against one supplied capture. M05.09–10 add generateDisputeOpened/ChargebackFee for one explicit dispute and separate fee against a captured payment. Other provider/bank generators, seed execution, delivery scheduling, CSV and CLI remain unimplemented. This package does not connect to a provider, ingest receipts or store evidence. It has no financial-write API, ledger dependency or agent tool. The generic validator treats payloads as opaque; authorization/capture generators validate their owned wire and exact amount/currency relations. Neither establishes source authenticity or economic truth.
 
 ## Contract
 
@@ -49,7 +49,7 @@ The coordinator runs this test for the user. Unit tests also check independent U
 
 packages/simulator owns this offline foundation. Connectors, evidence, canonical events and ledger retain their separate boundaries. All previous source/tests/migrations/runner/fixtures are preserved. Later amount/currency/event-kind/seed/CSV/CLI rules belong to their original M05 owners and require versioned compatibility decisions.
 
-Active plan: plans/active/CLP-0006-m05-provider-and-bank-simulator.md. M05.01 human PR82 merge is verified; M05.02 payment authorization is human-merged in PR83; M05.03 adds one synthetic authorization-backed capture. See ../../docs/specs/simulator-payment-authorized.md for complete request/context/error/byte contracts. See ../../docs/specs/simulator-payment-captured.md for the capture contract. M05.03 human PR84 merge is verified. M05.04–06 payout is human-merged in PR86. Current M05.07–08 refund unit remains subject to independent review/CI/learning and human merge;09+ is unstarted.
+Active plan: plans/active/CLP-0006-m05-provider-and-bank-simulator.md. M05.01 human PR82 merge is verified; M05.02 payment authorization is human-merged in PR83; M05.03 adds one synthetic authorization-backed capture. See ../../docs/specs/simulator-payment-authorized.md for complete request/context/error/byte contracts. See ../../docs/specs/simulator-payment-captured.md for the capture contract. M05.03 human PR84 merge is verified. M05.04–06 payout is human-merged in PR86. M05.07–08 refund is human-merged in PR87. Current M05.09–10 dispute/fee unit remains subject to independent review/CI/learning and human merge;11+ is unstarted.
 
 ## Payment authorization example
 
@@ -74,3 +74,9 @@ See [the payout contract](../../docs/specs/simulator-payout-lifecycle.md). Expli
 See [the refund contract](../../docs/specs/simulator-refund-lifecycle.md). A captured1250 GBP minor units (£12.50) supports refunds500 (£5.00) and750 (£7.50); an additional1p is refused. Paid reports preserve source evidence and do not count again against the supplied budget. At most16 refunds in one explicit capture history; no global balance or customer receipt assertion.
 
     pnpm --filter @causalledger/simulator exec vitest run test/refund.test.ts -t demonstration
+
+## Synthetic dispute and fee exercise
+
+See [the dispute and fee contract](../../docs/specs/simulator-dispute-and-fee.md). A capture of1250 GBP minor units (£12.50) gains one explicit dispute reason and a separate fee of150 (£1.50), preserving2→3→4 sources/deliveries. The fee may exceed the capture because it is independent; no principal chargeback, dispute outcome or actual debit is inferred. Missing dispute context or a mismatched dispute ID is refused.
+
+    pnpm --filter @causalledger/simulator exec vitest run test/dispute.test.ts -t demonstration
