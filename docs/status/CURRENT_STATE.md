@@ -1,5 +1,13 @@
 # Current State
 
+## Current CSV report unit (2026-11-09)
+
+M00–M04 closed; V1_PUBLIC_PRODUCT approved. M05.01–M05.13 Completed and merged, including verified human PR89. M05.14–M05.15 settlement and bank CSV reports are Builder in progress on codex/m05-settlement-bank-csv under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Validation and independent review pending. M05.16–M05.19 and M06–M21 remain Not started/unbound.
+
+Next: implement14 then15 and validate, independent QA/CI, learning/human merge. PR89 merge/tree verified; user learning complete with clarification, no personal run claimed. Native Goal stays user-paused.
+
+## Historical records
+
 ## Current webhook delivery unit (2026-11-09)
 
 M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.10 are Completed and merged, including verified human PR88. M05.11–M05.13 webhook delivery scenarios are QA passed, awaiting merge for sole draft PR89 on codex/m05-webhook-delivery under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent961 simulator/98 API cases/122 affected controls and root clean QA passed. Final handoff confirmation and reviewed-state CI remain; then learning and human merge. M05.14–M05.19 and M06–M21 remain Not started/unbound.
