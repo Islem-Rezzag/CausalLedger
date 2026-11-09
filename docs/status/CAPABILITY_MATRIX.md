@@ -19,7 +19,8 @@
 | Synthetic payment capture | Completed and merged | Human PR84 merge/final QA verified; synthetic only. |
 | Synthetic payout lifecycle | Completed and merged | Human PR86, exact reviewed-tree merge and final QA/CI verified; provider assertions preserve original evidence. |
 | Synthetic refund lifecycle | Completed and merged | Human PR87 merge/final QA/CI and introductory learning verified. |
-| Synthetic dispute and fee | QA passed, awaiting merge | M05.09–10 implemented; independent919 simulator/172 API cases/90 controls PASS. Sole PR88; final tracking/CI/learning/human merge pending. |
+| Synthetic dispute and fee | Completed and merged | M05.09–10; human PR88 merge/tree and introductory learning verified. |
+| Webhook delivery scenarios | QA passed, awaiting merge | M05.11–13; independent961/98 API cases/122 controls and root clean QA/full2847 controls PASS. Sole PR89; final handoff/CI, learning and human merge pending. |
 | Invariant engine | Not started | No product logic |
 | Incident engine | Not started | No product logic |
 | Causal graph | Not started | No product logic |

@@ -6,6 +6,14 @@ Goal ID: `CLG-COMPLETION-001`. Deliver the repository-defined public product, th
 
 Human approval received on 2026-09-24 in Codex task `01a0d3ba-f6d3-7322-92b5-8109df0f82d7`: “Merged #60. I approve V1_PUBLIC_PRODUCT. Continue.” This explicit user message, not a generated brief or changed target string, authorizes the selection. The existing JSON now records `releaseTargetApproval` and `closeoutMergeEvidence`; these two additive provenance objects are validated against the observed decision/merge. Local validation checks consistency, not authenticity of arbitrary repository edits or financial truth.
 
+## Delivery and learning checkpoint (2026-11-09)
+
+Current M05.11–13 webhook delivery scenarios: QA passed, awaiting merge, codex/m05-webhook-delivery, sole draft PR89. Verified PR88 human merge34cf2cf matches reviewed tree25e368c; full diff empty and main reachable. Prior final QA/CI40755732584 passed (historical).
+User correctly answered that a dispute means challenged payment, not established loss; complaint linkage clarified. User correctly identified a fee as a separate charge. Introductory PR88 learning complete; no personal demo run claimed. Earlier reported capture176 and payout screenshot remain attributed historical evidence.
+Next checkpoint: duplicate delivery versus separately declared occurrence, and observation cutoff versus permanent absence. Root961 simulator/full2847 controls/clean QA18/0/1 and candidate CI passed; independent961/98 API cases/122 controls passed. Final tracking confirmation/current CI, then new learning and human merge. Native Goal remains user-paused. No14 progression.
+
+## Historical learning checkpoint
+
 ## Delivery and learning checkpoint (2026-10-28)
 
 - Current capability: M05.09–M05.10 synthetic dispute and fee, QA passed, awaiting merge on `codex/m05-dispute-and-fee`; sole draft PR88. M05.01–08 human-merged; M00–M04 closed, V1_PUBLIC_PRODUCT unchanged.

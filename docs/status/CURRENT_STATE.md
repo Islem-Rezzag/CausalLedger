@@ -1,5 +1,13 @@
 # Current State
 
+## Current webhook delivery unit (2026-11-09)
+
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.10 are Completed and merged, including verified human PR88. M05.11–M05.13 webhook delivery scenarios are QA passed, awaiting merge for sole draft PR89 on codex/m05-webhook-delivery under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent961 simulator/98 API cases/122 affected controls and root clean QA passed. Final handoff confirmation and reviewed-state CI remain; then learning and human merge. M05.14–M05.19 and M06–M21 remain Not started/unbound.
+
+Candidate619e458/tree228bb23 independent961/98 API cases(457 assertions)/122 controls PASS; root clean QA18/0/1 including full2847 controls PASS. Candidate CI42620681218 both jobs successful, actual PostgreSQL evidence recorded in PR89. Current tracking fixes stale navigation and binds own PR; product and tests unchanged. Final independent tracking confirmation and reviewed-state CI are next, then A–F learning and human review. No14 before actual human merge. Native Goal remains user-paused.
+
+## Historical records
+
 ## Current dispute and fee capability gate (2026-10-28)
 
 M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.08 are Completed and merged, including verified human PR87. M05.09–M05.10 synthetic dispute and fee is QA passed, awaiting merge for sole draft PR #88 on codex/m05-dispute-and-fee under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Independent candidate919 simulator/172 API cases and affected90 controls passed; root2815 controls and clean QA18/0/1 passed. Final tracking confirmation, current CI, learning and human merge remain. M05.11–M05.19 and M06–M21 remain Not started/unbound.

@@ -1,6 +1,6 @@
 # Start Here
 
-M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.08 are Completed and merged, including verified human PR87. M05.09–M05.10 synthetic dispute and fee is QA passed, awaiting merge for sole draft PR #88 on codex/m05-dispute-and-fee under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Independent candidate919 simulator/172 API cases and affected90 controls passed; root2815 controls and clean QA18/0/1 passed. Final tracking confirmation, current CI, learning and human merge remain. M05.11–M05.19 and M06–M21 remain Not started/unbound.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.10 are Completed and merged, including verified human PR88. M05.11–M05.13 webhook delivery scenarios are QA passed, awaiting merge for sole draft PR89 on codex/m05-webhook-delivery under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent961 simulator/98 API cases/122 affected controls and root clean QA passed. Final handoff confirmation and reviewed-state CI remain; then learning and human merge. M05.14–M05.19 and M06–M21 remain Not started/unbound.
 
 Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 
@@ -63,7 +63,7 @@ The handoff packet must include files created, files changed, files intentionall
 
 - Do not implement product functionality outside the active submilestone.
 - Do not extend MoneyEvent logic beyond the active source-neutral boundary.
-- Keep current work inside the mapped M05.09–M05.10 synthetic dispute/fee unit in CLP0006. Refund87 human merge and introductory learning are verified; the next unit waits for independent review/final CI, required learning and human merge. No financial authority is added.
+- Keep current work inside mapped M05.11–M05.13 webhook delivery scenarios in CLP0006. Human PR88 merge and introductory learning verified. Sole PR89 awaits final handoff/CI, new learning and human merge; no14 progression or financial authority.
 - Do not implement invariants.
 - Do not implement the agent runtime.
 - Do not implement UI features.

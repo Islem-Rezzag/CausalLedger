@@ -82,6 +82,29 @@ export {
   CHARGEBACK_FEE_REQUEST_VERSION,
   CHARGEBACK_FEE_GENERATOR_VERSION,
 } from "./dispute.js";
+export {
+  WEBHOOK_SCENARIO_VERSION,
+  DUPLICATE_WEBHOOK_REQUEST_VERSION,
+  FAULTY_DUPLICATE_WEBHOOK_REQUEST_VERSION,
+  DELAYED_WEBHOOK_REQUEST_VERSION,
+  MISSING_WEBHOOK_REQUEST_VERSION,
+  generateDuplicateWebhook,
+  generateFaultyDuplicateWebhook,
+  generateDelayedWebhook,
+  generateMissingWebhook,
+} from "./webhook.js";
+export type {
+  DuplicateWebhookRequest,
+  FaultyDuplicateWebhookRequest,
+  DelayedWebhookRequest,
+  MissingWebhookRequest,
+  WebhookScenario,
+  WebhookResult,
+  WebhookObservation,
+  WebhookObservationResult,
+  MissingWebhookScenario,
+  MissingWebhookResult,
+} from "./webhook.js";
 export type {
   DisputeOpenedRequest,
   ChargebackFeeRequest,
