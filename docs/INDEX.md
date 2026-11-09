@@ -130,7 +130,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.10 are Completed and merged, including verified human PR88. M05.11–M05.13 webhook delivery scenarios are Builder in progress on codex/m05-webhook-delivery under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Validation and independent review pending. M05.14–M05.19 and M06–M21 remain Not started/unbound.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.10 are Completed and merged, including verified human PR88. M05.11–M05.13 webhook delivery scenarios are QA passed, awaiting merge for sole draft PR89 on codex/m05-webhook-delivery under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent961 simulator/98 API cases/122 affected controls and root clean QA passed. Final handoff confirmation and reviewed-state CI remain; then learning and human merge. M05.14–M05.19 and M06–M21 remain Not started/unbound.
 
 - `docs/specs/ledger-account-balance-query.md` - M04.06 read-only exact account/currency totals, sign, cutoff and committed-snapshot semantics.
 - `docs/specs/ledger-transaction-query.md` - M04.07 complete journal identity/reference/account-currency queries and explicit page boundaries.
@@ -142,7 +142,7 @@ M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.10 are Co
 Current formal-closeout packet: `docs/status/M04_CLOSEOUT.md`; M04 is completed; current planning uses plans/active/CLP-0006-m05-provider-and-bank-simulator.md.
 
 
-Historical M05.03 capture snapshot (superseded by current dispute/fee state above): M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are Completed and merged in verified PR82/PR83. M05.03 Simulate payment captured is QA passed, awaiting merge for sole PR #84 on m05-03-simulate-payment-captured under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Synthetic capture composition is implemented; M05.04–M05.19 and M06–M21 remain Not started/unbound.
+Historical M05.03 capture snapshot (superseded by current webhook delivery state above): M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are Completed and merged in verified PR82/PR83. M05.03 Simulate payment captured is QA passed, awaiting merge for sole PR #84 on m05-03-simulate-payment-captured under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Synthetic capture composition is implemented; M05.04–M05.19 and M06–M21 remain Not started/unbound.
 
 
 ## M05.02 current checkpoint (2026-10-16)

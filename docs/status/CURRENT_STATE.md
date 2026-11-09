@@ -2,9 +2,9 @@
 
 ## Current webhook delivery unit (2026-11-09)
 
-M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.10 are Completed and merged, including verified human PR88. M05.11–M05.13 webhook delivery scenarios are Builder in progress on codex/m05-webhook-delivery under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Validation and independent review pending. M05.14–M05.19 and M06–M21 remain Not started/unbound.
+M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.10 are Completed and merged, including verified human PR88. M05.11–M05.13 webhook delivery scenarios are QA passed, awaiting merge for sole draft PR89 on codex/m05-webhook-delivery under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent961 simulator/98 API cases/122 affected controls and root clean QA passed. Final handoff confirmation and reviewed-state CI remain; then learning and human merge. M05.14–M05.19 and M06–M21 remain Not started/unbound.
 
-PR88 human merge34cf2cf equals reviewed tree25e368c; empty full diff/main reachability verified. Dispute/fee introductory learning complete after user responses; no personal execution claimed. Root sole editor, delivery_learning_review independent reviewer. Next: implement and validate11–13 then independent QA/CI/learning/human merge. Native Goal remains user-paused.
+Candidate619e458/tree228bb23 independent961/98 API cases(457 assertions)/122 controls PASS; root clean QA18/0/1 including full2847 controls PASS. Candidate CI42620681218 both jobs successful, actual PostgreSQL evidence recorded in PR89. Current tracking fixes stale navigation and binds own PR; product and tests unchanged. Final independent tracking confirmation and reviewed-state CI are next, then A–F learning and human review. No14 before actual human merge. Native Goal remains user-paused.
 
 ## Historical records
 

@@ -16,12 +16,12 @@
   "currentWorkstream": "FINANCIAL_TRUTH_CORE",
   "currentMilestone": "M05.11\u2013M05.13",
   "currentBranch": "codex/m05-webhook-delivery",
-  "currentPr": null,
+  "currentPr": 89,
   "latestMergedPr": 88,
   "latestMergeCommit": "34cf2cf5921aa71299aefd7a8d5b9ff53eced7e2",
   "environmentReadiness": "LOCAL_DB_UNAVAILABLE_APPROVED_REMOTE_POSTGRES_ACCEPTANCE_PASS",
-  "localTestStatus": "New webhook unit validation pending; predecessor results retained in PR88.",
-  "remoteCiStatus": "PR88 final CI40755732584 passed; new unit CI pending.",
+  "localTestStatus": "Independent961 simulator/98 API cases(457 assertions)/122 affected controls PASS; root clean QA18/0/1 including full2847 controls PASS.",
+  "remoteCiStatus": "Candidate CI42620681218 both jobs SUCCESS; final handoff reviewed-state CI pending.",
   "dockerStatus": "UNAVAILABLE_LOCALLY_APPROVED_OWNED_POSTGRES17_CI_ROUTE",
   "liveModelAccessStatus": "NO_LIVE_CALLS_OR_BUDGET_APPROVED_KEY_PRESENCE_LAST_CHECKED_2026_08_18",
   "implementationCapabilities": [
@@ -57,7 +57,8 @@
     "M05.03 synthetic single full/partial capture composition with exact authorization preservation; human PR84 merged, no real funds or ledger action",
     "M05.04\u2013M05.06 synthetic payout composition; human PR86 merge/final QA/CI and introductory learning verified",
     "M05.07\u2013M05.08 synthetic bounded refund creation/paid composition human PR87 merge/final QA/CI and introductory learning verified",
-    "M05.09\u2013M05.10 synthetic dispute and separate fee; PR88 human merge, reviewed tree and introductory learning verified."
+    "M05.09\u2013M05.10 synthetic dispute and separate fee; PR88 human merge, reviewed tree and introductory learning verified.",
+    "M05.11\u2013M05.13 pure duplicate/faulty, delayed and missing-at-cutoff webhook scenarios; candidate independent QA passed, sole PR89 final gates pending."
   ],
   "explicitlyUnimplementedCapabilities": [
     "source-specific parsing or mapping",
@@ -78,7 +79,7 @@
     "production deployment"
   ],
   "openBlockers": [
-    "Current webhook delivery unit implementation and independent validation pending",
+    "Final PR89 handoff confirmation/CI, learning and human merge pending",
     "No live-model calls/budget approved"
   ],
   "risks": [
@@ -94,9 +95,9 @@
     "authorize later live-model provider, model, call count and cost cap",
     "authorize deployment, release tags and publication"
   ],
-  "exactNextAction": "Implement/test M05.11 then12 then13, independent review and final CI, learning and human merge.",
-  "stopReason": "IMPLEMENTATION_IN_PROGRESS",
-  "lastUpdatedTimestamp": "2026-11-09T12:45:00Z",
+  "exactNextAction": "Confirm final PR89 handoff and reviewed-state CI, then learning and human review/merge; no14 before verified human merge.",
+  "stopReason": "AWAITING_FINAL_CI_LEARNING_AND_HUMAN_MERGE",
+  "lastUpdatedTimestamp": "2026-11-09T14:11:28Z",
   "releaseTargetApproval": {
     "target": "V1_PUBLIC_PRODUCT",
     "approvedOn": "2026-09-24",
@@ -657,7 +658,7 @@
     "bodySha256": "54e8ceba5f85ce160dcc7a751e829076bd31a3d92dd072d5a555110be634e3d5",
     "advisorySha256": "90a036761356c5b115c6de34488a8b093e0a1bc592329d2e88d0c93185fc3064"
   },
-  "webhookDeliveryReviewStatus": "Builder in progress",
+  "webhookDeliveryReviewStatus": "QA passed, awaiting merge",
   "webhookPrerequisites": {
     "pr": 88,
     "mergeCommit": "34cf2cf5921aa71299aefd7a8d5b9ff53eced7e2",
