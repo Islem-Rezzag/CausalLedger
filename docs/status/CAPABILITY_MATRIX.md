@@ -21,7 +21,7 @@
 | Synthetic refund lifecycle | Completed and merged | Human PR87 merge/final QA/CI and introductory learning verified. |
 | Synthetic dispute and fee | Completed and merged | M05.09–10; human PR88 merge/tree and introductory learning verified. |
 | Webhook delivery scenarios | Completed and merged | PR89 human merge, final review/CI and introductory learning verified. |
-| Settlement and bank CSV | Builder in progress | M05.14–15 local generation implemented;1037 simulator tests pass, independent/full validation pending. |
+| Settlement and bank CSV | QA passed, awaiting merge | M05.14–15; independent1037/121 API cases/154 controls and root clean QA/full2879 controls PASS. Sole PR90; final handoff/CI, learning and human merge pending. |
 | Invariant engine | Not started | No product logic |
 | Incident engine | Not started | No product logic |
 | Causal graph | Not started | No product logic |

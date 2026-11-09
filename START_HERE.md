@@ -1,6 +1,6 @@
 # Start Here
 
-M00–M04 closed; V1_PUBLIC_PRODUCT approved. M05.01–M05.13 Completed and merged, including verified human PR89. M05.14–M05.15 settlement and bank CSV reports are Builder in progress on codex/m05-settlement-bank-csv under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Validation and independent review pending. M05.16–M05.19 and M06–M21 remain Not started/unbound.
+M00–M04 closed; V1_PUBLIC_PRODUCT approved. M05.01–M05.13 Completed and merged, including verified human PR89. M05.14–M05.15 settlement and bank CSV reports are QA passed, awaiting merge for sole draft PR90 on codex/m05-settlement-bank-csv under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent review, root clean QA and CI passed. Final handoff confirmation and reviewed-state CI remain, then learning and human merge. M05.16–M05.19 and M06–M21 remain Not started/unbound.
 
 Current versioning and release-scope references are `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 
@@ -63,7 +63,7 @@ The handoff packet must include files created, files changed, files intentionall
 
 - Do not implement product functionality outside the active submilestone.
 - Do not extend MoneyEvent logic beyond the active source-neutral boundary.
-- Keep current work inside mapped M05.14–M05.15 CSV report generation in CLP0006. Human PR89 merge and introductory learning verified. Independent QA/CI, new learning and human merge required before16; no financial authority.
+- Keep current work inside mapped M05.14–M05.15 CSV report generation in CLP0006. Human PR89 merge and introductory learning verified. Sole PR90 candidate QA/CI passed; final handoff confirmation/current CI, new learning and human merge required before16; no financial authority.
 - Do not implement invariants.
 - Do not implement the agent runtime.
 - Do not implement UI features.

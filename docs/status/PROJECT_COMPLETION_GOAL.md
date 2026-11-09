@@ -8,8 +8,8 @@ Human approval received on 2026-09-24 in Codex task `01a0d3ba-f6d3-7322-92b5-810
 
 ## CSV reports learning checkpoint (2026-11-09)
 
-Current14–15 CSV report unit: Builder in progress, codex/m05-settlement-bank-csv, no PR yet. Human PR89 merge/tree verified. User answered duplicate notifications do not prove double charging; after explanation correctly answered missing notification does not prove payment failure. Introductory webhook learning complete, no personal run claimed.
-Next learning: separate provider/bank declarations and exact minor units, without inferred settlement/reconciliation. Root implements/tests, independent reviewer validates, then CI and human review/merge. No16 yet. Native Goal remains user-paused.
+Current14–15 CSV report unit: QA passed, awaiting merge, codex/m05-settlement-bank-csv, sole draft PR90. Human PR89 merge/tree verified. User answered duplicate notifications do not prove double charging; after explanation correctly answered missing notification does not prove payment failure. Introductory webhook learning complete, no personal run claimed.
+Next learning: separate provider/bank declarations and exact minor units, without inferred settlement/reconciliation. Root1037 simulator/full2879 controls/clean QA18/0/1 and candidate CI passed; independent1037/121 API cases/154 controls passed. Final tracking confirmation/current CI, then CSV learning and human review/merge. User has not yet completed this new checkpoint; no personal demo run claimed. No16 yet. Native Goal remains user-paused.
 
 ## Historical learning records
 

@@ -131,7 +131,7 @@ The LLM never owns financial truth. LLM agents may investigate, summarize, and p
 
 ## Current implementation status
 
-M00–M04 closed; V1_PUBLIC_PRODUCT approved. M05.01–M05.13 Completed and merged, including verified human PR89. M05.14–M05.15 settlement and bank CSV reports are Builder in progress on codex/m05-settlement-bank-csv under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Validation and independent review pending. M05.16–M05.19 and M06–M21 remain Not started/unbound.
+M00–M04 closed; V1_PUBLIC_PRODUCT approved. M05.01–M05.13 Completed and merged, including verified human PR89. M05.14–M05.15 settlement and bank CSV reports are QA passed, awaiting merge for sole draft PR90 on codex/m05-settlement-bank-csv under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent review, root clean QA and CI passed. Final handoff confirmation and reviewed-state CI remain, then learning and human merge. M05.16–M05.19 and M06–M21 remain Not started/unbound.
 
 - `docs/specs/ledger-account-balance-query.md` - M04.06 read-only exact account/currency totals, sign, cutoff and committed-snapshot semantics.
 - `docs/specs/ledger-transaction-query.md` - M04.07 complete journal identity/reference/account-currency queries and explicit page boundaries.

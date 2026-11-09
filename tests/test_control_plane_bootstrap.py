@@ -6798,7 +6798,7 @@ def test_webhook_state_cannot_leak_into_earlier_phase():
     state=_m0510_goal();state["webhookPrerequisites"]=dict(validator.M05_WEBHOOK_PREREQUISITES)
     assert validator.validate_project_completion_goal(state)
 
-# Actual finite dispute capability state: shared delivery does not activate later rows.
+# Actual finite CSV capability state: shared delivery does not activate later rows.
 def test_csv_current_transition_and_scoped_registry():
     state=json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE))
     assert validator.validate_project_completion_goal(state)==[]
@@ -6812,7 +6812,7 @@ def test_csv_current_transition_and_scoped_registry():
     assert all(rows[f"M05.{n:02d}"].status=="Not started" for n in range(16,20))
 
 
-@pytest.mark.parametrize("field,value",[("currentBranch","main"),("currentMilestone","M05.16"),("latestMergedPr",86),("latestMergedPr",True),("latestMergeCommit","wrong"),("paymentCapturedReviewStatus","Not started"),("currentPr",87),("currentPr",True),("csvReportsReviewStatus","Completed and merged"),("currentQaEvidence",{"result":"PASS"})])
+@pytest.mark.parametrize("field,value",[("currentBranch","main"),("currentMilestone","M05.16"),("latestMergedPr",86),("latestMergedPr",True),("latestMergeCommit","wrong"),("paymentCapturedReviewStatus","Not started"),("currentPr",89),("currentPr",True),("csvReportsReviewStatus","Completed and merged"),("currentQaEvidence",{"result":"PASS"})])
 def test_csv_rejects_invalid_delivery_state(field,value):
     state=json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE));state[field]=value
     assert validator.validate_project_completion_goal(state)
@@ -6854,13 +6854,13 @@ def test_csv_forbids_extra_owner_files(monkeypatch):
     assert any("owned simulator files" in e for e in validator.validate_m05_csv_lifecycle())
 
 
-@pytest.mark.parametrize("coercion",[True,87.0,"87"])
+@pytest.mark.parametrize("coercion",[True,89.0,"89"])
 def test_csv_rejects_coerced_prerequisite_numbers(coercion):
     state=json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE));state["csvReportsPrerequisites"]["pr"]=coercion
     assert validator.validate_project_completion_goal(state)
 
 
-def test_csv_requires_completed_refund_and_exact_proof_shape():
+def test_csv_requires_completed_webhook_and_exact_proof_shape():
     state=json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE));state["webhookDeliveryReviewStatus"]="QA passed, awaiting merge"
     assert validator.validate_project_completion_goal(state)
     state=json.loads(text(validator.PROJECT_COMPLETION_GOAL_STATE));state["csvReportsPrerequisites"]["invented"]=True

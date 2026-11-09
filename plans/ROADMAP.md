@@ -1,7 +1,7 @@
 # CausalLedger Roadmap
 
-- M00–M04 closed; V1_PUBLIC_PRODUCT approved. M05.01–M05.13 Completed and merged, including verified human PR89. M05.14–M05.15 settlement and bank CSV reports are Builder in progress on codex/m05-settlement-bank-csv under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Validation and independent review pending. M05.16–M05.19 and M06–M21 remain Not started/unbound.
-Current status: M00–M04 closed. M05 in progress:01–13 Completed and merged;14–15 settlement/bank CSV Builder in progress.16–19 and M06–M21 unstarted. M02 deferrals unchanged.
+- M00–M04 closed; V1_PUBLIC_PRODUCT approved. M05.01–M05.13 Completed and merged, including verified human PR89. M05.14–M05.15 settlement and bank CSV reports are QA passed, awaiting merge for sole draft PR90 on codex/m05-settlement-bank-csv under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent review, root clean QA and CI passed. Final handoff confirmation and reviewed-state CI remain, then learning and human merge. M05.16–M05.19 and M06–M21 remain Not started/unbound.
+Current status: M00–M04 closed. M05 in progress:01–13 Completed and merged;14–15 settlement/bank CSV QA passed, awaiting merge in PR90.16–19 and M06–M21 unstarted. M02 deferrals unchanged.
 
 The table aggregates original submilestone statuses. Verified webhook89 human merge and introductory learning permit mapped14–15 in CLP0006. Internal technical dependencies remain ordered; independent QA/CI, learning/human merge, whole-M05 acceptance and formal closeout remain mandatory.
 
