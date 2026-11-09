@@ -1,9 +1,9 @@
 # CausalLedger Roadmap
 
-- M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.10 are Completed and merged, including verified human PR88. M05.11–M05.13 webhook delivery scenarios are QA passed, awaiting merge for sole draft PR89 on codex/m05-webhook-delivery under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent961 simulator/98 API cases/122 affected controls and root clean QA passed. Final handoff confirmation and reviewed-state CI remain; then learning and human merge. M05.14–M05.19 and M06–M21 remain Not started/unbound.
-Current status: M04 is Completed after human PR80 closeout. M05 is In progress:01–10 Completed and merged; mapped11–13 webhook delivery scenarios are QA passed, awaiting merge in sole PR89. Rows14–19 and M06–M21 remain unstarted; M02 deferrals unchanged.
+- M00–M04 closed; V1_PUBLIC_PRODUCT approved. M05.01–M05.13 Completed and merged, including verified human PR89. M05.14–M05.15 settlement and bank CSV reports are QA passed, awaiting merge for sole draft PR90 on codex/m05-settlement-bank-csv under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent review, root clean QA and CI passed. Final handoff confirmation and reviewed-state CI remain, then learning and human merge. M05.16–M05.19 and M06–M21 remain Not started/unbound.
+Current status: M00–M04 closed. M05 in progress:01–13 Completed and merged;14–15 settlement/bank CSV QA passed, awaiting merge in PR90.16–19 and M06–M21 unstarted. M02 deferrals unchanged.
 
-The table aggregates original submilestone statuses. Verified dispute/fee88 human merge and introductory learning permit mapped11–13 in CLP0006. Internal technical dependencies remain ordered. Independent QA, learning, human merge, whole-M05 acceptance and formal closeout remain mandatory under WORKFLOW.md.
+The table aggregates original submilestone statuses. Verified webhook89 human merge and introductory learning permit mapped14–15 in CLP0006. Internal technical dependencies remain ordered; independent QA/CI, learning/human merge, whole-M05 acceptance and formal closeout remain mandatory.
 
 This roadmap is control-plane state. It records planned milestone sequence and submilestone counts; it does not claim future product functionality is implemented.
 
@@ -51,9 +51,9 @@ This roadmap is control-plane state. It records planned milestone sequence and s
 - `apps/agent-runtime` creation is deferred to the M10 era because agent runtime should not exist before deterministic evidence, MoneyEvent, invariant, incident, graph, replay, and repair boundaries exist.
 - Redis is deferred until needed because no queue or scheduler should be added before the worker or orchestration design proves the need.
 - M03 planning and M03.01 through M03.06 are completed and merged. PR #55 merged M03.05 at `89874bca2525a423d773548c61f9655f09642575`; PR #56/#57 are the documented identical-tree finalization deviation; PR #58 merged recovery QA at `721bd60eba04cdf71765660727132d0d6aed97bc`. PR #59 merged M03.06 after independent QA at `9c2df34fd1da1a4f893a5b16cb05fa1177f23cce`, sharing reviewed tree `a5f52604955f8a8925728a2cb7b5c8900aefd87a`. Formal M03 closeout merged through PR #60 at `3df6f88b1b64b5456554654b7e27adcfa99c3ff6`.
-- M05.01–10 are human-merged; current11–13 webhook unit is sole PR89. Final handoff/current CI and learning/human merge remain;14–19 and M06–M21 stay unstarted.
+- M05.01–13 human-merged; current14–15 CSV unit requires implementation/validation, independent QA/CI and learning/human merge.16–19 and M06–M21 unstarted.
 - Source-neutral MoneyEvent and the approved ledger contracts/storage/readers/idempotency/full reversals/account-role validation and test corpora are implemented. The test-only M04.18 demonstration is human-merged. Closeout adds no financial runtime/API/DDL/authority.
-- V1/all18 M04 and19 M05 requirements are preserved. Current gate:11–13 final handoff confirmation, reviewed-state CI, learning and human merge before14. M05.19 whole-simulator QA and milestone closeout remain separate.
+- V1/all18 M04 and19 M05 criteria preserved. Current14–15 CSV gate requires independent QA/current CI/learning/human merge before16. M05.19 whole-simulator QA and milestone closeout remain separate.
 - Versioning strategy is documented in `docs/VERSIONING.md`, `docs/releases/RELEASE_LADDER.md`, `docs/releases/V1_SCOPE.md`, and `CHANGELOG.md`.
 - `docs/milestones/SUBMILESTONE_REGISTRY.md` is the canonical detailed registry.
 

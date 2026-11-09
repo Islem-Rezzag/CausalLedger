@@ -33,7 +33,7 @@ it("exports precise foundation, authorization and capture boundaries", () => {
     providerGenerationImplemented: true,
     paymentAuthorizedGenerationImplemented: true,
     paymentCapturedGenerationImplemented: true,
-    bankGenerationImplemented: false,
+    bankGenerationImplemented: true,
     evidenceStorageImplemented: false,
     ledgerWritesImplemented: false,
     financialTruthEstablished: false,

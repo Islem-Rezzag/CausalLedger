@@ -1,5 +1,13 @@
 # Current State
 
+## Current CSV report unit (2026-11-09)
+
+M00–M04 closed; V1_PUBLIC_PRODUCT approved. M05.01–M05.13 Completed and merged, including verified human PR89. M05.14–M05.15 settlement and bank CSV reports are QA passed, awaiting merge for sole draft PR90 on codex/m05-settlement-bank-csv under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent review, root clean QA and CI passed. Final handoff confirmation and reviewed-state CI remain, then learning and human merge. M05.16–M05.19 and M06–M21 remain Not started/unbound.
+
+Candidate ea3d9f6/tree e061c60: independent1037 simulator tests/121 API cases(499 assertions)/154 affected controls PASS; root clean QA18 PASS/0 FAIL/1 optional local Docker skip, including full2879 controls PASS. Candidate CI42642551671 both jobs successful; actual PostgreSQL14 suites/1227 tests and cleanup verified by root. Final handoff corrects two test proof inputs and stale PLANS pointer; runtime, simulator tests/spec and validator unchanged. Exact next action: independent final handoff confirmation and final reviewed-state CI, then A–F learning and human review/merge of PR90. No16 before verified human merge. Native Goal remains user-paused.
+
+## Historical records
+
 ## Current webhook delivery unit (2026-11-09)
 
 M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.10 are Completed and merged, including verified human PR88. M05.11–M05.13 webhook delivery scenarios are QA passed, awaiting merge for sole draft PR89 on codex/m05-webhook-delivery under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent961 simulator/98 API cases/122 affected controls and root clean QA passed. Final handoff confirmation and reviewed-state CI remain; then learning and human merge. M05.14–M05.19 and M06–M21 remain Not started/unbound.

@@ -23,6 +23,7 @@ Active docs define current project direction, workflow, milestone sequence, safe
 - `docs/specs/simulator-refund-lifecycle.md` - human-merged07–08 bounded refund contract.
 - `docs/specs/simulator-dispute-and-fee.md` - current09–10 bounded dispute and explicit fee contract.
 - `docs/specs/simulator-webhook-delivery.md` - current M05.11–13 synthetic delivery scenario boundary.
+- `docs/specs/simulator-settlement-bank-csv.md` - current M05.14–15 controlled CSV reports.
 - `docs/specs/simulator-payment-authorized.md` - human-merged02 synthetic authorization contract.
 - `docs/specs/simulator-payment-captured.md` - human-merged03 synthetic capture request/output/error/byte contract and optional VS Code demonstration.
 - `docs/specs/simulator-payout-lifecycle.md` - human-merged04–06 payout composition contract.
@@ -119,7 +120,7 @@ Completed execution:
 
 Active execution:
 
-- M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01–M05.10 are Completed and merged, including verified human PR88. M05.11–M05.13 webhook delivery scenarios are QA passed, awaiting merge for sole draft PR89 on codex/m05-webhook-delivery under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent961 simulator/98 API cases/122 affected controls and root clean QA passed. Final handoff confirmation and reviewed-state CI remain; then learning and human merge. M05.14–M05.19 and M06–M21 remain Not started/unbound.
+- M00–M04 closed; V1_PUBLIC_PRODUCT approved. M05.01–M05.13 Completed and merged, including verified human PR89. M05.14–M05.15 settlement and bank CSV reports are QA passed, awaiting merge for sole draft PR90 on codex/m05-settlement-bank-csv under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Candidate independent review, root clean QA and CI passed. Final handoff confirmation and reviewed-state CI remain, then learning and human merge. M05.16–M05.19 and M06–M21 remain Not started/unbound.
 
 Plan state:
 
@@ -190,7 +191,7 @@ Stale docs must be moved to archived locations or clearly marked reference-only.
 Current formal-closeout packet: `docs/status/M04_CLOSEOUT.md`; M04 is completed; current planning uses plans/active/CLP-0006-m05-provider-and-bank-simulator.md.
 
 
-Historical M05.03 capture snapshot (superseded by current webhook delivery state above): M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are Completed and merged in verified PR82/PR83. M05.03 Simulate payment captured is QA passed, awaiting merge for sole PR #84 on m05-03-simulate-payment-captured under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Synthetic capture composition is implemented; M05.04–M05.19 and M06–M21 remain Not started/unbound.
+Historical M05.03 capture snapshot (superseded by current CSV report state above): M00–M04 are closed; V1_PUBLIC_PRODUCT remains approved. M05.01 and M05.02 are Completed and merged in verified PR82/PR83. M05.03 Simulate payment captured is QA passed, awaiting merge for sole PR #84 on m05-03-simulate-payment-captured under plans/active/CLP-0006-m05-provider-and-bank-simulator.md. Synthetic capture composition is implemented; M05.04–M05.19 and M06–M21 remain Not started/unbound.
 
 
 ## M05.02 current checkpoint (2026-10-16)
